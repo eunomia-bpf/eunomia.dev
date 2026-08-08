@@ -24,18 +24,20 @@ state.
 Every run performs these three responsibilities in order:
 
 1. **Data analysis.** Collect and analyze the available search, acquisition,
-   traffic, repository, and live-site evidence. This step is mandatory even when
-   no public change is justified.
+   traffic, repository, and live-site evidence. This step is mandatory.
 2. **Technical SEO and GEO.** Inspect crawlability, indexing signals, canonical
    ownership, language alternates, structured data, internal links, performance,
-   and retrievability. Make a change only when evidence supports it.
-3. **Technical content production.** Research a Daily Report candidate inside the
-   active content series and publish only when it passes the repository's
-   evidence, gap, novelty, continuity, and usefulness gates. Daily research does
-   not impose a daily publication quota.
+   and retrievability. Make a site change only when evidence supports it.
+3. **Technical content production.** Publish exactly **one new Daily Report page
+   every run**. Research inside the active content series first and enforce the
+   rolling topic mix in `.github/seo-data/content-series.md`. If a candidate
+   fails the evidence, gap, novelty, continuity, or usefulness gates, reject that
+   candidate and continue researching another approved question until one passes.
+   The daily publication requirement never lowers the quality bar.
 
-Data should determine the work. Do not manufacture an article, SEO edit, or
-visible artifact merely to satisfy cadence.
+Data analysis and series strategy should determine which report is worth
+publishing. Do not fill the quota with a weak summary, recycled thesis, or
+superficial trend piece; change the candidate instead.
 
 ## Required context
 
@@ -47,8 +49,8 @@ Start from the latest remote default branch and read:
 - `.github/seo-data/status.md`;
 - `.github/seo-data/plan.md`;
 - `.github/seo-data/block.md`;
-- `.github/seo-data/content-series.md` for the active Daily Report series and
-  thematic roadmap;
+- `.github/seo-data/content-series.md` for the active Daily Report series,
+  eBPF/content mix, and thematic roadmap;
 - the newest record under `.github/seo-data/daily/`, when present;
 - `.github/seo-data/daily-task.md` for the technical SEO subtask;
 - `.agents/skills/seo-geo/SKILL.md` and the pinned `.github/seo-skills` skills;
@@ -91,36 +93,44 @@ information in Git. Write a compact, source-attributed daily analysis to
 must state coverage, windows, material changes, likely explanations, uncertainty,
 and the next evidence that would distinguish competing explanations.
 
-## 2. Choose zero or one coherent public change
+Before topic selection, calculate the rolling Daily Report mix defined in
+`.github/seo-data/content-series.md` and record it in the daily analysis.
 
-After analysis, choose the highest-value action supported by evidence:
+## 2. Select today's report and SEO work
 
-- one coherent technical SEO/GEO improvement;
-- one strong Daily Report or revision inside the active series;
-- a content change together with directly coupled technical metadata;
-- or no public change, with the reason recorded.
+The run must publish one new Daily Report. Select it by this sequence:
 
-For content work, **series continuity is the default**. Search and research inside
-the active series first. A new report must advance a distinct question in the
-series instead of restating an existing thesis with different examples. Leave the
-active series only for a material external development with durable systems
-consequences, and record why that interruption was justified. Do not switch
-series merely because another topic is trending.
+1. inspect the rolling topic mix;
+2. search and research inside the active series first;
+3. build evidence for more than one candidate when necessary;
+4. reject weak candidates rather than weakening the publication standard;
+5. select one distinct question that passes the report skill's evidence, gap,
+   mechanism, originality, usefulness, and evaluation gates;
+6. keep the rolling mix compliant: normally 5–7 of the most recent 10 reports
+   explicitly center eBPF, while pure Agent reports remain at most 1–2 of 10;
+7. publish one new bilingual Daily Report and update series continuity records.
 
-Do not ship unrelated SEO and content edits in one pull request. Put durable
-future work in `plan.md`; use `block.md` only for real external permission or
-human-only blockers.
+For technical SEO, make at most one coherent site change when the day's evidence
+supports it. Prefer a change directly coupled to the report or to an important
+measured technical issue. If an unrelated SEO change would make the daily PR
+hard to review, put it in `plan.md` for a focused follow-up rather than mixing
+unrelated work.
 
-For technical SEO, follow `.github/seo-data/daily-task.md`. For a Daily Report,
+For content work, **series continuity is the default**. A new report must advance
+a distinct question instead of restating an existing thesis with different
+examples. Leave the active series only when another approved series yields a
+stronger report or a material external development has durable systems
+consequences. Record any switch.
+
+For technical SEO, follow `.github/seo-data/daily-task.md`. For Daily Report,
 follow `.agents/skills/eunomia-research-report/SKILL.md` and
-`.github/seo-data/content-series.md`. A fluent summary without a defensible
-systems gap, mechanism, and testable direction is a no-publish result.
+`.github/seo-data/content-series.md`.
 
 ## 3. Deliver and verify
 
-Use one fresh branch and one non-draft pull request for the daily record and its
-single coherent change. A data-only or no-change run may use a metadata-only pull
-request. Do not create a second closeout pull request.
+Use one fresh branch and one non-draft pull request for the daily analysis, the
+mandatory new Daily Report, and any directly coupled SEO change. Do not create a
+second closeout pull request.
 
 Before merge:
 
@@ -130,26 +140,33 @@ Before merge:
 4. fix issues on the same branch;
 5. squash-merge only after a clean final self-review.
 
-For a public site change, wait for the production deployment of the exact squash
-commit and verify the defined behavior on the public site. Add one compact
-closeout comment to the merged pull request with the merge commit, deployment,
-public verification, data coverage, and any remaining uncertainty. The pull
-request and its closeout comment are part of the repository's operating record.
-The next daily run updates `status.md` from those verified facts.
+Wait for the production deployment of the exact squash commit and verify the new
+English and Chinese report pages on the public site, including navigation,
+canonical URLs, language alternates, internal links, gap section, idea section,
+and conclusion boundary. Verify any coupled SEO behavior as well.
+
+Add one compact closeout comment to the merged pull request with the merge commit,
+deployment, public verification, data coverage, selected series and topic class,
+and any remaining uncertainty. The pull request and its closeout comment are
+part of the repository's operating record. The next daily run updates
+`status.md` from those verified facts.
 
 ## Completion criteria
 
 A daily run is complete only when:
 
 - the daily data analysis exists with explicit source coverage;
-- `status.md`, `plan.md`, and `block.md` reflect current verified state as needed;
-- the run selected at most one coherent public change or recorded a defensible
-  no-change decision;
-- any Daily Report work follows the active series or explicitly records a justified
-  interruption;
+- the current rolling Daily Report topic mix was calculated and recorded;
+- `status.md`, `plan.md`, `block.md`, and `content-series.md` reflect current
+  verified state as needed;
+- exactly one new bilingual Daily Report was added and passes the content quality
+  gates;
+- the report follows the active or another approved series and keeps the rolling
+  topic mix compliant;
 - the pull request passed CI, final self-review, and squash merge;
-- any public change deployed from the exact merge commit and was verified;
+- the exact merge commit deployed successfully;
+- the new public English and Chinese report pages were verified;
 - the merged pull request contains the compact closeout record.
 
-A draft, local commit, issue, queued workflow, HTTP 200 alone, or unverified
-publication is not completion.
+`no-report`, a revision-only day, a data-only day, a draft, local commit, issue,
+queued workflow, HTTP 200 alone, or unverified publication is not completion.
