@@ -20,6 +20,7 @@ export type ReportEntry = {
   totalItems?: number;
   closedItems?: number;
   averageClose?: string;
+  newStars?: number;
 };
 
 function cadenceFromSource(source: string): ReportCadence | null {
@@ -115,6 +116,7 @@ export function getReportEntries(locale: Locale): ReportEntry[] {
     const totalItems = metric(rawSource, "Total issues/PRs");
     const closedItems = metric(rawSource, "Closed issues/PRs");
     const averageCloseMatch = rawSource.match(/Average time to close:\s*\*\*([^*]+)\*\*/i);
+    const newStarsMatch = rawSource.match(/Total new stars(?: \(non-archived repositories\))?:\s*\*\*(\d+)\*\*/i);
 
     entries.push({
       key: source,
@@ -126,7 +128,8 @@ export function getReportEntries(locale: Locale): ReportEntry[] {
       periodEnd: period[1],
       ...(totalItems !== undefined ? { totalItems } : {}),
       ...(closedItems !== undefined ? { closedItems } : {}),
-      ...(averageCloseMatch ? { averageClose: averageCloseMatch[1].trim() } : {})
+      ...(averageCloseMatch ? { averageClose: averageCloseMatch[1].trim() } : {}),
+      ...(newStarsMatch ? { newStars: Number(newStarsMatch[1]) } : {})
     });
   }
 

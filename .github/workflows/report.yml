@@ -49,7 +49,7 @@ jobs:
     if: github.event_name == 'schedule' && startsWith(github.event.schedule, '7 3')
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       issues: write
       pull-requests: read
     env:
@@ -65,25 +65,47 @@ jobs:
 
       - name: Compute last week window (UTC)
         run: |
-          start=$(date -u -d "last monday -7 days" +%Y-%m-%d)
-          end=$(date -u -d "last monday -1 day" +%Y-%m-%d)
+          end=$(date -u -d "yesterday" +%Y-%m-%d)
+          start=$(date -u -d "$end -6 days" +%Y-%m-%d)
           echo "RANGE=$start..$end" >> $GITHUB_ENV
           echo "TITLE=Weekly Org Report ($start..$end)" >> $GITHUB_ENV
           echo "QUERY=org:${{ env.ORG }}" >> $GITHUB_ENV
+          echo "REPORT_PATH=docs/reports/org/weekly/$start.md" >> $GITHUB_ENV
+
+      - name: Check for an existing weekly report
+        run: |
+          if [[ -f "$REPORT_PATH" ]]; then
+            echo "REPORT_EXISTS=true" >> $GITHUB_ENV
+            echo "Weekly report already exists: $REPORT_PATH"
+          else
+            echo "REPORT_EXISTS=false" >> $GITHUB_ENV
+          fi
 
       - name: Generate complete org report (issues/PRs/commits/stars)
+        if: ${{ env.REPORT_EXISTS != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
           QUERY: ${{ env.QUERY }}
+          REPORT_OUTPUT_FILE: ${{ env.REPORT_PATH }}
         run: python3 .github/generate_org_report.py
 
+      - name: Commit weekly report archive
+        if: ${{ env.REPORT_EXISTS != 'true' }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add "$REPORT_PATH"
+          git diff --staged --quiet || git commit -m "Add weekly org report ${RANGE} [skip ci]"
+          git push origin HEAD:${GITHUB_REF_NAME}
+
       - name: Create weekly report issue
+        if: ${{ env.REPORT_EXISTS != 'true' }}
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: "${{ env.TITLE }}"
-          content-filepath: ./issue_metrics.md
+          content-filepath: ${{ env.REPORT_PATH }}
 
   monthly:
     if: github.event_name == 'schedule' && startsWith(github.event.schedule, '11 4')
@@ -167,8 +189,8 @@ jobs:
           prefix='${{ github.event.inputs.issue_title_prefix }}'
 
           if [[ "$mode" == "weekly" ]]; then
-            start=$(date -u -d "last monday -7 days" +%Y-%m-%d)
-            end=$(date -u -d "last monday -1 day" +%Y-%m-%d)
+            end=$(date -u -d "yesterday" +%Y-%m-%d)
+            start=$(date -u -d "$end -6 days" +%Y-%m-%d)
           elif [[ "$mode" == "monthly" ]]; then
             first=$(date -u -d "last month" +%Y-%m-01)
             last=$(date -u -d "$first +1 month -1 day" +%Y-%m-%d)

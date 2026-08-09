@@ -612,10 +612,14 @@ test("reports dashboard is generated from weekly and monthly Markdown", async ()
 
   assert.equal(english?.page.reactPage, "reports-dashboard");
   assert.equal(chinese?.page.reactPage, "reports-dashboard");
-  assert.ok((english?.page.reportEntries?.length ?? 0) >= 3);
-  assert.equal(english?.page.reportEntries?.[0]?.href, "/reports/org/monthly/2026-07/");
-  assert.equal(chinese?.page.reportEntries?.[0]?.href, "/zh/reports/org/monthly/2026-07/");
-  assert.equal(english?.page.reportEntries?.[0]?.totalItems, 139);
+  assert.equal(english?.page.reportEntries?.length, 15);
+  assert.equal(english?.page.reportEntries?.[0]?.href, "/reports/org/weekly/2026-07-27/");
+  assert.equal(chinese?.page.reportEntries?.[0]?.href, "/zh/reports/org/weekly/2026-07-27/");
+  assert.equal(english?.page.reportEntries?.[0]?.totalItems, 30);
+  assert.equal(
+    english?.page.reportEntries?.find((entry) => entry.href === "/reports/org/monthly/2026-07/")?.newStars,
+    216
+  );
 });
 
 test("manifest resolves historical Claude Code SSL blog route aliases", () => {
