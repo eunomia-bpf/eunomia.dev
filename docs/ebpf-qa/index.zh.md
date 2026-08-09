@@ -6,4 +6,5 @@
 
 ## 最新回答
 
+- [为什么 `sched_ext` 调度器要升级 `pahole` 后才能加载？](/zh/ebpf-qa/2026-08-09-sched-ext-pahole-version/)
 - [eBPF 能否识别网络流量中的密钥，同时不采集密钥本身？](/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/)

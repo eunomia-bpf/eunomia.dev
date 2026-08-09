@@ -13,4 +13,5 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Why can a `sched_ext` scheduler fail until `pahole` is upgraded?](/ebpf-qa/2026-08-09-sched-ext-pahole-version/)
 - [Can eBPF detect secrets in network traffic without collecting them?](/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/)
