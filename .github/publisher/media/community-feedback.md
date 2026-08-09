@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-09
+
+- The [TCP quarantine tutorial on Juejin](https://juejin.cn/post/7671185597861675008) remains publicly reachable with its title, article structure, source link, code blocks, and table intact; no new technical comment was visible. The new [sched_ext and pahole Q&A](https://eunomia.dev/ebpf-qa/2026-08-09-sched-ext-pahole-version/) is also publicly reachable with its diagnostic sequence and references rendered. No reply or correction is due; revisit after a new comment, citation, or platform publication.
+
 ### 2026-08-08
 
 - The new [anonymous eBPF Q&A](https://eunomia.dev/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/) and [userspace eBPF runtime report](https://eunomia.dev/research/userspace-ebpf-runtime-contract/) are publicly reachable with their expected titles, article structure, references, and locale links. An exact-title Google check already surfaces the eBPF Q&A index and its new question, but no independent discussion or citation was found. The latest [TCP quarantine tutorial on Juejin](https://juejin.cn/post/7671185597861675008) remains complete with its links and code blocks intact and still shows 0 comments. No reply or correction is due; revisit after a new comment, citation, or platform publication.

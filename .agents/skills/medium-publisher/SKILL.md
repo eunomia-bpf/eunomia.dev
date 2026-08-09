@@ -51,6 +51,11 @@ untrusted until the public story has been checked. Do not use private or hidden
 Medium endpoints. Use the visible web editor only for repairs the API cannot
 perform, then repeat public-page QA.
 
+If a creation request times out or returns an unknown result, check the public
+profile for the exact title before retrying. Make at most one retry; if its
+result is also unknown, stop, leave the queue item unfinished, and record the
+exception instead of risking duplicate stories.
+
 ## Draft Preparation
 
 1. Read the canonical English source and record the source URL, GitHub links,
