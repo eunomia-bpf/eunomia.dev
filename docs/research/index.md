@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [eBPF Hook Composition: Sharing One Hook Safely](https://eunomia.dev/research/ebpf-hook-composition-contract/)
+
+Linux, libxdp, and TCX already let multiple eBPF programs share execution points, but ordering alone does not define how mutations, shared state, competing outcomes, and updates compose. This report compares existing multi-program semantics and research on isolation and bytecode dependencies, then proposes typed composition manifests, explicit outcome algebras, and versioned hook generations.
+
 ### [What Is Missing Before Userspace eBPF Becomes a Real Runtime?](https://eunomia.dev/research/userspace-ebpf-runtime-contract/)
 
 A BPF VM can execute the instruction set without defining how programs attach, which capabilities they receive, who owns state, or how extensions are revoked and accounted for. This report compares Linux eBPF, uBPF, bpftime, and eBPF for Windows, then proposes a machine-readable runtime contract, capability-aware attach handles, and per-extension resource accounting.
