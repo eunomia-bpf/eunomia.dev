@@ -210,3 +210,16 @@ jobs:
       - name: Deploy to GitHub Pages
         if: steps.production_revision.outputs.current == 'true'
         uses: actions/deploy-pages@v5
+
+      - name: Notify Discord about deployed content
+        if: steps.production_revision.outputs.current == 'true'
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ env.DEPLOY_SHA }}
+          DISCORD_DIGEST_WEBHOOK: ${{ secrets.DISCORD_DIGEST_WEBHOOK }}
+          DISCORD_CONTENT_WEBHOOK: ${{ secrets.DISCORD_CONTENT_WEBHOOK }}
+          DISCORD_AGENTSIGHT_WEBHOOK: ${{ secrets.DISCORD_AGENTSIGHT_WEBHOOK }}
+          DISCORD_ACTPLANE_WEBHOOK: ${{ secrets.DISCORD_ACTPLANE_WEBHOOK }}
+          DISCORD_AKEEP_WEBHOOK: ${{ secrets.DISCORD_AKEEP_WEBHOOK }}
+          DISCORD_BPFTIME_WEBHOOK: ${{ secrets.DISCORD_BPFTIME_WEBHOOK }}
+        run: node app/scripts/notify-discord.mjs

@@ -87,6 +87,15 @@ daily window as the allowlist and browser access permit. State the number of
 communities and channels reviewed, then synthesize the main technical themes,
 where practitioners are getting stuck, and what questions remain unresolved.
 
+Anonymize identity and deployment details without stripping away the technical
+substance. For every substantive theme, explain the concrete problem or
+symptom, the likely mechanism or boundary, the practical diagnostic or
+resolution path, and what remains uncertain. Cite the public primary sources
+that support these mini-answers. When the daily window contains several real
+technical discussions, this section should normally be at least twice as
+detailed as a terse trend-only summary; do not reduce each discussion to one
+sentence.
+
 Summarize across discussions rather than listing messages. Do not publish
 participant names, handles, employers, channel names, message links, exact
 timestamps, private topology, or wording that can be searched back to one

@@ -61,7 +61,16 @@ The Q&A page also carries the daily community report. After the references:
 
 - state how many communities and allowlisted channels were actually reviewed;
 - group discussion by technical theme rather than source or participant;
-- explain what practitioners are trying to accomplish and where they are stuck;
+- explain the concrete question or symptom, likely mechanism, practical next
+  diagnostic or resolution step, and any unresolved boundary for each
+  substantive theme;
+- cite the public primary references used for these concise technical answers;
+- preserve technical depth while removing identity and deployment details;
 - distinguish quiet channels from inaccessible channels; and
 - omit names, handles, employers, channel names, message URLs, exact timestamps,
   raw quotes, and distinctive deployment details.
+
+When several substantive discussions are present, give them enough space to be
+useful on their own. A one-sentence trend label is not a community report; the
+discussion section should normally be at least twice as detailed as such a
+compressed summary.

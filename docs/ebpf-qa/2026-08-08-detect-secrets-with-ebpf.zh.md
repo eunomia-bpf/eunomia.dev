@@ -24,15 +24,41 @@
 - [OpenTelemetry eBPF Instrumentation：安全与运行模式](https://opentelemetry.io/docs/zero-code/obi/security/)
 - [OpenTelemetry eBPF Instrumentation：TLS 可见性故障排查](https://opentelemetry.io/docs/zero-code/obi/troubleshooting/)
 - [Grafana Alloy `loki.secretfilter`](https://grafana.com/docs/alloy/latest/reference/components/loki/loki.secretfilter/)
+- [Linux 内核文档：libbpf 应用生命周期与 CO-RE](https://docs.kernel.org/bpf/libbpf/libbpf_overview.html)
+- [Linux 内核文档：`BPF_MAP_TYPE_SOCKMAP` 与 `BPF_MAP_TYPE_SOCKHASH`](https://docs.kernel.org/bpf/map_sockmap.html)
+- [Linux 内核文档：`sched_ext`](https://docs.kernel.org/scheduler/sched-ext.html)
+- [Linux 内核文档：BPF Type Format](https://docs.kernel.org/bpf/btf.html)
+- [OpenTelemetry：代码埋点与零代码埋点](https://opentelemetry.io/docs/concepts/instrumentation/)
+- [OpenTelemetry：Go 编译期埋点](https://opentelemetry.io/docs/zero-code/go/compile-time/)
 
 ## 今日社区讨论
 
 今天通过普通可见浏览器检查了 4 个技术社区中的 7 个已批准公开频道。下面只保留聚合后的技术主题，参与者身份、频道、消息链接、精确时间和具体部署信息都已删除。
 
-最集中的问题是怎样在观察敏感行为的同时避免采集敏感数据。实践者希望识别服务之间传递的凭据，却不希望原始值进入遥测系统。今天的问答正是从这个矛盾出发：在明文边界本地完成分类，只导出最少量结果，再对整条数据路径做隐私验证。
+### 识别密钥，又不把密钥带出探针
 
-可靠性问题同样突出。一组讨论关注 eBPF 数据平面加载器在用户态进程退出后如何恢复、怎样根据 `bpffs` 中的固定对象重建状态，以及如何避免阻塞的内核操作拖住异步控制循环。另一组讨论涉及在 TC 路径中把已经建立的套接字放入 `SOCKHASH` 时出现的内核卡死，说明生命周期和挂载点兼容性仍然是很实际的调试难题。
+当天最集中的问题是怎样识别服务之间传递的凭据，同时避免让可观测系统变成另一份敏感数据存储。关键在于观测位置：数据包钩子可以描述加密连接，却无法检查 HTTPS 请求中的密钥；受支持的用户态 TLS 钩子能够看到明文，因此本身就必须按照敏感代码处理。可行的做法是在这个边界完成分类，只导出类别或计数，不导出匹配到的字节，然后用专门的模拟密钥检查 map、ring buffer、日志、trace 和采集器输出。OBI 的安全与 TLS 排障文档说明了可见性和权限边界，`loki.secretfilter` 的文档则解释了为什么下游脱敏只能作为第二层保护。
 
-第三类问题来自内核与工具链兼容性。一个 `sched_ext` 程序因为调度器 kfunc 的 BTF 描述与加载器预期不一致而无法加载，重新编译或调整运行参数也没有立刻定位原因。这里真正需要核对的不只是当前安装了哪个软件包，还包括生成运行中内核 BTF 的具体工具链和补丁。
+### 加载器退出后怎样恢复数据平面
 
-其余讨论集中在观测方式的选择。贡献者正在梳理零代码 eBPF 观测与编译期语言埋点分别适合什么场景，以及两种方式在哪些地方会失去上下文或可移植性。项目自有频道在检查窗口内主要是自动化开发活动，没有出现新的实质性用户问题。
+另一组讨论关心的是：用户态加载器重启时，内核中的 eBPF 对象可能仍然存活，控制器应该怎样恢复。恢复流程可以把 `bpffs` 中的内容当作“观测到的现状”，但不能直接认定它就是健康的目标状态。控制器需要重新打开固定的 map、程序和 link，比较对象标识、map 结构、挂载点和预期版本，复用兼容对象，再按明确顺序替换陈旧或不完整的状态。libbpf 文档中的打开、加载、挂载和清理四个阶段，正好可以作为这套核对流程的基础。
+
+控制循环还需要隔离可能阻塞的工作。BPF 系统调用、link 挂载和清理都可能独立阻塞或失败，适合放进有并发上限、超时、取消和幂等重试的工作线程，而不是直接占住异步事件循环。健康状态也应来自一次成功的状态核对和可用的数据路径，不能只看 `bpffs` 下是否存在文件。仍需由具体项目决定的是，升级时哪些 map 保存了值得延续的在线状态；这需要逐个 map 定义兼容规则，不能统一按“全部复用”或“全部重载”处理。
+
+### 从 TC 路径加入 `SOCKHASH` 时出现卡死
+
+一个网络问题描述了把已经建立的套接字从 TC 程序加入 `SOCKHASH` 时出现的内核卡死。排查时应先把场景缩减到内核提供的 sockmap 自测规模，并逐项确认内核版本、程序类型、attach type、套接字状态，以及该套接字是否已经继承了其他 parser 或 verdict 程序。套接字加入 map 时会替换回调并挂上 `sk_psock`；内核文档也明确说明，parser 或 verdict 程序发生冲突时，更新可能失败。因此，TC 数据包路径观察到一个套接字，并不能直接证明此时适合把它纳入 sockmap。
+
+实现路径应跟随内核公开支持的接口：用户态可以通过文件描述符加入套接字，`BPF_PROG_TYPE_SOCK_OPS` 程序则可以在拿到套接字上下文时调用 `bpf_sock_hash_update()`；后续流处理放在文档列出的 `SK_MSG` 或 `SK_SKB` verdict 钩子中。如果缩减后的配置与上游自测一致，内核依然卡死而不是返回错误，就应保留最小复现，采集内核栈、verifier 日志或相关 trace，并按内核回归报告。公开的 sockmap 文档及其链接的自测代码给出了参照行为，无需暴露社区中原始部署的细节。
+
+### 让 `sched_ext` 对准正在运行的内核
+
+调度器讨论始于一个 `sched_ext` 对象加载失败：它所期待的调度器 kfunc 类型与运行中内核的 BTF 对不上。继续用相同环境重编译，或者只调整运行参数，都无法解释这种差异。更直接的核对方式是先确认运行内核启用了 `CONFIG_SCHED_CLASS_EXT` 和 `CONFIG_DEBUG_INFO_BTF`，再导出 `/sys/kernel/btf/vmlinux`，检查调度器对象及其 `vmlinux.h` 是否来自同一套内核和 `sched_ext` 接口版本。Linux 内核的 libbpf 与 BTF 文档把 `/sys/kernel/btf/vmlinux` 定义为 CO-RE 在运行时使用的权威类型来源。
+
+如果使用发行版或带补丁的内核，还应记录生成该内核的确切源码版本、补丁、编译器和 pahole 版本。这样才能区分三类外观相近的问题：内核根本没有该能力、kfunc 存在但签名不同，或者 BPF 对象针对另一版接口构建。`sched_ext` 文档同时列出了必要的内核配置和运行状态文件，因此下一步应先用同一源码树构建一个最小的已知可用调度器，确认基础链路后再回到更大的程序。
+
+### 选择 eBPF 还是编译期埋点
+
+最后一组讨论比较了 eBPF 观测和编译期语言埋点。选择取决于问题需要什么上下文，以及部署流程允许改动哪一层。运维方无法重编应用、而进程、网络和库边界已经包含足够信息时，eBPF 可以较快获得广泛覆盖；如果可以修改构建流程、不适合部署高权限运行时探针，或者需要覆盖 eBPF 方案尚未支持的库调用，编译期埋点更合适。需要应用业务意图和自定义 span 时，则仍要使用 OpenTelemetry 的代码埋点。
+
+OpenTelemetry 的总览把代码埋点和零代码方案明确视为互补手段，Go 编译期埋点文档也列出了构建流程与运行时权限之间的取舍。实际比较时，可以在同一个服务上验证四件事：trace 上下文能否保留、目标库是否覆盖、升级后是否仍能工作，以及权限成本是否符合部署要求。项目自有频道在检查窗口内主要出现自动化开发活动，没有新的实质性用户提问；这里把它与上述技术讨论分开记录，不把自动消息计入社区参与度。
