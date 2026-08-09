@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [多个 eBPF 程序如何安全共享同一个 Hook？](https://eunomia.dev/zh/research/ebpf-hook-composition-contract/)
+
+Linux、libxdp 与 TCX 已经能让多个 eBPF 程序共享执行点，但排序本身无法定义数据修改、共享状态、竞争结果和更新应该怎样组合。本文比较现有多程序语义以及近期隔离和 bytecode dependency 工作，并提出类型化组合 manifest、显式 outcome algebra 与 versioned hook generation。
+
 ### [用户态 eBPF 要成为真正的运行时，还缺什么？](https://eunomia.dev/zh/research/userspace-ebpf-runtime-contract/)
 
 一个 BPF VM 可以执行指令，却未必定义程序如何挂载、拥有哪些能力、状态由谁持有，以及扩展如何撤销和做资源归属。本文比较 Linux eBPF、uBPF、bpftime 与 eBPF for Windows，并提出机器可读的运行时契约、绑定能力的 attach handle 和 per-extension 资源账本。

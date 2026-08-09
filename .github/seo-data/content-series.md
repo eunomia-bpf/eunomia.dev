@@ -78,6 +78,18 @@ programmable runtime substrate rather than only a kernel observability feature?*
 This series should connect kernel and userspace execution, composition, state,
 upgrade, safety, performance, and deployment boundaries.
 
+### Published progress
+
+1. `2026-08-08`: `/research/userspace-ebpf-runtime-contract/` established that
+   first-class userspace eBPF needs explicit attachment, capability, state,
+   lifetime, and attribution contracts above ISA compatibility.
+2. `2026-08-09`: `/research/ebpf-hook-composition-contract/` narrowed the
+   multi-program problem beyond dispatch and ordering to effect visibility,
+   outcome resolution, shared-state ownership, and versioned hook composition.
+3. Preferred next question: transactional upgrade of stateful eBPF applications
+   across programs, links, maps, pinned state, userspace controllers, and
+   rollback after partial failure.
+
 ### Preferred sequence
 
 1. **What is still missing for first-class userspace eBPF?**
