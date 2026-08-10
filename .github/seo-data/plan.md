@@ -71,8 +71,9 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Complete the first scheduled daily operation using the root repository
-   contract and verify that one new eBPF-centered Daily Report reaches production.
+1. Continue the **eBPF Runtime, Extensibility, and Composition** series; after the
+   transactional-upgrade report, prefer the asynchronous/causal profiling
+   question recorded in `content-series.md` unless fresh evidence invalidates it.
 2. Keep upcoming reports strongly eBPF-centered until the current two pure-Agent
    reports no longer dominate the rolling archive; maintain the long-term 5–7/10
    eBPF and 1–2/10 pure-Agent mix.
