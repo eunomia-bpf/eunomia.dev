@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-07
+Last checked: 2026-08-09
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -131,12 +131,13 @@ Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). 
 
 Account checked in the in-app browser: <https://medium.com/@yunwei356>
 
-Earlier visible profile scrolling collected 62 authored story links; the new BPFix public URL was verified independently. The machine ledger maps 61 of 124 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
+Earlier visible profile scrolling collected 62 authored story links; the newer BPFix and TCP quarantine public URLs were verified independently. The machine ledger maps 62 of 124 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
 
 New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-09 | eBPF Tutorial: Precisely Isolating Established TCP Connections | <https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4> | Published through the official Medium API with `ebpf`, `linux`, and `security`; the web editor replaced a flattened requirements table with a readable prose fallback; public full-scroll QA verified the exact title, complete body, 9 code blocks, links, tags, and no broken images |
 | Confirmed | 2026-08-02 | Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap | <https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0> | Published through the Medium API using semantic HTML after Markdown parser error 2012; the visible H1 was restored in the supported web editor; public full-scroll QA verified headings, code, table fallbacks, references, links, and both images |
 | Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b> | Imported from canonical eunomia.dev article; post-publish web-editor fix removed the imported `\| eunomia` title suffix; `rel=canonical` points to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; Medium table flattening is recorded as a follow-up limitation |
 

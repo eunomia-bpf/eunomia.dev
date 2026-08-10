@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-02",
+  "last_checked": "2026-08-09",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -38,6 +38,17 @@
       "source_path": "docs/blog/posts/bpfix.md",
       "checked_via": "medium_api_html_publish_then_visible_editor_title_repair_and_public_full_scroll",
       "notes": "Published through the Medium API after its Markdown parser returned error 2012. The prepared artifact was converted to semantic HTML; the visible H1 was then restored through the supported web editor. Public full-scroll QA verified the exact title, seven body headings, three code blocks, readable table fallbacks, references, links, and both loaded article images."
+    },
+    {
+      "id": "medium-9d08644b44b4",
+      "status": "confirmed",
+      "date": "2026-08-09",
+      "title": "eBPF Tutorial: Precisely Isolating Established TCP Connections",
+      "url": "https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4",
+      "canonical_url": null,
+      "source_path": "docs/tutorials/51-tcp-quarantine/README.md",
+      "checked_via": "medium_api_markdown_publish_then_visible_editor_table_fallback_and_public_full_scroll",
+      "notes": "Published through the official Medium API with the complete source Markdown and visible H1. Medium flattened the requirements table, so the signed-in web editor replaced it with a readable prose fallback. Public full-scroll QA verified the exact title, complete body, nine code blocks, working GitHub and eunomia.dev links, three tags, and no broken images."
     }
   ],
   "confirmed_source_urls": {
@@ -47,6 +58,7 @@
     "docs/blog/posts/runtime-security-for-opaque-ai-agents.md": "https://medium.com/@yunwei356/runtime-observability-and-enforcement-for-opaque-ai-agents-with-ebpf-beyond-sandboxes-and-6f4eb21edc7f",
     "docs/blog/posts/cpu-noise-gpu-inference.md": "https://medium.com/@yunwei356/when-cpu-noise-slows-down-gpu-inference-measuring-scheduler-and-irq-impact-with-ebpf-be5bcdf1f98e",
     "docs/tutorials/50-tcx/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-0b64b72f7a59",
+    "docs/tutorials/51-tcp-quarantine/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4",
     "docs/tutorials/features/bpf_token/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-by-example-bpf-token-for-delegated-privilege-and-secure-program-loading-b43b903fef00",
     "docs/blog/posts/agentcgroup-characterization.md": "https://medium.com/@yunwei356/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources-46ea027ef62d",
     "docs/blog/posts/claude-code-analysis.md": "https://medium.com/@yunwei356/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-1dde03bcc7ef",
