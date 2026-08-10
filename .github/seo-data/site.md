@@ -32,7 +32,8 @@
 - Google Drive folder name: `eunomia.dev SEO Weekly CSV`
 - GA4 export filename pattern: `*_ga4_*.csv`
 - Search Console export filename pattern: `*_gsc_*.csv`
-- Verified export window: `2026-07-27` through `2026-08-02`
+- Verified export windows: `2026-07-27` through `2026-08-02`, and `2026-08-03` through `2026-08-09`
+- Latest export finalization state on `2026-08-10`: partial; GSC date rows through `2026-08-08`, finalized analysis through `2026-08-07`
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
 The Drive folder is discovered by its configured name. Do not store its folder ID,
@@ -50,9 +51,12 @@ property IDs, account identifiers, credentials, or private URLs in Git.
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
 
-Search Console and GA4 exports now support source-native weekly analysis. The
-current folder contains one complete weekly window, so longer comparisons remain
-unavailable until more history is present. Public repository and live-site data
+Search Console and GA4 exports now provide two adjacent weekly export sets. The
+newest set includes dates inside the configured finalization lag, so daily analysis
+must isolate finalized GSC dates and treat the current GA4 landing-page export as
+partial because it has no date dimension. A complete previous-7-day comparison is
+still unavailable because the available history begins on `2026-07-27`; 28-day
+comparisons also remain unavailable. Public repository and live-site data
 supplement these exports but do not replace their source-native meanings.
 
 ## Deployment
