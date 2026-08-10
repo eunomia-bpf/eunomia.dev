@@ -96,7 +96,7 @@ Cilium 的生产 issue 给出了这种区别的直接证据。一个旧 issue �
 
 把三者都隐藏在“load 新 object”后面，会把决定 correctness 的核心步骤藏起来。
 
-## Partial failure 在生产 BPF control plane 里不是理论问题
+## 部分失败在生产 BPF 控制面里不是理论问题
 
 做 upgrade transaction 的理由，不是为了 API 看起来更整齐，而是 multi-step datapath regeneration 本身就有能暴露错误状态的 failure path。
 
@@ -106,7 +106,7 @@ Cilium 在 2025 年的一个 issue 记录了 endpoint regeneration retry 之后 
 
 这也给 novelty gate 一个很好的反例。“给 eBPF loader 加 rollback”太弱，因为生产 loader 早就在做。更值得研究的问题是：这些 bespoke state machine 能不能被压缩成一个 portable generation protocol，并且在不同 application 上验证一致的 property。
 
-## Application-level eBPF transaction 到底应该保证什么？
+## 应用级 eBPF 事务到底应该保证什么？
 
 把 upgrade 叫“atomic”很容易说过头。kernel 不可能撤回 version 1 已经处理完的 packet，两个独立 event 也可能在 commit 的前后分别执行。真正有用的 guarantee 应该更窄。
 
@@ -135,7 +135,7 @@ Cilium 在 2025 年的一个 issue 记录了 endpoint regeneration retry 之后 
 
 这个 protocol 一开始不需要成为 universal kernel ABI。它首先应该是一个能比较 implementation 的 model：哪个 backend 能提供完整 guarantee，哪个只能提供弱一些的 guarantee，都要说清楚。
 
-## Where current work is still weak
+## 现有研究还缺什么
 
 ### 现在没有 portable object 描述“一个 upgrade generation 包含什么”
 
@@ -169,7 +169,7 @@ pin 的目的就是让 object 跨过 controller restart，但这意味着 partia
 
 这个问题很好测：在 upgrade state machine 每个 side effect 之后 kill controller，再 restart，检查系统是否总能收敛到 old committed generation 或 new committed generation，而不会删除 live state。
 
-## Promising directions with academic and production value
+## 兼具学术价值与生产价值的方向
 
 ### 给 libbpf application 做 generation-gated upgrade runtime
 
@@ -237,7 +237,7 @@ journal 不一定放在 bpffs。如果 deployment 已经有 durable control-plan
 
 更合理的 research path 是先用现有 primitive 在 userspace 实现 transaction model，收集哪些 case 无法满足 guarantee，再用这些 case 去 justify 最小 kernel primitive。最后真正需要的可能是 multi-link expected-generation commit、reusable generation handle，或者比“通用 BPF transaction syscall”窄得多的东西。
 
-## What would change this conclusion?
+## 哪些结果会改变这个判断？
 
 最强的反方其实很简单：大部分 eBPF application 可能根本不需要 transactional upgrade。stateless tracer 只有一个 link，直接 `BPF_LINK_UPDATE`。map schema 稳定，就继续 reuse。能够接受短 maintenance window 的 application，可以 stop、migrate、restart，系统复杂度低很多。
 
@@ -247,7 +247,7 @@ journal 不一定放在 bpffs。如果 deployment 已经有 durable control-plan
 
 因此本文不是在说“eBPF 需要数据库事务”。更准确的边界是：**当多个 persistent BPF object 共同定义一个 correctness invariant 时，upgrade mechanism 的 commit scope 也必须和这个 invariant 一样大**。Linux 已经给了我们大部分对象级 primitive。真正值得继续做的系统问题，是上面这一层究竟能有多小。
 
-## References
+## 参考资料
 
 - [Linux kernel: eBPF syscall reference](https://docs.kernel.org/userspace-api/ebpf/syscall.html)
 - [Linux kernel: libbpf overview and BPF application lifecycle](https://docs.kernel.org/bpf/libbpf/libbpf_overview.html)
