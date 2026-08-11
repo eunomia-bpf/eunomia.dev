@@ -13,6 +13,21 @@ type HomePageLandingProps = {
   home: MkdocsHomeConfig;
 };
 
+const agentNativeHero: Record<Locale, { kicker: string; title: string; summary: string; appCta: string }> = {
+  en: {
+    kicker: "Agent-native runtime infrastructure",
+    title: "Observe and evolve your AI agents — with AI agents.",
+    summary: "Machine-readable runtime evidence, diagnosis, evaluation and safe adaptation for autonomous agents.",
+    appCta: "Open AgentSight"
+  },
+  zh: {
+    kicker: "Agent-native 运行时基础设施",
+    title: "用 AI agent 观测并演进你的 AI agent。",
+    summary: "为自主智能体提供机器可读的运行时证据、诊断、评估与安全适应能力。",
+    appCta: "打开 AgentSight"
+  }
+};
+
 function localizedHref(href: string, locale: Locale): string {
   return href.startsWith("/") ? localizePath(href, locale) : href;
 }
@@ -111,6 +126,8 @@ function CapabilitySection({ home, locale }: { home: MkdocsHomeConfig; locale: L
 }
 
 export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale: Locale }) {
+  const hero = agentNativeHero[locale];
+
   return (
     <section className="relative isolate overflow-hidden border-b border-slate-200 bg-white text-ink">
       <div
@@ -122,28 +139,22 @@ export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale:
         className="absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-b from-cyan-100/70 via-cyan-50/40 to-white"
       />
       <div className="relative mx-auto max-w-[82rem] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <p className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-800 shadow-sm backdrop-blur">
-            {localizedText(home.hero.kicker, locale)}
+            {hero.kicker}
           </p>
-          <h1 className="mt-6 font-serif text-5xl font-normal tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
-            {localizedText(home.hero.title, locale)}
+          <h1 className="mt-6 font-serif text-5xl font-normal tracking-normal text-slate-950 sm:text-6xl lg:text-6xl">
+            {hero.title}
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-xl leading-8 text-slate-600 md:text-2xl md:leading-9">
-            {localizedText(home.hero.summary, locale)}
+          <p className="mx-auto mt-5 max-w-4xl text-xl leading-8 text-slate-600 md:text-2xl md:leading-9">
+            {hero.summary}
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <a
-              href={localizedHref(home.hero.primaryHref, locale)}
+              href="https://app.agentsight.us/"
               className="inline-flex min-h-11 items-center rounded-md bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
             >
-              {localizedText(home.hero.primaryCta, locale)}
-            </a>
-            <a
-              href={localizedHref(home.hero.secondaryHref, locale)}
-              className="inline-flex min-h-11 items-center rounded-md border border-slate-300 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:text-ink"
-            >
-              {localizedText(home.hero.secondaryCta, locale)}
+              {hero.appCta}
             </a>
             {home.hero.tertiaryCta && home.hero.tertiaryHref ? (
               <a
@@ -153,6 +164,12 @@ export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale:
                 {localizedText(home.hero.tertiaryCta, locale)}
               </a>
             ) : null}
+            <a
+              href={localizedHref(home.hero.primaryHref, locale)}
+              className="inline-flex min-h-11 items-center rounded-md border border-slate-300 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:text-ink"
+            >
+              {localizedText(home.hero.primaryCta, locale)}
+            </a>
           </div>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-2">
             <OrgStarTotal locale={locale} />
