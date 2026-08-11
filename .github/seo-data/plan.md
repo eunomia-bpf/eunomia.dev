@@ -71,16 +71,23 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Complete the first scheduled daily operation using the root repository
-   contract and verify that one new eBPF-centered Daily Report reaches production.
-2. Keep upcoming reports strongly eBPF-centered until the current two pure-Agent
-   reports no longer dominate the rolling archive; maintain the long-term 5–7/10
-   eBPF and 1–2/10 pure-Agent mix.
-3. Use the verified Search Console and GA4 Drive exports in every run and build
-   enough weekly history for previous-period and 28-day comparisons.
-4. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic as technical SEO
+1. Continue the **eBPF Runtime, Extensibility, and Composition** series. After the
+   stateful-upgrade report, prefer the asynchronous/causal profiling question
+   across syscalls, io_uring, work queues, runtime tasks, and application-defined
+   resources.
+2. Keep upcoming reports strongly eBPF-centered until the two existing pure-Agent
+   reports are diluted into the long-term 5–7/10 eBPF and 1–2/10 pure-Agent mix.
+3. Use both verified weekly Search Console and GA4 Drive export sets in every run.
+   Keep accumulating history until a complete previous-7-day and 28-day comparison
+   can be made without inventing missing dates.
+4. Obtain or generate date-by-page or date-by-query Search Console evidence before
+   attributing the `2026-08-05` impression spike to a specific page or query family.
+5. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic as technical SEO
    evidence rather than letting those issues distort content selection.
-5. Add Cloudflare coverage when a supported read-only route is available.
-6. Use search behavior, GitHub activity, primary research, kernel changes, and
+6. Add Cloudflare coverage when a supported read-only route is available.
+7. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside the approved eBPF and adjacent
    systems series.
+8. Migrate the consuming SEO contract before moving the pinned `seo-skills`
+   submodule to a newer upstream layout that removed interfaces this repository
+   still calls.
