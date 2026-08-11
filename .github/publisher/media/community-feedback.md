@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-10
+
+- The new [TCP quarantine tutorial on Medium](https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4) remains complete after its requirements-table repair, with the exact title, nine code blocks, source links, and no visible response. Exact-title search surfaced eunomia.dev's own indexed tutorial pages but no independent discussion. The [DEV copy](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld) was published and passed full-scroll public QA today; no reply or correction is due.
+
 ### 2026-08-09
 
 - The [TCP quarantine tutorial on Juejin](https://juejin.cn/post/7671185597861675008) remains publicly reachable with its title, article structure, source link, code blocks, and table intact; no new technical comment was visible. The new [sched_ext and pahole Q&A](https://eunomia.dev/ebpf-qa/2026-08-09-sched-ext-pahole-version/) is also publicly reachable with its diagnostic sequence and references rendered. No reply or correction is due; revisit after a new comment, citation, or platform publication.

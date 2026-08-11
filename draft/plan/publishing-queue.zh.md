@@ -33,7 +33,7 @@
 - [x] `排队` 知乎：`docs/tutorials/51-tcp-quarantine/README.zh.md`。2026-08-05 已发布：<https://zhuanlan.zhihu.com/p/2068597605345531007>；公开页标题、15 个正文标题、9 个代码块、1 个表格（7 行）和 6 个正文外链 QA 已通过，ledger 已记录为 `confirmed`。
 - [x] `排队` 掘金：`docs/tutorials/51-tcp-quarantine/README.zh.md`。2026-08-07 已发布并核定公开：<https://juejin.cn/post/7671185597861675008>；公开页精确标题、15 个正文标题、9 个代码块、1 个表格（7 行）、6 个源文外链、无源文图片占位、`Linux`、`开源`、`安全` 标签和 0 条评论 QA 已通过。
 - [x] `排队` Medium：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-09 已发布：<https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4>；公开页完整滚动 QA 确认原标题、完整正文、9 个代码块、GitHub/eunomia.dev 链接和标签正常，失真的 Markdown 表格已在网页编辑器中改为可读说明。
-- [ ] `排队` DEV：`docs/tutorials/51-tcp-quarantine/README.md`。
+- [x] `排队` DEV：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-10 已发布：<https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld>；公开页完整滚动 QA 确认原标题、4 个标签、完整正文、9 个代码块、1 个表格、Requirements、Summary、References 和源码链接正常。
 - [ ] `排队` LinkedIn：`docs/tutorials/51-tcp-quarantine/README.md`。
 - [ ] `排队` 知乎：`docs/tutorials/52-fsession-latency/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。

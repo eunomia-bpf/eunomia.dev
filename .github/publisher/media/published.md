@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-09
+Last checked: 2026-08-10
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -147,12 +147,13 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
 
-The earlier profile check reported 57 posts and visible scrolling collected 54 unique public article links; the new BPFix public URL was verified independently. The machine ledger maps 48 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
+The earlier profile check reported 57 posts and visible scrolling collected 54 unique public article links; the newer BPFix and TCP quarantine public URLs were verified independently. The machine ledger maps 48 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-10 | eBPF Tutorial: Precisely Isolating Established TCP Connections | <https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld> | Published through the DEV API with `ebpf`, `linux`, `security`, and `networking`; public full-scroll QA verified the exact title, complete body, 9 code blocks, 1 rendered table, Requirements, Summary, References, source links, and loaded article images |
 | Confirmed | 2026-08-02 | Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap | <https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o> | Published through the DEV API with canonical URL, `ebpf`, `linux`, `opensource`, and `ai`; public full-scroll QA verified title, headings, code blocks, tables, references, links, and both images |
 | Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; post-publish web-editor fixes removed duplicate manual source note, changed tags to `opensource`, `ai`, `security`, `ebpf`, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs |
 
