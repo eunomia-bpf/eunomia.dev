@@ -18,6 +18,17 @@ eunomia-bpf, AgentSight, ActPlane, bpftime, papers, tutorials, and talks as the
 core public evidence assets. Optimize platform posts for native account trust,
 discussion, and community reach rather than website ranking alone.
 
+The public site identity is community-first. Eunomia.dev is the home of an
+open-source systems community building agent-native eBPF runtime infrastructure.
+Keep eBPF as the technical anchor; AI agents are a primary workload and can also
+be direct users of the infrastructure. Eunomia Labs, Inc. may be named
+transparently as a steward, supporter, and commercial builder around the
+open-source work, but do not rewrite eunomia.dev as a conventional company or
+sales website. Preserve the prominence of projects, docs, tutorials, research,
+and community work. Product-specific pricing and conversion should live on
+product surfaces unless the user explicitly requests otherwise, and do not add
+sales-first navigation or CTAs without an explicit request.
+
 ## Required Workflow
 
 For open-source code, documentation, synchronization, CI, release-readiness, or
