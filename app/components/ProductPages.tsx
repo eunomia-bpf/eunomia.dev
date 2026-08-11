@@ -250,7 +250,7 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
     locale === "zh"
       ? {
           eyebrow: "Open-core",
-          title: "开源、独立、可持续",
+          title: "开源、企业就绪、可规模化",
           description:
             "core 是 MIT、可免费自托管；需要生产集成和 SLA 的团队可按需采用商业功能与支持。",
           columns: [
@@ -275,12 +275,12 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
               ]
             },
             {
-              name: "支持与赞助",
+              name: "企业服务",
               accent: false,
               points: [
-                "支持订阅",
+                "生产集成与部署支持",
                 "Design-partner POC",
-                "GitHub Sponsors 与赞助功能"
+                "带 SLA 的优先工程支持"
               ]
             }
           ],
@@ -288,7 +288,7 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
         }
       : {
           eyebrow: "Open-core",
-          title: "Open source, independent, and sustainable",
+          title: "Open source, enterprise-ready, and built to scale",
           description:
             "The core is MIT and free to self-host; commercial add-ons and support are available for teams that need production integration and SLAs.",
           columns: [
@@ -313,12 +313,12 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
               ]
             },
             {
-              name: "Support & sponsorship",
+              name: "Enterprise services",
               accent: false,
               points: [
-                "Support subscriptions",
+                "Production integration and deployment",
                 "Design-partner POCs",
-                "GitHub Sponsors and sponsored features"
+                "Priority engineering support with SLA"
               ]
             }
           ],
