@@ -1168,6 +1168,7 @@ extra:
       lang: en
     - name: Chinese
       link: /zh/
+      lang: zh
 plugins:
   - meta
   - social
