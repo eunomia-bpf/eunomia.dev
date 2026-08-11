@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can a Stateful eBPF Application Upgrade Atomically?](https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/)
+
+One BPF link can replace one program cleanly, but real stateful applications also span maps, pinned objects, multiple hooks, and userspace controllers. This report separates simple state reuse from semantic state migration and develops generation-gated activation, BTF-aware migration, and crash-consistent recovery as testable upgrade mechanisms.
+
 ### [eBPF Hook Composition: Sharing One Hook Safely](https://eunomia.dev/research/ebpf-hook-composition-contract/)
 
 Linux, libxdp, and TCX already let multiple eBPF programs share execution points, but ordering alone does not define how mutations, shared state, competing outcomes, and updates compose. This report compares existing multi-program semantics and research on isolation and bytecode dependencies, then proposes typed composition manifests, explicit outcome algebras, and versioned hook generations.

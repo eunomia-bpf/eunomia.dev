@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [有状态 eBPF 应用能不能原子升级？](https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/)
+
+单个 BPF link 可以干净地替换一个程序，但真实有状态应用还跨越 maps、pinned objects、多个 hooks 和用户态控制器。本文区分简单 state reuse 与 semantic state migration，并把 generation-gated activation、BTF-aware migration 和 crash-consistent recovery 发展成可验证的升级机制。
+
 ### [多个 eBPF 程序如何安全共享同一个 Hook？](https://eunomia.dev/zh/research/ebpf-hook-composition-contract/)
 
 Linux、libxdp 与 TCX 已经能让多个 eBPF 程序共享执行点，但排序本身无法定义数据修改、共享状态、竞争结果和更新应该怎样组合。本文比较现有多程序语义以及近期隔离和 bytecode dependency 工作，并提出类型化组合 manifest、显式 outcome algebra 与 versioned hook generation。

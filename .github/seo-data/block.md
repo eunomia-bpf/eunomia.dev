@@ -17,13 +17,20 @@ already configured and enabled; it is not a blocker.
 
 ## Current data-history constraint
 
-Google Drive access is verified and is not a blocker. The configured folder
-contains six Search Console exports and one GA4 organic landing-page export for
-`2026-07-27` through `2026-08-02`. Only one complete weekly window is currently
-available, so previous-week and 28-day comparisons remain unavailable until
-additional exports appear. The GA4 export is also limited to organic landing-page
-rows and does not by itself provide complete acquisition, conversion, or outbound
-behavior coverage.
+Google Drive access is verified and is not a blocker. The configured folder now
+contains two adjacent weekly Search Console and GA4 export sets: `2026-07-27`
+through `2026-08-02` and `2026-08-03` through `2026-08-09`. The newest Search
+Console date export currently has rows through `2026-08-08`; under the configured
+three-day finalization lag, those rows are usable on `2026-08-11`.
+
+A complete latest-7-days versus previous-7-days comparison is still unavailable.
+The latest complete finalized seven-day GSC window is `2026-08-02` through
+`2026-08-08`, while its preceding window begins on `2026-07-26`, one day before
+the available history. The 28-day comparison also remains unavailable. The
+newest GA4 landing-page export includes `2026-08-09` and has no date dimension,
+so it cannot be cleanly restricted to the finalized period. GA4 is also limited
+to organic landing-page rows and does not by itself provide complete acquisition,
+conversion, or outbound behavior coverage.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google exports, live-site evidence, public GitHub evidence, and
