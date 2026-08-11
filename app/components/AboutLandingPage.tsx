@@ -52,9 +52,9 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
     locale === "zh"
       ? {
           eyebrow: "About",
-          title: "Eunomia 是围绕 eBPF、runtime extension 和 AI agent infra 的开源系统工程项目",
+          title: "Eunomia 是构建 eBPF 运行时基础设施的开源系统社区",
           description:
-            "这里汇总 Eunomia 的项目体系，并组织非 eBPF 教程、研究和实验性项目。",
+            "社区围绕 agent-native eBPF runtime、runtime extension、AI agent observability 与 policy、GPU tracing、教程和系统研究开展开源工作。",
           tutorials: "非 eBPF 教程",
           tutorialsDescription:
             "CUDA、CUPTI 和 NVBit 内容适合作为 GPU programming、profiling 和 instrumentation 的学习入口。",
@@ -68,13 +68,13 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           resourcesDescription: "兼容性、基准测试、路线图和其他仍在维护的资料入口。",
           community: "社区入口",
           communityDescription:
-            "GitHub、discussion 和公开文档仍然是主要协作渠道；商业支持放在 Products。"
+            "GitHub、discussion 和公开文档仍然是主要协作渠道；Eunomia Labs, Inc. 支持这些开源项目的开发、生产采用与商业合作。"
         }
       : {
           eyebrow: "About",
-          title: "Eunomia is an open-source systems engineering effort around eBPF, runtime extension, and AI agent infrastructure",
+          title: "Eunomia is an open-source systems community building eBPF runtime infrastructure",
           description:
-            "This page summarizes the broader Eunomia project and organizes non-eBPF tutorials, research, and experiments.",
+            "The community works on agent-native eBPF runtimes, runtime extension, AI agent observability and policy, GPU tracing, tutorials, and systems research.",
           tutorials: "Tutorials beyond eBPF",
           tutorialsDescription:
             "CUDA, CUPTI, and NVBit content serve as learning paths for GPU programming, profiling, and instrumentation.",
@@ -88,7 +88,7 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           resourcesDescription: "Compatibility notes, benchmarks, roadmaps, and other maintained project resources.",
           community: "Community",
           communityDescription:
-            "GitHub, discussions, and public documentation remain the main collaboration paths. Commercial support lives under Products."
+            "GitHub, discussions, and public documentation remain the main collaboration paths. Eunomia Labs, Inc. supports development, production adoption, and commercial work around these open-source projects."
         };
 
   return (
