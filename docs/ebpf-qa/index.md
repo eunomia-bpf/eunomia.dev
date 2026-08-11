@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Why can `scxctl` accept a scheduler switch while the service still does not start as intended?](/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/)
 - [Why can inserting a socket into `SOCKHASH` from TC egress soft-lock the kernel?](/ebpf-qa/2026-08-10-tc-egress-sockhash-soft-lock/)
 - [Why can a `sched_ext` scheduler fail until `pahole` is upgraded?](/ebpf-qa/2026-08-09-sched-ext-pahole-version/)
 - [Can eBPF detect secrets in network traffic without collecting them?](/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/)

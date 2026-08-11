@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 `scxctl` 接受了调度器切换命令，服务却仍未按预期启动？](/zh/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/)
 - [为什么在 TC egress 中把 socket 放入 `SOCKHASH` 会导致内核 soft lock？](/zh/ebpf-qa/2026-08-10-tc-egress-sockhash-soft-lock/)
 - [为什么 `sched_ext` 调度器要升级 `pahole` 后才能加载？](/zh/ebpf-qa/2026-08-09-sched-ext-pahole-version/)
 - [eBPF 能否识别网络流量中的密钥，同时不采集密钥本身？](/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/)
