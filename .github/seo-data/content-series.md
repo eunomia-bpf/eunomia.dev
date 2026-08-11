@@ -86,9 +86,19 @@ upgrade, safety, performance, and deployment boundaries.
 2. `2026-08-09`: `/research/ebpf-hook-composition-contract/` narrowed the
    multi-program problem beyond dispatch and ordering to effect visibility,
    outcome resolution, shared-state ownership, and versioned hook composition.
-3. Preferred next question: transactional upgrade of stateful eBPF applications
-   across programs, links, maps, pinned state, userspace controllers, and
-   rollback after partial failure.
+3. `2026-08-10`: `/research/stateful-ebpf-transactional-upgrade/` separated
+   object-level replacement from application-level upgrade and developed an
+   explicit prepare / migrate / commit / retire generation protocol for programs,
+   links, maps, pinned state, controller recovery, and rollback.
+4. Preferred next question: what an asynchronous profiler built around modern
+   eBPF would need to reconstruct causality across syscalls, io_uring, work
+   queues, runtime tasks, and application-defined resources without unacceptable
+   overhead or sampling bias.
+
+The series now has three substantial reports. A public series hub may be useful
+once the next report confirms that the sequence has enough reader value to merit
+an additional navigation surface; do not create a thin hub solely to satisfy the
+three-report threshold.
 
 ### Preferred sequence
 
