@@ -4494,14 +4494,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
@@ -4519,6 +4519,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/parallel-agent-effect-serializability/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/parallel-agent-effect-serializability/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/parallel-agent-effect-serializability/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/" />
   </url>
   <url>
     <loc>https://eunomia.dev/research/userspace-ebpf-runtime-contract/</loc>
