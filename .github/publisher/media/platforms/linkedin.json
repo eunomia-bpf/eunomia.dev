@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-04",
+  "last_checked": "2026-08-11",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -42,6 +42,16 @@
     }
   ],
   "published": [
+    {
+      "id": "linkedin-7493164412321812480",
+      "status": "confirmed",
+      "date": "2026-08-11",
+      "title": "eBPF Tutorial: Precisely Isolating Established TCP Connections",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/",
+      "source_path": "docs/tutorials/51-tcp-quarantine/README.md",
+      "checked_via": "normal_visible_public_post",
+      "notes": "Published from draft/media/2026-08-11/51-tcp-quarantine/linkedin.md. Public-page QA confirmed the exact two-sentence body, public visibility, LinkedIn short link landing on the canonical eunomia.dev tutorial, and the tutorial preview card with its title, image, and domain."
+    },
     {
       "id": "linkedin-7490597138595229696",
       "status": "confirmed",

@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-05。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-11。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -16,7 +16,7 @@
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
 - Medium 与 DEV 的 BPFix 和 tutorial 50 已完成；tutorial 51–54 以及 AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
-- 剩余队列：知乎 26 条、掘金 49 条、Medium 9 条、DEV 9 条、LinkedIn 4 条，共 97 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 26 条、掘金 49 条、Medium 9 条、DEV 9 条、LinkedIn 3 条，共 96 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -34,7 +34,7 @@
 - [x] `排队` 掘金：`docs/tutorials/51-tcp-quarantine/README.zh.md`。2026-08-07 已发布并核定公开：<https://juejin.cn/post/7671185597861675008>；公开页精确标题、15 个正文标题、9 个代码块、1 个表格（7 行）、6 个源文外链、无源文图片占位、`Linux`、`开源`、`安全` 标签和 0 条评论 QA 已通过。
 - [x] `排队` Medium：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-09 已发布：<https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4>；公开页完整滚动 QA 确认原标题、完整正文、9 个代码块、GitHub/eunomia.dev 链接和标签正常，失真的 Markdown 表格已在网页编辑器中改为可读说明。
 - [x] `排队` DEV：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-10 已发布：<https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld>；公开页完整滚动 QA 确认原标题、4 个标签、完整正文、9 个代码块、1 个表格、Requirements、Summary、References 和源码链接正常。
-- [ ] `排队` LinkedIn：`docs/tutorials/51-tcp-quarantine/README.md`。
+- [x] `排队` LinkedIn：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-11 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/>；公开页两句正文、站内外公开可见范围、LinkedIn 短链落地与 eunomia.dev 教程预览卡片（标题、图片、域名）QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 知乎：`docs/tutorials/52-fsession-latency/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/52-fsession-latency/README.md`。

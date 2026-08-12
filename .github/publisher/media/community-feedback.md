@@ -20,6 +20,11 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-11
+
+- The TCP quarantine tutorial remains intact on [Zhihu](https://zhuanlan.zhihu.com/p/2068597605345531007), [Juejin](https://juejin.cn/post/7671185597861675008), [Medium](https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4), and [DEV](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld). Zhihu rose from 9 endorsements and 15 saves to 10 and 17 with no comment; Juejin shows 21 reads and no comment, DEV shows no reaction, comment, or save, and Medium exposes no usable public response count. The new [LinkedIn share](https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/) is public with its two-sentence text, canonical short-link destination, and preview card intact; comments and metrics are unavailable on the signed-out surface. Exact-title search again surfaced eunomia.dev, the known Medium copy, and a Google AI Overview citing eunomia.dev, but no independent discussion.
+- Today's [stateful eBPF upgrade report](https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/) and [scxctl scheduler-argument Q&A](https://eunomia.dev/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/) are publicly reachable with their expected headings, references, and Chinese locale links; exact-title searches found no indexed copy or independent echo yet. No reply or correction is due; take the LinkedIn post's first useful checkpoint in 24-72 hours and otherwise revisit after a new comment or citation.
+
 ### 2026-08-10
 
 - The new [TCP quarantine tutorial on Medium](https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4) remains complete after its requirements-table repair, with the exact title, nine code blocks, source links, and no visible response. Exact-title search surfaced eunomia.dev's own indexed tutorial pages but no independent discussion. The [DEV copy](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld) was published and passed full-scroll public QA today; no reply or correction is due.
