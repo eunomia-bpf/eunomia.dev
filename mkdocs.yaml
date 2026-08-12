@@ -1067,7 +1067,7 @@ extra:
         - key: cupti-tutorial
           label: Open
           label_zh: 打开
-          href: /others/cupti-tutorial/
+          href: /others/cuda-tutorial/
         - key: nvbit-tutorial
           label: Open
           label_zh: 打开
