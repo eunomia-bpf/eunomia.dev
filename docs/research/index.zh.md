@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [异步系统里，eBPF Profiler 还要追踪什么？](https://eunomia.dev/zh/research/async-ebpf-causal-profiler/)
+
+异步工作会经过 `io_uring`、workqueue、runtime task 与 application-defined resource 离开原来的线程，因此即使 CPU 与 off-CPU sample 本身准确，也可能失去逻辑归属。本文提出 typed causal-edge 模型、把 topology edge 与 context sample 分开预算的采集方法，以及用于跨线程 attribution 的 ground-truth benchmark。
+
 ### [有状态 eBPF 应用能不能原子升级？](https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/)
 
 单个 BPF link 可以干净地替换一个程序，但真实有状态应用还跨越 maps、pinned objects、多个 hooks 和用户态控制器。本文区分简单 state reuse 与 semantic state migration，并把 generation-gated activation、BTF-aware migration 和 crash-consistent recovery 发展成可验证的升级机制。
