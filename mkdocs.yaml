@@ -572,9 +572,9 @@ extra:
         zh: 教程
       secondary_href: /tutorials/
       tertiary_cta:
-        en: Products
-        zh: 产品
-      tertiary_href: /products/
+        en: Projects
+        zh: 项目
+      tertiary_href: /projects/
     capabilities_title:
       en: What Eunomia Provides
       zh: Eunomia 提供什么
