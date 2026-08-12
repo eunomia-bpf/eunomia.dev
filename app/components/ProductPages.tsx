@@ -378,9 +378,9 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           agent:
             "旗舰：AgentSight 观察和解释执行过程，ActPlane 在系统边界执行策略，Akeep 保存可检查、可恢复的原生会话历史。",
           bpftime:
-            "底层引擎与护城河：高性能 userspace eBPF runtime，同时支撑低开销 tracing、GPU paths 和定制 runtime extension。",
+            "底层运行时引擎：高性能 userspace eBPF runtime，同时支撑低开销 tracing、GPU paths 和定制 runtime extension。",
           services:
-            "过桥性质的 design-partner 合作：固定范围咨询、POC、生产加固、性能调优，以及 eBPF / agent infra 的定制集成。",
+            "Design-partner 与工程支持：固定范围咨询、POC、生产加固、性能调优，以及 eBPF / agent infra 的定制集成。",
           buyersTitle: "适合的团队",
           buyersDescription:
             "面向在生产里运行 AI agent，并需要把开源系统工程落地的 AI infra、platform 团队。",
@@ -415,9 +415,9 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           agent:
             "Flagship: AgentSight observes and explains execution, ActPlane enforces policy at system boundaries, and Akeep preserves inspectable, recoverable native session history.",
           bpftime:
-            "The engine and moat: a high-performance userspace eBPF runtime that also powers low-overhead tracing, GPU paths, and custom runtime extension.",
+            "The runtime engine: a high-performance userspace eBPF runtime that also powers low-overhead tracing, GPU paths, and custom runtime extension.",
           services:
-            "Bridge-style design-partner work: fixed-scope consulting, POCs, production hardening, performance tuning, and custom eBPF / agent infra integration.",
+            "Design-partner and engineering support: fixed-scope consulting, POCs, production hardening, performance tuning, and custom eBPF / agent infra integration.",
           buyersTitle: "Who it helps",
           buyersDescription:
             "Built for AI infrastructure and platform teams running AI agents in production that need open-source systems engineering to land.",
