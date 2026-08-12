@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [What Must an eBPF Profiler Track Beyond Threads?](https://eunomia.dev/research/async-ebpf-causal-profiler/)
+
+Async work can leave one thread through `io_uring`, workqueues, runtime tasks, and application-defined resources, so CPU and off-CPU stacks can lose logical attribution even when the samples themselves are accurate. This report develops a typed causal-edge model, a budget that treats topology edges differently from context samples, and a ground-truth benchmark for cross-thread attribution.
+
 ### [Can a Stateful eBPF Application Upgrade Atomically?](https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/)
 
 One BPF link can replace one program cleanly, but real stateful applications also span maps, pinned objects, multiple hooks, and userspace controllers. This report separates simple state reuse from semantic state migration and develops generation-gated activation, BTF-aware migration, and crash-consistent recovery as testable upgrade mechanisms.
