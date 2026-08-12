@@ -106,7 +106,7 @@ export const siteFooterCopyByLocale = {
     explore: "Explore",
     projects: "Projects",
     community: "Community",
-    copyright: "Eunomia Labs, Inc. operates the site and supports the open-source systems research, eBPF tooling, and runnable documentation published here.",
+    copyright: "Eunomia is an open-source systems community building agent-native eBPF runtime infrastructure. Eunomia Labs, Inc. supports development and commercial work around the projects published here.",
     legacyBlog: "Legacy blog",
     sourceCode: "Site Source"
   },
@@ -114,7 +114,7 @@ export const siteFooterCopyByLocale = {
     explore: "浏览",
     projects: "项目",
     community: "社区",
-    copyright: "本网站由 Eunomia Labs, Inc. 运营，并支持这里发布的开源系统研究、eBPF 工具和可运行文档。",
+    copyright: "Eunomia 是构建 agent-native eBPF 运行时基础设施的开源系统社区。Eunomia Labs, Inc. 支持这里开源项目的开发与商业合作。",
     legacyBlog: "旧博客",
     sourceCode: "网站源码"
   }
