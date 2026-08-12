@@ -90,15 +90,20 @@ upgrade, safety, performance, and deployment boundaries.
    object-level replacement from application-level upgrade and developed an
    explicit prepare / migrate / commit / retire generation protocol for programs,
    links, maps, pinned state, controller recovery, and rollback.
-4. Preferred next question: what an asynchronous profiler built around modern
-   eBPF would need to reconstruct causality across syscalls, io_uring, work
-   queues, runtime tasks, and application-defined resources without unacceptable
-   overhead or sampling bias.
+4. `2026-08-12`: `/research/async-ebpf-causal-profiler/` separated thread
+   execution from logical-work causality and developed typed, lifetime-aware
+   handoff edges, an edge-versus-context measurement budget, and a ground-truth
+   causal-attribution benchmark across `io_uring`, workqueues, runtime tasks, and
+   application-defined resources.
+5. Preferred next question: which new Linux I/O hooks and programmable interfaces
+   make previously impractical eBPF mechanisms possible, and what correctness,
+   portability, and performance contracts those hooks still lack.
 
-The series now has three substantial reports. A public series hub may be useful
-once the next report confirms that the sequence has enough reader value to merit
-an additional navigation surface; do not create a thin hub solely to satisfy the
-three-report threshold.
+The series now has four substantial reports. The existing Daily Report hub already
+exposes the sequence, while report-level acquisition and navigation evidence is
+still too young to justify another public navigation surface. Revisit a dedicated
+series hub when evidence shows that it improves retrieval; do not create a thin
+hub solely because the series crossed a count threshold.
 
 ### Preferred sequence
 
