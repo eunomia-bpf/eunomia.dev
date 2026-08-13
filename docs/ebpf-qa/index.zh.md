@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [OpenInference 应如何与 OpenTelemetry 的 GenAI 语义约定共存？](/zh/ebpf-qa/2026-08-13-openinference-opentelemetry-genai/)
 - [为什么 `scxctl` 接受了调度器切换命令，服务却仍未按预期启动？](/zh/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/)
 - [为什么在 TC egress 中把 socket 放入 `SOCKHASH` 会导致内核 soft lock？](/zh/ebpf-qa/2026-08-10-tc-egress-sockhash-soft-lock/)
 - [为什么 `sched_ext` 调度器要升级 `pahole` 后才能加载？](/zh/ebpf-qa/2026-08-09-sched-ext-pahole-version/)
