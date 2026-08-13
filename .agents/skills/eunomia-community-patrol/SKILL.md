@@ -17,8 +17,8 @@ deduplication records outside the repository.
 - Perform GitHub writes only in `eunomia-bpf` repositories.
 - Run in the Linux maintenance workspace. Do not redirect the task to Windows
   or PowerShell.
-- Schedule the patrol for 09:00 `America/Vancouver` every two calendar days.
-  Let a successful manual patrol reset the next eligible date. Retry a failed
+- Schedule the patrol for 09:00 `America/Vancouver` every calendar day. A
+  successful manual patrol does not skip the next scheduled day. Retry a failed
   run at the next daily scheduler wake and prevent overlapping runs with a
   local lock.
 - Resume the designated Codex conversation for each eligible run so the final
