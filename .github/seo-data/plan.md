@@ -72,9 +72,10 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Continue the **eBPF Runtime, Extensibility, and Composition** series. After the
-   stateful-upgrade report, prefer the asynchronous/causal profiling question
-   across syscalls, io_uring, work queues, runtime tasks, and application-defined
-   resources.
+   async causal-profiling report, prefer the next mechanism question: which new
+   Linux I/O hooks and programmable interfaces around `io_uring`, file access,
+   scheduling, caching, and fast paths make eBPF mechanisms practical that older
+   hook sets could not implement cleanly.
 2. Keep upcoming reports strongly eBPF-centered until the two existing pure-Agent
    reports are diluted into the long-term 5–7/10 eBPF and 1–2/10 pure-Agent mix.
 3. Use both verified weekly Search Console and GA4 Drive export sets in every run.
@@ -88,6 +89,9 @@ priorities that can guide a later daily run belong below.
 7. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside the approved eBPF and adjacent
    systems series.
-8. Migrate the consuming SEO contract before moving the pinned `seo-skills`
+8. Revisit a dedicated public hub for the active eBPF series only after report-level
+   acquisition or navigation evidence shows that it would improve retrieval beyond
+   the existing Daily Report index.
+9. Migrate the consuming SEO contract before moving the pinned `seo-skills`
    submodule to a newer upstream layout that removed interfaces this repository
    still calls.

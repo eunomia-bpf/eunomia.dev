@@ -50,16 +50,16 @@ property IDs, account identifiers, credentials, or private URLs in Git.
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
 
-Search Console and GA4 exports now provide two adjacent weekly export sets,
+Search Console and GA4 exports provide two adjacent weekly export sets,
 `2026-07-27` through `2026-08-02` and `2026-08-03` through `2026-08-09`. As of
-`2026-08-11`, Search Console rows through `2026-08-08` are usable under the
-three-day finalization lag. A complete latest-7-days versus previous-7-days
-comparison is still unavailable because the required preceding period begins on
-`2026-07-26`, one day before the available history. The 28-day comparison is
-also unavailable. The newest GA4 landing-page export has no date dimension and
-includes `2026-08-09`, so it remains partial for finalized-period comparison.
-Public repository and live-site data supplement these exports but do not replace
-their source-native meanings.
+`2026-08-12`, the full GA4 weekly export through `2026-08-09` is beyond the
+configured three-day finalization lag and can be compared with the preceding
+weekly export. Search Console date rows still stop at `2026-08-08`; its complete
+latest-7-days versus previous-7-days comparison remains unavailable because the
+required preceding period begins on `2026-07-26`, one day before the available
+history. The 28-day comparison is also unavailable. Public repository and
+live-site data supplement these exports but do not replace their source-native
+meanings.
 
 ## Deployment
 
