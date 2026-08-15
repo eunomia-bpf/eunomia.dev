@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-08-14 08:41 UTC`
+Generated: `2026-08-15 07:49 UTC`
 
 ## Collection health
 
@@ -14,26 +14,26 @@ Generated: `2026-08-14 08:41 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `180 ms`.
+- Homepage: `200` in `204 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `656`.
+- Sitemap entries observed: `658`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `97`.
-- Current stars: `9736`; forks: `1274`; open issue/PR records: `274`.
+- Current stars: `9747`; forks: `1276`; open issue/PR records: `278`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4229 | 592 | 23 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1549 | 183 | 112 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4231 | 592 | 23 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1550 | 183 | 112 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 894 | 75 | 19 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 585 | 89 | 18 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 587 | 89 | 20 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 6 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 272 | 25 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 231 | 39 | 55 |
-| [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 143 | 18 | 1 |
+| [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 144 | 18 | 1 |
 
 ## DEV publication surface
 
@@ -48,8 +48,6 @@ Generated: `2026-08-14 08:41 UTC`
 
 ## Coverage gaps
 
-- **cloudflare**: Requires a read-only analytics token and per-site zone mapping.
-- **google_search_console**: Existing per-site exports must be connected through their private credential boundary.
-- **google_analytics**: Existing per-site exports must be connected through their private credential boundary.
+- None recorded.
 
 Missing or unavailable coverage is never treated as zero. Raw page bodies, private queries, credentials, and user-level analytics are not included in this brief.
