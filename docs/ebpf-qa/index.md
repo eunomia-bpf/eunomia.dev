@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [How should a Linux-VM eBPF backend support macOS and Windows without mislabeling host coverage?](/ebpf-qa/2026-08-15-cross-platform-ebpf-linux-vm-backend/)
 - [How should OpenInference coexist with OpenTelemetry's GenAI semantic conventions?](/ebpf-qa/2026-08-13-openinference-opentelemetry-genai/)
 - [Why can `scxctl` accept a scheduler switch while the service still does not start as intended?](/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/)
 - [Why can inserting a socket into `SOCKHASH` from TC egress soft-lock the kernel?](/ebpf-qa/2026-08-10-tc-egress-sockhash-soft-lock/)

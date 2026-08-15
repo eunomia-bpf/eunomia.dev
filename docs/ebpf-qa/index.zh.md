@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [Linux VM eBPF 后端应如何支持 macOS 和 Windows，同时不误报宿主机覆盖范围？](/zh/ebpf-qa/2026-08-15-cross-platform-ebpf-linux-vm-backend/)
 - [OpenInference 应如何与 OpenTelemetry 的 GenAI 语义约定共存？](/zh/ebpf-qa/2026-08-13-openinference-opentelemetry-genai/)
 - [为什么 `scxctl` 接受了调度器切换命令，服务却仍未按预期启动？](/zh/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/)
 - [为什么在 TC egress 中把 socket 放入 `SOCKHASH` 会导致内核 soft lock？](/zh/ebpf-qa/2026-08-10-tc-egress-sockhash-soft-lock/)
