@@ -1,10 +1,10 @@
 ---
-title: Eunomia - Open eBPF systems research and tooling
-description: Open-source eBPF systems research, userspace runtime tooling, AI-assisted tracing, and runnable Linux observability documentation.
-keywords: eBPF, BPF, Linux kernel programming, eunomia-bpf, bpftime, eBPF tutorials, kernel tracing
+title: Eunomia - Open-source systems research community
+description: An open-source systems research community working on eBPF, programmable runtimes, AI agent observability and safety, GPU systems, and practical systems tooling.
+keywords: eBPF, BPF, Linux kernel programming, systems research, programmable runtimes, AI agents, GPU systems, eunomia-bpf, bpftime
 hide:
   - navigation
   - toc
 ---
 
-Eunomia builds open-source systems software and documentation for eBPF, userspace runtimes, AI-assisted tracing, and agent security research.
+Eunomia is an open-source systems research community building and studying programmable runtime infrastructure, eBPF tooling, AI agent systems, GPU systems, and public learning resources. We publish research prototypes, maintained open-source systems, tutorials, technical writing, and reproducible research artifacts.
