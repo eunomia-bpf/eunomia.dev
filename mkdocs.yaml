@@ -2,7 +2,7 @@ site_name: eunomia
 repo_url: https://github.com/eunomia-bpf/eunomia.dev
 site_url: https://eunomia.dev
 copyright: Copyright (c) 2026 Eunomia Labs, Inc.
-site_description: 'Open-source eBPF infrastructure for userspace runtime extension, GPU tracing, AI agent observability, and hands-on Linux systems tutorials.'
+site_description: 'Open-source systems community building practical systems software and advancing research in eBPF, programmable runtimes, AI agents, and GPU systems.'
 remote_branch: docs
 edit_uri: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
 theme:
@@ -555,8 +555,8 @@ extra:
   home:
     hero:
       kicker:
-        en: Open-source infrastructure
-        zh: 开源基础设施
+        en: Open-source systems community
+        zh: 开源系统社区
       title:
         en: Eunomia
         zh: Eunomia
