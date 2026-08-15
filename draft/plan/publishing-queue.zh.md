@@ -35,7 +35,7 @@
 - [x] `排队` Medium：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-09 已发布：<https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4>；公开页完整滚动 QA 确认原标题、完整正文、9 个代码块、GitHub/eunomia.dev 链接和标签正常，失真的 Markdown 表格已在网页编辑器中改为可读说明。
 - [x] `排队` DEV：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-10 已发布：<https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld>；公开页完整滚动 QA 确认原标题、4 个标签、完整正文、9 个代码块、1 个表格、Requirements、Summary、References 和源码链接正常。
 - [x] `排队` LinkedIn：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-11 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/>；公开页两句正文、站内外公开可见范围、LinkedIn 短链落地与 eunomia.dev 教程预览卡片（标题、图片、域名）QA 已通过，ledger 已记录为 `confirmed`。
-- [ ] `排队` 知乎：`docs/tutorials/52-fsession-latency/README.zh.md`。
+- [x] `排队` 知乎：`docs/tutorials/52-fsession-latency/README.zh.md`。2026-08-14 已发布：<https://zhuanlan.zhihu.com/p/2071960422765310563>；选择问题“在 Linux 环境下，如何有效诊断和优化高并发应用的 I/O 性能瓶颈？”以及话题 `ebpf`、`Linux 内核`，公开文章页与问题页 QA 确认原标题、完整正文、18 个正文标题、20 个代码块、1 个表格、源码链接和参考资料正常。
 - [ ] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/52-fsession-latency/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/52-fsession-latency/README.md`。

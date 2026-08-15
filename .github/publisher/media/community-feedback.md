@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-14
+
+- The [TCP quarantine LinkedIn post](https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/) reached 2,644 impressions, 69 reactions, 2 comments, and 2 reposts about three days after publication. Its two-sentence text, eunomia.dev link, and preview card remain intact; the only reader comment is the already-answered LoongFire integration note, so no new response is due. The [Zhihu copy](https://zhuanlan.zhihu.com/p/2068597605345531007) remains complete at 10 endorsements with no comments; saves were unavailable on the current public surface rather than treated as zero. Revisit either item only after a new technical comment, citation, or material metric change.
+
 ### 2026-08-11
 
 - The TCP quarantine tutorial remains intact on [Zhihu](https://zhuanlan.zhihu.com/p/2068597605345531007), [Juejin](https://juejin.cn/post/7671185597861675008), [Medium](https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4), and [DEV](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld). Zhihu rose from 9 endorsements and 15 saves to 10 and 17 with no comment; Juejin shows 21 reads and no comment, DEV shows no reaction, comment, or save, and Medium exposes no usable public response count. The new [LinkedIn share](https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/) is public with its two-sentence text, canonical short-link destination, and preview card intact; comments and metrics are unavailable on the signed-out surface. Exact-title search again surfaced eunomia.dev, the known Medium copy, and a Google AI Overview citing eunomia.dev, but no independent discussion.

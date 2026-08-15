@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-05",
+  "last_checked": "2026-08-14",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -25,6 +25,13 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-14",
+      "checked_via": "chrome_visible_markdown_import_publish_and_public_article_and_question_page_dom_qa",
+      "article_url": "https://zhuanlan.zhihu.com/p/2071960422765310563",
+      "question_url": "https://www.zhihu.com/question/1964291483671717010",
+      "notes": "Published through the normal visible Zhihu Markdown-import and editor UI with the source title and substantive body preserved. Selected topics ebpf and Linux 内核. Public article and selected question-page QA confirmed the exact title, complete body, 18 body headings, 20 code blocks, 1 table, source and reference links, no inline content images, and no failure placeholders. No Zhihu API or hidden endpoint was used."
+    },
     {
       "checked_at": "2026-08-05",
       "checked_via": "chrome_visible_markdown_import_publish_and_public_page_dom_qa",
@@ -70,6 +77,15 @@
     }
   ],
   "published": [
+    {
+      "id": "zhihu-2071960422765310563",
+      "status": "confirmed",
+      "title": "eBPF 教程：使用 fsession 追踪慢速 vfs_read 调用",
+      "url": "https://zhuanlan.zhihu.com/p/2071960422765310563",
+      "source_path": "docs/tutorials/52-fsession-latency/README.zh.md",
+      "checked_via": "chrome_visible_markdown_import_publish_and_public_article_and_question_page_dom_qa",
+      "notes": "Published 2026-08-14 with the source title and substantive body unchanged. Selected question 在 Linux 环境下，如何有效诊断和优化高并发应用的 I/O 性能瓶颈？ and topics ebpf and Linux 内核. Public article and question-page QA confirmed 18 body headings, 20 code blocks, 1 table, source and reference links, no inline content images, and no failure placeholders."
+    },
     {
       "id": "zhihu-2068597605345531007",
       "status": "confirmed",
