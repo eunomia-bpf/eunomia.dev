@@ -2,7 +2,7 @@ site_name: eunomia
 repo_url: https://github.com/eunomia-bpf/eunomia.dev
 site_url: https://eunomia.dev
 copyright: Copyright (c) 2026 Eunomia Labs, Inc.
-site_description: 'Open-source eBPF infrastructure for userspace runtime extension, GPU tracing, AI agent observability, and hands-on Linux systems tutorials.'
+site_description: 'Open-source systems research community working on eBPF, programmable runtimes, AI agent observability and safety, GPU systems, and practical systems tooling.'
 remote_branch: docs
 edit_uri: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
 theme:
@@ -555,32 +555,32 @@ extra:
   home:
     hero:
       kicker:
-        en: Open-source infrastructure
-        zh: 开源基础设施
+        en: Open-source systems research community
+        zh: 开源系统研究社区
       title:
         en: Eunomia
         zh: Eunomia
       summary:
-        en: Open-source agent-native eBPF runtime infrastructure.
-        zh: 面向 AI Agent 的开源 eBPF 运行时基础设施。
+        en: We build and study programmable runtime systems for eBPF, AI agents, GPUs, and modern systems infrastructure.
+        zh: 我们围绕 eBPF、AI Agent、GPU 与现代系统基础设施构建并研究可编程运行时系统。
       primary_cta:
         en: GitHub
         zh: GitHub
       primary_href: https://github.com/eunomia-bpf
       secondary_cta:
-        en: Tutorials
-        zh: 教程
-      secondary_href: /tutorials/
+        en: Research
+        zh: 研究
+      secondary_href: /research/
       tertiary_cta:
         en: Projects
         zh: 项目
       tertiary_href: /projects/
     capabilities_title:
-      en: What Eunomia Provides
-      zh: Eunomia 提供什么
+      en: Research & Open Source
+      zh: 研究与开源
     capabilities_intro:
-      en: Runtime infrastructure, public resources, and AI agent systems define the work behind Eunomia.
-      zh: Eunomia 的工作集中在 runtime infrastructure、公开资源和 AI agent systems。
+      en: Eunomia brings together research prototypes, maintained open-source systems, and public learning resources around programmable systems.
+      zh: Eunomia 围绕可编程系统，持续发布研究原型、维护开源系统，并整理公开学习资源。
     capabilities:
       - key: runtime-extension
         eyebrow:
@@ -616,8 +616,8 @@ extra:
       en: Projects
       zh: 项目
     projects_intro:
-      en: Open-source platform projects and public resources grouped by how people use them.
-      zh: 按使用方式组织的开源平台项目和公开资源。
+      en: Selected open-source systems, research artifacts, and public resources from the community.
+      zh: 社区中的代表性开源系统、研究产物和公开资源。
     project_groups:
       - key: platform
         title:
