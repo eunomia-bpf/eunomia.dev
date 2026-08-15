@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-15
+
+- The [fsession latency tutorial on Zhihu](https://zhuanlan.zhihu.com/p/2071960422765310563) remains publicly reachable with its title, 18 body headings, 20 code blocks, and table intact. It shows 1 endorsement and no comments, so no response or correction is due. The next Juejin syndication has no exact-title duplicate on the public profile, but publication is blocked because the `Yunwei` Chrome session has expired and redirects the editor to sign-in; do not treat it as published until editor preview and public-page QA pass.
+
 ### 2026-08-14
 
 - The [TCP quarantine LinkedIn post](https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/) reached 2,644 impressions, 69 reactions, 2 comments, and 2 reposts about three days after publication. Its two-sentence text, eunomia.dev link, and preview card remain intact; the only reader comment is the already-answered LoongFire integration note, so no new response is due. The [Zhihu copy](https://zhuanlan.zhihu.com/p/2068597605345531007) remains complete at 10 endorsements with no comments; saves were unavailable on the current public surface rather than treated as zero. Revisit either item only after a new technical comment, citation, or material metric change.
