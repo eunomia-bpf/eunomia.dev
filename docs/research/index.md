@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [How Far Can eBPF Programmability Move Into io_uring?](https://eunomia.dev/research/io-uring-bpf-programmability/)
+
+Current Linux has both per-opcode io_uring BPF request filtering and an eBPF `struct_ops` execution path. This report separates the cBPF admission gate from the eBPF ring-loop control surface, then asks how restrictions, LSM authority, policy generations, provenance, and resource accounting should compose as io_uring absorbs FUSE, zero-copy networking, ublk, and other registered I/O resources.
+
 ### [What Must an eBPF Profiler Track Beyond Threads?](https://eunomia.dev/research/async-ebpf-causal-profiler/)
 
 Async work can leave one thread through `io_uring`, workqueues, runtime tasks, and application-defined resources, so CPU and off-CPU stacks can lose logical attribution even when the samples themselves are accurate. This report develops a typed causal-edge model, a budget that treats topology edges differently from context samples, and a ground-truth benchmark for cross-thread attribution.
