@@ -1,7 +1,7 @@
 ---
 date: 2026-08-14
 title: "How Far Can eBPF Programmability Move Into io_uring?"
-description: "Current Linux has both io_uring request filters and an eBPF struct_ops control path. This report asks how those mechanisms should compose with restrictions, LSM policy, and new I/O objects before io_uring can become a safe programmable runtime boundary."
+description: "Current Linux now exposes cBPF admission and eBPF struct_ops control in io_uring. This report maps capability, authority, lifecycle, and safe composition."
 tags:
   - Daily Report
   - eBPF
