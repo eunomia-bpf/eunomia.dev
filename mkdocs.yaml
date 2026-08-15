@@ -561,8 +561,8 @@ extra:
         en: Eunomia
         zh: Eunomia
       summary:
-        en: Open-source systems for real-world use, plus research on eBPF, programmable runtimes, AI agents, and GPUs.
-        zh: 面向真实场景的开源系统，以及 eBPF、可编程运行时、AI Agent 和 GPU 系统研究。
+        en: Open-source agent-native eBPF runtime infrastructure.
+        zh: 面向 AI Agent 的开源 eBPF 运行时基础设施。
       primary_cta:
         en: GitHub
         zh: GitHub
