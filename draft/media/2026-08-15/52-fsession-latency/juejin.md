@@ -6,11 +6,12 @@ Source path: docs/tutorials/52-fsession-latency/README.zh.md
 Source URL for ledger: https://eunomia.dev/zh/tutorials/52-fsession-latency/
 Project source: https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/52-fsession-latency
 Category: 后端
-Tags: Linux, 开源, 云原生
+Tags: Linux, 云原生
 Media: source contains no inline images; no cover unless Juejin requires one
 Formatting fixes: source H1 is carried by the Juejin title field; no substantive body changes
-Review status: blocked before editor import because the Yunwei Chrome session requires sign-in
-QA state: exact-title duplicate check passed on the public profile; editor preview, publication, and public-page QA remain pending
+Staged URL: https://juejin.cn/spost/7673940698534232064
+Review status: pending
+QA state: exact-title duplicate check, editor preview, submission, and staged-page QA passed; the staged page shows 审核中, so public-page QA remains pending
 -->
 
 # eBPF 教程：使用 fsession 追踪慢速 vfs_read 调用

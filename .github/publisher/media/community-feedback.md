@@ -22,7 +22,7 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ### 2026-08-15
 
-- The [fsession latency tutorial on Zhihu](https://zhuanlan.zhihu.com/p/2071960422765310563) remains publicly reachable with its title, 18 body headings, 20 code blocks, and table intact. It shows 1 endorsement and no comments, so no response or correction is due. The next Juejin syndication has no exact-title duplicate on the public profile, but publication is blocked because the `Yunwei` Chrome session has expired and redirects the editor to sign-in; do not treat it as published until editor preview and public-page QA pass.
+- The [fsession latency tutorial on Zhihu](https://zhuanlan.zhihu.com/p/2071960422765310563) remains publicly reachable with its title, 18 body headings, 20 code blocks, and table intact. It shows 1 endorsement and no comments, so no response or correction is due. The Juejin syndication has no exact-title duplicate and was submitted through the authenticated `Yunwei` Chrome editor; its [staged page](https://juejin.cn/spost/7673940698534232064) passed title, structure, code, table, source-link, and reference-link QA but remains `审核中`, so it is not yet counted as public.
 
 ### 2026-08-14
 

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-07",
+  "last_checked": "2026-08-15",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -99,6 +99,14 @@
       "review_status": "confirmed",
       "visible_comments": 0,
       "notes": "The visible authored-profile search found no exact-title or same-source duplicate. Submitted tutorial 51 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; tags Linux, 开源, 安全. The source H1 is carried by the title field and the remaining body matches the source without substantive changes. Editor preview, staged-page QA, and public-page QA confirmed the exact title, 15 body headings, nine code blocks, one table with seven rows, six source links, no source image placeholders, and zero comments. The staged page initially showed 审核中, then redirected to the public /post URL with the marker removed. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-08-15",
+      "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_and_staged_page_dom_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7673940698534232064",
+      "review_status": "pending",
+      "notes": "The visible authored-profile search found no exact-title duplicate. Submitted tutorial 52 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; visible staged-page tags Linux and 云原生. The source H1 is carried by the title field and the remaining body matches the source without substantive changes. The staged review page shows the exact title, 18 body headings, 20 code blocks, one table, source and reference links, and no loading-error marker. It remains 审核中, so no public article URL or confirmed published record is claimed. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
