@@ -131,7 +131,7 @@ test("home page data keeps markdown metadata but leaves layout to React", async 
   const expectedRecentPosts = getBlogEntriesForLocale("en").slice(0, 3);
   const expectedRecentPostsZh = getBlogEntriesForLocale("zh").slice(0, 3);
   const homeDescription =
-    "Open-source eBPF systems research, userspace runtime tooling, AI-assisted tracing, and runnable Linux observability documentation.";
+    "An open-source systems community building production-oriented systems and advancing research on eBPF, programmable runtimes, AI agents, GPU systems, and practical systems tooling.";
 
   assert.equal(home.description, homeDescription);
   assert.notEqual(home.description, home.title);
@@ -257,7 +257,6 @@ test("home project cards are sourced from mkdocs config", () => {
 
   const projectKeys = new Set(home.projects.map((project) => project.key));
 
-  // Every group references only real projects, and no group is empty.
   for (const group of home.projectGroups) {
     assert.ok(group.projectKeys.length > 0, `group ${group.key} has no projects`);
     for (const key of group.projectKeys) {
@@ -265,7 +264,6 @@ test("home project cards are sourced from mkdocs config", () => {
     }
   }
 
-  // Every project is well-formed and bilingual, with usable links.
   for (const project of home.projects) {
     assert.ok(project.key.length > 0 && project.href.length > 0, `project ${project.key} missing key/href`);
     assert.ok(project.title.length > 0, `project ${project.key} missing title`);
@@ -702,8 +700,6 @@ test("docPathToRoute keeps legacy blog routes stable across locales", () => {
 test("listSitemapRoutes keeps section routes but excludes noindex'd legacy blog routes", () => {
   const rawRoutes = listSitemapRoutes();
   const routes = new Set(rawRoutes);
-  // Legacy /blogs/** pages are served with robots: noindex, so they must not
-  // appear in the sitemap (see isSitemapExcludedRoute).
   assert.ok(!routes.has("/blogs/bpftime/"));
   assert.ok(!routes.has("/zh/blogs/bpftime/"));
   assert.ok(routes.has("/eunomia-bpf/setup/build/"));
@@ -1000,7 +996,6 @@ test("static metadata generation emits feed, sitemap, robots, and shared OG asse
     assert.match(sitemap, /<loc>https:\/\/eunomia\.dev\//);
     assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/GPTtrace\/agentsight\//);
     assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/zh\/GPTtrace\/agentsight\//);
-    // Legacy noindex'd /blogs/** URLs must be excluded from the sitemap.
     assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/blogs\//);
     assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/zh\/blogs\//);
     assert.match(fs.readFileSync(path.join(publicDir, "robots.txt"), "utf8"), /Sitemap: https:\/\/eunomia\.dev\/sitemap\.xml/);
