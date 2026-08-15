@@ -131,7 +131,7 @@ test("home page data keeps markdown metadata but leaves layout to React", async 
   const expectedRecentPosts = getBlogEntriesForLocale("en").slice(0, 3);
   const expectedRecentPostsZh = getBlogEntriesForLocale("zh").slice(0, 3);
   const homeDescription =
-    "Open-source eBPF systems research, userspace runtime tooling, AI-assisted tracing, and runnable Linux observability documentation.";
+    "An open-source systems community building production-oriented systems and advancing research on eBPF, programmable runtimes, AI agents, GPU systems, and practical systems tooling.";
 
   assert.equal(home.description, homeDescription);
   assert.notEqual(home.description, home.title);
