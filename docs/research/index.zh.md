@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 可编程能力能在 io_uring 里面走多远？](https://eunomia.dev/zh/research/io-uring-bpf-programmability/)
+
+当前 Linux 的 io_uring 同时出现了按 opcode 的 BPF 请求过滤和 eBPF `struct_ops` 执行路径。本文区分 cBPF admission gate 与 eBPF ring-loop control surface，并进一步分析 restriction、LSM 权限、policy generation、provenance 和资源归属怎样组合，尤其是在 io_uring 开始承载 FUSE、zero-copy networking、ublk 等注册 I/O 资源之后。
+
 ### [异步系统里，eBPF Profiler 还要追踪什么？](https://eunomia.dev/zh/research/async-ebpf-causal-profiler/)
 
 异步工作会经过 `io_uring`、workqueue、runtime task 与 application-defined resource 离开原来的线程，因此即使 CPU 与 off-CPU sample 本身准确，也可能失去逻辑归属。本文提出 typed causal-edge 模型、把 topology edge 与 context sample 分开预算的采集方法，以及用于跨线程 attribution 的 ground-truth benchmark。
