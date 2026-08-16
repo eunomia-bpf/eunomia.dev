@@ -1,8 +1,8 @@
 __turbopack_load_page_chunks__("/search", [
   "static/chunks/06r61a45re-f_.js",
-  "static/chunks/0mo6utr77.vk3.js",
+  "static/chunks/0lr5mmrzro406.js",
   "static/chunks/0zquj2nnvy_i4.js",
   "static/chunks/0sr-f5pi-o22l.js",
   "static/chunks/0dw3opq7_kowl.js",
-  "static/chunks/turbopack-09pl8hixj~m0k.js"
+  "static/chunks/turbopack-14du7-p7spexp.js"
 ])
