@@ -72,12 +72,14 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Continue the **eBPF Runtime, Extensibility, and Composition** series. After the
-   async causal-profiling report, prefer the next mechanism question: which new
-   Linux I/O hooks and programmable interfaces around `io_uring`, file access,
-   scheduling, caching, and fast paths make eBPF mechanisms practical that older
-   hook sets could not implement cleanly.
-2. Keep upcoming reports strongly eBPF-centered until the two existing pure-Agent
-   reports are diluted into the long-term 5–7/10 eBPF and 1–2/10 pure-Agent mix.
+   io_uring programmability report, prefer the remaining mechanism question:
+   where eBPF execution should live across kernel, userspace, NIC/DPU,
+   GPU-adjacent, and device-side targets, including state placement, verifier
+   assumptions, memory visibility, coordination, and observability/control tradeoffs.
+2. Keep pure-Agent reports capped while the archive is small. After the current
+   report the rolling archive is 5 eBPF-centered / 2 pure Agent / 0 adjacent out
+   of 7, so upcoming work should continue to favor eBPF or directly adjacent
+   systems rather than add another pure-Agent report.
 3. Use both verified weekly Search Console and GA4 Drive export sets in every run.
    Keep accumulating history until a complete previous-7-day and 28-day comparison
    can be made without inventing missing dates.
