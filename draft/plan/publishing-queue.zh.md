@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-11。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-16。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -11,12 +11,12 @@
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- Ledger 基线：知乎有 40 个未映射中文源，掘金有 77 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- Ledger 基线：知乎有 39 个未映射中文源，掘金有 75 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
-- Medium 与 DEV 的 BPFix 和 tutorial 50 已完成；tutorial 51–54 以及 AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
+- Medium 与 DEV 的 BPFix 和 tutorial 50–51 已完成；tutorial 52–54 以及 AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
-- 剩余队列：知乎 26 条、掘金 49 条、Medium 9 条、DEV 9 条、LinkedIn 3 条，共 96 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 26 条、掘金 48 条、Medium 9 条、DEV 9 条、LinkedIn 3 条，共 95 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -36,7 +36,7 @@
 - [x] `排队` DEV：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-10 已发布：<https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld>；公开页完整滚动 QA 确认原标题、4 个标签、完整正文、9 个代码块、1 个表格、Requirements、Summary、References 和源码链接正常。
 - [x] `排队` LinkedIn：`docs/tutorials/51-tcp-quarantine/README.md`。2026-08-11 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/>；公开页两句正文、站内外公开可见范围、LinkedIn 短链落地与 eunomia.dev 教程预览卡片（标题、图片、域名）QA 已通过，ledger 已记录为 `confirmed`。
 - [x] `排队` 知乎：`docs/tutorials/52-fsession-latency/README.zh.md`。2026-08-14 已发布：<https://zhuanlan.zhihu.com/p/2071960422765310563>；选择问题“在 Linux 环境下，如何有效诊断和优化高并发应用的 I/O 性能瓶颈？”以及话题 `ebpf`、`Linux 内核`，公开文章页与问题页 QA 确认原标题、完整正文、18 个正文标题、20 个代码块、1 个表格、源码链接和参考资料正常。
-- [ ] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。2026-08-15 已提交：<https://juejin.cn/spost/7673940698534232064>；当前 `审核中`，原标题、18 个正文标题、20 个代码块、1 个表格、源码与参考链接 QA 通过，待公开后再确认完成。
+- [x] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。2026-08-15 已提交，2026-08-16 确认公开：<https://juejin.cn/post/7673940698534232064>；公开页原标题、18 个正文标题、20 个代码块、1 个表格、源码与参考链接、`Linux` 和 `云原生` 标签以及 0 条评论 QA 通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` Medium：`docs/tutorials/52-fsession-latency/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/52-fsession-latency/README.md`。
 - [ ] `排队` LinkedIn：`docs/tutorials/52-fsession-latency/README.md`。

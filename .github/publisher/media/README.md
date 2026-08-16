@@ -1,6 +1,6 @@
 # Media Publishing Notes
 
-Last checked: 2026-08-02
+Last checked: 2026-08-16
 
 This folder records cross-platform publishing state, public-page QA, and
 community feedback for eunomia.dev content.

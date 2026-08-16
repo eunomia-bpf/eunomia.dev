@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-15",
+  "last_checked": "2026-08-16",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,16 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-16",
+      "checked_via": "chrome_visible_post_and_latest_comments",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649",
+      "visible_impressions": 494,
+      "visible_reactions": 4,
+      "visible_comments": 1,
+      "visible_reposts": 1,
+      "notes": "About 21 hours after publication, the exact post body, GitHub link, and AgentSight repository preview card remained intact. The only visible comment was a low-information emoji and already had an author response, so no follow-up is due."
+    },
     {
       "checked_at": "2026-07-22",
       "checked_via": "in_app_browser_visible_post_and_latest_comments",

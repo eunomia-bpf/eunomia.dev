@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-16
+
+- The [AgentSight macOS and Windows LinkedIn update](https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649) remains intact about 21 hours after publication, with 494 visible impressions, 4 reactions, 1 comment, and 1 repost. The only comment is a low-information emoji and already has an author response, so no follow-up is due; exact-title and repository searches found no independent new discussion. The [fsession latency tutorial on Juejin](https://juejin.cn/post/7673940698534232064) has passed review and is now public with the exact title, complete article structure, source and reference links, and zero comments.
+
 ### 2026-08-15
 
 - The [fsession latency tutorial on Zhihu](https://zhuanlan.zhihu.com/p/2071960422765310563) remains publicly reachable with its title, 18 body headings, 20 code blocks, and table intact. It shows 1 endorsement and no comments, so no response or correction is due. The Juejin syndication has no exact-title duplicate and was submitted through the authenticated `Yunwei` Chrome editor; its [staged page](https://juejin.cn/spost/7673940698534232064) passed title, structure, code, table, source-link, and reference-link QA but remains `审核中`, so it is not yet counted as public.

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-15",
+  "last_checked": "2026-08-16",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -105,11 +105,22 @@
       "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_and_staged_page_dom_qa",
       "profile_url": "https://juejin.cn/user/4288563097635144/posts",
       "staged_url": "https://juejin.cn/spost/7673940698534232064",
-      "review_status": "pending",
-      "notes": "The visible authored-profile search found no exact-title duplicate. Submitted tutorial 52 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; visible staged-page tags Linux and 云原生. The source H1 is carried by the title field and the remaining body matches the source without substantive changes. The staged review page shows the exact title, 18 body headings, 20 code blocks, one table, source and reference links, and no loading-error marker. It remains 审核中, so no public article URL or confirmed published record is claimed. No Juejin API or hidden endpoint was used."
+      "article_url": "https://juejin.cn/post/7673940698534232064",
+      "review_status": "confirmed",
+      "visible_comments": 0,
+      "notes": "The visible authored-profile search found no exact-title duplicate. Submitted tutorial 52 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; tags Linux and 云原生. The source H1 is carried by the title field and the remaining body matches the source without substantive changes. The staged review page initially showed 审核中; on 2026-08-16 the public article became reachable and normal visible public-page QA confirmed the exact title, 18 body headings, 20 code blocks, one table, nine article links including source and references, no loading-error marker, and zero comments. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
+    {
+      "id": "juejin-7673940698534232064",
+      "status": "confirmed",
+      "title": "eBPF 教程：使用 fsession 追踪慢速 vfs_read 调用",
+      "url": "https://juejin.cn/post/7673940698534232064",
+      "source_path": "docs/tutorials/52-fsession-latency/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_dom_qa",
+      "notes": "Submitted on 2026-08-15 and confirmed public on 2026-08-16. Category 后端; tags Linux and 云原生. The visible article preserves the exact title and substantively unchanged body with 18 body headings, 20 code blocks, one table, nine article links including source and references, no loading-error marker, and zero comments."
+    },
     {
       "id": "juejin-7671185597861675008",
       "status": "confirmed",
