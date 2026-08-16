@@ -95,11 +95,16 @@ upgrade, safety, performance, and deployment boundaries.
    handoff edges, an edge-versus-context measurement budget, and a ground-truth
    causal-attribution benchmark across `io_uring`, workqueues, runtime tasks, and
    application-defined resources.
-5. Preferred next question: which new Linux I/O hooks and programmable interfaces
-   make previously impractical eBPF mechanisms possible, and what correctness,
-   portability, and performance contracts those hooks still lack.
+5. `2026-08-15`: `/research/io-uring-bpf-programmability/` separated the current
+   per-opcode cBPF admission path from the eBPF `io_uring_bpf_ops` execution-control
+   path, then developed a typed capability contract, versioned ring policy
+   generations, explicit provenance, and a comparative control-boundary benchmark.
+6. Preferred next question: where eBPF execution should live across kernel,
+   userspace, NIC/DPU, GPU-adjacent, and device-side targets, and what state,
+   verifier, memory-visibility, coordination, and observability contracts are
+   required when execution crosses those boundaries.
 
-The series now has four substantial reports. The existing Daily Report hub already
+The series now has five substantial reports. The existing Daily Report hub already
 exposes the sequence, while report-level acquisition and navigation evidence is
 still too young to justify another public navigation surface. Revisit a dedicated
 series hub when evidence shows that it improves retrieval; do not create a thin
