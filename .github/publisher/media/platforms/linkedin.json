@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-11",
+  "last_checked": "2026-08-15",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -42,6 +42,15 @@
     }
   ],
   "published": [
+    {
+      "id": "linkedin-7494569268571803649",
+      "status": "confirmed",
+      "date": "2026-08-15",
+      "title": "AgentSight now works on macOS and Windows, too",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649",
+      "checked_via": "normal_visible_public_post",
+      "notes": "Published from draft/media/2026-08-15/agentsight-cross-platform/linkedin.md. Public-page QA confirmed the exact body, public visibility, GitHub link, and AgentSight repository preview card. Project post, so no configured blog/tutorial source_path applies."
+    },
     {
       "id": "linkedin-7493164412321812480",
       "status": "confirmed",
