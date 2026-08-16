@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [eBPF 程序应如何在多个网络 hook 之间携带每包元数据？](/zh/ebpf-qa/2026-08-16-cross-hook-packet-metadata/)
 - [Linux VM eBPF 后端应如何支持 macOS 和 Windows，同时不误报宿主机覆盖范围？](/zh/ebpf-qa/2026-08-15-cross-platform-ebpf-linux-vm-backend/)
 - [OpenInference 应如何与 OpenTelemetry 的 GenAI 语义约定共存？](/zh/ebpf-qa/2026-08-13-openinference-opentelemetry-genai/)
 - [为什么 `scxctl` 接受了调度器切换命令，服务却仍未按预期启动？](/zh/ebpf-qa/2026-08-11-scxctl-scheduler-arguments/)
