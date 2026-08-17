@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Where Should eBPF Run in a Heterogeneous System?](https://eunomia.dev/research/heterogeneous-ebpf-execution-placement/)
+
+Kernel, userspace, SmartNIC, and GPU-side runtimes can all be valid homes for eBPF logic, but they do not expose the same events, state, memory, authority, or verifier environment. This report develops a placement-aware target manifest, generation-scoped state ownership, and a ground-truth benchmark for choosing execution location without silently changing policy semantics.
+
 ### [How Far Can eBPF Programmability Move Into io_uring?](https://eunomia.dev/research/io-uring-bpf-programmability/)
 
 Current Linux has both per-opcode io_uring BPF request filtering and an eBPF `struct_ops` execution path. This report separates the cBPF admission gate from the eBPF ring-loop control surface, then asks how restrictions, LSM authority, policy generations, provenance, and resource accounting should compose as io_uring absorbs FUSE, zero-copy networking, ublk, and other registered I/O resources.

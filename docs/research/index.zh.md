@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [异构系统里的 eBPF 到底应该运行在哪里？](https://eunomia.dev/zh/research/heterogeneous-ebpf-execution-placement/)
+
+内核、用户态、SmartNIC 与 GPU-side runtime 都可能是 eBPF 的合法执行位置，但它们暴露的事件、状态、内存、权限与 verifier 环境并不相同。本文提出 placement-aware target manifest、以 generation 为边界的状态归属，以及用于选择执行位置并检查语义是否保持一致的 ground-truth benchmark。
+
 ### [eBPF 可编程能力能在 io_uring 里面走多远？](https://eunomia.dev/zh/research/io-uring-bpf-programmability/)
 
 当前 Linux 的 io_uring 同时出现了按 opcode 的 BPF 请求过滤和 eBPF `struct_ops` 执行路径。本文区分 cBPF admission gate 与 eBPF ring-loop control surface，并进一步分析 restriction、LSM 权限、policy generation、provenance 和资源归属怎样组合，尤其是在 io_uring 开始承载 FUSE、zero-copy networking、ublk 等注册 I/O 资源之后。

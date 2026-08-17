@@ -75,8 +75,12 @@ A daily report must still provide:
 Working question: **What mechanisms are still missing if eBPF is treated as a
 programmable runtime substrate rather than only a kernel observability feature?**
 
-This series should connect kernel and userspace execution, composition, state,
-upgrade, safety, performance, and deployment boundaries.
+This series connects kernel and userspace execution, composition, state,
+upgrade, safety, asynchronous attribution, programmable I/O, and heterogeneous
+execution placement. The `2026-08-17` report reaches the normal six-report series
+boundary. The next scheduled run should promote eBPF Observability and Profiling
+to active before selecting its report rather than extending this sequence by
+default.
 
 ### Published progress
 
@@ -99,73 +103,39 @@ upgrade, safety, performance, and deployment boundaries.
    per-opcode cBPF admission path from the eBPF `io_uring_bpf_ops` execution-control
    path, then developed a typed capability contract, versioned ring policy
    generations, explicit provenance, and a comparative control-boundary benchmark.
-6. Preferred next question: where eBPF execution should live across kernel,
-   userspace, NIC/DPU, GPU-adjacent, and device-side targets, and what state,
-   verifier, memory-visibility, coordination, and observability contracts are
-   required when execution crosses those boundaries.
+6. `2026-08-17`: `/research/heterogeneous-ebpf-execution-placement/` separated
+   backend compatibility from execution placement and developed a target manifest,
+   generation-scoped state ownership, and a ground-truth placement/provenance
+   benchmark across kernel, userspace, NIC/DPU, and GPU-side targets.
 
-The series now has five substantial reports. The existing Daily Report hub already
-exposes the sequence, while report-level acquisition and navigation evidence is
-still too young to justify another public navigation surface. Revisit a dedicated
-series hub when evidence shows that it improves retrieval; do not create a thin
-hub solely because the series crossed a count threshold.
-
-### Preferred sequence
-
-1. **What is still missing for first-class userspace eBPF?**
-   - Compare kernel eBPF, uprobes, DBI, language runtimes, and bpftime-style
-     execution.
-   - Focus on attach semantics, state, compatibility, safety, and which workloads
-     genuinely benefit from moving execution out of the kernel.
-
-2. **How should multiple independent eBPF extensions share one hook safely?**
-   - Study ordering, isolation, attribution, state sharing, resource accounting,
-     and conflicting policies.
-   - Compare dispatcher chains, tail calls, trampolines, vBPF-style approaches,
-     and explicit composition contracts.
-
-3. **Can a stateful eBPF application be upgraded transactionally?**
-   - Go beyond replacing one program pointer.
-   - Analyze coordinated changes to programs, links, maps, pinned state, userspace
-     controllers, and rollback after partial failure.
-
-4. **What would an asynchronous profiler built around modern eBPF look like?**
-   - Cover syscalls, async runtimes, io_uring, work queues, task handoff, causality,
-     sampling bias, and application-defined resources.
-   - Ask which causal edges can be reconstructed online with acceptable overhead.
-
-5. **Which new Linux I/O hooks make previously impractical eBPF mechanisms
-   possible?**
-   - Study recent io_uring and related programmable I/O interfaces, file access,
-     policy, caching, scheduling, and fast-path control.
-   - Prefer concrete mechanisms that could not be implemented cleanly with older
-     hook sets.
-
-6. **Where should eBPF execution live in heterogeneous systems?**
-   - Compare kernel, userspace, DPU/NIC, GPU-adjacent, and device-side execution.
-   - Investigate state placement, verifier assumptions, memory visibility,
-     cross-device coordination, and observability/control tradeoffs.
-
-These are research questions, not fixed titles. Final titles and claims must come
-from the day's evidence.
+The Daily Report index already exposes the sequence. Report-level acquisition and
+navigation evidence is still too young to justify a dedicated public series hub.
+Revisit that decision only when evidence shows a retrieval benefit.
 
 ## Queued series — eBPF Observability and Profiling
 
 Working question: **Which important performance and correctness questions remain
 unanswerable with today's eBPF observability stack?**
 
+This is the preferred next series after the runtime/extensibility sequence reaches
+six reports. Its preferred first question is **page-level memory attribution**:
+how to distinguish allocation from pages that were actually touched, faulted,
+reclaimed, migrated, or responsible for memory bandwidth while preserving
+provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
+
 Candidate topics:
 
-1. async and syscall causal profiling across thread and process handoff;
-2. page-level memory attribution: RSS, touched versus untouched allocation,
-   mmap/brk provenance, page faults, reclaim, and memory bandwidth;
-3. sampling theory for profilers: phase locking, randomized sampling, bias, and
+1. page-level memory attribution: RSS, touched versus untouched allocation,
+   `mmap`/`brk` provenance, page faults, reclaim, migration, and memory bandwidth;
+2. sampling theory for profilers: phase locking, randomized sampling, bias, and
    confidence intervals;
-4. always-on semantic compression that preserves diagnostic evidence instead of
+3. always-on semantic compression that preserves diagnostic evidence instead of
    raw event volume;
-5. application-defined resource profiling that combines static discovery,
+4. application-defined resource profiling that combines static discovery,
    runtime eBPF evidence, and online validation;
-6. causal profiling for GPU host-side bottlenecks and megakernel execution.
+5. causal profiling for GPU host-side bottlenecks and megakernel execution;
+6. revisit async and syscall causal profiling only when new mechanism or
+   evaluation evidence materially extends the published causal-profiler report.
 
 ## Queued series — eBPF Networking and Security
 

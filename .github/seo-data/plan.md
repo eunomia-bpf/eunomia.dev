@@ -71,15 +71,17 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Continue the **eBPF Runtime, Extensibility, and Composition** series. After the
-   io_uring programmability report, prefer the remaining mechanism question:
-   where eBPF execution should live across kernel, userspace, NIC/DPU,
-   GPU-adjacent, and device-side targets, including state placement, verifier
-   assumptions, memory visibility, coordination, and observability/control tradeoffs.
+1. Start the **eBPF Observability and Profiling** series after completing the
+   six-report Runtime, Extensibility, and Composition sequence. Prefer the next
+   mechanism question on page-level memory attribution: distinguish reserved or
+   allocated memory from pages actually touched, faulted, reclaimed, migrated, or
+   responsible for bandwidth, while preserving `mmap`/`brk`, allocator, runtime,
+   and process provenance.
 2. Keep pure-Agent reports capped while the archive is small. After the current
-   report the rolling archive is 5 eBPF-centered / 2 pure Agent / 0 adjacent out
-   of 7, so upcoming work should continue to favor eBPF or directly adjacent
-   systems rather than add another pure-Agent report.
+   heterogeneous-placement report merges, the rolling archive becomes 6
+   eBPF-centered / 2 pure Agent / 0 adjacent out of 8, so the next report should
+   remain eBPF-centered or directly adjacent rather than add another pure-Agent
+   report.
 3. Use both verified weekly Search Console and GA4 Drive export sets in every run.
    Keep accumulating history until a complete previous-7-day and 28-day comparison
    can be made without inventing missing dates.
@@ -91,9 +93,10 @@ priorities that can guide a later daily run belong below.
 7. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside the approved eBPF and adjacent
    systems series.
-8. Revisit a dedicated public hub for the active eBPF series only after report-level
-   acquisition or navigation evidence shows that it would improve retrieval beyond
-   the existing Daily Report index.
+8. Revisit a dedicated public hub for the completed eBPF runtime series only after
+   report-level acquisition or navigation evidence shows that it would improve
+   retrieval beyond the existing Daily Report index.
 9. Migrate the consuming SEO contract before moving the pinned `seo-skills`
    submodule to a newer upstream layout that removed interfaces this repository
-   still calls.
+   still calls. Upstream movement alone is not evidence that a pointer-only bump
+   is safe.
