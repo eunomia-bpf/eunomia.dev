@@ -70,15 +70,17 @@ A daily report must still provide:
 - After a series has at least three strong reports, consider a public series hub
   and stronger internal linking. Do not create thin hub pages in advance.
 
-## Completed series — eBPF Runtime, Extensibility, and Composition
+## Active series — eBPF Runtime, Extensibility, and Composition
 
 Working question: **What mechanisms are still missing if eBPF is treated as a
 programmable runtime substrate rather than only a kernel observability feature?**
 
-This series connected kernel and userspace execution, composition, state,
+This series connects kernel and userspace execution, composition, state,
 upgrade, safety, asynchronous attribution, programmable I/O, and heterogeneous
-execution placement. It reached the normal six-report series boundary on
-`2026-08-17`.
+execution placement. The `2026-08-17` report reaches the normal six-report series
+boundary. The next scheduled run should promote eBPF Observability and Profiling
+to active before selecting its report rather than extending this sequence by
+default.
 
 ### Published progress
 
@@ -110,17 +112,16 @@ The Daily Report index already exposes the sequence. Report-level acquisition an
 navigation evidence is still too young to justify a dedicated public series hub.
 Revisit that decision only when evidence shows a retrieval benefit.
 
-## Active series — eBPF Observability and Profiling
+## Queued series — eBPF Observability and Profiling
 
 Working question: **Which important performance and correctness questions remain
 unanswerable with today's eBPF observability stack?**
 
-The runtime/extensibility series is complete at six reports. The next scheduled
-run should start here and remain eBPF-centered. The preferred next question is
-**page-level memory attribution**: how to distinguish allocation from pages that
-were actually touched, faulted, reclaimed, migrated, or responsible for memory
-bandwidth, while preserving provenance across `mmap`, `brk`, allocator and
-runtime boundaries.
+This is the preferred next series after the runtime/extensibility sequence reaches
+six reports. Its preferred first question is **page-level memory attribution**:
+how to distinguish allocation from pages that were actually touched, faulted,
+reclaimed, migrated, or responsible for memory bandwidth while preserving
+provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
 
 Candidate topics:
 
