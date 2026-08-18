@@ -8,7 +8,7 @@
 - External daily scheduler: configured and enabled
 - Scheduler timing: daily, flexible around 08:00 in `America/Los_Angeles`
 - Last completed daily run: `2026-08-17`
-- Last verified data window: Search Console rows through `2026-08-15`; GA4 weekly organic landing-page export through `2026-08-16`
+- Last verified data window: Search Console rows through `2026-08-15`; GA4 weekly organic landing-page files through `2026-08-16` with the newest aggregate provisional under the three-day finalization lag
 - Latest daily record: `2026-08-18`
 - Last completed public-change pull request: `#161`
 - Last verified production deployment from a daily run: `Deploy Static App` run `32043791981` for squash commit `78e27707fc63065afa7fa19a25f363a39fcba20a`
@@ -45,7 +45,7 @@ the active series; page-level memory attribution is its first report.
 - Public GitHub repository evidence: available; current brief observes 97 active non-fork repositories, 9,764 stars, 1,280 forks, and 282 open issue/PR records across the portfolio snapshot
 - DEV publication surface: 60 articles, 43 public reactions, and 4 comments in the current public-safe brief
 - Public web and primary-source evidence: available
-- Google Analytics 4: weekly organic landing-page exports available through `2026-08-16`
+- Google Analytics 4: weekly organic landing-page files are available through `2026-08-16`; the newest `2026-08-10` through `2026-08-16` aggregate is provisional on `2026-08-18` because it includes a day inside the configured finalization lag and has no date dimension for trimming
 - Google Search Console: weekly export sets available through the week ending `2026-08-16`; finalized date rows currently end on `2026-08-15`
 - Cloudflare: disabled by repository configuration
 
@@ -65,14 +65,17 @@ unavailable because the `2026-08-09` date row is absent across the adjacent
 weekly files. The required 28-day comparison is also unavailable rather than
 inferred.
 
-The GA4 organic landing-page export for `2026-08-10` through `2026-08-16`
+The newest GA4 organic landing-page file for `2026-08-10` through `2026-08-16`
 contains **970 sessions** at about **44.95%** session-weighted engagement, versus
-**991 sessions** at about **44.90%** for `2026-08-03` through `2026-08-09`.
-Sessions are about **2.1% lower** while engagement is effectively flat. `(not
-set)` increased from **116** to **134 sessions**; excluding it, sessions declined
-from **875** to **836**, about **4.5%**. This remains a measurement-quality and
-traffic-mix signal, not sufficient evidence for a speculative title, copy, or
-site-structure change.
+**991 sessions** at about **44.90%** in the preceding `2026-08-03` through
+`2026-08-09` export. `(not set)` is **134 versus 116 sessions**; excluding it,
+sessions are **836 versus 875**. These newest figures are directional only, not a
+finalized week-over-week trend, because `2026-08-16` is still inside the
+configured three-day lag and the file has no date dimension for removing that
+day. The latest fully finalized weekly GA4 comparison therefore remains
+`2026-08-03` through `2026-08-09` versus `2026-07-27` through `2026-08-02`.
+None of this is sufficient evidence for a speculative title, copy, measurement,
+or site-structure change.
 
 ## Current technical baseline
 
