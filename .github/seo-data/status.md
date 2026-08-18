@@ -6,19 +6,20 @@
 - Technical SEO subtask: `.github/seo-data/daily-task.md`
 - Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: configured and enabled
+- Scheduler timing: daily, flexible around 08:00 in `America/Los_Angeles`
 - Last completed daily run: `2026-08-17`
 - Last verified data window: Search Console rows through `2026-08-15`; GA4 weekly organic landing-page export through `2026-08-16`
 - Latest daily record: `2026-08-18`
 - Last completed public-change pull request: `#161`
-- Last verified production deployment from a daily run: `Deploy Static App` for squash commit `78e27707fc63065afa7fa19a25f363a39fcba20a`
+- Last verified production deployment from a daily run: `Deploy Static App` run `32043791981` for squash commit `78e27707fc63065afa7fa19a25f363a39fcba20a`
 - Current daily branch: `daily/2026-08-18-page-memory-attribution`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
 PR `#161` is fully closed out. It squash-merged as
-`78e27707fc63065afa7fa19a25f363a39fcba20a`; its exact commit passed the
-repository validation and production `Deploy Static App` workflow, and the
-merged-PR closeout records bilingual production verification. The published
-heterogeneous-placement report completed the six-report **eBPF Runtime,
+`78e27707fc63065afa7fa19a25f363a39fcba20a`; exact-commit `Validate SEO Operations`
+run `32043791965` and production `Deploy Static App` run `32043791981` succeeded,
+and the merged-PR closeout records bilingual production verification. The
+published heterogeneous-placement report completed the six-report **eBPF Runtime,
 Extensibility, and Composition** sequence.
 
 ## Current Daily Report mix
