@@ -89,7 +89,19 @@ provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
    benchmark spanning reserve-versus-touch, COW, THP, reclaim, refault, and NUMA
    migration.
 
+After this report, the archive is **7 eBPF-centered / 2 pure Agent / 0 adjacent
+out of 9**. The next published report will create the first full ten-report
+window. It therefore must be an **adjacent-systems report that is not classified
+as eBPF-centered or pure Agent**, producing 7 eBPF / 2 Agent / 1 adjacent out of
+10. Do not force an active-series question into the adjacent bucket merely to
+satisfy the ratio. If the strongest next Observability and Profiling candidate
+still has eBPF as an essential mechanism, defer it for one run and select a real
+adjacent-systems question from the approved roadmap.
+
 ### Preferred next questions
+
+These remain the preferred questions inside this active series once the rolling
+mix permits another eBPF-centered report:
 
 1. sampling theory for profilers: phase locking, randomized sampling, bias, and
    confidence intervals;
@@ -100,6 +112,11 @@ provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
 4. causal profiling for GPU host-side bottlenecks and megakernel execution;
 5. revisit async and syscall causal profiling only when new mechanism or
    evaluation evidence materially extends the published causal-profiler report.
+
+For the immediate ten-report boundary, sampling theory may be selected only if
+its actual central question is a general adjacent profiling problem and eBPF is
+not essential to the mechanism. Otherwise use another approved adjacent-systems
+question and return to this list afterward.
 
 ## Completed series — eBPF Runtime, Extensibility, and Composition
 
