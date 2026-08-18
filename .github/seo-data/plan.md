@@ -52,6 +52,9 @@ durable goals and constraints, not duplicated scheduler instructions.
   the Daily Report may not be skipped.
 - Keep the rolling topic mix compliant and classify by the report's actual central
   mechanism, not by superficial keyword mentions.
+- Do not combine unrelated technical SEO and content work when that makes the
+  daily pull request incoherent; put unrelated durable SEO work in this plan for a
+  focused follow-up.
 - Required and expected CI must pass before a clean final automated self-review
   and squash merge.
 - Every daily report is a public change, so the exact squash commit must deploy
