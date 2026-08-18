@@ -18,19 +18,20 @@ already configured and enabled; it is not a blocker.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder now
-contains two adjacent weekly Search Console and GA4 export sets: `2026-07-27`
-through `2026-08-02` and `2026-08-03` through `2026-08-09`. The newest Search
-Console date export currently has rows through `2026-08-08`; under the configured
-three-day finalization lag, those rows are usable on `2026-08-11`.
+contains three adjacent weekly Search Console and GA4 export sets beginning
+`2026-07-27`, `2026-08-03`, and `2026-08-10`. The newest Search Console date file
+has rows through `2026-08-15`, which is finalized under the configured three-day
+lag on `2026-08-18`.
 
-A complete latest-7-days versus previous-7-days comparison is still unavailable.
-The latest complete finalized seven-day GSC window is `2026-08-02` through
-`2026-08-08`, while its preceding window begins on `2026-07-26`, one day before
-the available history. The 28-day comparison also remains unavailable. The
-newest GA4 landing-page export includes `2026-08-09` and has no date dimension,
-so it cannot be cleanly restricted to the finalized period. GA4 is also limited
-to organic landing-page rows and does not by itself provide complete acquisition,
-conversion, or outbound behavior coverage.
+A complete latest-7-days versus previous-7-days Search Console comparison remains
+unavailable because the `2026-08-09` date row is absent across the adjacent
+weekly exports. The available data supports an equal-duration six-day comparison
+for `2026-08-10` through `2026-08-15` versus `2026-08-03` through `2026-08-08`.
+The 28-day comparison also remains unavailable because the export history is not
+long enough. GA4 landing-page files are weekly aggregates without a date
+dimension, so they are compared only at their source-native weekly granularity.
+They also do not provide complete acquisition, conversion, or outbound behavior
+coverage by themselves.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google exports, live-site evidence, public GitHub evidence, and
