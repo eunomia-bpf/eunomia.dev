@@ -52,9 +52,6 @@ durable goals and constraints, not duplicated scheduler instructions.
   the Daily Report may not be skipped.
 - Keep the rolling topic mix compliant and classify by the report's actual central
   mechanism, not by superficial keyword mentions.
-- Do not combine unrelated technical SEO and content work when that makes the
-  daily pull request incoherent; put unrelated durable SEO work in this plan for a
-  focused follow-up.
 - Required and expected CI must pass before a clean final automated self-review
   and squash merge.
 - Every daily report is a public change, so the exact squash commit must deploy
@@ -71,32 +68,36 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Start the **eBPF Observability and Profiling** series after completing the
-   six-report Runtime, Extensibility, and Composition sequence. Prefer the next
-   mechanism question on page-level memory attribution: distinguish reserved or
-   allocated memory from pages actually touched, faulted, reclaimed, migrated, or
-   responsible for bandwidth, while preserving `mmap`/`brk`, allocator, runtime,
-   and process provenance.
+1. Continue the active **eBPF Observability and Profiling** series after the
+   page-level memory attribution report. Prefer the next distinct mechanism
+   question on profiler sampling theory: phase locking, randomized sampling,
+   bias, variance, and confidence intervals. Use always-on semantic compression
+   or application-defined resource profiling if that question fails the evidence
+   or novelty gate.
 2. Keep pure-Agent reports capped while the archive is small. After the current
-   heterogeneous-placement report merges, the rolling archive becomes 6
-   eBPF-centered / 2 pure Agent / 0 adjacent out of 8, so the next report should
-   remain eBPF-centered or directly adjacent rather than add another pure-Agent
-   report.
-3. Use both verified weekly Search Console and GA4 Drive export sets in every run.
-   Keep accumulating history until a complete previous-7-day and 28-day comparison
-   can be made without inventing missing dates.
+   memory-attribution report merges, the rolling archive becomes **7
+   eBPF-centered / 2 pure Agent / 0 adjacent out of 9**, so the next report should
+   remain eBPF-centered or directly adjacent.
+3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
+   The new `2026-08-10` weekly set is now available. Keep accumulating history
+   until complete previous-7-day and 28-day comparisons can be made without
+   inventing the missing `2026-08-09` Search Console row or earlier history.
 4. Obtain or generate date-by-page or date-by-query Search Console evidence before
    attributing the `2026-08-05` impression spike to a specific page or query family.
-5. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic as technical SEO
-   evidence rather than letting those issues distort content selection.
-6. Add Cloudflare coverage when a supported read-only route is available.
-7. Use search behavior, GitHub activity, primary research, kernel changes, and
+5. Monitor the current Search Console click/CTR decline and homepage/branded
+   softness across another finalized period before changing titles, copy, or site
+   structure; the current movement is not uniform enough to justify a speculative
+   SEO patch.
+6. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic as measurement
+   and technical SEO evidence rather than letting them distort content selection.
+7. Add Cloudflare coverage when a supported read-only route is available.
+8. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside the approved eBPF and adjacent
    systems series.
-8. Revisit a dedicated public hub for the completed eBPF runtime series only after
+9. Revisit a dedicated public hub for the completed eBPF runtime series only after
    report-level acquisition or navigation evidence shows that it would improve
    retrieval beyond the existing Daily Report index.
-9. Migrate the consuming SEO contract before moving the pinned `seo-skills`
-   submodule to a newer upstream layout that removed interfaces this repository
-   still calls. Upstream movement alone is not evidence that a pointer-only bump
-   is safe.
+10. Migrate the consuming SEO contract before moving the pinned `seo-skills`
+    submodule to a newer upstream layout that removed interfaces this repository
+    still calls. Upstream movement alone is not evidence that a pointer-only bump
+    is safe.
