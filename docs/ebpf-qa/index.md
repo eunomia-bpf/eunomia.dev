@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Does cgroup v2 `cpu.max` still limit CPU time under BPF extensible scheduling?](/ebpf-qa/2026-08-18-sched-ext-cgroup-cpu-max/)
 - [Why can classic uprobe BPF programs crash preemptible kernels that use private BPF stacks?](/ebpf-qa/2026-08-17-uprobe-private-stack-preemption-crash/)
 - [How should eBPF programs carry per-packet metadata across networking hooks?](/ebpf-qa/2026-08-16-cross-hook-packet-metadata/)
 - [How should a Linux-VM eBPF backend support macOS and Windows without mislabeling host coverage?](/ebpf-qa/2026-08-15-cross-platform-ebpf-linux-vm-backend/)
