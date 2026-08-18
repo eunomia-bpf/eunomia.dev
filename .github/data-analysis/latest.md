@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-08-17 08:05 UTC`
+Generated: `2026-08-18 07:59 UTC`
 
 ## Collection health
 
@@ -10,26 +10,26 @@ Generated: `2026-08-17 08:05 UTC`
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
 | github | succeeded | 150 | 0 |
-| devto | succeeded | 59 | 0 |
+| devto | succeeded | 60 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `192 ms`.
+- Homepage: `200` in `227 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `664`.
+- Sitemap entries observed: `668`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `97`.
-- Current stars: `9756`; forks: `1275`; open issue/PR records: `278`.
+- Current stars: `9764`; forks: `1280`; open issue/PR records: `282`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4236 | 592 | 23 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1550 | 183 | 112 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4238 | 594 | 23 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1552 | 183 | 112 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 894 | 75 | 19 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 588 | 89 | 21 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 591 | 90 | 22 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 6 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 273 | 25 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 231 | 39 | 54 |
@@ -37,14 +37,14 @@ Generated: `2026-08-17 08:05 UTC`
 
 ## DEV publication surface
 
-- Articles observed: `59`.
+- Articles observed: `60`.
 - Public reactions: `43`; comments: `4`.
 
+- [eBPF Tutorial: Tracing Slow vfs_read Calls with fsession](https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5): 0 reactions, 0 comments.
 - [eBPF Tutorial: Precisely Isolating Established TCP Connections](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld): 0 reactions, 0 comments.
 - [Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap](https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o): 1 reactions, 0 comments.
 - [An Empirical Study: AI Agent Rules Need Context and Layered Enforcement](https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on): 0 reactions, 0 comments.
 - [ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore](https://dev.to/yunwei37/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-5eja): 0 reactions, 0 comments.
-- [Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals](https://dev.to/yunwei37/runtime-observability-and-enforcement-for-opaque-ai-agents-with-ebpf-beyond-sandboxes-and-approvals-8n6): 0 reactions, 0 comments.
 
 ## Coverage gaps
 
