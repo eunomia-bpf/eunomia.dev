@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-18
+
+- The new fsession tutorial remains intact on Medium and DEV; DEV shows 0 reactions, 0 comments, and 0 saves, while Medium exposes no public response count. The [AgentSight macOS and Windows LinkedIn update](https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649) increased from 4 to 8 reactions, and its only comment remains the already-answered emoji, so no reply is due. The canonical fsession tutorial is complete, but its H1 and social metadata drop the underscore from `vfs_read`; track this as a title-rendering defect in the tutorial or site pipeline before relying on the preview title.
+
 ### 2026-08-16
 
 - The [AgentSight macOS and Windows LinkedIn update](https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649) remains intact about 21 hours after publication, with 494 visible impressions, 4 reactions, 1 comment, and 1 repost. The only comment is a low-information emoji and already has an author response, so no follow-up is due; exact-title and repository searches found no independent new discussion. The [fsession latency tutorial on Juejin](https://juejin.cn/post/7673940698534232064) has passed review and is now public with the exact title, complete article structure, source and reference links, and zero comments.

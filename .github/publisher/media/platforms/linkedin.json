@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-16",
+  "last_checked": "2026-08-18",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,15 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-18",
+      "checked_via": "chrome_visible_post_and_latest_comments",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649",
+      "visible_reactions": 8,
+      "visible_comments": 1,
+      "previous_reactions": 4,
+      "notes": "The exact post body, GitHub link, and AgentSight repository preview remained intact. The only visible comment was the already-answered emoji, so no follow-up is due; impressions and reposts were not visible on this surface and are not treated as zero."
+    },
     {
       "checked_at": "2026-08-16",
       "checked_via": "chrome_visible_post_and_latest_comments",
