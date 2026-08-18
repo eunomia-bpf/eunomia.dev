@@ -39,16 +39,10 @@ that candidate and continue research on another question in the approved roadmap
 until one passes. Prefer changing the question over padding weak evidence or
 inventing novelty.
 
-A daily report must still provide:
-
-- a concrete reader problem;
-- primary-source evidence;
-- a non-trivial gap or unresolved mechanism;
-- a reasoned technical conclusion;
-- a small number of implementable research directions with academic and
-  production value;
-- a discriminating evaluation or evidence that would change the conclusion;
-- a thesis that does not duplicate an existing report.
+A daily report must still provide a concrete reader problem, primary-source
+evidence, a non-trivial gap or unresolved mechanism, a reasoned technical
+conclusion, implementable research directions, and a discriminating evaluation
+or evidence that would change the conclusion.
 
 ## Series rules
 
@@ -70,88 +64,72 @@ A daily report must still provide:
 - After a series has at least three strong reports, consider a public series hub
   and stronger internal linking. Do not create thin hub pages in advance.
 
-## Active series — eBPF Runtime, Extensibility, and Composition
-
-Working question: **What mechanisms are still missing if eBPF is treated as a
-programmable runtime substrate rather than only a kernel observability feature?**
-
-This series connects kernel and userspace execution, composition, state,
-upgrade, safety, asynchronous attribution, programmable I/O, and heterogeneous
-execution placement. The `2026-08-17` report reaches the normal six-report series
-boundary. The next scheduled run should promote eBPF Observability and Profiling
-to active before selecting its report rather than extending this sequence by
-default.
-
-### Published progress
-
-1. `2026-08-08`: `/research/userspace-ebpf-runtime-contract/` established that
-   first-class userspace eBPF needs explicit attachment, capability, state,
-   lifetime, and attribution contracts above ISA compatibility.
-2. `2026-08-09`: `/research/ebpf-hook-composition-contract/` narrowed the
-   multi-program problem beyond dispatch and ordering to effect visibility,
-   outcome resolution, shared-state ownership, and versioned hook composition.
-3. `2026-08-10`: `/research/stateful-ebpf-transactional-upgrade/` separated
-   object-level replacement from application-level upgrade and developed an
-   explicit prepare / migrate / commit / retire generation protocol for programs,
-   links, maps, pinned state, controller recovery, and rollback.
-4. `2026-08-12`: `/research/async-ebpf-causal-profiler/` separated thread
-   execution from logical-work causality and developed typed, lifetime-aware
-   handoff edges, an edge-versus-context measurement budget, and a ground-truth
-   causal-attribution benchmark across `io_uring`, workqueues, runtime tasks, and
-   application-defined resources.
-5. `2026-08-15`: `/research/io-uring-bpf-programmability/` separated the current
-   per-opcode cBPF admission path from the eBPF `io_uring_bpf_ops` execution-control
-   path, then developed a typed capability contract, versioned ring policy
-   generations, explicit provenance, and a comparative control-boundary benchmark.
-6. `2026-08-17`: `/research/heterogeneous-ebpf-execution-placement/` separated
-   backend compatibility from execution placement and developed a target manifest,
-   generation-scoped state ownership, and a ground-truth placement/provenance
-   benchmark across kernel, userspace, NIC/DPU, and GPU-side targets.
-
-The Daily Report index already exposes the sequence. Report-level acquisition and
-navigation evidence is still too young to justify a dedicated public series hub.
-Revisit that decision only when evidence shows a retrieval benefit.
-
-## Queued series — eBPF Observability and Profiling
+## Active series — eBPF Observability and Profiling
 
 Working question: **Which important performance and correctness questions remain
 unanswerable with today's eBPF observability stack?**
 
-This is the preferred next series after the runtime/extensibility sequence reaches
-six reports. Its preferred first question is **page-level memory attribution**:
-how to distinguish allocation from pages that were actually touched, faulted,
-reclaimed, migrated, or responsible for memory bandwidth while preserving
-provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
+The `2026-08-18` report starts this series with **page-level memory attribution**.
+It distinguishes allocator intent, resident memory, working-set evidence, page
+lifecycle, and sampled memory cost, then asks how provenance can survive
+`mmap`/`brk`, allocator boundaries, page reuse, reclaim, migration, shared
+mappings, and hardware-dependent sampling.
 
-Candidate topics:
+### Published progress
 
-1. page-level memory attribution: RSS, touched versus untouched allocation,
-   `mmap`/`brk` provenance, page faults, reclaim, migration, and memory bandwidth;
-2. sampling theory for profilers: phase locking, randomized sampling, bias, and
-   confidence intervals;
-3. always-on semantic compression that preserves diagnostic evidence instead of
+1. `2026-08-18`: `/research/page-level-ebpf-memory-attribution/` develops a
+   lifetime-aware allocation-to-page provenance ledger, access-weighted
+   attribution with explicit confidence, and a ground-truth benchmark spanning
+   reserve-versus-touch, COW, THP, reclaim, refault, and NUMA migration.
+
+### Preferred next questions
+
+1. sampling theory for profilers: phase locking, randomized sampling, bias,
+   variance, and confidence intervals;
+2. always-on semantic compression that preserves diagnostic evidence instead of
    raw event volume;
-4. application-defined resource profiling that combines static discovery,
+3. application-defined resource profiling that combines static discovery,
    runtime eBPF evidence, and online validation;
-5. causal profiling for GPU host-side bottlenecks and megakernel execution;
-6. revisit async and syscall causal profiling only when new mechanism or
-   evaluation evidence materially extends the published causal-profiler report.
+4. causal profiling for GPU host-side bottlenecks and megakernel execution;
+5. revisit async or syscall causal profiling only when a new mechanism or
+   evaluation materially extends the published causal-profiler report.
+
+## Completed series — eBPF Runtime, Extensibility, and Composition
+
+Working question: **What mechanisms are still missing if eBPF is treated as a
+programmable runtime substrate rather than only a kernel observability feature?**
+
+This series reached its normal six-report boundary on `2026-08-17`:
+
+1. `2026-08-08`: `/research/userspace-ebpf-runtime-contract/` established explicit
+   attachment, capability, state, lifetime, and attribution contracts above ISA
+   compatibility.
+2. `2026-08-09`: `/research/ebpf-hook-composition-contract/` developed effect
+   visibility, outcome resolution, state ownership, and versioned composition.
+3. `2026-08-10`: `/research/stateful-ebpf-transactional-upgrade/` developed
+   generation-based prepare / migrate / commit / retire semantics.
+4. `2026-08-12`: `/research/async-ebpf-causal-profiler/` developed typed
+   lifetime-aware handoff edges and a causal-attribution benchmark.
+5. `2026-08-15`: `/research/io-uring-bpf-programmability/` separated cBPF request
+   admission from eBPF `io_uring_bpf_ops` execution control and developed a
+   versioned ring policy model.
+6. `2026-08-17`: `/research/heterogeneous-ebpf-execution-placement/` separated
+   backend compatibility from execution placement and developed target manifests
+   and generation-scoped state ownership across kernel, userspace, NIC/DPU, and
+   GPU-side targets.
+
+The Daily Report index already exposes this sequence. A dedicated public series
+hub remains evidence-gated rather than cadence-driven.
 
 ## Queued series — eBPF Networking and Security
 
 Working question: **Where are eBPF networking and security mechanisms still
 missing deployable abstractions or correctness guarantees?**
 
-Candidate topics:
-
-1. transactional policy updates across programs, maps, links, and control planes;
-2. multi-tenant network-policy composition and conflict resolution;
-3. zero-copy and programmable I/O paths across XDP, AF_XDP, io_uring, DPDK, and
-   userspace eBPF;
-4. information-flow enforcement across process, file, socket, and encrypted
-   application boundaries;
-5. verifier and runtime interfaces for richer stateful policies;
-6. portable policy execution between kernel, userspace, NIC, and DPU targets.
+Candidate topics include transactional policy updates, multi-tenant policy
+composition, zero-copy programmable I/O across XDP/AF_XDP/io_uring/DPDK,
+information-flow enforcement, richer stateful verifier/runtime interfaces, and
+portable policy execution across kernel, userspace, NIC, and DPU targets.
 
 ## Queued series — GPU and Heterogeneous Runtime Systems
 
@@ -168,17 +146,11 @@ runtime is central to the mechanism being evaluated.
 
 ## Queued series — Agent Systems (limited)
 
-Pure Agent systems work is intentionally a minority topic. Use this series only
-for questions with unusually strong systems consequences that are not better
-framed through eBPF, Linux, runtime, observability, or security mechanisms.
-
-Existing anchors:
-
-- `/research/agent-trace-evidence-budget/`
-- `/research/parallel-agent-effect-serializability/`
-
-Because these already occupy the pure-Agent budget in the current small archive,
-do not schedule another pure Agent report until the rolling mix is compliant.
+Pure Agent systems work is intentionally a minority topic. Existing anchors are
+`/research/agent-trace-evidence-budget/` and
+`/research/parallel-agent-effect-serializability/`. Because these already occupy
+the pure-Agent budget in the current small archive, do not schedule another pure
+Agent report until the rolling mix is compliant.
 
 Future Agent reports should preferentially connect back to eBPF or systems
 infrastructure, for example OS-level effect tracing, eBPF policy enforcement,
