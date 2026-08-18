@@ -35,6 +35,12 @@ merges, the archive becomes **7 eBPF-centered / 2 pure Agent / 0 adjacent system
 out of 9**. The repository has promoted **eBPF Observability and Profiling** to
 the active series; page-level memory attribution is its first report.
 
+The next publication will create the first full ten-report window. It must be a
+genuine adjacent-systems report that is neither eBPF-centered nor pure Agent, so
+the resulting window is **7 eBPF / 2 Agent / 1 adjacent out of 10**. An
+eBPF-essential active-series question must be deferred for that one run rather
+than relabeled.
+
 ## Current signals
 
 - Repository-generated public-safe operating brief: refreshed `2026-08-18 07:59 UTC`
@@ -106,7 +112,7 @@ the daily change.
 ## Current focus
 
 1. Complete the `2026-08-18` page-level memory-attribution Daily Report through final CI, complete diff/generated-output self-review, squash merge, exact production deployment, bilingual public verification, and one merged-PR closeout comment.
-2. Continue the active **eBPF Observability and Profiling** series with profiler sampling theory unless that candidate fails the evidence or novelty gate.
+2. For the next publication, select a real adjacent-systems question that keeps the first full ten-report window at 7 eBPF / 2 Agent / 1 adjacent. Use profiler sampling theory only if its central mechanism is genuinely general profiling rather than eBPF; otherwise defer the active-series question for one run.
 3. Keep the required complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never treat the missing `2026-08-09` row as zero.
 4. Monitor the current click/CTR decline across another finalized period before changing search-facing titles, copy, or navigation.
 5. Obtain date-by-page or date-by-query evidence before attributing the `2026-08-05` impression spike.
