@@ -32,7 +32,7 @@
 - Google Drive folder name: `eunomia.dev SEO Weekly CSV`
 - GA4 export filename pattern: `*_ga4_*.csv`
 - Search Console export filename pattern: `*_gsc_*.csv`
-- Verified export window: `2026-07-27` through `2026-08-09`; the newest Search Console date export currently has rows through `2026-08-08`
+- Verified export window: `2026-07-27` through `2026-08-16`; the newest Search Console date export has finalized rows through `2026-08-15`
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
 The Drive folder is discovered by its configured name. Do not store its folder ID,
@@ -50,16 +50,18 @@ property IDs, account identifiers, credentials, or private URLs in Git.
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
 
-Search Console and GA4 exports provide two adjacent weekly export sets,
-`2026-07-27` through `2026-08-02` and `2026-08-03` through `2026-08-09`. As of
-`2026-08-12`, the full GA4 weekly export through `2026-08-09` is beyond the
-configured three-day finalization lag and can be compared with the preceding
-weekly export. Search Console date rows still stop at `2026-08-08`; its complete
-latest-7-days versus previous-7-days comparison remains unavailable because the
-required preceding period begins on `2026-07-26`, one day before the available
-history. The 28-day comparison is also unavailable. Public repository and
-live-site data supplement these exports but do not replace their source-native
-meanings.
+Search Console and GA4 exports now provide weekly sets for `2026-07-27` through
+`2026-08-02`, `2026-08-03` through `2026-08-09`, and `2026-08-10` through
+`2026-08-16`. With the three-day finalization lag on `2026-08-18`, Search Console
+rows through `2026-08-15` are usable. The `2026-08-09` Search Console date row is
+still absent across the adjacent files, so a complete latest-7-days versus
+previous-7-days comparison remains unavailable. A valid equal-duration six-day
+comparison is `2026-08-10` through `2026-08-15` versus `2026-08-03` through
+`2026-08-08`. The 28-day comparison is also unavailable because the export
+history is not long enough. GA4 weekly landing-page exports can be compared at
+their source-native weekly granularity but have no date dimension for trimming a
+partial day within a file. Public repository and live-site data supplement these
+exports but do not replace their source-native meanings.
 
 ## Deployment
 
