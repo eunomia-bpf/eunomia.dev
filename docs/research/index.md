@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Attribute Memory to the Pages That Actually Matter?](https://eunomia.dev/research/page-level-ebpf-memory-attribution/)
+
+Allocation stacks, RSS, page hotness, reclaim, migration, and hardware memory samples describe different parts of memory cost. This report develops a lifetime-aware provenance chain from application allocations to virtual-region generations and page activity, access-weighted attribution with explicit confidence, and a ground-truth benchmark for deciding when page-level lineage is worth its overhead.
+
 ### [Where Should eBPF Run in a Heterogeneous System?](https://eunomia.dev/research/heterogeneous-ebpf-execution-placement/)
 
 Kernel, userspace, SmartNIC, and GPU-side runtimes can all be valid homes for eBPF logic, but they do not expose the same events, state, memory, authority, or verifier environment. This report develops a placement-aware target manifest, generation-scoped state ownership, and a ground-truth benchmark for choosing execution location without silently changing policy semantics.

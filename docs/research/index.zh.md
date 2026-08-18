@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能把内存开销归因到真正使用的页面吗？](https://eunomia.dev/zh/research/page-level-ebpf-memory-attribution/)
+
+分配调用栈、RSS、页面热度、回收、迁移和硬件内存采样描述的是不同层次的成本。本文提出从应用分配到虚拟区间 generation 和页面活动的生命周期 provenance、带明确置信度的访问加权归因，以及用于判断逐页 lineage 是否值得其开销的 ground-truth benchmark。
+
 ### [异构系统里的 eBPF 到底应该运行在哪里？](https://eunomia.dev/zh/research/heterogeneous-ebpf-execution-placement/)
 
 内核、用户态、SmartNIC 与 GPU-side runtime 都可能是 eBPF 的合法执行位置，但它们暴露的事件、状态、内存、权限与 verifier 环境并不相同。本文提出 placement-aware target manifest、以 generation 为边界的状态归属，以及用于选择执行位置并检查语义是否保持一致的 ground-truth benchmark。

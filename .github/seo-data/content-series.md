@@ -70,17 +70,63 @@ A daily report must still provide:
 - After a series has at least three strong reports, consider a public series hub
   and stronger internal linking. Do not create thin hub pages in advance.
 
-## Active series — eBPF Runtime, Extensibility, and Composition
+## Active series — eBPF Observability and Profiling
+
+Working question: **Which important performance and correctness questions remain
+unanswerable with today's eBPF observability stack?**
+
+The `2026-08-18` report starts this series with **page-level memory attribution**:
+how to distinguish allocation from pages that were actually touched, faulted,
+reclaimed, migrated, or responsible for sampled memory cost while preserving
+provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
+
+### Published progress
+
+1. `2026-08-18`: `/research/page-level-ebpf-memory-attribution/` separates
+   allocation intent, residency, working-set evidence, page lifecycle, and
+   sampled memory cost, then develops a lifetime-aware provenance ledger,
+   access-weighted attribution with explicit confidence, and a ground-truth
+   benchmark spanning reserve-versus-touch, COW, THP, reclaim, refault, and NUMA
+   migration.
+
+After this report, the archive is **7 eBPF-centered / 2 pure Agent / 0 adjacent
+out of 9**. The next published report will create the first full ten-report
+window. It therefore must be an **adjacent-systems report that is not classified
+as eBPF-centered or pure Agent**, producing 7 eBPF / 2 Agent / 1 adjacent out of
+10. Do not force an active-series question into the adjacent bucket merely to
+satisfy the ratio. If the strongest next Observability and Profiling candidate
+still has eBPF as an essential mechanism, defer it for one run and select a real
+adjacent-systems question from the approved roadmap.
+
+### Preferred next questions
+
+These remain the preferred questions inside this active series once the rolling
+mix permits another eBPF-centered report:
+
+1. sampling theory for profilers: phase locking, randomized sampling, bias, and
+   confidence intervals;
+2. always-on semantic compression that preserves diagnostic evidence instead of
+   raw event volume;
+3. application-defined resource profiling that combines static discovery,
+   runtime eBPF evidence, and online validation;
+4. causal profiling for GPU host-side bottlenecks and megakernel execution;
+5. revisit async and syscall causal profiling only when new mechanism or
+   evaluation evidence materially extends the published causal-profiler report.
+
+For the immediate ten-report boundary, sampling theory may be selected only if
+its actual central question is a general adjacent profiling problem and eBPF is
+not essential to the mechanism. Otherwise use another approved adjacent-systems
+question and return to this list afterward.
+
+## Completed series — eBPF Runtime, Extensibility, and Composition
 
 Working question: **What mechanisms are still missing if eBPF is treated as a
 programmable runtime substrate rather than only a kernel observability feature?**
 
-This series connects kernel and userspace execution, composition, state,
+This series connected kernel and userspace execution, composition, state,
 upgrade, safety, asynchronous attribution, programmable I/O, and heterogeneous
-execution placement. The `2026-08-17` report reaches the normal six-report series
-boundary. The next scheduled run should promote eBPF Observability and Profiling
-to active before selecting its report rather than extending this sequence by
-default.
+execution placement. It reached the normal six-report series boundary on
+`2026-08-17` and is no longer the default topic source for scheduled publication.
 
 ### Published progress
 
@@ -111,31 +157,6 @@ default.
 The Daily Report index already exposes the sequence. Report-level acquisition and
 navigation evidence is still too young to justify a dedicated public series hub.
 Revisit that decision only when evidence shows a retrieval benefit.
-
-## Queued series — eBPF Observability and Profiling
-
-Working question: **Which important performance and correctness questions remain
-unanswerable with today's eBPF observability stack?**
-
-This is the preferred next series after the runtime/extensibility sequence reaches
-six reports. Its preferred first question is **page-level memory attribution**:
-how to distinguish allocation from pages that were actually touched, faulted,
-reclaimed, migrated, or responsible for memory bandwidth while preserving
-provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
-
-Candidate topics:
-
-1. page-level memory attribution: RSS, touched versus untouched allocation,
-   `mmap`/`brk` provenance, page faults, reclaim, migration, and memory bandwidth;
-2. sampling theory for profilers: phase locking, randomized sampling, bias, and
-   confidence intervals;
-3. always-on semantic compression that preserves diagnostic evidence instead of
-   raw event volume;
-4. application-defined resource profiling that combines static discovery,
-   runtime eBPF evidence, and online validation;
-5. causal profiling for GPU host-side bottlenecks and megakernel execution;
-6. revisit async and syscall causal profiling only when new mechanism or
-   evaluation evidence materially extends the published causal-profiler report.
 
 ## Queued series — eBPF Networking and Security
 

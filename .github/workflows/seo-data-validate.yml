@@ -85,7 +85,7 @@ jobs:
           # Topic mix is a repository-enforced editorial contract.
           assert "5–7 of 10" in series_flat
           assert "Pure AI-agent topics are capped at 1–2 of 10" in series_flat
-          assert "Active series — eBPF Runtime, Extensibility, and Composition" in series_flat
+          assert "Active series — eBPF Observability and Profiling" in series_flat
           PY
 
       - name: Set up Python
