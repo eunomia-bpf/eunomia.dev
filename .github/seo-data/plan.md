@@ -71,20 +71,24 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Continue the active **eBPF Observability and Profiling** series after the
-   page-level memory attribution report. Prefer the next distinct mechanism
-   question on profiler sampling theory: phase locking, randomized sampling,
-   bias, variance, and confidence intervals. Use always-on semantic compression
-   or application-defined resource profiling if that question fails the evidence
-   or novelty gate.
-2. Keep pure-Agent reports capped while the archive is small. After the current
-   memory-attribution report merges, the rolling archive becomes **7
-   eBPF-centered / 2 pure Agent / 0 adjacent out of 9**, so the next report should
-   remain eBPF-centered or directly adjacent.
+1. Preserve the exact rolling topic mix when the archive reaches ten reports. The
+   current page-level memory-attribution report makes the archive **7
+   eBPF-centered / 2 pure Agent / 0 adjacent out of 9**. The next published report
+   therefore must be a genuine **adjacent-systems** report that is neither
+   eBPF-centered nor pure Agent, yielding 7 / 2 / 1 in the first full ten-report
+   window. Do not relabel an eBPF-essential question merely to satisfy the ratio.
+2. Keep **eBPF Observability and Profiling** as the active series, but defer its
+   next eBPF-essential report for one run if necessary. Profiler sampling theory
+   may be the next report only if the actual central question is a general
+   profiling problem rather than an eBPF mechanism; otherwise select another
+   approved adjacent-systems question, then return to the active series afterward.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   The new `2026-08-10` weekly set is now available. Keep accumulating history
-   until complete previous-7-day and 28-day comparisons can be made without
-   inventing the missing `2026-08-09` Search Console row or earlier history.
+   The new `2026-08-10` weekly set is available, but the newest GA4 weekly
+   aggregate is provisional on `2026-08-18` because it includes `2026-08-16`
+   inside the configured three-day finalization lag and has no date dimension for
+   trimming. Keep accumulating history until complete previous-7-day and 28-day
+   comparisons can be made without inventing the missing `2026-08-09` Search
+   Console row or earlier history.
 4. Obtain or generate date-by-page or date-by-query Search Console evidence before
    attributing the `2026-08-05` impression spike to a specific page or query family.
 5. Monitor the current Search Console click/CTR decline and homepage/branded
