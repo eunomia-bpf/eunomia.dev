@@ -32,7 +32,7 @@
 - Google Drive folder name: `eunomia.dev SEO Weekly CSV`
 - GA4 export filename pattern: `*_ga4_*.csv`
 - Search Console export filename pattern: `*_gsc_*.csv`
-- Verified export window: `2026-07-27` through `2026-08-16`; the newest Search Console date export has finalized rows through `2026-08-15`
+- Verified export window: `2026-07-27` through `2026-08-16`; the newest Search Console date export has finalized rows through `2026-08-15`; the newest GA4 weekly aggregate includes `2026-08-16` and is provisional on `2026-08-18`
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
 The Drive folder is discovered by its configured name. Do not store its folder ID,
@@ -58,10 +58,17 @@ still absent across the adjacent files, so a complete latest-7-days versus
 previous-7-days comparison remains unavailable. A valid equal-duration six-day
 comparison is `2026-08-10` through `2026-08-15` versus `2026-08-03` through
 `2026-08-08`. The 28-day comparison is also unavailable because the export
-history is not long enough. GA4 weekly landing-page exports can be compared at
-their source-native weekly granularity but have no date dimension for trimming a
-partial day within a file. Public repository and live-site data supplement these
-exports but do not replace their source-native meanings.
+history is not long enough.
+
+GA4 weekly landing-page exports have no date dimension for trimming a partial or
+unfinalized day within a file. On `2026-08-18`, the newest `2026-08-10` through
+`2026-08-16` aggregate therefore remains provisional because `2026-08-16` is
+inside the configured three-day finalization lag. It may be used as directional
+source-native evidence, but not as a finalized week-over-week comparison. The
+latest fully finalized GA4 weekly comparison remains `2026-08-03` through
+`2026-08-09` versus `2026-07-27` through `2026-08-02`. Public repository and
+live-site data supplement these exports but do not replace their source-native
+meanings.
 
 ## Deployment
 
