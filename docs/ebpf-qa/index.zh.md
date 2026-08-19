@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么安装了许多内核模块的主机上，libbpf 加载 BPF 对象会变慢？](/zh/ebpf-qa/2026-08-19-libbpf-selective-kmod-btf-loading/)
 - [BPF 可扩展调度生效时，cgroup v2 的 `cpu.max` 仍会限制 CPU 时间吗？](/zh/ebpf-qa/2026-08-18-sched-ext-cgroup-cpu-max/)
 - [为什么使用 BPF 私有栈的可抢占内核可能被 classic uprobe 程序触发崩溃？](/zh/ebpf-qa/2026-08-17-uprobe-private-stack-preemption-crash/)
 - [eBPF 程序应如何在多个网络 hook 之间携带每包元数据？](/zh/ebpf-qa/2026-08-16-cross-hook-packet-metadata/)
