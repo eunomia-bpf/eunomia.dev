@@ -7,81 +7,81 @@
 - Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: configured and enabled
 - Scheduler timing: daily, flexible around 08:00 in `America/Los_Angeles`
-- Last completed daily run: `2026-08-17`
-- Last verified data window: Search Console rows through `2026-08-15`; GA4 weekly organic landing-page files through `2026-08-16` with the newest aggregate provisional under the three-day finalization lag
-- Latest daily record: `2026-08-18`
-- Last completed public-change pull request: `#161`
-- Last verified production deployment from a daily run: `Deploy Static App` run `32043791981` for squash commit `78e27707fc63065afa7fa19a25f363a39fcba20a`
-- Current daily branch: `daily/2026-08-18-page-memory-attribution`
+- Last completed daily run: `2026-08-18`
+- Last verified data window: Search Console rows through `2026-08-15`; GA4 weekly organic landing-page files through `2026-08-16`, with the newest weekly aggregate finalized under the three-day lag on `2026-08-19`
+- Latest daily record: `2026-08-19`
+- Last completed public-change pull request: `#162`
+- Last verified production publication from a daily run: static export commit `a26e10fb68a0d0896dcf77d5a79f74c898517bfc` for squash commit `36df29128cbe388eaa37dc573e2ad9902c9c1904`
+- Current daily branch: `daily/2026-08-19-profiler-sampling-bias`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR `#161` is fully closed out. It squash-merged as
-`78e27707fc63065afa7fa19a25f363a39fcba20a`; exact-commit `Validate SEO Operations`
-run `32043791965` and production `Deploy Static App` run `32043791981` succeeded,
-and the merged-PR closeout records bilingual production verification. The
-published heterogeneous-placement report completed the six-report **eBPF Runtime,
-Extensibility, and Composition** sequence.
+PR `#162` is fully closed out. It squash-merged as
+`36df29128cbe388eaa37dc573e2ad9902c9c1904`; final PR-head `Validate SEO
+Operations` run `32158581620` and `Deploy Static App` run `32158581694`
+succeeded. The production static branch contains commit
+`a26e10fb68a0d0896dcf77d5a79f74c898517bfc` with the exact message `deploy
+static app for 36df29128cbe388eaa37dc573e2ad9902c9c1904`, and its generated English
+and Chinese memory-attribution pages contain the expected canonical URLs,
+reciprocal language alternates plus `x-default`, Article JSON-LD, and report
+metadata. The merged PR now has the required compact closeout comment.
 
 ## Current Daily Report mix
 
-Before the current change, the completed archive contains eight reports:
+Before the current change, the completed archive contains nine reports:
 
-- eBPF-centered: **6 of 8**
-- pure Agent-centered: **2 of 8**
-- adjacent systems: **0 of 8**
+- eBPF-centered: **7 of 9**
+- pure Agent-centered: **2 of 9**
+- adjacent systems: **0 of 9**
 
-The current page-level memory-attribution report is eBPF-centered. After it
-merges, the archive becomes **7 eBPF-centered / 2 pure Agent / 0 adjacent systems
-out of 9**. The repository has promoted **eBPF Observability and Profiling** to
-the active series; page-level memory attribution is its first report.
+Today's profiler-sampling report is a genuine adjacent-systems report. Its
+central mechanisms are sampling-schedule design, phase-locking diagnostics,
+uncertainty estimation, rank stability, and selective instrumentation; they
+apply to `perf`, PMU, runtime, mobile, and other profilers without requiring
+eBPF. After publication the first complete ten-report window becomes **7 eBPF /
+2 pure Agent / 1 adjacent out of 10**, satisfying the repository's rolling mix
+without relabeling an eBPF-essential topic.
 
-The next publication will create the first full ten-report window. It must be a
-genuine adjacent-systems report that is neither eBPF-centered nor pure Agent, so
-the resulting window is **7 eBPF / 2 Agent / 1 adjacent out of 10**. An
-eBPF-essential active-series question must be deferred for that one run rather
-than relabeled.
+Normal topic selection can return to the active **eBPF Observability and
+Profiling** series on the next run, subject to the rolling ten-report window as
+the oldest reports later age out.
 
 ## Current signals
 
-- Repository-generated public-safe operating brief: refreshed `2026-08-18 07:59 UTC`
-- Homepage: HTTP 200 in the current operating brief, observed in **227 ms**
+- Repository-generated public-safe operating brief: refreshed `2026-08-19 07:58 UTC`
+- Homepage: HTTP 200 in **137 ms** in the current operating brief
 - `robots.txt`: reachable; sitemap: reachable
-- Sitemap entries observed: **668**
+- Sitemap entries observed: **672**
 - Canonical homepage: `https://eunomia.dev/`
-- Public GitHub repository evidence: available; current brief observes 97 active non-fork repositories, 9,764 stars, 1,280 forks, and 282 open issue/PR records across the portfolio snapshot
-- DEV publication surface: 60 articles, 43 public reactions, and 4 comments in the current public-safe brief
+- Public GitHub portfolio snapshot: 97 active non-fork repositories, 9,771 stars, 1,279 forks, and 283 open issue/PR records
+- DEV publication surface: 60 articles, 43 public reactions, and 4 comments
 - Public web and primary-source evidence: available
-- Google Analytics 4: weekly organic landing-page files are available through `2026-08-16`; the newest `2026-08-10` through `2026-08-16` aggregate is provisional on `2026-08-18` because it includes a day inside the configured finalization lag and has no date dimension for trimming
+- Google Analytics 4: weekly organic landing-page exports available through `2026-08-16`; the newest complete aggregate is finalized on `2026-08-19`
 - Google Search Console: weekly export sets available through the week ending `2026-08-16`; finalized date rows currently end on `2026-08-15`
 - Cloudflare: disabled by repository configuration
 
-The newest Google weekly export is now available and materially changes the
-operating evidence. For the valid equal-duration Search Console comparison,
-`2026-08-10` through `2026-08-15` reports **393 clicks / 66,510 impressions**,
-weighted CTR about **0.591%**, and impression-weighted average position about
-**9.91**. The comparable `2026-08-03` through `2026-08-08` slice reports **478
-clicks / 69,053 impressions**, **0.692%** CTR, and position about **9.42**. Clicks
-are about **17.8% lower**, impressions about **3.7% lower**, CTR about **0.101
-percentage points lower**, and average position about **0.49 positions worse**.
-The old comparison includes the unusual `2026-08-05` impression spike, so this
-movement is monitored rather than attributed to one page or content change.
+For the valid equal-duration Search Console comparison, `2026-08-10` through
+`2026-08-15` reports **393 clicks / 66,510 impressions**, weighted CTR about
+**0.591%**, and impression-weighted average position about **9.91**. The
+comparable `2026-08-03` through `2026-08-08` slice reports **478 clicks / 69,053
+impressions**, **0.692%** CTR, and position about **9.42**. Clicks are about
+**17.8% lower**, impressions about **3.7% lower**, CTR about **0.101 percentage
+points lower**, and average position about **0.49 positions worse**. The older
+slice includes the unusual `2026-08-05` impression spike, so the movement remains
+monitored rather than attributed to one page, query, or Daily Report.
 
 A complete latest-seven-days versus previous-seven-days GSC comparison remains
 unavailable because the `2026-08-09` date row is absent across the adjacent
 weekly files. The required 28-day comparison is also unavailable rather than
 inferred.
 
-The newest GA4 organic landing-page file for `2026-08-10` through `2026-08-16`
-contains **970 sessions** at about **44.95%** session-weighted engagement, versus
-**991 sessions** at about **44.90%** in the preceding `2026-08-03` through
-`2026-08-09` export. `(not set)` is **134 versus 116 sessions**; excluding it,
-sessions are **836 versus 875**. These newest figures are directional only, not a
-finalized week-over-week trend, because `2026-08-16` is still inside the
-configured three-day lag and the file has no date dimension for removing that
-day. The latest fully finalized weekly GA4 comparison therefore remains
-`2026-08-03` through `2026-08-09` versus `2026-07-27` through `2026-08-02`.
-None of this is sufficient evidence for a speculative title, copy, measurement,
-or site-structure change.
+The finalized GA4 organic landing-page export for `2026-08-10` through
+`2026-08-16` contains **970 sessions** at about **44.95%** session-weighted
+engagement, versus **991 sessions** at about **44.90%** for `2026-08-03` through
+`2026-08-09`. Sessions are about **2.1% lower** while engagement is effectively
+flat. `(not set)` is **134 versus 116 sessions**; excluding it, sessions are
+**836 versus 875**. These are source-native acquisition and measurement signals,
+not evidence for a speculative title, copy, navigation, or site-structure
+change.
 
 ## Current technical baseline
 
@@ -89,33 +89,34 @@ The repository generates sitemap, robots, canonical, `hreflang`, Open Graph,
 structured data, legacy redirect stubs, and HTTP audit artifacts. Production
 deploys through `Deploy Static App`.
 
-The August 18 public-safe operating brief and live homepage inspection do not
-establish a new crawl, canonical, hreflang, structured-data, redirect,
+The `2026-08-19` public-safe operating brief and current repository evidence do
+not establish a new crawl, canonical, hreflang, structured-data, redirect,
 broken-link, rendering, accessibility, performance, or deployment defect. The
-correct public site change for this run is therefore the mandatory new bilingual
-Daily Report and directly coupled index/series updates, not an unrelated
+appropriate public site change today is therefore the mandatory bilingual Daily
+Report and directly coupled report-index/series updates, not an unrelated
 technical SEO patch.
 
-Today's research separates allocation intent, residency, working-set evidence,
-page lifecycle, and sampled access cost. Linux `/proc`, Idle Page Tracking,
-DAMON, page_owner, VM tracepoints, and perf memory sampling each expose a useful
-slice but do not provide one stable application-allocation-to-page provenance
-chain. The report develops a lifetime-aware provenance ledger, access-weighted
-attribution with explicit confidence, and a ground-truth memory-attribution
-benchmark.
+Today's research asks when profiler sampling becomes structurally biased rather
+than merely noisy. Primary evidence spans the 1993 randomized sampling-clock
+work, Linux `perf_event_open()` sampling semantics and current profile-collection
+guidance, and the OSDI 2026 Blink result on flat workloads. The report develops
+a realized sampling-schedule contract with aliasing diagnostics, replicated
+profile epochs with uncertainty and rank stability, and uncertainty-triggered
+selective instrumentation under a fixed overhead budget.
 
 The SEO skill submodule remains pinned at
-`516e9e2dcf012506a677a749049d64c5914643e9`. The consuming repository still
-names interfaces from that pinned layout, so no pointer-only bump is included in
-the daily change.
+`516e9e2dcf012506a677a749049d64c5914643e9`. Upstream remains at
+`f42128a3f05c73cf10c786a2711c488bb3a14839`, while the consuming repository still
+names interfaces from the pinned layout. A pointer-only update is therefore not
+mixed into this daily delivery.
 
 ## Current focus
 
-1. Complete the `2026-08-18` page-level memory-attribution Daily Report through final CI, complete diff/generated-output self-review, squash merge, exact production deployment, bilingual public verification, and one merged-PR closeout comment.
-2. For the next publication, select a real adjacent-systems question that keeps the first full ten-report window at 7 eBPF / 2 Agent / 1 adjacent. Use profiler sampling theory only if its central mechanism is genuinely general profiling rather than eBPF; otherwise defer the active-series question for one run.
+1. Complete the `2026-08-19` profiler-sampling Daily Report through final CI, complete diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
+2. On the next normal run, return to the active eBPF Observability and Profiling series and evaluate the remaining questions on semantic compression, application-defined resource profiling, and GPU causal profiling.
 3. Keep the required complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never treat the missing `2026-08-09` row as zero.
-4. Monitor the current click/CTR decline across another finalized period before changing search-facing titles, copy, or navigation.
-5. Obtain date-by-page or date-by-query evidence before attributing the `2026-08-05` impression spike.
+4. Obtain date-by-page or date-by-query evidence before attributing the `2026-08-05` impression spike.
+5. Monitor the Search Console click/CTR movement across another finalized period before changing search-facing titles, copy, or navigation.
 6. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic only with richer source-native evidence.
 7. Migrate the consuming SEO contract before updating the skill submodule pointer.
 8. Add Cloudflare evidence only when a supported read-only path is enabled in repository configuration.
