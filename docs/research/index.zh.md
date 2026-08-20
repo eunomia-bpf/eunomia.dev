@@ -13,6 +13,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 CUDA kernel 启动晚可能来自 host scheduling、runtime、command-buffer queueing、dependency 或 device availability，即使 kernel 本身的执行时间完全没变。本文提出带显式未知状态的 launch-state ledger、跨 host/device 的 launch lineage，以及以已知 delay source 为 ground truth 的归因 benchmark。
 
+### [GPU Kernel 变慢时，Profiler 能证明是谁造成的吗？](https://eunomia.dev/zh/research/gpu-host-device-causality/)
+
+异步 CUDA trace 可以同时看到 host call、stream、graph node 与 GPU kernel，却未必能证明哪一个更早的动作真正造成延迟。本文提出带 generation 的 host-device causal identity、保留 unknown edge 的 dependency-aware critical path，以及专门让 timestamp-only 解释失败的 ground-truth benchmark。
+
 ### [性能分析器的采样什么时候会产生偏差？](https://eunomia.dev/zh/research/profiler-sampling-bias/)
 
 当 sampler 与周期 workload 相位锁定、hardware sample 出现 skid，或者短函数持续被漏采时，profile 百分比可能系统性出错。本文提出带 aliasing 诊断的 sampling-schedule contract、用独立 profile epoch 表达 rank uncertainty，以及在固定 overhead budget 下由 uncertainty 触发 selective instrumentation。
