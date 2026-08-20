@@ -18,24 +18,24 @@ already configured and enabled; it is not a blocker.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder
-contains three adjacent weekly Search Console and GA4 export sets beginning
-`2026-07-27`, `2026-08-03`, and `2026-08-10`; no newer weekly set was observed on
-`2026-08-19`. The newest Search Console date file has rows through `2026-08-15`,
-which are finalized under the configured three-day lag.
+contains adjacent weekly export sets beginning `2026-07-27`, `2026-08-03`, and
+`2026-08-10`; no newer weekly set beginning `2026-08-17` was observed on
+`2026-08-20`. The newest verified Search Console date rows remain through
+`2026-08-15`, which are finalized under the configured three-day lag.
 
 A complete latest-7-days versus previous-7-days Search Console comparison remains
 unavailable because the `2026-08-09` date row is absent across the adjacent
 weekly exports. The available data supports an equal-duration six-day comparison
 for `2026-08-10` through `2026-08-15` versus `2026-08-03` through `2026-08-08`.
-The 28-day comparison also remains unavailable because the export history is not
-long enough.
+The 28-day comparison also remains unavailable because the verified export
+history is not long enough.
 
-GA4 landing-page files are weekly aggregates without a date dimension. On
-`2026-08-19`, the complete `2026-08-10` through `2026-08-16` aggregate is outside
-the configured three-day finalization lag and is usable as a finalized
-source-native weekly comparison against `2026-08-03` through `2026-08-09`. The
-landing-page exports still do not provide complete acquisition, conversion, or
-outbound behavior coverage by themselves.
+GA4 landing-page files are weekly aggregates without a date dimension. The
+complete `2026-08-10` through `2026-08-16` aggregate remains outside the
+configured three-day finalization lag and is usable as a finalized source-native
+weekly comparison against `2026-08-03` through `2026-08-09`. No newer weekly GA4
+set was observed on `2026-08-20`. The landing-page exports still do not provide
+complete acquisition, conversion, or outbound behavior coverage by themselves.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google exports, live-site evidence, public GitHub evidence, and
