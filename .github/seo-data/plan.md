@@ -71,23 +71,23 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix. The `2026-08-19` general profiler-sampling
-   report is genuinely adjacent systems rather than eBPF-centered, so the first
-   complete ten-report window is **7 eBPF-centered / 2 pure Agent / 1 adjacent**.
-   Recalculate the rolling window on every later run as old reports age out; do
-   not treat this one split as a permanent target.
-2. Return normal topic selection to the active **eBPF Observability and Profiling**
-   series. Sampling theory is now covered as an adjacent measurement-design
-   question. Prefer the remaining active questions on always-on semantic
-   compression, application-defined resource profiling, and GPU host/device
-   causal profiling, subject to fresh primary evidence and novelty checks.
+1. Preserve the rolling ten-report mix mechanically. Before the `2026-08-20`
+   publication the window is **7 eBPF-centered / 2 pure Agent / 1 adjacent**.
+   Because the oldest item aging out is pure Agent, another eBPF-centered report
+   would create 8 eBPF of 10 and violate the repository rule. The selected GPU
+   host/device causality report is therefore adjacent systems. After publication
+   the rolling mix becomes **7 eBPF / 1 pure Agent / 2 adjacent**.
+2. Keep the active **eBPF Observability and Profiling** questions queued, but only
+   return to an eBPF-centered publication when the next rolling-window arithmetic
+   permits it. Remaining questions include always-on semantic compression,
+   application-defined resource profiling, and GPU profiling where eBPF is
+   actually essential to the mechanism rather than one optional collector.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-19`, the `2026-08-10` through `2026-08-16` GA4 weekly aggregate is
-   now outside the configured three-day finalization lag and can be compared as a
-   finalized source-native week against `2026-08-03` through `2026-08-09`.
-   Search Console still lacks the `2026-08-09` date row, so keep the required
-   complete 7-day and 28-day comparisons unavailable until source history really
-   supports them.
+   As of `2026-08-20`, no weekly set newer than `2026-08-10` through `2026-08-16`
+   is present. That GA4 aggregate is finalized under the configured lag and can be
+   compared against `2026-08-03` through `2026-08-09`. Search Console still lacks
+   the `2026-08-09` date row, so keep the required complete 7-day and 28-day
+   comparisons unavailable until source history really supports them.
 4. Obtain or generate date-by-page or date-by-query Search Console evidence before
    attributing the `2026-08-05` impression spike to a specific page or query family.
 5. Monitor the current Search Console click/CTR decline and homepage/branded
@@ -102,10 +102,14 @@ priorities that can guide a later daily run belong below.
 8. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside the approved eBPF and adjacent
    systems series.
-9. Revisit a dedicated public hub for the completed eBPF runtime series only after
-   report-level acquisition or navigation evidence shows that it would improve
-   retrieval beyond the existing Daily Report index.
-10. Migrate the consuming SEO contract before moving the pinned `seo-skills`
+9. The GPU and Heterogeneous Runtime Systems queue now has one concrete report on
+   host/device causal identity and dependency-aware profiling. Follow-ups should
+   address a different mechanism, such as memory movement or megakernel internals,
+   rather than restating the cross-layer correlation gap.
+10. Revisit a dedicated public hub for the completed eBPF runtime series only after
+    report-level acquisition or navigation evidence shows that it would improve
+    retrieval beyond the existing Daily Report index.
+11. Migrate the consuming SEO contract before moving the pinned `seo-skills`
     submodule to a newer upstream layout that removed interfaces this repository
     still calls. Upstream movement alone is not evidence that a pointer-only bump
     is safe.
