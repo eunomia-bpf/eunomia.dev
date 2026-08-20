@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can a GPU Profiler Prove What Caused a Slow Kernel?](https://eunomia.dev/research/gpu-host-device-causality/)
+
+Asynchronous CUDA traces can show host calls, streams, graph nodes, and GPU kernels without proving which earlier action caused a delay. This report develops generation-scoped host-device causal identity, a dependency-aware critical-path graph with explicit unknown edges, and a ground-truth benchmark that makes timestamp-only explanations fail visibly.
+
 ### [When Does Profiler Sampling Become Biased?](https://eunomia.dev/research/profiler-sampling-bias/)
 
 Sampling percentages can be systematically wrong when a sampler phase-locks with periodic work, skids past the event that caused a sample, or repeatedly misses short-lived code. This report develops an explicit sampling-schedule contract with aliasing diagnostics, replicated profile epochs with rank uncertainty, and uncertainty-triggered selective instrumentation under a fixed overhead budget.
