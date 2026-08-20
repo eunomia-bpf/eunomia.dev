@@ -71,20 +71,24 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix. The `2026-08-19` general profiler-sampling
-   report is genuinely adjacent systems rather than eBPF-centered, so the first
-   complete ten-report window is **7 eBPF-centered / 2 pure Agent / 1 adjacent**.
-   Recalculate the rolling window on every later run as old reports age out; do
-   not treat this one split as a permanent target.
-2. Return normal topic selection to the active **eBPF Observability and Profiling**
-   series. Sampling theory is now covered as an adjacent measurement-design
-   question. Prefer the remaining active questions on always-on semantic
-   compression, application-defined resource profiling, and GPU host/device
-   causal profiling, subject to fresh primary evidence and novelty checks.
+1. Preserve the rolling ten-report mix mechanically as reports age out. After the
+   `2026-08-20` GPU launch-latency report, the most recent ten reports are **7
+   eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest remaining
+   report in that window is the pure-Agent parallel-effect report, so the next
+   publication must again be non-eBPF; adding an eBPF-centered report immediately
+   would produce 8 eBPF reports in the rolling ten and violate the 5–7 rule.
+2. Keep **eBPF Observability and Profiling** as the active series, but defer its
+   eBPF-essential questions until the rolling window permits them again. The
+   August 20 report is a GPU-profiling adjacent-systems detour about launch-delay
+   attribution, distinct from the August 19 sampling-bias detour. For the next
+   run, prefer a genuine adjacent systems question or a strong pure-Agent systems
+   question rather than relabeling an eBPF mechanism. Once the oldest eBPF report
+   starts aging out, return to always-on semantic compression,
+   application-defined resource profiling, or GPU host/device causal profiling
+   with eBPF as an essential mechanism only when the mix remains compliant.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-19`, the `2026-08-10` through `2026-08-16` GA4 weekly aggregate is
-   now outside the configured three-day finalization lag and can be compared as a
-   finalized source-native week against `2026-08-03` through `2026-08-09`.
+   On `2026-08-20`, no newer weekly set than `2026-08-10` through `2026-08-16`
+   was observed. That GA4 aggregate remains finalized under the three-day lag.
    Search Console still lacks the `2026-08-09` date row, so keep the required
    complete 7-day and 28-day comparisons unavailable until source history really
    supports them.
