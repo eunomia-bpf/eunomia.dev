@@ -71,33 +71,34 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Preserve the exact rolling topic mix when the archive reaches ten reports. The
-   current page-level memory-attribution report makes the archive **7
-   eBPF-centered / 2 pure Agent / 0 adjacent out of 9**. The next published report
-   therefore must be a genuine **adjacent-systems** report that is neither
-   eBPF-centered nor pure Agent, yielding 7 / 2 / 1 in the first full ten-report
-   window. Do not relabel an eBPF-essential question merely to satisfy the ratio.
-2. Keep **eBPF Observability and Profiling** as the active series, but defer its
-   next eBPF-essential report for one run if necessary. Profiler sampling theory
-   may be the next report only if the actual central question is a general
-   profiling problem rather than an eBPF mechanism; otherwise select another
-   approved adjacent-systems question, then return to the active series afterward.
+1. Preserve the rolling ten-report mix. The `2026-08-19` general profiler-sampling
+   report is genuinely adjacent systems rather than eBPF-centered, so the first
+   complete ten-report window is **7 eBPF-centered / 2 pure Agent / 1 adjacent**.
+   Recalculate the rolling window on every later run as old reports age out; do
+   not treat this one split as a permanent target.
+2. Return normal topic selection to the active **eBPF Observability and Profiling**
+   series. Sampling theory is now covered as an adjacent measurement-design
+   question. Prefer the remaining active questions on always-on semantic
+   compression, application-defined resource profiling, and GPU host/device
+   causal profiling, subject to fresh primary evidence and novelty checks.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   The new `2026-08-10` weekly set is available, but the newest GA4 weekly
-   aggregate is provisional on `2026-08-18` because it includes `2026-08-16`
-   inside the configured three-day finalization lag and has no date dimension for
-   trimming. Keep accumulating history until complete previous-7-day and 28-day
-   comparisons can be made without inventing the missing `2026-08-09` Search
-   Console row or earlier history.
+   On `2026-08-19`, the `2026-08-10` through `2026-08-16` GA4 weekly aggregate is
+   now outside the configured three-day finalization lag and can be compared as a
+   finalized source-native week against `2026-08-03` through `2026-08-09`.
+   Search Console still lacks the `2026-08-09` date row, so keep the required
+   complete 7-day and 28-day comparisons unavailable until source history really
+   supports them.
 4. Obtain or generate date-by-page or date-by-query Search Console evidence before
    attributing the `2026-08-05` impression spike to a specific page or query family.
 5. Monitor the current Search Console click/CTR decline and homepage/branded
    softness across another finalized period before changing titles, copy, or site
    structure; the current movement is not uniform enough to justify a speculative
    SEO patch.
-6. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic as measurement
-   and technical SEO evidence rather than letting them distort content selection.
-7. Add Cloudflare coverage when a supported read-only route is available.
+6. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
+   technical SEO questions that require richer source-native evidence rather than
+   as reasons to steer report topics.
+7. Add Cloudflare coverage only when a supported read-only route is enabled in
+   repository configuration.
 8. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside the approved eBPF and adjacent
    systems series.

@@ -20,9 +20,7 @@ Reports:
   kernels, observability, profiling, networking, security, runtimes, GPU and
   heterogeneous systems, distributed systems, compilers, or storage.
 - Until the archive reaches 10 reports, apply the same proportions to the
-  available set as closely as possible. The two existing Agent-centered reports
-  mean the next reports should strongly favor eBPF before another pure Agent
-  report is considered.
+  available set as closely as possible.
 
 Record the rolling mix in the daily operating record before selecting a topic.
 Do not manipulate classification to satisfy the ratio; classify by the report's
@@ -80,6 +78,12 @@ how to distinguish allocation from pages that were actually touched, faulted,
 reclaimed, migrated, or responsible for sampled memory cost while preserving
 provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
 
+The `2026-08-19` report is a deliberate one-run **adjacent profiling detour** on
+sampling bias. Its central mechanism is general profiler measurement design, not
+eBPF, so it is classified as adjacent systems. It closes the first ten-report
+window at the intended 7 eBPF / 2 Agent / 1 adjacent mix without relabeling an
+eBPF-essential question.
+
 ### Published progress
 
 1. `2026-08-18`: `/research/page-level-ebpf-memory-attribution/` separates
@@ -88,35 +92,37 @@ provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
    access-weighted attribution with explicit confidence, and a ground-truth
    benchmark spanning reserve-versus-touch, COW, THP, reclaim, refault, and NUMA
    migration.
+2. `2026-08-19`: `/research/profiler-sampling-bias/` asks when sampling itself is
+   untrustworthy. It compares randomized sampling history, current Linux perf
+   interfaces and kernel profile-collection guidance, and OSDI 2026 Blink, then
+   develops a sampling-schedule contract with aliasing diagnostics, independent
+   profile epochs with uncertainty and rank stability, and uncertainty-triggered
+   selective instrumentation. Because the mechanism applies to profilers in
+   general and does not require eBPF, this report is adjacent systems rather than
+   eBPF-centered.
 
-After this report, the archive is **7 eBPF-centered / 2 pure Agent / 0 adjacent
-out of 9**. The next published report will create the first full ten-report
-window. It therefore must be an **adjacent-systems report that is not classified
-as eBPF-centered or pure Agent**, producing 7 eBPF / 2 Agent / 1 adjacent out of
-10. Do not force an active-series question into the adjacent bucket merely to
-satisfy the ratio. If the strongest next Observability and Profiling candidate
-still has eBPF as an essential mechanism, defer it for one run and select a real
-adjacent-systems question from the approved roadmap.
+After these reports, the first complete ten-report window is **7 eBPF-centered /
+2 pure Agent / 1 adjacent systems out of 10**. The next normal run may return to
+an eBPF-centered question inside this active series. Continue enforcing the
+rolling 10-report window as the oldest reports age out rather than treating the
+7 / 2 / 1 split as permanent.
 
 ### Preferred next questions
 
-These remain the preferred questions inside this active series once the rolling
-mix permits another eBPF-centered report:
+Sampling theory is now covered by the adjacent report above. The preferred next
+questions inside the active eBPF series are:
 
-1. sampling theory for profilers: phase locking, randomized sampling, bias, and
-   confidence intervals;
-2. always-on semantic compression that preserves diagnostic evidence instead of
+1. always-on semantic compression that preserves diagnostic evidence instead of
    raw event volume;
-3. application-defined resource profiling that combines static discovery,
+2. application-defined resource profiling that combines static discovery,
    runtime eBPF evidence, and online validation;
-4. causal profiling for GPU host-side bottlenecks and megakernel execution;
-5. revisit async and syscall causal profiling only when new mechanism or
+3. causal profiling for GPU host-side bottlenecks and megakernel execution;
+4. revisit async and syscall causal profiling only when new mechanism or
    evaluation evidence materially extends the published causal-profiler report.
 
-For the immediate ten-report boundary, sampling theory may be selected only if
-its actual central question is a general adjacent profiling problem and eBPF is
-not essential to the mechanism. Otherwise use another approved adjacent-systems
-question and return to this list afterward.
+The next run should start with these active-series questions and use current
+primary evidence to choose among them. A weak or duplicative candidate should be
+rejected rather than padded.
 
 ## Completed series — eBPF Runtime, Extensibility, and Composition
 
@@ -198,8 +204,8 @@ Existing anchors:
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
-Because these already occupy the pure-Agent budget in the current small archive,
-do not schedule another pure Agent report until the rolling mix is compliant.
+These occupy the pure-Agent budget in the current rolling window. Do not schedule
+another pure Agent report until the rolling mix permits it.
 
 Future Agent reports should preferentially connect back to eBPF or systems
 infrastructure, for example OS-level effect tracing, eBPF policy enforcement,

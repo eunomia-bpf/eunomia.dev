@@ -17,11 +17,11 @@ already configured and enabled; it is not a blocker.
 
 ## Current data-history constraint
 
-Google Drive access is verified and is not a blocker. The configured folder now
+Google Drive access is verified and is not a blocker. The configured folder
 contains three adjacent weekly Search Console and GA4 export sets beginning
-`2026-07-27`, `2026-08-03`, and `2026-08-10`. The newest Search Console date file
-has rows through `2026-08-15`, which is finalized under the configured three-day
-lag on `2026-08-18`.
+`2026-07-27`, `2026-08-03`, and `2026-08-10`; no newer weekly set was observed on
+`2026-08-19`. The newest Search Console date file has rows through `2026-08-15`,
+which are finalized under the configured three-day lag.
 
 A complete latest-7-days versus previous-7-days Search Console comparison remains
 unavailable because the `2026-08-09` date row is absent across the adjacent
@@ -31,12 +31,11 @@ The 28-day comparison also remains unavailable because the export history is not
 long enough.
 
 GA4 landing-page files are weekly aggregates without a date dimension. On
-`2026-08-18`, the newest `2026-08-10` through `2026-08-16` file still includes an
-unfinalized day under the configured three-day lag and cannot be trimmed. Its
-figures may be used only as provisional directional evidence. The latest fully
-finalized GA4 weekly comparison remains `2026-08-03` through `2026-08-09` versus
-`2026-07-27` through `2026-08-02`. GA4 landing-page exports also do not provide
-complete acquisition, conversion, or outbound behavior coverage by themselves.
+`2026-08-19`, the complete `2026-08-10` through `2026-08-16` aggregate is outside
+the configured three-day finalization lag and is usable as a finalized
+source-native weekly comparison against `2026-08-03` through `2026-08-09`. The
+landing-page exports still do not provide complete acquisition, conversion, or
+outbound behavior coverage by themselves.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google exports, live-site evidence, public GitHub evidence, and

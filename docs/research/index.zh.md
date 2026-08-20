@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [性能分析器的采样什么时候会产生偏差？](https://eunomia.dev/zh/research/profiler-sampling-bias/)
+
+当 sampler 与周期 workload 相位锁定、hardware sample 出现 skid，或者短函数持续被漏采时，profile 百分比可能系统性出错。本文提出带 aliasing 诊断的 sampling-schedule contract、用独立 profile epoch 表达 rank uncertainty，以及在固定 overhead budget 下由 uncertainty 触发 selective instrumentation。
+
 ### [eBPF 能把内存开销归因到真正使用的页面吗？](https://eunomia.dev/zh/research/page-level-ebpf-memory-attribution/)
 
 分配调用栈、RSS、页面热度、回收、迁移和硬件内存采样描述的是不同层次的成本。本文提出从应用分配到虚拟区间 generation 和页面活动的生命周期 provenance、带明确置信度的访问加权归因，以及用于判断逐页 lineage 是否值得其开销的 ground-truth benchmark。
