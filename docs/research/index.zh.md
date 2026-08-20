@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [性能分析器应该如何发现应用自定义资源？](https://eunomia.dev/zh/research/application-defined-resource-profiling/)
+
+应用内部的 buffer pool、cache 和 queue 可能主导性能，却不会直接表现成系统资源压力。本文提出带版本的资源语义 manifest、能够显式降低置信度的运行时验证机制，以及统一比较显式声明、自动推断和动态观测资源模型的 ground-truth benchmark。
+
 ### [性能分析器的采样什么时候会产生偏差？](https://eunomia.dev/zh/research/profiler-sampling-bias/)
 
 当 sampler 与周期 workload 相位锁定、hardware sample 出现 skid，或者短函数持续被漏采时，profile 百分比可能系统性出错。本文提出带 aliasing 诊断的 sampling-schedule contract、用独立 profile epoch 表达 rank uncertainty，以及在固定 overhead budget 下由 uncertainty 触发 selective instrumentation。
