@@ -78,11 +78,21 @@ how to distinguish allocation from pages that were actually touched, faulted,
 reclaimed, migrated, or responsible for sampled memory cost while preserving
 provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
 
-The `2026-08-19` report is a deliberate one-run **adjacent profiling detour** on
-sampling bias. Its central mechanism is general profiler measurement design, not
-eBPF, so it is classified as adjacent systems. It closes the first ten-report
-window at the intended 7 eBPF / 2 Agent / 1 adjacent mix without relabeling an
-eBPF-essential question.
+The `2026-08-19` report is a deliberate **adjacent profiling detour** on sampling
+bias. Its central mechanism is general profiler measurement design, not eBPF, so
+it is classified as adjacent systems.
+
+Before the `2026-08-20` topic was selected, the rolling ten-report window was
+**7 eBPF-centered / 2 pure Agent / 1 adjacent systems**. Adding another eBPF
+report would have pushed the window to 8 eBPF reports because the oldest report
+leaving the window was an Agent report. The mix therefore required another
+non-eBPF report even though the active series itself is eBPF-first.
+
+The `2026-08-20` report stays inside observability and profiling but asks a
+collector-neutral question: how a profiler can discover, version, and validate
+the semantics of application-defined resources. eBPF and uprobes are useful
+observers, but they are not essential to the proposed resource-semantics
+contract, so the report is classified as adjacent systems.
 
 ### Published progress
 
@@ -100,29 +110,38 @@ eBPF-essential question.
    selective instrumentation. Because the mechanism applies to profilers in
    general and does not require eBPF, this report is adjacent systems rather than
    eBPF-centered.
+3. `2026-08-20`: `/research/application-defined-resource-profiling/` asks how a
+   profiler can obtain a trustworthy identity, lifetime, unit, capacity, and
+   event model for application-defined resources. It builds on OSDI 2026
+   gigiprofiler and current Linux `user_events`/uprobe interfaces, then develops
+   a versioned resource-semantics manifest, runtime stale-model validation with
+   explicit confidence loss, and a ground-truth semantic benchmark. Because the
+   contract is intentionally independent of the collector, this report is
+   adjacent systems rather than eBPF-centered.
 
-After these reports, the first complete ten-report window is **7 eBPF-centered /
-2 pure Agent / 1 adjacent systems out of 10**. The next normal run may return to
-an eBPF-centered question inside this active series. Continue enforcing the
-rolling 10-report window as the oldest reports age out rather than treating the
-7 / 2 / 1 split as permanent.
+After the `2026-08-20` publication, the rolling window becomes **7 eBPF-centered /
+1 pure Agent / 2 adjacent systems out of 10**. The next run must remain non-eBPF:
+the oldest report that would leave the window is still the remaining pure-Agent
+report, so an eBPF report would again produce 8 eBPF reports. After one more
+non-eBPF publication ages that Agent report out, a subsequent eBPF report can
+return while keeping the window at or below 7 eBPF-centered reports.
 
 ### Preferred next questions
 
-Sampling theory is now covered by the adjacent report above. The preferred next
-questions inside the active eBPF series are:
+For the next run, stay near the active observability/profiling series while
+respecting the temporary non-eBPF mix constraint. Preferred adjacent questions
+are:
 
 1. always-on semantic compression that preserves diagnostic evidence instead of
-   raw event volume;
-2. application-defined resource profiling that combines static discovery,
-   runtime eBPF evidence, and online validation;
-3. causal profiling for GPU host-side bottlenecks and megakernel execution;
+   raw event volume, framed as a collector-neutral profiling problem;
+2. host/device causal profiling for GPU workloads when the mechanism is about
+   cross-layer evidence rather than eBPF itself;
+3. uncertainty-aware profile comparison across software versions or deployments;
 4. revisit async and syscall causal profiling only when new mechanism or
    evaluation evidence materially extends the published causal-profiler report.
 
-The next run should start with these active-series questions and use current
-primary evidence to choose among them. A weak or duplicative candidate should be
-rejected rather than padded.
+Once the rolling window permits an eBPF-centered report again, return to the
+active eBPF questions rather than extending the adjacent detour by default.
 
 ## Completed series — eBPF Runtime, Extensibility, and Composition
 
@@ -204,8 +223,11 @@ Existing anchors:
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
-These occupy the pure-Agent budget in the current rolling window. Do not schedule
-another pure Agent report until the rolling mix permits it.
+After the `2026-08-20` publication, only
+`/research/parallel-agent-effect-serializability/` remains inside the rolling
+ten-report window. A future pure-Agent report is numerically permitted by the
+1–2 cap, but it should still be selected only when it is stronger than adjacent
+systems candidates and does not displace the active eBPF roadmap unnecessarily.
 
 Future Agent reports should preferentially connect back to eBPF or systems
 infrastructure, for example OS-level effect tracing, eBPF policy enforcement,
