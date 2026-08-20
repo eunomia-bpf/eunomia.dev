@@ -4633,6 +4633,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-hook-composition-contract/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/gpu-host-device-causality/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/gpu-host-device-causality/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/gpu-host-device-causality/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/gpu-host-device-causality/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/gpu-host-device-causality/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/gpu-host-device-causality/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/gpu-host-device-causality/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/gpu-host-device-causality/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/gpu-kernel-launch-latency/</loc>
     <lastmod>2026-08-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/gpu-kernel-launch-latency/" />
