@@ -61,12 +61,11 @@ unavailable. A valid equal-duration six-day comparison is `2026-08-10` through
 also unavailable because the export history is not long enough.
 
 GA4 weekly landing-page exports have no date dimension for trimming a partial or
-unfinalized day within a file. On `2026-08-20`, every day in the newest
-`2026-08-10` through `2026-08-16` aggregate is outside the configured three-day
-finalization lag, so the whole aggregate remains usable as a finalized
-source-native weekly comparison against `2026-08-03` through `2026-08-09`.
-Public repository and live-site data supplement these exports but do not replace
-their source-native meanings.
+unfinalized day within a file. Every day in the newest `2026-08-10` through
+`2026-08-16` aggregate is outside the configured three-day finalization lag, so
+the whole aggregate is usable as a finalized source-native weekly comparison
+against `2026-08-03` through `2026-08-09`. Public repository and live-site data
+supplement these exports but do not replace their source-native meanings.
 
 ## Deployment
 

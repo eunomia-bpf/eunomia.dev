@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [How can you tell whether an OpenTelemetry GenAI attribute is stable enough to depend on?](/ebpf-qa/2026-08-20-opentelemetry-genai-attribute-stability/)
 - [Why can libbpf load a BPF object slowly on a host with many kernel modules?](/ebpf-qa/2026-08-19-libbpf-selective-kmod-btf-loading/)
 - [Does cgroup v2 `cpu.max` still limit CPU time under BPF extensible scheduling?](/ebpf-qa/2026-08-18-sched-ext-cgroup-cpu-max/)
 - [Why can classic uprobe BPF programs crash preemptible kernels that use private BPF stacks?](/ebpf-qa/2026-08-17-uprobe-private-stack-preemption-crash/)

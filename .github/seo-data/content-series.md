@@ -78,18 +78,17 @@ how to distinguish allocation from pages that were actually touched, faulted,
 reclaimed, migrated, or responsible for sampled memory cost while preserving
 provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
 
-The `2026-08-19` report is a deliberate one-run **adjacent profiling detour** on
-sampling bias. Its central mechanism is general profiler measurement design, not
-eBPF, so it is classified as adjacent systems. It closes the first ten-report
-window at the intended 7 eBPF / 2 Agent / 1 adjacent mix without relabeling an
-eBPF-essential question.
+The `2026-08-19` report is a deliberate **adjacent profiling detour** on sampling
+bias. Its central mechanism is general profiler measurement design, not eBPF, so
+it is classified as adjacent systems. It closes the first ten-report window at
+7 eBPF / 2 Agent / 1 adjacent without relabeling an eBPF-essential question.
 
-The `2026-08-20` run also has to stay adjacent. Once the oldest `2026-08-05`
-Agent report ages out, an eBPF-centered publication would create an 8 eBPF / 1
-Agent / 1 adjacent rolling window and violate the 5–7 eBPF rule. The selected
-GPU host/device causality question therefore uses the approved GPU and
-Heterogeneous Runtime Systems queue and treats eBPF as one host evidence source,
-not as the central mechanism.
+The `2026-08-20` report is a second adjacent profiling detour required by the
+rolling-window arithmetic. It asks whether a late CUDA kernel start came from
+host scheduling, runtime/command-buffer work, a dependency, or device
+availability. CUPTI and Nsight Systems are the primary mechanisms; Linux/eBPF
+host tracing can be an optional evidence source but is not essential, so this
+report is also adjacent systems rather than eBPF-centered.
 
 ### Published progress
 
@@ -107,31 +106,39 @@ not as the central mechanism.
    selective instrumentation. Because the mechanism applies to profilers in
    general and does not require eBPF, this report is adjacent systems rather than
    eBPF-centered.
+3. `2026-08-20`: `/research/gpu-kernel-launch-latency/` separates CUDA API time,
+   command-buffer queue/submission, dependency readiness, device availability,
+   and kernel execution. It develops an explicit launch-state ledger, a
+   cross-domain launch identity that survives host handoffs and graph replay, and
+   a ground-truth launch-delay attribution benchmark. The central question is GPU
+   profiling, so it is adjacent systems.
 
-After the `2026-08-20` GPU causality publication, the rolling ten-report window
-becomes **7 eBPF-centered / 1 pure Agent / 2 adjacent systems out of 10**. The
-older `agent-trace-evidence-budget` report is the item that ages out of the first
-complete ten-report window. Continue enforcing the rolling window mechanically
-before topic selection rather than assuming that an eBPF-centered report is
-always permitted because the site is eBPF-first.
+After the August 20 report, the rolling ten-report window is **7 eBPF-centered /
+1 pure Agent / 2 adjacent systems**. The oldest report still inside that window
+is the remaining pure-Agent parallel-effect report. Therefore the next
+publication must again be non-eBPF: immediately adding an eBPF-centered report
+would create 8 eBPF reports in the rolling ten and violate the 5–7 requirement.
+Once the oldest eBPF reports start aging out, an eBPF-centered report can return
+without exceeding the cap.
 
 ### Preferred next questions
 
-Sampling theory is covered by the adjacent report above. The preferred remaining
-questions inside the active eBPF series are:
+The active eBPF-series questions remain valuable but are deferred while the
+rolling window is at its eBPF ceiling:
 
 1. always-on semantic compression that preserves diagnostic evidence instead of
    raw event volume;
 2. application-defined resource profiling that combines static discovery,
    runtime eBPF evidence, and online validation;
-3. causal profiling for GPU host-side bottlenecks and megakernel execution when
-   eBPF is essential to the mechanism rather than only one collector;
+3. causal profiling for GPU host-side bottlenecks and megakernel execution where
+   eBPF is genuinely essential to the mechanism;
 4. revisit async and syscall causal profiling only when new mechanism or
    evaluation evidence materially extends the published causal-profiler report.
 
-Before returning to an eBPF-centered report, calculate which item will age out of
-the next ten-report window. If another eBPF report would exceed 7 of 10, use an
-approved adjacent-systems question instead of manipulating classification.
+For the next run, choose a genuine adjacent-systems question or an unusually
+strong pure-Agent systems question after fresh evidence and novelty review. Do
+not relabel one of the eBPF-essential candidates just to continue the active
+series one day earlier.
 
 ## Completed series — eBPF Runtime, Extensibility, and Composition
 
@@ -199,17 +206,13 @@ observability, programmable device-side instrumentation, distributed GPU
 coordination, utilization versus allocatability, host-side scheduling noise, and
 eBPF-like programmable monitors near GPU or DPU execution.
 
-The `2026-08-20` report `/research/gpu-host-device-causality/` is the first
-published report in this queue. It asks how a profiler can preserve work identity
-across host task handoffs, CUDA APIs, streams, graphs, and GPU activity, and how
-to distinguish explicit dependencies from timestamp coincidence. It develops a
-generation-scoped causal token, a dependency-aware critical-path graph with
-explicit loss/unknown states, and an adversarial ground-truth causality benchmark.
-Because the mechanism remains valid with a non-eBPF host tracer, the report is
-classified adjacent systems.
-
 Reports in this series count toward the eBPF share only when eBPF or an eBPF-like
 runtime is central to the mechanism being evaluated.
+
+The August 20 launch-latency report is a focused adjacent-systems contribution to
+this roadmap. It does not promote this queued series to active; the active series
+remains eBPF Observability and Profiling once the rolling mix permits another
+eBPF-centered report.
 
 ## Queued series — Agent Systems (limited)
 
@@ -222,10 +225,10 @@ Existing anchors:
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
-The rolling window after the `2026-08-20` publication retains only
-`parallel-agent-effect-serializability` as a pure-Agent report because the older
-`agent-trace-evidence-budget` item ages out. Pure Agent work remains optional and
-should not be added merely to fill the available quota.
+After the August 20 report, only the parallel-effect report remains inside the
+rolling ten-report window. Pure-Agent publication is allowed by the cap, but is
+not required; prefer a technically stronger adjacent-systems question when one
+passes the evidence and novelty gates.
 
 Future Agent reports should preferentially connect back to eBPF or systems
 infrastructure, for example OS-level effect tracing, eBPF policy enforcement,
@@ -236,14 +239,14 @@ sandbox escape visibility, syscall/tool causality, or runtime resource control.
 Each daily run should:
 
 1. calculate the current rolling topic mix;
-2. start inside the active series;
+2. start inside the active series when the mix permits it;
 3. research multiple candidate questions if necessary;
 4. reject candidates that do not pass the evidence and novelty gates;
 5. choose one question that both passes quality review and keeps the rolling mix
    compliant;
 6. publish exactly one new Daily Report;
 7. record the chosen series, topic classification, rejected candidates when
-   useful, and why the report materially advances the series.
+   useful, and why the report materially advances the roadmap.
 
-A series switch should be recorded in the daily operating record and in this
-file so the repository, not chat history, remains authoritative.
+A temporary out-of-series detour should be recorded in the daily operating record
+and in this file so the repository, not chat history, remains authoritative.
