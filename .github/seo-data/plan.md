@@ -71,23 +71,22 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix. The `2026-08-19` general profiler-sampling
-   report is genuinely adjacent systems rather than eBPF-centered, so the first
-   complete ten-report window is **7 eBPF-centered / 2 pure Agent / 1 adjacent**.
-   Recalculate the rolling window on every later run as old reports age out; do
-   not treat this one split as a permanent target.
-2. Return normal topic selection to the active **eBPF Observability and Profiling**
-   series. Sampling theory is now covered as an adjacent measurement-design
-   question. Prefer the remaining active questions on always-on semantic
-   compression, application-defined resource profiling, and GPU host/device
-   causal profiling, subject to fresh primary evidence and novelty checks.
+1. Preserve the rolling ten-report mix. Before the `2026-08-20` topic selection,
+   the window was **7 eBPF-centered / 2 pure Agent / 1 adjacent**. The new
+   application-defined-resource profiling report is genuinely adjacent because
+   its semantic contract is collector-neutral; after publication the window is
+   **7 eBPF / 1 pure Agent / 2 adjacent**. The next run must remain non-eBPF
+   because another eBPF report would push the rolling window to 8 eBPF reports.
+2. Keep topic selection near the active **eBPF Observability and Profiling**
+   series while the mix temporarily requires a non-eBPF report. Prefer adjacent
+   questions on always-on semantic compression, GPU host/device causal evidence,
+   or uncertainty-aware cross-version profile comparison. Return to an
+   eBPF-centered question as soon as the rolling window permits it.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-19`, the `2026-08-10` through `2026-08-16` GA4 weekly aggregate is
-   now outside the configured three-day finalization lag and can be compared as a
-   finalized source-native week against `2026-08-03` through `2026-08-09`.
-   Search Console still lacks the `2026-08-09` date row, so keep the required
-   complete 7-day and 28-day comparisons unavailable until source history really
-   supports them.
+   No newer set was present on `2026-08-20`. The `2026-08-10` through
+   `2026-08-16` GA4 weekly aggregate is finalized; Search Console still lacks the
+   `2026-08-09` date row, so keep the required complete 7-day and 28-day
+   comparisons unavailable until source history supports them.
 4. Obtain or generate date-by-page or date-by-query Search Console evidence before
    attributing the `2026-08-05` impression spike to a specific page or query family.
 5. Monitor the current Search Console click/CTR decline and homepage/branded
