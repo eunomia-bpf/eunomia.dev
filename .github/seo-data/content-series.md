@@ -84,6 +84,13 @@ eBPF, so it is classified as adjacent systems. It closes the first ten-report
 window at the intended 7 eBPF / 2 Agent / 1 adjacent mix without relabeling an
 eBPF-essential question.
 
+The `2026-08-20` run also has to stay adjacent. Once the oldest `2026-08-05`
+Agent report ages out, an eBPF-centered publication would create an 8 eBPF / 1
+Agent / 1 adjacent rolling window and violate the 5–7 eBPF rule. The selected
+GPU host/device causality question therefore uses the approved GPU and
+Heterogeneous Runtime Systems queue and treats eBPF as one host evidence source,
+not as the central mechanism.
+
 ### Published progress
 
 1. `2026-08-18`: `/research/page-level-ebpf-memory-attribution/` separates
@@ -101,28 +108,30 @@ eBPF-essential question.
    general and does not require eBPF, this report is adjacent systems rather than
    eBPF-centered.
 
-After these reports, the first complete ten-report window is **7 eBPF-centered /
-2 pure Agent / 1 adjacent systems out of 10**. The next normal run may return to
-an eBPF-centered question inside this active series. Continue enforcing the
-rolling 10-report window as the oldest reports age out rather than treating the
-7 / 2 / 1 split as permanent.
+After the `2026-08-20` GPU causality publication, the rolling ten-report window
+becomes **7 eBPF-centered / 1 pure Agent / 2 adjacent systems out of 10**. The
+older `agent-trace-evidence-budget` report is the item that ages out of the first
+complete ten-report window. Continue enforcing the rolling window mechanically
+before topic selection rather than assuming that an eBPF-centered report is
+always permitted because the site is eBPF-first.
 
 ### Preferred next questions
 
-Sampling theory is now covered by the adjacent report above. The preferred next
+Sampling theory is covered by the adjacent report above. The preferred remaining
 questions inside the active eBPF series are:
 
 1. always-on semantic compression that preserves diagnostic evidence instead of
    raw event volume;
 2. application-defined resource profiling that combines static discovery,
    runtime eBPF evidence, and online validation;
-3. causal profiling for GPU host-side bottlenecks and megakernel execution;
+3. causal profiling for GPU host-side bottlenecks and megakernel execution when
+   eBPF is essential to the mechanism rather than only one collector;
 4. revisit async and syscall causal profiling only when new mechanism or
    evaluation evidence materially extends the published causal-profiler report.
 
-The next run should start with these active-series questions and use current
-primary evidence to choose among them. A weak or duplicative candidate should be
-rejected rather than padded.
+Before returning to an eBPF-centered report, calculate which item will age out of
+the next ten-report window. If another eBPF report would exceed 7 of 10, use an
+approved adjacent-systems question instead of manipulating classification.
 
 ## Completed series — eBPF Runtime, Extensibility, and Composition
 
@@ -190,6 +199,15 @@ observability, programmable device-side instrumentation, distributed GPU
 coordination, utilization versus allocatability, host-side scheduling noise, and
 eBPF-like programmable monitors near GPU or DPU execution.
 
+The `2026-08-20` report `/research/gpu-host-device-causality/` is the first
+published report in this queue. It asks how a profiler can preserve work identity
+across host task handoffs, CUDA APIs, streams, graphs, and GPU activity, and how
+to distinguish explicit dependencies from timestamp coincidence. It develops a
+generation-scoped causal token, a dependency-aware critical-path graph with
+explicit loss/unknown states, and an adversarial ground-truth causality benchmark.
+Because the mechanism remains valid with a non-eBPF host tracer, the report is
+classified adjacent systems.
+
 Reports in this series count toward the eBPF share only when eBPF or an eBPF-like
 runtime is central to the mechanism being evaluated.
 
@@ -204,8 +222,10 @@ Existing anchors:
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
-These occupy the pure-Agent budget in the current rolling window. Do not schedule
-another pure Agent report until the rolling mix permits it.
+The rolling window after the `2026-08-20` publication retains only
+`parallel-agent-effect-serializability` as a pure-Agent report because the older
+`agent-trace-evidence-budget` item ages out. Pure Agent work remains optional and
+should not be added merely to fill the available quota.
 
 Future Agent reports should preferentially connect back to eBPF or systems
 infrastructure, for example OS-level effect tracing, eBPF policy enforcement,
