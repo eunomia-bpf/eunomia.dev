@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-18",
+  "last_checked": "2026-08-20",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,30 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-20",
+      "checked_via": "chrome_visible_post_and_latest_comments",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/",
+      "visible_impressions": 3187,
+      "visible_reactions": 77,
+      "visible_comments": 2,
+      "visible_reposts": 4,
+      "previous_impressions": 2644,
+      "previous_reactions": 69,
+      "previous_reposts": 2,
+      "notes": "The exact post body, eunomia.dev preview, and link remained intact. The two-comment thread is unchanged and already answered, so no follow-up is due."
+    },
+    {
+      "checked_at": "2026-08-20",
+      "checked_via": "chrome_visible_post_and_latest_comments",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649",
+      "visible_impressions": 1133,
+      "visible_reactions": 8,
+      "visible_comments": 1,
+      "visible_reposts": 1,
+      "previous_impressions": 494,
+      "notes": "The exact post body, GitHub link, and AgentSight repository preview remained intact. The only comment is still the already-answered emoji, so no follow-up is due."
+    },
     {
       "checked_at": "2026-08-18",
       "checked_via": "chrome_visible_post_and_latest_comments",
