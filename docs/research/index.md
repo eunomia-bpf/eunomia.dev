@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Was the GPU Kernel Slow, or Did It Just Start Late?](https://eunomia.dev/research/gpu-kernel-launch-latency/)
+
+A late CUDA kernel start can come from host scheduling, runtime work, command-buffer queueing, dependencies, or device availability even when kernel execution itself is unchanged. This report develops an explicit launch-state ledger, cross-domain launch lineage, and a ground-truth benchmark for deciding which delay cause the trace actually proves.
+
 ### [When Does Profiler Sampling Become Biased?](https://eunomia.dev/research/profiler-sampling-bias/)
 
 Sampling percentages can be systematically wrong when a sampler phase-locks with periodic work, skids past the event that caused a sample, or repeatedly misses short-lived code. This report develops an explicit sampling-schedule contract with aliasing diagnostics, replicated profile epochs with rank uncertainty, and uncertainty-triggered selective instrumentation under a fixed overhead budget.
