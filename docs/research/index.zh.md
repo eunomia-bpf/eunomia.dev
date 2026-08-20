@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU Kernel 变慢时，Profiler 能证明是谁造成的吗？](https://eunomia.dev/zh/research/gpu-host-device-causality/)
+
+异步 CUDA trace 可以同时看到 host call、stream、graph node 与 GPU kernel，却未必能证明哪一个更早的动作真正造成延迟。本文提出带 generation 的 host-device causal identity、保留 unknown edge 的 dependency-aware critical path，以及专门让 timestamp-only 解释失败的 ground-truth benchmark。
+
 ### [性能分析器的采样什么时候会产生偏差？](https://eunomia.dev/zh/research/profiler-sampling-bias/)
 
 当 sampler 与周期 workload 相位锁定、hardware sample 出现 skid，或者短函数持续被漏采时，profile 百分比可能系统性出错。本文提出带 aliasing 诊断的 sampling-schedule contract、用独立 profile epoch 表达 rank uncertainty，以及在固定 overhead budget 下由 uncertainty 触发 selective instrumentation。
