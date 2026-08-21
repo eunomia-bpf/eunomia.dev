@@ -37,8 +37,9 @@ durable goals and constraints, not duplicated scheduler instructions.
 
 ## Operating constraints
 
-- The external scheduler is already configured and only invokes the repository;
-  the repository owns all operational policy and current state.
+- The external scheduler is already configured and remains enabled and recurring;
+  repository or external blockers are reported rather than converted into a
+  stopped schedule.
 - Data analysis runs every day. A missing private source is marked unavailable,
   never inferred as zero.
 - Raw analytics, private identifiers, credentials, and personal information stay
@@ -52,9 +53,6 @@ durable goals and constraints, not duplicated scheduler instructions.
   the Daily Report may not be skipped.
 - Keep the rolling topic mix compliant and classify by the report's actual central
   mechanism, not by superficial keyword mentions.
-- Do not combine unrelated technical SEO and content work when that makes the
-  daily pull request incoherent; put unrelated durable SEO work in this plan for a
-  focused follow-up.
 - Required and expected CI must pass before a clean final automated self-review
   and squash merge.
 - Every daily report is a public change, so the exact squash commit must deploy
@@ -71,45 +69,39 @@ priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix mechanically as reports age out. After the
-   `2026-08-20` GPU launch-latency report, the most recent ten reports are **7
-   eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest remaining
-   report in that window is the pure-Agent parallel-effect report, so the next
-   publication must again be non-eBPF; adding an eBPF-centered report immediately
-   would produce 8 eBPF reports in the rolling ten and violate the 5–7 rule.
-2. Keep **eBPF Observability and Profiling** as the active series, but defer its
-   eBPF-essential questions until the rolling window permits them again. The
-   August 20 report is a GPU-profiling adjacent-systems detour about launch-delay
-   attribution, distinct from the August 19 sampling-bias detour. For the next
-   run, prefer a genuine adjacent systems question or a strong pure-Agent systems
-   question rather than relabeling an eBPF mechanism. Once the oldest eBPF report
-   starts aging out, return to always-on semantic compression,
-   application-defined resource profiling, or GPU host/device causal profiling
-   with eBPF as an essential mechanism only when the mix remains compliant.
+1. Preserve the rolling ten-report mix mechanically from the actually published
+   archive rather than stale operating notes. Before and after the `2026-08-21`
+   eBPF application-resource semantics report, the newest ten are **7
+   eBPF-centered / 0 pure Agent / 3 adjacent systems** because an eBPF report
+   ages out when today's eBPF report enters. Another eBPF-centered report remains
+   arithmetically possible on the next run if it passes the quality and novelty
+   gates.
+2. Keep **eBPF Observability and Profiling** active. After page-level memory
+   attribution and application-resource semantics, prefer **always-on semantic
+   compression under an explicit evidence budget** as the next eBPF-centered
+   question after fresh evidence review. Require a concrete retention/diagnosis
+   trade-off, not generic “compress traces with AI.”
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-20`, no newer weekly set than `2026-08-10` through `2026-08-16`
-   was observed. That GA4 aggregate remains finalized under the three-day lag.
-   Search Console still lacks the `2026-08-09` date row, so keep the required
-   complete 7-day and 28-day comparisons unavailable until source history really
-   supports them.
-4. Obtain or generate date-by-page or date-by-query Search Console evidence before
-   attributing the `2026-08-05` impression spike to a specific page or query family.
-5. Monitor the current Search Console click/CTR decline and homepage/branded
-   softness across another finalized period before changing titles, copy, or site
-   structure; the current movement is not uniform enough to justify a speculative
-   SEO patch.
+   On `2026-08-21`, no newer weekly set than `2026-08-10` through `2026-08-16`
+   was observed. GA4 for that week is finalized. Search Console still lacks the
+   `2026-08-09` date row, so keep complete 7-day and 28-day comparisons
+   unavailable until source history actually supports them.
+4. Obtain date-by-page or date-by-query Search Console evidence before attributing
+   the `2026-08-05` impression spike to a specific page or query family.
+5. Monitor the current Search Console click/CTR softness through another finalized
+   weekly set before changing titles, copy, navigation, or site structure. Page
+   movement is heterogeneous and does not establish one technical SEO defect.
 6. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
    technical SEO questions that require richer source-native evidence rather than
-   as reasons to steer report topics.
+   as reasons to steer Daily Report topics.
 7. Add Cloudflare coverage only when a supported read-only route is enabled in
    repository configuration.
 8. Use search behavior, GitHub activity, primary research, kernel changes, and
-   production evidence to order questions inside the approved eBPF and adjacent
+   production evidence to order questions inside approved eBPF and adjacent
    systems series.
 9. Revisit a dedicated public hub for the completed eBPF runtime series only after
    report-level acquisition or navigation evidence shows that it would improve
    retrieval beyond the existing Daily Report index.
 10. Migrate the consuming SEO contract before moving the pinned `seo-skills`
-    submodule to a newer upstream layout that removed interfaces this repository
-    still calls. Upstream movement alone is not evidence that a pointer-only bump
-    is safe.
+    submodule to the newer upstream layout. Upstream movement alone is not
+    evidence that a pointer-only bump is safe.
