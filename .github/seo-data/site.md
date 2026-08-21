@@ -52,13 +52,14 @@ property IDs, account identifiers, credentials, or private URLs in Git.
 
 Search Console and GA4 exports provide weekly sets for `2026-07-27` through
 `2026-08-02`, `2026-08-03` through `2026-08-09`, and `2026-08-10` through
-`2026-08-16`; no newer weekly set was observed in the configured Drive folder on
-`2026-08-20`. Search Console rows through `2026-08-15` are usable. The
-`2026-08-09` Search Console date row is still absent across the adjacent files,
-so a complete latest-7-days versus previous-7-days comparison remains
-unavailable. A valid equal-duration six-day comparison is `2026-08-10` through
-`2026-08-15` versus `2026-08-03` through `2026-08-08`. The 28-day comparison is
-also unavailable because the export history is not long enough.
+`2026-08-16`; no newer weekly set beginning `2026-08-17` was observed in the
+configured Drive folder on `2026-08-21`. Search Console rows through
+`2026-08-15` are usable. The `2026-08-09` Search Console date row is still absent
+across the adjacent files, so a complete latest-7-days versus previous-7-days
+comparison remains unavailable. A valid equal-duration six-day comparison is
+`2026-08-10` through `2026-08-15` versus `2026-08-03` through `2026-08-08`. The
+28-day comparison is also unavailable because verified export history is not
+long enough.
 
 GA4 weekly landing-page exports have no date dimension for trimming a partial or
 unfinalized day within a file. Every day in the newest `2026-08-10` through
