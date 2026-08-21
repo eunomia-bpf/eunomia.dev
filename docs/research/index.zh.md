@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能理解应用自己定义的资源吗？](https://eunomia.dev/zh/research/ebpf-application-resource-semantics/)
+
+应用内部的 pool、queue、cache 和 credit 可以直接决定性能，却不一定是操作系统资源。本文提出可版本化的 resource-semantics manifest，把语义编译成 eBPF attach plan，并用运行时 confidence loss 与 mutation benchmark 检查软件升级后这些语义是否仍然可信。
+
 ### [GPU 内核是真的慢，还是只是启动晚了？](https://eunomia.dev/zh/research/gpu-kernel-launch-latency/)
 
 CUDA kernel 启动晚可能来自 host scheduling、runtime、command-buffer queueing、dependency 或 device availability，即使 kernel 本身的执行时间完全没变。本文提出带显式未知状态的 launch-state ledger、跨 host/device 的 launch lineage，以及以已知 delay source 为 ground truth 的归因 benchmark。
