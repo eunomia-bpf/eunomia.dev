@@ -2,37 +2,37 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-08-20 08:02 UTC`
+Generated: `2026-08-21 08:02 UTC`
 
 ## Collection health
 
 | Source | Status | Observed | Changed |
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
-| github | succeeded | 150 | 0 |
+| github | succeeded | 151 | 0 |
 | devto | succeeded | 60 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `189 ms`.
+- Homepage: `200` in `140 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `674`.
+- Sitemap entries observed: `682`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
-- Active, non-fork repositories: `97`.
-- Current stars: `9775`; forks: `1280`; open issue/PR records: `284`.
+- Active, non-fork repositories: `98`.
+- Current stars: `9786`; forks: `1281`; open issue/PR records: `271`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4242 | 594 | 23 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1554 | 183 | 112 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 895 | 75 | 19 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 593 | 90 | 23 |
-| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 6 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4244 | 595 | 18 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1554 | 183 | 111 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 895 | 75 | 15 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 596 | 90 | 23 |
+| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 5 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 273 | 25 | 4 |
-| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 231 | 40 | 55 |
+| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 232 | 40 | 55 |
 | [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 144 | 18 | 1 |
 
 ## DEV publication surface
