@@ -30,7 +30,7 @@ OSDI 2026 的 [Diagnosing Performance Issues in Application-Defined Resources](h
 
 本文主张建立一个**由 eBPF 消费的 versioned application-resource contract**。静态分析、LLM、开发者 annotation，或者已有的 USDT/user_events 都可以提出资源语义；eBPF 负责部署与验证：动态挂到现有二进制、把类型化描述传到探针、把资源事件与 scheduler/I/O/memory 等系统效果关联起来，并在真实运行已经不符合描述时明确降低 confidence。
 
-因此这是一篇 eBPF-centered report。目标不是简单地“用 eBPF 采四类事件”，而是实现一种**不重编应用的动态语义插桩，以及跨应用/OS 边界的独立运行时校验**。如果 eBPF 做不到这个性质，或者还不如编译期插桩可靠，这条方向就应该失败。
+目标不是简单地“用 eBPF 采四类事件”，而是实现一种**不重编应用的动态语义插桩，以及跨应用/OS 边界的独立运行时校验**。如果 eBPF 做不到这个性质，或者还不如编译期插桩可靠，这条方向就应该失败。
 
 ## 现有系统已经给了我们什么
 
