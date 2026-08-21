@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-17。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-21。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -39,7 +39,7 @@
 - [x] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。2026-08-15 已提交，2026-08-16 确认公开：<https://juejin.cn/post/7673940698534232064>；公开页原标题、18 个正文标题、20 个代码块、1 个表格、源码与参考链接、`Linux` 和 `云原生` 标签以及 0 条评论 QA 通过，ledger 已记录为 `confirmed`。
 - [x] `排队` Medium：`docs/tutorials/52-fsession-latency/README.md`。2026-08-17 已发布：<https://medium.com/@yunwei356/ebpf-tutorial-tracing-slow-vfs-read-calls-with-fsession-defc728e227e>；公开页完整滚动 QA 确认原标题、18 个正文标题、20 个代码块、6 条环境要求回退、源码与参考链接以及 3 个标签正常。
 - [x] `排队` DEV：`docs/tutorials/52-fsession-latency/README.md`。2026-08-17 已发布：<https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5>；公开页完整滚动 QA 确认原标题、4 个标签、18 个正文标题、20 个代码块、1 个表格、源码与参考链接正常。
-- [ ] `排队` LinkedIn：`docs/tutorials/52-fsession-latency/README.md`。
+- [x] `排队` LinkedIn：`docs/tutorials/52-fsession-latency/README.md`。2026-08-21 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/>；公开页正文、标签、eunomia.dev 预览卡片和短链落地 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 知乎：`docs/tutorials/53-egress-pacer/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/53-egress-pacer/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/53-egress-pacer/README.md`。

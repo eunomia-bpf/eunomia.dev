@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-20",
+  "last_checked": "2026-08-21",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -85,6 +85,16 @@
     }
   ],
   "published": [
+    {
+      "id": "linkedin-7496484872375513088",
+      "status": "confirmed",
+      "date": "2026-08-21",
+      "title": "eBPF Tutorial: Tracing Slow vfs_read Calls with fsession",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/",
+      "source_path": "docs/tutorials/52-fsession-latency/README.md",
+      "checked_via": "normal_visible_public_post",
+      "notes": "Published from draft/media/2026-08-20/52-fsession-latency/linkedin.md. Public-page QA confirmed the exact two-sentence body, public audience selected in the composer, hashtags, LinkedIn short link landing on the canonical eunomia.dev tutorial, and the preview card. The canonical preview title still renders vfs_read as vfsread; the post body keeps the correct identifier."
+    },
     {
       "id": "linkedin-7494569268571803649",
       "status": "confirmed",
