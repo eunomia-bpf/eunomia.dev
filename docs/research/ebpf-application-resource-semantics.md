@@ -30,7 +30,7 @@ This is strong evidence that application-resource semantics are both useful and 
 
 This report argues for a **versioned application-resource contract consumed by eBPF**. Static analysis, an LLM, developer annotations, or existing USDT/user-events metadata may propose resource semantics. eBPF then becomes the deployment and validation substrate: attach to existing binaries, carry a typed descriptor into each probe, correlate resource events with scheduler/I/O/memory effects, and explicitly downgrade confidence when the observed runtime no longer satisfies the descriptor.
 
-That makes this report eBPF-centered. The target property is not merely “trace four events.” It is **dynamic, no-rebuild semantic instrumentation plus cross-boundary validation against the running system**. If eBPF cannot provide that property more reliably than compile-time instrumentation, the proposed direction should fail.
+The target property is not merely “trace four events.” It is **dynamic, no-rebuild semantic instrumentation plus cross-boundary validation against the running system**. If eBPF cannot provide that property more reliably than compile-time instrumentation, the proposed direction should fail.
 
 ## What current systems already give us
 
