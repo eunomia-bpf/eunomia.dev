@@ -1,8 +1,7 @@
 # Human-only blockers
 
-Only unresolved external conditions belong here. The daily operations schedule is
-configured, enabled, and recurring; it is not a blocker and is not paused when a
-run encounters another blocker.
+Only unresolved external conditions belong here. The daily ChatGPT scheduler is
+already configured and enabled; it is not a blocker.
 
 ## Cloudflare analytics is not configured
 
@@ -38,10 +37,11 @@ comparison against `2026-08-03` through `2026-08-09`. No newer weekly GA4 set
 was observed on `2026-08-21`. The landing-page exports do not provide complete
 acquisition, conversion, or outbound behavior coverage by themselves.
 
-These constraints never justify skipping the daily operation or stopping its
-recurring schedule. Each run uses the available Google exports, live-site
-evidence, public GitHub evidence, and public primary-source evidence; missing
-coverage is never converted into zero.
+These constraints never justify skipping the daily operation. Each run must use
+the available Google exports, live-site evidence, public GitHub evidence, and
+public primary-source evidence; missing coverage must never be converted into
+zero. Every run must still publish one new Daily Report under the current
+repository contract.
 
 Remove or narrow a blocker in the next daily pull request after the external
 condition is verified as resolved.
