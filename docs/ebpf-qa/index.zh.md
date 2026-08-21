@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [OpenTelemetry 指标生产者是否应该把服务身份复制到每个数据点？](/zh/ebpf-qa/2026-08-21-opentelemetry-resource-attributes-prometheus-labels/)
 - [如何判断 OpenTelemetry GenAI 属性是否已经稳定到可以依赖？](/zh/ebpf-qa/2026-08-20-opentelemetry-genai-attribute-stability/)
 - [为什么安装了许多内核模块的主机上，libbpf 加载 BPF 对象会变慢？](/zh/ebpf-qa/2026-08-19-libbpf-selective-kmod-btf-loading/)
 - [BPF 可扩展调度生效时，cgroup v2 的 `cpu.max` 仍会限制 CPU 时间吗？](/zh/ebpf-qa/2026-08-18-sched-ext-cgroup-cpu-max/)
