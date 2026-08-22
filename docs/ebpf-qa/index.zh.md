@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么无人抓取的 OBI Prometheus endpoint 仍会让内存持续增长？](/zh/ebpf-qa/2026-08-22-obi-unused-prometheus-exporter-memory-growth/)
 - [OpenTelemetry 指标生产者是否应该把服务身份复制到每个数据点？](/zh/ebpf-qa/2026-08-21-opentelemetry-resource-attributes-prometheus-labels/)
 - [如何判断 OpenTelemetry GenAI 属性是否已经稳定到可以依赖？](/zh/ebpf-qa/2026-08-20-opentelemetry-genai-attribute-stability/)
 - [为什么安装了许多内核模块的主机上，libbpf 加载 BPF 对象会变慢？](/zh/ebpf-qa/2026-08-19-libbpf-selective-kmod-btf-loading/)

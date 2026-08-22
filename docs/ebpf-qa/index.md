@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Why can an unused OBI Prometheus endpoint keep growing memory?](/ebpf-qa/2026-08-22-obi-unused-prometheus-exporter-memory-growth/)
 - [Should an OpenTelemetry metrics producer copy service identity into every data point?](/ebpf-qa/2026-08-21-opentelemetry-resource-attributes-prometheus-labels/)
 - [How can you tell whether an OpenTelemetry GenAI attribute is stable enough to depend on?](/ebpf-qa/2026-08-20-opentelemetry-genai-attribute-stability/)
 - [Why can libbpf load a BPF object slowly on a host with many kernel modules?](/ebpf-qa/2026-08-19-libbpf-selective-kmod-btf-loading/)
