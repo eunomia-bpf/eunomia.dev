@@ -7,54 +7,59 @@
 - Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: configured and enabled
 - Last verified data window: Search Console rows through `2026-08-15`; GA4 weekly organic landing-page files through `2026-08-16`
-- Latest daily record: `2026-08-21`
-- Last completed Daily Report pull request before the current run: `#165`
-- Last verified production publication from a Daily Report run: static export commit `f57e7d96296e36b98aadbe7f6d54e5b88d550e6e` for squash commit `08c1770391e952defacde8e3d4da0aff50c77c8e`
-- Current daily branch: `daily/2026-08-21-ebpf-resource-semantics`
+- Latest daily record: `2026-08-22`
+- Last completed Daily Report pull request before the current run: `#167`
+- Last verified production publication from a Daily Report run: static export commit `25b863acf97b5603283dcfc1e3ca591a94c7f749` for squash commit `9f71d38bab5255f76df3c1e6618bcab261f6ca0b`
+- Current daily branch: `daily/2026-08-22-ebpf-diagnostic-compression`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR `#165` is now closed out. It squash-merged as
-`08c1770391e952defacde8e3d4da0aff50c77c8e`; the production `new` branch contains
-static export commit `f57e7d96296e36b98aadbe7f6d54e5b88d550e6e` with exact message `deploy static
-app for 08c1770391e952defacde8e3d4da0aff50c77c8e`. The deployed English and Chinese
-GPU host-device causality pages contain locale-correct canonical URLs, reciprocal
-`en`/`zh` language alternates plus `x-default`, Article JSON-LD, and Daily Report
-navigation. One compact closeout comment records the verification.
-
-The stale unmerged application-resource PR `#166` was based on pre-`#165` state,
-used obsolete rolling-mix arithmetic, and was closed rather than reused. The
-current run starts from the latest default branch.
+PR `#167` is closed out. It squash-merged as
+`9f71d38bab5255f76df3c1e6618bcab261f6ca0b`; production published static export
+commit `25b863acf97b5603283dcfc1e3ca591a94c7f749`, whose commit message binds the
+export to that exact squash commit. The deployed English and Chinese
+application-resource semantics pages contain locale-correct canonical URLs,
+reciprocal `en`/`zh` alternates plus `x-default`, Article JSON-LD, Daily Report
+navigation and internal links, the required gap and ideas sections, and a
+reader-facing conclusion boundary. One compact closeout comment on PR `#167`
+records those facts.
 
 ## Current Daily Report mix
 
-Immediately before the `2026-08-21` report, the actually published newest ten
+Immediately before the `2026-08-22` report, the actually published newest ten
 reports are:
 
 - eBPF-centered: **7 of 10**
 - pure Agent-centered: **0 of 10**
 - adjacent systems: **3 of 10**
 
-The earlier operating files were stale because they did not yet include the
-August 20 host-device causality report. Today's
-`/research/ebpf-application-resource-semantics/` report is genuinely
-eBPF-centered: its central property is dynamic no-rebuild semantic instrumentation
-plus independent cross-layer runtime validation using eBPF. Publishing it ages an
-eBPF report out of the rolling ten, so the new rolling window remains **7 eBPF /
-0 pure Agent / 3 adjacent** and stays within the 5–7 rule.
+Today's `/research/ebpf-diagnostic-telemetry-compression/` report is
+**eBPF-centered**. Its central mechanism performs source-side semantic reduction
+inside an eBPF observability path using BPF maps, ring-buffer exemplars, and
+coverage accounting. eBPF is therefore required by the technical question rather
+than mentioned as a transport option. Publishing it ages another eBPF-centered
+report out of the newest ten, so the rolling window remains **7 eBPF / 0 pure
+Agent / 3 adjacent**.
+
+The report is the sixth substantial entry in **eBPF Observability and Profiling**.
+After successful publication, that series reaches the repository's normal
+4–6-report boundary. The next normal run should promote **eBPF Networking and
+Security** to the active series, with transactional policy updates across
+programs, maps, links, and control planes as the first preferred question after
+fresh evidence review.
 
 ## Current signals
 
-- Repository-generated public-safe operating brief: refreshed `2026-08-21 08:02 UTC`
-- Homepage: HTTP 200 in **140 ms**
+- Repository-generated public-safe operating brief: refreshed `2026-08-22 07:51 UTC`
+- Homepage: HTTP 200 in **153 ms**
 - `robots.txt`: HTTP 200; sitemap: HTTP 200
-- Sitemap entries observed: **682**
+- Sitemap entries observed: **686**
 - Canonical homepage: `https://eunomia.dev/`
-- Public GitHub portfolio snapshot: 98 active non-fork repositories, 9,786 stars, 1,281 forks, and 271 open issue/PR records
+- Public GitHub portfolio snapshot: 98 active non-fork repositories, **9,789** stars, 1,281 forks, and 271 open issue/PR records
 - DEV publication surface: 60 articles, 43 public reactions, and 4 comments
 - Public web and primary-source evidence: available
 - Google Analytics 4: finalized weekly organic landing-page exports through `2026-08-16`
 - Google Search Console: weekly export set through the week ending `2026-08-16`; finalized date rows currently end on `2026-08-15`
-- Newer weekly Google set beginning `2026-08-17`: not observed in the configured Drive folder on `2026-08-21`
+- Newer weekly Google set beginning `2026-08-17`: not observed in the configured Drive folder on `2026-08-22`
 - Cloudflare: disabled by repository configuration
 
 For the valid equal-duration Search Console comparison, `2026-08-10` through
@@ -84,32 +89,34 @@ The repository generates sitemap, robots, canonical, `hreflang`, Open Graph,
 structured data, legacy redirect stubs, and static audit artifacts. Production
 deploys through `Deploy Static App`.
 
-The August 21 public-safe brief, current repository output, and available Google
-evidence do not establish a new crawl, canonical, hreflang, structured-data,
-redirect, broken-link, rendering, accessibility, performance, or deployment
-defect. The appropriate public change is therefore the mandatory bilingual Daily
-Report and its directly coupled index/series updates, not a speculative technical
-SEO patch.
+The August 22 public-safe brief reports healthy homepage, robots, sitemap, and
+canonical checks. A fresh public homepage fetch also returns the expected
+navigation, canonical site identity, project links, and Daily Report entry. The
+available Google evidence and repository output do not establish a new crawl,
+canonical, hreflang, structured-data, redirect, broken-link, rendering,
+accessibility, performance, or deployment defect. The appropriate public change
+today is the mandatory bilingual Daily Report and its directly coupled
+index/series updates, not a speculative technical SEO patch.
 
-Today's report uses the OSDI 2026 application-defined-resource profiler as the
-main research comparison and current Linux `user_events`, uprobe/USDT, libbpf
-multi-uprobe cookies, BPF maps, and ring-buffer semantics as implementation
-evidence. It develops a versioned resource-semantics manifest, runtime stale-model
-validation with explicit confidence loss, and a software-mutation benchmark that
-separates semantic correctness from final diagnosis.
+Today's report compares Linux BPF map and ring-buffer semantics with
+OpenTelemetry sampling, Tracezip, OSDI 2026 StriaTrace, and OSDI 2024 μSlope. It
+develops a diagnostic-contract compiler for retention plans, bounded
+state-transition exemplars, coverage-carrying compact summaries, and an
+equal-budget diagnosis-retention benchmark. This is intentionally narrower and
+lower-level than the existing Agent trace evidence-budget report.
 
 The SEO skill submodule remains pinned at
-`516e9e2dcf012506a677a749049d64c5914643e9`. Upstream is newer, but the consuming
-repository still names interfaces from the pinned layout. A pointer-only update is
-not mixed into this daily delivery.
+`516e9e2dcf012506a677a749049d64c5914643e9`. The consuming repository still
+requires contract migration before a pointer-only update, so the submodule is not
+mixed into this daily delivery.
 
 ## Current focus
 
-1. Complete the `2026-08-21` eBPF application-resource semantics Daily Report through expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
-2. Continue **eBPF Observability and Profiling**. The next eBPF-centered report remains permitted by rolling-window arithmetic; prefer always-on semantic compression after fresh evidence/novelty review.
-3. Keep the required complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never treat the missing `2026-08-09` row as zero.
+1. Complete the `2026-08-22` eBPF diagnostic telemetry compression Daily Report through expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
+2. After successful publication, treat **eBPF Observability and Profiling** as complete at six reports and make **eBPF Networking and Security** the next active series; prefer transactional policy updates after fresh evidence and novelty review.
+3. Keep the complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never treat the missing `2026-08-09` row as zero.
 4. Obtain date-by-page or date-by-query evidence before attributing the `2026-08-05` impression spike.
-5. Monitor Search Console click/CTR movement across another finalized period before changing search-facing titles, copy, or navigation.
+5. Monitor Search Console click/CTR movement across another finalized weekly period before changing search-facing titles, copy, or navigation.
 6. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic only with richer source-native evidence.
 7. Migrate the consuming SEO contract before updating the skill submodule pointer.
 8. Add Cloudflare evidence only when a supported read-only path is enabled in repository configuration.
