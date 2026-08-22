@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能压缩遥测数据而不丢失诊断依据吗？](https://eunomia.dev/zh/research/ebpf-diagnostic-telemetry-compression/)
+
+持续运行的 eBPF 遥测可能产生过多数据，而 counter 和 histogram 又会删掉后续诊断需要的上下文。本文提出 diagnostic contract、状态变化 exemplar、携带 coverage 的 summary，并用相同预算 benchmark 比较不同表示保留 root cause 的能力，而不是只比较 compression ratio。
+
 ### [eBPF 能理解应用自己定义的资源吗？](https://eunomia.dev/zh/research/ebpf-application-resource-semantics/)
 
 应用内部的 pool、queue、cache 和 credit 可以直接决定性能，却不一定是操作系统资源。本文提出可版本化的 resource-semantics manifest，把语义编译成 eBPF attach plan，并用运行时 confidence loss 与 mutation benchmark 检查软件升级后这些语义是否仍然可信。

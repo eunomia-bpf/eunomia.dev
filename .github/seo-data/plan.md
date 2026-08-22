@@ -72,19 +72,19 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive rather than stale operating notes. Before and after the `2026-08-21`
-   eBPF application-resource semantics report, the newest ten are **7
+   archive rather than stale operating notes. Before and after the `2026-08-22`
+   eBPF diagnostic telemetry compression report, the newest ten are **7
    eBPF-centered / 0 pure Agent / 3 adjacent systems** because an eBPF report
-   ages out when today's eBPF report enters. Another eBPF-centered report remains
-   arithmetically possible on the next run if it passes the quality and novelty
-   gates.
-2. Keep **eBPF Observability and Profiling** active. After page-level memory
-   attribution and application-resource semantics, prefer **always-on semantic
-   compression under an explicit evidence budget** as the next eBPF-centered
-   question after fresh evidence review. Require a concrete retention/diagnosis
-   trade-off, not generic “compress traces with AI.”
+   ages out when today's eBPF report enters.
+2. Complete **eBPF Observability and Profiling** at six substantial reports with
+   the `2026-08-22` diagnostic-preserving semantic compression report. On the
+   next normal run, make **eBPF Networking and Security** the active series and
+   prefer transactional policy updates across programs, maps, links, and control
+   planes after fresh evidence and novelty review. Keep the observability-series
+   question about online confidence and adaptive collection queued for a later
+   revisit rather than stretching the completed series.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-21`, no newer weekly set than `2026-08-10` through `2026-08-16`
+   On `2026-08-22`, no newer weekly set than `2026-08-10` through `2026-08-16`
    was observed. GA4 for that week is finalized. Search Console still lacks the
    `2026-08-09` date row, so keep complete 7-day and 28-day comparisons
    unavailable until source history actually supports them.
@@ -101,9 +101,9 @@ priorities that can guide a later daily run belong below.
 8. Use search behavior, GitHub activity, primary research, kernel changes, and
    production evidence to order questions inside approved eBPF and adjacent
    systems series.
-9. Revisit a dedicated public hub for the completed eBPF runtime series only after
-   report-level acquisition or navigation evidence shows that it would improve
-   retrieval beyond the existing Daily Report index.
+9. Revisit a dedicated public hub for completed eBPF series only after report-level
+   acquisition or navigation evidence shows that it would improve retrieval beyond
+   the existing Daily Report index.
 10. Migrate the consuming SEO contract before moving the pinned `seo-skills`
     submodule to the newer upstream layout. Upstream movement alone is not
     evidence that a pointer-only bump is safe.
