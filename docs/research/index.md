@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Compress Telemetry Without Losing the Diagnosis?](https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/)
+
+Always-on eBPF telemetry can become too expensive to export continuously, while counters and histograms can erase the context needed for later diagnosis. This report develops diagnostic contracts, state-transition exemplars, coverage-carrying summaries, and an equal-budget benchmark that scores diagnosis retention instead of compression ratio alone.
+
 ### [Can eBPF Understand Application-Defined Resources?](https://eunomia.dev/research/ebpf-application-resource-semantics/)
 
 Internal pools, queues, caches, and credits can determine performance while remaining invisible as OS resources. This report develops a versioned resource-semantics manifest compiled into eBPF attachments, runtime confidence loss for stale contracts, and a mutation benchmark that tests semantic correctness across software upgrades.
