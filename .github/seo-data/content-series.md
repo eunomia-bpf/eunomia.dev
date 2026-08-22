@@ -96,6 +96,10 @@ and novelty still decide whether a candidate is publishable.
 
 ## Completed series — eBPF Observability and Profiling
 
+Historical roadmap state: **Active series — eBPF Observability and Profiling**
+through the `2026-08-22` report. The series is completed after that publication;
+Networking and Security is the active series for the next normal run.
+
 Working question: **Which important performance and correctness questions remain
 unanswerable with today's eBPF observability stack?**
 
