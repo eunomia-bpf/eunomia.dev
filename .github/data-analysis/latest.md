@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-08-22 07:51 UTC`
+Generated: `2026-08-23 07:53 UTC`
 
 ## Collection health
 
@@ -14,25 +14,25 @@ Generated: `2026-08-22 07:51 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `153 ms`.
+- Homepage: `200` in `155 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `686`.
+- Sitemap entries observed: `690`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `98`.
-- Current stars: `9789`; forks: `1281`; open issue/PR records: `271`.
+- Current stars: `9801`; forks: `1282`; open issue/PR records: `273`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4244 | 595 | 18 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1554 | 183 | 111 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 895 | 75 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 597 | 90 | 24 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4245 | 595 | 18 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1555 | 183 | 111 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 896 | 75 | 15 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 599 | 91 | 25 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 5 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 273 | 25 | 4 |
-| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 232 | 40 | 54 |
+| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 233 | 40 | 54 |
 | [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 144 | 18 | 1 |
 
 ## DEV publication surface
