@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-21",
+  "last_checked": "2026-08-22",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,13 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-22",
+      "checked_via": "normal_visible_public_post",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/",
+      "visible_reactions": 36,
+      "notes": "About one day after publication, the exact two-sentence body, eunomia.dev short link, hashtags, and preview card remained intact. The public signed-out surface did not expose comments or private impressions, so those values are unavailable rather than zero. The preview title still renders vfs_read as vfsread; the post body keeps the correct identifier."
+    },
     {
       "checked_at": "2026-08-20",
       "checked_via": "chrome_visible_post_and_latest_comments",

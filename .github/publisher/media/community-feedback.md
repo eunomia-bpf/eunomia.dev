@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-22
+
+- The new [fsession LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/) remains intact about one day after publication and shows 36 public reactions. Its two-sentence text, eunomia.dev link, hashtags, and preview card are present; comments and private impressions were unavailable on the signed-out surface rather than treated as zero. The preview title still drops the underscore from `vfs_read`, while the post body keeps the correct identifier. No public response is due; correct the canonical title metadata separately.
+
 ### 2026-08-20
 
 - The [AgentSight macOS and Windows LinkedIn update](https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649) rose from 494 to 1,133 visible impressions while remaining at 8 reactions, 1 repost, and the same already-answered emoji comment. The [TCP quarantine LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7493164412321812480/) rose from 2,644 to 3,187 impressions, 69 to 77 reactions, and 2 to 4 reposts; its two-comment thread is unchanged and already answered. The fsession tutorial remains intact on Medium and DEV, while its canonical H1 and social preview still render `vfsread` instead of `vfs_read`. No public reply is due; revisit after a new technical comment or the title metadata is corrected.
