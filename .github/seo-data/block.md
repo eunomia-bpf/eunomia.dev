@@ -19,9 +19,12 @@ already configured and enabled; it is not a blocker.
 
 Google Drive access is verified and is not a blocker. The configured folder
 contains adjacent weekly export sets beginning `2026-07-27`, `2026-08-03`, and
-`2026-08-10`; no newer weekly set beginning `2026-08-17` was observed on
-`2026-08-22`. The newest verified Search Console date rows remain through
-`2026-08-15`, which are finalized under the configured three-day lag.
+`2026-08-10`; no newer weekly set beginning `2026-08-17` was observed at
+collection time on `2026-08-23`. Historical Sunday exports have been created
+later in UTC than this run's collection time, so absence of the newer set is not
+interpreted as an export failure. The newest verified Search Console date rows
+remain through `2026-08-15`, which are finalized under the configured three-day
+lag.
 
 A complete latest-7-days versus previous-7-days Search Console comparison remains
 unavailable because the `2026-08-09` date row is absent across the adjacent
@@ -33,9 +36,9 @@ history is not long enough.
 GA4 landing-page files are weekly aggregates without a date dimension. The
 complete `2026-08-10` through `2026-08-16` aggregate is outside the configured
 three-day finalization lag and is usable as a finalized source-native weekly
-comparison against `2026-08-03` through `2026-08-09`. No newer weekly GA4 set
-was observed on `2026-08-22`. The landing-page exports do not provide complete
-acquisition, conversion, or outbound behavior coverage by themselves.
+comparison against `2026-08-03` through `2026-08-09`. The landing-page exports
+do not provide complete acquisition, conversion, or outbound behavior coverage
+by themselves.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google exports, live-site evidence, public GitHub evidence, and
