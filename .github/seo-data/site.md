@@ -53,7 +53,9 @@ property IDs, account identifiers, credentials, or private URLs in Git.
 Search Console and GA4 exports provide weekly sets for `2026-07-27` through
 `2026-08-02`, `2026-08-03` through `2026-08-09`, and `2026-08-10` through
 `2026-08-16`; no newer weekly set beginning `2026-08-17` was observed in the
-configured Drive folder on `2026-08-22`. Search Console rows through
+configured Drive folder at collection time on `2026-08-23`. Historical Sunday
+exports have been created later in UTC than this run's collection time, so this
+absence is not interpreted as an export failure. Search Console rows through
 `2026-08-15` are usable. The `2026-08-09` Search Console date row is still absent
 across the adjacent files, so a complete latest-7-days versus previous-7-days
 comparison remains unavailable. A valid equal-duration six-day comparison is
