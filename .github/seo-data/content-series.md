@@ -127,6 +127,10 @@ window.
 
 ## Completed series — eBPF Observability and Profiling
 
+Historical roadmap state: **Active series — eBPF Observability and Profiling**
+through the `2026-08-22` report. The series is completed; Networking and Security
+is now the active series.
+
 Working question: **Which important performance and correctness questions remain
 unanswerable with today's eBPF observability stack?**
 
