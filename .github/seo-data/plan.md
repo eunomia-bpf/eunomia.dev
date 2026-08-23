@@ -72,21 +72,24 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive rather than stale operating notes. Before and after the `2026-08-22`
-   eBPF diagnostic telemetry compression report, the newest ten are **7
-   eBPF-centered / 0 pure Agent / 3 adjacent systems** because an eBPF report
-   ages out when today's eBPF report enters.
-2. Complete **eBPF Observability and Profiling** at six substantial reports with
-   the `2026-08-22` diagnostic-preserving semantic compression report. On the
-   next normal run, make **eBPF Networking and Security** the active series and
-   prefer transactional policy updates across programs, maps, links, and control
-   planes after fresh evidence and novelty review. Keep the observability-series
-   question about online confidence and adaptive collection queued for a later
-   revisit rather than stretching the completed series.
+   archive. Before the `2026-08-23` information-flow precision report, the newest
+   ten are **7 eBPF-centered / 0 pure Agent / 3 adjacent systems**. Publishing an
+   eBPF-centered report keeps the same mix because the `2026-08-10` report that
+   ages out is also eBPF-centered.
+2. Continue the active **eBPF Networking and Security** series. The first two
+   roadmap candidates were rejected for the August 23 run because transactional
+   upgrade and generic multi-program composition already have dedicated reports.
+   The first new series report instead addresses the precision boundary of eBPF
+   information-flow enforcement and develops trusted declassification plus
+   coverage-aware egress. Prefer the zero-copy/programmed-I/O or richer stateful
+   policy questions next unless fresh evidence produces a materially distinct
+   transaction or composition mechanism.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-22`, no newer weekly set than `2026-08-10` through `2026-08-16`
-   was observed. GA4 for that week is finalized. Search Console still lacks the
-   `2026-08-09` date row, so keep complete 7-day and 28-day comparisons
+   At collection time on `2026-08-23`, no newer weekly set than `2026-08-10`
+   through `2026-08-16` was observed. Historical Sunday exports have been created
+   later in UTC than this collection time, so the absence is not treated as a
+   failed export. GA4 for the available week is finalized. Search Console still
+   lacks the `2026-08-09` date row, so keep complete 7-day and 28-day comparisons
    unavailable until source history actually supports them.
 4. Obtain date-by-page or date-by-query Search Console evidence before attributing
    the `2026-08-05` impression spike to a specific page or query family.
