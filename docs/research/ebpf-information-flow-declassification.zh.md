@@ -1,7 +1,7 @@
 ---
 date: 2026-08-23
 title: "eBPF 如何阻止秘密外泄，又不把整个进程都染成敏感？"
-description: "进程级 eBPF 污点传播能阻止真实泄露，却会过度限制同时处理敏感与公开数据的进程。本文分析精度边界，并提出可信解密分类边界与覆盖验证。"
+description: "进程级 eBPF 污点传播能阻止真实泄露，却会过度限制同时处理敏感与公开数据的进程。本文分析精度边界，并提出可信降密边界与覆盖验证。"
 tags:
   - Daily Report
   - eBPF
@@ -21,7 +21,7 @@ status: daily-report
 
 <!-- more -->
 
-因此，高保证的 eBPF 信息流控制不应该声称只靠 OS 事件就能恢复逐字节污点。更现实的设计是：继续把进程级污点当作安全默认值；当这种粗粒度状态会阻止合法输出时，只允许在一个明确、可验证的 **解密分类边界（declassification boundary）** 上降低敏感级别，同时把这条边界的覆盖情况纳入策略。如果系统看不见某条 release path，就应该保留 `unknown`，而不是把“没看到敏感数据”解释成“数据已经安全”。
+因此，高保证的 eBPF 信息流控制不应该声称只靠 OS 事件就能恢复逐字节污点。更现实的设计是：继续把进程级污点当作安全默认值；当这种粗粒度状态会阻止合法输出时，只允许在一个明确、可验证的 **降密边界（declassification boundary）** 上降低敏感级别，同时把这条边界的覆盖情况纳入策略。如果系统看不见某条 release path，就应该保留 `unknown`，而不是把“没看到敏感数据”解释成“数据已经安全”。
 
 这篇报告是 **eBPF Networking and Security** 系列的第一篇。它和之前的[多程序 Hook 组合报告](https://eunomia.dev/zh/research/ebpf-hook-composition-contract/)不同，后者研究多个 BPF 程序怎样共享同一个 hook；也不同于[有状态 eBPF 原子升级报告](https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/)，后者研究整个 BPF 应用怎样切换 generation。这里关心的是另一个 invariant：哪些信息可以被释放到外部 sink。
 
@@ -53,9 +53,9 @@ Linux 的 BPF LSM 接口允许特权 BPF 程序挂到 LSM hook 上，实现系�
 
 第一种办法是在应用内部做完整的 byte-level dynamic taint tracking。这能获得很细的精度，但需要 instruction-level 或 language-level instrumentation，部署和开销模型已经不是普通 eBPF policy plane。LSM hook 也不可能在 syscall 发生之后再反推出所有用户态数据依赖。
 
-第二种办法是信任整个进程，让它自己解除敏感标签。实现很简单，但安全边界很弱。只要同一进程里的 bug 或攻击者能调用解密分类接口，它就可以给任意输出洗白。
+第二种办法是信任整个进程，让它自己解除敏感标签。实现很简单，但安全边界很弱。只要同一进程里的 bug 或攻击者能调用降密接口，它就可以给任意输出洗白。
 
-第三种办法是把解密分类做成一个显式、权限更窄的边界。一个小的可信组件接收带标签输入，只执行声明过的转换，然后只产生或发送允许释放的结果。这样，kernel provenance 又重新获得一个可以观察和控制的 object/subject boundary。它放弃了透明恢复逐字节数据依赖，但换来一个更容易描述、验证和 fault test 的安全属性。
+第三种办法是把降密做成一个显式、权限更窄的边界。一个小的可信组件接收带标签输入，只执行声明过的转换，然后只产生或发送允许释放的结果。这样，kernel provenance 又重新获得一个可以观察和控制的 object/subject boundary。它放弃了透明恢复逐字节数据依赖，但换来一个更容易描述、验证和 fault test 的安全属性。
 
 因此，核心问题不是“还能再加多少 eBPF hook”，而是“什么证据允许一个粗粒度内核标签变得更宽松，同时又不允许原来的敏感进程直接宣布自己已经干净”。
 
@@ -95,7 +95,7 @@ Fault test 可以很直接：替换 sanitizer binary，启动同名 sibling proc
 
 ## 值得继续做的方向
 
-### 用可信 release proxy 把解密分类重新变成内核可见的边界
+### 用可信 release proxy 把降密重新变成内核可见的边界
 
 **缺口。** Process-level taint 无法只清除一个输出，同时保留原进程里的敏感状态。
 
