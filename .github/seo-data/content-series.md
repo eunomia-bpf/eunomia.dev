@@ -73,26 +73,52 @@ A daily report must still provide:
 Working question: **Where are eBPF networking and security mechanisms still
 missing deployable abstractions or correctness guarantees?**
 
-This series becomes active after the `2026-08-22` report completes the normal
-six-report boundary for eBPF Observability and Profiling. The first preferred
-question is transactional policy update: how programs, maps, links, generation
-state, and userspace control planes can change without exposing a mixed policy
-during rollout, crash recovery, or rollback.
+This series became active after the `2026-08-22` report completed the normal
+six-report boundary for eBPF Observability and Profiling.
+
+The roadmap initially preferred transactional policy updates across programs,
+maps, links, and userspace control planes. Fresh novelty review on `2026-08-23`
+rejected that candidate for this run because
+`/research/stateful-ebpf-transactional-upgrade/` already develops a prepare /
+migrate / commit / retire generation protocol across programs, links, maps,
+pinned state, controller recovery, and rollback. Repeating the same update
+transaction with a networking example would not materially advance the archive.
+
+The `2026-08-23` report therefore starts the active series with a distinct
+security-policy question: how additive Kubernetes `NetworkPolicy`, tiered
+`ClusterNetworkPolicy`, and Cilium L3-L7 policy can compose for multiple owners
+without losing authority, delegation, or source-policy provenance after the
+result is compiled into an eBPF datapath. It develops an authority-aware
+composition IR, generation-stable verdict witnesses, and a counterexample-driven
+multi-tenant policy benchmark.
+
+### Published progress
+
+1. `2026-08-23`: `/research/ebpf-network-policy-composition/` separates
+   policy-language semantics from BPF hook composition and update transactions.
+   It asks how several legitimate policy owners can produce one effective
+   network verdict while keeping the deciding owner, tier, delegation path, and
+   source rule inspectable across policy generations. The report is
+   eBPF-centered because the proposed provenance contract is evaluated against
+   the realized BPF policy datapath, not only against Kubernetes objects.
 
 ### Preferred next questions
 
-1. transactional policy updates across programs, maps, links, and control planes;
-2. multi-tenant network-policy composition and conflict resolution;
-3. zero-copy and programmable I/O paths across XDP, AF_XDP, io_uring, DPDK, and
-   userspace eBPF;
-4. information-flow enforcement across process, file, socket, and encrypted
+1. zero-copy and programmable I/O paths across XDP, AF_XDP, io_uring, DPDK, and
+   userspace eBPF, with a networking/security question that does not repeat the
+   earlier io_uring control-surface report;
+2. information-flow enforcement across process, file, socket, and encrypted
    application boundaries;
-5. verifier and runtime interfaces for richer stateful policies;
-6. portable policy execution between kernel, userspace, NIC, and DPU targets.
+3. verifier and runtime interfaces for richer stateful policies;
+4. portable policy execution between kernel, userspace, NIC, and DPU targets;
+5. revisit transactional network-policy rollout only when new evidence supports
+   a mechanism materially different from the published stateful-upgrade
+   generation protocol.
 
-An eBPF-centered report remains arithmetically possible in the current rolling
-window because the `2026-08-22` eBPF report also ages an eBPF report out. Evidence
-and novelty still decide whether a candidate is publishable.
+Before and after the August 23 publication, the newest ten contain **7
+eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
+report ages the `2026-08-10` eBPF-centered transactional-upgrade report out of the
+rolling ten.
 
 ## Completed series — eBPF Observability and Profiling
 

@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [多租户网络策略应该怎样在 eBPF 数据面里组合？](https://eunomia.dev/zh/research/ebpf-network-policy-composition/)
+
+多租户集群可能同时运行 additive 的 Kubernetes NetworkPolicy、带 tier 的 ClusterNetworkPolicy 和 Cilium L3-L7 policy。本文提出带 authority 的 composition IR、跨 generation 稳定的 verdict witness，以及专门检查多 owner 策略组合和 explanation correctness 的 counterexample benchmark。
+
 ### [eBPF 能压缩遥测数据而不丢失诊断依据吗？](https://eunomia.dev/zh/research/ebpf-diagnostic-telemetry-compression/)
 
 持续运行的 eBPF 遥测可能产生过多数据，而 counter 和 histogram 又会删掉后续诊断需要的上下文。本文提出 diagnostic contract、状态变化 exemplar、携带 coverage 的 summary，并用相同预算 benchmark 比较不同表示保留 root cause 的能力，而不是只比较 compression ratio。

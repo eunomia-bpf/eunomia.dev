@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [How Should eBPF Compose Multi-Tenant Network Policies?](https://eunomia.dev/research/ebpf-network-policy-composition/)
+
+Multi-tenant clusters can combine additive Kubernetes NetworkPolicy, tiered ClusterNetworkPolicy, and Cilium L3-L7 policy in one eBPF datapath. This report develops an authority-aware composition IR, generation-stable verdict witnesses, and a counterexample benchmark for explaining which policy owner and rule determined an effective verdict.
+
 ### [Can eBPF Compress Telemetry Without Losing the Diagnosis?](https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/)
 
 Always-on eBPF telemetry can become too expensive to export continuously, while counters and histograms can erase the context needed for later diagnosis. This report develops diagnostic contracts, state-transition exemplars, coverage-carrying summaries, and an equal-budget benchmark that scores diagnosis retention instead of compression ratio alone.
