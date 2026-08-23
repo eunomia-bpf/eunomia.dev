@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 如何阻止秘密外泄，又不把整个进程都染成敏感？](https://eunomia.dev/zh/research/ebpf-information-flow-declassification/)
+
+进程级信息流控制可以保守地阻止秘密外泄，但一个曾读取敏感数据的进程之后也可能产生完全公开的输出。本文分析 eBPF enforcement 在哪里可以恢复精度而不假装能重建任意用户态内存依赖，并提出可信降密边界、coverage-aware egress manifest 与 mixed-flow DLP benchmark。
+
 ### [eBPF 能压缩遥测数据而不丢失诊断依据吗？](https://eunomia.dev/zh/research/ebpf-diagnostic-telemetry-compression/)
 
 持续运行的 eBPF 遥测可能产生过多数据，而 counter 和 histogram 又会删掉后续诊断需要的上下文。本文提出 diagnostic contract、状态变化 exemplar、携带 coverage 的 summary，并用相同预算 benchmark 比较不同表示保留 root cause 的能力，而不是只比较 compression ratio。
