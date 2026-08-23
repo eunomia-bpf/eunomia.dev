@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Prevent Secret Egress Without Tainting the Whole Process?](https://eunomia.dev/research/ebpf-information-flow-declassification/)
+
+Process-level information flow can conservatively stop secret egress, but a process that once read sensitive data may later produce entirely public output. This report asks where eBPF enforcement can regain precision without pretending to reconstruct arbitrary userspace memory flow, and develops trusted declassification boundaries, coverage-aware egress manifests, and a mixed-flow DLP benchmark.
+
 ### [Can eBPF Compress Telemetry Without Losing the Diagnosis?](https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/)
 
 Always-on eBPF telemetry can become too expensive to export continuously, while counters and histograms can erase the context needed for later diagnosis. This report develops diagnostic contracts, state-transition exemplars, coverage-carrying summaries, and an equal-budget benchmark that scores diagnosis retention instead of compression ratio alone.
