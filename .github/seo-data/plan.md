@@ -72,20 +72,21 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive. Before and after the `2026-08-23` eBPF multi-tenant network-policy
-   composition report, the newest ten are **7 eBPF-centered / 0 pure Agent / 3
-   adjacent systems** because the `2026-08-10` eBPF report ages out when today's
-   eBPF report enters.
+   archive. Before the `2026-08-24` zero-copy buffer-ownership report, the newest
+   ten are **7 eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming
+   report is eBPF-centered and ages the `2026-08-12` eBPF-centered async-profiler
+   report out of the window, so the mix remains **7 / 0 / 3** after publication.
 2. Keep **eBPF Networking and Security** as the active series. The `2026-08-23`
-   report starts it with policy composition, authority provenance, and
-   explanation across Kubernetes and Cilium policy formats. The previously
-   preferred transactional-policy-update candidate was rejected for this run
-   because the existing stateful-upgrade report already covers a multi-object
-   prepare / migrate / commit / retire generation protocol. Prefer a distinct
-   next question such as zero-copy programmable I/O or cross-boundary
-   information-flow enforcement after fresh evidence and novelty review.
+   report established policy composition, authority provenance, and explanation
+   across Kubernetes and Cilium policy formats. The `2026-08-24` report advances
+   a distinct zero-copy question: buffer lease ownership, DMA reachability,
+   recycling, and policy provenance across AF_XDP, io_uring ZC Rx, DPDK, and
+   userspace eBPF paths. Prefer a next question such as cross-boundary
+   information-flow enforcement, richer verifier/runtime interfaces for stateful
+   security policy, or portable policy execution after fresh evidence and
+   novelty review.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-23`, no newer weekly set than `2026-08-10` through `2026-08-16`
+   On `2026-08-24`, no newer weekly set than `2026-08-10` through `2026-08-16`
    was observed. GA4 for that week is finalized. Search Console still lacks the
    `2026-08-09` date row, so keep complete 7-day and 28-day comparisons
    unavailable until source history actually supports them.

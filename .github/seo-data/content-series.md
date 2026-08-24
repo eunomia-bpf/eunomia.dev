@@ -84,13 +84,21 @@ migrate / commit / retire generation protocol across programs, links, maps,
 pinned state, controller recovery, and rollback. Repeating the same update
 transaction with a networking example would not materially advance the archive.
 
-The `2026-08-23` report therefore starts the active series with a distinct
-security-policy question: how additive Kubernetes `NetworkPolicy`, tiered
-`ClusterNetworkPolicy`, and Cilium L3-L7 policy can compose for multiple owners
-without losing authority, delegation, or source-policy provenance after the
-result is compiled into an eBPF datapath. It develops an authority-aware
-composition IR, generation-stable verdict witnesses, and a counterexample-driven
-multi-tenant policy benchmark.
+The `2026-08-23` report starts the active series with a distinct security-policy
+question: how additive Kubernetes `NetworkPolicy`, tiered `ClusterNetworkPolicy`,
+and Cilium L3-L7 policy can compose for multiple owners without losing authority,
+delegation, or source-policy provenance after the result is compiled into an
+eBPF datapath. It develops an authority-aware composition IR, generation-stable
+verdict witnesses, and a counterexample-driven multi-tenant policy benchmark.
+
+The `2026-08-24` report advances a second, materially different boundary. AF_XDP,
+io_uring ZC Rx, page_pool, and DPDK all recycle packet memory through native
+ownership protocols, while BPF policy decisions, NIC steering, and userspace
+processing can cross those boundaries. The report develops a generation-scoped
+buffer capability, policy-linked handoff witnesses, and a cross-path zero-copy
+fault benchmark. It is distinct from the earlier io_uring programmability report:
+the missing property here is buffer lease ownership and provenance across APIs,
+not BPF execution control inside the ring.
 
 ### Published progress
 
@@ -101,24 +109,32 @@ multi-tenant policy benchmark.
    source rule inspectable across policy generations. The report is
    eBPF-centered because the proposed provenance contract is evaluated against
    the realized BPF policy datapath, not only against Kubernetes objects.
+2. `2026-08-24`: `/research/ebpf-zero-copy-buffer-ownership/` separates
+   allocator-specific lifetime rules from a cross-path ownership contract. It
+   asks how packet-buffer leases can preserve owner, DMA reachability, recycle
+   generation, and BPF policy provenance across AF_XDP, io_uring ZC Rx, DPDK,
+   userspace eBPF, and NIC handoffs. It is eBPF-centered because policy identity
+   and BPF/user-runtime transitions are part of the correctness contract rather
+   than optional instrumentation.
 
 ### Preferred next questions
 
-1. zero-copy and programmable I/O paths across XDP, AF_XDP, io_uring, DPDK, and
-   userspace eBPF, with a networking/security question that does not repeat the
-   earlier io_uring control-surface report;
-2. information-flow enforcement across process, file, socket, and encrypted
-   application boundaries;
-3. verifier and runtime interfaces for richer stateful policies;
-4. portable policy execution between kernel, userspace, NIC, and DPU targets;
-5. revisit transactional network-policy rollout only when new evidence supports
+1. information-flow enforcement across process, file, socket, and encrypted
+   application boundaries, narrowed enough to avoid duplicating existing
+   ActPlane-style effect-label mechanisms;
+2. verifier and runtime interfaces for richer stateful policies;
+3. portable policy execution between kernel, userspace, NIC, and DPU targets;
+4. revisit transactional network-policy rollout only when new evidence supports
    a mechanism materially different from the published stateful-upgrade
-   generation protocol.
+   generation protocol;
+5. revisit zero-copy ownership only when implementation evidence or the proposed
+   cross-path benchmark exposes a distinct mechanism beyond the lease/provenance
+   contract developed on `2026-08-24`.
 
-Before and after the August 23 publication, the newest ten contain **7
-eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
-report ages the `2026-08-10` eBPF-centered transactional-upgrade report out of the
-rolling ten.
+Before the August 24 publication, the newest ten contain **7 eBPF-centered / 0
+pure Agent / 3 adjacent systems**. The incoming eBPF-centered report ages the
+`2026-08-12` eBPF-centered async-profiler report out of the rolling ten, so the
+window remains **7 / 0 / 3** after publication.
 
 ## Completed series — eBPF Observability and Profiling
 
