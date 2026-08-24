@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-08-23 07:53 UTC`
+Generated: `2026-08-24 08:09 UTC`
 
 ## Collection health
 
@@ -10,41 +10,41 @@ Generated: `2026-08-23 07:53 UTC`
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
 | github | succeeded | 151 | 0 |
-| devto | succeeded | 60 | 0 |
+| devto | succeeded | 61 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `155 ms`.
+- Homepage: `200` in `176 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `690`.
+- Sitemap entries observed: `694`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `98`.
-- Current stars: `9801`; forks: `1282`; open issue/PR records: `273`.
+- Current stars: `9806`; forks: `1282`; open issue/PR records: `280`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4245 | 595 | 18 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1555 | 183 | 111 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4247 | 595 | 18 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1556 | 183 | 111 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 896 | 75 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 599 | 91 | 25 |
-| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 5 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 600 | 91 | 25 |
+| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 6 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 273 | 25 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 233 | 40 | 54 |
 | [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 144 | 18 | 1 |
 
 ## DEV publication surface
 
-- Articles observed: `60`.
+- Articles observed: `61`.
 - Public reactions: `43`; comments: `4`.
 
+- [eBPF Tutorial: Building an Egress Pacer with BPF Qdisc](https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna): 0 reactions, 0 comments.
 - [eBPF Tutorial: Tracing Slow vfs_read Calls with fsession](https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5): 0 reactions, 0 comments.
 - [eBPF Tutorial: Precisely Isolating Established TCP Connections](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld): 0 reactions, 0 comments.
 - [Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap](https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o): 1 reactions, 0 comments.
 - [An Empirical Study: AI Agent Rules Need Context and Layered Enforcement](https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on): 0 reactions, 0 comments.
-- [ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore](https://dev.to/yunwei37/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-5eja): 0 reactions, 0 comments.
 
 ## Coverage gaps
 
