@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Who Owns a Packet Buffer in a Zero-Copy eBPF Datapath?](https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/)
+
+AF_XDP, io_uring ZC Rx, and DPDK already use different native lifetime protocols. This report develops a generation-scoped buffer capability, policy-linked handoff witnesses, and a cross-path fault benchmark for zero-copy eBPF datapaths.
+
 ### [How Should eBPF Compose Multi-Tenant Network Policies?](https://eunomia.dev/research/ebpf-network-policy-composition/)
 
 Multi-tenant clusters can combine additive Kubernetes NetworkPolicy, tiered ClusterNetworkPolicy, and Cilium L3-L7 policy in one eBPF datapath. This report develops an authority-aware composition IR, generation-stable verdict witnesses, and a counterexample benchmark for explaining which policy owner and rule determined an effective verdict.

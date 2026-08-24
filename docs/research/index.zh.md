@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [零拷贝 eBPF 数据路径里，谁拥有数据包缓冲区？](https://eunomia.dev/zh/research/ebpf-zero-copy-buffer-ownership/)
+
+AF_XDP、io_uring ZC Rx 和 DPDK 都会高频复用 packet buffer，却使用不同的 ownership 与回收协议。本文提出 generation-scoped buffer capability、绑定 policy generation 的 handoff witness，以及专门检测跨路径 ownership 与 provenance 错误的 zero-copy fault benchmark。
+
 ### [多租户网络策略应该怎样在 eBPF 数据面里组合？](https://eunomia.dev/zh/research/ebpf-network-policy-composition/)
 
 多租户集群可能同时运行 additive 的 Kubernetes NetworkPolicy、带 tier 的 ClusterNetworkPolicy 和 Cilium L3-L7 policy。本文提出带 authority 的 composition IR、跨 generation 稳定的 verdict witness，以及专门检查多 owner 策略组合和 explanation correctness 的 counterexample benchmark。
