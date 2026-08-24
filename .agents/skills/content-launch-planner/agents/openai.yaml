@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Launch Planner"
+  short_description: "Plan canonical cross-platform launches"
+  default_prompt: "Use $content-launch-planner to plan canonical syndication and short social sharing for this artifact: "

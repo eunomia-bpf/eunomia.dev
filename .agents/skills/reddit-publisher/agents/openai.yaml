@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reddit Publisher"
+  short_description: "Prepare community-safe Reddit drafts"
+  default_prompt: "Use $reddit-publisher to adapt a eunomia.dev article for a Reddit discussion without final posting."

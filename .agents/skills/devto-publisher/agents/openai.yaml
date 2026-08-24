@@ -1,0 +1,4 @@
+interface:
+  display_name: "DEV.to Publisher"
+  short_description: "Syndicate English posts to DEV"
+  default_prompt: "Use $devto-publisher to syndicate a eunomia.dev English article to DEV Community with canonical-source checks."

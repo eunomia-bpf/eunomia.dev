@@ -1,0 +1,4 @@
+interface:
+  display_name: "Medium Publisher"
+  short_description: "Syndicate English posts to Medium"
+  default_prompt: "Use $medium-publisher to syndicate a eunomia.dev English article to Medium with canonical-source checks."

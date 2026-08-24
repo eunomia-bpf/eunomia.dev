@@ -37,16 +37,18 @@ editing. Follow its scope-control, validation, review, and CI guidance.
 
 ### Agent Skills Source
 
-The canonical skill source is the pinned `eunomia-bpf/agent-skills` submodule
-at `.agents/sources/agent-skills`. The `.agents/skills` directory is a generated,
-ignored bridge created by `scripts/sync-agent-skills.ps1` on Windows or
-`scripts/sync-agent-skills.sh` on Unix. Do not edit the bridge directly.
+Reusable maintainer and organization-level skills come from the pinned
+`eunomia-bpf/agent-skills` submodule at `.agents/sources/agent-skills`.
+Repository-specific content, publishing, SEO, and research skills remain
+tracked directly under `.agents/skills`. The sync scripts add shared links to
+that combined directory; they do not own or replace the local skills.
 
-For a durable skill change, update and validate the standalone `agent-skills`
-repository on `main`, push it first, update this repository's submodule gitlink,
-rerun the sync script, and validate the consuming workflow here. A fresh clone
-must initialize the submodule and run the sync script before using repo-local
-skills.
+For a durable shared-skill change, update and validate the standalone
+`agent-skills` repository on `main`, push it first, update this repository's
+submodule gitlink, rerun the sync script, and validate the consuming workflow
+here. Edit a repository-specific skill in `.agents/skills` instead. A fresh
+clone must initialize the submodule and run the sync script before using the
+shared skills.
 
 Before adding or keeping planning material in the repository, classify it by
 lifespan. Short-term fixes, cleanup backlogs, one-off audits, and tactical
@@ -215,13 +217,11 @@ When working with eBPF examples in the tutorials:
 
 Keep blog style and blog production separate:
 
-- `.agents/sources/agent-skills/skills/blog-writing-style/SKILL.md` is the only
-  source for how the
+- `.agents/skills/blog-writing-style/SKILL.md` is the only source for how the
   finished English and Chinese prose should read. It may contain style guidance
   and examples, but no content requirements, model choices, editing procedure,
   or review workflow.
-- `.agents/sources/agent-skills/skills/blog-writer/SKILL.md` owns source
-  preparation, writing and
+- `.agents/skills/blog-writer/SKILL.md` owns source preparation, writing and
   rewriting stages, model responsibilities, factual verification, and
   publication-integrity checks. It must not duplicate sentence-level or prose
   style rules.

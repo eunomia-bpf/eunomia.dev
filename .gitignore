@@ -34,7 +34,13 @@ __pycache__
 /test/test-results
 
 # Generated links to the pinned agent-skills submodule
-/.agents/skills/
+/.agents/skills/agent-cli-tools
+/.agents/skills/eunomia-community-patrol
+/.agents/skills/gh-workflow
+/.agents/skills/oss-change-workflow
+/.agents/skills/oss-issue-triage
+/.agents/skills/oss-release-readiness
+/.agents/skills/project-bootstrap-workflow
 
 # Claude Code agent worktrees
 .claude/worktrees/

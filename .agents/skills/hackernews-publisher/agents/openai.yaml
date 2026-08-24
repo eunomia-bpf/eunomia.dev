@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hacker News Publisher"
+  short_description: "Prepare Hacker News submissions"
+  default_prompt: "Use $hackernews-publisher to prepare a Hacker News submission and stop before submitting."

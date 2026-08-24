@@ -1,0 +1,4 @@
+interface:
+  display_name: "Eunomia Content Patrol"
+  short_description: "Run daily Eunomia content patrol"
+  default_prompt: "Use $eunomia-content-patrol to run today's eunomia.dev content patrol."

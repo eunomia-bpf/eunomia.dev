@@ -1,0 +1,4 @@
+interface:
+  display_name: "Juejin Publisher"
+  short_description: "Syndicate Chinese posts to Juejin"
+  default_prompt: "Use $juejin-publisher to syndicate a eunomia.dev Chinese article to Juejin without final publishing."
