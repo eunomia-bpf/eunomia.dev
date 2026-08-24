@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能跨 TLS 和共享进程执行信息流策略吗？](https://eunomia.dev/zh/research/ebpf-cross-boundary-information-flow/)
+
+当一个常驻服务同时处理公开数据和敏感数据，并复用同一组 TLS 连接时，只按进程、文件和套接字传播标签会迅速失去精度。本文提出带 generation 的 flow identity、TLS 路径 coverage contract，以及同时统计 false allow、false deny 和 explicit unknown 的反例 benchmark。
+
 ### [多租户网络策略应该怎样在 eBPF 数据面里组合？](https://eunomia.dev/zh/research/ebpf-network-policy-composition/)
 
 多租户集群可能同时运行 additive 的 Kubernetes NetworkPolicy、带 tier 的 ClusterNetworkPolicy 和 Cilium L3-L7 policy。本文提出带 authority 的 composition IR、跨 generation 稳定的 verdict witness，以及专门检查多 owner 策略组合和 explanation correctness 的 counterexample benchmark。
