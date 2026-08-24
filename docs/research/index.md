@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Enforce Information Flow Through TLS and Shared Processes?](https://eunomia.dev/research/ebpf-cross-boundary-information-flow/)
+
+Process, file, and socket labels become too coarse when one long-running service handles public and secret flows over shared TLS connections. This report develops generation-scoped flow identity, TLS-path coverage contracts, and a counterexample benchmark that scores false allows, false denies, and explicit unknowns.
+
 ### [How Should eBPF Compose Multi-Tenant Network Policies?](https://eunomia.dev/research/ebpf-network-policy-composition/)
 
 Multi-tenant clusters can combine additive Kubernetes NetworkPolicy, tiered ClusterNetworkPolicy, and Cilium L3-L7 policy in one eBPF datapath. This report develops an authority-aware composition IR, generation-stable verdict witnesses, and a counterexample benchmark for explaining which policy owner and rule determined an effective verdict.
