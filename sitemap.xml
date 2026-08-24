@@ -4717,6 +4717,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-network-policy-composition/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-zero-copy-buffer-ownership/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-zero-copy-buffer-ownership/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-zero-copy-buffer-ownership/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/gpu-host-device-causality/</loc>
     <lastmod>2026-08-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/gpu-host-device-causality/" />
@@ -4760,14 +4774,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
