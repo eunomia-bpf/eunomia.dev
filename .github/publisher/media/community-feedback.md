@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-23
+
+- The [fsession LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/) rose from 36 to 43 public reactions between its one-day and two-day checkpoints. The post body, eunomia.dev link, hashtags, and preview card remain intact; comments and private impressions are unavailable on the signed-out surface rather than treated as zero. No response is due, and another routine checkpoint is unnecessary unless a technical comment or citation appears.
+
 ### 2026-08-22
 
 - The new [fsession LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/) remains intact about one day after publication and shows 36 public reactions. Its two-sentence text, eunomia.dev link, hashtags, and preview card are present; comments and private impressions were unavailable on the signed-out surface rather than treated as zero. The preview title still drops the underscore from `vfs_read`, while the post body keeps the correct identifier. No public response is due; correct the canonical title metadata separately.

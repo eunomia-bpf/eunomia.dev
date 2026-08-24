@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-22",
+  "last_checked": "2026-08-23",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,14 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-23",
+      "checked_via": "normal_visible_public_post",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/",
+      "visible_reactions": 43,
+      "previous_reactions": 36,
+      "notes": "About two days after publication, the exact body, eunomia.dev short link, hashtags, and preview card remained intact. Public reactions rose from 36 to 43. The signed-out public surface still did not expose comments or private impressions, so those values remain unavailable rather than zero."
+    },
     {
       "checked_at": "2026-08-22",
       "checked_via": "normal_visible_public_post",
