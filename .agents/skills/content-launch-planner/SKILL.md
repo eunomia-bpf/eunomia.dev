@@ -99,8 +99,9 @@ Load references according to the task:
   internal endpoints, background requests, or automatic posting tools. Medium
   and DEV publishing must use the normal web editor/import UI and visible submit
   buttons, not publish APIs.
-- Stop at a plan, draft, editor, or confirmation screen unless the user clearly
-  confirms final publishing.
+- Stop at a plan, draft, editor, or confirmation screen only when the user asks
+  for planning, drafting, or preview. A request to publish or a queue item marked
+  `排队` authorizes the final action without another confirmation.
 
 ## Publisher Handoff
 

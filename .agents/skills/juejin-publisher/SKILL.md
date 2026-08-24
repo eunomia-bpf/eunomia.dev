@@ -1,13 +1,14 @@
 ---
 name: juejin-publisher
-description: Prepare eunomia.dev Markdown articles for Juejin publishing. Use when asked to create, paste, QA, or record a Juejin draft or article from repository Markdown. Preserves a syndicated long-form source title and body apart from mechanical Markdown/rendering fixes, with browser-editor workflow, category and tag selection, safe stop-before-publish behavior, and media ledger updates.
+description: Prepare or publish eunomia.dev Markdown articles on Juejin. Use when asked to create, paste, publish, QA, or record a Juejin draft or article from repository Markdown. Preserves a syndicated long-form source title and body apart from mechanical Markdown/rendering fixes, with browser-editor workflow, category and tag selection, publication authorization, and media ledger updates.
 ---
 
 # Juejin Publisher
 
-Prepare a reviewed Juejin draft from the canonical repository article, choose
-appropriate technical categories and tags, and stop before final publishing
-unless the user explicitly confirms it.
+Prepare or publish a reviewed Juejin article from the canonical repository
+source and choose appropriate technical categories and tags. A request to
+publish or a queue item marked `排队` authorizes the final action; do not ask
+again at the last button. Stop only for a draft or preview task.
 
 ## Inputs
 
@@ -91,8 +92,9 @@ artifact, ledger, queue, and snapshots instead.
    - eBPF tutorials: `后端`, `Linux`, `开源`, `云原生`, `架构`
    - AI agent or runtime posts: `人工智能`, `AIGC`, `后端`, `架构`, `安全`
    - GPU observability posts: `人工智能`, `后端`, `架构`, `Linux`, `性能优化`
-7. Stop before final `确定并发布` unless the user explicitly authorized publishing
-   the current item.
+7. Complete `确定并发布` when the task requests publication or the queue item
+   is marked `排队`; do not ask for duplicate confirmation. Stop at preview only
+   for a draft or preview task.
 
 For images, verify the exact final URL used in Markdown before publishing. Do
 not assume `imgs/...` can be converted by guessing an eunomia.dev article path;
@@ -122,7 +124,7 @@ default.
 
 Do not automate:
 
-- final `确定并发布` without explicit user authorization for the current item
+- final `确定并发布` when the task is limited to a draft or preview
 - direct Juejin API access, internal endpoint reads, or browser-hidden data fetches
 - sign-in, phone verification, or CAPTCHA
 - `去签到`, likes, follows, comments, reposts, or private messages

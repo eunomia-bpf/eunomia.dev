@@ -1,12 +1,14 @@
 ---
 name: linkedin-publisher
-description: Prepare eunomia.dev content for LinkedIn posts, articles, carousels, and professional updates. Use when asked to draft, adapt, paste, QA, or record LinkedIn content for blog, tutorial, project, paper, release, consulting, research, or GitHub updates. Covers professional positioning, reader targeting, browser QA, safe stop-before-post behavior, comment/DM follow-up, and media ledger updates.
+description: Prepare or publish eunomia.dev content for LinkedIn posts, articles, carousels, and professional updates. Use when asked to draft, adapt, paste, publish, QA, or record LinkedIn content for blog, tutorial, project, paper, release, consulting, research, or GitHub updates. Covers professional positioning, reader targeting, publication authorization, browser QA, comment/DM follow-up, and media ledger updates.
 ---
 
 # LinkedIn Publisher
 
-Prepare professional LinkedIn drafts that build technical credibility and stop
-before final posting unless the user explicitly confirms it.
+Prepare professional LinkedIn posts that build technical credibility. A request
+to publish or a queue item marked `排队` authorizes the final post; do not ask
+again at the last button. Stop only when the task is limited to a draft or
+preview.
 
 ## Inputs
 
@@ -77,7 +79,7 @@ Before stopping for user confirmation, verify:
 - audience/visibility setting is intentional
 - mentions and hashtags are relevant and minimal
 - no confidential customer, partner, or roadmap information appears
-- the visible final `Post` / `Publish` action has not been clicked
+- the final action matches the task: published when authorized, untouched for a draft-only task
 
 ## Follow-Up
 

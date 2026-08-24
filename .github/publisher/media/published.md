@@ -135,12 +135,13 @@ Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). 
 
 Account checked in the in-app browser: <https://medium.com/@yunwei356>
 
-Earlier visible profile scrolling collected 62 authored story links; the newer BPFix, TCP quarantine, and fsession public URLs were verified independently. The machine ledger maps 63 of 124 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
+Earlier visible profile scrolling collected 62 authored story links; the newer BPFix and tutorials 51–53 public URLs were verified independently. The machine ledger maps 64 of 124 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
 
 New confirmed posts:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-23 | eBPF Tutorial: Building an Egress Pacer with BPF Qdisc | <https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49> | Published through the documented Medium API with `ebpf`, `linux`, and `networking`; public QA confirmed the exact visible H1, complete body, 9 code blocks, loaded diagram, source and reference links; the environment table is preserved as a dense flattened text line and awaits a signed-in editor repair |
 | Confirmed | 2026-08-17 | eBPF Tutorial: Tracing Slow vfs_read Calls with fsession | <https://medium.com/@yunwei356/ebpf-tutorial-tracing-slow-vfs-read-calls-with-fsession-defc728e227e> | Published through the documented Medium API with `ebpf`, `linux`, and `performance`; the prepared Markdown preserved the visible H1 and used a readable six-item fallback for the environment table; public full-scroll QA verified the exact title, 18 source body headings, 20 code blocks, source and reference links, three tags, and no failure markers |
 | Confirmed | 2026-08-09 | eBPF Tutorial: Precisely Isolating Established TCP Connections | <https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4> | Published through the official Medium API with `ebpf`, `linux`, and `security`; the web editor replaced a flattened requirements table with a readable prose fallback; public full-scroll QA verified the exact title, complete body, 9 code blocks, links, tags, and no broken images |
 | Confirmed | 2026-08-02 | Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap | <https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0> | Published through the Medium API using semantic HTML after Markdown parser error 2012; the visible H1 was restored in the supported web editor; public full-scroll QA verified headings, code, table fallbacks, references, links, and both images |
@@ -152,12 +153,13 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
 
-The earlier profile check reported 57 posts and visible scrolling collected 54 unique public article links; the newer BPFix, TCP quarantine, and fsession public URLs were verified independently. The machine ledger maps 50 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
+The earlier profile check reported 57 posts and visible scrolling collected 54 unique public article links; the newer BPFix and tutorials 51–53 public URLs were verified independently. The machine ledger maps 51 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed posts:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-23 | eBPF Tutorial: Building an Egress Pacer with BPF Qdisc | <https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna> | Published through the documented DEV API with `ebpf`, `linux`, `networking`, and `tutorial`; public QA confirmed the exact title, 12 body headings, 9 code blocks, 1 table, loaded diagram, source and reference links |
 | Confirmed | 2026-08-17 | eBPF Tutorial: Tracing Slow vfs_read Calls with fsession | <https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5> | Published through the documented DEV API with `ebpf`, `linux`, `performance`, and `tutorial`; public full-scroll QA verified the exact title, all 18 body headings, 20 code blocks, one rendered table, source and reference links, and no failure markers |
 | Confirmed | 2026-08-10 | eBPF Tutorial: Precisely Isolating Established TCP Connections | <https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld> | Published through the DEV API with `ebpf`, `linux`, `security`, and `networking`; public full-scroll QA verified the exact title, complete body, 9 code blocks, 1 rendered table, Requirements, Summary, References, source links, and loaded article images |
 | Confirmed | 2026-08-02 | Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap | <https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o> | Published through the DEV API with canonical URL, `ebpf`, `linux`, `opensource`, and `ai`; public full-scroll QA verified title, headings, code blocks, tables, references, links, and both images |

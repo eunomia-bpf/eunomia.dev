@@ -1,13 +1,14 @@
 ---
 name: xiaohongshu-publisher
-description: Prepare eunomia.dev content for Xiaohongshu posts and visual notes. Use when asked to draft, adapt, paste, QA, or record Xiaohongshu content for blog posts, tutorials, GitHub projects, papers, demos, talks, or public technical updates. Covers platform-native title/cover framing, carousel or single-note structure, browser-only observation scans, safe stop-before-publish behavior, and media ledger updates.
+description: Prepare or publish eunomia.dev content for Xiaohongshu posts and visual notes. Use when asked to draft, adapt, paste, publish, QA, or record Xiaohongshu content for blog posts, tutorials, GitHub projects, papers, demos, talks, or public technical updates. Covers platform-native title/cover framing, carousel or single-note structure, browser-only observation scans, publication authorization, and media ledger updates.
 ---
 
 # Xiaohongshu Publisher
 
-Prepare Xiaohongshu-native drafts that make technical work approachable through
-clear titles, visual evidence, concise Chinese copy, and a useful takeaway. Stop
-before final posting unless the user explicitly confirms publication.
+Prepare Xiaohongshu-native posts that make technical work approachable through
+clear titles, visual evidence, concise Chinese copy, and a useful takeaway. A
+request to publish or a queue item marked `排队` authorizes the final post; do
+not ask again at the last button. Stop only for a draft or preview task.
 
 ## Inputs
 
@@ -79,7 +80,7 @@ Before stopping for user confirmation, verify:
 - account, visibility, and publish settings are intentional
 - no confidential customer, partner, roadmap, pricing, or strategy information
   appears
-- the visible final publish action has not been clicked
+- the final action matches the task: published when authorized, untouched for a draft-only task
 
 ## Follow-Up
 

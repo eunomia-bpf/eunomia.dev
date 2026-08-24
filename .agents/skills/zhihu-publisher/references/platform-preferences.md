@@ -120,7 +120,8 @@ link placement, or "想法" adaptation.
 - Check that GitHub/eunomia.dev/paper links are specific and placed as sources
   or next steps. A visible eunomia.dev canonical/source note is optional.
 - Check whether column, tags, or project fields match the topic.
-- Stop before final publish/submit unless the user explicitly confirms.
+- Publish without another confirmation when the task requests publication or
+  the queue item is marked `排队`; stop only for a draft or preview task.
 
 ### Import And Image Failure Checks
 

@@ -1,12 +1,13 @@
 ---
 name: reddit-publisher
-description: Prepare eunomia.dev content for Reddit submissions and comments. Use when asked to draft, adapt, paste, QA, or record Reddit posts for technical communities, project discussions, blog links, tutorials, or GitHub updates. Covers subreddit rule checks, community-first positioning, self-promotion safety, browser QA, stop-before-post behavior, comment/DM/mod follow-up, and media ledger updates.
+description: Prepare or publish eunomia.dev content for Reddit submissions and comments. Use when asked to draft, adapt, paste, publish, QA, or record Reddit posts for technical communities, project discussions, blog links, tutorials, or GitHub updates. Covers subreddit rule checks, community-first positioning, self-promotion safety, browser QA, publication authorization, comment/DM/mod follow-up, and media ledger updates.
 ---
 
 # Reddit Publisher
 
-Prepare Reddit drafts that fit the target subreddit and stop before posting
-unless the user explicitly confirms it.
+Prepare Reddit submissions that fit the target subreddit. A request to publish
+or a queue item marked `排队` authorizes the final post; do not ask again at
+the last button. Stop only when the task is limited to a draft or preview.
 
 ## Inputs
 
@@ -69,7 +70,7 @@ Before stopping for user confirmation, verify:
 - duplicate search did not reveal an active same-topic thread
 - Markdown preview renders links, code, and lists correctly when self-text is used
 - affiliation/self-promotion disclosure is present only when required by the subreddit
-- the visible final `Post` action has not been clicked
+- the final action matches the task: published when authorized, untouched for a draft-only task
 
 ## Follow-Up
 

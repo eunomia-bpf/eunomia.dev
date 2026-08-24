@@ -14,6 +14,13 @@ require normal visible-browser QA. Audits and all other social/media platform
 actions use normal browser interactions, not hidden platform APIs or background
 endpoints.
 
+A direct request to publish, post, or submit, or an eligible rolling-queue item
+marked `排队`, authorizes the matching publisher to complete the final public
+action and QA without asking again at the last button. A request limited to a
+draft, preview, or preparation does not authorize publication. This rule is
+shared by every platform publisher; private messages, follows, likes, votes,
+account settings, payments, and deletions remain outside that authorization.
+
 Keep workflow skills procedural. Long-term brand strategy, channel mix,
 campaign cadence, and positioning plans belong under `draft/`, while workflow
 skills should hold repeatable execution steps, constraints, platform QA,

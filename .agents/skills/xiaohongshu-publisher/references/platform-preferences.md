@@ -134,4 +134,5 @@ Remove or rewrite:
 - Check the first card or first paragraph before any external link.
 - Check that code screenshots are readable and not dominated by tiny text.
 - Check tags, account, visibility, and publish settings.
-- Stop before final publish unless the user explicitly confirms.
+- Publish without another confirmation when the task requests publication or
+  the queue item is marked `排队`; stop only for a draft or preview task.

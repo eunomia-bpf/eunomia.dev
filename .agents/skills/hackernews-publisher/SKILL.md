@@ -1,12 +1,13 @@
 ---
 name: hackernews-publisher
-description: Prepare Hacker News submissions and follow-up drafts for eunomia.dev content, GitHub projects, papers, demos, and Show HN style launches. Use when asked to submit, adapt, QA, or record HN posts. Covers original-source selection, title normalization, curiosity-first positioning, browser duplicate checks, safe stop-before-submit behavior, comment follow-up, and media ledger updates.
+description: Prepare or publish Hacker News submissions and follow-up drafts for eunomia.dev content, GitHub projects, papers, demos, and Show HN style launches. Use when asked to submit, adapt, publish, QA, or record HN posts. Covers original-source selection, title normalization, curiosity-first positioning, browser duplicate checks, publication authorization, comment follow-up, and media ledger updates.
 ---
 
 # Hacker News Publisher
 
-Prepare Hacker News submissions and stop before final submission unless the user
-explicitly confirms it.
+Prepare Hacker News submissions. A request to submit or a queue item marked
+`排队` authorizes the final submission; do not ask again at the last button.
+Stop only when the task is limited to a draft or preview.
 
 ## Inputs
 
@@ -65,7 +66,7 @@ Before stopping for user confirmation, verify:
 - title is neutral, not all-caps, and does not include the site name
 - URL is the original/canonical source
 - Show HN title is only used when the artifact is tryable
-- the visible final `submit` action has not been clicked
+- the final action matches the task: submitted when authorized, untouched for a draft-only task
 
 ## Follow-Up
 

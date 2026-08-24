@@ -56,6 +56,15 @@ and finish every API publication with normal visible-browser QA of the public
 article. Other social/media platforms remain visible-browser-only unless the
 user explicitly establishes a different durable rule.
 
+For public media publishing, an explicit user request to publish, post, or
+submit, and any eligible queue item marked `排队`, is standing authorization
+to complete the final externally visible publication action. Do not stop at the
+last button or ask for the same confirmation again. Stop without publishing
+only when the user asks for a draft, preview, or preparation only, or when a
+real external blocker prevents completion. This standing authorization does
+not extend to private messages, follows, likes, votes, account settings,
+payments, deletions, or other actions outside the named publication task.
+
 For long-form publishing on any external platform, prepare the platform-specific
 upload/import artifact locally before opening the editor whenever practical.
 Use a temporary file or `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md`

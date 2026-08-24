@@ -1,13 +1,14 @@
 ---
 name: medium-publisher
-description: Prepare eunomia.dev Markdown articles for Medium drafts, imports, and faithful long-form syndication. Use when asked to paste, import, QA, or record Medium posts for blog, tutorial, project, paper, release, or GitHub content. Preserves the English source title and body exactly apart from mechanical rendering fixes, with optional canonical settings, browser QA, safe stop-before-publish behavior, follow-up, and media ledger updates.
+description: Prepare or publish eunomia.dev Markdown articles on Medium through faithful long-form syndication. Use when asked to paste, import, publish, QA, or record Medium posts for blog, tutorial, project, paper, release, or GitHub content. Preserves the English source title and body exactly apart from mechanical rendering fixes, with optional canonical settings, publication authorization, browser QA, follow-up, and media ledger updates.
 ---
 
 # Medium Publisher
 
 Prepare and publish Medium stories from canonical eunomia.dev content through
-the Medium API. Stop before final publishing unless the user explicitly
-confirms it or a rolling queue item is already authorized.
+the Medium API. A request to publish or a queue item marked `排队` authorizes
+creation; do not ask for another confirmation. Stop only for a draft or preview
+task.
 
 ## Inputs
 

@@ -12,13 +12,13 @@
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - 阻塞：知乎登录已失效；完成登录后恢复 tutorial 53，同一阻塞期间继续执行其他平台任务。
-- 补发缺口：2026-08-22 未发布；后续公开发布成功一项后清除此日期。2026-08-23 仍处于当前发布窗口，不计为历史缺口。
+- 补发缺口：无。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成。
 - Ledger 基线：知乎有 39 个未映射中文源，掘金有 75 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
-- Medium 与 DEV 的 BPFix 和 tutorial 50–52 已完成；tutorial 53–54 以及 AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
+- Medium 与 DEV 的 BPFix 和 tutorial 50–53 已完成；tutorial 54 以及 AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
-- 剩余队列：知乎 26 条、掘金 48 条、Medium 8 条、DEV 8 条、LinkedIn 3 条，共 93 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 26 条、掘金 48 条、Medium 7 条、DEV 7 条、LinkedIn 3 条，共 91 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -43,9 +43,9 @@
 - [x] `排队` DEV：`docs/tutorials/52-fsession-latency/README.md`。2026-08-17 已发布：<https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5>；公开页完整滚动 QA 确认原标题、4 个标签、18 个正文标题、20 个代码块、1 个表格、源码与参考链接正常。
 - [x] `排队` LinkedIn：`docs/tutorials/52-fsession-latency/README.md`。2026-08-21 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/>；公开页正文、标签、eunomia.dev 预览卡片和短链落地 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `阻塞` 知乎：`docs/tutorials/53-egress-pacer/README.zh.md`。2026-08-22 与 2026-08-23 的侧边栏及 Chrome 会话均被重定向到登录页；登录恢复后继续。
-- [ ] `排队` 掘金：`docs/tutorials/53-egress-pacer/README.zh.md`。
-- [ ] `排队` Medium：`docs/tutorials/53-egress-pacer/README.md`。
-- [ ] `排队` DEV：`docs/tutorials/53-egress-pacer/README.md`。
+- [ ] `阻塞` 掘金：`docs/tutorials/53-egress-pacer/README.zh.md`。已提交并进入平台审核：<https://juejin.cn/spost/7677218586263912482>。公开 `/post/` 页可见后再勾选。
+- [x] `排队` Medium：`docs/tutorials/53-egress-pacer/README.md`。2026-08-23 已公开：<https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49>；公开页标题、正文、9 个代码块、图片、链接和标签正常，环境表格待登录编辑器后改为可读列表。
+- [x] `排队` DEV：`docs/tutorials/53-egress-pacer/README.md`。2026-08-23 已公开：<https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna>；公开页标题、12 个正文标题、9 个代码块、1 个表格、图片、标签和链接 QA 通过。
 - [ ] `排队` LinkedIn：`docs/tutorials/53-egress-pacer/README.md`。
 - [ ] `排队` Medium：`docs/tutorials/54-exec-image-inspector/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/54-exec-image-inspector/README.md`。

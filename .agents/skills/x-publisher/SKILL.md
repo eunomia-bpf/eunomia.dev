@@ -1,12 +1,13 @@
 ---
 name: x-publisher
-description: Prepare eunomia.dev public content for X/Twitter posts, threads, and X Articles. Use when asked to draft, adapt, paste, QA, or record X posts for blog, tutorial, project, paper, release, or GitHub updates. Covers concise platform-native copy, media and link checks, safe stop-before-post behavior, reply/mention/DM follow-up, and media ledger updates.
+description: Prepare or publish eunomia.dev public content for X/Twitter posts, threads, and X Articles. Use when asked to draft, adapt, paste, publish, QA, or record X posts for blog, tutorial, project, paper, release, or GitHub updates. Covers concise platform-native copy, media and link checks, publication authorization, reply/mention/DM follow-up, and media ledger updates.
 ---
 
 # X Publisher
 
-Prepare platform-native X drafts from eunomia.dev content and stop before any
-externally visible posting action unless the user explicitly confirms it.
+Prepare platform-native X posts from eunomia.dev content. A request to publish
+or a queue item marked `排队` authorizes the final post; do not ask again at
+the last button. Stop only when the task is limited to a draft or preview.
 
 ## Inputs
 
@@ -76,7 +77,7 @@ Before stopping for user confirmation, verify:
 - uploaded media renders and has useful alt text where supported
 - hashtags are absent or minimal and genuinely useful
 - no confidential or unreleased claims are present
-- the visible final `Post` / `Publish` action has not been clicked
+- the final action matches the task: published when authorized, untouched for a draft-only task
 
 ## Follow-Up
 

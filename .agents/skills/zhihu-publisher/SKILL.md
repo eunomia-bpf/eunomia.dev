@@ -1,13 +1,14 @@
 ---
 name: zhihu-publisher
-description: Prepare eunomia.dev Markdown articles for Zhihu publishing. Use when asked to create, import, paste, QA, or record a Zhihu draft or article from repository Markdown. Preserves a syndicated long-form source title and body apart from mechanical rendering fixes, with browser-editor workflow, Zhihu formatting checks, safe stop-before-publish behavior, and media ledger updates.
+description: Prepare or publish eunomia.dev Markdown articles on Zhihu. Use when asked to create, import, paste, publish, QA, or record a Zhihu draft or article from repository Markdown. Preserves a syndicated long-form source title and body apart from mechanical rendering fixes, with browser-editor workflow, Zhihu formatting checks, publication authorization, and media ledger updates.
 ---
 
 # Zhihu Publisher
 
-Prepare a reviewed Zhihu draft from the canonical repository article. Stop at
-the editor, preview, or publish-settings page unless the user explicitly
-confirms final publishing.
+Prepare or publish a reviewed Zhihu article from the canonical repository
+source. A request to publish or a queue item marked `排队` authorizes the final
+action; do not ask again at the last button. Stop only for a draft or preview
+task.
 
 ## Inputs
 
@@ -98,8 +99,9 @@ note if useful, media choices, and QA state.
    publish; do not leave an unrelated default question selected.
 7. Set cover and column inclusion only when the user requested them or the
    choice is obvious from prior posts.
-8. Stop at preview, the visible `发布` button, or the publish-settings page
-   unless the user explicitly authorized publishing the current item.
+8. Complete the visible `发布` action when the task requests publication or the
+   queue item is marked `排队`; do not ask for duplicate confirmation. Stop at
+   preview only for a draft or preview task.
 
 ## Content Strategy
 
@@ -121,7 +123,7 @@ requirement.
 
 Do not automate:
 
-- final `发布` without explicit user authorization for the current item
+- final `发布` when the task is limited to a draft or preview
 - direct Zhihu API access, internal endpoint reads, or browser-hidden data fetches
 - column submission unless the user names the exact column
 - deleting drafts or changing account settings

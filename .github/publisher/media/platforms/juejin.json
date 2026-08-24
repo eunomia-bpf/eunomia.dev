@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-16",
+  "last_checked": "2026-08-23",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -109,6 +109,14 @@
       "review_status": "confirmed",
       "visible_comments": 0,
       "notes": "The visible authored-profile search found no exact-title duplicate. Submitted tutorial 52 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; tags Linux and 云原生. The source H1 is carried by the title field and the remaining body matches the source without substantive changes. The staged review page initially showed 审核中; on 2026-08-16 the public article became reachable and normal visible public-page QA confirmed the exact title, 18 body headings, 20 code blocks, one table, nine article links including source and references, no loading-error marker, and zero comments. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-08-23",
+      "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_and_staged_page_dom_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7677218586263912482",
+      "review_status": "pending",
+      "notes": "Submitted tutorial 53 through the normal visible Juejin editor after an exact-title duplicate check. Category 后端; tags Linux, 开源, and 云原生. A GitHub raw image produced the visible transfer-failure marker, so the source image was uploaded through the editor and replaced by Juejin-hosted media. The staged review page shows the exact title, 11 body headings, nine code blocks, one table, 13 links, and the Juejin-hosted image URL without the failure marker. The page remains 审核中, so it is not yet recorded as a confirmed public article."
     }
   ],
   "published": [

@@ -25,7 +25,8 @@ and reusable field copy.
 - Check the project intro is understandable without opening GitHub.
 - Check image upload/crop and avoid generic visuals when an architecture or UI
   artifact exists.
-- Stop before final submit unless the user explicitly confirms.
+- Submit without another confirmation when the task requests publication or the
+  queue item is marked `排队`; stop only for a draft or preview task.
 
 ## Content Ratio
 

@@ -1,13 +1,14 @@
 ---
 name: devto-publisher
-description: Prepare eunomia.dev Markdown articles for DEV Community drafts and faithful long-form syndication. Use when asked to paste, import, QA, or record DEV.to posts for blog, tutorial, project, paper, release, or GitHub content. Preserves the English source title and body apart from mechanical Markdown/rendering fixes, with optional canonical_url settings, browser QA, safe stop-before-publish behavior, follow-up, and media ledger updates.
+description: Prepare or publish eunomia.dev Markdown articles on DEV Community through faithful long-form syndication. Use when asked to paste, import, publish, QA, or record DEV.to posts for blog, tutorial, project, paper, release, or GitHub content. Preserves the English source title and body apart from mechanical Markdown/rendering fixes, with optional canonical_url settings, publication authorization, browser QA, follow-up, and media ledger updates.
 ---
 
 # DEV.to Publisher
 
 Prepare and publish DEV Community articles from canonical eunomia.dev content
-through the DEV API. Stop before final publishing unless the user explicitly
-confirms it or a rolling queue item is already authorized.
+through the DEV API. A request to publish or a queue item marked `排队`
+authorizes creation; do not ask for another confirmation. Stop only for a draft
+or preview task.
 
 ## Inputs
 

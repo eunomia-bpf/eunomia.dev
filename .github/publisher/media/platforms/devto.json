@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-17",
+  "last_checked": "2026-08-23",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -84,11 +84,29 @@
       ],
       "checked_via": "dev_api_publish_and_public_story_full_scroll",
       "notes": "Published through the documented DEV API after authenticated-account and exact-title duplicate checks. The local artifact removed only the duplicate source H1 and labeled the pseudocode fence. Public full-scroll QA verified the exact title, four tags, all 18 body headings, 20 code blocks, one rendered table, source and reference links, and no failure markers."
+    },
+    {
+      "id": "devto-4471668",
+      "status": "confirmed",
+      "date": "2026-08-23",
+      "title": "eBPF Tutorial: Building an Egress Pacer with BPF Qdisc",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna",
+      "canonical_url": null,
+      "source_path": "docs/tutorials/53-egress-pacer/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "networking",
+        "tutorial"
+      ],
+      "checked_via": "dev_api_publish_and_visible_public_page_dom_qa",
+      "notes": "Published through the documented DEV API after authenticated-account, ledger, and full author-list duplicate checks. The API body removed only the duplicate source H1. Visible public-page QA confirmed the exact title, all 12 source body headings, nine code blocks, one rendered table, four accepted tags, one loaded DEV-hosted diagram, the source link, and reference links with no failure marker."
     }
   ],
   "confirmed_source_urls": {
     "docs/tutorials/51-tcp-quarantine/README.md": "https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld",
     "docs/tutorials/52-fsession-latency/README.md": "https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5",
+    "docs/tutorials/53-egress-pacer/README.md": "https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna",
     "docs/blog/posts/bpfix.md": "https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o",
     "docs/blog/posts/agent-check-restore-safety.md": "https://dev.to/yunwei37/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-5eja",
     "docs/blog/posts/runtime-security-for-opaque-ai-agents.md": "https://dev.to/yunwei37/runtime-observability-and-enforcement-for-opaque-ai-agents-with-ebpf-beyond-sandboxes-and-approvals-8n6",

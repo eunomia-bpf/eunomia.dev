@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-17",
+  "last_checked": "2026-08-23",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -65,6 +65,22 @@
       ],
       "checked_via": "medium_api_markdown_publish_and_public_story_full_scroll",
       "notes": "Published through the documented Medium API after account and exact-title duplicate checks. The local artifact preserved the complete source and visible H1 while replacing the environment requirements table with a six-item prose fallback. Public full-scroll QA verified the exact title, all 18 source body headings, 20 code blocks, source and reference links, three tags, and no failure markers."
+    },
+    {
+      "id": "medium-01f2a8c5fb49",
+      "status": "confirmed",
+      "date": "2026-08-23",
+      "title": "eBPF Tutorial: Building an Egress Pacer with BPF Qdisc",
+      "url": "https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49",
+      "canonical_url": null,
+      "source_path": "docs/tutorials/53-egress-pacer/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "networking"
+      ],
+      "checked_via": "medium_api_markdown_publish_and_visible_public_page_dom_qa",
+      "notes": "Published through the documented Medium API after authenticated-account, ledger, and visible-profile duplicate checks. Public-page QA confirmed the exact visible H1, the complete source body, nine code blocks, one loaded Medium-hosted diagram, source and reference links, and three tags. Medium flattened the environment requirements table into one readable but dense text line; the available browser sessions were signed out, so the editor repair remains a formatting follow-up and no duplicate publication was attempted."
     }
   ],
   "confirmed_source_urls": {
@@ -76,6 +92,7 @@
     "docs/tutorials/50-tcx/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-0b64b72f7a59",
     "docs/tutorials/51-tcp-quarantine/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-precisely-isolating-established-tcp-connections-9d08644b44b4",
     "docs/tutorials/52-fsession-latency/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-tracing-slow-vfs-read-calls-with-fsession-defc728e227e",
+    "docs/tutorials/53-egress-pacer/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49",
     "docs/tutorials/features/bpf_token/README.md": "https://medium.com/@yunwei356/ebpf-tutorial-by-example-bpf-token-for-delegated-privilege-and-secure-program-loading-b43b903fef00",
     "docs/blog/posts/agentcgroup-characterization.md": "https://medium.com/@yunwei356/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources-46ea027ef62d",
     "docs/blog/posts/claude-code-analysis.md": "https://medium.com/@yunwei356/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-1dde03bcc7ef",

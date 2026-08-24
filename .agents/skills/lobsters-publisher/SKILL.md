@@ -1,12 +1,14 @@
 ---
 name: lobsters-publisher
-description: Prepare Lobsters submissions and follow-up drafts for eunomia.dev content, GitHub projects, papers, demos, and computing-focused technical posts. Use when asked to submit, adapt, QA, or record Lobsters posts. Covers tag selection, computing-topic fit, self-promotion safety, browser duplicate checks, safe stop-before-submit behavior, comment/private-message follow-up, and media ledger updates.
+description: Prepare or publish Lobsters submissions and follow-up drafts for eunomia.dev content, GitHub projects, papers, demos, and computing-focused technical posts. Use when asked to submit, adapt, publish, QA, or record Lobsters posts. Covers tag selection, computing-topic fit, self-promotion safety, browser duplicate checks, publication authorization, comment/private-message follow-up, and media ledger updates.
 ---
 
 # Lobsters Publisher
 
-Prepare Lobsters submissions that fit the computing-focused community and stop
-before final submission unless the user explicitly confirms it.
+Prepare Lobsters submissions that fit the computing-focused community. A
+request to submit or a queue item marked `排队` authorizes the final submission;
+do not ask again at the last button. Stop only when the task is limited to a
+draft or preview.
 
 ## Inputs
 
@@ -61,7 +63,7 @@ Before stopping for user confirmation, verify:
 - duplicate/recent same-topic searches are clean
 - the account is allowed to submit the domain and tags
 - tracking parameters are absent
-- the visible final submit action has not been clicked
+- the final action matches the task: submitted when authorized, untouched for a draft-only task
 
 ## Follow-Up
 

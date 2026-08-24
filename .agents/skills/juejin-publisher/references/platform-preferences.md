@@ -132,7 +132,8 @@ short post.
   GitHub raw URLs for public repository images, or editor uploads.
 - Check that the intro gives practical value before any project promotion.
 - Check campaign/event requirements again when entering a Juejin activity.
-- Stop before final publish unless the user explicitly confirms.
+- Publish without another confirmation when the task requests publication or
+  the queue item is marked `排队`; stop only for a draft or preview task.
 
 ### Editor And Review-State Checks
 
