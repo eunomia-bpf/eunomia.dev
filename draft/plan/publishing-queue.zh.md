@@ -1,7 +1,7 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-21。
-> 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-23。
+> 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
 ## 当前状态
@@ -11,6 +11,8 @@
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
+- 阻塞：知乎登录已失效；完成登录后恢复 tutorial 53，同一阻塞期间继续执行其他平台任务。
+- 补发缺口：2026-08-22 未发布；后续公开发布成功一项后清除此日期。2026-08-23 仍处于当前发布窗口，不计为历史缺口。
 - Ledger 基线：知乎有 39 个未映射中文源，掘金有 75 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
@@ -40,7 +42,7 @@
 - [x] `排队` Medium：`docs/tutorials/52-fsession-latency/README.md`。2026-08-17 已发布：<https://medium.com/@yunwei356/ebpf-tutorial-tracing-slow-vfs-read-calls-with-fsession-defc728e227e>；公开页完整滚动 QA 确认原标题、18 个正文标题、20 个代码块、6 条环境要求回退、源码与参考链接以及 3 个标签正常。
 - [x] `排队` DEV：`docs/tutorials/52-fsession-latency/README.md`。2026-08-17 已发布：<https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5>；公开页完整滚动 QA 确认原标题、4 个标签、18 个正文标题、20 个代码块、1 个表格、源码与参考链接正常。
 - [x] `排队` LinkedIn：`docs/tutorials/52-fsession-latency/README.md`。2026-08-21 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/>；公开页正文、标签、eunomia.dev 预览卡片和短链落地 QA 已通过，ledger 已记录为 `confirmed`。
-- [ ] `排队` 知乎：`docs/tutorials/53-egress-pacer/README.zh.md`。
+- [ ] `阻塞` 知乎：`docs/tutorials/53-egress-pacer/README.zh.md`。2026-08-22 与 2026-08-23 的侧边栏及 Chrome 会话均被重定向到登录页；登录恢复后继续。
 - [ ] `排队` 掘金：`docs/tutorials/53-egress-pacer/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/53-egress-pacer/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/53-egress-pacer/README.md`。
@@ -131,8 +133,9 @@
 
 ## 执行规则
 
-- 每次巡检从顶部找到第一条仍为 `排队` 的任务，当天只处理这一条；同一源同步到两个平台是两个独立任务。
-- 发布前立即确认 ledger 仍缺失、源文是可独立阅读的完整文章。发现重复、过时或不适合平台时，把该行改为 `跳过` 并写一句原因，然后继续寻找当天唯一可发布项。
+- 每次巡检从顶部找到第一条可执行的 `排队` 任务；`阻塞` 和 `待确认` 不得卡住后续平台，同一源同步到两个平台仍是两个独立任务。
+- 正常每天完成一条。最近有可执行任务却没有确认公开发布的日期形成补发缺口；每个缺口允许额外完成一条后续任务，公开页 QA 成功后才清除。同一平台同一天最多一篇。
+- 发布前立即确认 ledger 仍缺失、源文是可独立阅读的完整文章。发现重复、过时或不适合平台时，把该行改为 `跳过` 并写一句原因，然后继续寻找下一个可执行项。
 - 长文保持源标题和正文，只处理本地上传 artifact、图片、代码、链接、标签和平台渲染。
 - 历史回补默认只处理 tutorial；2026 年以前的非 tutorial Blog 不因 ledger 缺失自动进入队列。
 - 发布后改为 `[x]`，紧跟公开 URL、审核状态和 ledger 结果；真实异常或待跟进事项才写 `draft/media/YYYY-MM-DD/run-log.md`。

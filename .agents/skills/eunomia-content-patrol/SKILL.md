@@ -59,18 +59,25 @@ Do not duplicate a child skill's workflow inside this orchestrator.
 ## Daily Orchestration
 
 1. Read the rolling queue, prepared artifacts, platform ledgers, and the
-   previous run's next action. A global pause or blocker at the top of the
-   queue overrides every item it covers. Only the first eligible unfinished
-   task explicitly marked `排队` is due; `待确认` and `阻塞` are not
-   publication instructions, while `跳过` records a rejected item.
+   previous run's next action. A global pause overrides every item it covers.
+   Scan from the top for the first eligible unfinished task explicitly marked
+   `排队`; bypass `待确认` and `阻塞` items without letting them stall unrelated
+   platforms, while `跳过` records a permanently rejected item.
 2. Invoke `eunomia-social-radar` to refresh the observable results and active
    conversations around published content.
-3. Collect the child results and identify the single publication action
-   authorized for the current window. Prefer finishing it over creating
-   additional drafts.
-4. Invoke the matching publisher skill for that action. Let that skill own copy
-   adaptation, its documented API or visible-browser submission path, preview,
-   final public-page QA, the action itself, and platform-ledger updates.
+3. Collect the child results and identify the publication actions authorized
+   for the current window. The normal target is one publication per local
+   calendar day. If recent days with eligible queue work ended without a
+   confirmed publication because of an operational blocker, carry one catch-up
+   slot per missed day. Use those slots on the next eligible tasks, never more
+   than one publication per platform in the same day. Intentional pauses and
+   days with no eligible task do not create catch-up slots.
+4. Invoke the matching publisher skill for each authorized action. Let that
+   skill own copy adaptation, its documented API or visible-browser submission
+   path, preview, final public-page QA, the action itself, and platform-ledger
+   updates. If one action reaches a real platform blocker, mark it `阻塞` with
+   the exact recovery condition and continue to the next eligible task; do not
+   consume a publication or catch-up slot until a public result is confirmed.
 5. Confirm the observable result returned by each child skill. Update the
    rolling queue and platform ledger first. If a separate run record is useful,
    write completed actions, real URLs, artifact paths, blockers, and next
@@ -83,9 +90,10 @@ Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority
 
-The first eligible queue item explicitly marked `排队` is standing authorization
-to complete the named platform action end to end, including preparation,
-preview, publication, public-page QA, and ledger updates.
+Each eligible queue item explicitly marked `排队` within today's normal or
+catch-up slots is standing authorization to complete the named platform action
+end to end, including preparation, preview, publication, public-page QA, and
+ledger updates.
 
 Do not ask for another confirmation or let a child publisher's normal
 confirmation step stop an authorized scheduled run. Resolve routine details
