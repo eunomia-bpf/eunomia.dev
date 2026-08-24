@@ -96,9 +96,12 @@ artifact, ledger, queue, and snapshots instead.
 
 For images, verify the exact final URL used in Markdown before publishing. Do
 not assume `imgs/...` can be converted by guessing an eunomia.dev article path;
-that path may return 404. Use actual rendered image URLs, stable GitHub raw URLs
-for public repository images, or upload images through the Juejin web editor,
-then verify the preview and public page.
+that path may return 404. A public GitHub raw URL can also produce
+`转存失败，建议直接上传图片文件` in Juejin. When that happens, upload the
+source image through the visible editor, use the resulting Juejin-hosted URL in
+the local publishing copy, and confirm that the failure marker is gone and the
+rendered image has non-zero dimensions. Verify the same image again on the
+public page.
 
 ## Content Strategy
 
