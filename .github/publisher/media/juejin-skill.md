@@ -2,7 +2,7 @@
 
 Last checked: 2026-07-18
 
-Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.claude/skills/juejin-publisher/SKILL.md`, exposed locally through `.agents/skills/juejin-publisher`.
+Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.agents/sources/agent-skills/skills/juejin-publisher/SKILL.md`, exposed locally through `.agents/skills/juejin-publisher`.
 
 Strict platform boundary: do not directly access Juejin APIs or hidden/internal
 endpoints under any circumstances. Use only normal browser interactions visible

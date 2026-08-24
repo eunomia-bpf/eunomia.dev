@@ -35,6 +35,19 @@ For open-source code, documentation, synchronization, CI, release-readiness, or
 PR-bound changes in this repository, use the `oss-change-workflow` skill before
 editing. Follow its scope-control, validation, review, and CI guidance.
 
+### Agent Skills Source
+
+The canonical skill source is the pinned `eunomia-bpf/agent-skills` submodule
+at `.agents/sources/agent-skills`. The `.agents/skills` directory is a generated,
+ignored bridge created by `scripts/sync-agent-skills.ps1` on Windows or
+`scripts/sync-agent-skills.sh` on Unix. Do not edit the bridge directly.
+
+For a durable skill change, update and validate the standalone `agent-skills`
+repository on `main`, push it first, update this repository's submodule gitlink,
+rerun the sync script, and validate the consuming workflow here. A fresh clone
+must initialize the submodule and run the sync script before using repo-local
+skills.
+
 Before adding or keeping planning material in the repository, classify it by
 lifespan. Short-term fixes, cleanup backlogs, one-off audits, and tactical
 remediation plans should be tracked as GitHub issues, not long-lived draft
@@ -86,9 +99,9 @@ branch or worktree, and do not open a pull request. Before committing, inspect
 the worktree, stage only explicit intended paths, run the smallest relevant
 validation, and preserve unrelated user changes. Commit the validated change on
 `main`, rebase onto `origin/main` when the remote has advanced, and push `main`
-directly. This standing repository rule applies to daily `draft/` and
-`.agents/skills/` maintenance as well as code, site, build, and documentation
-work unless the user explicitly replaces it.
+directly. This standing repository rule applies to daily `draft/`, agent-skills
+gitlink/synchronization, code, site, build, and documentation maintenance unless
+the user explicitly replaces it.
 
 ### Branch And Parallel Work
 
@@ -202,11 +215,13 @@ When working with eBPF examples in the tutorials:
 
 Keep blog style and blog production separate:
 
-- `.agents/skills/blog-writing-style/SKILL.md` is the only source for how the
+- `.agents/sources/agent-skills/skills/blog-writing-style/SKILL.md` is the only
+  source for how the
   finished English and Chinese prose should read. It may contain style guidance
   and examples, but no content requirements, model choices, editing procedure,
   or review workflow.
-- `.agents/skills/blog-writer/SKILL.md` owns source preparation, writing and
+- `.agents/sources/agent-skills/skills/blog-writer/SKILL.md` owns source
+  preparation, writing and
   rewriting stages, model responsibilities, factual verification, and
   publication-integrity checks. It must not duplicate sentence-level or prose
   style rules.

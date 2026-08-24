@@ -59,10 +59,10 @@ For Zhihu, Markdown import/paste needs extra QA. Community tooling such as `md2z
 
 ## Local Skills And Ledgers
 
-- Canonical Zhihu skill: [`../../../.agents/skills/zhihu-publisher/SKILL.md`](../../../.agents/skills/zhihu-publisher/SKILL.md)
-- Canonical Juejin skill: [`../../../.agents/skills/juejin-publisher/SKILL.md`](../../../.agents/skills/juejin-publisher/SKILL.md)
-- Canonical Xiaohongshu skill: [`../../../.agents/skills/xiaohongshu-publisher/SKILL.md`](../../../.agents/skills/xiaohongshu-publisher/SKILL.md)
-- Daily content patrol skill: [`../../../.agents/skills/eunomia-content-patrol/SKILL.md`](../../../.agents/skills/eunomia-content-patrol/SKILL.md)
+- Canonical Zhihu skill: [`.agents/sources/agent-skills/skills/zhihu-publisher/SKILL.md`](https://github.com/eunomia-bpf/agent-skills/blob/6916f1904cc124a6e495a5e0bc401912134968ef/skills/zhihu-publisher/SKILL.md)
+- Canonical Juejin skill: [`.agents/sources/agent-skills/skills/juejin-publisher/SKILL.md`](https://github.com/eunomia-bpf/agent-skills/blob/6916f1904cc124a6e495a5e0bc401912134968ef/skills/juejin-publisher/SKILL.md)
+- Canonical Xiaohongshu skill: [`.agents/sources/agent-skills/skills/xiaohongshu-publisher/SKILL.md`](https://github.com/eunomia-bpf/agent-skills/blob/6916f1904cc124a6e495a5e0bc401912134968ef/skills/xiaohongshu-publisher/SKILL.md)
+- Daily content patrol skill: [`.agents/sources/agent-skills/skills/eunomia-content-patrol/SKILL.md`](https://github.com/eunomia-bpf/agent-skills/blob/6916f1904cc124a6e495a5e0bc401912134968ef/skills/eunomia-content-patrol/SKILL.md)
 - Media Zhihu notes: [zhihu-skill.md](zhihu-skill.md)
 - Media Juejin notes: [juejin-skill.md](juejin-skill.md)
 - Source-set config: [sources.json](sources.json)

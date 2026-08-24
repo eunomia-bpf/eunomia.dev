@@ -7,7 +7,8 @@ on:
       - ".gitmodules"
       - ".github/seo-skills"
       - ".github/seo-data/**"
-      - ".agents/skills/eunomia-research-report/**"
+      - ".agents/sources/agent-skills"
+      - "scripts/sync-agent-skills.*"
       - ".github/workflows/seo-data-validate.yml"
   push:
     branches:
@@ -17,7 +18,8 @@ on:
       - ".gitmodules"
       - ".github/seo-skills"
       - ".github/seo-data/**"
-      - ".agents/skills/eunomia-research-report/**"
+      - ".agents/sources/agent-skills"
+      - "scripts/sync-agent-skills.*"
       - ".github/workflows/seo-data-validate.yml"
   workflow_dispatch:
 
@@ -34,7 +36,7 @@ jobs:
           fetch-depth: 1
           submodules: recursive
 
-      - name: Verify pinned submodule
+      - name: Verify pinned submodules
         shell: bash
         run: |
           set -euo pipefail
@@ -44,6 +46,17 @@ jobs:
           test "${actual}" = "${expected}"
           test "$(git config -f .gitmodules --get 'submodule..github/seo-skills.url')" = \
             "https://github.com/AutoArchive/seo-skill.git"
+
+          agent_expected="$(git ls-tree HEAD .agents/sources/agent-skills | awk '{print $3}')"
+          agent_actual="$(git -C .agents/sources/agent-skills rev-parse HEAD)"
+          test -n "${agent_expected}"
+          test "${agent_actual}" = "${agent_expected}"
+          test "$(git config -f .gitmodules --get 'submodule..agents/sources/agent-skills.url')" = \
+            "https://github.com/eunomia-bpf/agent-skills.git"
+
+      - name: Build repository skill links
+        shell: bash
+        run: ./scripts/sync-agent-skills.sh
 
       - name: Validate authoritative daily task contract
         shell: bash

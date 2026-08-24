@@ -1,11 +1,21 @@
 # Agent Skills Bridge
 
-This directory exposes repository skills to Codex-compatible agents.
+This directory exposes repository skills to Codex-compatible agents. The
+canonical source is the pinned `eunomia-bpf/agent-skills` submodule under
+`.agents/sources/agent-skills`; `.agents/skills` is a generated bridge and is
+not tracked by Git.
+
+Initialize the submodule and rebuild the bridge with
+`scripts/sync-agent-skills.ps1` on Windows or
+`scripts/sync-agent-skills.sh` on Unix. The linker uses symbolic links where
+available and falls back to Windows directory junctions when link privileges
+are unavailable. It refuses to overwrite a real file or directory.
 
 In Git, `.claude/skills` is a symlink pointer to `../.agents/skills` so Claude
-and Codex share the same skill set. On Windows with `core.symlinks=false`, the
-pointer may appear as a small text file; edit the real skill folders under
-`.agents/skills`.
+and Codex share the generated skill set. On Windows with
+`core.symlinks=false`, the pointer may appear as a small text file. Do not edit
+the generated bridge; update the canonical `agent-skills` repository, push its
+`main`, update the submodule gitlink here, and rerun the sync script.
 
 Keep platform publishing skills browser-first except for Medium and DEV.to,
 which are API-first through their documented publishing endpoints. Their API

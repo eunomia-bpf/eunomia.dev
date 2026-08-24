@@ -2,7 +2,7 @@
 
 Last checked: 2026-07-18
 
-Use this when preparing a eunomia.dev Markdown article for Zhihu. The canonical agent skill is `.claude/skills/zhihu-publisher/SKILL.md`, exposed locally through `.agents/skills/zhihu-publisher`.
+Use this when preparing a eunomia.dev Markdown article for Zhihu. The canonical agent skill is `.agents/sources/agent-skills/skills/zhihu-publisher/SKILL.md`, exposed locally through `.agents/skills/zhihu-publisher`.
 
 Strict platform boundary: do not directly access Zhihu APIs or hidden/internal
 endpoints under any circumstances. Use only normal browser interactions visible

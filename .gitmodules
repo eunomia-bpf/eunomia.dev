@@ -2,3 +2,7 @@
 	path = .github/seo-skills
 	url = https://github.com/AutoArchive/seo-skill.git
 	branch = main
+[submodule ".agents/sources/agent-skills"]
+	path = .agents/sources/agent-skills
+	url = https://github.com/eunomia-bpf/agent-skills.git
+	branch = main
