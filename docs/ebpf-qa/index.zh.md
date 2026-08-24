@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 syscall rewriting trampoline 会让 `clone` 或 `clone3` 创建的线程崩溃？](/zh/ebpf-qa/2026-08-24-clone-syscall-trampoline-child-stack/)
 - [OpenTelemetry GenAI 评估结果是否应该携带可验证证据的引用？](/zh/ebpf-qa/2026-08-23-opentelemetry-genai-evaluation-evidence-reference/)
 - [为什么无人抓取的 OBI Prometheus endpoint 仍会让内存持续增长？](/zh/ebpf-qa/2026-08-22-obi-unused-prometheus-exporter-memory-growth/)
 - [OpenTelemetry 指标生产者是否应该把服务身份复制到每个数据点？](/zh/ebpf-qa/2026-08-21-opentelemetry-resource-attributes-prometheus-labels/)

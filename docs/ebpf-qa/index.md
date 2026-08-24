@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Why can a syscall-rewriting trampoline crash threads created by `clone` or `clone3`?](/ebpf-qa/2026-08-24-clone-syscall-trampoline-child-stack/)
 - [Should an OpenTelemetry GenAI evaluation result carry a verifiable-evidence reference?](/ebpf-qa/2026-08-23-opentelemetry-genai-evaluation-evidence-reference/)
 - [Why can an unused OBI Prometheus endpoint keep growing memory?](/ebpf-qa/2026-08-22-obi-unused-prometheus-exporter-memory-growth/)
 - [Should an OpenTelemetry metrics producer copy service identity into every data point?](/ebpf-qa/2026-08-21-opentelemetry-resource-attributes-prometheus-labels/)
