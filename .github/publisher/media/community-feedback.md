@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-24
+
+- Tutorial 53 remains complete on [Medium](https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49) and [DEV](https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna), with the exact title, full section sequence, nine code blocks, working source/reference links, and a loaded diagram; DEV still renders the requirements table correctly, while Medium still flattens it into dense text. The [Juejin staged URL](https://juejin.cn/spost/7677218586263912482) now redirects to the public [article](https://juejin.cn/post/7677218586263912482), whose title, 11 body headings, nine code blocks, table, tags, source links, and zero-comment state are intact, but the Juejin-hosted diagram currently does not render on the public page and needs a later repair check. The [fsession LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/) rose from 43 to 47 public reactions with its post text, link, hashtags, and preview intact; no new technical feedback is visible, while comment contents remain unavailable on the signed-out surface rather than treated as absent. No reply is due.
+
 ### 2026-08-23
 
 - The [fsession LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/) rose from 36 to 43 public reactions between its one-day and two-day checkpoints. The post body, eunomia.dev link, hashtags, and preview card remain intact; comments and private impressions are unavailable on the signed-out surface rather than treated as zero. No response is due, and another routine checkpoint is unnecessary unless a technical comment or citation appears.
