@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能验证有状态安全策略，而不只是验证字节码安全吗？](https://eunomia.dev/zh/research/ebpf-stateful-policy-verification/)
+
+有状态 eBPF 安全系统会让 BPF map 在 packet、syscall、CPU 与用户态更新之间保存策略状态，即使每段程序都能通过 verifier，状态 transition 仍可能违反安全意图。本文提出小型 temporal policy contract、verifier-cooperative runtime guard，以及专门制造策略状态错误的 benchmark。
+
 ### [零拷贝 eBPF 数据路径里，谁拥有数据包缓冲区？](https://eunomia.dev/zh/research/ebpf-zero-copy-buffer-ownership/)
 
 AF_XDP、io_uring ZC Rx 和 DPDK 都会高频复用 packet buffer，却使用不同的 ownership 与回收协议。本文提出 generation-scoped buffer capability、绑定 policy generation 的 handoff witness，以及专门检测跨路径 ownership 与 provenance 错误的 zero-copy fault benchmark。

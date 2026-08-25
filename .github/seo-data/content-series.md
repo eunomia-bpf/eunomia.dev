@@ -78,11 +78,11 @@ six-report boundary for eBPF Observability and Profiling.
 
 The roadmap initially preferred transactional policy updates across programs,
 maps, links, and userspace control planes. Fresh novelty review on `2026-08-23`
-rejected that candidate for this run because
-`/research/stateful-ebpf-transactional-upgrade/` already develops a prepare /
-migrate / commit / retire generation protocol across programs, links, maps,
-pinned state, controller recovery, and rollback. Repeating the same update
-transaction with a networking example would not materially advance the archive.
+rejected that candidate because `/research/stateful-ebpf-transactional-upgrade/`
+already develops a prepare / migrate / commit / retire generation protocol across
+programs, links, maps, pinned state, controller recovery, and rollback. Repeating
+the same update transaction with a networking example would not materially
+advance the archive.
 
 The `2026-08-23` report starts the active series with a distinct security-policy
 question: how additive Kubernetes `NetworkPolicy`, tiered `ClusterNetworkPolicy`,
@@ -97,8 +97,24 @@ ownership protocols, while BPF policy decisions, NIC steering, and userspace
 processing can cross those boundaries. The report develops a generation-scoped
 buffer capability, policy-linked handoff witnesses, and a cross-path zero-copy
 fault benchmark. It is distinct from the earlier io_uring programmability report:
-the missing property here is buffer lease ownership and provenance across APIs,
-not BPF execution control inside the ring.
+the missing property is buffer lease ownership and provenance across APIs, not
+BPF execution control inside the ring.
+
+The `2026-08-25` report advances a third boundary: the Linux verifier can prove
+that each loaded BPF program executes safely while the security policy encoded in
+persistent map state still follows an invalid temporal trace. Production policy
+state can be shared across hooks, CPUs, programs, and userspace and can change
+under eviction, map pressure, revocation, restart, or stale control-plane writes.
+The report develops a small temporal policy contract, verifier-cooperative runtime
+transition guards, and an adversarial state-fault benchmark. This is distinct
+from verifier-error diagnosis, transactional upgrade, and policy composition:
+the target property is legal runtime state transition after safe bytecode has
+already been admitted.
+
+A broad cross-boundary information-flow candidate was considered again on
+`2026-08-25` but not selected. Existing ActPlane and Eunomia material already
+covers process/file/network effect labels and layered enforcement, so a broad
+version has higher thesis-overlap risk than the narrower state-transition gap.
 
 ### Published progress
 
@@ -116,14 +132,25 @@ not BPF execution control inside the ring.
    userspace eBPF, and NIC handoffs. It is eBPF-centered because policy identity
    and BPF/user-runtime transitions are part of the correctness contract rather
    than optional instrumentation.
+3. `2026-08-25`: `/research/ebpf-stateful-policy-verification/` separates
+   per-program verifier safety from temporal correctness of persistent security
+   state. It asks how map-backed policy states can restrict legal transitions,
+   transition authority, generations, expiry, capacity failure, and userspace
+   writes without forcing the Linux verifier to model unbounded event history.
+   It is eBPF-centered because BPF maps, hooks, verifier boundaries, and in-kernel
+   transition enforcement are the central mechanism rather than optional probes.
 
 ### Preferred next questions
 
-1. information-flow enforcement across process, file, socket, and encrypted
-   application boundaries, narrowed enough to avoid duplicating existing
-   ActPlane-style effect-label mechanisms;
-2. verifier and runtime interfaces for richer stateful policies;
-3. portable policy execution between kernel, userspace, NIC, and DPU targets;
+1. portable policy execution between kernel, userspace, NIC, and DPU targets,
+   narrowed to a security property that must survive backend placement rather
+   than repeating the heterogeneous execution-placement report;
+2. information-flow enforcement across process, file, socket, and encrypted
+   application boundaries only if fresh evidence supports a mechanism materially
+   narrower than existing ActPlane-style effect-label enforcement;
+3. cross-hook or cross-layer authorization revocation where an already admitted
+   state must be invalidated without duplicating today's general transition
+   contract;
 4. revisit transactional network-policy rollout only when new evidence supports
    a mechanism materially different from the published stateful-upgrade
    generation protocol;
@@ -131,10 +158,9 @@ not BPF execution control inside the ring.
    cross-path benchmark exposes a distinct mechanism beyond the lease/provenance
    contract developed on `2026-08-24`.
 
-Before the August 24 publication, the newest ten contain **7 eBPF-centered / 0
-pure Agent / 3 adjacent systems**. The incoming eBPF-centered report ages the
-`2026-08-12` eBPF-centered async-profiler report out of the rolling ten, so the
-window remains **7 / 0 / 3** after publication.
+Before and after the August 25 publication, the newest ten contain **7
+eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
+report ages another eBPF-centered report out of the rolling ten.
 
 ## Completed series — eBPF Observability and Profiling
 

@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Verify a Stateful Security Policy, Not Just Safe Bytecode?](https://eunomia.dev/research/ebpf-stateful-policy-verification/)
+
+Stateful eBPF security relies on persistent map transitions across packets, syscalls, CPUs, and userspace updates even when every program is verifier-safe. This report develops a small temporal policy contract, verifier-cooperative transition guards, and an adversarial benchmark for policy-state correctness.
+
 ### [Who Owns a Packet Buffer in a Zero-Copy eBPF Datapath?](https://eunomia.dev/research/ebpf-zero-copy-buffer-ownership/)
 
 AF_XDP, io_uring ZC Rx, and DPDK already use different native lifetime protocols. This report develops a generation-scoped buffer capability, policy-linked handoff witnesses, and a cross-path fault benchmark for zero-copy eBPF datapaths.
