@@ -1,7 +1,7 @@
 ---
 date: 2026-08-25
 title: "Can eBPF Verify a Stateful Security Policy, Not Just Safe Bytecode?"
-description: "Stateful eBPF security relies on persistent map transitions across events. This report develops policy-state contracts, runtime guards, and temporal verification."
+description: "Stateful eBPF security relies on persistent map transitions across events. This report develops state contracts, runtime guards, and temporal verification."
 tags:
   - Daily Report
   - eBPF
