@@ -2,36 +2,36 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-08-24 08:09 UTC`
+Generated: `2026-08-25 08:04 UTC`
 
 ## Collection health
 
 | Source | Status | Observed | Changed |
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
-| github | succeeded | 151 | 0 |
+| github | succeeded | 152 | 0 |
 | devto | succeeded | 61 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `176 ms`.
+- Homepage: `200` in `172 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `694`.
+- Sitemap entries observed: `698`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
-- Active, non-fork repositories: `98`.
-- Current stars: `9806`; forks: `1282`; open issue/PR records: `280`.
+- Active, non-fork repositories: `99`.
+- Current stars: `9813`; forks: `1282`; open issue/PR records: `286`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4247 | 595 | 18 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1556 | 183 | 111 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4249 | 596 | 18 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1556 | 182 | 120 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 896 | 75 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 600 | 91 | 25 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 602 | 91 | 22 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 442 | 34 | 6 |
-| [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 273 | 25 | 4 |
+| [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 274 | 25 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 233 | 40 | 54 |
 | [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 144 | 18 | 1 |
 
