@@ -72,40 +72,51 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive. Before the `2026-08-24` zero-copy buffer-ownership report, the newest
-   ten are **7 eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming
-   report is eBPF-centered and ages the `2026-08-12` eBPF-centered async-profiler
-   report out of the window, so the mix remains **7 / 0 / 3** after publication.
+   archive. Before the `2026-08-25` report, the newest ten are **7 eBPF-centered /
+   0 pure Agent / 3 adjacent systems**. The incoming stateful-policy-verification
+   report is eBPF-centered and ages another eBPF-centered report out, so the mix
+   remains **7 / 0 / 3** after publication.
 2. Keep **eBPF Networking and Security** as the active series. The `2026-08-23`
-   report established policy composition, authority provenance, and explanation
-   across Kubernetes and Cilium policy formats. The `2026-08-24` report advances
-   a distinct zero-copy question: buffer lease ownership, DMA reachability,
-   recycling, and policy provenance across AF_XDP, io_uring ZC Rx, DPDK, and
-   userspace eBPF paths. Prefer a next question such as cross-boundary
-   information-flow enforcement, richer verifier/runtime interfaces for stateful
-   security policy, or portable policy execution after fresh evidence and
-   novelty review.
+   report established multi-owner policy composition and authority provenance;
+   the `2026-08-24` report established zero-copy buffer ownership and policy
+   provenance across AF_XDP, io_uring ZC Rx, DPDK, userspace, and NIC handoffs;
+   the `2026-08-25` report adds a distinct stateful-security question: how to
+   verify legal temporal transitions over persistent BPF map state after the
+   bytecode itself has already passed the Linux verifier. Prefer a next question
+   such as portable policy execution across kernel/userspace/NIC/DPU targets or
+   another correctness guarantee that does not repeat composition, upgrade,
+   state-transition, or zero-copy ownership work.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-24`, no newer weekly set than `2026-08-10` through `2026-08-16`
-   was observed. GA4 for that week is finalized. Search Console still lacks the
-   `2026-08-09` date row, so keep complete 7-day and 28-day comparisons
-   unavailable until source history actually supports them.
-4. Obtain date-by-page or date-by-query Search Console evidence before attributing
-   the `2026-08-05` impression spike to a specific page or query family.
-5. Monitor the current Search Console click/CTR softness through another finalized
-   weekly set before changing titles, copy, navigation, or site structure. Page
-   movement is heterogeneous and does not establish one technical SEO defect.
-6. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
+   On `2026-08-25`, the folder contains a new `2026-08-17..23` set. Search
+   Console is usable through `2026-08-21` under the three-day lag; GA4 for the
+   whole new week remains partial because the weekly aggregate has no date
+   dimension for trimming lagged days.
+4. Keep complete GSC 7-day and 28-day comparisons unavailable until source
+   history actually supports them. The predecessor for the latest finalized
+   seven-day window still requires the missing `2026-08-09` row.
+5. Use finalized date-by-page or date-by-query evidence before attributing current
+   search movement to one page or query family. The new source-native weekly page
+   and query exports include lagged data and do not justify a search-facing title,
+   copy, navigation, or site-structure change today.
+6. Treat the current five-day finalized GSC improvement as directional evidence,
+   not a causal SEO result: `2026-08-17..21` has 443 clicks / 52,433 impressions /
+   ~0.845% CTR / ~9.24 position versus 360 / 60,080 / ~0.599% / ~9.86 for
+   `2026-08-10..14`.
+7. Re-evaluate the `2026-08-17..23` GA4 aggregate after the finalization lag. It
+   currently contains 984 sessions and ~49.29% session-weighted engagement but
+   must remain partial until the whole source-native window is finalized or a
+   date-granular export is available.
+8. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
    technical SEO questions that require richer source-native evidence rather than
    as reasons to steer Daily Report topics.
-7. Add Cloudflare coverage only when a supported read-only route is enabled in
+9. Add Cloudflare coverage only when a supported read-only route is enabled in
    repository configuration.
-8. Use search behavior, GitHub activity, primary research, kernel changes, and
-   production evidence to order questions inside approved eBPF and adjacent
-   systems series.
-9. Revisit a dedicated public hub for completed eBPF series only after report-level
-   acquisition or navigation evidence shows that it would improve retrieval beyond
-   the existing Daily Report index.
-10. Migrate the consuming SEO contract before moving the pinned `seo-skills`
-    submodule to the newer upstream layout. Upstream movement alone is not
-    evidence that a pointer-only bump is safe.
+10. Use search behavior, GitHub activity, primary research, kernel changes, and
+    production evidence to order questions inside approved eBPF and adjacent
+    systems series.
+11. Revisit a dedicated public hub for completed eBPF series only after
+    report-level acquisition or navigation evidence shows that it would improve
+    retrieval beyond the existing Daily Report index.
+12. Migrate the consuming SEO contract before moving the pinned `seo-skills`
+    submodule to a newer upstream layout. Upstream movement alone is not evidence
+    that a pointer-only bump is safe.
