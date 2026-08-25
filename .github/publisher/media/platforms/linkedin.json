@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-23",
+  "last_checked": "2026-08-25",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,15 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-25",
+      "checked_via": "normal_visible_authenticated_post_and_comment_thread",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/",
+      "visible_reactions": 50,
+      "visible_comments": 0,
+      "previous_reactions": 47,
+      "notes": "The exact post body, eunomia.dev short link, hashtags, and preview card remain intact. Public reactions rose from 47 to 50. The authenticated visible thread contains no comments or technical feedback, so no reply is due. Private analytics were not recorded."
+    },
     {
       "checked_at": "2026-08-23",
       "checked_via": "normal_visible_public_post",

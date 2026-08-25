@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-24",
+  "last_checked": "2026-08-25",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,14 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-25",
+      "checked_via": "normal_visible_public_article_dom_and_media_qa",
+      "article_url": "https://juejin.cn/post/7677218586263912482",
+      "visible_views": 16,
+      "visible_comments": 0,
+      "notes": "The exact title and article structure remain intact. The Juejin-hosted egress-pacer diagram now loads at 1255x1360 on the visible public page, resolving the media defect observed on 2026-08-24 without an article edit. No technical comment or response is due."
+    },
     {
       "checked_at": "2026-07-20",
       "checked_via": "in_app_browser_normal_profile_pagination",
@@ -130,7 +138,7 @@
       "url": "https://juejin.cn/post/7677218586263912482",
       "source_path": "docs/tutorials/53-egress-pacer/README.zh.md",
       "checked_via": "chrome_yunwei_visible_public_article_dom_and_media_qa",
-      "notes": "Submitted on 2026-08-23 and confirmed public on 2026-08-24. Category 后端; tags Linux, 开源, 云原生. The visible article preserves the exact title and substantively unchanged body with 11 body headings, nine code blocks, one table, source and reference links, and zero comments. The Juejin-hosted diagram did not render during public-page QA and remains an open formatting defect."
+      "notes": "Submitted on 2026-08-23 and confirmed public on 2026-08-24. Category 后端; tags Linux, 开源, 云原生. The visible article preserves the exact title and substantively unchanged body with 11 body headings, nine code blocks, one table, source and reference links, and zero comments. The Juejin-hosted diagram failed to render during the 2026-08-24 check but loaded correctly at 1255x1360 on 2026-08-25, resolving the transient media defect without an article edit."
     },
     {
       "id": "juejin-7673940698534232064",
