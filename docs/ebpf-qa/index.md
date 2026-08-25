@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [How can you start a `sched_ext` scheduler at boot without systemd?](/ebpf-qa/2026-08-25-sched-ext-boot-without-systemd/)
 - [Why can a syscall-rewriting trampoline crash threads created by `clone` or `clone3`?](/ebpf-qa/2026-08-24-clone-syscall-trampoline-child-stack/)
 - [Should an OpenTelemetry GenAI evaluation result carry a verifiable-evidence reference?](/ebpf-qa/2026-08-23-opentelemetry-genai-evaluation-evidence-reference/)
 - [Why can an unused OBI Prometheus endpoint keep growing memory?](/ebpf-qa/2026-08-22-obi-unused-prometheus-exporter-memory-growth/)
