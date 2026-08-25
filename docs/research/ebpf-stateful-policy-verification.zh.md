@@ -1,7 +1,7 @@
 ---
 date: 2026-08-25
 title: "eBPF 能验证有状态安全策略，而不只是验证字节码安全吗？"
-description: "有状态 eBPF 安全策略依赖跨事件持久化的 map 状态。本文讨论策略状态契约、运行时 transition guard 与 temporal verification。"
+description: "有状态 eBPF 安全策略依赖跨事件持久化的 map 状态。本文提出策略状态契约、运行时转换守卫与时序验证方法，用来检查跨 hook、CPU 和用户态更新后的策略状态转换是否合法。"
 tags:
   - Daily Report
   - eBPF
