@@ -17,31 +17,33 @@ already configured and enabled; it is not a blocker.
 
 ## Current data-history constraint
 
-Google Drive access is verified and is not a blocker. The configured folder
-contains adjacent weekly export sets beginning `2026-07-27`, `2026-08-03`, and
-`2026-08-10`; no newer weekly set beginning `2026-08-17` was observed on
-`2026-08-24`. The newest verified Search Console date rows remain through
-`2026-08-15`, which are finalized under the configured three-day lag.
+Google Drive access is verified and is not a blocker. The configured folder now
+contains weekly export sets through `2026-08-17..23`; the new set was observed on
+`2026-08-25`.
+
+For Search Console, the new file contains date rows through `2026-08-22`. Under
+the configured three-day finalization lag, `2026-08-21` is the newest usable date
+and `2026-08-22` remains provisional; `2026-08-23` is absent. The available data
+supports an equal-duration finalized comparison for `2026-08-17..21` versus
+`2026-08-10..14`: 443 versus 360 clicks, 52,433 versus 60,080 impressions, about
+0.845% versus 0.599% CTR, and average position about 9.24 versus 9.86.
 
 A complete latest-7-days versus previous-7-days Search Console comparison remains
-unavailable because the `2026-08-09` date row is absent across the adjacent
-weekly exports. The available data supports an equal-duration six-day comparison
-for `2026-08-10` through `2026-08-15` versus `2026-08-03` through `2026-08-08`.
-The 28-day comparison also remains unavailable because the verified export
-history is not long enough.
+unavailable because the predecessor window contains the still-missing
+`2026-08-09` row. The 28-day comparison also remains unavailable because verified
+export history is not long enough. Missing rows are never converted to zero.
 
-GA4 landing-page files are weekly aggregates without a date dimension. The
-complete `2026-08-10` through `2026-08-16` aggregate is outside the configured
-three-day finalization lag and is usable as a finalized source-native weekly
-comparison against `2026-08-03` through `2026-08-09`. No newer weekly GA4 set
-was observed on `2026-08-24`. The landing-page exports do not provide complete
-acquisition, conversion, or outbound behavior coverage by themselves.
+The new GA4 landing-page aggregate for `2026-08-17..23` is present, but the file
+has no date dimension and part of its window remains inside the three-day lag.
+The whole aggregate is therefore partial for finalized comparison. The latest
+usable finalized GA4 weekly aggregate remains `2026-08-10..16`, compared with
+`2026-08-03..09`.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google exports, live-site evidence, public GitHub evidence, and
-public primary-source evidence; missing coverage must never be converted into
-zero. Every run must still publish one new Daily Report under the current
-repository contract.
+public primary-source evidence; missing or partial coverage must never be
+converted into zero. Every run must still publish one new Daily Report under the
+current repository contract.
 
 Remove or narrow a blocker in the next daily pull request after the external
 condition is verified as resolved.
