@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [How Long Can a Revoked Authorization Stay Alive in an eBPF Datapath?](https://eunomia.dev/research/ebpf-authorization-revocation/)
+
+Fast eBPF datapaths can reuse authorization through conntrack, auth maps, socket-local storage, and other persistent state after the policy that created it changes. This report develops scoped revocation epochs, cross-layer completion barriers, and a benchmark that measures the last stale allow rather than policy-update throughput alone.
+
 ### [Can eBPF Verify a Stateful Security Policy, Not Just Safe Bytecode?](https://eunomia.dev/research/ebpf-stateful-policy-verification/)
 
 Stateful eBPF security relies on persistent map transitions across packets, syscalls, CPUs, and userspace updates even when every program is verifier-safe. This report develops a small temporal policy contract, verifier-cooperative transition guards, and an adversarial benchmark for policy-state correctness.
