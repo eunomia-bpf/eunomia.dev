@@ -72,40 +72,38 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive. Before the `2026-08-25` report, the newest ten are **7 eBPF-centered /
-   0 pure Agent / 3 adjacent systems**. The incoming stateful-policy-verification
-   report is eBPF-centered and ages another eBPF-centered report out, so the mix
-   remains **7 / 0 / 3** after publication.
+   archive. Before and after the `2026-08-26` report, the newest ten remain **7
+   eBPF-centered / 0 pure Agent / 3 adjacent systems** because the incoming
+   eBPF-centered revocation report ages another eBPF-centered report out.
 2. Keep **eBPF Networking and Security** as the active series. The `2026-08-23`
-   report established multi-owner policy composition and authority provenance;
-   the `2026-08-24` report established zero-copy buffer ownership and policy
-   provenance across AF_XDP, io_uring ZC Rx, DPDK, userspace, and NIC handoffs;
-   the `2026-08-25` report adds a distinct stateful-security question: how to
-   verify legal temporal transitions over persistent BPF map state after the
-   bytecode itself has already passed the Linux verifier. Prefer a next question
-   such as portable policy execution across kernel/userspace/NIC/DPU targets or
-   another correctness guarantee that does not repeat composition, upgrade,
-   state-transition, or zero-copy ownership work.
+   report established multi-owner policy composition; `2026-08-24` established
+   zero-copy buffer ownership; `2026-08-25` established temporal correctness of
+   persistent security state; and `2026-08-26` narrows revocation into a bounded
+   stale-authorization problem across connection, auth, socket, endpoint, and
+   userspace-managed datapath state. Prefer the next distinct question around a
+   security property that must survive kernel/userspace/NIC/DPU placement, not a
+   repeat of state transition, revocation, upgrade, composition, or buffer
+   ownership.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   On `2026-08-25`, the folder contains a new `2026-08-17..23` set. Search
-   Console is usable through `2026-08-21` under the three-day lag; GA4 for the
-   whole new week remains partial because the weekly aggregate has no date
-   dimension for trimming lagged days.
-4. Keep complete GSC 7-day and 28-day comparisons unavailable until source
-   history actually supports them. The predecessor for the latest finalized
-   seven-day window still requires the missing `2026-08-09` row.
-5. Use finalized date-by-page or date-by-query evidence before attributing current
-   search movement to one page or query family. The new source-native weekly page
-   and query exports include lagged data and do not justify a search-facing title,
-   copy, navigation, or site-structure change today.
-6. Treat the current five-day finalized GSC improvement as directional evidence,
-   not a causal SEO result: `2026-08-17..21` has 443 clicks / 52,433 impressions /
-   ~0.845% CTR / ~9.24 position versus 360 / 60,080 / ~0.599% / ~9.86 for
-   `2026-08-10..14`.
-7. Re-evaluate the `2026-08-17..23` GA4 aggregate after the finalization lag. It
-   currently contains 984 sessions and ~49.29% session-weighted engagement but
-   must remain partial until the whole source-native window is finalized or a
-   date-granular export is available.
+   The last verified set is `2026-08-17..23`. Direct Drive search returned no
+   accessible matching files in the `2026-08-26` runtime, so no newer set is
+   inferred from that retrieval gap.
+4. Treat the `2026-08-17..23` GA4 aggregate as finalized on `2026-08-26`: 984
+   organic landing-page sessions at about 49.29% session-weighted engagement
+   versus 970 at about 44.95% for `2026-08-10..16`. Sessions are about 1.4%
+   higher and engagement about 4.34 percentage points higher. The weekly
+   aggregate still cannot support within-week causal attribution.
+5. Keep complete GSC 7-day and 28-day comparisons unavailable until source
+   history actually supports them. The latest verified week is missing
+   `2026-08-23`, the predecessor history still misses `2026-08-09`, and verified
+   history is too short for the 28-day comparison.
+6. Retain the last directly calculated finalized GSC comparison rather than
+   extrapolating the newly finalized `2026-08-22` row without source-native row
+   values. `2026-08-17..21` has 443 clicks / 52,433 impressions / ~0.845% CTR /
+   ~9.24 position versus 360 / 60,080 / ~0.599% / ~9.86 for `2026-08-10..14`.
+7. Use finalized date-by-page or date-by-query evidence before attributing current
+   search movement to one page or query family. Do not turn aggregate movement
+   into a title, copy, navigation, or site-structure change without that evidence.
 8. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
    technical SEO questions that require richer source-native evidence rather than
    as reasons to steer Daily Report topics.
