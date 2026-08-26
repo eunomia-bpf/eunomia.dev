@@ -4703,6 +4703,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-application-resource-semantics/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/ebpf-authorization-revocation/</loc>
+    <lastmod>2026-08-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-authorization-revocation/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-authorization-revocation/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-authorization-revocation/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-authorization-revocation/</loc>
+    <lastmod>2026-08-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-authorization-revocation/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-authorization-revocation/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-authorization-revocation/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/</loc>
     <lastmod>2026-08-22</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/" />
@@ -4816,14 +4830,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
