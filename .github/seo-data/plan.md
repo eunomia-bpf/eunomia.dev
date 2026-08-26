@@ -85,22 +85,24 @@ priorities that can guide a later daily run belong below.
    repeat of state transition, revocation, upgrade, composition, or buffer
    ownership.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   The last verified set is `2026-08-17..23`. Direct Drive search returned no
-   accessible matching files in the `2026-08-26` runtime, so no newer set is
-   inferred from that retrieval gap.
+   The configured folder was directly reverified on `2026-08-26`; the newest set
+   remains `2026-08-17..23` and no later weekly set was observed.
 4. Treat the `2026-08-17..23` GA4 aggregate as finalized on `2026-08-26`: 984
    organic landing-page sessions at about 49.29% session-weighted engagement
    versus 970 at about 44.95% for `2026-08-10..16`. Sessions are about 1.4%
    higher and engagement about 4.34 percentage points higher. The weekly
    aggregate still cannot support within-week causal attribution.
 5. Keep complete GSC 7-day and 28-day comparisons unavailable until source
-   history actually supports them. The latest verified week is missing
-   `2026-08-23`, the predecessor history still misses `2026-08-09`, and verified
-   history is too short for the 28-day comparison.
-6. Retain the last directly calculated finalized GSC comparison rather than
-   extrapolating the newly finalized `2026-08-22` row without source-native row
-   values. `2026-08-17..21` has 443 clicks / 52,433 impressions / ~0.845% CTR /
-   ~9.24 position versus 360 / 60,080 / ~0.599% / ~9.86 for `2026-08-10..14`.
+   history actually supports them. The latest finalized seven-day comparison
+   would require `2026-08-16..22` versus `2026-08-09..15`, but the date exports
+   omit both `2026-08-16` and `2026-08-09`; verified history is also too short
+   for the 28-day comparison.
+6. Use the longest equal-duration finalized GSC comparison supported by contiguous
+   source rows: `2026-08-17..22` has 477 clicks / 59,798 impressions / ~0.798%
+   CTR / ~9.56 weighted position versus 393 / 66,510 / ~0.591% / ~9.91 for
+   `2026-08-10..15`. Clicks are about 21.4% higher, impressions about 10.1%
+   lower, CTR about 0.207 percentage points higher, and weighted position improves
+   by about 0.35 positions.
 7. Use finalized date-by-page or date-by-query evidence before attributing current
    search movement to one page or query family. Do not turn aggregate movement
    into a title, copy, navigation, or site-structure change without that evidence.
