@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-26
+
+- The [LinkedIn tutorial 53](https://www.linkedin.com/feed/update/urn:li:share:7498213534980263937/) remains public about 20 hours after publication with the intended text, `#eBPF` and `#Linux` hashtags, and loaded [eunomia.dev preview](https://eunomia.dev/tutorials/53-egress-pacer/); it shows 32 public reactions. The signed-out visible page requires login to read comments, so discussion is unavailable rather than zero. The canonical article and diagram remain intact, and exact-title search found no independent echo beyond known source and syndication surfaces. The [DEV tutorial 54](https://dev.to/yunwei37/ebpf-tutorial-inspecting-the-executable-image-after-exec-3el7) remains complete with its diagram and shows no public reactions, comments, or saves; the [Medium tutorial 53](https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49) still flattens its Environment Requirements table into dense text. No reply is due; repair the Medium table in a signed-in editor, then revisit only after a new comment, citation, or publication defect.
+
 ### 2026-08-25
 
 - [Medium tutorial 54](https://medium.com/@yunwei356/ebpf-tutorial-inspecting-the-executable-image-after-exec-46a312704a2c) remains complete with the exact title, full article body, loaded data-flow diagram, source and reference links, and no publicly exposed response count. The [Juejin tutorial 53](https://juejin.cn/post/7677218586263912482) diagram now renders correctly at 1255 x 1360; the article shows 16 reads and zero comments, so yesterday's media defect is resolved without an edit. The [fsession LinkedIn tutorial](https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/) rose from 47 to 50 public reactions; the post, link, hashtags, and preview remain intact, and the authenticated visible thread shows no comments or technical feedback. No reply or correction is due; revisit only after a new comment, citation, or publication defect.

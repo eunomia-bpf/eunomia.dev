@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-25。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-26。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -12,13 +12,13 @@
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - 阻塞：知乎登录已失效；完成登录后恢复 tutorial 53，同一阻塞期间继续执行其他平台任务。
-- 补发缺口：无。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成；2026-08-24 的正常额度由教程 54 的 Medium 公开发布完成；2026-08-25 的正常额度由教程 54 的 DEV 公开发布完成。
+- 补发缺口：无。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成；2026-08-24 的正常额度由教程 54 的 Medium 公开发布完成；2026-08-25 的正常额度由教程 54 的 DEV 公开发布完成；2026-08-26 的正常额度由教程 54 的 LinkedIn 公开发布完成。
 - Ledger 基线：知乎有 39 个未映射中文源，掘金有 75 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
 - Medium 和 DEV 的 BPFix 与 tutorial 50–54 已完成；AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文继续交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
-- 剩余队列：知乎 26 条、掘金 47 条、Medium 6 条、DEV 6 条、LinkedIn 2 条，共 87 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 25 条、掘金 46 条、Medium 5 条、DEV 5 条、LinkedIn 0 条，共 81 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -49,7 +49,7 @@
 - [x] `排队` LinkedIn：`docs/tutorials/53-egress-pacer/README.md`。2026-08-25 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7498213534980263937/>；公开页正文、`#eBPF` 与 `#Linux` 标签、公开可见范围和 eunomia.dev 教程预览卡片 QA 已通过。
 - [x] `排队` Medium：`docs/tutorials/54-exec-image-inspector/README.md`。2026-08-24 已公开：<https://medium.com/@yunwei356/ebpf-tutorial-inspecting-the-executable-image-after-exec-46a312704a2c>；公开页完整滚动 QA 确认原标题、15 个源文正文标题、8 个代码块、1 张已加载图片、5 项 Requirements 回退、源码与参考链接以及 3 个标签正常。
 - [x] `排队` DEV：`docs/tutorials/54-exec-image-inspector/README.md`。2026-08-25 已公开：<https://dev.to/yunwei37/ebpf-tutorial-inspecting-the-executable-image-after-exec-3el7>；可见公开页完整滚动 QA 确认原标题、15 个正文标题、8 个代码块、1 张已加载流程图、5 行 Requirements 表格、4 个标签以及全部源码和参考链接正常。
-- [ ] `排队` LinkedIn：`docs/tutorials/54-exec-image-inspector/README.md`。
+- [x] `排队` LinkedIn：`docs/tutorials/54-exec-image-inspector/README.md`。2026-08-26 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7498528283618304000/>；公开页完整正文、`#eBPF`、`#Linux` 与 `#Security` 标签、全局可见范围、LinkedIn 短链目标和带标题、图片、域名的 eunomia.dev 教程预览卡片 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 知乎：`docs/blog/posts/agent-work-unit.zh.md`。
 - [ ] `排队` Medium：`docs/blog/posts/agentcgroup-characterization.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agent-work-unit.zh.md`。

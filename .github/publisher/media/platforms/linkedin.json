@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-25",
+  "last_checked": "2026-08-26",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -109,6 +109,16 @@
     }
   ],
   "published": [
+    {
+      "id": "linkedin-7498528283618304000",
+      "status": "confirmed",
+      "date": "2026-08-26",
+      "title": "eBPF Tutorial: Inspecting the Executable Image After exec",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7498528283618304000/",
+      "source_path": "docs/tutorials/54-exec-image-inspector/README.md",
+      "checked_via": "normal_visible_public_post",
+      "notes": "Published from draft/media/2026-08-26/54-exec-image-inspector/linkedin.md. Public-page QA confirmed the exact body, #eBPF, #Linux, and #Security hashtags, global public visibility, the LinkedIn short-link target, and the eunomia.dev tutorial preview card with its title, image, and domain."
+    },
     {
       "id": "linkedin-7498213534980263937",
       "status": "confirmed",
