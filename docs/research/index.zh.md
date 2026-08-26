@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [一次已经撤销的授权，能在 eBPF 数据路径里存活多久？](https://eunomia.dev/zh/research/ebpf-authorization-revocation/)
+
+高性能 eBPF datapath 会通过 conntrack、auth map、socket-local storage 等持久状态复用已经做过的授权判断，即使产生这些状态的策略已经改变。本文提出 scoped revocation epoch、cross-layer completion barrier，以及直接测量最后一次 stale allow 的 benchmark。
+
 ### [eBPF 能验证有状态安全策略，而不只是验证字节码安全吗？](https://eunomia.dev/zh/research/ebpf-stateful-policy-verification/)
 
 有状态 eBPF 安全系统会让 BPF map 在 packet、syscall、CPU 与用户态更新之间保存策略状态，即使每段程序都能通过 verifier，状态 transition 仍可能违反安全意图。本文提出小型 temporal policy contract、verifier-cooperative runtime guard，以及专门制造策略状态错误的 benchmark。
