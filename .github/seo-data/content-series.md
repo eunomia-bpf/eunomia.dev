@@ -111,6 +111,14 @@ from verifier-error diagnosis, transactional upgrade, and policy composition:
 the target property is legal runtime state transition after safe bytecode has
 already been admitted.
 
+The `2026-08-26` report narrows one consequence of persistent state into an
+incident-response property. A policy or identity can be revoked while an old
+allow still survives in connection tracking, authentication caches, socket-local
+storage, or another derived datapath object. The report asks for a measurable
+upper bound on that stale authority rather than another general state-machine
+contract. It develops scoped revocation epochs, a cross-layer completion barrier,
+and a benchmark whose primary outcome is the last stale allow after a revoke.
+
 A broad cross-boundary information-flow candidate was considered again on
 `2026-08-25` but not selected. Existing ActPlane and Eunomia material already
 covers process/file/network effect labels and layered enforcement, so a broad
@@ -139,6 +147,12 @@ version has higher thesis-overlap risk than the narrower state-transition gap.
    writes without forcing the Linux verifier to model unbounded event history.
    It is eBPF-centered because BPF maps, hooks, verifier boundaries, and in-kernel
    transition enforcement are the central mechanism rather than optional probes.
+4. `2026-08-26`: `/research/ebpf-authorization-revocation/` separates policy
+   rollout from revocation effectiveness. It asks how a previously admitted
+   authorization can be made unusable within a measurable bound across conntrack,
+   auth maps, socket-local state, endpoint policy, and userspace-managed state.
+   It is eBPF-centered because the proposed epoch checks and completion barrier
+   are evaluated on persistent BPF datapath state and hot-path policy reuse.
 
 ### Preferred next questions
 
@@ -148,17 +162,17 @@ version has higher thesis-overlap risk than the narrower state-transition gap.
 2. information-flow enforcement across process, file, socket, and encrypted
    application boundaries only if fresh evidence supports a mechanism materially
    narrower than existing ActPlane-style effect-label enforcement;
-3. cross-hook or cross-layer authorization revocation where an already admitted
-   state must be invalidated without duplicating today's general transition
-   contract;
-4. revisit transactional network-policy rollout only when new evidence supports
+3. revisit transactional network-policy rollout only when new evidence supports
    a mechanism materially different from the published stateful-upgrade
    generation protocol;
-5. revisit zero-copy ownership only when implementation evidence or the proposed
+4. revisit zero-copy ownership only when implementation evidence or the proposed
    cross-path benchmark exposes a distinct mechanism beyond the lease/provenance
-   contract developed on `2026-08-24`.
+   contract developed on `2026-08-24`;
+5. revisit revocation only when implementation evidence distinguishes a new
+   mechanism from the scoped epoch, completion-barrier, and stale-allow benchmark
+   developed on `2026-08-26`.
 
-Before and after the August 25 publication, the newest ten contain **7
+Before and after the August 26 publication, the newest ten contain **7
 eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
 report ages another eBPF-centered report out of the rolling ten.
 
