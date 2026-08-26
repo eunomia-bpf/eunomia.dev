@@ -7,7 +7,7 @@
 - Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: configured and enabled
 - Verified raw Google export window: through `2026-08-23`
-- Search Console known latest row: `2026-08-22`, now outside the three-day lag; `2026-08-23` is absent
+- Search Console verified latest finalized row: `2026-08-22`; `2026-08-23` is absent
 - Latest finalized GA4 weekly organic landing-page aggregate: `2026-08-17` through `2026-08-23`
 - Latest daily record before the current run: `2026-08-25`
 - Last completed Daily Report pull request: `#173`
@@ -52,7 +52,7 @@ already been cached in the fast path.
 
 ## Current signals
 
-- Google Drive configured evidence: last source-native set verified `2026-08-25` for `2026-08-17..23`; direct Drive search in the `2026-08-26` runtime returned no accessible matching files, so no newer set is inferred
+- Google Drive configured evidence: directly reverified `2026-08-26`; the newest source-native weekly set remains `2026-08-17..23`
 - Public homepage: fresh generated brief reports `200` in `166 ms`
 - Current production `robots.txt`: reachable; current sitemap reachable
 - Current sitemap entries observed by the generated brief: `702`
@@ -60,26 +60,25 @@ already been cached in the fast path.
 - Public GitHub repository evidence: available; fresh generated brief reports 99 active non-fork repositories and 9823 stars across the portfolio
 - Public web and primary-source evidence: available
 - Google Analytics 4: finalized source-native weekly aggregate through `2026-08-23`
-- Google Search Console: known newest raw date row `2026-08-22`; complete seven-day comparison still unavailable
+- Google Search Console: newest verified finalized date row `2026-08-22`; complete seven-day comparison still unavailable because required source rows are missing
 - Cloudflare: disabled by repository configuration
 
-The last directly calculated equal-duration finalized Search Console comparison is
-`2026-08-17..21` versus `2026-08-10..14`: **443 clicks / 52,433 impressions**,
-weighted CTR about **0.845%**, and impression-weighted average position about
-**9.24**, versus **360 / 60,080**, **0.599%**, and position about **9.86**.
-Clicks are about **23.1% higher**, impressions about **12.7% lower**, CTR about
-**0.246 percentage points higher**, and average position improves by about
-**0.63 positions**. The known `2026-08-22` row is now outside the lag, but this
-runtime could not retrieve its source-native values directly, so no six-day total
-is invented.
+The longest directly supported equal-duration finalized Search Console comparison
+is `2026-08-17..22` versus `2026-08-10..15`: **477 clicks / 59,798 impressions**,
+weighted CTR about **0.798%**, and impression-weighted average position about
+**9.56**, versus **393 / 66,510**, **0.591%**, and position about **9.91**.
+Clicks are about **21.4% higher**, impressions about **10.1% lower**, CTR about
+**0.207 percentage points higher**, and average position improves by about
+**0.35 positions**.
 
 A complete latest-seven-days versus previous-seven-days GSC comparison remains
-unavailable because the latest verified weekly set lacks `2026-08-23` and the
-predecessor history contains the missing `2026-08-09` row. The required 28-day
-comparison also remains unavailable because verified export history is too short.
-No missing row is interpreted as zero.
+unavailable because the latest finalized seven-day window would be
+`2026-08-16..22` versus `2026-08-09..15`, while the available date exports omit
+both `2026-08-16` and `2026-08-09`. The required 28-day comparison also remains
+unavailable because verified export history is too short. No missing row is
+interpreted as zero.
 
-The GA4 `2026-08-17..23` aggregate is now fully outside the configured lag and is
+The GA4 `2026-08-17..23` aggregate is fully outside the configured lag and is
 finalized as a source-native weekly aggregate: **984 sessions** at about
 **49.29%** session-weighted engagement, including **118 `(not set)` sessions**,
 versus **970 sessions** at about **44.95%** engagement for `2026-08-10..16`.
@@ -114,8 +113,8 @@ requires contract migration before a pointer-only update.
 
 1. Complete the `2026-08-26` authorization-revocation Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
 2. Keep **eBPF Networking and Security** active after this fourth report; prefer a distinct next question around a security property that must survive kernel/userspace/NIC/DPU placement rather than repeating composition, zero-copy ownership, state transition, or revocation.
-3. Recheck Drive freshness on the next run. Treat the current connector retrieval gap as unavailable coverage, not zero data and not evidence that the configured folder disappeared.
-4. Keep complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never fill `2026-08-23` or `2026-08-09` with zero.
+3. Recheck Drive freshness on the next run. The configured folder is accessible and currently contains no weekly set newer than `2026-08-17..23`.
+4. Keep complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never fill the missing `2026-08-16` or `2026-08-09` rows with zero.
 5. Use finalized date-by-page or date-by-query evidence before attributing current search movement to one page or query family.
 6. Treat the finalized GA4 `2026-08-17..23` improvement as aggregate behavioral evidence, not a causal content or SEO result.
 7. Investigate GA4 `(not set)` and remaining legacy `/en/` traffic only with richer source-native evidence.
