@@ -140,6 +140,11 @@ eBPF/open-source observability showed a useful split:
 - If the feed composer is visible but does not reliably accept text input, open
   `https://www.linkedin.com/preload/sharebox/` in the same authenticated visible
   browser session and repeat the preview checks there before publishing.
+- LinkedIn may expose the composer through a Shadow DOM host. If the visible
+  content editor has focus but bulk fill, typing, or paste is a no-op, focus the
+  visible `contenteditable` element and enter the text sequentially in short
+  chunks. Verify the complete visible text, preview card, and enabled Publish
+  button before continuing; do not repeat an input method that already failed.
 - Check that mentions are intentional and not attention-seeking.
 
 ## Post-Publish Follow-Up

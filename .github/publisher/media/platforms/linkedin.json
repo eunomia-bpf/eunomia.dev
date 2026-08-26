@@ -110,6 +110,16 @@
   ],
   "published": [
     {
+      "id": "linkedin-7498213534980263937",
+      "status": "confirmed",
+      "date": "2026-08-25",
+      "title": "eBPF Tutorial: Building an Egress Pacer with BPF Qdisc",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7498213534980263937/",
+      "source_path": "docs/tutorials/53-egress-pacer/README.md",
+      "checked_via": "normal_visible_public_post",
+      "notes": "Published from draft/media/2026-08-24/53-egress-pacer/linkedin.md. Public-page QA confirmed the intended body, #eBPF and #Linux hashtags, public visibility, and the eunomia.dev tutorial preview card."
+    },
+    {
       "id": "linkedin-7496484872375513088",
       "status": "confirmed",
       "date": "2026-08-21",

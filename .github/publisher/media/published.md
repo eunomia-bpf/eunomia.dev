@@ -123,6 +123,7 @@ New confirmed posts:
 
 | Status | Date | Title / visible text | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-25 | eBPF Tutorial: Building an Egress Pacer with BPF Qdisc | <https://www.linkedin.com/feed/update/urn:li:share:7498213534980263937/> | Published from `docs/tutorials/53-egress-pacer/README.md` using `draft/media/2026-08-24/53-egress-pacer/linkedin.md`; normal visible public-page QA confirmed the intended body, hashtags, public visibility, and eunomia.dev tutorial preview card |
 | Confirmed | 2026-08-21 | eBPF Tutorial: Tracing Slow vfs_read Calls with fsession | <https://www.linkedin.com/feed/update/urn:li:share:7496484872375513088/> | Published from `docs/tutorials/52-fsession-latency/README.md` using `draft/media/2026-08-20/52-fsession-latency/linkedin.md`; normal visible public-page QA confirmed the exact body, hashtags, eunomia.dev preview card, and LinkedIn short link landing on the canonical tutorial |
 | Confirmed | 2026-08-15 | AgentSight now works on macOS and Windows, too | <https://www.linkedin.com/feed/update/urn:li:share:7494569268571803649> | Published from `draft/media/2026-08-15/agentsight-cross-platform/linkedin.md`; normal visible public-page QA confirmed the exact body, public visibility, GitHub link, and AgentSight repository preview card |
 | Confirmed | 2026-08-04 | eBPF Tutorial by Example 50: Composable Traffic Control with TCX Links | <https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696> | Published from `docs/tutorials/50-tcx/README.md` using `draft/media/2026-08-04/50-tcx/linkedin.md`; normal visible public-page QA confirmed the exact two-sentence body, public visibility, eunomia.dev link, and tutorial preview card with its title and image |
@@ -130,7 +131,7 @@ New confirmed posts:
 | Confirmed | 2026-07-22 | Introducing AgentNebula: See days or weeks of your AI Agent's work in 30 seconds | <https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK> | Published from `draft/media/2026-07-22/agentsight-agent-nebula/linkedin.md` with the 10-second animation and AgentSight GitHub link |
 | Confirmed | 2026-07-19 | A rule like "run the full test suite before committing" looks simple | <https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920> | Links to `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`; published from `draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/linkedin.md` |
 
-Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 8 of 124 English target source files mapped as LinkedIn-published.
+Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 9 of 124 English target source files mapped as LinkedIn-published.
 
 ## Medium
 
