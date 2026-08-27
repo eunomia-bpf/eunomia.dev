@@ -83,24 +83,33 @@ probe_model() {
   probe_file="$(mktemp "$STATE_ROOT/model-probe.XXXXXX")"
   case "$EUNOMIA_PATROL_AGENT" in
     codex)
-      codex exec --ephemeral \
-        --model "$EUNOMIA_PATROL_MODEL" \
-        --config "model_reasoning_effort=\"$EUNOMIA_PATROL_REASONING_EFFORT\"" \
-        --dangerously-bypass-approvals-and-sandbox \
-        --output-last-message "$probe_file" \
-        "Reply with exactly EUNOMIA_PATROL_MODEL_READY."
+      if ! codex exec --ephemeral \
+          --model "$EUNOMIA_PATROL_MODEL" \
+          --config "model_reasoning_effort=\"$EUNOMIA_PATROL_REASONING_EFFORT\"" \
+          --dangerously-bypass-approvals-and-sandbox \
+          --output-last-message "$probe_file" \
+          "Reply with exactly EUNOMIA_PATROL_MODEL_READY."; then
+        rm -f "$probe_file"
+        return 1
+      fi
       ;;
     claude)
       local probe_json
       probe_json="$(mktemp "$STATE_ROOT/model-probe-json.XXXXXX")"
-      claude -p \
-        --model "$EUNOMIA_PATROL_MODEL" \
-        --effort "$EUNOMIA_PATROL_REASONING_EFFORT" \
-        --permission-mode bypassPermissions \
-        --output-format json \
-        --no-session-persistence \
-        "Reply with exactly EUNOMIA_PATROL_MODEL_READY." >"$probe_json"
-      jq -er '.result // empty' "$probe_json" >"$probe_file"
+      if ! claude -p \
+          --model "$EUNOMIA_PATROL_MODEL" \
+          --effort "$EUNOMIA_PATROL_REASONING_EFFORT" \
+          --permission-mode bypassPermissions \
+          --output-format json \
+          --no-session-persistence \
+          "Reply with exactly EUNOMIA_PATROL_MODEL_READY." >"$probe_json"; then
+        rm -f "$probe_file" "$probe_json"
+        return 1
+      fi
+      if ! jq -er '.result // empty' "$probe_json" >"$probe_file"; then
+        rm -f "$probe_file" "$probe_json"
+        return 1
+      fi
       rm -f "$probe_json"
       ;;
     *)
@@ -109,7 +118,10 @@ probe_model() {
       return 2
       ;;
   esac
-  grep -Fxq 'EUNOMIA_PATROL_MODEL_READY' "$probe_file"
+  if ! grep -Fxq 'EUNOMIA_PATROL_MODEL_READY' "$probe_file"; then
+    rm -f "$probe_file"
+    return 1
+  fi
   rm -f "$probe_file"
   printf 'model_probe=ready agent=%s model=%s effort=%s\n' \
     "$EUNOMIA_PATROL_AGENT" "$EUNOMIA_PATROL_MODEL" \
