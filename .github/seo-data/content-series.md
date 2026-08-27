@@ -119,10 +119,21 @@ upper bound on that stale authority rather than another general state-machine
 contract. It develops scoped revocation epochs, a cross-layer completion barrier,
 and a benchmark whose primary outcome is the last stale allow after a revoke.
 
+The `2026-08-27` report advances a fifth boundary by narrowing heterogeneous
+execution placement into a complete-mediation property. Linux representors and
+XDP offload expose host slow paths and device fast paths that can change under
+misses, updates, and faults. The report asks whether every reachable
+policy-relevant packet path still crosses an enforcement point for the current
+policy generation. It develops a path-coverage plan, generation-continuous
+offload/fallback, and a benchmark whose primary outcome is policy escape rather
+than offload throughput.
+
 A broad cross-boundary information-flow candidate was considered again on
 `2026-08-25` but not selected. Existing ActPlane and Eunomia material already
 covers process/file/network effect labels and layered enforcement, so a broad
 version has higher thesis-overlap risk than the narrower state-transition gap.
+A future information-flow report should therefore require a narrower mechanism
+and fresh evidence before it can become the sixth report in this series.
 
 ### Published progress
 
@@ -153,26 +164,32 @@ version has higher thesis-overlap risk than the narrower state-transition gap.
    auth maps, socket-local state, endpoint policy, and userspace-managed state.
    It is eBPF-centered because the proposed epoch checks and completion barrier
    are evaluated on persistent BPF datapath state and hot-path policy reuse.
+5. `2026-08-27`: `/research/ebpf-complete-mediation-offload/` separates backend
+   placement from global security coverage. It asks how host software, SmartNIC
+   fast paths, representor fallback, and DPU/offload execution can preserve one
+   current enforcement point for every reachable policy-relevant packet path.
+   It is eBPF-centered because BPF/XDP attachment, offload capability, policy
+   generations, and cross-backend verdict continuity are the core mechanism.
 
 ### Preferred next questions
 
-1. portable policy execution between kernel, userspace, NIC, and DPU targets,
-   narrowed to a security property that must survive backend placement rather
-   than repeating the heterogeneous execution-placement report;
-2. information-flow enforcement across process, file, socket, and encrypted
-   application boundaries only if fresh evidence supports a mechanism materially
-   narrower than existing ActPlane-style effect-label enforcement;
-3. revisit transactional network-policy rollout only when new evidence supports
+1. a narrow information-flow or cross-boundary enforcement property only if fresh
+   evidence supports a mechanism materially distinct from ActPlane-style effect
+   labels and from the complete-mediation path-coverage contract;
+2. revisit transactional network-policy rollout only when new evidence supports
    a mechanism materially different from the published stateful-upgrade
    generation protocol;
-4. revisit zero-copy ownership only when implementation evidence or the proposed
+3. revisit zero-copy ownership only when implementation evidence or the proposed
    cross-path benchmark exposes a distinct mechanism beyond the lease/provenance
    contract developed on `2026-08-24`;
-5. revisit revocation only when implementation evidence distinguishes a new
+4. revisit revocation only when implementation evidence distinguishes a new
    mechanism from the scoped epoch, completion-barrier, and stale-allow benchmark
-   developed on `2026-08-26`.
+   developed on `2026-08-26`;
+5. revisit host/NIC/DPU complete mediation only when implementation evidence
+   exposes a new mechanism beyond path coverage, generation continuity, and the
+   policy-escape benchmark developed on `2026-08-27`.
 
-Before and after the August 26 publication, the newest ten contain **7
+Before and after the August 27 publication, the newest ten contain **7
 eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
 report ages another eBPF-centered report out of the rolling ten.
 
