@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Preserve Security Semantics Across Backends?](https://eunomia.dev/research/ebpf-security-backend-conformance/)
+
+eBPF security policies can execute in kernels, userspace runtimes, and NIC/DPU fast paths without sharing identical metadata, maps, helpers, state, or fallback behavior. This report develops an executable security-semantics contract, coverage-aware backend admission, and a semantic-mutation benchmark that treats false allow as the primary failure.
+
 ### [How Long Can a Revoked Authorization Stay Alive in an eBPF Datapath?](https://eunomia.dev/research/ebpf-authorization-revocation/)
 
 Fast eBPF datapaths can reuse authorization through conntrack, auth maps, socket-local storage, and other persistent state after the policy that created it changes. This report develops scoped revocation epochs, cross-layer completion barriers, and a benchmark that measures the last stale allow rather than policy-update throughput alone.
