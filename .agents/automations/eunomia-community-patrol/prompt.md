@@ -18,5 +18,5 @@ Use the authenticated GitHub CLI identity already injected into this isolated
 Workspace. Work only on the Linux host and under the runtime paths below.
 Operate autonomously within the exhaustive permission boundary in the patrol
 Skill; do not request interactive approval. At the end, update the local memory
-with apply_patch and emit the required concise Chinese patrol report as the
-final response.
+atomically with the Agent's safe file-editing mechanism, then emit the required
+concise Chinese patrol report as the final response.
