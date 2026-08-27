@@ -33,6 +33,13 @@ require_file() {
     return 1
   fi
 }
+write_state_id_atomic() {
+  local target="$1" value="$2" temporary
+  temporary="$(mktemp "${target}.XXXXXX")"
+  printf '%s\n' "$value" >"$temporary"
+  chmod 0600 "$temporary"
+  mv -f -- "$temporary" "$target"
+}
 
 prepare_skills() {
   if [[ ! -x "$REPO_ROOT/scripts/sync-agent-skills.sh" ]]; then
@@ -111,6 +118,15 @@ probe_model() {
 
 run_codex() {
   local prompt_file="$1" report_file="$2" event_file="$3" thread_id=""
+  if [[ -e "$THREAD_FILE" && ! -s "$THREAD_FILE" ]]; then
+    printf 'Codex continuity file exists but is empty: %s\n' "$THREAD_FILE" >&2
+    return 1
+  fi
+  if [[ ! -e "$THREAD_FILE" ]]; then
+    : >"$THREAD_FILE"
+    chmod 0600 "$THREAD_FILE"
+  fi
+
   (
     cd "$REPO_ROOT"
   if [[ -s "$THREAD_FILE" ]]; then
@@ -138,8 +154,7 @@ run_codex() {
 
   thread_id="$(jq -Rr 'fromjson? | select(.type == "thread.started") | .thread_id' "$event_file" | head -n 1)"
   if [[ -n "$thread_id" ]]; then
-    printf '%s\n' "$thread_id" >"$THREAD_FILE"
-    chmod 0600 "$THREAD_FILE"
+    write_state_id_atomic "$THREAD_FILE" "$thread_id"
   elif [[ ! -s "$THREAD_FILE" ]]; then
     printf 'Codex did not report a persistent thread id\n' >&2
     return 1
@@ -147,7 +162,7 @@ run_codex() {
 }
 
 run_claude() {
-  local prompt_file="$1" report_file="$2" event_file="$3" session_id=""
+  local prompt_file="$1" report_file="$2" event_file="$3" session_id="" error_file=""
   local -a args=(
     -p
     --model "$EUNOMIA_PATROL_MODEL"
@@ -155,12 +170,22 @@ run_claude() {
     --permission-mode bypassPermissions
     --output-format json
   )
+  if [[ -e "$CLAUDE_SESSION_FILE" && ! -s "$CLAUDE_SESSION_FILE" ]]; then
+    printf 'Claude continuity file exists but is empty: %s\n' "$CLAUDE_SESSION_FILE" >&2
+    return 1
+  fi
   if [[ -s "$CLAUDE_SESSION_FILE" ]]; then
     args+=(--resume "$(<"$CLAUDE_SESSION_FILE")")
+  else
+    : >"$CLAUDE_SESSION_FILE"
+    chmod 0600 "$CLAUDE_SESSION_FILE"
   fi
+  error_file="${event_file%.ndjson}.stderr.log"
+  : >"$error_file"
+  chmod 0600 "$error_file"
   (
     cd "$REPO_ROOT"
-    claude "${args[@]}" "$(cat "$prompt_file")" >"$event_file"
+    claude "${args[@]}" "$(cat "$prompt_file")" >"$event_file" 2>"$error_file"
   )
   jq -er '.result // empty' "$event_file" >"$report_file"
   session_id="$(jq -r '.session_id // empty' "$event_file")"
@@ -168,8 +193,7 @@ run_claude() {
     printf 'Claude did not report a persistent session id\n' >&2
     return 1
   fi
-  printf '%s\n' "$session_id" >"$CLAUDE_SESSION_FILE"
-  chmod 0600 "$CLAUDE_SESSION_FILE"
+  write_state_id_atomic "$CLAUDE_SESSION_FILE" "$session_id"
 }
 
 run_patrol() {
