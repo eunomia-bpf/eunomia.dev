@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Preserve Complete Mediation Across Host and Offload Paths?](https://eunomia.dev/research/ebpf-complete-mediation-offload/)
+
+Host software, SmartNIC fast paths, and DPU offload can all execute network policy while traffic changes paths during misses, updates, and faults. This report develops an explicit path-coverage contract, generation-continuous fallback, and a benchmark that measures policy escapes rather than offload throughput alone.
+
 ### [How Long Can a Revoked Authorization Stay Alive in an eBPF Datapath?](https://eunomia.dev/research/ebpf-authorization-revocation/)
 
 Fast eBPF datapaths can reuse authorization through conntrack, auth maps, socket-local storage, and other persistent state after the policy that created it changes. This report develops scoped revocation epochs, cross-layer completion barriers, and a benchmark that measures the last stale allow rather than policy-update throughput alone.
