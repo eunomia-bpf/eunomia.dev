@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 在主机与卸载路径之间还能保证完整中介吗？](https://eunomia.dev/zh/research/ebpf-complete-mediation-offload/)
+
+主机软件、SmartNIC 快速路径与 DPU 卸载都可能执行网络策略，而流量会在 miss、更新和故障期间改变路径。本文提出显式 path-coverage contract、跨 generation 连续的 fallback，以及直接测量 policy escape 而不只测 offload 吞吐的 benchmark。
+
 ### [一次已经撤销的授权，能在 eBPF 数据路径里存活多久？](https://eunomia.dev/zh/research/ebpf-authorization-revocation/)
 
 高性能 eBPF datapath 会通过 conntrack、auth map、socket-local storage 等持久状态复用已经做过的授权判断，即使产生这些状态的策略已经改变。本文提出 scoped revocation epoch、cross-layer completion barrier，以及直接测量最后一次 stale allow 的 benchmark。
