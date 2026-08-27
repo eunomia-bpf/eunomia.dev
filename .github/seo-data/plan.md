@@ -72,26 +72,27 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive. Before and after the `2026-08-26` report, the newest ten remain **7
+   archive. Before and after the `2026-08-27` report, the newest ten remain **7
    eBPF-centered / 0 pure Agent / 3 adjacent systems** because the incoming
-   eBPF-centered revocation report ages another eBPF-centered report out.
+   eBPF-centered complete-mediation report ages another eBPF-centered report out.
 2. Keep **eBPF Networking and Security** as the active series. The `2026-08-23`
    report established multi-owner policy composition; `2026-08-24` established
    zero-copy buffer ownership; `2026-08-25` established temporal correctness of
-   persistent security state; and `2026-08-26` narrows revocation into a bounded
-   stale-authorization problem across connection, auth, socket, endpoint, and
-   userspace-managed datapath state. Prefer the next distinct question around a
-   security property that must survive kernel/userspace/NIC/DPU placement, not a
-   repeat of state transition, revocation, upgrade, composition, or buffer
-   ownership.
+   persistent security state; `2026-08-26` narrowed revocation into bounded stale
+   authorization; and `2026-08-27` treats complete mediation as explicit path
+   coverage across host and offloaded enforcement. This is the fifth report in
+   the series. Publish a sixth only if the next question is mechanistically
+   distinct, preferably a narrow information-flow or cross-boundary enforcement
+   property rather than another placement, composition, state-update, or
+   revocation variant.
 3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   The configured folder was directly reverified on `2026-08-26`; the newest set
+   The configured folder was directly reverified on `2026-08-27`; the newest set
    remains `2026-08-17..23` and no later weekly set was observed.
-4. Treat the `2026-08-17..23` GA4 aggregate as finalized on `2026-08-26`: 984
-   organic landing-page sessions at about 49.29% session-weighted engagement
-   versus 970 at about 44.95% for `2026-08-10..16`. Sessions are about 1.4%
-   higher and engagement about 4.34 percentage points higher. The weekly
-   aggregate still cannot support within-week causal attribution.
+4. Treat the `2026-08-17..23` GA4 aggregate as finalized: 984 organic
+   landing-page sessions at about 49.29% session-weighted engagement versus 970
+   at about 44.95% for `2026-08-10..16`. Sessions are about 1.4% higher and
+   engagement about 4.34 percentage points higher. The weekly aggregate still
+   cannot support within-week causal attribution.
 5. Keep complete GSC 7-day and 28-day comparisons unavailable until source
    history actually supports them. The latest finalized seven-day comparison
    would require `2026-08-16..22` versus `2026-08-09..15`, but the date exports
