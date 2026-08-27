@@ -1,0 +1,8 @@
+{
+  "name": "eunomia.dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "remoteUser": "node"
+}
