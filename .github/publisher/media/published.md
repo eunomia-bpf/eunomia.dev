@@ -157,12 +157,13 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
 
-The public author API listed 61 posts on 2026-08-25; the newer BPFix and tutorials 51–54 public URLs were verified independently. The machine ledger maps 52 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
+The public author API listed 62 posts on 2026-08-27; the newer BPFix, AgentCgroup, and tutorials 51–54 public URLs were verified independently. The machine ledger maps 53 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed posts:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-27 | AgentCgroup: What Happens When AI Agents Meet OS Resources? | <https://dev.to/yunwei37/agentcgroup-what-happens-when-ai-agents-meet-os-resources-1h2f> | Published through the documented DEV API with `ebpf`, `linux`, `ai`, and `opensource`; visible public-page QA confirmed the exact title, 14 body headings, 7 rendered tables, 1 code block, canonical notice, complete ending, and GitHub and arXiv links |
 | Confirmed | 2026-08-25 | eBPF Tutorial: Inspecting the Executable Image After exec | <https://dev.to/yunwei37/ebpf-tutorial-inspecting-the-executable-image-after-exec-3el7> | Published through the documented DEV API with `ebpf`, `linux`, `security`, and `tutorial`; visible public full-scroll QA confirmed the exact title, 15 body headings, 8 code blocks, a 5-row Requirements table, a loaded diagram, and all source and reference links |
 | Confirmed | 2026-08-23 | eBPF Tutorial: Building an Egress Pacer with BPF Qdisc | <https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna> | Published through the documented DEV API with `ebpf`, `linux`, `networking`, and `tutorial`; public QA confirmed the exact title, 12 body headings, 9 code blocks, 1 table, loaded diagram, source and reference links |
 | Confirmed | 2026-08-17 | eBPF Tutorial: Tracing Slow vfs_read Calls with fsession | <https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5> | Published through the documented DEV API with `ebpf`, `linux`, `performance`, and `tutorial`; public full-scroll QA verified the exact title, all 18 body headings, 20 code blocks, one rendered table, source and reference links, and no failure markers |
