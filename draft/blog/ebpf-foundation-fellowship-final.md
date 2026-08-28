@@ -22,7 +22,7 @@ There was also work that my first update simply missed. After I sent the progres
 
 ## The Research Directions Became More Specific
 
-In the first update, I grouped most of the research into two broad themes: GPU systems and AI agents. By the end of the fellowship, both themes had moved from "where else can eBPF be useful?" toward narrower systems questions about policy, semantics, verification, and analysis.
+In the first update, I focused mostly on two broad themes: GPU systems and AI agents. That left out another line of work that was already taking shape around eBPF compilation and runtime optimization. By the end of the fellowship, and in the work that continued afterward, these directions had become more specific questions about policy, semantics, verification, profiling, and specialization.
 
 ### From observing agents to enforcing agent policies
 
@@ -48,6 +48,22 @@ In bpftime, we began prototyping a GPU-specific verifier that combines ordinary 
 
 This connects back to the userspace eBPF work in bpftime and to NCCL policy extensions. Kernel, userspace, communication libraries, and accelerators have very different execution environments, but the attraction of eBPF is the possibility of giving them a common programmable policy model without making every extension a new privileged native plugin.
 
+### From portable bytecode to adaptive eBPF optimization
+
+Another research direction that my first update barely covered was eBPF execution efficiency. The verifier and JIT pipeline gives eBPF a strong portability and safety model, but the kernel JIT deliberately does relatively little target- or workload-specific optimization. Across 27 microbenchmarks extracted from production eBPF programs, we found that the same C code could run up to roughly twice as slowly through the eBPF pipeline as when compiled directly to native code, with a 1.57x geometric-mean gap on x86-64.
+
+This led to two complementary approaches, Kops and BpfReJIT. [Kops](https://github.com/eunomia-bpf/bpf-benchmark) explores hardware specialization while keeping the stock verifier as the safety authority. A new operation carries a proof sequence made from ordinary eBPF instructions that the verifier checks, together with a native emit for the JIT. Lean 4 proofs connect the native implementation to the verifier-visible proof sequence. With seven hardware-idiom operations, the current prototype improves microbenchmarks by up to 24% on x86-64 and 22% on ARM64.
+
+BpfReJIT explores a different point in the design space: specialization using information that is available only when an application is loaded or already running. A userspace shim can intercept an unmodified application's BPF load and attachment path, rewrite bytecode using deployment information such as runtime configuration or branch profiles, and submit every candidate back through the stock verifier and JIT. A rejected optimization does not need a new trusted compiler path; the kernel remains the final acceptance boundary. We will present these two directions together in the eBPF track at [Linux Plumbers Conference 2026](https://lpc.events/event/20/contributions/2445/).
+
+The optimization work immediately exposed a second problem: measurement. A transformation that wins on a small instruction sequence can lose in a complete application. Verifier acceptance does not imply workload correctness, and an automated optimizer can appear to improve performance by accidentally changing the workload rather than optimizing the program.
+
+To make these questions reproducible, we developed [bpf-bench](https://github.com/eunomia-bpf/bpf-benchmark) as an open benchmark and auto-research framework for eBPF optimization. The current suite exercises the real loaders of six production eBPF applications, including Cilium, Katran, Tetragon, Tracee, BCC, and an eBPF continuous profiler. It contains 146 comparable BPF program measurements and 42 microbenchmark tasks, and records verifier results, JIT output, application lifecycle, workload correctness, and raw performance measurements across x86-64 and ARM64 environments.
+
+The same benchmark also connects this compiler work back to AI agents. In AgentSight and ActPlane, agents are systems to observe and constrain. In bpf-bench, the agent is the optimizer: it proposes source, bytecode, runtime, or Kops-backed changes and receives verifier, JIT, correctness, and performance feedback from real executions. The benchmark treats the optimizer as untrusted and keeps correctness and integrity checks separate from the performance reward. That lets us ask a more useful question than whether an agent can make one benchmark number smaller: can it discover safe and reproducible eBPF optimizations under the actual execution contract?
+
+For me, Kops, BpfReJIT, and bpf-bench connect several of the themes that emerged during the fellowship. They turn eBPF optimization from a collection of one-off compiler tricks into a systems question about how hardware knowledge, workload knowledge, verification, and automated search should interact.
+
 ## Research and Tutorials Started Feeding Each Other
 
 The most useful part of doing research and education at the same time was the feedback loop between them.
@@ -72,6 +88,6 @@ For future fellows, that is the part I would recommend preserving. Pick at least
 
 ## What Continues
 
-The fellowship has ended, but these directions are continuing. I plan to keep the [bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) current with new kernel mechanisms and real systems examples, while continuing research on eBPF as a programmable layer for heterogeneous systems and AI-agent runtimes. On the agent side, I am especially interested in connecting observability, semantic profiling, and deterministic OS-level policy enforcement. On the GPU side, the open question is increasingly how to preserve useful eBPF semantics across devices rather than simply how to execute BPF there. And on the developer side, verifier diagnostics and tooling are another place where better interfaces can make eBPF substantially easier to use.
+The fellowship has ended, but these directions are continuing. I plan to keep the [bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) current with new kernel mechanisms and real systems examples, while continuing research on eBPF as a programmable layer for heterogeneous systems and AI-agent runtimes. On the agent side, I am especially interested in connecting observability, semantic profiling, and deterministic OS-level policy enforcement. On the GPU side, the open question is increasingly how to preserve useful eBPF semantics across devices rather than simply how to execute BPF there. On the runtime side, Kops, BpfReJIT, and bpf-bench are pushing toward hardware- and workload-aware optimization while keeping verifier-based safety explicit. And on the developer side, verifier diagnostics and tooling are another place where better interfaces can make eBPF substantially easier to use.
 
 I am grateful to the eBPF Foundation for supporting the fellowship, and to everyone who opened an issue, sent a pull request, reviewed a project, tried an example on an unexpected machine, or joined a discussion. Those interactions shaped the work much more than a list of completed tutorials can show.
