@@ -68,271 +68,13 @@ A daily report must still provide:
 - After a series has at least three strong reports, consider a public series hub
   and stronger internal linking. Do not create thin hub pages in advance.
 
-## Active series — eBPF Networking and Security
+## Active series — GPU and Heterogeneous Runtime Systems
 
-Working question: **Where are eBPF networking and security mechanisms still
-missing deployable abstractions or correctness guarantees?**
+Working question: **What runtime, programmability, and observability abstractions
+are missing at CPU/GPU and host/device boundaries?**
 
-This series became active after the `2026-08-22` report completed the normal
-six-report boundary for eBPF Observability and Profiling.
-
-The roadmap initially preferred transactional policy updates across programs,
-maps, links, and userspace control planes. Fresh novelty review on `2026-08-23`
-rejected that candidate because `/research/stateful-ebpf-transactional-upgrade/`
-already develops a prepare / migrate / commit / retire generation protocol across
-programs, links, maps, pinned state, controller recovery, and rollback. Repeating
-the same update transaction with a networking example would not materially
-advance the archive.
-
-The `2026-08-23` report starts the active series with a distinct security-policy
-question: how additive Kubernetes `NetworkPolicy`, tiered `ClusterNetworkPolicy`,
-and Cilium L3-L7 policy can compose for multiple owners without losing authority,
-delegation, or source-policy provenance after the result is compiled into an
-eBPF datapath. It develops an authority-aware composition IR, generation-stable
-verdict witnesses, and a counterexample-driven multi-tenant policy benchmark.
-
-The `2026-08-24` report advances a second, materially different boundary. AF_XDP,
-io_uring ZC Rx, page_pool, and DPDK all recycle packet memory through native
-ownership protocols, while BPF policy decisions, NIC steering, and userspace
-processing can cross those boundaries. The report develops a generation-scoped
-buffer capability, policy-linked handoff witnesses, and a cross-path zero-copy
-fault benchmark. It is distinct from the earlier io_uring programmability report:
-the missing property is buffer lease ownership and provenance across APIs, not
-BPF execution control inside the ring.
-
-The `2026-08-25` report advances a third boundary: the Linux verifier can prove
-that each loaded BPF program executes safely while the security policy encoded in
-persistent map state still follows an invalid temporal trace. Production policy
-state can be shared across hooks, CPUs, programs, and userspace and can change
-under eviction, map pressure, revocation, restart, or stale control-plane writes.
-The report develops a small temporal policy contract, verifier-cooperative runtime
-transition guards, and an adversarial state-fault benchmark. This is distinct
-from verifier-error diagnosis, transactional upgrade, and policy composition:
-the target property is legal runtime state transition after safe bytecode has
-already been admitted.
-
-The `2026-08-26` report narrows one consequence of persistent state into an
-incident-response property. A policy or identity can be revoked while an old
-allow still survives in connection tracking, authentication caches, socket-local
-storage, or another derived datapath object. The report asks for a measurable
-upper bound on that stale authority rather than another general state-machine
-contract. It develops scoped revocation epochs, a cross-layer completion barrier,
-and a benchmark whose primary outcome is the last stale allow after a revoke.
-
-The `2026-08-27` report advances a fifth boundary by narrowing heterogeneous
-execution placement into a complete-mediation property. Linux representors and
-XDP offload expose host slow paths and device fast paths that can change under
-misses, updates, and faults. The report asks whether every reachable
-policy-relevant packet path still crosses an enforcement point for the current
-policy generation. It develops a path-coverage plan, generation-continuous
-offload/fallback, and a benchmark whose primary outcome is policy escape rather
-than offload throughput.
-
-A broad cross-boundary information-flow candidate was considered again on
-`2026-08-25` but not selected. Existing ActPlane and Eunomia material already
-covers process/file/network effect labels and layered enforcement, so a broad
-version has higher thesis-overlap risk than the narrower state-transition gap.
-A future information-flow report should therefore require a narrower mechanism
-and fresh evidence before it can become the sixth report in this series.
-
-### Published progress
-
-1. `2026-08-23`: `/research/ebpf-network-policy-composition/` separates
-   policy-language semantics from BPF hook composition and update transactions.
-   It asks how several legitimate policy owners can produce one effective
-   network verdict while keeping the deciding owner, tier, delegation path, and
-   source rule inspectable across policy generations. The report is
-   eBPF-centered because the proposed provenance contract is evaluated against
-   the realized BPF policy datapath, not only against Kubernetes objects.
-2. `2026-08-24`: `/research/ebpf-zero-copy-buffer-ownership/` separates
-   allocator-specific lifetime rules from a cross-path ownership contract. It
-   asks how packet-buffer leases can preserve owner, DMA reachability, recycle
-   generation, and BPF policy provenance across AF_XDP, io_uring ZC Rx, DPDK,
-   userspace eBPF, and NIC handoffs. It is eBPF-centered because policy identity
-   and BPF/user-runtime transitions are part of the correctness contract rather
-   than optional instrumentation.
-3. `2026-08-25`: `/research/ebpf-stateful-policy-verification/` separates
-   per-program verifier safety from temporal correctness of persistent security
-   state. It asks how map-backed policy states can restrict legal transitions,
-   transition authority, generations, expiry, capacity failure, and userspace
-   writes without forcing the Linux verifier to model unbounded event history.
-   It is eBPF-centered because BPF maps, hooks, verifier boundaries, and in-kernel
-   transition enforcement are the central mechanism rather than optional probes.
-4. `2026-08-26`: `/research/ebpf-authorization-revocation/` separates policy
-   rollout from revocation effectiveness. It asks how a previously admitted
-   authorization can be made unusable within a measurable bound across conntrack,
-   auth maps, socket-local state, endpoint policy, and userspace-managed state.
-   It is eBPF-centered because the proposed epoch checks and completion barrier
-   are evaluated on persistent BPF datapath state and hot-path policy reuse.
-5. `2026-08-27`: `/research/ebpf-complete-mediation-offload/` separates backend
-   placement from global security coverage. It asks how host software, SmartNIC
-   fast paths, representor fallback, and DPU/offload execution can preserve one
-   current enforcement point for every reachable policy-relevant packet path.
-   It is eBPF-centered because BPF/XDP attachment, offload capability, policy
-   generations, and cross-backend verdict continuity are the core mechanism.
-
-### Preferred next questions
-
-1. a narrow information-flow or cross-boundary enforcement property only if fresh
-   evidence supports a mechanism materially distinct from ActPlane-style effect
-   labels and from the complete-mediation path-coverage contract;
-2. revisit transactional network-policy rollout only when new evidence supports
-   a mechanism materially different from the published stateful-upgrade
-   generation protocol;
-3. revisit zero-copy ownership only when implementation evidence or the proposed
-   cross-path benchmark exposes a distinct mechanism beyond the lease/provenance
-   contract developed on `2026-08-24`;
-4. revisit revocation only when implementation evidence distinguishes a new
-   mechanism from the scoped epoch, completion-barrier, and stale-allow benchmark
-   developed on `2026-08-26`;
-5. revisit host/NIC/DPU complete mediation only when implementation evidence
-   exposes a new mechanism beyond path coverage, generation continuity, and the
-   policy-escape benchmark developed on `2026-08-27`.
-
-Before and after the August 27 publication, the newest ten contain **7
-eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
-report ages another eBPF-centered report out of the rolling ten.
-
-## Completed series — eBPF Observability and Profiling
-
-Historical roadmap state: **Active series — eBPF Observability and Profiling**
-through the `2026-08-22` report. The series is completed after that publication;
-Networking and Security is the active series for the next normal run.
-
-Working question: **Which important performance and correctness questions remain
-unanswerable with today's eBPF observability stack?**
-
-The `2026-08-18` report started this series with **page-level memory attribution**:
-how to distinguish allocation from pages that were actually touched, faulted,
-reclaimed, migrated, or responsible for sampled memory cost while preserving
-provenance across `mmap`, `brk`, allocator, runtime, and process boundaries.
-
-The `2026-08-19` report was a deliberate **adjacent profiling detour** on sampling
-bias. Its central mechanism is general profiler measurement design, not eBPF, so
-it is classified as adjacent systems.
-
-The first `2026-08-20` report was a second adjacent profiling detour required by
-the rolling-window arithmetic. It asks whether a late CUDA kernel start came from
-host scheduling, runtime/command-buffer work, a dependency, or device
-availability. CUPTI and Nsight Systems are the primary mechanisms; Linux/eBPF
-host tracing can be an optional evidence source but is not essential, so this
-report is adjacent systems rather than eBPF-centered.
-
-The second `2026-08-20` report follows the same adjacent-systems boundary from a
-causality angle. It asks how host API work, runtime handoffs, CUDA Graph replay,
-and device execution can retain a trustworthy causal identity. CUPTI/CUDA
-dependency semantics are central while eBPF is one possible host observer.
-
-The `2026-08-21` report returns to an eBPF-essential question: how dynamic probes
-can observe application-defined pools, queues, caches, and credits without
-silently turning stale program semantics into confident diagnoses. It develops a
-versioned semantics manifest, runtime semantic validation, and a mutation
-benchmark for software evolution.
-
-The `2026-08-22` report closes the series with another eBPF-essential question:
-how always-on collectors can reduce high-rate telemetry before export without
-silently deleting the evidence required for diagnosis. It develops a compiled
-diagnostic contract, bounded state-transition exemplars, coverage-carrying
-summaries, and an equal-budget diagnosis-retention benchmark.
-
-### Published progress
-
-1. `2026-08-18`: `/research/page-level-ebpf-memory-attribution/` separates
-   allocation intent, residency, working-set evidence, page lifecycle, and
-   sampled memory cost, then develops a lifetime-aware provenance ledger,
-   access-weighted attribution with explicit confidence, and a ground-truth
-   benchmark spanning reserve-versus-touch, COW, THP, reclaim, refault, and NUMA
-   migration.
-2. `2026-08-19`: `/research/profiler-sampling-bias/` asks when sampling itself is
-   untrustworthy. It compares randomized sampling history, current Linux perf
-   interfaces and kernel profile-collection guidance, and OSDI 2026 Blink, then
-   develops a sampling-schedule contract with aliasing diagnostics, independent
-   profile epochs with uncertainty and rank stability, and uncertainty-triggered
-   selective instrumentation. Because the mechanism applies to profilers in
-   general and does not require eBPF, this report is adjacent systems rather than
-   eBPF-centered.
-3. `2026-08-20`: `/research/gpu-kernel-launch-latency/` separates CUDA API time,
-   command-buffer queue/submission, dependency readiness, device availability,
-   and kernel execution. It develops an explicit launch-state ledger, a
-   cross-domain launch identity that survives host handoffs and graph replay, and
-   a ground-truth launch-delay attribution benchmark. The central question is GPU
-   profiling, so it is adjacent systems.
-4. `2026-08-20`: `/research/gpu-host-device-causality/` develops
-   generation-scoped host/device causal identity, dependency-aware critical-path
-   reasoning, explicit unknown/loss states, and a ground-truth causality
-   benchmark. CUPTI/CUDA dependency semantics are essential while eBPF is one
-   possible host observer, so this report is adjacent systems.
-5. `2026-08-21`: `/research/ebpf-application-resource-semantics/` asks how eBPF
-   can dynamically observe application-defined resources without hard-coding
-   stale semantics. It develops a versioned resource-semantics manifest compiled
-   into eBPF attachments, runtime semantic validation with explicit confidence
-   loss, and a software-mutation benchmark. Dynamic no-rebuild instrumentation
-   and independent cross-layer validation are central, so this report is
-   eBPF-centered.
-6. `2026-08-22`: `/research/ebpf-diagnostic-telemetry-compression/` asks how an
-   always-on eBPF collector can reduce telemetry volume before export while
-   preserving later root-cause diagnosis. It develops a diagnostic-contract
-   compiler for BPF retention plans, state-transition exemplars, explicit
-   coverage accounting, and an equal-budget incident benchmark. Source-side BPF
-   aggregation and exemplar retention are central, so this report is
-   eBPF-centered.
-
-Before and after the August 22 publication, the newest ten contain **7
-eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
-report ages an eBPF-centered report out of the rolling ten.
-
-A related unresolved question remains: online confidence and adaptive collection
-when trace loss, missing probes, or stale schemas make the current representation
-uncertain. It is intentionally not a seventh report in this series. The August 22
-report first defines what a compact representation promises to preserve; adaptive
-fidelity can be revisited later when fresh evidence supports a distinct mechanism.
-
-## Completed series — eBPF Runtime, Extensibility, and Composition
-
-Working question: **What mechanisms are still missing if eBPF is treated as a
-programmable runtime substrate rather than only a kernel observability feature?**
-
-This series connected kernel and userspace execution, composition, state,
-upgrade, safety, asynchronous attribution, programmable I/O, and heterogeneous
-execution placement. It reached the normal six-report series boundary on
-`2026-08-17` and is no longer the default topic source for scheduled publication.
-
-### Published progress
-
-1. `2026-08-08`: `/research/userspace-ebpf-runtime-contract/` established that
-   first-class userspace eBPF needs explicit attachment, capability, state,
-   lifetime, and attribution contracts above ISA compatibility.
-2. `2026-08-09`: `/research/ebpf-hook-composition-contract/` narrowed the
-   multi-program problem beyond dispatch and ordering to effect visibility,
-   outcome resolution, shared-state ownership, and versioned hook composition.
-3. `2026-08-10`: `/research/stateful-ebpf-transactional-upgrade/` separated
-   object-level replacement from application-level upgrade and developed an
-   explicit prepare / migrate / commit / retire generation protocol for programs,
-   links, maps, pinned state, controller recovery, and rollback.
-4. `2026-08-12`: `/research/async-ebpf-causal-profiler/` separated thread
-   execution from logical-work causality and developed typed, lifetime-aware
-   handoff edges, an edge-versus-context measurement budget, and a ground-truth
-   causal-attribution benchmark across `io_uring`, workqueues, runtime tasks, and
-   application-defined resources.
-5. `2026-08-15`: `/research/io-uring-bpf-programmability/` separated the current
-   per-opcode cBPF admission path from the eBPF `io_uring_bpf_ops`
-   execution-control path, then developed a typed capability contract, versioned
-   ring policy generations, explicit provenance, and a comparative
-   control-boundary benchmark.
-6. `2026-08-17`: `/research/heterogeneous-ebpf-execution-placement/` separated
-   backend compatibility from execution placement and developed a target
-   manifest, generation-scoped state ownership, and a ground-truth
-   placement/provenance benchmark across kernel, userspace, NIC/DPU, and
-   GPU-side targets.
-
-The Daily Report index already exposes the sequence. Report-level acquisition and
-navigation evidence is still too young to justify a dedicated public series hub.
-Revisit that decision only when evidence shows a retrieval benefit.
-
-## Queued series — GPU and Heterogeneous Runtime Systems
-
-Working question: **What runtime and observability abstractions are missing at
-CPU/GPU and host/device boundaries?**
+This roadmap becomes active after the `2026-08-28` report reaches the normal
+six-report boundary for eBPF Networking and Security.
 
 Candidate topics include GPU/CPU causal profiling, memory movement, megakernel
 observability, programmable device-side instrumentation, distributed GPU
@@ -340,10 +82,145 @@ coordination, utilization versus allocatability, host-side scheduling noise, and
 eBPF-like programmable monitors near GPU or DPU execution.
 
 Reports in this series count toward the eBPF share only when eBPF or an eBPF-like
-runtime is central to the mechanism being evaluated.
+runtime is central to the mechanism being evaluated. A report whose core
+mechanism is CUPTI, CUDA, GPU scheduling, or another general accelerator
+abstraction without essential eBPF machinery is adjacent systems.
 
-The two August 20 reports are focused adjacent-systems contributions to this
-roadmap. They do not make this queued series active.
+The two August 20 GPU reports are useful existing anchors but do not count as
+progress in the newly active sequence. They establish two boundaries that new
+reports should not simply repeat:
+
+- `/research/gpu-kernel-launch-latency/` separates queueing/readiness delay from
+  kernel execution time;
+- `/research/gpu-host-device-causality/` develops host/device causal identity and
+  explicit unknown dependency edges.
+
+### Preferred next questions
+
+1. a device-side programmability or policy boundary where an eBPF-like runtime
+   materially changes what can be enforced or adapted without rebuilding the
+   workload;
+2. memory-placement or movement semantics where CPU and GPU observers disagree
+   about ownership, residency, or cost and a deployable cross-domain contract is
+   missing;
+3. fine-grained GPU execution observability only when the question is distinct
+   from launch-latency attribution and host/device causal tracing;
+4. distributed GPU coordination when there is a concrete runtime invariant to
+   test rather than a generic scaling survey;
+5. revisit heterogeneous placement only when fresh evidence exposes a mechanism
+   beyond the already published target-manifest and generation-scoped ownership
+   contract.
+
+After the August 28 publication, the newest ten remain **7 eBPF-centered / 0 pure
+Agent / 3 adjacent systems**. The next report may therefore be either eBPF-centered
+or adjacent, but evidence and thesis quality decide the classification.
+
+## Completed series — eBPF Networking and Security
+
+Working question: **Where are eBPF networking and security mechanisms still
+missing deployable abstractions or correctness guarantees?**
+
+This series became active after the `2026-08-22` report completed eBPF
+Observability and Profiling. It reaches the normal six-report boundary on
+`2026-08-28`.
+
+### Published progress
+
+1. `2026-08-23`: `/research/ebpf-network-policy-composition/` separates
+   policy-language semantics from BPF hook composition and update transactions.
+   It asks how several legitimate policy owners can produce one effective
+   verdict while keeping the deciding owner, tier, delegation path, and source
+   rule inspectable across policy generations.
+2. `2026-08-24`: `/research/ebpf-zero-copy-buffer-ownership/` asks how packet
+   buffer leases preserve owner, DMA reachability, recycle generation, and BPF
+   policy provenance across AF_XDP, io_uring ZC Rx, DPDK, userspace eBPF, and NIC
+   handoffs.
+3. `2026-08-25`: `/research/ebpf-stateful-policy-verification/` separates
+   verifier-safe bytecode from legal temporal transitions of persistent policy
+   state shared across hooks, CPUs, maps, and userspace updates.
+4. `2026-08-26`: `/research/ebpf-authorization-revocation/` separates rollout
+   from revocation effectiveness and asks for a measurable bound on stale
+   authority across conntrack, auth maps, socket-local state, and other derived
+   datapath objects.
+5. `2026-08-27`: `/research/ebpf-complete-mediation-offload/` separates backend
+   placement from global security coverage and asks whether every reachable
+   host/SmartNIC/DPU packet path still crosses a policy-equivalent enforcement
+   point for the current generation.
+6. `2026-08-28`: `/research/ebpf-l7-proxy-policy-identity/` separates path
+   coverage from authorization identity continuity. It asks how a principal,
+   policy generation, and authorization provenance survive when eBPF redirects a
+   request into an L7 proxy that terminates the downstream connection and emits
+   or reuses a different upstream socket. It develops generation-scoped handoff
+   capabilities, policy-safe multiplexing, and an authorization-lineage
+   benchmark across kernel fast paths and proxy slow paths.
+
+The sixth report was selected only after rejecting a broad information-flow
+candidate that still overlapped ActPlane effect labels and a narrower fast/slow
+verdict-equivalence candidate that overlapped the complete-mediation report. The
+proxy identity question is distinct because the request can cross every intended
+enforcement point and still be attributed to the wrong principal after the
+semantic handoff.
+
+Future networking/security work should return only when fresh evidence supports
+a mechanism beyond these six published boundaries. In particular, do not repeat
+transactional rollout, zero-copy ownership, revocation, complete mediation, or
+proxy identity continuity with a new product example alone.
+
+## Completed series — eBPF Observability and Profiling
+
+Working question: **Which important performance and correctness questions remain
+unanswerable with today's eBPF observability stack?**
+
+Published progress:
+
+1. `2026-08-18`: `/research/page-level-ebpf-memory-attribution/` develops
+   lifetime-aware page provenance and access-weighted attribution.
+2. `2026-08-19`: `/research/profiler-sampling-bias/` is an adjacent profiling
+   detour on aliasing, skid, coverage, and uncertainty.
+3. `2026-08-20`: `/research/gpu-kernel-launch-latency/` is an adjacent GPU
+   profiling report on launch-state attribution.
+4. `2026-08-20`: `/research/gpu-host-device-causality/` is an adjacent GPU
+   report on host/device causal identity and dependency uncertainty.
+5. `2026-08-21`: `/research/ebpf-application-resource-semantics/` develops a
+   versioned semantics manifest and mutation benchmark for application-defined
+   resources.
+6. `2026-08-22`: `/research/ebpf-diagnostic-telemetry-compression/` develops a
+   diagnostic-contract compiler, state-transition exemplars, coverage-carrying
+   summaries, and equal-budget diagnosis-retention evaluation.
+
+A related question about online confidence and adaptive collection remains valid
+but should be revisited only when fresh evidence supports a mechanism distinct
+from the compression contract.
+
+## Completed series — eBPF Runtime, Extensibility, and Composition
+
+Working question: **What mechanisms are still missing if eBPF is treated as a
+programmable runtime substrate rather than only a kernel observability feature?**
+
+Published progress:
+
+1. `2026-08-08`: `/research/userspace-ebpf-runtime-contract/` establishes
+   attachment, capability, state, lifetime, and attribution contracts above ISA
+   compatibility.
+2. `2026-08-09`: `/research/ebpf-hook-composition-contract/` develops typed
+   composition semantics for effect visibility, outcomes, shared state, and
+   versioned hooks.
+3. `2026-08-10`: `/research/stateful-ebpf-transactional-upgrade/` develops a
+   prepare / migrate / commit / retire generation protocol across programs,
+   links, maps, pinned state, controller recovery, and rollback.
+4. `2026-08-12`: `/research/async-ebpf-causal-profiler/` develops typed,
+   lifetime-aware handoff edges and a ground-truth cross-thread attribution
+   benchmark.
+5. `2026-08-15`: `/research/io-uring-bpf-programmability/` separates the cBPF
+   admission gate from the eBPF `io_uring_bpf_ops` control surface and develops
+   policy generations, provenance, and capability contracts.
+6. `2026-08-17`: `/research/heterogeneous-ebpf-execution-placement/` develops a
+   target manifest, generation-scoped state ownership, and a placement/provenance
+   benchmark across kernel, userspace, NIC/DPU, and GPU-side targets.
+
+The Daily Report index already exposes these sequences. Revisit dedicated public
+series hubs only when report-level acquisition or navigation evidence shows a
+retrieval benefit beyond the current index.
 
 ## Queued series — Agent Systems (limited)
 
@@ -356,7 +233,7 @@ Existing anchors:
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
-Neither pure-Agent report remains inside the newest ten after the August 22
+Neither pure-Agent report remains inside the newest ten after the August 28
 publication. Pure-Agent publication is allowed by the cap but is not required;
 prefer the technically stronger question after applying the evidence, novelty,
 and editorial-mix gates.
