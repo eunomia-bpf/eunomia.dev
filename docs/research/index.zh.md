@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 在 L7 代理交接时还能保住策略身份吗？](https://eunomia.dev/zh/research/ebpf-l7-proxy-policy-identity/)
+
+L7 proxy 会终止一条带策略身份的连接，再创建或复用新的上游连接，因此 socket identity 可能不再代表真正触发请求的 principal。本文提出 generation-scoped handoff capability、policy-safe multiplexing，以及检测 fast/slow path authorization-lineage violation 的 benchmark。
+
 ### [eBPF 在主机与卸载路径之间还能保证完整中介吗？](https://eunomia.dev/zh/research/ebpf-complete-mediation-offload/)
 
 主机软件、SmartNIC 快速路径与 DPU 卸载都可能执行网络策略，而流量会在 miss、更新和故障期间改变路径。本文提出显式 path-coverage contract、跨 generation 连续的 fallback，以及直接测量 policy escape 而不只测 offload 吞吐的 benchmark。

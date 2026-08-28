@@ -72,52 +72,53 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive. Before and after the `2026-08-27` report, the newest ten remain **7
+   archive. Before and after the `2026-08-28` report, the newest ten remain **7
    eBPF-centered / 0 pure Agent / 3 adjacent systems** because the incoming
-   eBPF-centered complete-mediation report ages another eBPF-centered report out.
-2. Keep **eBPF Networking and Security** as the active series. The `2026-08-23`
-   report established multi-owner policy composition; `2026-08-24` established
-   zero-copy buffer ownership; `2026-08-25` established temporal correctness of
-   persistent security state; `2026-08-26` narrowed revocation into bounded stale
-   authorization; and `2026-08-27` treats complete mediation as explicit path
-   coverage across host and offloaded enforcement. This is the fifth report in
-   the series. Publish a sixth only if the next question is mechanistically
-   distinct, preferably a narrow information-flow or cross-boundary enforcement
-   property rather than another placement, composition, state-update, or
-   revocation variant.
-3. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   The configured folder was directly reverified on `2026-08-27`; the newest set
+   eBPF-centered proxy-identity report ages another eBPF-centered report out.
+2. Treat **eBPF Networking and Security** as complete at its normal six-report
+   boundary after the `2026-08-28` proxy handoff report. The series now covers
+   multi-owner policy composition, zero-copy buffer ownership, temporal state
+   correctness, revocation bounds, complete mediation across offload, and
+   request/policy identity across an L7 proxy semantic boundary.
+3. Make the already queued **GPU and Heterogeneous Runtime Systems** roadmap the
+   next active normal series after the August 28 publication. Start with questions
+   where host/device runtime boundaries expose a concrete missing abstraction or
+   correctness guarantee. Count a report as eBPF-centered only when eBPF or an
+   eBPF-like runtime is central to the mechanism; otherwise classify it as
+   adjacent systems.
+4. Use all verified weekly Search Console and GA4 Drive export sets in every run.
+   The configured folder was directly reverified on `2026-08-28`; the newest set
    remains `2026-08-17..23` and no later weekly set was observed.
-4. Treat the `2026-08-17..23` GA4 aggregate as finalized: 984 organic
+5. Treat the `2026-08-17..23` GA4 aggregate as finalized: 984 organic
    landing-page sessions at about 49.29% session-weighted engagement versus 970
    at about 44.95% for `2026-08-10..16`. Sessions are about 1.4% higher and
    engagement about 4.34 percentage points higher. The weekly aggregate still
    cannot support within-week causal attribution.
-5. Keep complete GSC 7-day and 28-day comparisons unavailable until source
+6. Keep complete GSC 7-day and 28-day comparisons unavailable until source
    history actually supports them. The latest finalized seven-day comparison
    would require `2026-08-16..22` versus `2026-08-09..15`, but the date exports
    omit both `2026-08-16` and `2026-08-09`; verified history is also too short
    for the 28-day comparison.
-6. Use the longest equal-duration finalized GSC comparison supported by contiguous
+7. Use the longest equal-duration finalized GSC comparison supported by contiguous
    source rows: `2026-08-17..22` has 477 clicks / 59,798 impressions / ~0.798%
    CTR / ~9.56 weighted position versus 393 / 66,510 / ~0.591% / ~9.91 for
    `2026-08-10..15`. Clicks are about 21.4% higher, impressions about 10.1%
    lower, CTR about 0.207 percentage points higher, and weighted position improves
    by about 0.35 positions.
-7. Use finalized date-by-page or date-by-query evidence before attributing current
+8. Use finalized date-by-page or date-by-query evidence before attributing current
    search movement to one page or query family. Do not turn aggregate movement
    into a title, copy, navigation, or site-structure change without that evidence.
-8. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
+9. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and
    technical SEO questions that require richer source-native evidence rather than
    as reasons to steer Daily Report topics.
-9. Add Cloudflare coverage only when a supported read-only route is enabled in
-   repository configuration.
-10. Use search behavior, GitHub activity, primary research, kernel changes, and
+10. Add Cloudflare coverage only when a supported read-only route is enabled in
+    repository configuration.
+11. Use search behavior, GitHub activity, primary research, kernel changes, and
     production evidence to order questions inside approved eBPF and adjacent
     systems series.
-11. Revisit a dedicated public hub for completed eBPF series only after
+12. Revisit a dedicated public hub for completed eBPF series only after
     report-level acquisition or navigation evidence shows that it would improve
     retrieval beyond the existing Daily Report index.
-12. Migrate the consuming SEO contract before moving the pinned `seo-skills`
+13. Migrate the consuming SEO contract before moving the pinned `seo-skills`
     submodule to a newer upstream layout. Upstream movement alone is not evidence
     that a pointer-only bump is safe.

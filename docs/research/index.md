@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Keep Policy Identity Across an L7 Proxy Handoff?](https://eunomia.dev/research/ebpf-l7-proxy-policy-identity/)
+
+An L7 proxy terminates one policy-bound connection and emits or reuses another, so socket identity can stop representing the principal that caused an upstream request. This report develops generation-scoped handoff capabilities, policy-safe multiplexing, and a benchmark for authorization-lineage violations across fast and slow paths.
+
 ### [Can eBPF Preserve Complete Mediation Across Host and Offload Paths?](https://eunomia.dev/research/ebpf-complete-mediation-offload/)
 
 Host software, SmartNIC fast paths, and DPU offload can all execute network policy while traffic changes paths during misses, updates, and faults. This report develops an explicit path-coverage contract, generation-continuous fallback, and a benchmark that measures policy escapes rather than offload throughput alone.

@@ -68,13 +68,14 @@ A daily report must still provide:
 - After a series has at least three strong reports, consider a public series hub
   and stronger internal linking. Do not create thin hub pages in advance.
 
-## Active series — eBPF Networking and Security
+## Completed series — eBPF Networking and Security
 
 Working question: **Where are eBPF networking and security mechanisms still
 missing deployable abstractions or correctness guarantees?**
 
 This series became active after the `2026-08-22` report completed the normal
-six-report boundary for eBPF Observability and Profiling.
+six-report boundary for eBPF Observability and Profiling and reached its own
+normal six-report boundary on `2026-08-28`.
 
 The roadmap initially preferred transactional policy updates across programs,
 maps, links, and userspace control planes. Fresh novelty review on `2026-08-23`
@@ -84,7 +85,7 @@ programs, links, maps, pinned state, controller recovery, and rollback. Repeatin
 the same update transaction with a networking example would not materially
 advance the archive.
 
-The `2026-08-23` report starts the active series with a distinct security-policy
+The `2026-08-23` report starts the series with a distinct security-policy
 question: how additive Kubernetes `NetworkPolicy`, tiered `ClusterNetworkPolicy`,
 and Cilium L3-L7 policy can compose for multiple owners without losing authority,
 delegation, or source-policy provenance after the result is compiled into an
@@ -129,11 +130,20 @@ offload/fallback, and a benchmark whose primary outcome is policy escape rather
 than offload throughput.
 
 A broad cross-boundary information-flow candidate was considered again on
-`2026-08-25` but not selected. Existing ActPlane and Eunomia material already
+`2026-08-28` but not selected. Existing ActPlane and Eunomia material already
 covers process/file/network effect labels and layered enforcement, so a broad
-version has higher thesis-overlap risk than the narrower state-transition gap.
-A future information-flow report should therefore require a narrower mechanism
-and fresh evidence before it can become the sixth report in this series.
+version has higher thesis-overlap risk than a narrower cross-boundary property.
+A second candidate limited to fast-path versus proxy allow/deny equivalence was
+also rejected because it overlaps complete mediation and placement without
+capturing what identity the accepted request carries.
+
+The `2026-08-28` report closes the series with a sixth distinct boundary: an L7
+proxy can terminate a policy-bound downstream connection and emit or reuse a new
+upstream socket, so every intended enforcement point can still be present while
+the request loses the principal and policy generation that justified it. The
+report develops generation-scoped handoff capabilities, policy-safe
+multiplexing, and an authorization-lineage benchmark across kernel fast paths
+and proxy slow paths.
 
 ### Published progress
 
@@ -170,26 +180,21 @@ and fresh evidence before it can become the sixth report in this series.
    current enforcement point for every reachable policy-relevant packet path.
    It is eBPF-centered because BPF/XDP attachment, offload capability, policy
    generations, and cross-backend verdict continuity are the core mechanism.
+6. `2026-08-28`: `/research/ebpf-l7-proxy-policy-identity/` separates path
+   coverage from authorization identity continuity across a semantic proxy
+   boundary. It asks how the original principal, policy generation, and
+   authorization provenance survive proxy termination, connection pooling,
+   multiplexing, retry, and fast/slow-path fallback. It is eBPF-centered because
+   the handoff starts and ends at BPF policy boundaries and the proposed
+   capability/lineage contract is evaluated against the realized BPF datapath.
 
-### Preferred next questions
+Future work should return to this series only when fresh evidence supports a
+mechanism beyond these six boundaries. In particular, do not repeat policy
+composition, zero-copy ownership, temporal state verification, revocation,
+complete mediation, or proxy identity continuity with a different product
+example alone.
 
-1. a narrow information-flow or cross-boundary enforcement property only if fresh
-   evidence supports a mechanism materially distinct from ActPlane-style effect
-   labels and from the complete-mediation path-coverage contract;
-2. revisit transactional network-policy rollout only when new evidence supports
-   a mechanism materially different from the published stateful-upgrade
-   generation protocol;
-3. revisit zero-copy ownership only when implementation evidence or the proposed
-   cross-path benchmark exposes a distinct mechanism beyond the lease/provenance
-   contract developed on `2026-08-24`;
-4. revisit revocation only when implementation evidence distinguishes a new
-   mechanism from the scoped epoch, completion-barrier, and stale-allow benchmark
-   developed on `2026-08-26`;
-5. revisit host/NIC/DPU complete mediation only when implementation evidence
-   exposes a new mechanism beyond path coverage, generation continuity, and the
-   policy-escape benchmark developed on `2026-08-27`.
-
-Before and after the August 27 publication, the newest ten contain **7
+Before and after the August 28 publication, the newest ten contain **7
 eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
 report ages another eBPF-centered report out of the rolling ten.
 
@@ -197,7 +202,7 @@ report ages another eBPF-centered report out of the rolling ten.
 
 Historical roadmap state: **Active series — eBPF Observability and Profiling**
 through the `2026-08-22` report. The series is completed after that publication;
-Networking and Security is the active series for the next normal run.
+Networking and Security became the active series for the next normal run.
 
 Working question: **Which important performance and correctness questions remain
 unanswerable with today's eBPF observability stack?**
@@ -329,7 +334,7 @@ The Daily Report index already exposes the sequence. Report-level acquisition an
 navigation evidence is still too young to justify a dedicated public series hub.
 Revisit that decision only when evidence shows a retrieval benefit.
 
-## Queued series — GPU and Heterogeneous Runtime Systems
+## Active series — GPU and Heterogeneous Runtime Systems
 
 Working question: **What runtime and observability abstractions are missing at
 CPU/GPU and host/device boundaries?**
@@ -343,7 +348,16 @@ Reports in this series count toward the eBPF share only when eBPF or an eBPF-lik
 runtime is central to the mechanism being evaluated.
 
 The two August 20 reports are focused adjacent-systems contributions to this
-roadmap. They do not make this queued series active.
+roadmap, but they predate activation and do not count as progress in the new
+normal sequence. They establish two boundaries that should not simply be
+repeated: kernel launch-latency attribution and host/device causal tracing.
+
+The series becomes active after the `2026-08-28` Networking and Security report
+reaches that series' normal six-report boundary. Preferred next questions are
+runtime or device-side programmability boundaries, memory-placement/movement
+semantics, fine-grained GPU execution observability distinct from the August 20
+reports, and distributed GPU coordination only where a concrete runtime invariant
+can be tested.
 
 ## Queued series — Agent Systems (limited)
 
@@ -356,7 +370,7 @@ Existing anchors:
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
-Neither pure-Agent report remains inside the newest ten after the August 22
+Neither pure-Agent report remains inside the newest ten after the August 28
 publication. Pure-Agent publication is allowed by the cap but is not required;
 prefer the technically stronger question after applying the evidence, novelty,
 and editorial-mix gates.

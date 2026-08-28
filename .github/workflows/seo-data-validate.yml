@@ -97,10 +97,14 @@ jobs:
           assert "`no-report`" in daily_flat and "not completion" in daily_flat
           assert "There is no `no-report` outcome" in report_flat
 
-          # Topic mix is a repository-enforced editorial contract.
+          # Topic mix and one current series are repository-enforced editorial contracts.
           assert "5–7 of 10" in series_flat
           assert "Pure AI-agent topics are capped at 1–2 of 10" in series_flat
-          assert "Active series — eBPF Observability and Profiling" in series_flat
+          active_series = [
+              line for line in series.splitlines()
+              if line.startswith("## Active series — ")
+          ]
+          assert len(active_series) == 1, active_series
           PY
 
       - name: Set up Python
