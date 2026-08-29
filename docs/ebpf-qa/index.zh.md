@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [非特权容器能否创建自己的 BPF token？](/zh/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/)
 - [为什么单次 compare-and-swap 会在竞争下丢失原子 min/max 更新？](/zh/ebpf-qa/2026-08-26-atomic-min-max-cas-contention/)
 - [没有 systemd 时，怎样在开机后启动 `sched_ext` 调度器？](/zh/ebpf-qa/2026-08-25-sched-ext-boot-without-systemd/)
 - [为什么 syscall rewriting trampoline 会让 `clone` 或 `clone3` 创建的线程崩溃？](/zh/ebpf-qa/2026-08-24-clone-syscall-trampoline-child-stack/)

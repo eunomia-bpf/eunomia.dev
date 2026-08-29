@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Can an unprivileged container create its own BPF token?](/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/)
 - [Why can a single compare-and-swap lose atomic min/max updates under contention?](/ebpf-qa/2026-08-26-atomic-min-max-cas-contention/)
 - [How can you start a `sched_ext` scheduler at boot without systemd?](/ebpf-qa/2026-08-25-sched-ext-boot-without-systemd/)
 - [Why can a syscall-rewriting trampoline crash threads created by `clone` or `clone3`?](/ebpf-qa/2026-08-24-clone-syscall-trampoline-child-stack/)
