@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-25",
+  "last_checked": "2026-08-28",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,16 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-28",
+      "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_staged_and_public_page_full_scroll_dom_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7679000152964153353",
+      "article_url": "https://juejin.cn/post/7679000152964153353",
+      "review_status": "confirmed",
+      "visible_comments": 0,
+      "notes": "The normal visible authored profile was checked across all five pages before submission and contained no exact-title or same-source duplicate. Published through the visible Juejin editor in the authenticated Chrome Yunwei profile with category 人工智能; tags Linux, 人工智能, 性能优化; and a complete 89-character summary. The source H1 is carried by the title field, and the remaining body matches the canonical Chinese source after mechanically removing front matter and the excerpt marker. The staged page initially showed 审核中, then redirected to the public /post URL. Full visible-page scrolling and DOM QA confirmed the exact title, 22 body headings, 12 language-labeled code blocks, 17 tables, all six source link targets, no inline source images, the three intended tags, zero comments, and no failure or review marker. No Juejin API or hidden endpoint was used."
+    },
     {
       "checked_at": "2026-08-25",
       "checked_via": "normal_visible_public_article_dom_and_media_qa",
@@ -131,6 +141,15 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7679000152964153353",
+      "status": "confirmed",
+      "title": "CPU 噪声会拖慢 GPU 推理吗：用 eBPF 定量测量调度器与 IRQ 影响",
+      "url": "https://juejin.cn/post/7679000152964153353",
+      "source_path": "docs/blog/posts/cpu-noise-gpu-inference.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_dom_qa",
+      "notes": "Published and confirmed public on 2026-08-28. Category 人工智能; tags Linux, 人工智能, 性能优化. The visible article preserves the exact title and substantively unchanged body with 22 body headings, 12 language-labeled code blocks, 17 tables, all six source link targets, no inline source images, zero comments, and no failure or review marker."
+    },
     {
       "id": "juejin-7677218586263912482",
       "status": "confirmed",

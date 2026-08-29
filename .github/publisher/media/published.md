@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-26
+Last checked: 2026-08-28
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -55,10 +55,11 @@ Repo-referenced Zhihu URLs that should be kept but may need ownership/date verif
 
 Profile checked: <https://juejin.cn/user/4288563097635144/posts>
 
-Normal in-app browser pagination covered all four visible article pages and collected 40 unique authored article links. A 2026-07-25 profile check showed 41 public articles. On 2026-07-29, a visible first-page duplicate check found BPFix as the newest public article. Tutorial 53 was confirmed public on 2026-08-24 after platform review. The machine ledger remains conservative: submissions under platform review are not counted as confirmed source coverage.
+Normal visible browser pagination covered the complete authored article list. On 2026-08-28, all five visible profile pages were checked before publishing the CPU noise article; the new article then appeared as the newest item and brought the visible profile total to 47. The machine ledger remains conservative: submissions under platform review are not counted as confirmed source coverage.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | CPU 噪声会拖慢 GPU 推理吗：用 eBPF 定量测量调度器与 IRQ 影响 | <https://juejin.cn/post/7679000152964153353> | Published 2026-08-28 from `docs/blog/posts/cpu-noise-gpu-inference.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `人工智能`; tags `Linux`, `人工智能`, `性能优化`; full visible-page scrolling and public-page QA confirmed the exact title, 22 body headings, 12 language-labeled code blocks, 17 tables, all 6 source link targets, no inline source images, 0 comments, and no failure or review marker |
 | Confirmed | eBPF 教程：用 BPF Qdisc 实现出口限速 | <https://juejin.cn/post/7677218586263912482> | Submitted 2026-08-23 and confirmed public 2026-08-24 from `docs/tutorials/53-egress-pacer/README.zh.md`; category `后端`; tags `Linux`, `开源`, `云原生`; public-page QA confirmed the exact title, 11 body headings, 9 code blocks, 1 table, source and reference links, and 0 comments; the temporarily missing Juejin-hosted diagram rendered correctly on the 2026-08-25 recheck without an article edit |
 | Confirmed | eBPF 教程：使用 fsession 追踪慢速 vfs_read 调用 | <https://juejin.cn/post/7673940698534232064> | Submitted 2026-08-15 and confirmed public 2026-08-16 from `docs/tutorials/52-fsession-latency/README.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `后端`; tags `Linux`, `云原生`; the public page preserves the exact title and complete body with 18 body headings, 20 code blocks, 1 table, 9 article links including source and references, no loading-error marker, and 0 comments |
 | Confirmed | eBPF 教程：精准隔离已建立的 TCP 连接 | <https://juejin.cn/post/7671185597861675008> | Submitted and confirmed public 2026-08-07 from `docs/tutorials/51-tcp-quarantine/README.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `后端`; tags `Linux`, `开源`, `安全`; the public page preserves the exact title and complete body with 15 body headings, 9 code blocks, 1 table with 7 rows, 6 source links, no source image placeholders, and 0 comments |
