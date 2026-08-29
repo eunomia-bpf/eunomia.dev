@@ -194,9 +194,10 @@ composition, zero-copy ownership, temporal state verification, revocation,
 complete mediation, or proxy identity continuity with a different product
 example alone.
 
-Before and after the August 28 publication, the newest ten contain **7
-eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
-report ages another eBPF-centered report out of the rolling ten.
+A direct recount on `2026-08-29` corrected the previous rolling-window arithmetic.
+Immediately before the August 29 publication, the newest ten contain **8
+eBPF-centered / 0 pure Agent / 2 adjacent systems**, not `7 / 0 / 3`. This is an
+operating-record correction only; no report classification changed.
 
 ## Completed series — eBPF Observability and Profiling
 
@@ -352,12 +353,44 @@ roadmap, but they predate activation and do not count as progress in the new
 normal sequence. They establish two boundaries that should not simply be
 repeated: kernel launch-latency attribution and host/device causal tracing.
 
-The series becomes active after the `2026-08-28` Networking and Security report
-reaches that series' normal six-report boundary. Preferred next questions are
-runtime or device-side programmability boundaries, memory-placement/movement
-semantics, fine-grained GPU execution observability distinct from the August 20
-reports, and distributed GPU coordination only where a concrete runtime invariant
-can be tested.
+The series became active after the `2026-08-28` Networking and Security report
+reached that series' normal six-report boundary.
+
+The `2026-08-29` report is the first substantial post-activation contribution. It
+asks what evidence a GPU runtime needs before migrating, evicting, prefetching,
+replicating, or remotely mapping Unified Memory pages under HBM oversubscription.
+Recent systems add sampled resident-page activity, compiler-derived access
+semantics, object/phase behavior, or future scheduling knowledge because a demand
+fault alone does not reveal future reuse. The report develops evidence-carrying
+placement decisions, placement intent with observable compliance, and a
+counterexample benchmark that measures decision regret while progressively
+revealing richer evidence. It is adjacent systems because eBPF is optional
+instrumentation rather than the central mechanism.
+
+### Published progress
+
+1. `2026-08-29`: `/research/gpu-memory-placement-evidence/` separates address
+   validity and demand faults from the evidence needed to make a placement
+   decision under oversubscription. It compares CUDA UVM, Linux HMM, HIP managed
+   memory, sampled resident-page observability, compiler/object semantics, and
+   schedule-aware memory management, then proposes an evidence-to-decision
+   contract and fixed-budget evaluation. It is adjacent systems.
+
+After the August 29 publication, the newest ten contain **8 eBPF-centered / 0
+pure Agent / 2 adjacent systems**. The adjacent report displaces one of the two
+August 20 adjacent GPU reports, so the rolling mix does not change today. This is
+one eBPF report above the normal target band. An adjacent report on the next
+normal run would displace the remaining August 20 adjacent report and still leave
+**8 / 0 / 2**. A second consecutive adjacent report after that would displace the
+August 21 eBPF report and restore **7 / 0 / 3**. Prefer genuinely adjacent
+GPU/runtime questions over the next two normal runs when the quality gates permit;
+do not repair the ratio through classification.
+
+Preferred next questions are runtime/device-side programmability boundaries,
+fine-grained GPU execution observability distinct from the August 20 reports,
+and distributed GPU coordination only where a concrete runtime invariant can be
+tested. A second memory-placement report should be selected only if it advances a
+different mechanism rather than repeating evidence quality or eviction policy.
 
 ## Queued series — Agent Systems (limited)
 

@@ -9,48 +9,61 @@
 - Verified raw Google export window: through `2026-08-23`
 - Search Console verified latest finalized row: `2026-08-22`; `2026-08-23` is absent
 - Latest finalized GA4 weekly organic landing-page aggregate: `2026-08-17` through `2026-08-23`
-- Latest completed daily record before the current run: `2026-08-27`
-- Last completed Daily Report pull request: `#177`
-- Last verified Daily Report squash commit: `009d8c058bc5013c7ef41bcbcb71ce91868c95bc`
-- Last verified production publication from a Daily Report run: static export commit `3eac9b9cd9e6296693c3a8083d9c0bae35aaa6a3`
-- Current daily branch: `daily/2026-08-28-ebpf-l7-policy-identity`
+- Latest completed daily record before the current run: `2026-08-28`
+- Last completed Daily Report pull request: `#178`
+- Last verified Daily Report squash commit: `201133f68661952596fa5489c621d08ffce685da`
+- Last verified production publication from a Daily Report run: static export commit `8a470b4c4510ae09397112335d4d7a94781e6af4`
+- Current daily branch: `daily/2026-08-29-gpu-memory-placement-evidence`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR `#177` is fully closed out. It squash-merged as
-`009d8c058bc5013c7ef41bcbcb71ce91868c95bc`; exact-merge `Validate SEO Operations`
-run `33091574557` and `Deploy Static App` run `33091574546` succeeded. Production
-published static export commit `3eac9b9cd9e6296693c3a8083d9c0bae35aaa6a3`, whose commit message binds the
-export to that squash SHA. Exact EN/ZH production artifacts and sitemap entries
-were verified, and PR `#177` has exactly one merged-PR closeout comment.
+PR `#178` is fully closed out. It squash-merged as
+`201133f68661952596fa5489c621d08ffce685da`; exact-merge `Validate SEO Operations`
+run `33189308226` and `Deploy Static App` run `33189308343` succeeded. Production
+published static export commit `8a470b4c4510ae09397112335d4d7a94781e6af4`,
+whose commit message binds the export to that squash SHA. Exact EN/ZH production
+artifacts and sitemap entries were verified, and PR `#178` has exactly one
+merged-PR closeout comment.
 
 ## Current Daily Report mix
 
-Before the `2026-08-28` report, the actually published newest ten reports are:
+A direct recount of the actually published Daily Report index on `2026-08-29`
+corrects the stale `7 / 0 / 3` operating record. Before today's report, the newest
+ten are:
 
-- eBPF-centered: **7 of 10**
+- eBPF-centered: **8 of 10**
 - pure Agent-centered: **0 of 10**
-- adjacent systems: **3 of 10**
+- adjacent systems: **2 of 10**
 
-Today's `/research/ebpf-l7-proxy-policy-identity/` report is **eBPF-centered**. It
-asks whether the original principal, policy generation, and authorization
-provenance survive when an eBPF datapath redirects a request through an L7 proxy
-that terminates the downstream connection and emits or reuses a different
-upstream connection. It develops generation-scoped handoff capabilities,
-policy-safe multiplexing, and an authorization-lineage benchmark. The incoming
-report ages another eBPF-centered report out, so the newest ten remain **7 eBPF /
-0 pure Agent / 3 adjacent**.
+Today's `/research/gpu-memory-placement-evidence/` report is **adjacent systems**.
+Its central mechanism is GPU Unified Memory placement under oversubscription: it
+compares demand faults, sampled resident-page activity, object/phase semantics,
+and scheduling knowledge, then develops evidence-carrying placement records,
+placement intent with observable compliance, and a fixed-budget decision-regret
+benchmark. eBPF can contribute instrumentation but is not required by the
+mechanism, so reclassifying the report as eBPF-centered would be inaccurate.
 
-This is the sixth substantial report in **eBPF Networking and Security**, reaching
-the normal series boundary. After this publication, the already queued **GPU and
-Heterogeneous Runtime Systems** roadmap becomes the next active series. Reports
-in that series count as eBPF-centered only when eBPF or an eBPF-like runtime is
-central to the mechanism being evaluated.
+The incoming adjacent report displaces one of the two August 20 adjacent GPU
+reports, so after publication the mix remains **8 eBPF / 0 pure Agent / 2
+adjacent**. This is one eBPF report above the repository target band. A single run
+cannot repair it without publishing more than one report or misclassifying
+content. An adjacent report on the next normal run would displace the remaining
+August 20 adjacent report and still leave **8 / 0 / 2**; a second consecutive
+adjacent report after that would displace the August 21 eBPF report and restore
+**7 / 0 / 3**. Prefer genuinely adjacent GPU/runtime questions over the next two
+normal runs when the quality gates permit; do not repair the ratio through
+classification.
+
+**GPU and Heterogeneous Runtime Systems** is now the active normal series. The
+August 20 GPU launch-latency and host/device-causality reports are useful anchors
+but predate activation. Today's memory-placement report is the first substantial
+post-activation contribution and is intentionally distinct from those profiling
+questions.
 
 ## Current signals
 
-- Google Drive configured evidence: directly reverified `2026-08-28`; the newest source-native weekly set remains `2026-08-17..23`
-- Public homepage: fresh public fetch on `2026-08-28` shows the expected Eunomia identity and Daily Report navigation
-- Public homepage project signal: `9,950+ GitHub stars` badge visible on the live site; used only as a public project signal, not an SEO causal metric
+- Google Drive configured evidence: directly reverified `2026-08-29`; the newest source-native weekly set remains `2026-08-17..23`
+- Fresh automated site brief generated `2026-08-29 13:14 UTC`: homepage `200`, robots `200`, sitemap `200`, and 710 sitemap entries observed
+- Public homepage: current live fetch shows expected Eunomia identity and Daily Report navigation
 - Canonical homepage: `https://eunomia.dev/`
 - Public GitHub repository evidence: available; private repository/account details are not copied into SEO records
 - Public web and primary-source evidence: available
@@ -76,8 +89,11 @@ The finalized GA4 `2026-08-17..23` aggregate remains **984 organic landing-page
 sessions** at about **49.29%** session-weighted engagement, including **118
 `(not set)` sessions**, versus **970 sessions** at about **44.95%** engagement for
 `2026-08-10..16`. Sessions are about **1.4% higher** and engagement about **4.34
-percentage points higher**. The weekly aggregate has no date dimension, so it
-does not support daily or within-week causal attribution.
+percentage points higher**. GPU/CUDA tutorial and profiling pages remain visible
+among meaningful organic landing pages, which supports the technical relevance
+of the active series but does not establish a causal SEO effect. The weekly
+aggregate has no date dimension, so it cannot support daily or within-week causal
+attribution.
 
 ## Current technical baseline
 
@@ -85,30 +101,23 @@ The repository generates sitemap, robots, canonical, `hreflang`, Open Graph,
 structured data, legacy redirect stubs, and static audit artifacts. Production
 deploys through `Deploy Static App`.
 
-Fresh live-site inspection and current repository/Google evidence do not establish
-a crawl, robots, sitemap, canonical, hreflang, structured-data, redirect,
-broken-link, rendering, accessibility, performance, or deployment defect that
-requires a separate technical SEO implementation change today.
-
-Current research evidence supports a narrower security gap instead. Cilium's
-current L7/Envoy/Ingress documentation exposes a real proxy handoff with eBPF
-policy lookups and two logical enforcement points; Linux sockmap/sockhash is
-socket-oriented; and L7FP demonstrates a current kernel-fast-path / proxy-slow-path
-split. The selected gap is authorization identity continuity across that semantic
-boundary rather than another path-coverage or placement problem.
+Fresh live-site inspection, the `2026-08-29` automated site brief, and current
+Google evidence do not establish a crawl, robots, sitemap, canonical, hreflang,
+structured-data, redirect, broken-link, rendering, accessibility, performance,
+or deployment defect that justifies a separate technical SEO implementation
+change today. The public web crawler's `/research/` snapshot can lag production;
+that cache is not treated as a site defect or as deployment evidence.
 
 The SEO skill submodule remains pinned at
-`516e9e2dcf012506a677a749049d64c5914643e9`. Upstream `main` is currently
-`f42128a3f05c73cf10c786a2711c488bb3a14839`, but the consuming repository still
-requires contract migration before a pointer-only update because the generic
-closeout workflow conflicts with this repository's explicit single-PR / single
-merged-PR-comment contract.
+`516e9e2dcf012506a677a749049d64c5914643e9`. The repository still requires a
+contract migration before a pointer-only update to a newer upstream layout, so no
+skill-submodule movement is part of this run.
 
 ## Current focus
 
-1. Complete the `2026-08-28` L7 proxy policy-identity Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
-2. After this sixth Networking and Security report, make **GPU and Heterogeneous Runtime Systems** the active normal series; keep actual report classification evidence-based and the rolling mix within 5–7 eBPF / at most 1–2 pure Agent per ten.
-3. Recheck Drive freshness every run; no weekly set newer than `2026-08-17..23` was observed on `2026-08-28`.
+1. Complete the `2026-08-29` GPU memory-placement Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
+2. Keep **GPU and Heterogeneous Runtime Systems** active. Prefer genuinely adjacent GPU/runtime questions over the next two normal runs when they pass the quality gates: the first would leave the newest-ten mix at `8 / 0 / 2`, while the second would rotate the August 21 eBPF report out and restore the target-compatible `7 / 0 / 3` without dishonest classification.
+3. Recheck Drive freshness every run; no weekly set newer than `2026-08-17..23` was observed on `2026-08-29`.
 4. Keep complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never fill missing date rows with zero.
 5. Use date-by-page or date-by-query evidence before attributing aggregate search movement to a page, title, or topic family.
 6. Treat finalized GA4 weekly movement as aggregate behavioral evidence, not a causal content or SEO result.

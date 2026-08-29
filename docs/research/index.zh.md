@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU 运行时只看页故障，能把内存放对地方吗？](https://eunomia.dev/zh/research/gpu-memory-placement-evidence/)
+
+GPU 显存超配会把 migration 和 eviction 都变成 policy decision。本文比较 fault、采样访问、object/phase 与 scheduling evidence，并提出携带证据的 placement record、可观测 compliance 的 placement intent，以及固定观测预算下测量 decision regret 的 counterexample benchmark。
+
 ### [eBPF 在 L7 代理交接时还能保住策略身份吗？](https://eunomia.dev/zh/research/ebpf-l7-proxy-policy-identity/)
 
 L7 proxy 会终止一条带策略身份的连接，再创建或复用新的上游连接，因此 socket identity 可能不再代表真正触发请求的 principal。本文提出 generation-scoped handoff capability、policy-safe multiplexing，以及检测 fast/slow path authorization-lineage violation 的 benchmark。
