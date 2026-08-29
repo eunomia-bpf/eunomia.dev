@@ -42,13 +42,16 @@ placement intent with observable compliance, and a fixed-budget decision-regret
 benchmark. eBPF can contribute instrumentation but is not required by the
 mechanism, so reclassifying the report as eBPF-centered would be inaccurate.
 
-The incoming adjacent report ages an older adjacent GPU report out of the newest
-ten, so after publication the mix remains **8 eBPF / 0 pure Agent / 2 adjacent**.
-This is one eBPF report above the repository target band. A single run cannot
-repair it without publishing more than one report or misclassifying content. The
-next normal run should prefer another genuinely adjacent question in the active
-GPU series; that will naturally rotate an older eBPF report out and return the
-window to **7 / 0 / 3**.
+The incoming adjacent report displaces one of the two August 20 adjacent GPU
+reports, so after publication the mix remains **8 eBPF / 0 pure Agent / 2
+adjacent**. This is one eBPF report above the repository target band. A single run
+cannot repair it without publishing more than one report or misclassifying
+content. An adjacent report on the next normal run would displace the remaining
+August 20 adjacent report and still leave **8 / 0 / 2**; a second consecutive
+adjacent report after that would displace the August 21 eBPF report and restore
+**7 / 0 / 3**. Prefer genuinely adjacent GPU/runtime questions over the next two
+normal runs when the quality gates permit; do not repair the ratio through
+classification.
 
 **GPU and Heterogeneous Runtime Systems** is now the active normal series. The
 August 20 GPU launch-latency and host/device-causality reports are useful anchors
@@ -113,7 +116,7 @@ skill-submodule movement is part of this run.
 ## Current focus
 
 1. Complete the `2026-08-29` GPU memory-placement Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
-2. Keep **GPU and Heterogeneous Runtime Systems** active. Prefer another genuinely adjacent GPU systems question next so the rolling newest-ten window returns from `8 / 0 / 2` to the target-compatible `7 / 0 / 3` without dishonest classification.
+2. Keep **GPU and Heterogeneous Runtime Systems** active. Prefer genuinely adjacent GPU/runtime questions over the next two normal runs when they pass the quality gates: the first would leave the newest-ten mix at `8 / 0 / 2`, while the second would rotate the August 21 eBPF report out and restore the target-compatible `7 / 0 / 3` without dishonest classification.
 3. Recheck Drive freshness every run; no weekly set newer than `2026-08-17..23` was observed on `2026-08-29`.
 4. Keep complete GSC 7-day and 28-day comparisons unavailable until source history supports them; never fill missing date rows with zero.
 5. Use date-by-page or date-by-query evidence before attributing aggregate search movement to a page, title, or topic family.
