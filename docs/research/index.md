@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can a GPU Runtime Place Memory Well With Only Page Faults?](https://eunomia.dev/research/gpu-memory-placement-evidence/)
+
+GPU memory oversubscription turns every migration and eviction into a policy decision. This report compares fault, sampled-access, object/phase, and scheduling evidence, then develops evidence-carrying placement records, placement intent with observable compliance, and a counterexample benchmark that measures decision regret under a fixed observability budget.
+
 ### [Can eBPF Keep Policy Identity Across an L7 Proxy Handoff?](https://eunomia.dev/research/ebpf-l7-proxy-policy-identity/)
 
 An L7 proxy terminates one policy-bound connection and emits or reuses another, so socket identity can stop representing the principal that caused an upstream request. This report develops generation-scoped handoff capabilities, policy-safe multiplexing, and a benchmark for authorization-lineage violations across fast and slow paths.
