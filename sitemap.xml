@@ -2877,15 +2877,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-26-atomic-min-max-cas-contention/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
