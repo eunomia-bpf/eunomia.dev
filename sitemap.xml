@@ -2891,6 +2891,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
     <lastmod>2026-08-29</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
