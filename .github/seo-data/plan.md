@@ -75,13 +75,16 @@ priorities that can guide a later daily run belong below.
    archive. A direct recount on `2026-08-29` corrected the stale `7 / 0 / 3`
    record: before today's publication the newest ten are **8 eBPF-centered / 0
    pure Agent / 2 adjacent systems**. Today's GPU memory-placement report is
-   adjacent systems and displaces an older adjacent GPU report, so the newest ten
-   remain **8 / 0 / 2**. This is one eBPF report above the target band and cannot
-   be repaired honestly in one run without misclassifying a report or publishing
-   more than the required one report. Prefer another genuinely adjacent GPU
-   systems question next; when today's report is followed by one adjacent report,
-   the rolling window naturally returns to **7 / 0 / 3** as an older eBPF report
-   rotates out.
+   adjacent systems and displaces one of the two `2026-08-20` adjacent GPU
+   reports, so the newest ten remain **8 / 0 / 2**. This is one eBPF report above
+   the target band and cannot be repaired honestly in one run without
+   misclassifying a report or publishing more than the required one report. An
+   adjacent report on the next normal run would displace the remaining August 20
+   adjacent report and still leave **8 / 0 / 2**; a second consecutive adjacent
+   report after that would displace the August 21 eBPF report and restore **7 / 0
+   / 3**. Prefer genuinely adjacent GPU/runtime questions over the next two
+   normal runs when the quality gates permit; never repair the ratio through
+   classification.
 2. Treat **eBPF Networking and Security** as complete at its normal six-report
    boundary after the `2026-08-28` proxy handoff report. The series covers
    multi-owner policy composition, zero-copy buffer ownership, temporal state
