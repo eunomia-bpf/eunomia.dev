@@ -377,11 +377,14 @@ instrumentation rather than the central mechanism.
    contract and fixed-budget evaluation. It is adjacent systems.
 
 After the August 29 publication, the newest ten contain **8 eBPF-centered / 0
-pure Agent / 2 adjacent systems**. The adjacent report displaces an older adjacent
-GPU report, so the rolling mix does not change today. This is one eBPF report
-above the normal target band. Do not repair it through classification. Prefer a
-second genuinely adjacent GPU/runtime report on the next normal run; it will age
-an older eBPF report out and return the rolling window to **7 / 0 / 3**.
+pure Agent / 2 adjacent systems**. The adjacent report displaces one of the two
+August 20 adjacent GPU reports, so the rolling mix does not change today. This is
+one eBPF report above the normal target band. An adjacent report on the next
+normal run would displace the remaining August 20 adjacent report and still leave
+**8 / 0 / 2**. A second consecutive adjacent report after that would displace the
+August 21 eBPF report and restore **7 / 0 / 3**. Prefer genuinely adjacent
+GPU/runtime questions over the next two normal runs when the quality gates permit;
+do not repair the ratio through classification.
 
 Preferred next questions are runtime/device-side programmability boundaries,
 fine-grained GPU execution observability distinct from the August 20 reports,
