@@ -72,22 +72,33 @@ priorities that can guide a later daily run belong below.
 ## Current priorities
 
 1. Preserve the rolling ten-report mix mechanically from the actually published
-   archive. Before and after the `2026-08-28` report, the newest ten remain **7
-   eBPF-centered / 0 pure Agent / 3 adjacent systems** because the incoming
-   eBPF-centered proxy-identity report ages another eBPF-centered report out.
+   archive. A direct recount on `2026-08-29` corrected the stale `7 / 0 / 3`
+   record: before today's publication the newest ten are **8 eBPF-centered / 0
+   pure Agent / 2 adjacent systems**. Today's GPU memory-placement report is
+   adjacent systems and displaces an older adjacent GPU report, so the newest ten
+   remain **8 / 0 / 2**. This is one eBPF report above the target band and cannot
+   be repaired honestly in one run without misclassifying a report or publishing
+   more than the required one report. Prefer another genuinely adjacent GPU
+   systems question next; when today's report is followed by one adjacent report,
+   the rolling window naturally returns to **7 / 0 / 3** as an older eBPF report
+   rotates out.
 2. Treat **eBPF Networking and Security** as complete at its normal six-report
-   boundary after the `2026-08-28` proxy handoff report. The series now covers
+   boundary after the `2026-08-28` proxy handoff report. The series covers
    multi-owner policy composition, zero-copy buffer ownership, temporal state
    correctness, revocation bounds, complete mediation across offload, and
    request/policy identity across an L7 proxy semantic boundary.
-3. Make the already queued **GPU and Heterogeneous Runtime Systems** roadmap the
-   next active normal series after the August 28 publication. Start with questions
-   where host/device runtime boundaries expose a concrete missing abstraction or
-   correctness guarantee. Count a report as eBPF-centered only when eBPF or an
-   eBPF-like runtime is central to the mechanism; otherwise classify it as
-   adjacent systems.
+3. Treat **GPU and Heterogeneous Runtime Systems** as the active normal series.
+   The `2026-08-29` report starts the post-activation sequence with GPU memory
+   placement under oversubscription: it compares page faults, sampled resident
+   access, object/phase semantics, and scheduling knowledge, then develops
+   evidence-carrying placement decisions, observable placement-intent compliance,
+   and a fixed-budget decision-regret benchmark. It is adjacent systems because
+   eBPF is not required by the central mechanism. Continue with distinct runtime,
+   fine-grained execution-observability, device-side programmability, or
+   distributed-GPU invariants rather than repeating the August 20 launch-latency
+   and host/device-causality reports.
 4. Use all verified weekly Search Console and GA4 Drive export sets in every run.
-   The configured folder was directly reverified on `2026-08-28`; the newest set
+   The configured folder was directly reverified on `2026-08-29`; the newest set
    remains `2026-08-17..23` and no later weekly set was observed.
 5. Treat the `2026-08-17..23` GA4 aggregate as finalized: 984 organic
    landing-page sessions at about 49.29% session-weighted engagement versus 970
