@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-28。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-30。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -12,7 +12,8 @@
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - 阻塞：知乎登录已失效；完成登录后恢复 tutorial 53，同一阻塞期间继续执行其他平台任务。
-- 补发缺口：无。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成；2026-08-24 的正常额度由教程 54 的 Medium 公开发布完成；2026-08-25 的正常额度由教程 54 的 DEV 公开发布完成；2026-08-26 的正常额度由教程 54 的 LinkedIn 公开发布完成；2026-08-27 的正常额度由 AgentCgroup 的 DEV 公开发布完成；2026-08-28 的正常额度由 CPU noise 的掘金公开发布完成。
+- 执行阻塞：掘金登录正常，但当前浏览器要求公开写入前即时确认；HID 教程的具体确认请求已于 2026-08-29 发出，尚无回复，不重复询问或改用隐藏接口。2026-08-30 已只读核对全部 47 篇文章和草稿箱，HID、AgentCgroup 均未发布，也未在审核中。
+- 补发缺口：1 条（2026-08-29）。2026-08-30 正常额度尚未消费。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成；2026-08-24 的正常额度由教程 54 的 Medium 公开发布完成；2026-08-25 的正常额度由教程 54 的 DEV 公开发布完成；2026-08-26 的正常额度由教程 54 的 LinkedIn 公开发布完成；2026-08-27 的正常额度由 AgentCgroup 的 DEV 公开发布完成；2026-08-28 的正常额度由 CPU noise 的掘金公开发布完成。
 - Ledger 基线：知乎有 39 个未映射中文源，掘金有 73 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
@@ -64,7 +65,7 @@
 - [x] `排队` DEV：`docs/blog/posts/agentcgroup-characterization.md`。2026-08-27 已公开：<https://dev.to/yunwei37/agentcgroup-what-happens-when-ai-agents-meet-os-resources-1h2f>；原标题、4 个标签、14 个正文标题、7 张表格、代码块、canonical notice、GitHub 与 arXiv 链接和完整结尾 QA 通过。
 - [ ] `排队` 知乎：`docs/tutorials/49-hid/README.zh.md`。
 - [x] `排队` Medium：`docs/blog/posts/cpu-noise-gpu-inference.md`。2026-08-27 对账确认此前已公开：<https://medium.com/@yunwei356/when-cpu-noise-slows-down-gpu-inference-measuring-scheduler-and-irq-impact-with-ebpf-be5bcdf1f98e>；未重复发布。
-- [ ] `排队` 掘金：`docs/tutorials/49-hid/README.zh.md`。
+- [ ] `阻塞` 掘金：`docs/tutorials/49-hid/README.zh.md`。2026-08-30 确认未公开；沿用 `draft/media/2026-08-29/49-hid/juejin.md`，收到已提出的浏览器即时确认回复后恢复提交，不另建重复稿。
 - [x] `排队` DEV：`docs/blog/posts/agent_sandbox.md`。2026-08-27 对账确认此前已公开：<https://dev.to/yunwei37/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance-2185>；未重复发布。
 - [ ] `排队` 知乎：`docs/blog/posts/agent_sandbox.zh.md`。
 - [x] `排队` Medium：`docs/blog/posts/agent-check-restore-safety.md`。2026-08-27 对账确认此前已公开：<https://medium.com/@yunwei356/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-b0d00f5e8b7b>；未重复发布。
