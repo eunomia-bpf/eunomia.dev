@@ -1,7 +1,7 @@
 ---
 date: 2026-08-30
 title: "Can GPU Instrumentation Change a Kernel Without Changing Its Meaning?"
-description: "Dynamic GPU binary instrumentation can observe code after SASS lowering, but probes can perturb registers, occupancy, and control flow. This report defines a safer contract."
+description: "GPU instrumentation observes SASS-level behavior, but probes may perturb registers, occupancy, and control flow. This report defines a runtime safety contract."
 tags:
   - Daily Report
   - GPU
