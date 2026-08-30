@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can GPU Instrumentation Change a Kernel Without Changing Its Meaning?](https://eunomia.dev/research/gpu-instrumentation-safety-contract/)
+
+Dynamic GPU instrumentation can inspect already compiled device code, but the probe itself can alter registers, occupancy, control flow, and measurement coverage. This report develops a probe-effect manifest, resource-budgeted instrumentation with explicit coverage, and a counterexample benchmark for observer-induced failures.
+
 ### [Can a GPU Runtime Place Memory Well With Only Page Faults?](https://eunomia.dev/research/gpu-memory-placement-evidence/)
 
 GPU memory oversubscription turns every migration and eviction into a policy decision. This report compares fault, sampled-access, object/phase, and scheduling evidence, then develops evidence-carrying placement records, placement intent with observable compliance, and a counterexample benchmark that measures decision regret under a fixed observability budget.
