@@ -5,20 +5,15 @@ already configured and enabled; it is not a blocker.
 
 ## Cloudflare analytics is not configured
 
-- Blocked action: source-native edge request, bot, cache, country, and status-code
-  analysis.
+- Blocked action: source-native edge request, bot, cache, country, and status-code analysis.
 - Evidence: Cloudflare remains disabled in `site.md`.
-- Impact: daily analysis can use Search Console, GA4, live-site, GitHub, and public
-  primary-source evidence, but cannot make Cloudflare-grounded traffic or cache
-  conclusions.
-- Minimal external action: authorize a supported read-only connector or export
-  route without committing zone IDs, credentials, private URLs, raw private data,
-  or personal information.
+- Impact: daily analysis can use Search Console, GA4, live-site, GitHub, and public primary-source evidence, but cannot make Cloudflare-grounded traffic or cache conclusions.
+- Minimal external action: authorize a supported read-only connector or export route without committing zone IDs, credentials, private URLs, raw private data, or personal information.
 
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-08-29`; it contains weekly export sets through
+directly rechecked on `2026-08-30`; it contains weekly export sets through
 `2026-08-17..23` and no newer set was observed.
 
 For Search Console, the verified latest date export contains rows through
