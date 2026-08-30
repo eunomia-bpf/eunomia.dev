@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU 插桩能改写内核，却不改变内核原本的行为吗？](https://eunomia.dev/zh/research/gpu-instrumentation-safety-contract/)
+
+动态 GPU 插桩可以直接观察已经编译好的设备代码，但探针本身也会改变寄存器、占用率、控制流与观测覆盖率。本文提出 probe-effect manifest、带资源预算和显式 coverage 的插桩机制，以及专门检测 observer-induced failure 的 counterexample benchmark。
+
 ### [GPU 运行时只看页故障，能把内存放对地方吗？](https://eunomia.dev/zh/research/gpu-memory-placement-evidence/)
 
 GPU 显存超配会把 migration 和 eviction 都变成 policy decision。本文比较 fault、采样访问、object/phase 与 scheduling evidence，并提出携带证据的 placement record、可观测 compliance 的 placement intent，以及固定观测预算下测量 decision regret 的 counterexample benchmark。
