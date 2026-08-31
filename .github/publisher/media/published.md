@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-30
+Last checked: 2026-08-31
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -59,8 +59,11 @@ Normal visible browser pagination covered the complete authored article list. On
 
 On 2026-08-30, all five authored-list pages were checked again before publishing AgentCgroup. No duplicate was found; the new public article passed full-scroll QA and appeared on the author profile after review.
 
+On 2026-08-31, the same visible duplicate and review checks preceded the HID tutorial publication. The public article passed full-scroll QA and became the newest item on the author profile.
+
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | eBPF 教程：无需内核补丁修复故障的 HID 设备 | <https://juejin.cn/post/7680099381967798307> | Published and confirmed public 2026-08-31 from `docs/tutorials/49-hid/README.zh.md` through the visible Juejin editor; category `后端`; tags `Linux`, `开源`, `后端`; full-scroll public-page QA confirmed the exact title, substantively unchanged body, 14 body headings, 14 code blocks, 9 source links, no inline images, the complete conclusion and final reference, and no review or loading-error marker; the author profile lists the public URL |
 | Confirmed | AgentCgroup：当 AI Agent 遇到操作系统资源 | <https://juejin.cn/post/7679373303883350059> | Published and confirmed public 2026-08-30 from `docs/blog/posts/agentcgroup-characterization.zh.md` through the visible Juejin editor; category `人工智能`; tags `Linux`, `人工智能`, `后端`; full-scroll public-page QA confirmed the exact title, complete body, 14 body headings, 7 tables, 1 Bash code block, all 8 source links, no inline images, and 0 comments; the review marker disappeared and the author profile lists the public URL |
 | Confirmed | CPU 噪声会拖慢 GPU 推理吗：用 eBPF 定量测量调度器与 IRQ 影响 | <https://juejin.cn/post/7679000152964153353> | Published 2026-08-28 from `docs/blog/posts/cpu-noise-gpu-inference.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `人工智能`; tags `Linux`, `人工智能`, `性能优化`; full visible-page scrolling and public-page QA confirmed the exact title, 22 body headings, 12 language-labeled code blocks, 17 tables, all 6 source link targets, no inline source images, 0 comments, and no failure or review marker |
 | Confirmed | eBPF 教程：用 BPF Qdisc 实现出口限速 | <https://juejin.cn/post/7677218586263912482> | Submitted 2026-08-23 and confirmed public 2026-08-24 from `docs/tutorials/53-egress-pacer/README.zh.md`; category `后端`; tags `Linux`, `开源`, `云原生`; public-page QA confirmed the exact title, 11 body headings, 9 code blocks, 1 table, source and reference links, and 0 comments; the temporarily missing Juejin-hosted diagram rendered correctly on the 2026-08-25 recheck without an article edit |

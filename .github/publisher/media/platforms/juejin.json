@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-30",
+  "last_checked": "2026-08-31",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,15 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-31",
+      "checked_via": "chrome_yunwei_visible_full_profile_duplicate_check_draft_review_check_editor_preview_submit_staged_and_public_page_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7680099381967798307",
+      "article_url": "https://juejin.cn/post/7680099381967798307",
+      "review_status": "confirmed",
+      "notes": "Checked all five visible authored-profile pages (48 articles) before submission; no exact-title or same-source HID duplicate. Article management showed one unrelated exec tutorial draft, 48 published articles, zero under review, and zero rejected. Submitted the exact source title and mechanically adapted body through the normal visible editor to yunwei37. Category 后端; tags Linux, 开源, 后端; complete 77-character summary. The staged page initially showed 审核中 and then redirected to the public /post URL with the marker removed. Editor preview, staged-page QA, full public-page scrolling, and author-list confirmation verified 14 body headings, 14 language-labeled code blocks, zero tables, all nine source links, no inline images, the intended tags, the complete conclusion and final reference, and no rendering or loading failure. No API or hidden endpoint was used."
+    },
     {
       "checked_at": "2026-08-30",
       "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_staged_and_public_page_full_scroll_qa",
@@ -151,6 +160,15 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7680099381967798307",
+      "status": "confirmed",
+      "title": "eBPF 教程：无需内核补丁修复故障的 HID 设备",
+      "url": "https://juejin.cn/post/7680099381967798307",
+      "source_path": "docs/tutorials/49-hid/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted and confirmed public on 2026-08-31. Category 后端; tags Linux, 开源, 后端. Exact title and substantively unchanged source body confirmed with 14 body headings, 14 code blocks, zero tables, nine source links, no inline images, the complete conclusion and final reference, and no review or loading-error marker. The author profile lists the public URL."
+    },
     {
       "id": "juejin-7679373303883350059",
       "status": "confirmed",
