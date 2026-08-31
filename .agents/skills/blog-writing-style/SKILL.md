@@ -3,6 +3,8 @@ name: blog-writing-style
 description: Detailed advisory prose and bilingual checklist for blog posts under docs/blog/posts/. Pure reference; contains no workflow. Use it when drafting or reviewing via blog-writer. Covers argument architecture, paper-to-blog transformation, paragraph load and rhythm, prose mechanics, blog antipatterns, length and richness, and Chinese-first bilingual writing. SEO/GEO guidance lives in the separate seo-geo skill.
 ---
 
+Never generate, refresh, compare, or record file/content hashes, checksums, or digests as workflow evidence or gates. Use semantic checks and ordinary file metadata instead. Git commit IDs and upstream revisions remain normal version bookkeeping.
+
 # Blog Style Checklist (advisory)
 
 This file is a repertoire of writing recommendations, not an acceptance gate or a workflow. Authors and reviewers should use judgment, and they may depart from any item when the source, topic, audience, or natural expression benefits. Emphatic wording such as “must,” “never,” “ban,” and numeric tripwires indicates the strength of a preference, not a deterministic failure condition and not a reason to add another review round. Record the reason only when a deliberate departure materially affects the post.

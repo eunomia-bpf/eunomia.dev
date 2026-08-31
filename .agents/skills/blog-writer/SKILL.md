@@ -3,6 +3,8 @@ name: blog-writer
 description: Fast, pinned-model workflow for writing or revising bilingual eunomia.dev posts under docs/blog/posts/. Codex drafts, one different model performs a reader-focused review and limited direct edit, then Codex validates and finishes. Style and SEO details live in the companion checklists.
 ---
 
+Never generate, refresh, compare, or record file/content hashes, checksums, or digests as workflow evidence or gates. Use semantic checks and ordinary file metadata instead. Git commit IDs and upstream revisions remain normal version bookkeeping.
+
 # Blog Writer
 
 Write or revise the requested post under `docs/blog/posts/`. English uses `post.md`; Chinese uses `post.zh.md`.

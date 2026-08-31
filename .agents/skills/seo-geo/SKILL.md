@@ -3,6 +3,8 @@ name: seo-geo
 description: SEO and GEO (generative engine optimization) rule checklist for eunomia.dev content, covering blog posts, docs pages, and landing pages. Pure reference; contains no workflow. Covers metadata (description, title, slug), keyword strategy, internal linking, citation-worthy writing for AI search engines, and syndication canonical discipline. Used alongside blog-writing-style by the blog-writer workflow.
 ---
 
+Never generate, refresh, compare, or record file/content hashes, checksums, or digests as workflow evidence or gates. Use semantic checks and ordinary file metadata instead. Git commit IDs and upstream revisions remain normal version bookkeeping.
+
 # SEO / GEO Checklist (rules only)
 
 This file is the rulebook for search and AI-engine visibility. It contains no process: workflows (blog-writer, site changes) reference it. Prose quality rules live in `blog-writing-style`.
