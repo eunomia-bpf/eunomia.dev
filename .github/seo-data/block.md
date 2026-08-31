@@ -13,7 +13,7 @@ already configured and enabled; it is not a blocker.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-08-30`; it contains weekly export sets through
+directly rechecked on `2026-08-31`; it contains weekly export sets through
 `2026-08-17..23` and no newer set was observed.
 
 For Search Console, the verified latest date export contains rows through
