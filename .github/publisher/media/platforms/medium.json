@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-24",
+  "last_checked": "2026-08-30",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -79,8 +79,8 @@
         "linux",
         "networking"
       ],
-      "checked_via": "medium_api_markdown_publish_and_visible_public_page_dom_qa",
-      "notes": "Published through the documented Medium API after authenticated-account, ledger, and visible-profile duplicate checks. Public-page QA confirmed the exact visible H1, the complete source body, nine code blocks, one loaded Medium-hosted diagram, source and reference links, and three tags. Medium flattened the environment requirements table into one readable but dense text line; the available browser sessions were signed out, so the editor repair remains a formatting follow-up and no duplicate publication was attempted."
+      "checked_via": "medium_api_markdown_publish_then_visible_editor_repair_and_signed_out_public_page_qa",
+      "notes": "Published through the documented Medium API after authenticated-account, ledger, and visible-profile duplicate checks. Public-page QA confirmed the exact visible H1, the complete source body, nine code blocks, one loaded Medium-hosted diagram, source and reference links, and three tags. On 2026-08-30, replaced only the flattened Environment Requirements table with an equivalent nine-item list through the signed-in Chrome editor. Compared the complete editor text before and after the replacement: all text outside that paragraph was unchanged. Saved to the existing story URL; a signed-out public-page reload confirmed all nine requirements, inline code formatting, the unchanged title, nine code blocks, and the loaded diagram. No new story was created."
     },
     {
       "id": "medium-46a312704a2c",

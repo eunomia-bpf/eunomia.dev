@@ -9,10 +9,10 @@ For full per-platform counts across all configured source files, run `python .gi
 ## Current Publisher Queue
 
 The machine ledger currently reports 39 unmatched Chinese sources on Zhihu and
-73 on Juejin. These raw counts include paused material, non-standalone index or
+72 on Juejin. These raw counts include paused material, non-standalone index or
 reference pages, and duplicate source representations. The ordered platform
 actions that remain suitable candidates are maintained one-by-one in
-`draft/plan/publishing-queue.zh.md`; 24 Zhihu and 44 Juejin tasks remain. Each
+`draft/plan/publishing-queue.zh.md`; 24 Zhihu and 43 Juejin tasks remain. Each
 checkbox is one platform task. The normal target is one publication per day;
 documented catch-up slots may add another platform, never a second post on the
 same platform that day.
@@ -25,8 +25,8 @@ included in this LinkedIn batch.
 Medium and DEV have completed the queued BPFix, tutorials 50 through 54,
 AgentCgroup, CPU noise, Agent Sandbox, ACRFence, and Runtime Security articles.
 Neither platform has an unfinished queue task. Raw unmatched-source counts do
-not authorize additional publication. Medium tutorial 53 still needs its
-flattened Requirements table repaired in place; do not create a duplicate.
+not authorize additional publication. Medium tutorial 53's flattened
+Requirements table was repaired in place on 2026-08-30; no duplicate was created.
 
 ## Additional Platform Status
 
@@ -35,8 +35,8 @@ flattened Requirements table repaired in place; do not create a duplicate.
 | X / Twitter | Several historical self-authored posts are confirmed on `@yunwei37`; see `published.md` | The configured/planned `@eaborai` account currently showed `此账号不存在`; no full X archive export was done | Replace or verify `@eaborai` in planning/metadata; paginate/export `@yunwei37` before declaring full X history complete |
 | LinkedIn | Normal visible browser checks confirmed the `Yusheng Zheng` / `yunwei37` profile and tutorial 50-54 shares; see `platforms/linkedin.json` | Machine ledger maps 11/124 English sources; no unfinished LinkedIn queue task | Monitor existing posts; unmatched sources are not automatic publication tasks |
 | Zhihu | Normal visible browser checks confirmed the fsession tutorial publication on 2026-08-14; machine ledger maps 68/107 Chinese sources | 39 configured Chinese sources remain unmatched | Publish only ledger-confirmed gaps and recheck the visible title immediately before submission |
-| Juejin | CPU noise was confirmed public on 2026-08-28; machine ledger maps 34/107 Chinese sources | 73 configured Chinese sources remain unmatched; 44 tasks remain in the rolling queue | Use the existing HID tutorial artifact for the next eligible task; check for a public duplicate immediately before submission |
-| Medium | All currently queued English articles are confirmed in `platforms/medium.json` | Tutorial 53 Requirements formatting remains unresolved | Repair the existing article through its signed-in editor; do not republish it |
+| Juejin | AgentCgroup was confirmed public on 2026-08-30; machine ledger maps 35/107 Chinese sources | 72 configured Chinese sources remain unmatched; 43 tasks remain in the rolling queue | Use the existing HID tutorial artifact for the next eligible platform day; check for a public duplicate immediately before submission |
+| Medium | All currently queued English articles are confirmed in `platforms/medium.json`; tutorial 53 formatting repair passed public QA on 2026-08-30 | No unfinished Medium queue task or known tutorial 53 formatting defect | Monitor existing articles; do not republish completed items |
 | DEV Community | AgentCgroup was confirmed public on 2026-08-27; all current DEV queue items are complete | No unfinished DEV queue task | Monitor the confirmed public pages; queue new sources only when separately authorized |
 | Reddit | Historical `u/yunwei123` posts are confirmed for eBPF tutorial, GPTtrace, Code-Survey-like discussion, and Wasm-bpf; see `published.md` | No evidence yet that current 2026 flagship posts were submitted to r/eBPF, r/netsec, r/LocalLLaMA, HN, or lobste.rs | Use Reddit only manually for flagship posts; check subreddit fit before posting |
 | Xiaohongshu / RedNote | None confirmed | No account URL or published note URL found; current browser search requires login; public search found no clear `eunomia.dev` / `eunomia-bpf` / `bpftime` / `AgentSight` result | Treat as not started; create account and visual-note workflow only after there is image-card/video capacity |

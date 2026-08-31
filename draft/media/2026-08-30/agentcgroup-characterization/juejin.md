@@ -1,0 +1,212 @@
+<!--
+Juejin publication metadata
+Source: docs/blog/posts/agentcgroup-characterization.zh.md
+Title: AgentCgroup：当 AI Agent 遇到操作系统资源
+Category: 人工智能
+Tags: Linux, 人工智能, 后端
+Summary: AgentCgroup 刻画 AI Agent 的突发资源行为，通过 eBPF、sched_ext 和 cgroup v2 在工具调用粒度控制 CPU 与内存，保留 Agent 的执行状态。
+Media: no inline images in the canonical source
+Body: canonical Chinese source with YAML front matter, repeated H1, and excerpt marker removed mechanically; no substantive changes
+Staged URL: https://juejin.cn/spost/7679373303883350059
+Public URL: https://juejin.cn/post/7679373303883350059
+Status: submitted and confirmed public on 2026-08-30
+QA: all five visible authored-profile pages checked before submission with no exact-title or same-source duplicate. Visible editor preview, full-scroll staged-page QA, and public-page QA preserve the exact title, 14 body headings, 7 tables, 1 Bash code block, all 8 source links (5 distinct targets), 0 inline images, and the intended tags. The staged page redirected to the public URL with the review marker removed; the author profile now lists that public URL. Public-page scrolling confirmed the rendered body through the conclusion and zero comments, with no rendering or loading failure. Do not resubmit.
+-->
+
+一个 AI Agent 安静地读了几分钟代码，改完文件后启动 `pytest`。测试进程加载依赖时，内存可能在一秒内增加数百 MB，命令退出后又迅速回落。容器级控制器只看到整个工作负载越过阈值，却分不清这次突发来自短命的工具进程，而长时间运行的 Agent 运行时还保存着对话、诊断过程和未完成的修改。
+
+为了知道这种情况多常见，我们使用两个 LLM 后端运行了 144 个 SWE-rebench 任务。容器初始化和工具执行等 OS 工作占端到端延迟的 55% 到 60%，内存峰值达到平均值的 15.4 倍，亚秒级变化速度最高为 3 GB/s。即使同样标记为 Bash 的两次调用，内存需求也可能相差 13.7 倍，因为一条命令只是运行 `git status`，另一条却启动整套测试。Token 数量几乎无法预告下一次峰值，它与峰值内存的相关性在 Haiku 上为 -0.14，在 GLM 上为 +0.02。
+
+静态分配很难处理这种组合。按观察到的峰值预留资源，会在安静阶段浪费最多 93% 的已配置容量；在峰值时杀掉容器，又会丢掉 Agent 已经积累数分钟且无法确定性重放的状态。[AgentCgroup 论文](https://arxiv.org/abs/2602.09345)从这些测量出发，设计了一个能够在工具调用粒度响应的 eBPF 资源控制器。
+
+> 论文: [*AgentCgroup: Understanding and Controlling OS Resources of AI Agents*](https://arxiv.org/abs/2602.09345)
+>
+> GitHub: [github.com/eunomia-bpf/agentcgroup](https://github.com/eunomia-bpf/agentcgroup)
+
+## 跟着 Agent 从编辑走到测试
+
+为了把 `pytest` 突发对应到真正触发它的进程，我们对 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 进行了插桩，让它运行来自 [SWE-rebench](https://github.com/swe-bench/SWE-ReB) 的 144 个软件工程任务。轨迹同时保存工具调用边界与一秒粒度的 CPU、内存采样，因此容器内存的每次上升都能对应到当时执行的命令。实验覆盖两个 LLM 后端：
+
+- Claude Haiku 4.5（云端 API）：LLM 推理运行在 Anthropic 云端；容器内只运行 Agent 框架和工具调用。
+- GLM-4.7-Flash（本地 GPU）：LLM 推理运行在本地 GPU；所有执行都发生在同一台机器上。
+
+两组实验使用完全相同的 Agent 框架（Claude Code，基于 Node.js）。唯一不同的是底层模型，以及推理发生在云端还是本地。这让我们能够隔离模型选择对容器层资源动态的影响。
+
+### 如何捕获这次 Burst
+
+| 组件 | 细节 |
+|-----------|---------|
+| 平台 | Intel Core Ultra 9 285K（24 核，5.8 GHz），128 GB DDR5，Ubuntu 24.04.3 LTS |
+| 内核 | Linux 6.15.11，启用 cgroup v2 |
+| 容器运行时 | Podman（无 root 权限，隔离容器） |
+| Agent 框架 | Claude Code（Node.js） |
+| 模型 | Haiku 4.5（云端 API，33 个任务）+ GLM-4.7-Flash（本地 GPU，111 个任务） |
+| 基准测试 | SWE-rebench（来自开源项目的真实 GitHub issue） |
+| 监控 | 通过 `podman stats` 以 1 秒间隔采样 CPU/内存 |
+| 轨迹记录 | 从 Agent 执行轨迹中提取工具调用边界（类型、开始/结束时间戳） |
+
+这些任务覆盖 CLI 工具、构建系统、科学与医疗代码、数据处理和 Web 项目，并包含三个难度等级。刻画阶段不施加资源限制，因为控制器做出处理决定之前，需要先看到未受约束的真实峰值。
+
+## 工具调用才是峰值的来源
+
+开头那个 `pytest` 进程并非隐藏在模型推理下面的偶发现象。两个后端的端到端时间大多花在启动环境和运行工具上，操作系统因此直接位于关键路径。
+
+### 大部分时间花在模型之外
+
+与“LLM 才是瓶颈”这个直觉相反，我们的测量显示，LLM 推理只占端到端任务延迟的 40-45%。剩下的 55-60% 都是 OS 层开销：
+
+| 延迟组成 | Haiku | GLM |
+|-------------------|-------|-----|
+| 容器与 Agent 初始化 | 47.7% | 31.0% |
+| 工具执行 | 10.4% | 24.1% |
+| LLM 推理 | 41.9% | 44.9% |
+
+单是容器启动平均就需要 26.5 秒（中位数 23.0 秒，最大 97 秒）。主要原因是 Podman 对 overlay 层进行用户命名空间 ID 重映射，这个过程随镜像大小增长。SWE-rebench 的容器镜像大小在 2.9 GB 到 17.3 GB 之间（中位数 3.5 GB），大约是典型微服务镜像的 7 倍、serverless 函数的 70 倍，因此初始化开销非常可观。
+
+每个任务随后会存活 5 到 11 分钟，把 LLM 上下文、代码修改和工具结果保存在一个有状态进程中。Bash 与子 Agent 调用占工具时间的 90% 以上，不过 Haiku 会把更多工作交给子 Agent，GLM 则几乎全部通过本地 Bash 完成。控制器因而需要保护长时间运行的运行时，同时区分同一个 Bash 工具下面需求完全不同的命令。
+
+### 沿着 Bash 再往下一层
+
+工具名称仍然无法说明资源需求。把 Bash 调用按命令语义拆开后，时间分布如下：
+
+| Bash 类别 | Bash 时间占比（Haiku） | Bash 时间占比（GLM） |
+|---------------|------------------------|----------------------|
+| 测试执行（pytest、unittest 等） | 72.9% | 43.7% |
+| Python 片段 | n/a | 26.9% |
+| 依赖安装 | 10.8% | 10.1% |
+| Git 操作 | <5% | <5% |
+| 文件探索 | <5% | <5% |
+
+测试执行占据绝对主导地位。而下一节会看到，它同时也是资源消耗最重的类别。
+
+如果把一次执行过程分成十个等长阶段，工具调用还会呈现清晰的先后顺序：
+
+- 理解阶段（0-30%）：读取操作占主导，用于代码探索。
+- 修改阶段（30-70%）：编辑操作分布在整个中段；Bash 开始上升。
+- 验证阶段（40-100%）：Bash 达到高峰，主要来自反复测试执行和调试。
+
+这个阶段特征与人类软件工程中的“理解、修改、验证”流程一致，也为阶段感知资源控制提供了依据。
+
+## 突发结束得比容器控制器的调整更快
+
+在我们的 24 核平台上，即使并发数量已经达到内存上限，CPU 仍保持在 36% 以下。每个任务的峰值内存达到 2 到 4 GB，按峰值给每个容器分配资源会先耗尽整台机器的内存，同时留下大量空闲 CPU。轨迹给出了原因：一层稳定内存需要保护，另一层只在工具执行时短暂出现。
+
+### 保护 185 MB 的有状态基线
+
+Agent 内存由两层组成。开头的 `pytest` 属于短暂出现的一层，对话与框架则位于下面的稳定层。
+
+第一层是框架基线（约 185 MB）：Node.js 运行时、V8 JIT 缓存和 Agent 框架状态会在整个执行过程中维持一个稳定且不可压缩的内存底座，即使处于没有工具活动的 LLM 推理阶段也是如此。在全部 144 个任务中，执行早期内存平均值为 183 MB（Haiku）和 188 MB（GLM）。
+
+第二层是工具调用突发（500 MB 到 2+ GB）：测试执行、依赖安装和数据处理会制造短暂峰值，通常只持续 1-2 秒，然后回落到约 185 MB 的基线。
+
+当我们按执行进度归一化并聚合全部 144 个任务的内存轨迹时，模式很清楚：前半段执行稳定在 185-200 MB 基线；后半段方差逐渐增大并出现大峰值，对应 Bash 密集的验证阶段。
+
+在多租户部署中，64 个并发实例仅框架基线就需要约 12 GB 内存。叠加在基线之上的工具调用突发才是真正的资源管理挑战，而且它们需要与稳定基线不同的处理方式。
+
+把每个样本对应到当时的工具调用后，内存突发相对工具执行时间的集中程度达到 1.9 倍。CPU 突发更分散，尤其是本地推理还会带来后台 CPU 负载，因此 CPU 和内存需要各自的控制信号。
+
+### 静态限制没有合适的设置
+
+工具驱动的内存层变化得比容器级策略预期更快：
+
+- 最大内存变化率：3 GB/s
+- 最大 CPU 变化率：>50%/s
+- 突发持续时间：通常 1-2 秒
+
+我们观察到的最高案例是一个 pydicom 生物信息学任务（Medical_Bio_Hard）：峰值内存达到 4060 MB，而平均值只有 264 MB，峰值/平均值比为 15.4 倍。这个 4 GB 峰值大约只持续 1-2 秒，然后回落到 230 MB 基线。
+
+如果按照 4060 MB 峰值给 pydicom 容器分配内存，它在通常只有 264 MB 的阶段会浪费 93% 的容量。把限制设在平均值附近，又会让一秒钟的工具突发触发 OOM 终止，并丢掉需要保护的基线。策略需要辨认制造临时内存层的具体命令，因此我们继续比较 Bash 内部的内存峰值：
+
+| Bash 类别 | P95 内存峰值（Haiku） | P95 内存峰值（GLM） | 平均 CPU 峰值 |
+|---------------|--------------------------|------------------------|---------------|
+| 测试执行（pytest 等） | 518 MB | 234 MB | +3.2% |
+| 依赖安装 | 233 MB | n/a | 中等 |
+| Git 操作 | 13.5 MB | n/a | 很小 |
+| 文件探索 | 4.5 MB | n/a | 很小 |
+
+医疗与生物信息学命令的平均峰值达到 4 GB，Web 和网络命令则为 291 MB。Bash 级预算仍会把 `ls`、`git status` 与 `pytest` 放在一起，真正有用的边界位于实际命令进程。CPU 也无法代替内存作为信号，因为不同任务中两者的相关性从 -0.84 到 +0.50 不等。
+
+## 下一次 pytest 不会复现上一次的轨迹
+
+如果昨天的轨迹能够预测明天的峰值，静态限制仍可能奏效。把完全相同的 `iterative/dvc#777` 任务运行三次，可以看到 Agent 为什么无法依赖这段历史：
+
+| 运行 | 执行时间 | 解决策略 |
+|-----|----------------|-------------------|
+| 1 | 402 秒 | 策略 A（不同文件修改） |
+| 2 | 222 秒 | 策略 B（不同方法） |
+| 3 | 259 秒 | 策略 C（不同文件数量） |
+
+这意味着执行时间有 1.8 倍差异，而且每次的解题策略完全不同。这种非确定性来自 LLM 推理的随机性和决策路径多样性：Agent 每次运行都可能选择完全不同的代码修改、工具序列和调试路径。
+
+模型自身的活动同样很难提前预警。LLM 可观测指标与实际资源消耗的相关性依然很弱：
+
+| 代理指标与目标 | Haiku（r） | GLM（r） |
+|-----------------|-----------|---------|
+| 输出 token 与峰值内存 | -0.14 | +0.02 |
+| 对话轮数与执行时间 | +0.57 | +0.82 |
+| 对话轮数与峰值内存 | +0.02 | +0.11 |
+
+输出 token 数与峰值内存几乎没有相关性。即使对话轮数对执行时间有中等预测能力，它也无法预测内存。资源消耗由实际执行的工具决定，例如 pytest 还是文件读取，而不是由 LLM 推理的规模决定。这意味着，即使能够预测一个 Agent 会“思考”多久，也仍然无法预测它需要多少内存。
+
+熟悉的“编辑、测试、失败、重试”循环还会继续改变资源轨迹：
+
+| 指标 | Haiku | GLM |
+|--------|-------|-----|
+| 存在重试循环的任务（连续 3 次以上相同的 Bash 调用） | 85%（28/33） | 97%（108/111） |
+| 每个任务的平均重试组数 | n/a | 3.9 |
+| 最大连续重试次数 | n/a | 56 |
+| 重试消耗的执行时间 | 7.4% | 20.5% |
+
+“执行测试、观察失败、修改代码、再次测试”的迭代循环是 Agent 的行为签名。每次重试都会保留之前的内存上下文而不做清理，导致渐进式内存积累。在我们观察到的最坏情况下，未释放内存最高达到 502 MB。这意味着，执行早期足够的内存限制，可能会在后续重试积累后触发 OOM 终止。
+
+全部任务的峰值内存从 197 MB 到 4 GB，相差 20 倍，即使使用同一个 Agent 框架也是如此。更换模型还会再次改变资源特征。控制器因而需要当前命令边界与实时压力，历史运行的分位数无法替代这两个信号。
+
+## 给工具调用单独的资源域
+
+回到开头的 `pytest` 突发。185 MB Agent 运行时与它的测试子进程目前共享同一个容器限制，虽然运行时保存着昂贵状态，临时内存分配却来自子进程。AgentCgroup 把 Agent 工作负载映射为 cgroup v2 节点，再把每次工具调用放入子节点。`git status` 进程与 `pytest` 进程由此可以使用不同约束，同时继续受工作负载总预算控制。
+
+这个层次也改变了恢复方式。超过软限制时，系统可以冻结或节流工具子树，让父 Agent 继续存活。确实需要终止时，cgroup v2 可以原子化终止这个子树，保留运行时中的对话和修改。
+
+## 把响应移进内核
+
+命令边界解决了粒度问题，一秒钟内以 3 GB/s 变化的突发仍要求快速响应。AgentCgroup 通过 eBPF 在内核 cgroup 强制执行点执行控制逻辑，省去用户态信号、决策和写回循环：
+
+- CPU 方面，`sched_ext` 在 BPF map 中维护每个工作负载和每个工具调用的元数据，优先调度延迟敏感型工具调用，并在错误时自动进行故障安全回退。
+- 内存方面，`memcg_bpf_ops` 钩子在 cgroup 突破软限制（`memory.high`）时实现自定义节流延迟，并以 `memory.max` 作为硬限制。
+
+同一组内核观测使用当前证据代替历史预测。AgentCgroup 跟踪进程创建与内存分配，识别工具边界，并随着压力变化逐步响应：`memory.high` 延迟控制内存分配，`cgroup.freeze` 暂停子树，`memory.max` 保留为硬边界。父级运行时继续保存工具返回或失败后做下一步决策所需的状态。
+
+## 轨迹重放展示了什么
+
+我们在打过补丁的 Linux 6.19.0-rc5 内核（bpf-next + memcg struct_ops RFC 补丁）上，以 50 倍速度重放真实 Agent 内存轨迹，在多租户设置中评估 AgentCgroup。三个并发 Agent 轨迹共享受限内存：
+
+内存紧张场景（总内存 1100 MB，合计需求约 1233 MB）：
+
+- 基线：OOM 终止一个低优先级进程（66% 存活率）
+- AgentCgroup：所有进程完成（100% 存活率），触发 239 次节流，高优先级 Agent 只增加 +2.8% 开销
+
+中等内存场景（总内存 1300 MB）：
+
+- AgentCgroup 通过减少内存争用，将高优先级 P95 内存分配延迟降低 29%（70.97 ms 到 50.14 ms）
+- 总完成时间：-1.1%（净改善）
+
+测得的 P50 延迟开销为 0.3%，BPF 节流精度的相对误差在 2.3% 以内。这些数字来自概念验证内核路径上的轨迹重放，因此它们展示的是论文实验环境中的控制机制，还不代表生产规模下的行为。
+
+## 如何复现实验结果
+
+最快的检查路径先使用仓库中已经采集好的轨迹，在用户态重新生成图表，随后再进入需要加载 eBPF 程序的实验：
+
+```bash
+git clone --recurse-submodules https://github.com/eunomia-bpf/agentcgroup.git
+cd agentcgroup
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python analysis/characterization.py
+```
+
+[复现指南](https://github.com/eunomia-bpf/agentcgroup/blob/main/docs/REPRODUCING.md)继续给出 CPU 调度、内存隔离和开销实验对应的命令。CPU 控制需要 Linux 6.12 或更新版本，并启用 `sched_ext` 与 cgroup v2。内存实验还使用产物描述的 `memcg_bpf_ops` 内核路径，因此这部分需要匹配的内核支持和 root 权限。
+
+## 证据的边界在哪里
+
+当前刻画覆盖 Claude Code 与 SWE-rebench，控制器评测则使用概念验证实现加速重放轨迹。真实并发 Agent、OpenHands 与 SWE-agent 等其他框架、更多容器运行时，以及 `memcg_bpf_ops` 的上游状态仍待验证。[论文](https://arxiv.org/abs/2602.09345)与 [eunomia-bpf/agentcgroup](https://github.com/eunomia-bpf/agentcgroup) 仓库公开了原始实验、分析脚本、控制器代码和复现说明，可以据此继续检验这些边界。

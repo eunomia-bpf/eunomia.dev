@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-28",
+  "last_checked": "2026-08-30",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,16 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-30",
+      "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_staged_and_public_page_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7679373303883350059",
+      "article_url": "https://juejin.cn/post/7679373303883350059",
+      "review_status": "confirmed",
+      "visible_comments": 0,
+      "notes": "Checked all five visible authored-profile pages (47 articles) before submission; no exact-title or same-source AgentCgroup duplicate. Submitted the exact source title and mechanically adapted body through the normal visible editor to yunwei37 on 2026-08-30. Category 人工智能; tags Linux, 人工智能, 后端; complete 95-character summary. The staged page initially showed 审核中 and then redirected to the public /post URL with the review marker removed. Visible editor preview, full-scroll staged-page QA, and public-page QA confirmed 14 body headings, seven tables, one Bash code block, eight source links (five distinct targets), no inline images, the intended tags, and zero comments. The public body was scrolled through the conclusion with no rendering or loading failure. The author profile now lists the public URL. No API or hidden endpoint was used."
+    },
     {
       "checked_at": "2026-08-28",
       "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_staged_and_public_page_full_scroll_dom_qa",
@@ -141,6 +151,15 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7679373303883350059",
+      "status": "confirmed",
+      "title": "AgentCgroup：当 AI Agent 遇到操作系统资源",
+      "url": "https://juejin.cn/post/7679373303883350059",
+      "source_path": "docs/blog/posts/agentcgroup-characterization.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted and confirmed public on 2026-08-30. Category 人工智能; tags Linux, 人工智能, 后端. Exact title and unchanged source body confirmed with 14 body headings, seven tables, one Bash code block, eight source links (five distinct targets), no inline images, and zero comments. Full-scroll public-page QA passed with no review or loading-error marker; the author profile lists the public URL."
+    },
     {
       "id": "juejin-7679000152964153353",
       "status": "confirmed",
