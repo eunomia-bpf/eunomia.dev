@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can GPU Utilization Tell a Runtime Whether Another Kernel Will Fit?](https://eunomia.dev/research/gpu-allocatability-contract/)
+
+GPU utilization describes recent activity, while safe co-residency depends on the candidate kernel's registers, shared memory, partitioning, bandwidth risk, and progress requirements. This report develops a candidate-conditioned allocatability certificate, a temporal/spatial headroom ledger, and a counterexample benchmark for admission decisions.
+
 ### [Can GPU Instrumentation Change a Kernel Without Changing Its Meaning?](https://eunomia.dev/research/gpu-instrumentation-safety-contract/)
 
 Dynamic GPU instrumentation can inspect already compiled device code, but the probe itself can alter registers, occupancy, control flow, and measurement coverage. This report develops a probe-effect manifest, resource-budgeted instrumentation with explicit coverage, and a counterexample benchmark for observer-induced failures.
