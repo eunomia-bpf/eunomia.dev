@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU 利用率能告诉运行时另一个内核还能不能放得下吗？](https://eunomia.dev/zh/research/gpu-allocatability-contract/)
+
+GPU utilization 描述最近有多忙，而安全共存还取决于候选 kernel 的 register、shared memory、partition、bandwidth 风险和 forward-progress 要求。本文提出 candidate-conditioned allocatability certificate、temporal/spatial headroom ledger，以及专门检测错误 admission 的 counterexample benchmark。
+
 ### [GPU 插桩能改写内核，却不改变内核原本的行为吗？](https://eunomia.dev/zh/research/gpu-instrumentation-safety-contract/)
 
 动态 GPU 插桩可以直接观察已经编译好的设备代码，但探针本身也会改变寄存器、占用率、控制流与观测覆盖率。本文提出 probe-effect manifest、带资源预算和显式 coverage 的插桩机制，以及专门检测 observer-induced failure 的 counterexample benchmark。
