@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Why are PID and TID insufficient to correlate concurrent TLS, HTTP/2, and SSE traffic?](/ebpf-qa/2026-08-31-tls-http2-sse-connection-correlation/)
 - [Why must releasing a BPF dynptr invalidate every derived slice and clone?](/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/)
 - [Can an unprivileged container create its own BPF token?](/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/)
 - [Why can a single compare-and-swap lose atomic min/max updates under contention?](/ebpf-qa/2026-08-26-atomic-min-max-cas-contention/)

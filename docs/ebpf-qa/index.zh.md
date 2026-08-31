@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 PID 和 TID 不足以关联并发 TLS、HTTP/2 和 SSE 流量？](/zh/ebpf-qa/2026-08-31-tls-http2-sse-connection-correlation/)
 - [为什么释放 BPF dynptr 时必须让所有派生 slice 和 clone 失效？](/zh/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/)
 - [非特权容器能否创建自己的 BPF token？](/zh/ebpf-qa/2026-08-28-unprivileged-container-bpf-token/)
 - [为什么单次 compare-and-swap 会在竞争下丢失原子 min/max 更新？](/zh/ebpf-qa/2026-08-26-atomic-min-max-cas-contention/)
