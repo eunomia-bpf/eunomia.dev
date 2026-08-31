@@ -34,14 +34,14 @@ durable goals and constraints, not duplicated scheduler instructions.
 - Every scheduled run must add exactly one new bilingual Daily Report. A weak candidate is replaced by another approved question rather than published or converted into a no-report day.
 - Technical SEO changes remain evidence-driven and may be skipped on a given day; the Daily Report may not be skipped.
 - Keep the rolling topic mix compliant and classify by the report's actual central mechanism, not by superficial keyword mentions.
+- Do not combine unrelated technical SEO and content work when that makes the daily pull request incoherent; put unrelated durable SEO work in this plan for a focused follow-up.
 - Required and expected CI must pass before a clean final automated self-review and squash merge.
 - Every daily report is a public change, so the exact squash commit must deploy successfully and both language pages must be verified.
 - Do not create a second closeout pull request. Put the verified closeout in one compact comment on the merged daily pull request, then refresh `status.md` in the next run.
 - `.agents/skills/seo-geo` and `.github/seo-skills` own technical SEO mechanics.
 - `.agents/skills/eunomia-research-report` owns Daily Report research, quality, writing, and publication gates.
 
-Short-term fixes and remediation backlogs belong in GitHub issues. Durable priorities
-that can guide a later daily run belong below.
+Short-term fixes and remediation backlogs belong in GitHub issues. Durable priorities that can guide a later daily run belong below.
 
 ## Current priorities
 
