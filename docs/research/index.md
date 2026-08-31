@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can GPU Utilization Tell You Whether Another Workload Will Fit?](https://eunomia.dev/research/gpu-utilization-allocatability/)
+
+GPU utilization describes recent activity, not whether a particular incoming workload can safely co-reside. This report separates hard resource fit from interference risk and develops an allocatability certificate, bounded two-stage admission, and a counterexample benchmark for spare-capacity claims.
+
 ### [Can GPU Instrumentation Change a Kernel Without Changing Its Meaning?](https://eunomia.dev/research/gpu-instrumentation-safety-contract/)
 
 Dynamic GPU instrumentation can inspect already compiled device code, but the probe itself can alter registers, occupancy, control flow, and measurement coverage. This report develops a probe-effect manifest, resource-budgeted instrumentation with explicit coverage, and a counterexample benchmark for observer-induced failures.
@@ -59,7 +63,7 @@ Asynchronous CUDA traces can show host calls, streams, graph nodes, and GPU kern
 
 ### [When Does Profiler Sampling Become Biased?](https://eunomia.dev/research/profiler-sampling-bias/)
 
-Sampling percentages can be systematically wrong when a sampler phase-locks with periodic work, skids past the event that caused a sample, or repeatedly misses short-lived code. This report develops an explicit sampling-schedule contract with aliasing diagnostics, replicated profile epochs with rank uncertainty, and uncertainty-triggered selective instrumentation under a fixed overhead budget.
+Sampling percentages can be systematically wrong when a sampler phase-locks with periodic work, skids past the event that caused a sample, or repeatedly misses short-lived code. This report develops an explicit sampling-schedule contract with aliasing diagnostics, replicated profile epochs with uncertainty/rank stability, and uncertainty-triggered selective instrumentation under a fixed overhead budget.
 
 ### [Can eBPF Attribute Memory to the Pages That Actually Matter?](https://eunomia.dev/research/page-level-ebpf-memory-attribution/)
 
