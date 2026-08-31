@@ -63,7 +63,7 @@ Asynchronous CUDA traces can show host calls, streams, graph nodes, and GPU kern
 
 ### [When Does Profiler Sampling Become Biased?](https://eunomia.dev/research/profiler-sampling-bias/)
 
-Sampling percentages can be systematically wrong when a sampler phase-locks with periodic work, skids past the event that caused a sample, or repeatedly misses short-lived code. This report develops an explicit sampling-schedule contract with aliasing diagnostics, replicated profile epochs with uncertainty/rank stability, and uncertainty-triggered selective instrumentation under a fixed overhead budget.
+Sampling percentages can be systematically wrong when a sampler phase-locks with periodic work, skids past the event that caused a sample, or repeatedly misses short-lived code. This report develops an explicit sampling-schedule contract with aliasing diagnostics, replicated profile epochs with rank uncertainty, and uncertainty-triggered selective instrumentation under a fixed overhead budget.
 
 ### [Can eBPF Attribute Memory to the Pages That Actually Matter?](https://eunomia.dev/research/page-level-ebpf-memory-attribution/)
 
