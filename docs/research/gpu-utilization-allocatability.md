@@ -185,7 +185,7 @@ If the runtime cannot obtain enough evidence inside that budget, the answer rema
 
 **Artifact.** A pluggable interference estimator with a conservative canary executor and a persistent pairwise evidence cache keyed by kernel or workload version, shape family, device type, and resource regime.
 
-**Evaluation.** Compare no probe, fixed offline profiling, analytical prediction, canary-only admission, and hybrid admission under phase changes and unseen workload pairs. Measure false-admit rate, SLO impact caused by probing, adaptation time, and how quickly repeated pairs become decisionable without a new probe.
+**Evaluation.** Compare no probe, fixed offline profiling, analytical prediction, canary-only admission, and hybrid admission under phase changes and unseen workload pairs. Measure false-admit rate, SLO impact caused by probing, adaptation time, and how quickly repeated pairs become decidable without a new probe.
 
 **Academic value.** This turns online profiling into an admission-control experiment with an explicit risk budget rather than an always-on measurement stream.
 
