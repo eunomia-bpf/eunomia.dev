@@ -367,6 +367,27 @@ counterexample benchmark that measures decision regret while progressively
 revealing richer evidence. It is adjacent systems because eBPF is optional
 instrumentation rather than the central mechanism.
 
+The `2026-08-30` report is the second substantial post-activation contribution.
+It asks what contract a dynamic GPU instrumentation runtime needs before an
+inserted device-side probe can be treated as a faithful observer. Preserving
+logical register values is not enough when instrumentation can change register
+pressure, occupancy, timing, control behavior, or which sites are observed. The
+report develops a verified probe-effect manifest, resource-budgeted
+instrumentation with explicit coverage, and a counterexample benchmark for
+observer-induced failures. It is adjacent systems because the non-interference
+and coverage property applies to NVBit, GTPin, vendor profiling interfaces,
+native instrumentation, and eBPF-like device monitors; eBPF is one possible
+backend rather than a required mechanism.
+
+The `2026-08-31` report advances a third distinct runtime boundary. It separates
+retrospective GPU activity from **allocatability**, the counterfactual question of
+whether a particular incoming workload can safely co-reside now. The report
+separates hard resource fit from soft shared-resource interference and evidence
+confidence, then develops an allocatability certificate, bounded two-stage
+admission, and a counterexample benchmark whose paired cases hold headline
+utilization or occupancy similar while changing the true co-residency result. It
+is adjacent systems because eBPF is not required by the admission mechanism.
+
 ### Published progress
 
 1. `2026-08-29`: `/research/gpu-memory-placement-evidence/` separates address
@@ -375,22 +396,34 @@ instrumentation rather than the central mechanism.
    memory, sampled resident-page observability, compiler/object semantics, and
    schedule-aware memory management, then proposes an evidence-to-decision
    contract and fixed-budget evaluation. It is adjacent systems.
+2. `2026-08-30`: `/research/gpu-instrumentation-safety-contract/` separates
+   logical probe-state preservation from whole-execution non-interference. It
+   develops a probe-effect manifest, explicit resource budgets and observation
+   coverage, and adversarial cases around occupancy, timing, synchronization,
+   control behavior, and unsupported sites. It is adjacent systems.
+3. `2026-08-31`: `/research/gpu-utilization-allocatability/` separates observed
+   utilization from candidate-conditioned admission. It distinguishes hard fit,
+   interference risk, and unknown evidence, then proposes an inspectable
+   allocatability certificate, a bounded online interference probe, and a
+   spare-capacity counterexample benchmark. It is adjacent systems.
 
-After the August 29 publication, the newest ten contain **8 eBPF-centered / 0
-pure Agent / 2 adjacent systems**. The adjacent report displaces one of the two
-August 20 adjacent GPU reports, so the rolling mix does not change today. This is
-one eBPF report above the normal target band. An adjacent report on the next
-normal run would displace the remaining August 20 adjacent report and still leave
-**8 / 0 / 2**. A second consecutive adjacent report after that would displace the
-August 21 eBPF report and restore **7 / 0 / 3**. Prefer genuinely adjacent
-GPU/runtime questions over the next two normal runs when the quality gates permit;
-do not repair the ratio through classification.
+After the August 30 publication, the newest ten remain **8 eBPF-centered / 0 pure
+Agent / 2 adjacent systems**. The August 31 adjacent report rotates the August 21
+eBPF-centered report out of the newest-ten window, so after publication the mix
+becomes **7 eBPF-centered / 0 pure Agent / 3 adjacent systems**. This restores the
+normal 5–7 eBPF target band without relabeling any report or publishing an extra
+entry. Do not continue an adjacent-only streak merely to optimize the ratio; the
+next report should be selected by series quality and the then-current rolling
+window.
 
-Preferred next questions are runtime/device-side programmability boundaries,
-fine-grained GPU execution observability distinct from the August 20 reports,
-and distributed GPU coordination only where a concrete runtime invariant can be
-tested. A second memory-placement report should be selected only if it advances a
-different mechanism rather than repeating evidence quality or eviction policy.
+Preferred next questions should advance a fourth distinct invariant. Strong
+candidates include distributed GPU coordination with an explicit correctness
+property such as membership/generation continuity, collective progress, or state
+ownership; megakernel internal observability only when it exposes an execution
+boundary not already covered by launch-latency or host/device-causality reports;
+or another host/device boundary with measurable ground truth. Do not repeat
+memory-placement evidence, instrumentation non-interference, or
+utilization-versus-allocatability with a different product example.
 
 ## Queued series — Agent Systems (limited)
 

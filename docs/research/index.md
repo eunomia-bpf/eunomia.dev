@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can GPU Utilization Tell You Whether Another Workload Will Fit?](https://eunomia.dev/research/gpu-utilization-allocatability/)
+
+GPU utilization describes recent activity, not whether a particular incoming workload can safely co-reside. This report separates hard resource fit from interference risk and develops an allocatability certificate, bounded two-stage admission, and a counterexample benchmark for spare-capacity claims.
+
 ### [Can GPU Instrumentation Change a Kernel Without Changing Its Meaning?](https://eunomia.dev/research/gpu-instrumentation-safety-contract/)
 
 Dynamic GPU instrumentation can inspect already compiled device code, but the probe itself can alter registers, occupancy, control flow, and measurement coverage. This report develops a probe-effect manifest, resource-budgeted instrumentation with explicit coverage, and a counterexample benchmark for observer-induced failures.

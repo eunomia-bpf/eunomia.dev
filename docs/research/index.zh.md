@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU 利用率能告诉你还能不能安全塞进一个任务吗？](https://eunomia.dev/zh/research/gpu-utilization-allocatability/)
+
+GPU 利用率描述近期活动，却不能证明一个具体的新任务可以安全共置。本文把硬资源可容纳性和共享干扰分开，提出可分配性证书、带风险预算的两阶段准入，以及专门攻击“GPU 还有空位”判断的反例 benchmark。
+
 ### [GPU 插桩能改写内核，却不改变内核原本的行为吗？](https://eunomia.dev/zh/research/gpu-instrumentation-safety-contract/)
 
 动态 GPU 插桩可以直接观察已经编译好的设备代码，但探针本身也会改变寄存器、占用率、控制流与观测覆盖率。本文提出 probe-effect manifest、带资源预算和显式 coverage 的插桩机制，以及专门检测 observer-induced failure 的 counterexample benchmark。
