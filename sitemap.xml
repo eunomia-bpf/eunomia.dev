@@ -4927,6 +4927,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/gpu-memory-placement-evidence/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/gpu-utilization-allocatability/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/gpu-utilization-allocatability/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/gpu-utilization-allocatability/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/gpu-utilization-allocatability/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/gpu-utilization-allocatability/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/gpu-utilization-allocatability/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/gpu-utilization-allocatability/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/gpu-utilization-allocatability/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/heterogeneous-ebpf-execution-placement/</loc>
     <lastmod>2026-08-17</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/heterogeneous-ebpf-execution-placement/" />
@@ -4942,14 +4956,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
