@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-31。
+> 状态：内部执行 checklist，不发布。更新时间：2026-09-02。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -11,8 +11,8 @@
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- 阻塞：2026-08-31 复查时，侧边栏与 Chrome 的知乎会话均跳转登录页；任一可见会话恢复登录后，从 AgentCgroup 的知乎任务继续。阻塞期间继续执行其他平台任务。
-- 补发缺口：1 条（2026-08-29）。2026-08-31 正常额度已由 HID 教程的掘金公开发布完成；当天掘金不再发第二篇，知乎仍未登录，缺口保留。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成；2026-08-24 的正常额度由教程 54 的 Medium 公开发布完成；2026-08-25 的正常额度由教程 54 的 DEV 公开发布完成；2026-08-26 的正常额度由教程 54 的 LinkedIn 公开发布完成；2026-08-27 的正常额度由 AgentCgroup 的 DEV 公开发布完成；2026-08-28 的正常额度由 CPU noise 的掘金公开发布完成；2026-08-30 的正常额度由 AgentCgroup 的掘金公开发布完成。
+- 阻塞：2026-09-02 复查时，侧边栏与唯一连接的 Chrome 会话均跳转知乎登录页；任一可见会话恢复登录后，从 AgentCgroup 的知乎任务继续。阻塞期间继续执行其他平台任务。
+- 补发缺口：2 条（2026-08-29、2026-09-01）。2026-09-02 的 Agent Sandbox 掘金文章已公开，但移除重复正文标题的机械更新仍在审核，今天的正常额度暂不计为完成；审核通过并完成公开页 QA 后再核销。2026-08-22 已由教程 53 的 Medium 公开发布补齐；2026-08-23 的正常额度由同一教程的 DEV 公开发布完成；2026-08-24 的正常额度由教程 54 的 Medium 公开发布完成；2026-08-25 的正常额度由教程 54 的 DEV 公开发布完成；2026-08-26 的正常额度由教程 54 的 LinkedIn 公开发布完成；2026-08-27 的正常额度由 AgentCgroup 的 DEV 公开发布完成；2026-08-28 的正常额度由 CPU noise 的掘金公开发布完成；2026-08-30 的正常额度由 AgentCgroup 的掘金公开发布完成；2026-08-31 的正常额度由 HID 教程的掘金公开发布完成。
 - Ledger 基线：知乎有 39 个未映射中文源，掘金有 71 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
@@ -54,7 +54,7 @@
 - [x] `排队` Medium：`docs/blog/posts/agentcgroup-characterization.md`。2026-08-27 对账确认此前已公开：<https://medium.com/@yunwei356/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources-46ea027ef62d>；未重复发布。
 - [x] `跳过` 掘金：`docs/blog/posts/agent-work-unit.zh.md`。Weekly Analysis 与研究报告由独立研究流程负责，不由内容巡检发布。
 - [x] `排队` DEV：`docs/blog/posts/cpu-noise-gpu-inference.md`。2026-08-27 对账确认此前已公开：<https://dev.to/yunwei37/when-cpu-noise-slows-down-gpu-inference-measuring-scheduler-and-irq-impact-with-ebpf-egg>；未重复发布。
-- [ ] `排队` 知乎：`docs/blog/posts/agentcgroup-characterization.zh.md`。2026-08-31 侧边栏与 Chrome 均跳转登录页，尚未进入查重或编辑器；登录恢复后沿用 `draft/media/2026-08-31/agentcgroup-characterization/zhihu.md` 继续。
+- [ ] `排队` 知乎：`docs/blog/posts/agentcgroup-characterization.zh.md`。2026-09-02 侧边栏与唯一连接的 Chrome 会话均跳转登录页，尚未进入查重或编辑器；登录恢复后沿用 `draft/media/2026-09-02/agentcgroup-characterization/zhihu.md` 继续。
 - [x] `排队` Medium：`docs/blog/posts/agent_sandbox.md`。2026-08-27 对账确认此前已公开：<https://medium.com/@yunwei356/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance-59224d26e666>；未重复发布。
 - [x] `排队` 掘金：`docs/blog/posts/agentcgroup-characterization.zh.md`。2026-08-30 已发布并确认公开：<https://juejin.cn/post/7679373303883350059>；原标题、完整正文、14 个正文标题、7 张表格、1 个代码块和 8 个链接 QA 通过，作者列表已收录，ledger 已记录为 `confirmed`。
 - [x] `排队` DEV：`docs/blog/posts/agent-check-restore-safety.md`。2026-08-27 对账确认此前已公开：<https://dev.to/yunwei37/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-5eja>；未重复发布。
@@ -68,7 +68,7 @@
 - [x] `排队` DEV：`docs/blog/posts/agent_sandbox.md`。2026-08-27 对账确认此前已公开：<https://dev.to/yunwei37/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance-2185>；未重复发布。
 - [ ] `排队` 知乎：`docs/blog/posts/agent_sandbox.zh.md`。
 - [x] `排队` Medium：`docs/blog/posts/agent-check-restore-safety.md`。2026-08-27 对账确认此前已公开：<https://medium.com/@yunwei356/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-b0d00f5e8b7b>；未重复发布。
-- [ ] `排队` 掘金：`docs/blog/posts/agent_sandbox.zh.md`。
+- [ ] `阻塞` 掘金：`docs/blog/posts/agent_sandbox.zh.md`。2026-09-02 已公开列出：<https://juejin.cn/post/7680709250218426395>；首次导入带入重复正文标题，机械移除后的修正版仍是唯一审核项。审核通过后确认公开页不再显示“文章有更新”，完成全文 QA，再改为 `confirmed` 并核销当日额度。
 - [x] `排队` DEV：`docs/blog/posts/runtime-security-for-opaque-ai-agents.md`。2026-08-27 对账确认此前已公开：<https://dev.to/yunwei37/runtime-observability-and-enforcement-for-opaque-ai-agents-with-ebpf-beyond-sandboxes-and-approvals-8n6>；未重复发布。
 - [ ] `排队` 掘金：`docs/blog/posts/agent-check-restore-safety.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/runtime-security-for-opaque-ai-agents.zh.md`。

@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-31",
+  "last_checked": "2026-09-02",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -650,7 +650,7 @@
   ],
   "third_party_mentions": [],
   "pending_verification": [
-    "2026-08-31 AgentCgroup catch-up remains blocked before duplicate checking and editor import: both the normal in-app browser session and the connected Chrome session redirected https://zhuanlan.zhihu.com/write to the Zhihu sign-in page. Recovery requires signing in to Zhihu in either visible session; no unknown credentials, SMS verification, QR or third-party login, or CAPTCHA was attempted.",
+    "2026-09-02 AgentCgroup catch-up remains blocked before duplicate checking and editor import: the normal in-app browser and the only connected Chrome profile (Yunwei) both redirected https://www.zhihu.com/creator to the Zhihu sign-in page. No additional visible browser session was available. Recovery requires signing in to Zhihu in either visible session; no unknown credentials, password submission, SMS verification, QR or third-party login, or CAPTCHA was attempted.",
     "Profile reported 114 articles and normal browser scrolling collected 113 unique visible article links on 2026-07-20; keep this one-item discrepancy explicit until manually reconciled.",
     "The JSON maps the visible Zhihu posts that clearly correspond to configured repository source files. Older or non-eunomia personal posts remain visible in the browser observation but are not counted as eunomia.dev source coverage.",
     "Use only normal browser interactions for future Zhihu checks; do not use Zhihu APIs or hidden/internal endpoints."

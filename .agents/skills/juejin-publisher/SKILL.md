@@ -54,6 +54,7 @@ and capturing screenshots.
    code blocks, source URL for the ledger, GitHub links, and paper links.
 2. Build a Juejin copy in canonical syndication mode:
    - remove YAML front matter
+   - remove the source H1 because the Juejin title field renders the article title; confirm the preview does not repeat it
    - preserve the article body by default
    - convert relative images to checked public URLs or prepare editor upload
    - ensure code fences have language labels

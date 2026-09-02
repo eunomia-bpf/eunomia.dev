@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-31
+Last checked: 2026-09-02
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -61,8 +61,11 @@ On 2026-08-30, all five authored-list pages were checked again before publishing
 
 On 2026-08-31, the same visible duplicate and review checks preceded the HID tutorial publication. The public article passed full-scroll QA and became the newest item on the author profile.
 
+On 2026-09-02, Agent Sandbox became publicly listed, but the mechanical update that removes a repeated body H1 remained under review. It stays pending rather than confirmed until the corrected public page can be checked.
+
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Review pending | 智能体系统架构：隔离、集成与治理的综合调研 | <https://juejin.cn/post/7680709250218426395> | Publicly listed 2026-09-02 with category `人工智能` and tags `人工智能`, `架构`, `安全`; the first import repeated the source H1, and a mechanical update removed it. The corrected staged version has 13 body headings, 2 tables, 41 links, no inline images or fenced code blocks, and the complete final reference, but creator center still shows it as the sole review item and the public page shows “文章有更新”; confirm the replacement before changing this row to `Confirmed` |
 | Confirmed | eBPF 教程：无需内核补丁修复故障的 HID 设备 | <https://juejin.cn/post/7680099381967798307> | Published and confirmed public 2026-08-31 from `docs/tutorials/49-hid/README.zh.md` through the visible Juejin editor; category `后端`; tags `Linux`, `开源`, `后端`; full-scroll public-page QA confirmed the exact title, substantively unchanged body, 14 body headings, 14 code blocks, 9 source links, no inline images, the complete conclusion and final reference, and no review or loading-error marker; the author profile lists the public URL |
 | Confirmed | AgentCgroup：当 AI Agent 遇到操作系统资源 | <https://juejin.cn/post/7679373303883350059> | Published and confirmed public 2026-08-30 from `docs/blog/posts/agentcgroup-characterization.zh.md` through the visible Juejin editor; category `人工智能`; tags `Linux`, `人工智能`, `后端`; full-scroll public-page QA confirmed the exact title, complete body, 14 body headings, 7 tables, 1 Bash code block, all 8 source links, no inline images, and 0 comments; the review marker disappeared and the author profile lists the public URL |
 | Confirmed | CPU 噪声会拖慢 GPU 推理吗：用 eBPF 定量测量调度器与 IRQ 影响 | <https://juejin.cn/post/7679000152964153353> | Published 2026-08-28 from `docs/blog/posts/cpu-noise-gpu-inference.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `人工智能`; tags `Linux`, `人工智能`, `性能优化`; full visible-page scrolling and public-page QA confirmed the exact title, 22 body headings, 12 language-labeled code blocks, 17 tables, all 6 source link targets, no inline source images, 0 comments, and no failure or review marker |
