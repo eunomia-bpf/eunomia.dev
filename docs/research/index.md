@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can GPU Membership Change Without Losing State Consistency?](https://eunomia.dev/research/gpu-membership-generation-continuity/)
+
+A new communicator does not prove all ranks resume from one logical state generation. This report develops generation-scoped reconfiguration certificates, ownership-aware state reconstruction, and adversarial membership-transition correctness tests.
+
 ### [Can GPU Utilization Tell You Whether Another Workload Will Fit?](https://eunomia.dev/research/gpu-utilization-allocatability/)
 
 GPU utilization describes recent activity, not whether a particular incoming workload can safely co-reside. This report separates hard resource fit from interference risk and develops an allocatability certificate, bounded two-stage admission, and a counterexample benchmark for spare-capacity claims.
