@@ -24,7 +24,7 @@ reused_from: draft/media/2026-08-31/agentcgroup-characterization/zhihu.md
 
 ## Current state
 
-Blocked before duplicate checking and editor import. On 2026-09-02, both the normal in-app browser and the only connected Chrome profile (`Yunwei`) redirected `https://www.zhihu.com/creator` to the Zhihu sign-in page. No additional visible browser session was available. Resume after Zhihu is signed in in either visible session. No unknown credentials, password submission, SMS verification, QR or third-party login, or CAPTCHA was attempted.
+Blocked before duplicate checking and editor import. On the repeat check on 2026-09-02, a newly opened normal in-app browser tab and the connected Chrome profile (`Yunwei`) both redirected `https://www.zhihu.com/creator` to `https://www.zhihu.com/signin?next=%2Fcreator`. The sign-in page offered phone verification, password, QR, and third-party login paths; none was used. Resume after the user signs in to Zhihu in either visible session. No unknown credentials, verification flow, or CAPTCHA was attempted.
 
 ## QA checklist
 
