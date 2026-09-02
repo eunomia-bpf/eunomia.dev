@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU 通信组成员变化后，怎么证明训练状态还是一致的？](https://eunomia.dev/zh/research/gpu-membership-generation-continuity/)
+
+新 communicator 建好并不等于所有 rank 已经回到同一个逻辑状态。本文提出带 generation 的 reconfiguration certificate、ownership-aware state reconstruction，以及专门攻击 stale operation、rank reuse 与 repartition 的成员切换 correctness benchmark。
+
 ### [GPU 利用率能告诉你还能不能安全塞进一个任务吗？](https://eunomia.dev/zh/research/gpu-utilization-allocatability/)
 
 GPU 利用率描述近期活动，却不能证明一个具体的新任务可以安全共置。本文把硬资源可容纳性和共享干扰分开，提出可分配性证书、带风险预算的两阶段准入，以及专门攻击“GPU 还有空位”判断的反例 benchmark。
