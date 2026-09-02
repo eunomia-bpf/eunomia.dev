@@ -13,31 +13,27 @@ already configured and enabled; it is not a blocker.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-08-31` after the weekly exporter completed. It now
-contains a fresh source-native set for `2026-08-24..30` in addition to the older
-weekly sets.
+directly rechecked on `2026-09-02`. No export newer than the source-native
+`2026-08-24..30` weekly set is present.
 
-For Search Console, the new date export contains rows for `2026-08-24..29` and no
-row for `2026-08-30`. Under the configured three-day finalization lag, rows
-through `2026-08-28` are treated as finalized; `2026-08-29` remains inside the
-lag and is not used as finalized evidence. The finalized `2026-08-24..28` rows
-sum to 398 clicks and 48,044 impressions, with aggregate CTR about 0.828% and
-impression-weighted average position about 10.04.
+For Search Console, the newest date export contains rows for `2026-08-24..29` and
+no row for `2026-08-30`. Under the configured three-day finalization lag on
+September 2, rows through `2026-08-29` are treated as finalized evidence. Those
+six rows sum to **436 clicks and 55,594 impressions**, with aggregate CTR about
+**0.784%** and impression-weighted average position about **10.73**.
 
-A complete latest-7-days versus previous-7-days Search Console comparison remains
-unavailable because the required source history is not contiguous. Earlier
-weekly exports omit `2026-08-16` and `2026-08-23`, and the current export omits
-`2026-08-30`. The 28-day comparison also remains unavailable because there is no
-complete preceding 28-day source window. Missing rows are never converted to
-zero.
+The equal-duration `2026-08-17..22` slice has 477 clicks, 59,798 impressions,
+~0.798% CTR, and ~9.56 weighted position. The comparison is useful but is not a
+complete seven-day trend because the preceding weekly export omits `2026-08-23`
+and the current export omits `2026-08-30`. Other historical gaps also prevent the
+required complete 28-day comparison. Missing rows are never converted to zero.
 
-The fresh GA4 organic landing-page aggregate for `2026-08-24..30` is available,
-but the whole weekly aggregate is not finalized under the configured lag because
-it includes `2026-08-29..30`. It currently contains 1,007 organic landing-page
-sessions at about 45.88% session-weighted engagement and is treated only as a
-partial early signal. The latest fully finalized source-native GA4 weekly
-aggregate remains `2026-08-17..23`: 984 sessions at about 49.29% engagement,
-versus 970 at about 44.95% for `2026-08-10..16`.
+The GA4 organic landing-page aggregate for `2026-08-24..30` contains **1,007
+sessions** at about **45.88% session-weighted engagement** and remains a partial
+weekly signal under the repository's finalization policy. The latest fully
+finalized source-native GA4 weekly aggregate remains `2026-08-17..23`: 984
+sessions at about 49.29% engagement, versus 970 at about 44.95% for
+`2026-08-10..16`.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google evidence, live-site evidence, public GitHub evidence, and
