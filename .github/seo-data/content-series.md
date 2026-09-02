@@ -388,6 +388,16 @@ admission, and a counterexample benchmark whose paired cases hold headline
 utilization or occupancy similar while changing the true co-residency result. It
 is adjacent systems because eBPF is not required by the admission mechanism.
 
+The `2026-09-02` report advances a fourth distinct runtime boundary. NCCL can
+shrink or grow communicators, but a new communicator does not establish which
+application state is committed, whether old-generation asynchronous effects are
+quiescent, or who owns repartitioned state after world-size or process-incarnation
+changes. The report develops a generation-scoped reconfiguration certificate,
+ownership-aware state reconstruction, and a membership-transition counterexample
+benchmark whose oracle is semantic consistency rather than recovery latency. It
+is adjacent systems because eBPF/GPU instrumentation is optional evidence and
+fault-injection machinery rather than the central mechanism.
+
 ### Published progress
 
 1. `2026-08-29`: `/research/gpu-memory-placement-evidence/` separates address
@@ -406,24 +416,30 @@ is adjacent systems because eBPF is not required by the admission mechanism.
    interference risk, and unknown evidence, then proposes an inspectable
    allocatability certificate, a bounded online interference probe, and a
    spare-capacity counterexample benchmark. It is adjacent systems.
+4. `2026-09-02`: `/research/gpu-membership-generation-continuity/` separates
+   communicator liveness from application-state generation consistency. It binds
+   member incarnations, a committed application frontier, old-generation
+   quiescence/rollback evidence, state manifests, and ownership maps into an
+   activation contract, then tests stale completions, rank reuse, partial state
+   transfer, and repartitioning as semantic counterexamples. It is adjacent
+   systems.
 
-After the August 30 publication, the newest ten remain **8 eBPF-centered / 0 pure
-Agent / 2 adjacent systems**. The August 31 adjacent report rotates the August 21
-eBPF-centered report out of the newest-ten window, so after publication the mix
-becomes **7 eBPF-centered / 0 pure Agent / 3 adjacent systems**. This restores the
-normal 5–7 eBPF target band without relabeling any report or publishing an extra
-entry. Do not continue an adjacent-only streak merely to optimize the ratio; the
-next report should be selected by series quality and the then-current rolling
-window.
+After the August 31 publication, the newest ten contain **7 eBPF-centered / 0
+pure Agent / 3 adjacent systems**. The September 2 adjacent report rotates the
+August 22 eBPF-centered report out of the newest-ten window, so after publication
+the mix becomes **6 eBPF-centered / 0 pure Agent / 4 adjacent systems**. This
+remains inside the normal 5–7 eBPF target band. Do not continue an adjacent-only
+streak merely to fill the active series; prefer a genuinely eBPF-essential
+question next when it passes the evidence and novelty gates.
 
-Preferred next questions should advance a fourth distinct invariant. Strong
-candidates include distributed GPU coordination with an explicit correctness
-property such as membership/generation continuity, collective progress, or state
-ownership; megakernel internal observability only when it exposes an execution
-boundary not already covered by launch-latency or host/device-causality reports;
-or another host/device boundary with measurable ground truth. Do not repeat
-memory-placement evidence, instrumentation non-interference, or
-utilization-versus-allocatability with a different product example.
+Preferred next questions should advance a fifth distinct invariant only when
+there is strong primary evidence and measurable ground truth. Megakernel internal
+observability remains viable only if it exposes an execution boundary not already
+covered by launch-latency, host/device-causality, instrumentation-safety, or
+allocatability reports. Another distributed GPU question must go beyond
+membership/generation continuity rather than restating elastic recovery. Because
+the rolling mix is now `6 / 0 / 4`, a strong eBPF-essential systems question may
+be preferable to extending the adjacent GPU sequence.
 
 ## Queued series — Agent Systems (limited)
 
