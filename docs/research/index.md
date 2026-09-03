@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Make a GPU Megakernel Observable?](https://eunomia.dev/research/ebpf-gpu-megakernel-observability/)
+
+Megakernels move operator and dependency boundaries inside one persistent GPU kernel. This report develops compiler-exported semantic task hooks, coverage-carrying eBPF aggregation, and a counterexample benchmark for deciding when kernel- or PC-level evidence no longer preserves the diagnosis.
+
 ### [Can GPU Membership Change Without Losing State Consistency?](https://eunomia.dev/research/gpu-membership-generation-continuity/)
 
 A new communicator does not prove all ranks resume from one logical state generation. This report develops generation-scoped reconfiguration certificates, ownership-aware state reconstruction, and adversarial membership-transition correctness tests.
