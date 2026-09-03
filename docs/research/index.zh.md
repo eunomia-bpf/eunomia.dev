@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF Profiler 什么时候该停止相信自己的诊断？](https://eunomia.dev/zh/research/ebpf-diagnostic-confidence-control/)
+
+当 transport loss、missing hook 或 stale semantics 删掉决定性证据时，eBPF collector 仍可能给出看似完整的解释。本文提出 diagnosis-specific evidence obligation、针对性采集恢复、显式 abstention，以及专门攻击 confident-but-wrong observability 的 benchmark。
+
 ### [GPU 通信组成员变化后，怎么证明训练状态还是一致的？](https://eunomia.dev/zh/research/gpu-membership-generation-continuity/)
 
 新 communicator 建好并不等于所有 rank 已经回到同一个逻辑状态。本文提出带 generation 的 reconfiguration certificate、ownership-aware state reconstruction，以及专门攻击 stale operation、rank reuse 与 repartition 的成员切换 correctness benchmark。
