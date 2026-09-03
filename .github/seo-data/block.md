@@ -13,14 +13,15 @@ already configured and enabled; it is not a blocker.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-09-02`. No export newer than the source-native
+directly rechecked on `2026-09-03`. No export newer than the source-native
 `2026-08-24..30` weekly set is present.
 
 For Search Console, the newest date export contains rows for `2026-08-24..29` and
-no row for `2026-08-30`. Under the configured three-day finalization lag on
-September 2, rows through `2026-08-29` are treated as finalized evidence. Those
-six rows sum to **436 clicks and 55,594 impressions**, with aggregate CTR about
-**0.784%** and impression-weighted average position about **10.73**.
+no row for `2026-08-30`. Under the configured three-day lag on September 3, an
+August 30 row would now be finalizable, but the source does not contain one. The
+latest available six rows sum to **436 clicks and 55,594 impressions**, with
+aggregate CTR about **0.784%** and impression-weighted average position about
+**10.73**.
 
 The equal-duration `2026-08-17..22` slice has 477 clicks, 59,798 impressions,
 ~0.798% CTR, and ~9.56 weighted position. The comparison is useful but is not a
@@ -28,18 +29,19 @@ complete seven-day trend because the preceding weekly export omits `2026-08-23`
 and the current export omits `2026-08-30`. Other historical gaps also prevent the
 required complete 28-day comparison. Missing rows are never converted to zero.
 
-The GA4 organic landing-page aggregate for `2026-08-24..30` contains **1,007
-sessions** at about **45.88% session-weighted engagement** and remains a partial
-weekly signal under the repository's finalization policy. The latest fully
-finalized source-native GA4 weekly aggregate remains `2026-08-17..23`: 984
-sessions at about 49.29% engagement, versus 970 at about 44.95% for
-`2026-08-10..16`.
+The GA4 organic landing-page aggregate for `2026-08-24..30` is now fully usable
+under the repository's three-day finalization policy on September 3. It contains
+**1,007 sessions** at about **45.88% session-weighted engagement**. The preceding
+finalized `2026-08-17..23` aggregate contains 984 sessions at about 49.29%
+engagement, so sessions are about 2.34% higher while engagement is about 3.41
+percentage points lower. Weekly GA4 files still have no date dimension and cannot
+support within-week causal attribution.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google evidence, live-site evidence, public GitHub evidence, and
-public primary-source evidence; missing or partial coverage must never be
-converted into zero. Every run must still publish one new Daily Report under the
-current repository contract.
+public primary-source evidence; missing coverage must never be converted into
+zero. Every run must still publish one new Daily Report under the current
+repository contract.
 
 Remove or narrow a blocker in the next daily pull request after the external
 condition is verified as resolved.
