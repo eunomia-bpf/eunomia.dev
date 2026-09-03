@@ -20,10 +20,15 @@ TRIAGE_SKILL="${EUNOMIA_PATROL_TRIAGE_SKILL:-$REPO_ROOT/.agents/skills/oss-issue
 CHANGE_SKILL="${EUNOMIA_PATROL_CHANGE_SKILL:-$REPO_ROOT/.agents/skills/oss-change-workflow/SKILL.md}"
 REPORT_DIR="$STATE_ROOT/reports"
 LOG_DIR="$STATE_ROOT/logs"
-THREAD_FILE="$STATE_ROOT/codex-thread-id"
+OPENAI_THREAD_FILE="$STATE_ROOT/codex-thread-id"
+LOCAL_THREAD_FILE="$STATE_ROOT/codex-thread-id-${EUNOMIA_PATROL_LOCAL_PROVIDER:-local}"
 CLAUDE_SESSION_FILE="$STATE_ROOT/claude-session-id"
 PATROL_SKILL="$REPO_ROOT/.agents/skills/eunomia-community-patrol/SKILL.md"
 PROMPT_SOURCE="$SCRIPT_DIR/prompt.md"
+ACTIVE_CODEX_MODEL="$EUNOMIA_PATROL_MODEL"
+ACTIVE_CODEX_ROUTE="openai-fallback"
+ACTIVE_CODEX_THREAD_FILE="$OPENAI_THREAD_FILE"
+ACTIVE_CODEX_CONFIG_ARGS=()
 
 install -d -m 0700 "$STATE_ROOT" "$CHECKOUT_ROOT" "$REPORT_DIR" "$LOG_DIR"
 
@@ -51,7 +56,7 @@ prepare_skills() {
 
 check_runtime() {
   local command_name
-  for command_name in git gh jq flock sha256sum; do
+  for command_name in git gh jq flock sha256sum timeout; do
     command -v "$command_name" >/dev/null 2>&1 || {
       printf 'required command is unavailable: %s\n' "$command_name" >&2
       return 1
@@ -76,25 +81,85 @@ render_prompt() {
   printf -- '- repository checkout pool: %s\n' "$CHECKOUT_ROOT"
   printf -- '- oss-issue-triage Skill: %s\n' "$TRIAGE_SKILL"
   printf -- '- oss-change-workflow Skill: %s\n' "$CHANGE_SKILL"
+  if [[ "$EUNOMIA_PATROL_AGENT" == "codex" ]]; then
+    printf -- '- selected model route: %s / %s\n' \
+      "$ACTIVE_CODEX_ROUTE" "$ACTIVE_CODEX_MODEL"
+  fi
+}
+
+configure_local_codex_route() {
+  local model="$1"
+  ACTIVE_CODEX_MODEL="$model"
+  ACTIVE_CODEX_ROUTE="local:${EUNOMIA_PATROL_LOCAL_PROVIDER}"
+  ACTIVE_CODEX_THREAD_FILE="$LOCAL_THREAD_FILE"
+  ACTIVE_CODEX_CONFIG_ARGS=(
+    --config "model_provider=\"${EUNOMIA_PATROL_LOCAL_PROVIDER}\""
+    --config "model_providers.${EUNOMIA_PATROL_LOCAL_PROVIDER}.name=\"Spark LiteLLM gateway\""
+    --config "model_providers.${EUNOMIA_PATROL_LOCAL_PROVIDER}.base_url=\"${EUNOMIA_PATROL_LOCAL_BASE_URL}\""
+    --config "model_providers.${EUNOMIA_PATROL_LOCAL_PROVIDER}.env_key=\"LITELLM_API_KEY\""
+    --config "model_providers.${EUNOMIA_PATROL_LOCAL_PROVIDER}.wire_api=\"responses\""
+  )
+}
+
+configure_openai_codex_route() {
+  ACTIVE_CODEX_MODEL="$EUNOMIA_PATROL_MODEL"
+  ACTIVE_CODEX_ROUTE="openai-fallback"
+  ACTIVE_CODEX_THREAD_FILE="$OPENAI_THREAD_FILE"
+  ACTIVE_CODEX_CONFIG_ARGS=()
+}
+
+probe_active_codex_route() {
+  local probe_file probe_log
+  probe_file="$(mktemp "$STATE_ROOT/model-probe.XXXXXX")"
+  probe_log="$(mktemp "$STATE_ROOT/model-probe-log.XXXXXX")"
+  if ! timeout --foreground 180 codex exec --ephemeral \
+      --model "$ACTIVE_CODEX_MODEL" \
+      "${ACTIVE_CODEX_CONFIG_ARGS[@]}" \
+      --config "model_reasoning_effort=\"$EUNOMIA_PATROL_REASONING_EFFORT\"" \
+      --dangerously-bypass-approvals-and-sandbox \
+      --output-last-message "$probe_file" \
+      "Reply with exactly EUNOMIA_PATROL_MODEL_READY." \
+      >"$probe_log" 2>&1; then
+    rm -f "$probe_file" "$probe_log"
+    return 1
+  fi
+  if ! grep -Fxq 'EUNOMIA_PATROL_MODEL_READY' "$probe_file"; then
+    rm -f "$probe_file" "$probe_log"
+    return 1
+  fi
+  rm -f "$probe_file" "$probe_log"
+  printf 'model_probe=ready agent=codex route=%s model=%s effort=%s\n' \
+    "$ACTIVE_CODEX_ROUTE" "$ACTIVE_CODEX_MODEL" \
+    "$EUNOMIA_PATROL_REASONING_EFFORT"
+}
+
+select_codex_route() {
+  local model
+  if [[ -n "${LITELLM_API_KEY:-}" ]]; then
+    for model in ${EUNOMIA_PATROL_LOCAL_MODELS:-}; do
+      configure_local_codex_route "$model"
+      if probe_active_codex_route; then
+        return 0
+      fi
+      printf 'model_probe=unavailable agent=codex route=%s model=%s\n' \
+        "$ACTIVE_CODEX_ROUTE" "$ACTIVE_CODEX_MODEL" >&2
+    done
+  else
+    printf 'model_probe=skipped agent=codex route=local reason=LITELLM_API_KEY_missing\n' >&2
+  fi
+
+  configure_openai_codex_route
+  probe_active_codex_route
 }
 
 probe_model() {
-  local probe_file
-  probe_file="$(mktemp "$STATE_ROOT/model-probe.XXXXXX")"
   case "$EUNOMIA_PATROL_AGENT" in
     codex)
-      if ! codex exec --ephemeral \
-          --model "$EUNOMIA_PATROL_MODEL" \
-          --config "model_reasoning_effort=\"$EUNOMIA_PATROL_REASONING_EFFORT\"" \
-          --dangerously-bypass-approvals-and-sandbox \
-          --output-last-message "$probe_file" \
-          "Reply with exactly EUNOMIA_PATROL_MODEL_READY."; then
-        rm -f "$probe_file"
-        return 1
-      fi
+      select_codex_route
       ;;
     claude)
-      local probe_json
+      local probe_file probe_json
+      probe_file="$(mktemp "$STATE_ROOT/model-probe.XXXXXX")"
       probe_json="$(mktemp "$STATE_ROOT/model-probe-json.XXXXXX")"
       if ! claude -p \
           --model "$EUNOMIA_PATROL_MODEL" \
@@ -111,40 +176,39 @@ probe_model() {
         return 1
       fi
       rm -f "$probe_json"
+      if ! grep -Fxq 'EUNOMIA_PATROL_MODEL_READY' "$probe_file"; then
+        rm -f "$probe_file"
+        return 1
+      fi
+      rm -f "$probe_file"
+      printf 'model_probe=ready agent=claude model=%s effort=%s\n' \
+        "$EUNOMIA_PATROL_MODEL" "$EUNOMIA_PATROL_REASONING_EFFORT"
       ;;
     *)
       printf 'unsupported Agent adapter: %s\n' "$EUNOMIA_PATROL_AGENT" >&2
-      rm -f "$probe_file"
       return 2
       ;;
   esac
-  if ! grep -Fxq 'EUNOMIA_PATROL_MODEL_READY' "$probe_file"; then
-    rm -f "$probe_file"
-    return 1
-  fi
-  rm -f "$probe_file"
-  printf 'model_probe=ready agent=%s model=%s effort=%s\n' \
-    "$EUNOMIA_PATROL_AGENT" "$EUNOMIA_PATROL_MODEL" \
-    "$EUNOMIA_PATROL_REASONING_EFFORT"
 }
 
 run_codex() {
   local prompt_file="$1" report_file="$2" event_file="$3" thread_id=""
-  if [[ -e "$THREAD_FILE" && ! -s "$THREAD_FILE" ]]; then
-    printf 'Codex continuity file exists but is empty: %s\n' "$THREAD_FILE" >&2
+  if [[ -e "$ACTIVE_CODEX_THREAD_FILE" && ! -s "$ACTIVE_CODEX_THREAD_FILE" ]]; then
+    printf 'Codex continuity file exists but is empty: %s\n' "$ACTIVE_CODEX_THREAD_FILE" >&2
     return 1
   fi
-  if [[ ! -e "$THREAD_FILE" ]]; then
-    : >"$THREAD_FILE"
-    chmod 0600 "$THREAD_FILE"
+  if [[ ! -e "$ACTIVE_CODEX_THREAD_FILE" ]]; then
+    : >"$ACTIVE_CODEX_THREAD_FILE"
+    chmod 0600 "$ACTIVE_CODEX_THREAD_FILE"
   fi
 
   (
     cd "$REPO_ROOT"
-  if [[ -s "$THREAD_FILE" ]]; then
-    thread_id="$(<"$THREAD_FILE")"
+  if [[ -s "$ACTIVE_CODEX_THREAD_FILE" ]]; then
+    thread_id="$(<"$ACTIVE_CODEX_THREAD_FILE")"
     codex exec resume \
-      --model "$EUNOMIA_PATROL_MODEL" \
+      --model "$ACTIVE_CODEX_MODEL" \
+      "${ACTIVE_CODEX_CONFIG_ARGS[@]}" \
       --config "model_reasoning_effort=\"$EUNOMIA_PATROL_REASONING_EFFORT\"" \
       --dangerously-bypass-approvals-and-sandbox \
       --json \
@@ -154,7 +218,8 @@ run_codex() {
     (
       cd "$REPO_ROOT"
       codex exec \
-        --model "$EUNOMIA_PATROL_MODEL" \
+        --model "$ACTIVE_CODEX_MODEL" \
+        "${ACTIVE_CODEX_CONFIG_ARGS[@]}" \
         --config "model_reasoning_effort=\"$EUNOMIA_PATROL_REASONING_EFFORT\"" \
         --dangerously-bypass-approvals-and-sandbox \
         --json \
@@ -166,8 +231,8 @@ run_codex() {
 
   thread_id="$(jq -Rr 'fromjson? | select(.type == "thread.started") | .thread_id' "$event_file" | head -n 1)"
   if [[ -n "$thread_id" ]]; then
-    write_state_id_atomic "$THREAD_FILE" "$thread_id"
-  elif [[ ! -s "$THREAD_FILE" ]]; then
+    write_state_id_atomic "$ACTIVE_CODEX_THREAD_FILE" "$thread_id"
+  elif [[ ! -s "$ACTIVE_CODEX_THREAD_FILE" ]]; then
     printf 'Codex did not report a persistent thread id\n' >&2
     return 1
   fi
@@ -264,6 +329,7 @@ case "$mode" in
   --run-locked)
     prepare_skills
     check_runtime
+    probe_model
     run_patrol
     ;;
   *)
