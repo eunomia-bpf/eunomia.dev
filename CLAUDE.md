@@ -124,6 +124,15 @@ Do not set a timeout when invoking a Subagent. Let it finish naturally; stop it
 only when the user explicitly cancels it, its task has become obsolete, or it
 has been confirmed stuck.
 
+Do not create a model-based permission hierarchy. Every configured Agent and
+model may perform real work with the full tool permissions already authorized
+for the task and environment, including commands, edits, tests, and external
+writes within that task's explicit scope. Parallel partitions and coordinator
+roles exist only to prevent duplicate or conflicting work; they must not make
+Codex the sole writer or reduce other models to read-only/advisory-only roles.
+Apply this convention consistently across Workspaces and computers unless the
+user explicitly requests a narrower role for a particular task.
+
 ### Tech stack (current)
 
 The site is rendered by a **custom Next.js + React + Tailwind CSS frontend** living in `app/`, statically exported to plain HTML/CSS/JS. It is **not** a runtime MkDocs site anymore.
