@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [When Should an eBPF Profiler Stop Trusting Its Own Diagnosis?](https://eunomia.dev/research/ebpf-diagnostic-confidence-control/)
+
+An eBPF collector can keep emitting plausible explanations after transport loss, missing hooks, or stale semantics have removed decisive evidence. This report develops diagnosis-specific evidence obligations, targeted collection recovery, explicit abstention, and a counterexample benchmark for confident-but-wrong observability.
+
 ### [Can GPU Membership Change Without Losing State Consistency?](https://eunomia.dev/research/gpu-membership-generation-continuity/)
 
 A new communicator does not prove all ranks resume from one logical state generation. This report develops generation-scoped reconfiguration certificates, ownership-aware state reconstruction, and adversarial membership-transition correctness tests.
