@@ -13,6 +13,7 @@ reported as failures rather than filled with invented material.
 
 ## Latest Answers
 
+- [Why can reverse-path filtering drop return traffic in an eBPF Kubernetes datapath?](/ebpf-qa/2026-09-03-ebpf-kubernetes-rp-filter-return-traffic/)
 - [Why can't an eBPF program read `bpf_tail_call()`'s return value?](/ebpf-qa/2026-09-02-bpf-tail-call-return-value/)
 - [Why are PID and TID insufficient to correlate concurrent TLS, HTTP/2, and SSE traffic?](/ebpf-qa/2026-08-31-tls-http2-sse-connection-correlation/)
 - [Why must releasing a BPF dynptr invalidate every derived slice and clone?](/ebpf-qa/2026-08-29-bpf-dynptr-release-slice-clone-lifetime/)
