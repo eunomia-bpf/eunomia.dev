@@ -234,7 +234,7 @@ run_worker() {
 }
 
 probe_workers() {
-  local worker_dir lane model index pid status_file checkout_dir
+  local worker_dir lane model index pid status_file checkout_dir proof_file
   local -a pids=()
   worker_dir="$(mktemp -d "$STATE_ROOT/worker-probe.XXXXXX")"
   chmod 0700 "$worker_dir"
@@ -242,8 +242,10 @@ probe_workers() {
     lane="${WORKER_LANES[$index]}"
     model="${WORKER_MODELS[$index]}"
     checkout_dir="$worker_dir/$lane-checkout"
+    proof_file="$checkout_dir/tool-proof.txt"
     install -d -m 0700 "$checkout_dir"
-    printf 'Reply with exactly EUNOMIA_PATROL_WORKER_READY.\n' >"$worker_dir/$lane.prompt"
+    printf 'Use your shell tool to write exactly EUNOMIA_PATROL_TOOL_READY to %s, read the file back, then reply with exactly EUNOMIA_PATROL_WORKER_READY.\n' \
+      "$proof_file" >"$worker_dir/$lane.prompt"
     run_worker "$lane" "$model" "$worker_dir/$lane.prompt" \
       "$worker_dir/$lane.md" "$worker_dir/$lane.status" "$checkout_dir" &
     pids+=("$!")
@@ -253,7 +255,12 @@ probe_workers() {
   done
   for lane in "${WORKER_LANES[@]}"; do
     status_file="$worker_dir/$lane.status"
+    proof_file="$worker_dir/$lane-checkout/tool-proof.txt"
     [[ -s "$status_file" ]] || printf 'unavailable: no status\n' >"$status_file"
+    if [[ "$(cut -d: -f1 <"$status_file")" == "ready" ]] && \
+        ! grep -Fxq 'EUNOMIA_PATROL_TOOL_READY' "$proof_file" 2>/dev/null; then
+      printf 'unavailable: tool write proof missing\n' >"$status_file"
+    fi
     printf 'worker_probe=%s lane=%s\n' "$(cut -d: -f1 <"$status_file")" "$lane"
   done
   rm -rf -- "$worker_dir"
