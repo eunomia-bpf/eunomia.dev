@@ -287,11 +287,22 @@ Before and after the August 22 publication, the newest ten contain **7
 eBPF-centered / 0 pure Agent / 3 adjacent systems**. The incoming eBPF-centered
 report ages an eBPF-centered report out of the rolling ten.
 
-A related unresolved question remains: online confidence and adaptive collection
-when trace loss, missing probes, or stale schemas make the current representation
-uncertain. It is intentionally not a seventh report in this series. The August 22
-report first defines what a compact representation promises to preserve; adaptive
-fidelity can be revisited later when fresh evidence supports a distinct mechanism.
+The series deliberately deferred one related question: online confidence and
+adaptive collection when trace loss, missing probes, or stale schemas make the
+current representation uncertain. The August 22 report first defined what a
+compact representation promises to preserve.
+
+On `2026-09-03`, fresh production evidence around bounded eBPF capture, missing
+response observation, and valid spans crossing a BPF transport bound makes that
+deferred question distinct enough for a one-run continuation:
+`/research/ebpf-diagnostic-confidence-control/`. The report asks what the runtime
+should do after live evidence obligations become degraded. It develops a
+query-specific evidence-deficit ledger, obligation-targeted bounded recovery,
+explicit abstention, and a counterexample benchmark for confident-but-wrong
+diagnosis. It is eBPF-centered because BPF hook coverage, ring/perf-buffer loss,
+map state, attach generations, and dynamic BPF collection are central to the
+mechanism. This continuation does **not** reopen Observability and Profiling as
+the normal active series.
 
 ## Completed series — eBPF Runtime, Extensibility, and Composition
 
@@ -424,22 +435,23 @@ fault-injection machinery rather than the central mechanism.
    transfer, and repartitioning as semantic counterexamples. It is adjacent
    systems.
 
-After the August 31 publication, the newest ten contain **7 eBPF-centered / 0
-pure Agent / 3 adjacent systems**. The September 2 adjacent report rotates the
-August 22 eBPF-centered report out of the newest-ten window, so after publication
-the mix becomes **6 eBPF-centered / 0 pure Agent / 4 adjacent systems**. This
-remains inside the normal 5–7 eBPF target band. Do not continue an adjacent-only
-streak merely to fill the active series; prefer a genuinely eBPF-essential
-question next when it passes the evidence and novelty gates.
+After the September 2 publication, the newest ten contain **6 eBPF-centered / 0
+pure Agent / 4 adjacent systems**. The September 3 eBPF-centered diagnosis-
+confidence report is a deliberate out-of-series continuation of the completed
+eBPF Observability and Profiling roadmap. It rotates the August 23 eBPF-centered
+report out of the newest-ten window, so after publication the mix remains **6
+eBPF-centered / 0 pure Agent / 4 adjacent systems**. The GPU/runtime series
+remains the active normal series after this one-run detour.
 
-Preferred next questions should advance a fifth distinct invariant only when
-there is strong primary evidence and measurable ground truth. Megakernel internal
-observability remains viable only if it exposes an execution boundary not already
-covered by launch-latency, host/device-causality, instrumentation-safety, or
-allocatability reports. Another distributed GPU question must go beyond
-membership/generation continuity rather than restating elastic recovery. Because
-the rolling mix is now `6 / 0 / 4`, a strong eBPF-essential systems question may
-be preferable to extending the adjacent GPU sequence.
+Preferred next questions should advance a fifth distinct GPU/runtime invariant
+only when there is strong primary evidence and measurable ground truth.
+Megakernel internal observability remains viable only if it exposes an execution
+boundary not already covered by launch-latency, host/device-causality,
+instrumentation-safety, allocatability, or diagnosis-confidence reports. Another
+distributed GPU question must go beyond membership/generation continuity rather
+than restating elastic recovery. A genuinely eBPF-essential heterogeneous-runtime
+question is preferable to another adjacent-only report when technical quality is
+comparable.
 
 ## Queued series — Agent Systems (limited)
 
