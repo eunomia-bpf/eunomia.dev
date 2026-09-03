@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能看清 GPU Megakernel 里面到底在跑什么吗？](https://eunomia.dev/zh/research/ebpf-gpu-megakernel-observability/)
+
+Megakernel 把 operator 与 dependency boundary 移进一个 persistent GPU kernel。本文提出 compiler-exported semantic task hook、携带 coverage 的 eBPF aggregation，以及专门判断 kernel/PC-level evidence 何时已经不能保持正确诊断的 counterexample benchmark。
+
 ### [GPU 通信组成员变化后，怎么证明训练状态还是一致的？](https://eunomia.dev/zh/research/gpu-membership-generation-continuity/)
 
 新 communicator 建好并不等于所有 rank 已经回到同一个逻辑状态。本文提出带 generation 的 reconfiguration certificate、ownership-aware state reconstruction，以及专门攻击 stale operation、rank reuse 与 repartition 的成员切换 correctness benchmark。

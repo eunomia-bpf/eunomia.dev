@@ -398,6 +398,18 @@ benchmark whose oracle is semantic consistency rather than recovery latency. It
 is adjacent systems because eBPF/GPU instrumentation is optional evidence and
 fault-injection machinery rather than the central mechanism.
 
+The `2026-09-03` report advances a fifth distinct runtime boundary and returns the
+series to an eBPF-essential mechanism. Megakernel compilers deliberately fuse many
+operator and dependency boundaries into one persistent GPU kernel, so an external
+kernel timeline or PC sample no longer automatically identifies the logical task
+or request generation being scheduled inside that kernel. The report treats
+compiler-native task profiling as the strongest baseline, then develops a
+versioned semantic task-hook ABI, coverage-carrying on-device eBPF aggregation,
+and a counterexample benchmark that holds the outer megakernel similar while
+changing the known internal task-level cause. It is eBPF-centered because the
+late-bound device-side eBPF program type is the programmable monitoring mechanism
+being evaluated, not optional host instrumentation.
+
 ### Published progress
 
 1. `2026-08-29`: `/research/gpu-memory-placement-evidence/` separates address
@@ -423,23 +435,30 @@ fault-injection machinery rather than the central mechanism.
    activation contract, then tests stale completions, rank reuse, partial state
    transfer, and repartitioning as semantic counterexamples. It is adjacent
    systems.
+5. `2026-09-03`: `/research/ebpf-gpu-megakernel-observability/` separates
+   persistent-kernel identity and PC identity from compiler/runtime logical task
+   identity. It proposes a versioned semantic task-hook ABI, a device-side eBPF
+   program type for late-bound bounded aggregation with explicit coverage, and a
+   fault-injection benchmark that compares CUPTI/PC evidence, compiler-native
+   task profiling, and semantic eBPF hooks under equal evidence budgets. It is
+   eBPF-centered because the device-side eBPF runtime is central to the proposed
+   observability mechanism.
 
-After the August 31 publication, the newest ten contain **7 eBPF-centered / 0
-pure Agent / 3 adjacent systems**. The September 2 adjacent report rotates the
-August 22 eBPF-centered report out of the newest-ten window, so after publication
-the mix becomes **6 eBPF-centered / 0 pure Agent / 4 adjacent systems**. This
-remains inside the normal 5–7 eBPF target band. Do not continue an adjacent-only
-streak merely to fill the active series; prefer a genuinely eBPF-essential
-question next when it passes the evidence and novelty gates.
+Before the September 3 publication, the newest ten contain **6 eBPF-centered / 0
+pure Agent / 4 adjacent systems**. The incoming eBPF-centered report rotates an
+older eBPF-centered report out of the newest-ten window, so after publication the
+mix remains **6 / 0 / 4**, inside the normal 5–7 eBPF target band.
 
-Preferred next questions should advance a fifth distinct invariant only when
-there is strong primary evidence and measurable ground truth. Megakernel internal
-observability remains viable only if it exposes an execution boundary not already
-covered by launch-latency, host/device-causality, instrumentation-safety, or
-allocatability reports. Another distributed GPU question must go beyond
-membership/generation continuity rather than restating elastic recovery. Because
-the rolling mix is now `6 / 0 / 4`, a strong eBPF-essential systems question may
-be preferable to extending the adjacent GPU sequence.
+The active series now has five substantial post-activation reports. A sixth is
+allowed only when it exposes a genuinely distinct invariant with strong primary
+evidence and measurable ground truth. Do not repeat memory-placement evidence,
+instrumentation non-interference, allocatability, membership/generation
+continuity, launch causality, host/device causality, or megakernel semantic
+observability with a different product example. Host-side scheduling noise is
+viable only if it materially exceeds the site's existing CPU-noise-in-GPU-
+inference work; another distributed GPU question must go beyond communicator and
+state-generation continuity. Do not publish a weak sixth report merely to fill
+the normal series boundary.
 
 ## Queued series — Agent Systems (limited)
 
