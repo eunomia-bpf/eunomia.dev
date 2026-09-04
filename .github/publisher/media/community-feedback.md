@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-09-03
+
+- At 23:42-23:47 PDT, a normal visible Chrome check found that the pending update marker has cleared from [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395), and the article now shows 58 public reads. Full-page structure inspection found a more serious rendering defect: the complete article body appears twice. The same opening paragraph occurs twice in the 49,713-character rendered article text, and the second copy starts after the first reference section with a same-title H2 followed by the same sections and references. Repair the existing article by removing only the second duplicate body, then repeat full public-page QA; do not republish it as a new article. The connected Chrome session still redirects Zhihu Creator to sign-in, so all queued Zhihu publications remain blocked until normal login is restored. No platform interaction was performed.
+
 ### 2026-09-02
 
 - Follow-up at 15:59-16:04 PDT: [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395) rose to 28 public reads with 0 comments, but a fresh creator-center and public-page recheck confirmed that its H1-removal update remains the sole review item. The public page still shows `文章有更新` and renders the article title twice, once as the page title and again as the first body heading. Correct the existing article after the pending update clears; do not republish it. [Juejin HID](https://juejin.cn/post/7680099381967798307) rose from 3 to 6 reads with 0 comments, while its 14 body headings, 14 code blocks, references, and images remained intact. The independent [AgenticOS workshop recap](https://rmmod.com/posts/agent/agenticos-workshop/) remains unchanged and still states the older 30-40% LLM / 60-70% non-LLM split, with no visible discussion. No interaction was performed; revisit after the Agent Sandbox update leaves review or a substantive comment or citation change appears.

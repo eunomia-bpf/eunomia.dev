@@ -87,6 +87,11 @@ artifact, ledger, queue, and snapshots instead.
 3. For long-form posts, finish the Juejin-specific Markdown artifact locally
    before opening the editor. Paste or import that final artifact; do not use
    the platform editor for large rewrites or link-heavy tail-note repair.
+   When repairing an existing article, verify that the editor replaced the old
+   body instead of appending another copy. After saving, confirm on the public
+   page that the opening paragraph, first section, and references each occur
+   only once. Repair the same article if duplication appears; never republish
+   it as a new post.
 4. Use `预览` to scan headings, images, links, code blocks, and table layout.
 5. Click `发布` only to inspect publish settings when needed.
 6. Choose category and tags carefully:
