@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [GPU Checkpoint 恢复成功，应用状态就一定一致吗？](https://eunomia.dev/zh/research/gpu-checkpoint-recovery-consistency/)
+
+GPU process 能完整 restore，也可能让 CPU、device、communication 与外部 effect 落在不同应用 epoch。本文提出 recovery-cut certificate、semantic quiescence adapter，以及直接测量 invalid recovery 的 adversarial benchmark。
+
 ### [eBPF 能看清 GPU Megakernel 里面到底在跑什么吗？](https://eunomia.dev/zh/research/ebpf-gpu-megakernel-observability/)
 
 Megakernel 把 operator 与 dependency boundary 移进一个 persistent GPU kernel。本文提出 compiler-exported semantic task hook、携带 coverage 的 eBPF aggregation，以及专门判断 kernel/PC-level evidence 何时已经不能保持正确诊断的 counterexample benchmark。

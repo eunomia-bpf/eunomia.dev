@@ -9,21 +9,23 @@
 - Verified raw Google export window: through `2026-08-30`
 - Search Console newest verified row: `2026-08-29`; `2026-08-30` is absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
-- Latest completed daily record before the current run: `2026-09-02`
-- Last completed Daily Report pull request: `#183`
-- Last verified Daily Report squash commit: `b581a30c1771a3f5d27991f3c8d48d81620e97a8`
-- Last verified production publication from a Daily Report run: static export commit `2eff2c5d0c60077e9e96ad879599a4aae014e65e`
-- Current daily branch: `daily/2026-09-03-ebpf-megakernel-observability`
+- Latest completed daily record before the current run: `2026-09-03`
+- Last completed Daily Report pull request: `#185`
+- Last verified Daily Report squash commit: `36f293437e26825ebbdd8c37cc8fe8dd73e359ff`
+- Last verified production publication from a Daily Report run: static export commit `204908cc65cbb6e853f2ac01d9d5a82794f1178f`
+- Current daily branch: `daily/2026-09-04-gpu-checkpoint-consistency`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR `#183` is independently reconciled from GitHub. It squash-merged as
-`b581a30c1771a3f5d27991f3c8d48d81620e97a8`; its single closeout comment records
-successful final PR-head checks, exact-merge validation, exact-merge `Deploy
-Static App`, production static export
-`2eff2c5d0c60077e9e96ad879599a4aae014e65e`, and generated bilingual production
-verification. The public Daily Report crawler/index has since refreshed to expose
-the September 2 report, so the stale crawler view recorded at closeout is no
-longer a current limitation.
+PR `#185` is independently reconciled from GitHub. It squash-merged as
+`36f293437e26825ebbdd8c37cc8fe8dd73e359ff`; exact-merge `Validate SEO
+Operations` run `33781384982` and exact-merge `Deploy Static App` run
+`33781384996` both completed successfully. The deployment produced static export
+`204908cc65cbb6e853f2ac01d9d5a82794f1178f`, explicitly built for that squash
+commit. The prior run had omitted the repository-required compact closeout record,
+so September 4 reconciliation added exactly one top-level closeout comment to the
+merged PR. The public crawler view had not yet refreshed the September 3 report
+during the September 4 audit; exact deployment/generated evidence remains the
+stronger publication proof.
 
 ## Current Daily Report mix
 
@@ -33,31 +35,28 @@ Before today's publication, the newest ten actually published reports contain:
 - pure Agent-centered: **0 of 10**
 - adjacent systems: **4 of 10**
 
-The four newest reports are adjacent GPU/runtime work. Today's selected report,
-`/research/ebpf-gpu-megakernel-observability/`, is genuinely **eBPF-centered**:
-the central mechanism is a device-side eBPF program type attached to
-compiler/runtime semantic task hooks, with bounded on-device aggregation and
-explicit coverage. It is not classified as eBPF merely because eBPF can observe
-the workload.
+Today's selected `/research/gpu-checkpoint-recovery-consistency/` report is
+**adjacent systems**. Its central mechanism is an application-consistent recovery
+cut across CPU state, CUDA state, distributed communication, persistent-kernel
+state, and external effects. eBPF is not required by the mechanism.
 
-The incoming eBPF-centered report rotates the oldest eBPF-centered report out of
-the newest-ten window, so after publication the mix remains **6 / 0 / 4**.
+The incoming adjacent report rotates the `2026-08-24` eBPF-centered report out of
+the newest-ten window, so after publication the mix becomes **5 / 0 / 5**. This
+remains inside the normal 5–7 eBPF target band without changing classification.
 
-**GPU and Heterogeneous Runtime Systems** remains the active series. The existing
-post-activation reports cover memory-placement evidence, instrumentation
-non-interference, candidate-conditioned allocatability, and membership/generation
-continuity. Today's fifth contribution advances a distinct boundary: after a
-megakernel compiler moves operators and dependencies inside one persistent GPU
-kernel, kernel/PC identity is no longer the same thing as logical task identity.
-The proposed mechanisms are a versioned semantic task-hook ABI, coverage-carrying
-eBPF aggregation inside the megakernel, and a counterexample benchmark that tests
-whether task-level diagnoses survive fusion.
+**GPU and Heterogeneous Runtime Systems** reaches its normal six-report
+post-activation boundary with today's checkpoint-recovery-consistency report. The
+six distinct boundaries are memory-placement evidence, instrumentation
+non-interference, candidate-conditioned allocatability, membership/generation
+continuity, semantic observability after megakernel fusion, and application-
+consistent checkpoint/restore. A seventh report should not continue the series
+without fresh evidence for a mechanism beyond those boundaries.
 
 ## Current signals
 
 ### Google Search Console
 
-The exact configured Drive folder was rechecked on `2026-09-03`; no export newer
+The exact configured Drive folder was rechecked on `2026-09-04`; no export newer
 than the `2026-08-24..30` source-native weekly set is present. The current Search
 Console date file contains rows through `2026-08-29` and omits `2026-08-30`.
 
@@ -69,39 +68,37 @@ position**. The equal-duration `2026-08-17..22` slice contains **477 / 59,798 /
 about **1.17 positions worse**.
 
 This is not a complete seven-day trend. The preceding weekly export omits
-`2026-08-23` and the current export omits `2026-08-30`; older gaps also prevent a
+`2026-08-23`, the current export omits `2026-08-30`, and older gaps prevent a
 complete preceding 28-day source window. Missing rows are never interpreted as
 zero.
 
 Weekly page aggregates show Daily Report routes at **6 clicks / 1,017
 impressions** versus **5 / 744** in the preceding weekly page export. The files
-have no date-by-page dimension and the volume remains too small for a causal
+lack a date-by-page dimension and the volume remains too small for a causal
 metadata, navigation, or topic conclusion.
 
 ### Google Analytics 4
 
-Under the configured three-day lag on September 3, the `2026-08-24..30` organic
-landing-page aggregate is now fully finalized. It contains **1,007 sessions** at
-about **45.88% session-weighted engagement**. The preceding finalized
-`2026-08-17..23` aggregate contains **984 sessions** at about **49.29%**
-engagement.
+The finalized `2026-08-24..30` organic landing-page aggregate contains **1,007
+sessions** at about **45.88% session-weighted engagement**. The preceding
+finalized `2026-08-17..23` aggregate contains **984 sessions** at about **49.29%
+engagement**.
 
 Sessions are about **2.3% higher** week over week while engagement is about
 **3.41 percentage points lower**. Weekly landing-page exports have no date
-dimension, so they cannot support within-week causal attribution to a report or
+dimension, so they cannot support within-week causal attribution to one report or
 page change.
 
 ### Public technical and portfolio evidence
 
-The public-safe daily brief generated on `2026-09-03 12:10 UTC` records homepage
-`200` in `250 ms`, robots `200`, sitemap `200`, **726 sitemap entries**, and
+The public-safe daily brief generated on `2026-09-04 12:11 UTC` records homepage
+`200` in `182 ms`, robots `200`, sitemap `200`, **730 sitemap entries**, and
 canonical `https://eunomia.dev/`.
 
-A separate fresh public fetch returns the expected Eunomia identity and Daily
-Report navigation, and `/research/` now exposes the September 2 report. The same
-public-safe brief records **99 active non-fork repositories, 9,930 stars, 1,300
-forks, and 293 open issue/PR records**. These are supplementary project signals,
-not substitutes for Search Console or GA4 and not SEO causal metrics.
+The same brief records **99 active non-fork repositories, 9,934 stars, 1,304
+forks, and 301 open issue/PR records**, plus **63 DEV articles, 43 reactions, and
+4 comments**. These are supplementary project signals, not substitutes for
+Search Console or GA4 and not SEO causal metrics.
 
 Cloudflare remains disabled by repository configuration, so no
 Cloudflare-grounded traffic, cache, bot, country, or status-code conclusion is
@@ -113,25 +110,25 @@ The repository generates sitemap, robots, canonical, `hreflang`, Open Graph,
 structured data, legacy redirect stubs, and static audit artifacts. Production
 deploys through `Deploy Static App`.
 
-Fresh September 3 public-site evidence, the public-safe brief, and source-native
+Fresh September 4 public-site evidence, the public-safe brief, and source-native
 Google evidence do not establish a crawl, robots, sitemap, canonical, hreflang,
 structured-data, redirect, broken-link, rendering, accessibility, persistent
 performance, or deployment defect that justifies a separate technical SEO
-implementation change today. Search-engine/crawler snapshots are not treated as
-deployment acceptance evidence.
+implementation change today. The stale crawler-visible September 3 index is
+recorded as uncertainty, not treated as deployment acceptance evidence or a
+confirmed repository defect.
 
 The SEO skill submodule remains pinned at
-`516e9e2dcf012506a677a749049d64c5914643e9`. No pointer-only update is part of
-this run because the durable plan requires migrating the consuming contract
-first.
+`516e9e2dcf012506a677a749049d64c5914643e9`. Upstream `main` is newer, but no
+pointer-only update is part of this run because the durable plan requires
+migrating the consuming contract first.
 
 ## Current focus
 
-1. Complete the `2026-09-03` eBPF megakernel-observability Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
-2. Keep **GPU and Heterogeneous Runtime Systems** active through this fifth post-activation contribution. The report must remain distinct from launch causality, instrumentation non-interference, execution placement, and compiler-native profiling alone.
-3. Treat compiler-native task profiling as the strongest baseline. The eBPF mechanism must earn its complexity through late-bound programmability, bounded on-device aggregation, or explicit semantic coverage under an equal evidence budget.
+1. Complete the `2026-09-04` checkpoint-recovery-consistency Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
+2. Treat the sixth GPU/runtime report as the normal boundary for **GPU and Heterogeneous Runtime Systems**. Do not force a seventh report from the same series.
+3. Because today's adjacent report brings the rolling mix to **5 / 0 / 5**, prefer a genuinely eBPF-centered approved systems question on the next run while preserving the normal quality gates.
 4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
-5. Use the fully finalized GA4 `2026-08-24..30` week for current weekly comparison, while preserving the no-within-week-causality limitation.
-6. Add Cloudflare evidence only when a supported read-only path is enabled in repository configuration.
+5. Keep Cloudflare evidence unavailable until a supported read-only path is enabled in repository configuration.
 
 Detailed run history belongs in `.github/seo-data/daily/` and merged daily pull requests.
