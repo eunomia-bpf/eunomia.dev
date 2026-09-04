@@ -335,89 +335,75 @@ The Daily Report index already exposes the sequence. Report-level acquisition an
 navigation evidence is still too young to justify a dedicated public series hub.
 Revisit that decision only when evidence shows a retrieval benefit.
 
-## Active series — GPU and Heterogeneous Runtime Systems
+## Completed series — GPU and Heterogeneous Runtime Systems
 
 Working question: **What runtime and observability abstractions are missing at
 CPU/GPU and host/device boundaries?**
 
-Candidate topics include GPU/CPU causal profiling, memory movement, megakernel
-observability, programmable device-side instrumentation, distributed GPU
-coordination, utilization versus allocatability, host-side scheduling noise, and
-eBPF-like programmable monitors near GPU or DPU execution.
-
-Reports in this series count toward the eBPF share only when eBPF or an eBPF-like
-runtime is central to the mechanism being evaluated.
-
 The two August 20 reports are focused adjacent-systems contributions to this
-roadmap, but they predate activation and do not count as progress in the new
-normal sequence. They establish two boundaries that should not simply be
-repeated: kernel launch-latency attribution and host/device causal tracing.
+roadmap, but they predate activation and do not count as progress in the normal
+sequence. They establish two boundaries that should not simply be repeated:
+kernel launch-latency attribution and host/device causal tracing.
 
 The series became active after the `2026-08-28` Networking and Security report
-reached that series' normal six-report boundary.
+reached that series' normal six-report boundary. It reached its own six-report
+post-activation boundary on `2026-09-04`.
 
-The `2026-08-29` report is the first substantial post-activation contribution. It
-asks what evidence a GPU runtime needs before migrating, evicting, prefetching,
-replicating, or remotely mapping Unified Memory pages under HBM oversubscription.
-Recent systems add sampled resident-page activity, compiler-derived access
-semantics, object/phase behavior, or future scheduling knowledge because a demand
-fault alone does not reveal future reuse. The report develops evidence-carrying
-placement decisions, placement intent with observable compliance, and a
-counterexample benchmark that measures decision regret while progressively
-revealing richer evidence. It is adjacent systems because eBPF is optional
-instrumentation rather than the central mechanism.
+The `2026-08-29` report asks what evidence a GPU runtime needs before migrating,
+evicting, prefetching, replicating, or remotely mapping Unified Memory pages
+under HBM oversubscription. It develops evidence-carrying placement decisions,
+placement intent with observable compliance, and a counterexample benchmark that
+measures decision regret while progressively revealing richer evidence. It is
+adjacent systems because eBPF is optional instrumentation rather than the central
+mechanism.
 
-The `2026-08-30` report is the second substantial post-activation contribution.
-It asks what contract a dynamic GPU instrumentation runtime needs before an
-inserted device-side probe can be treated as a faithful observer. Preserving
-logical register values is not enough when instrumentation can change register
-pressure, occupancy, timing, control behavior, or which sites are observed. The
-report develops a verified probe-effect manifest, resource-budgeted
-instrumentation with explicit coverage, and a counterexample benchmark for
-observer-induced failures. It is adjacent systems because the non-interference
-and coverage property applies to NVBit, GTPin, vendor profiling interfaces,
-native instrumentation, and eBPF-like device monitors; eBPF is one possible
-backend rather than a required mechanism.
+The `2026-08-30` report asks what contract a dynamic GPU instrumentation runtime
+needs before an inserted device-side probe can be treated as a faithful observer.
+It develops a verified probe-effect manifest, resource-budgeted instrumentation
+with explicit coverage, and a counterexample benchmark for observer-induced
+failures. It is adjacent systems because the property applies across NVBit,
+GTPin, vendor profiling interfaces, native instrumentation, and eBPF-like device
+monitors.
 
-The `2026-08-31` report advances a third distinct runtime boundary. It separates
-retrospective GPU activity from **allocatability**, the counterfactual question of
-whether a particular incoming workload can safely co-reside now. The report
-separates hard resource fit from soft shared-resource interference and evidence
-confidence, then develops an allocatability certificate, bounded two-stage
-admission, and a counterexample benchmark whose paired cases hold headline
+The `2026-08-31` report separates retrospective GPU activity from
+**allocatability**, the counterfactual question of whether a particular incoming
+workload can safely co-reside now. It develops an allocatability certificate,
+bounded two-stage admission, and paired counterexamples that hold headline
 utilization or occupancy similar while changing the true co-residency result. It
 is adjacent systems because eBPF is not required by the admission mechanism.
 
-The `2026-09-02` report advances a fourth distinct runtime boundary. NCCL can
-shrink or grow communicators, but a new communicator does not establish which
-application state is committed, whether old-generation asynchronous effects are
-quiescent, or who owns repartitioned state after world-size or process-incarnation
-changes. The report develops a generation-scoped reconfiguration certificate,
-ownership-aware state reconstruction, and a membership-transition counterexample
-benchmark whose oracle is semantic consistency rather than recovery latency. It
-is adjacent systems because eBPF/GPU instrumentation is optional evidence and
-fault-injection machinery rather than the central mechanism.
+The `2026-09-02` report separates communicator liveness from application-state
+generation consistency. It develops a generation-scoped reconfiguration
+certificate, ownership-aware state reconstruction, and a membership-transition
+counterexample benchmark whose oracle is semantic consistency rather than
+recovery latency. It is adjacent systems because eBPF/GPU instrumentation is
+optional evidence and fault-injection machinery.
 
-The `2026-09-03` report advances a fifth distinct runtime boundary and returns the
-series to an eBPF-essential mechanism. Megakernel compilers deliberately fuse many
-operator and dependency boundaries into one persistent GPU kernel, so an external
-kernel timeline or PC sample no longer automatically identifies the logical task
-or request generation being scheduled inside that kernel. The report treats
-compiler-native task profiling as the strongest baseline, then develops a
-versioned semantic task-hook ABI, coverage-carrying on-device eBPF aggregation,
-and a counterexample benchmark that holds the outer megakernel similar while
-changing the known internal task-level cause. It is eBPF-centered because the
-late-bound device-side eBPF program type is the programmable monitoring mechanism
-being evaluated, not optional host instrumentation.
+The `2026-09-03` report returns the series to an eBPF-essential mechanism.
+Megakernel compilers deliberately fuse many operator and dependency boundaries
+into one persistent GPU kernel, so an external kernel timeline or PC sample no
+longer automatically identifies the logical task or request generation. It
+develops a versioned semantic task-hook ABI, coverage-carrying on-device eBPF
+aggregation, and a counterexample benchmark that holds the outer megakernel
+similar while changing the internal task-level cause. It is eBPF-centered
+because the device-side eBPF runtime is central to the proposed monitor.
+
+The `2026-09-04` report closes the series with a sixth distinct boundary:
+transparent GPU checkpoint/restore can reconstruct CUDA and process state while
+the resulting image still crosses application epochs among CPU state, GPU state,
+peer communication, persistent-kernel state, and externally visible effects. It
+develops a machine-checkable recovery-cut certificate, narrow semantic
+quiescence/effect-fence adapters, and an adversarial benchmark whose oracle is
+whether recovery corresponds to an allowed application prefix plus legitimate
+replay. It is adjacent systems because the consistency mechanism does not require
+eBPF.
 
 ### Published progress
 
 1. `2026-08-29`: `/research/gpu-memory-placement-evidence/` separates address
    validity and demand faults from the evidence needed to make a placement
-   decision under oversubscription. It compares CUDA UVM, Linux HMM, HIP managed
-   memory, sampled resident-page observability, compiler/object semantics, and
-   schedule-aware memory management, then proposes an evidence-to-decision
-   contract and fixed-budget evaluation. It is adjacent systems.
+   decision under oversubscription. It proposes an evidence-to-decision contract
+   and fixed-budget evaluation. It is adjacent systems.
 2. `2026-08-30`: `/research/gpu-instrumentation-safety-contract/` separates
    logical probe-state preservation from whole-execution non-interference. It
    develops a probe-effect manifest, explicit resource budgets and observation
@@ -439,26 +425,55 @@ being evaluated, not optional host instrumentation.
    persistent-kernel identity and PC identity from compiler/runtime logical task
    identity. It proposes a versioned semantic task-hook ABI, a device-side eBPF
    program type for late-bound bounded aggregation with explicit coverage, and a
-   fault-injection benchmark that compares CUPTI/PC evidence, compiler-native
-   task profiling, and semantic eBPF hooks under equal evidence budgets. It is
-   eBPF-centered because the device-side eBPF runtime is central to the proposed
-   observability mechanism.
+   fault-injection benchmark comparing low-level evidence, compiler-native task
+   profiling, and semantic eBPF hooks. It is eBPF-centered.
+6. `2026-09-04`: `/research/gpu-checkpoint-recovery-consistency/` separates
+   process/GPU restorable state from an application-consistent recovery cut. It
+   proposes a recovery-cut certificate, semantic quiescence and external-effect
+   fences, and an adversarial benchmark for duplicate effects, missing commits,
+   mixed epochs, pointer errors, communication deadlocks, and unsupported
+   recovery coverage. It is adjacent systems.
 
-Before the September 3 publication, the newest ten contain **6 eBPF-centered / 0
-pure Agent / 4 adjacent systems**. The incoming eBPF-centered report rotates an
-older eBPF-centered report out of the newest-ten window, so after publication the
-mix remains **6 / 0 / 4**, inside the normal 5–7 eBPF target band.
+Before the September 4 publication, the newest ten contain **6 eBPF-centered / 0
+pure Agent / 4 adjacent systems**. The incoming adjacent report rotates the
+`2026-08-24` eBPF-centered report out, so after publication the mix becomes **5 /
+0 / 5**, still inside the normal 5–7 eBPF target band.
 
-The active series now has five substantial post-activation reports. A sixth is
-allowed only when it exposes a genuinely distinct invariant with strong primary
-evidence and measurable ground truth. Do not repeat memory-placement evidence,
+Future work should return to this GPU/runtime series only when fresh evidence
+supports a mechanism beyond these six boundaries. Do not repeat memory placement,
 instrumentation non-interference, allocatability, membership/generation
-continuity, launch causality, host/device causality, or megakernel semantic
-observability with a different product example. Host-side scheduling noise is
-viable only if it materially exceeds the site's existing CPU-noise-in-GPU-
-inference work; another distributed GPU question must go beyond communicator and
-state-generation continuity. Do not publish a weak sixth report merely to fill
-the normal series boundary.
+continuity, launch/host-device causality, megakernel semantic observability, or
+checkpoint recovery-cut consistency with a different product example alone.
+
+## Active series — eBPF Optimization and Execution Specialization
+
+Working question: **How can eBPF programs and runtimes specialize to hardware and
+workload behavior without silently changing verifier-approved semantics,
+portability, or debuggability?**
+
+This series becomes active after the GPU/runtime series reaches its normal
+six-report boundary on `2026-09-04`. The rolling mix is then **5 / 0 / 5**, so a
+genuinely eBPF-centered question is preferred, but the normal evidence and
+novelty gates still apply.
+
+Candidate boundaries include:
+
+- profile-guided or workload-guided BPF re-JIT that can prove semantic
+  equivalence while changing machine code or helper lowering;
+- specialization contracts that make architecture-specific assumptions explicit
+  rather than hiding them behind one nominal BPF program;
+- safe delegation of high-level operations to kernel, NIC, DPU, or other
+  hardware-specific implementations without repeating the completed execution-
+  placement thesis;
+- optimization evidence that distinguishes a portable semantic contract from
+  one lucky microbenchmark or one JIT backend;
+- debugging and provenance for dynamically specialized BPF code so operators can
+  explain which version and optimization decision actually executed.
+
+The first report must establish one concrete optimization boundary with current
+primary evidence and measurable ground truth. Do not restate the completed
+userspace-runtime contract, hook-composition contract, heterogeneous execution
+placement report, or transactional-upgrade report under a new optimization name.
 
 ## Queued series — Agent Systems (limited)
 
