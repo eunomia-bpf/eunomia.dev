@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [When Is a GPU Checkpoint Actually Safe to Restore?](https://eunomia.dev/research/gpu-checkpoint-recovery-consistency/)
+
+A GPU process can be perfectly restorable while CPU state, device state, communication progress, and external effects belong to different application epochs. This report develops recovery-cut certificates, semantic quiescence adapters, and an adversarial benchmark that measures invalid recovery rather than checkpoint speed alone.
+
 ### [Can eBPF Make a GPU Megakernel Observable?](https://eunomia.dev/research/ebpf-gpu-megakernel-observability/)
 
 Megakernels move operator and dependency boundaries inside one persistent GPU kernel. This report develops compiler-exported semantic task hooks, coverage-carrying eBPF aggregation, and a counterexample benchmark for deciding when kernel- or PC-level evidence no longer preserves the diagnosis.
