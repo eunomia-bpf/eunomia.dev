@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-09-04
+
+- At 16:49-16:53 PDT, a normal visible Chrome recheck confirmed that [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395) still renders two complete copies of the article: the same title, opening, section sequence, and references appear again after the first reference section. The page shows 0 comments and no pending-update marker, so this is a published formatting defect rather than an in-review preview. Repair the existing article only. Zhihu Creator still redirects the connected `Yunwei` Chrome profile to sign-in, so queued Zhihu work remains blocked. No platform interaction was performed.
+
 ### 2026-09-03
 
 - At 23:42-23:47 PDT, a normal visible Chrome check found that the pending update marker has cleared from [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395), and the article now shows 58 public reads. Full-page structure inspection found a more serious rendering defect: the complete article body appears twice. The same opening paragraph occurs twice in the 49,713-character rendered article text, and the second copy starts after the first reference section with a same-title H2 followed by the same sections and references. Repair the existing article by removing only the second duplicate body, then repeat full public-page QA; do not republish it as a new article. The connected Chrome session still redirects Zhihu Creator to sign-in, so all queued Zhihu publications remain blocked until normal login is restored. No platform interaction was performed.
