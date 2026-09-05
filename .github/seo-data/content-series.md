@@ -475,6 +475,40 @@ primary evidence and measurable ground truth. Do not restate the completed
 userspace-runtime contract, hook-composition contract, heterogeneous execution
 placement report, or transactional-upgrade report under a new optimization name.
 
+The `2026-09-05` report establishes that first boundary. It separates kernel
+verifier safety from optimizer equivalence and from the lifetime of profile-based
+assumptions. K2 and EPSO show that semantics-preserving BPF rewrites can carry
+explicit equivalence checking; Kops shows proof-structured hardware
+specialization; the public BpfReJIT design shows how configuration and workload
+facts can drive a userspace re-JIT while every candidate still returns through
+the stock verifier/JIT. The report develops an optimization-equivalence
+certificate, guarded specialization dependencies with bounded deoptimization,
+and a phase-shift/rare-path benchmark whose correctness oracle is observable
+divergence from the portable source program.
+
+### Published progress
+
+1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
+   workload- or deployment-guided BPF rewrite is still justified as the same
+   program. It distinguishes unconditional profile hints, conditional semantic
+   assumptions, verifier acceptance, and optimizer equivalence; proposes a
+   generation-scoped certificate and invalidation registry; and evaluates
+   correctness under adversarial profile staleness before treating speedup as a
+   win. It is eBPF-centered because BPF bytecode semantics, verifier/JIT
+   acceptance, BPF effects, and link generations are the object of the contract.
+
+Before the September 5 publication, the newest ten contain **5 eBPF-centered / 0
+pure Agent / 5 adjacent systems**. The incoming eBPF-centered report rotates the
+`2026-08-25` eBPF-centered report out, so after publication the mix remains **5 /
+0 / 5**. No classification was changed to obtain that result.
+
+A later report should not repeat "verifier accepted is not equivalent" or stale
+profile invalidation with a different optimizer example. The next distinct
+boundaries remain architecture-specific specialization contracts, delegated
+native operations and their trust boundary, portable optimization evidence
+across JIT backends, and debugging/provenance mechanisms that go beyond the
+source-to-generation certificate introduced here.
+
 ## Queued series — Agent Systems (limited)
 
 Pure Agent systems work is intentionally a minority topic. Use this series only
