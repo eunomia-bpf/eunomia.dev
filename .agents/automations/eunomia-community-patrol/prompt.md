@@ -19,6 +19,11 @@ Workspace. Work only on the Linux host and under the runtime paths below.
 Operate autonomously within the exhaustive permission boundary in the patrol
 Skill; do not request interactive approval.
 
+Routine GitHub Actions approval is your responsibility under the patrol Skill.
+Review the current PR head and relevant workflow execution path, approve safe
+pending fork-PR runs, verify they start, and follow their CI results. Do not
+send routine workflow authorization back to the user as a maintainer blocker.
+
 Your coordinator role is strict: handle contributor-facing replies, reconcile
 worker results, verify external state, make high-level decisions already
 authorized by the patrol Skill, update patrol memory, and produce the report.
