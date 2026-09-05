@@ -36,7 +36,7 @@
 - Latest fully finalized GA4 aggregate: `2026-08-24` through `2026-08-30`
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
-The configured folder was directly reverified on `2026-09-04`. It contains weekly Google export sets for `2026-07-27..08-02`, `2026-08-03..09`, `2026-08-10..16`, `2026-08-17..23`, and `2026-08-24..30`. The newest set remains the current source-native export material; no later weekly set was observed. Missing rows are not converted to zero.
+The configured folder was directly reverified on `2026-09-05`. It contains weekly Google export sets for `2026-07-27..08-02`, `2026-08-03..09`, `2026-08-10..16`, `2026-08-17..23`, and `2026-08-24..30`. The newest set remains the current source-native export material; no later weekly set was observed. Missing rows are not converted to zero.
 
 For Search Console, the newest source-native date export contains rows for `2026-08-24..29`; `2026-08-30` is absent. Every row actually present in that six-day slice is finalized evidence under the configured lag. The `2026-08-24..29` slice contains 436 clicks / 55,594 impressions, about 0.784% aggregate CTR, and impression-weighted average position about 10.73.
 
@@ -59,6 +59,8 @@ Public repository and live-site data supplement these exports but do not replace
 - Live-site technical collection enabled: yes
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
+
+Fresh public search discovery on `2026-09-05` exposes the `2026-09-04` checkpoint-recovery Daily Report and the `2026-09-03` eBPF megakernel report. The independent crawler uncertainty recorded at the September 4 closeout is therefore resolved for those routes. This discovery evidence supplements, rather than replaces, exact-SHA deployment and generated-output verification.
 
 ## Deployment
 

@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 能用运行时画像做优化而不改变程序语义吗？](https://eunomia.dev/zh/research/ebpf-runtime-profile-specialization/)
+
+运行时 profile 能暴露 branch bias、deployment constant 和 generic JIT 提前不知道的机器特征。本文把 verifier safety 与 semantic equivalence 分开，提出 equivalence certificate、带 guard 的 specialization/deoptimization，以及专门让 stale profile 暴露问题的 phase-shift benchmark。
+
 ### [GPU Checkpoint 恢复成功，应用状态就一定一致吗？](https://eunomia.dev/zh/research/gpu-checkpoint-recovery-consistency/)
 
 GPU process 能完整 restore，也可能让 CPU、device、communication 与外部 effect 落在不同应用 epoch。本文提出 recovery-cut certificate、semantic quiescence adapter，以及直接测量 invalid recovery 的 adversarial benchmark。

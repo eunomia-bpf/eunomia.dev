@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Use Runtime Profiles Without Changing Program Semantics?](https://eunomia.dev/research/ebpf-runtime-profile-specialization/)
+
+Runtime profiles can reveal branch bias, deployment constants, and machine-specific optimization opportunities that the stock JIT cannot know ahead of time. This report separates verifier safety from semantic equivalence and develops equivalence certificates, guarded specialization and deoptimization, plus phase-shift counterexamples for stale profiles.
+
 ### [When Is a GPU Checkpoint Actually Safe to Restore?](https://eunomia.dev/research/gpu-checkpoint-recovery-consistency/)
 
 A GPU process can be perfectly restorable while CPU state, device state, communication progress, and external effects belong to different application epochs. This report develops recovery-cut certificates, semantic quiescence adapters, and an adversarial benchmark that measures invalid recovery rather than checkpoint speed alone.
