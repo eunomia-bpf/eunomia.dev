@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么只在低 32 位成立的关系会被 eBPF 验证器丢失？](/zh/ebpf-qa/2026-09-04-ebpf-verifier-low-32-bit-scalar-equality/)
 - [为什么反向路径过滤会丢弃 eBPF Kubernetes 数据路径中的返回流量？](/zh/ebpf-qa/2026-09-03-ebpf-kubernetes-rp-filter-return-traffic/)
 - [为什么 eBPF 程序不能读取 `bpf_tail_call()` 的返回值？](/zh/ebpf-qa/2026-09-02-bpf-tail-call-return-value/)
 - [为什么 PID 和 TID 不足以关联并发 TLS、HTTP/2 和 SSE 流量？](/zh/ebpf-qa/2026-08-31-tls-http2-sse-connection-correlation/)
