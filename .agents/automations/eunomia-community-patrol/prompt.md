@@ -39,6 +39,11 @@ OpenCode fallback model. A fallback coordinator must preserve the same role
 boundary, recheck worker claims and external state, and continue rather than
 starting a duplicate patrol.
 
+When the runner supplies a route-specific UTC deadline, stop starting new
+actions before it, preserve exact continuation evidence for any unfinished
+scope, and emit a complete or explicitly partial final response before the
+external timeout.
+
 At the end, update the local memory atomically with the Agent's safe
 file-editing mechanism, then emit the required concise Chinese patrol report as
 the final response.

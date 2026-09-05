@@ -21,6 +21,7 @@ CHANGE_SKILL="${EUNOMIA_PATROL_CHANGE_SKILL:-$REPO_ROOT/.agents/skills/oss-chang
 REPORT_DIR="$STATE_ROOT/reports"
 LOG_DIR="$STATE_ROOT/logs"
 THREAD_FILE="$STATE_ROOT/codex-thread-id"
+FAILED_HANDOFF_FILE="$STATE_ROOT/failed-handoff.json"
 PATROL_SKILL="$REPO_ROOT/.agents/skills/eunomia-community-patrol/SKILL.md"
 PROMPT_SOURCE="$SCRIPT_DIR/prompt.md"
 WORKER_LANES=(partition-1 partition-2 partition-3)
@@ -29,7 +30,9 @@ read -r -a COORDINATOR_FALLBACK_MODELS <<<"${EUNOMIA_PATROL_COORDINATOR_FALLBACK
 MODEL_PROBE_TIMEOUT_SECONDS="${EUNOMIA_PATROL_MODEL_PROBE_TIMEOUT_SECONDS:-90}"
 WORKER_TIMEOUT_SECONDS="${EUNOMIA_PATROL_WORKER_TIMEOUT_SECONDS:-900}"
 COORDINATOR_TIMEOUT_SECONDS="${EUNOMIA_PATROL_COORDINATOR_TIMEOUT_SECONDS:-1800}"
-FALLBACK_COORDINATOR_BUDGET_SECONDS="${EUNOMIA_PATROL_FALLBACK_COORDINATOR_BUDGET_SECONDS:-1800}"
+FALLBACK_COORDINATOR_BUDGET_SECONDS="${EUNOMIA_PATROL_FALLBACK_COORDINATOR_BUDGET_SECONDS:-3000}"
+FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS="${EUNOMIA_PATROL_FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS:-1200}"
+FINALIZE_MARGIN_SECONDS="${EUNOMIA_PATROL_FINALIZE_MARGIN_SECONDS:-180}"
 
 install -d -m 0700 "$STATE_ROOT" "$CHECKOUT_ROOT" "$REPORT_DIR" "$LOG_DIR"
 
@@ -47,6 +50,27 @@ write_state_id_atomic() {
   mv -f -- "$temporary" "$target"
 }
 
+write_deadlined_prompt() {
+  local source="$1" target="$2" route="$3" timeout_seconds="$4"
+  local now_epoch finalize_epoch finalize_utc effective_margin="$FINALIZE_MARGIN_SECONDS"
+  if (( timeout_seconds <= effective_margin + 60 )); then
+    effective_margin=$((timeout_seconds / 3))
+  fi
+  now_epoch="$(date -u +%s)"
+  finalize_epoch=$((now_epoch + timeout_seconds - effective_margin))
+  finalize_utc="$(date -u -d "@$finalize_epoch" +%Y-%m-%dT%H:%M:%SZ)"
+  {
+    cat "$source"
+    printf '\nExecution deadline for this route:\n'
+    printf -- '- route: %s\n' "$route"
+    printf -- '- final response deadline: %s\n' "$finalize_utc"
+    printf '%s\n' \
+      'Stop starting new repository or GitHub actions before this deadline, reserve the remaining external timeout margin for cleanup, and emit the required final Chinese report before the deadline.' \
+      'If full coverage is impossible by the deadline, explicitly mark missing or partial areas, record exact continuation evidence, and exit cleanly. Do not keep working until the external timeout kills the process.'
+  } >"$target"
+  chmod 0600 "$target"
+}
+
 prepare_skills() {
   if [[ ! -x "$REPO_ROOT/scripts/sync-agent-skills.sh" ]]; then
     printf 'Skill bridge initializer is unavailable\n' >&2
@@ -57,7 +81,7 @@ prepare_skills() {
 
 check_runtime() {
   local command_name
-  for command_name in git gh jq flock sha256sum timeout; do
+  for command_name in git gh jq flock realpath sha256sum timeout; do
     command -v "$command_name" >/dev/null 2>&1 || {
       printf 'required command is unavailable: %s\n' "$command_name" >&2
       return 1
@@ -92,8 +116,16 @@ check_runtime() {
   if [[ ! "$MODEL_PROBE_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || \
       [[ ! "$WORKER_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || \
       [[ ! "$COORDINATOR_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || \
-      [[ ! "$FALLBACK_COORDINATOR_BUDGET_SECONDS" =~ ^[1-9][0-9]*$ ]]; then
-    printf 'probe, worker, coordinator, and fallback budgets must be positive integers\n' >&2
+      [[ ! "$FALLBACK_COORDINATOR_BUDGET_SECONDS" =~ ^[1-9][0-9]*$ ]] || \
+      [[ ! "$FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || \
+      [[ ! "$FINALIZE_MARGIN_SECONDS" =~ ^[1-9][0-9]*$ ]]; then
+    printf 'probe, worker, coordinator, fallback, and finalization budgets must be positive integers\n' >&2
+    return 1
+  fi
+  if (( FINALIZE_MARGIN_SECONDS >= WORKER_TIMEOUT_SECONDS )) || \
+      (( FINALIZE_MARGIN_SECONDS >= COORDINATOR_TIMEOUT_SECONDS )) || \
+      (( FINALIZE_MARGIN_SECONDS >= FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS )); then
+    printf 'finalization margin must be smaller than every execution timeout\n' >&2
     return 1
   fi
 }
@@ -109,13 +141,13 @@ render_prompt() {
   printf -- '- oss-change-workflow Skill: %s\n' "$CHANGE_SKILL"
   printf '\nCompleted peer-worker reports for this invocation:\n'
   for lane in "${WORKER_LANES[@]}"; do
-    printf -- '- %s: report=%s/%s.md status=%s/%s.status stderr=%s/%s.stderr.log\n' \
-      "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane"
+    printf -- '- %s: report=%s/%s.md status=%s/%s.status stderr=%s/%s.stderr.log interrupted-output-glob=%s/%s.md.*\n' \
+      "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane"
   done
   printf '%s\n' \
     'Three fully enabled OpenCode workers using different local models ran first on disjoint open-item partitions.' \
     'They were authorized to inspect, execute commands, perform actual source development, validate, commit, push, and open pull requests within the patrol Skill. Public maintainer replies are reserved for the coordinator so contributors receive one coherent response.' \
-    'Read every worker status and available report. For a partial or unavailable worker, inspect only the relevant action lines in its private stderr log, then verify branches, pull requests, comments, reviews, and commits against live GitHub state before writing. Do not repeat an action already completed by a worker.' \
+    'Read every worker status and available report. For a partial, unavailable, running, or interrupted worker, inspect its preserved report candidate and only the relevant action lines in its private stderr log, then verify branches, pull requests, comments, reviews, and commits against live GitHub state before writing. Do not repeat an action already completed by a worker.' \
     'You are the reconciliation and public-response coordinator, not the implementation worker. Do not personally edit implementation source or take over builds and tests. When more code work is required, dispatch it through OpenCode to the available Qwen Next, GLM Next, and Qwen 27B local routes, using more than one model when independent work or review exists.' \
     'Treat the local model context windows as approximately 200k tokens. Keep headroom by passing focused files, issue evidence, and compact summaries instead of the full organization history or large raw logs.' \
     'Complete the organization-wide inventory, send eligible maintainer replies, update shared patrol memory, and produce the final report. An unavailable worker or exhausted Codex route must not block the patrol; the runner can transfer coordination to OpenCode, whose coordinator must recheck external state before continuing.'
@@ -226,12 +258,17 @@ partition_open_item_snapshot() {
 
 run_worker() {
   local lane="$1" model="$2" prompt_file="$3" report_file="$4" status_file="$5" checkout_dir="$6"
-  local config temporary_report temporary_status stderr_file worker_rc
+  local config temporary_report temporary_status stderr_file worker_rc attempt_prompt
   temporary_report="$(mktemp "${report_file}.XXXXXX")"
-  temporary_status="$(mktemp "${status_file}.XXXXXX")"
   stderr_file="${report_file%.md}.stderr.log"
   : >"$stderr_file"
-  chmod 0600 "$temporary_report" "$temporary_status" "$stderr_file"
+  chmod 0600 "$temporary_report" "$stderr_file"
+  write_state_id_atomic "$status_file" \
+    "running: model=$model started=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  temporary_status="$(mktemp "${status_file}.XXXXXX")"
+  chmod 0600 "$temporary_status"
+  attempt_prompt="$(mktemp "${prompt_file}.deadline.XXXXXX")"
+  write_deadlined_prompt "$prompt_file" "$attempt_prompt" "OpenCode worker $lane using $model" "$WORKER_TIMEOUT_SECONDS"
 
   if [[ -z "${LITELLM_API_KEY:-}" ]]; then
     printf 'unavailable: LITELLM_API_KEY is missing\n' >"$temporary_status"
@@ -249,8 +286,9 @@ run_worker() {
           --model "${EUNOMIA_PATROL_WORKER_PROVIDER}/${model}" \
           --format default \
           --dir "$checkout_dir" \
-          "$(cat "$prompt_file")" \
+          "$(cat "$attempt_prompt")" \
           >"$temporary_report" 2>"$stderr_file" || worker_rc=$?
+    rm -f -- "$attempt_prompt"
     if [[ "$worker_rc" -eq 0 ]] && [[ -s "$temporary_report" ]]; then
       mv -f -- "$temporary_report" "$report_file"
       printf 'ready\n' >"$temporary_status"
@@ -276,6 +314,7 @@ run_worker() {
       fi
     fi
   fi
+  rm -f -- "$attempt_prompt"
   mv -f -- "$temporary_status" "$status_file"
   printf 'worker_status=%s model=%s lane=%s\n' \
     "$(cut -d: -f1 <"$status_file")" "$model" "$lane"
@@ -310,7 +349,7 @@ probe_workers() {
 }
 
 run_codex() {
-  local prompt_file="$1" report_file="$2" event_file="$3" thread_id="" codex_rc=0
+  local prompt_file="$1" report_file="$2" event_file="$3" thread_id="" codex_rc=0 attempt_prompt
   if [[ -e "$THREAD_FILE" && ! -s "$THREAD_FILE" ]]; then
     printf 'Codex continuity file exists but is empty: %s\n' "$THREAD_FILE" >&2
     return 1
@@ -319,6 +358,9 @@ run_codex() {
     : >"$THREAD_FILE"
     chmod 0600 "$THREAD_FILE"
   fi
+  attempt_prompt="$(mktemp "${prompt_file}.codex.XXXXXX")"
+  write_deadlined_prompt "$prompt_file" "$attempt_prompt" \
+    "Codex public-response and reconciliation coordinator" "$COORDINATOR_TIMEOUT_SECONDS"
 
   (
     cd "$REPO_ROOT"
@@ -331,7 +373,7 @@ run_codex() {
           --dangerously-bypass-approvals-and-sandbox \
           --json \
           --output-last-message "$report_file" \
-          "$thread_id" - <"$prompt_file" >"$event_file" 2>&1
+          "$thread_id" - <"$attempt_prompt" >"$event_file" 2>&1
     else
       timeout --foreground "$COORDINATOR_TIMEOUT_SECONDS" \
         codex exec \
@@ -340,9 +382,10 @@ run_codex() {
           --dangerously-bypass-approvals-and-sandbox \
           --json \
           --output-last-message "$report_file" \
-          - <"$prompt_file" >"$event_file" 2>&1
+          - <"$attempt_prompt" >"$event_file" 2>&1
     fi
   ) || codex_rc=$?
+  rm -f -- "$attempt_prompt"
 
   thread_id="$(jq -Rr 'fromjson? | select(.type == "thread.started") | .thread_id' "$event_file" | head -n 1)"
   if [[ -n "$thread_id" ]]; then
@@ -365,17 +408,113 @@ append_retry_handoff() {
   } >>"$prompt_file"
 }
 
+write_failed_handoff() {
+  local event_file="$1" worker_dir="$2" temporary
+  temporary="$(mktemp "${FAILED_HANDOFF_FILE}.XXXXXX")"
+  if [[ -s "$FAILED_HANDOFF_FILE" ]] && jq -e \
+      --arg worker_dir "$worker_dir" \
+      '.worker_dir == $worker_dir and (.event_files | type == "array")' \
+      "$FAILED_HANDOFF_FILE" >/dev/null 2>&1; then
+    jq --arg event_file "$event_file" \
+      '.event_files += [$event_file] | .event_files |= unique' \
+      "$FAILED_HANDOFF_FILE" >"$temporary"
+  else
+    jq -n --arg event_file "$event_file" --arg worker_dir "$worker_dir" \
+      '{worker_dir: $worker_dir, event_files: [$event_file]}' >"$temporary"
+  fi
+  chmod 0600 "$temporary"
+  mv -f -- "$temporary" "$FAILED_HANDOFF_FILE"
+}
+
+normalize_interrupted_worker() {
+  local worker_dir="$1" lane status_file report_file candidate newest_candidate=""
+  for lane in "${WORKER_LANES[@]}"; do
+    status_file="$worker_dir/$lane.status"
+    report_file="$worker_dir/$lane.md"
+    if [[ -s "$status_file" ]] && [[ "$(cut -d: -f1 <"$status_file")" == "running" ]]; then
+      newest_candidate=""
+      for candidate in "$report_file".*; do
+        [[ -f "$candidate" ]] || continue
+        [[ -s "$candidate" ]] || continue
+        if [[ -z "$newest_candidate" ]] || [[ "$candidate" -nt "$newest_candidate" ]]; then
+          newest_candidate="$candidate"
+        fi
+      done
+      if [[ ! -s "$report_file" ]] && [[ -n "$newest_candidate" ]]; then
+        mv -f -- "$newest_candidate" "$report_file"
+      fi
+      write_state_id_atomic "$status_file" \
+        'interrupted: previous worker started but did not finalize; reconcile preserved output, stderr, and live GitHub state'
+    fi
+  done
+}
+
+PATROL_CLEANUP_ACTIVE=0
+PATROL_CLEANUP_TIMESTAMP=""
+PATROL_CLEANUP_PROMPT=""
+PATROL_CLEANUP_REPORT=""
+PATROL_CLEANUP_EVENT=""
+PATROL_CLEANUP_WORKERS=""
+
+preserve_patrol_on_exit() {
+  local exit_code="$?"
+  local worker_dir="$PATROL_CLEANUP_WORKERS" failed_worker_dir=""
+  trap - EXIT
+  set +e
+  rm -f -- "$PATROL_CLEANUP_PROMPT" "$PATROL_CLEANUP_REPORT"
+  if [[ "$PATROL_CLEANUP_ACTIVE" -eq 1 ]] && \
+      [[ -n "$worker_dir" ]] && [[ -d "$worker_dir" ]]; then
+    if [[ "$(dirname "$(realpath -e "$worker_dir")")" == "$(realpath -e "$LOG_DIR")" ]]; then
+      failed_worker_dir="$(realpath -e "$worker_dir")"
+    else
+      failed_worker_dir="$LOG_DIR/$PATROL_CLEANUP_TIMESTAMP-workers"
+      mv -- "$worker_dir" "$failed_worker_dir"
+    fi
+    chmod -R go-rwx "$failed_worker_dir"
+    printf 'patrol_interrupted exit=%s worker_evidence=%s\n' \
+      "$exit_code" "$failed_worker_dir" >>"$PATROL_CLEANUP_EVENT"
+    write_failed_handoff "$PATROL_CLEANUP_EVENT" "$failed_worker_dir"
+  fi
+  exit "$exit_code"
+}
+
+remove_worker_evidence_safe() {
+  local target="$1" target_real parent_real basename_value
+  target_real="$(realpath -e "$target")"
+  parent_real="$(dirname "$target_real")"
+  basename_value="$(basename "$target_real")"
+  if [[ "$parent_real" == "$(realpath -e "$STATE_ROOT")" ]] && \
+      [[ "$basename_value" == workers.* ]]; then
+    rm -rf -- "$target_real"
+    return
+  fi
+  if [[ "$parent_real" == "$(realpath -e "$LOG_DIR")" ]] && \
+      [[ "$basename_value" =~ ^[0-9]{8}T[0-9]{6}Z-workers$ ]]; then
+    rm -rf -- "$target_real"
+    return
+  fi
+  printf 'refusing to remove unverified worker evidence path: %s\n' "$target" >&2
+  return 1
+}
+
 run_opencode_coordinator() {
   local prompt_file="$1" report_file="$2" event_file="$3"
-  local model config attempt_report attempt_log coordinator_rc remaining_seconds
+  local model config attempt_report attempt_log attempt_prompt coordinator_rc remaining_seconds attempt_seconds
   local fallback_deadline=$((SECONDS + FALLBACK_COORDINATOR_BUDGET_SECONDS))
   for model in "${COORDINATOR_FALLBACK_MODELS[@]}"; do
     remaining_seconds=$((fallback_deadline - SECONDS))
     if [[ "$remaining_seconds" -le 0 ]]; then
       break
     fi
+    attempt_seconds="$remaining_seconds"
+    if (( attempt_seconds > FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS )); then
+      attempt_seconds="$FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS"
+    fi
     attempt_report="$(mktemp "${report_file}.opencode.XXXXXX")"
     attempt_log="$(mktemp "${event_file}.opencode.XXXXXX")"
+    attempt_prompt="$(mktemp "${prompt_file}.opencode.XXXXXX")"
+    write_deadlined_prompt "$prompt_file" "$attempt_prompt" \
+      "OpenCode fallback coordinator using $model" "$attempt_seconds"
     config="$(render_worker_config "$model")"
     coordinator_rc=0
     env OPENCODE_CONFIG_CONTENT="$config" \
@@ -383,23 +522,24 @@ run_opencode_coordinator() {
         CMAKE_BUILD_PARALLEL_LEVEL=1 \
         CARGO_BUILD_JOBS=1 \
         GOMAXPROCS=2 \
-      timeout --foreground "$remaining_seconds" \
+      timeout --foreground "$attempt_seconds" \
         opencode run --pure \
           --agent patrol-coordinator \
           --model "${EUNOMIA_PATROL_WORKER_PROVIDER}/${model}" \
           --format default \
           --dir "$REPO_ROOT" \
-          "$(cat "$prompt_file")" \
+          "$(cat "$attempt_prompt")" \
           >"$attempt_report" 2>"$attempt_log" || coordinator_rc=$?
     {
-      printf 'coordinator_attempt=opencode model=%s exit=%s\n' "$model" "$coordinator_rc"
+      printf 'coordinator_attempt=opencode model=%s exit=%s budget_seconds=%s\n' \
+        "$model" "$coordinator_rc" "$attempt_seconds"
       cat "$attempt_log"
       if [[ "$coordinator_rc" -ne 0 ]] && [[ -s "$attempt_report" ]]; then
         printf '\npartial_coordinator_output model=%s\n' "$model"
         cat "$attempt_report"
       fi
     } >>"$event_file"
-    rm -f -- "$attempt_log"
+    rm -f -- "$attempt_log" "$attempt_prompt"
     if [[ "$coordinator_rc" -eq 0 ]] && [[ -s "$attempt_report" ]]; then
       mv -f -- "$attempt_report" "$report_file"
       printf 'coordinator_route=opencode model=%s\n' "$model"
@@ -422,33 +562,91 @@ run_coordinator() {
     printf 'coordinator_fallback=opencode reason=codex_unavailable_or_incomplete\n'
     printf '\ncoordinator_fallback=opencode reason=codex_unavailable_or_incomplete\n' >>"$event_file"
     append_retry_handoff "$prompt_file" "$event_file" "Codex/$EUNOMIA_PATROL_COORDINATOR_MODEL"
+    rm -f -- "$THREAD_FILE"
     : >"$report_file"
   fi
   run_opencode_coordinator "$prompt_file" "$report_file" "$event_file"
 }
 
 run_patrol() {
-  local timestamp prompt_file report_tmp report_file event_file worker_dir snapshot partition checkout_dir
-  local lane model index coordinator_route="opencode" failed_worker_dir
+  local timestamp prompt_file report_tmp report_file event_file worker_dir="" snapshot partition checkout_dir
+  local lane model index coordinator_route="opencode" resume_worker_dir="" resume_event resume_event_real
+  local marker_valid=1 log_dir_real worker_dir_real
+  local -a resume_events=() verified_resume_events=()
 
   timestamp="$(date -u +%Y%m%dT%H%M%SZ)"
   prompt_file="$(mktemp "$STATE_ROOT/prompt.XXXXXX")"
   report_tmp="$(mktemp "$REPORT_DIR/report.XXXXXX")"
   report_file="$REPORT_DIR/$timestamp.md"
   event_file="$LOG_DIR/$timestamp.ndjson"
-  worker_dir="$(mktemp -d "$STATE_ROOT/workers.XXXXXX")"
-  snapshot="$worker_dir/open-items.json"
-  trap "rm -f -- $(printf '%q' "$prompt_file") $(printf '%q' "$report_tmp"); rm -rf -- $(printf '%q' "$worker_dir")" EXIT
   : >"$event_file"
+  PATROL_CLEANUP_ACTIVE=1
+  PATROL_CLEANUP_TIMESTAMP="$timestamp"
+  PATROL_CLEANUP_PROMPT="$prompt_file"
+  PATROL_CLEANUP_REPORT="$report_tmp"
+  PATROL_CLEANUP_EVENT="$event_file"
+  PATROL_CLEANUP_WORKERS=""
+  trap preserve_patrol_on_exit EXIT
+
+  log_dir_real="$(realpath -e "$LOG_DIR")"
+  if [[ -s "$FAILED_HANDOFF_FILE" ]]; then
+    resume_worker_dir="$(jq -r '.worker_dir // empty' "$FAILED_HANDOFF_FILE" 2>/dev/null || true)"
+    mapfile -t resume_events < <(jq -r '.event_files[]? // empty' "$FAILED_HANDOFF_FILE" 2>/dev/null || true)
+    worker_dir_real="$(realpath -e "$resume_worker_dir" 2>/dev/null || true)"
+    [[ -n "$worker_dir_real" ]] || marker_valid=0
+    [[ ! -L "$resume_worker_dir" ]] || marker_valid=0
+    [[ "$(dirname "$worker_dir_real")" == "$log_dir_real" ]] || marker_valid=0
+    [[ "$(basename "$worker_dir_real")" =~ ^[0-9]{8}T[0-9]{6}Z-workers$ ]] || marker_valid=0
+    [[ -s "$worker_dir_real/open-items.json" ]] || marker_valid=0
+    [[ "${#resume_events[@]}" -gt 0 ]] || marker_valid=0
+    for resume_event in "${resume_events[@]}"; do
+      resume_event_real="$(realpath -e "$resume_event" 2>/dev/null || true)"
+      if [[ -z "$resume_event_real" ]] || [[ -L "$resume_event" ]] || \
+          [[ "$(dirname "$resume_event_real")" != "$log_dir_real" ]] || \
+          [[ ! "$(basename "$resume_event_real")" =~ ^[0-9]{8}T[0-9]{6}Z[.]ndjson$ ]] || \
+          [[ ! -s "$resume_event_real" ]]; then
+        marker_valid=0
+      else
+        verified_resume_events+=("$resume_event_real")
+      fi
+    done
+    if [[ "$marker_valid" -eq 1 ]]; then
+      worker_dir="$worker_dir_real"
+      resume_events=("${verified_resume_events[@]}")
+      normalize_interrupted_worker "$worker_dir"
+      printf 'patrol_resume=coordinator worker_evidence=%s previous_attempts=%s\n' \
+        "$worker_dir" "${#resume_events[@]}"
+    else
+      printf 'patrol_resume=invalid_marker fresh_inventory=required\n' >&2
+      rm -f -- "$FAILED_HANDOFF_FILE"
+      resume_events=()
+    fi
+  fi
+
   if probe_model; then
     coordinator_route="codex"
   else
     printf 'coordinator_probe=unavailable fallback=opencode\n'
   fi
-  collect_open_item_snapshot "$snapshot"
+
+  if [[ -z "$worker_dir" ]]; then
+    worker_dir="$(mktemp -d "$STATE_ROOT/workers.XXXXXX")"
+    snapshot="$worker_dir/open-items.json"
+    PATROL_CLEANUP_WORKERS="$worker_dir"
+    collect_open_item_snapshot "$snapshot"
+  else
+    snapshot="$worker_dir/open-items.json"
+    PATROL_CLEANUP_WORKERS="$worker_dir"
+  fi
+
   for index in "${!WORKER_LANES[@]}"; do
     lane="${WORKER_LANES[$index]}"
     model="${WORKER_MODELS[$index]}"
+    if [[ -s "$worker_dir/$lane.status" ]]; then
+      printf 'worker_resume=preserved lane=%s status=%s\n' \
+        "$lane" "$(cut -d: -f1 <"$worker_dir/$lane.status")"
+      continue
+    fi
     partition="$worker_dir/$lane-items.json"
     checkout_dir="$CHECKOUT_ROOT/$lane"
     install -d -m 0700 "$checkout_dir"
@@ -463,23 +661,30 @@ run_patrol() {
   done
 
   render_prompt "$worker_dir" >"$prompt_file"
+  for resume_event in "${resume_events[@]}"; do
+    append_retry_handoff "$prompt_file" "$resume_event" "previous failed patrol attempt"
+  done
   chmod 0600 "$prompt_file" "$report_tmp" "$event_file"
   if ! run_coordinator "$coordinator_route" "$prompt_file" "$report_tmp" "$event_file"; then
-    failed_worker_dir="$LOG_DIR/$timestamp-workers"
-    mv -- "$worker_dir" "$failed_worker_dir"
-    chmod -R go-rwx "$failed_worker_dir"
-    printf 'coordinator_failed worker_evidence=%s\n' "$failed_worker_dir" >>"$event_file"
     return 1
   fi
 
   require_file "$report_tmp"
   mv "$report_tmp" "$report_file"
-  rm -f "$prompt_file"
-  trap - EXIT
   chmod 0600 "$report_file" "$event_file"
   ln -sfn "$report_file" "$STATE_ROOT/latest-report.md"
-  rm -rf -- "$worker_dir"
-  cat "$report_file"
+  if ! remove_worker_evidence_safe "$worker_dir"; then
+    printf 'worker_cleanup=preserved reason=path_validation_failed\n' >>"$event_file"
+  fi
+  if ! rm -f -- "$prompt_file" "$FAILED_HANDOFF_FILE"; then
+    printf 'final_cleanup=preserved reason=temporary_file_removal_failed\n' >>"$event_file"
+  fi
+  PATROL_CLEANUP_ACTIVE=0
+  trap - EXIT
+  if ! cat "$report_file"; then
+    printf 'report_output=failed report=%s\n' "$report_file" >&2
+  fi
+  return 0
 }
 
 mode="${1:---run}"
