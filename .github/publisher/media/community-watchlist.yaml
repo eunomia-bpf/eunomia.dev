@@ -1,7 +1,9 @@
-version: 2
+version: 3
 purpose: >-
   Approved sources for recurring technical-question monitoring. This file is an
-  allowlist, not a credential store or a request to archive conversations.
+  allowlist, not a credential store. Slack sources may individually opt in to
+  an approved private read-only archive; all other sources remain
+  visible-browser-only.
 
 policy:
   cadence: daily
@@ -13,6 +15,9 @@ policy:
   require_public_primary_sources: true
   review_all_accessible_allowlisted_channels: true
   visible_browser_for_chat: true
+  slack_archive_opt_in: per_source
+  archive_dsn_env: EUNOMIA_QA_ARCHIVE_DSN
+  archive_mode: read_only
   exclude_private_channels: true
   exclude_direct_messages: true
   store_raw_transcripts: false
@@ -57,6 +62,7 @@ sources:
     surface: Slack
     workspace: Cilium and eBPF
     join_url: https://slack.cilium.io/
+    archive_opt_in: true
     priority: primary
     channels:
       - ebpf
@@ -69,6 +75,7 @@ sources:
     surface: Slack
     workspace: Cloud Native Computing Foundation
     join_url: https://slack.cncf.io/
+    archive_opt_in: true
     priority: primary
     channels:
       - otel-ebpf-instrumentation
@@ -103,3 +110,5 @@ excluded:
   - direct messages
   - customer or partner conversations
   - channels not explicitly listed above
+  - Slack archive connections without watchlist opt-in
+  - read-write or admin archive connections

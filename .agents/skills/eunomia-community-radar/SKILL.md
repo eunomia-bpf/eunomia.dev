@@ -1,6 +1,6 @@
 ---
 name: eunomia-community-radar
-description: Monitor approved eBPF, Linux, observability, and AI-infrastructure communities through ordinary visible browser UI, turn the strongest daily technical question into one source-grounded anonymous eBPF Q&A, and append an anonymized analysis of the day's wider community discussion. Use for daily Slack, Discord, mailing-list, forum, or community monitoring; daily Q&A publication; community-topic summaries; question triage; and maintaining the community watchlist. Do not use for monitoring reactions to already published Eunomia content, GitHub issue or PR patrol, or unsolicited replies.
+description: Monitor approved eBPF, Linux, observability, and AI-infrastructure communities through watchlist-opted-in read-only Slack archives plus ordinary visible browser UI, turn the strongest daily technical question into one source-grounded anonymous eBPF Q&A, and append an anonymized analysis of the day's wider community discussion. Use for daily Slack, Discord, mailing-list, forum, or community monitoring; daily Q&A publication; community-topic summaries; question triage; and maintaining the community watchlist. Do not use for monitoring reactions to already published Eunomia content, GitHub issue or PR patrol, or unsolicited replies.
 ---
 
 # Eunomia Community Radar
@@ -28,10 +28,18 @@ forum is a durable scope change and requires an explicit repository edit.
 
 ### 1. Review The Full Daily Window
 
-Use ordinary visible browser UI for Slack, Discord, Reddit, and other social
-communities. Public mailing-list archives and official documentation may be
-read in the normal browser. Do not use hidden APIs, internal endpoints,
-exported chat datasets, network interception, or scraped message archives.
+Apply the hybrid source policy declared in the watchlist:
+
+- Slack sources marked `archive_opt_in: true` use the approved private
+  read-only archive as the primary source and the visible browser as the
+  fallback.
+- Discord and any chat source without an archive remain visible-browser-only.
+- Mailing lists and Reddit use ordinary public browser pages and never APIs.
+- Official documentation may be read in the normal browser.
+
+Do not use hidden APIs, internal endpoints, unapproved chat exports, network
+interception, or scraped message archives for any source. Archive access must
+satisfy every invariant in the Archive Access Invariants section.
 
 Review every accessible allowlisted channel for the previous 24 hours. Use
 visible channel navigation, date dividers, and Page Up, Page Down, Home, or End
@@ -124,6 +132,30 @@ paths, commit on `main`, rebase on `origin/main` if needed, and push directly.
 
 After deployment, verify the public route before recording publication as
 complete.
+
+## Archive Access Invariants
+
+For opted-in Slack archive access:
+
+- Connect only with the DSN from the `EUNOMIA_QA_ARCHIVE_DSN` environment
+  variable. Never read, print, copy, or persist the DSN in files or state.
+- Before reading anything, verify the connection is `transaction_read_only`
+  and holds zero admin or write grants.
+- The schema must uniquely match the allowlisted public workspace team name,
+  and every listed channel must exist in it.
+- Use Slack message `ts` for the 24h and 7d windows; never load or insert
+  time.
+- Query only message text and timestamps for the allowlisted workspace and
+  channels. Do not query users or handles, `data` JSON columns, or files or
+  attachments.
+- No database writes of any kind.
+- Keep raw text only in a bounded per-run temporary input file with `0600`
+  permissions inside ephemeral isolated OpenCode state, and remove it on exit.
+- Never store transcripts, logs, prompts, sessions, or raw text in Git or
+  persistent state.
+- A missing or ambiguous workspace or channel is inaccessible, not quiet.
+- Public output remains anonymized and source-grounded per the publication
+  standard.
 
 ## Boundaries
 

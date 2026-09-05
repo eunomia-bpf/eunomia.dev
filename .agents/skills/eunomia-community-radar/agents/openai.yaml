@@ -1,4 +1,4 @@
 interface:
   display_name: "Eunomia Community Radar"
   short_description: "Publish a daily anonymous eBPF Q&A and community brief"
-  default_prompt: "Use $eunomia-community-radar to review every accessible allowlisted community through visible browser UI, publish one source-grounded anonymous eBPF Q&A, and summarize the day's wider technical discussion in the same page."
+  default_prompt: "Use $eunomia-community-radar to review every accessible allowlisted community through watchlist-opted-in read-only Slack archives plus visible browser coverage, publish one source-grounded anonymous eBPF Q&A, and summarize the day's wider technical discussion in the same page."
