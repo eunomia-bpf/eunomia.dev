@@ -1,7 +1,7 @@
 ---
 date: 2026-09-05
 title: "Can eBPF Use Runtime Profiles Without Changing Program Semantics?"
-description: "Runtime profiles can guide faster BPF rewrites, but verifier acceptance does not prove equivalence. This report defines guarded specialization."
+description: "Runtime profiles can guide faster BPF rewrites, but verifier acceptance alone does not prove equivalence. This report defines guarded, revocable specialization."
 tags:
   - Daily Report
   - eBPF
