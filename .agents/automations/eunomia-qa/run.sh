@@ -8,6 +8,7 @@ VENV_PY="$STATE_DIR/venv/bin/python"
 LOCK_FILE="$STATE_DIR/run.lock"
 TOTAL_SECS=43200
 TERM_GRACE_SECS=30
+OPENCODE_FALLBACK_PATH="/workspaces/.agent-state/agent-cli-home/.opencode/bin/opencode"
 DEFAULT_MODEL="spark-gateway/qwen3.8-27b-nvfp4-200k"
 ALLOWED_MODELS=(
   "spark-gateway/qwen3.8-27b-nvfp4-200k"
@@ -45,7 +46,7 @@ cmd_check() {
     log "venv MISSING: $VENV_PY"; fail=1
   fi
   local key
-  for key in OPENCODE_CONFIG LITELLM_API_KEY EUNOMIA_QA_ARCHIVE_DSN; do
+  for key in OPENCODE_CONFIG LITELLM_API_KEY EUNOMIA_QA_ARCHIVE_DSN EUNOMIA_QA_OPENCODE_CONFIG_CONTENT; do
     if check_env_key "$key"; then
       log "env ok: $key"
     else
@@ -69,11 +70,25 @@ cmd_probe() {
 }
 
 # Internal mode: runs under flock + timeout, preconditions already verified.
+resolve_opencode() {
+  if command -v opencode >/dev/null 2>&1; then
+    printf '%s' "$(command -v opencode)"
+    return 0
+  fi
+  if [ -x "$OPENCODE_FALLBACK_PATH" ]; then
+    printf '%s' "$OPENCODE_FALLBACK_PATH"
+    return 0
+  fi
+  return 1
+}
+
 cmd_locked() {
   umask 077
   local work snapshot receipt prompt_resolved model_out model_err
   local model start_sha run_date rc snapsize
   local modpid=""
+  local opencode_bin
+  opencode_bin="$(resolve_opencode)" || die "no executable opencode (PATH or $OPENCODE_FALLBACK_PATH)"
   work="$(mktemp -d /tmp/eunomia-qa-run-XXXXXX)" || die "mktemp failed"
   snapshot="$work/snapshot.txt"
   receipt="$work/receipt.json"
@@ -129,6 +144,8 @@ cmd_locked() {
 
   [ -n "${OPENCODE_CONFIG:-}" ] || { log "OPENCODE_CONFIG unset"; exit 1; }
   [ -f "$OPENCODE_CONFIG" ] || { log "OPENCODE_CONFIG file missing"; exit 1; }
+  [ -n "${EUNOMIA_QA_OPENCODE_CONFIG_CONTENT:-}" ] || { log "EUNOMIA_QA_OPENCODE_CONFIG_CONTENT unset"; exit 1; }
+  export OPENCODE_CONFIG_CONTENT="$EUNOMIA_QA_OPENCODE_CONFIG_CONTENT"
 
   export XDG_DATA_HOME="$work/xdg/data" XDG_STATE_HOME="$work/xdg/state"
   export XDG_CONFIG_HOME="$work/xdg/config" XDG_CACHE_HOME="$work/xdg/cache"
@@ -141,7 +158,7 @@ cmd_locked() {
       "$QA_DIR/prompt.md" >"$prompt_resolved" || exit 1
 
   log "model: $model (12h max, private tmpdir)"
-  setsid opencode run --auto -m "$model" "Read and follow $prompt_resolved" \
+  setsid "$opencode_bin" run --auto -m "$model" "Read and follow $prompt_resolved" \
     >"$model_out" 2>"$model_err" &
   modpid=$!
   wait "$modpid"

@@ -26,10 +26,15 @@ run.sh --run
 | Variable | Purpose |
 |---|---|
 | `OPENCODE_CONFIG` | Path to the opencode config file |
+| `EUNOMIA_QA_OPENCODE_CONFIG_CONTENT` | Exported as `OPENCODE_CONFIG_CONTENT` immediately before invoking OpenCode |
 | `LITELLM_API_KEY` | API key for the model gateway |
 | `EUNOMIA_QA_ARCHIVE_DSN` | PostgreSQL DSN for the Slack archive (read-only role) |
 | `EUNOMIA_QA_MODEL` | (optional) model ID; must be in the allowlist |
 | `EUNOMIA_QA_DIR` | (optional) directory override; defaults to the script's own dir |
+
+OpenCode is resolved via `command -v opencode` when available, otherwise the
+durable path `/workspaces/.agent-state/agent-cli-home/.opencode/bin/opencode`;
+the run fails clearly if neither is executable.
 
 The venv Python lives at `/workspaces/.agent-state/eunomia-qa/venv/bin/python`.
 Create it with:
