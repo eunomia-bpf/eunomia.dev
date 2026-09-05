@@ -14,7 +14,8 @@
 - Last verified Daily Report squash commit: `e6bd174bc62ea6dbc40dedddb0968b3e8e555311`
 - Last verified production publication from a Daily Report run: static export commit `bbe20536862dbff341ba5720d0efd9da79b6e8e7`
 - Current daily branch: `daily/2026-09-05-ebpf-runtime-profile-specialization`
-- Current branch base: `80bf36869c81979d931fd598ca0eec8b06e2a187`
+- Current daily pull request: `#187`
+- Current branch base: `3a6e08f1a1e1e691e2f2206878583f45ce0e71da`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
 PR `#186` is independently reconciled from GitHub. It squash-merged as
@@ -130,7 +131,7 @@ consuming contract first.
 
 ## Current focus
 
-1. Complete the `2026-09-05` eBPF runtime-profile-specialization Daily Report through one non-draft PR, expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
+1. Complete PR `#187` for the `2026-09-05` eBPF runtime-profile-specialization Daily Report through expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
 2. Establish **eBPF Optimization and Execution Specialization** with the verifier-safety versus optimizer-equivalence boundary. Keep runtime profile assumptions explicit and revocable rather than treating historical observations as semantic facts.
 3. Keep the next question materially distinct: architecture-specific specialization contracts, safe delegated native operations, and optimization provenance remain candidates, but should not repeat today's equivalence/assumption thesis with another optimizer example.
 4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
