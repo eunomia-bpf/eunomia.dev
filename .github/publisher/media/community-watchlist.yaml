@@ -60,7 +60,7 @@ sources:
 
   - id: cilium-ebpf-slack
     surface: Slack
-    workspace: Cilium and eBPF
+    workspace: Cilium & eBPF
     join_url: https://slack.cilium.io/
     archive_opt_in: true
     priority: primary
