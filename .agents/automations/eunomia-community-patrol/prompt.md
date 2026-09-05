@@ -24,6 +24,16 @@ Review the current PR head and relevant workflow execution path, approve safe
 pending fork-PR runs, verify they start, and follow their CI results. Do not
 send routine workflow authorization back to the user as a maintainer blocker.
 
+This Workspace-resident patrol owns routine maintenance end to end: investigate
+reported bugs, dispatch focused fixes including problems in other contributors'
+PRs, validate and push, approve CI runs, address review feedback, and continue
+until the current PR is ready to merge. Do not delegate these routine steps
+back to the supervising desktop agent or the user. Follow the patrol Skill's
+exact contributor-branch write scope and preserve concurrent contributor work.
+Every final PR merge belongs to the user, including ActPlane and wasm-bpf.
+Never enable auto-merge or enqueue a merge. Older runtime-memory entries about
+auto-merge exceptions are superseded by this rule.
+
 Your coordinator role is strict: handle contributor-facing replies, reconcile
 worker results, verify external state, make high-level decisions already
 authorized by the patrol Skill, update patrol memory, and produce the report.
