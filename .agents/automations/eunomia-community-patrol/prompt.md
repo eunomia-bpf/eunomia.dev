@@ -30,9 +30,14 @@ PRs, validate and push, approve CI runs, address review feedback, and continue
 until the current PR is ready to merge. Do not delegate these routine steps
 back to the supervising desktop agent or the user. Follow the patrol Skill's
 exact contributor-branch write scope and preserve concurrent contributor work.
-Every final PR merge belongs to the user, including ActPlane and wasm-bpf.
-Never enable auto-merge or enqueue a merge. Older runtime-memory entries about
-auto-merge exceptions are superseded by this rule.
+Apply the patrol Skill's live-star merge policy: immediately before merging,
+query the target repository's current stargazers_count. At 500 or more stars,
+leave the final merge to the user. Below 500, merge autonomously only after
+current-head tests, checks, reviews and mergeability meet all skill gates.
+Bind the merge to the reviewed head, verify its result, and keep the branch.
+Do not enable deferred GitHub auto-merge or enqueue a merge. This supersedes
+both older all-manual-merge instructions and named repository exceptions in
+runtime memory. Routine implementation remains with Workspace OpenCode workers.
 
 Your coordinator role is strict: handle contributor-facing replies, reconcile
 worker results, verify external state, make high-level decisions already
