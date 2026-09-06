@@ -24,6 +24,8 @@ THREAD_FILE="$STATE_ROOT/codex-thread-id"
 FAILED_HANDOFF_FILE="$STATE_ROOT/failed-handoff.json"
 PATROL_SKILL="$REPO_ROOT/.agents/skills/eunomia-community-patrol/SKILL.md"
 PROMPT_SOURCE="$SCRIPT_DIR/prompt.md"
+# Shared generic Workspace runner executes every agent attempt below.
+SHARED_RUNNER="$REPO_ROOT/.agents/automations/shared/agent-runner.sh"
 WORKER_LANES=(partition-1 partition-2 partition-3)
 read -r -a WORKER_MODELS <<<"${EUNOMIA_PATROL_WORKER_MODELS:-}"
 read -r -a COORDINATOR_FALLBACK_MODELS <<<"${EUNOMIA_PATROL_COORDINATOR_FALLBACK_MODELS:-}"
@@ -92,6 +94,11 @@ check_runtime() {
   require_file "$TRIAGE_SKILL"
   require_file "$CHANGE_SKILL"
   require_file "$PROMPT_SOURCE"
+  require_file "$SHARED_RUNNER"
+  [[ -x "$SHARED_RUNNER" ]] || {
+    printf 'shared agent runner is not executable: %s\n' "$SHARED_RUNNER" >&2
+    return 1
+  }
   if [[ "$EUNOMIA_PATROL_COORDINATOR_AGENT" != "codex" ]]; then
     printf 'the patrol reconciliation Agent must be codex, got: %s\n' "$EUNOMIA_PATROL_COORDINATOR_AGENT" >&2
     return 1
@@ -141,13 +148,13 @@ render_prompt() {
   printf -- '- oss-change-workflow Skill: %s\n' "$CHANGE_SKILL"
   printf '\nCompleted peer-worker reports for this invocation:\n'
   for lane in "${WORKER_LANES[@]}"; do
-    printf -- '- %s: report=%s/%s.md status=%s/%s.status stderr=%s/%s.stderr.log interrupted-output-glob=%s/%s.md.*\n' \
+    printf -- '- %s: report=%s/%s.md status=%s/%s.status stderr=%s/%s.ndjson.stderr events=%s/%s.ndjson\n' \
       "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane" "$worker_dir" "$lane"
   done
   printf '%s\n' \
     'Three fully enabled OpenCode workers using different local models ran first on disjoint open-item partitions.' \
     'They were authorized to inspect, execute commands, perform actual source development, validate, commit, push, and open pull requests within the patrol Skill. Public maintainer replies are reserved for the coordinator so contributors receive one coherent response.' \
-    'Read every worker status and available report. For a partial, unavailable, running, or interrupted worker, inspect its preserved report candidate and only the relevant action lines in its private stderr log, then verify branches, pull requests, comments, reviews, and commits against live GitHub state before writing. Do not repeat an action already completed by a worker.' \
+    'Read every worker status and available report. For a partial, unavailable, running, or interrupted worker, inspect its preserved report (possibly incomplete), its private events log, and only the relevant action lines in its private stderr log, then verify branches, pull requests, comments, reviews, and commits against live GitHub state before writing. Do not repeat an action already completed by a worker.' \
     'You are the reconciliation and public-response coordinator, not the implementation worker. Do not personally edit implementation source or take over builds and tests. When more code work is required, dispatch it through OpenCode to the available Qwen Next, GLM Next, and Qwen 27B local routes, using more than one model when independent work or review exists.' \
     'Treat the local model context windows as approximately 200k tokens. Keep headroom by passing focused files, issue evidence, and compact summaries instead of the full organization history or large raw logs.' \
     'Complete the organization-wide inventory, send eligible maintainer replies, update shared patrol memory, and produce the final report. An unavailable worker or exhausted Codex route must not block the patrol; the runner can transfer coordination to OpenCode, whose coordinator must recheck external state before continuing.'
@@ -258,63 +265,50 @@ partition_open_item_snapshot() {
 
 run_worker() {
   local lane="$1" model="$2" prompt_file="$3" report_file="$4" status_file="$5" checkout_dir="$6"
-  local config temporary_report temporary_status stderr_file worker_rc attempt_prompt
-  temporary_report="$(mktemp "${report_file}.XXXXXX")"
-  stderr_file="${report_file%.md}.stderr.log"
-  : >"$stderr_file"
-  chmod 0600 "$temporary_report" "$stderr_file"
+  local events_file attempt_prompt temporary_status config oc_cmd worker_rc=0
+  events_file="${report_file%.md}.ndjson"
+  : >"$report_file"
+  : >>"$events_file"
+  : >>"${events_file}.stderr"
+  chmod 0600 "$report_file" "$events_file" "${events_file}.stderr"
   write_state_id_atomic "$status_file" \
     "running: model=$model started=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  if [[ -z "${LITELLM_API_KEY:-}" ]]; then
+    write_state_id_atomic "$status_file" 'unavailable: LITELLM_API_KEY is missing'
+    printf 'worker_status=unavailable model=%s lane=%s\n' "$model" "$lane"
+    return 0
+  fi
+  attempt_prompt="$(mktemp "${prompt_file}.deadline.XXXXXX")"
+  write_deadlined_prompt "$prompt_file" "$attempt_prompt" \
+    "OpenCode worker $lane using $model" "$WORKER_TIMEOUT_SECONDS"
   temporary_status="$(mktemp "${status_file}.XXXXXX")"
   chmod 0600 "$temporary_status"
-  attempt_prompt="$(mktemp "${prompt_file}.deadline.XXXXXX")"
-  write_deadlined_prompt "$prompt_file" "$attempt_prompt" "OpenCode worker $lane using $model" "$WORKER_TIMEOUT_SECONDS"
-
-  if [[ -z "${LITELLM_API_KEY:-}" ]]; then
-    printf 'unavailable: LITELLM_API_KEY is missing\n' >"$temporary_status"
-  else
-    config="$(render_worker_config "$model")"
-    worker_rc=0
-    env OPENCODE_CONFIG_CONTENT="$config" \
-        MAKEFLAGS="-j1" \
-        CMAKE_BUILD_PARALLEL_LEVEL=1 \
-        CARGO_BUILD_JOBS=1 \
-        GOMAXPROCS=2 \
-      timeout --foreground "$WORKER_TIMEOUT_SECONDS" \
-        opencode run --pure \
-          --agent patrol-worker \
-          --model "${EUNOMIA_PATROL_WORKER_PROVIDER}/${model}" \
-          --format default \
-          --dir "$checkout_dir" \
-          "$(cat "$attempt_prompt")" \
-          >"$temporary_report" 2>"$stderr_file" || worker_rc=$?
-    rm -f -- "$attempt_prompt"
-    if [[ "$worker_rc" -eq 0 ]] && [[ -s "$temporary_report" ]]; then
-      mv -f -- "$temporary_report" "$report_file"
-      printf 'ready\n' >"$temporary_status"
+  config="$(render_worker_config "$model")"
+  oc_cmd='OPENCODE_CONFIG_CONTENT='"$(printf %q "$config")"' MAKEFLAGS=-j1 CMAKE_BUILD_PARALLEL_LEVEL=1 CARGO_BUILD_JOBS=1 GOMAXPROCS=2 opencode run --pure --agent patrol-worker --model '"$(printf %q "${EUNOMIA_PATROL_WORKER_PROVIDER}/${model}")"' --format default --dir '"$(printf %q "$checkout_dir")"' "$(cat "$RUNNER_PROMPT_FILE")" >"$RUNNER_REPORT_FILE"'
+  RUNNER_STATE_DIR="$STATE_ROOT" RUNNER_TIMEOUT="$WORKER_TIMEOUT_SECONDS" \
+    "$SHARED_RUNNER" --prompt "$attempt_prompt" --events "$events_file" --report "$report_file" \
+    --primary "$oc_cmd" >>"$events_file" 2>&1 || worker_rc=$?
+  rm -f -- "$attempt_prompt"
+  if [[ "$worker_rc" -eq 0 ]] && [[ -s "$report_file" ]]; then
+    printf 'ready\n' >"$temporary_status"
+  elif [[ -s "$report_file" ]]; then
+    if [[ "$worker_rc" -eq 124 ]]; then
+      printf 'partial: worker exceeded %ss bound; reconcile report and stderr against live state\n' \
+        "$WORKER_TIMEOUT_SECONDS" >"$temporary_status"
     else
-      if [[ -s "$temporary_report" ]]; then
-        mv -f -- "$temporary_report" "$report_file"
-        if [[ "$worker_rc" -eq 124 ]]; then
-          printf 'partial: worker exceeded %ss bound; reconcile report and stderr against live state\n' \
-            "$WORKER_TIMEOUT_SECONDS" >"$temporary_status"
-        else
-          printf 'partial: model call failed with exit %s; reconcile report and stderr against live state\n' \
-            "$worker_rc" >"$temporary_status"
-        fi
-      else
-        rm -f -- "$temporary_report"
-        if [[ "$worker_rc" -eq 124 ]]; then
-          printf 'unavailable: worker exceeded %ss bound; inspect stderr and live state\n' \
-            "$WORKER_TIMEOUT_SECONDS" >"$temporary_status"
-        else
-          printf 'unavailable: model call failed with exit %s; inspect stderr and live state\n' \
-            "$worker_rc" >"$temporary_status"
-        fi
-      fi
+      printf 'partial: model call failed with exit %s; reconcile report and stderr against live state\n' \
+        "$worker_rc" >"$temporary_status"
+    fi
+  else
+    rm -f -- "$report_file"
+    if [[ "$worker_rc" -eq 124 ]]; then
+      printf 'unavailable: worker exceeded %ss bound; inspect stderr and live state\n' \
+        "$WORKER_TIMEOUT_SECONDS" >"$temporary_status"
+    else
+      printf 'unavailable: model call failed with exit %s; inspect stderr and live state\n' \
+        "$worker_rc" >"$temporary_status"
     fi
   fi
-  rm -f -- "$attempt_prompt"
   mv -f -- "$temporary_status" "$status_file"
   printf 'worker_status=%s model=%s lane=%s\n' \
     "$(cut -d: -f1 <"$status_file")" "$model" "$lane"
@@ -348,52 +342,92 @@ probe_workers() {
   rm -rf -- "$worker_dir"
 }
 
-run_codex() {
-  local prompt_file="$1" report_file="$2" event_file="$3" thread_id="" codex_rc=0 attempt_prompt
-  if [[ -e "$THREAD_FILE" && ! -s "$THREAD_FILE" ]]; then
-    printf 'Codex continuity file exists but is empty: %s\n' "$THREAD_FILE" >&2
-    return 1
-  fi
-  if [[ ! -e "$THREAD_FILE" ]]; then
-    : >"$THREAD_FILE"
-    chmod 0600 "$THREAD_FILE"
-  fi
+run_codex_route() {
+  local prompt_file="$1" report_file="$2" event_file="$3"
+  local attempt_prompt codex_flags codex_flags_q="" flag rc=0
   attempt_prompt="$(mktemp "${prompt_file}.codex.XXXXXX")"
   write_deadlined_prompt "$prompt_file" "$attempt_prompt" \
     "Codex public-response and reconciliation coordinator" "$COORDINATOR_TIMEOUT_SECONDS"
-
-  (
-    cd "$REPO_ROOT"
-    if [[ -s "$THREAD_FILE" ]]; then
-      thread_id="$(<"$THREAD_FILE")"
-      timeout --foreground "$COORDINATOR_TIMEOUT_SECONDS" \
-        codex exec resume \
-          --model "$EUNOMIA_PATROL_COORDINATOR_MODEL" \
-          --config "model_reasoning_effort=\"$EUNOMIA_PATROL_COORDINATOR_REASONING_EFFORT\"" \
-          --dangerously-bypass-approvals-and-sandbox \
-          --json \
-          --output-last-message "$report_file" \
-          "$thread_id" - <"$attempt_prompt" >"$event_file" 2>&1
-    else
-      timeout --foreground "$COORDINATOR_TIMEOUT_SECONDS" \
-        codex exec \
-          --model "$EUNOMIA_PATROL_COORDINATOR_MODEL" \
-          --config "model_reasoning_effort=\"$EUNOMIA_PATROL_COORDINATOR_REASONING_EFFORT\"" \
-          --dangerously-bypass-approvals-and-sandbox \
-          --json \
-          --output-last-message "$report_file" \
-          - <"$attempt_prompt" >"$event_file" 2>&1
-    fi
-  ) || codex_rc=$?
+  codex_flags=(--model "$EUNOMIA_PATROL_COORDINATOR_MODEL" \
+    --config "model_reasoning_effort=\"$EUNOMIA_PATROL_COORDINATOR_REASONING_EFFORT\"" \
+    --dangerously-bypass-approvals-and-sandbox --json \
+    --output-last-message "$report_file")
+  for flag in "${codex_flags[@]}"; do
+    codex_flags_q+=" $(printf %q "$flag")"
+  done
+  RUNNER_STATE_DIR="$STATE_ROOT" \
+  RUNNER_TIMEOUT="$COORDINATOR_TIMEOUT_SECONDS" \
+  RUNNER_SESSION_FILE="$THREAD_FILE" \
+  RUNNER_SESSION_EXTRACT='.type == "thread.started" | .thread_id' \
+    "$SHARED_RUNNER" --prompt "$attempt_prompt" --events "$event_file" --report "$report_file" \
+    --primary 'cd '"$(printf %q "$REPO_ROOT")"' && if [[ -n "$RUNNER_SESSION_ID" ]]; then exec codex exec resume'"$codex_flags_q"' "$RUNNER_SESSION_ID" -; else exec codex exec'"$codex_flags_q"' -; fi' \
+    >>"$event_file" 2>&1 || rc=$?
   rm -f -- "$attempt_prompt"
+  return "$rc"
+}
 
-  thread_id="$(jq -Rr 'fromjson? | select(.type == "thread.started") | .thread_id' "$event_file" | head -n 1)"
-  if [[ -n "$thread_id" ]]; then
-    write_state_id_atomic "$THREAD_FILE" "$thread_id"
-  elif [[ ! -s "$THREAD_FILE" ]]; then
-    printf 'Codex did not report a persistent thread id\n' >&2
+opencode_route() {
+  local model="$1" prompt_file="$2" report_file="$3" event_file="$4" timeout_seconds="$5"
+  local attempt_prompt config oc_cmd rc=0
+  attempt_prompt="$(mktemp "${prompt_file}.opencode.XXXXXX")"
+  write_deadlined_prompt "$prompt_file" "$attempt_prompt" \
+    "OpenCode fallback coordinator using $model" "$timeout_seconds"
+  config="$(render_worker_config "$model")"
+  oc_cmd='OPENCODE_CONFIG_CONTENT='"$(printf %q "$config")"' MAKEFLAGS=-j1 CMAKE_BUILD_PARALLEL_LEVEL=1 CARGO_BUILD_JOBS=1 GOMAXPROCS=2 opencode run --pure --agent patrol-coordinator --model '"$(printf %q "${EUNOMIA_PATROL_WORKER_PROVIDER}/${model}")"' --format default --dir '"$(printf %q "$REPO_ROOT")"' "$(cat "$RUNNER_PROMPT_FILE")" >"$RUNNER_REPORT_FILE"'
+  RUNNER_STATE_DIR="$STATE_ROOT" RUNNER_TIMEOUT="$timeout_seconds" \
+    "$SHARED_RUNNER" --prompt "$attempt_prompt" --events "$event_file" --report "$report_file" \
+    --primary "$oc_cmd" >>"$event_file" 2>&1 || rc=$?
+  {
+    printf 'coordinator_attempt=opencode model=%s exit=%s budget_seconds=%s\n' \
+      "$model" "$rc" "$timeout_seconds"
+    if [[ "$rc" -ne 0 ]] && [[ -s "$report_file" ]]; then
+      printf '\npartial_coordinator_output model=%s\n' "$model"
+      cat "$report_file"
+      : >"$report_file"
+    fi
+  } >>"$event_file" 2>&1
+  rm -f -- "$attempt_prompt"
+  return "$rc"
+}
+
+run_opencode_fallback() {
+  local prompt_file="$1" report_file="$2" event_file="$3"
+  local model remaining_seconds attempt_seconds fallback_deadline
+  fallback_deadline=$((SECONDS + FALLBACK_COORDINATOR_BUDGET_SECONDS))
+  for model in "${COORDINATOR_FALLBACK_MODELS[@]}"; do
+    remaining_seconds=$((fallback_deadline - SECONDS))
+    if (( remaining_seconds > 0 )); then
+      attempt_seconds="$remaining_seconds"
+      if (( attempt_seconds > FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS )); then
+        attempt_seconds="$FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS"
+      fi
+    else
+      break
+    fi
+    if opencode_route "$model" "$prompt_file" "$report_file" "$event_file" "$attempt_seconds"; then
+      printf 'coordinator_route=opencode model=%s\n' "$model"
+      return 0
+    fi
+    append_retry_handoff "$prompt_file" "$event_file" "OpenCode/$model"
+  done
+  printf 'all OpenCode coordinator fallback models failed\n' >&2
+  return 1
+}
+
+run_coordinator() {
+  local preferred_route="$1" prompt_file="$2" report_file="$3" event_file="$4"
+  if [[ "$preferred_route" == "codex" ]]; then
+    if run_codex_route "$prompt_file" "$report_file" "$event_file"; then
+      printf 'coordinator_route=codex model=%s\n' "$EUNOMIA_PATROL_COORDINATOR_MODEL"
+      return 0
+    fi
+    printf 'coordinator_fallback=opencode reason=codex_unavailable_or_incomplete\n'
+    printf '\ncoordinator_fallback=opencode reason=codex_unavailable_or_incomplete\n' >>"$event_file"
+    append_retry_handoff "$prompt_file" "$event_file" "Codex/$EUNOMIA_PATROL_COORDINATOR_MODEL"
+    rm -f -- "$THREAD_FILE"
+    : >"$report_file"
   fi
-  return "$codex_rc"
+  run_opencode_fallback "$prompt_file" "$report_file" "$event_file"
 }
 
 append_retry_handoff() {
@@ -402,6 +436,7 @@ append_retry_handoff() {
     printf '\nPrevious coordinator attempt did not finish.\n'
     printf -- '- previous route: %s\n' "$previous_route"
     printf -- '- private attempt event log: %s\n' "$event_file"
+    printf -- '- private attempt stderr log: %s.stderr\n' "$event_file"
     printf '%s\n' \
       'Before any GitHub write, search that private log for completed tool calls and action identifiers without loading it wholesale into context.' \
       'Reconcile every relevant branch, commit, pull request, comment, review, and memory update against live GitHub and filesystem state. Continue only with the next missing action; never repeat a completed write.'
@@ -495,77 +530,6 @@ remove_worker_evidence_safe() {
   fi
   printf 'refusing to remove unverified worker evidence path: %s\n' "$target" >&2
   return 1
-}
-
-run_opencode_coordinator() {
-  local prompt_file="$1" report_file="$2" event_file="$3"
-  local model config attempt_report attempt_log attempt_prompt coordinator_rc remaining_seconds attempt_seconds
-  local fallback_deadline=$((SECONDS + FALLBACK_COORDINATOR_BUDGET_SECONDS))
-  for model in "${COORDINATOR_FALLBACK_MODELS[@]}"; do
-    remaining_seconds=$((fallback_deadline - SECONDS))
-    if [[ "$remaining_seconds" -le 0 ]]; then
-      break
-    fi
-    attempt_seconds="$remaining_seconds"
-    if (( attempt_seconds > FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS )); then
-      attempt_seconds="$FALLBACK_COORDINATOR_ATTEMPT_TIMEOUT_SECONDS"
-    fi
-    attempt_report="$(mktemp "${report_file}.opencode.XXXXXX")"
-    attempt_log="$(mktemp "${event_file}.opencode.XXXXXX")"
-    attempt_prompt="$(mktemp "${prompt_file}.opencode.XXXXXX")"
-    write_deadlined_prompt "$prompt_file" "$attempt_prompt" \
-      "OpenCode fallback coordinator using $model" "$attempt_seconds"
-    config="$(render_worker_config "$model")"
-    coordinator_rc=0
-    env OPENCODE_CONFIG_CONTENT="$config" \
-        MAKEFLAGS="-j1" \
-        CMAKE_BUILD_PARALLEL_LEVEL=1 \
-        CARGO_BUILD_JOBS=1 \
-        GOMAXPROCS=2 \
-      timeout --foreground "$attempt_seconds" \
-        opencode run --pure \
-          --agent patrol-coordinator \
-          --model "${EUNOMIA_PATROL_WORKER_PROVIDER}/${model}" \
-          --format default \
-          --dir "$REPO_ROOT" \
-          "$(cat "$attempt_prompt")" \
-          >"$attempt_report" 2>"$attempt_log" || coordinator_rc=$?
-    {
-      printf 'coordinator_attempt=opencode model=%s exit=%s budget_seconds=%s\n' \
-        "$model" "$coordinator_rc" "$attempt_seconds"
-      cat "$attempt_log"
-      if [[ "$coordinator_rc" -ne 0 ]] && [[ -s "$attempt_report" ]]; then
-        printf '\npartial_coordinator_output model=%s\n' "$model"
-        cat "$attempt_report"
-      fi
-    } >>"$event_file"
-    rm -f -- "$attempt_log" "$attempt_prompt"
-    if [[ "$coordinator_rc" -eq 0 ]] && [[ -s "$attempt_report" ]]; then
-      mv -f -- "$attempt_report" "$report_file"
-      printf 'coordinator_route=opencode model=%s\n' "$model"
-      return 0
-    fi
-    rm -f -- "$attempt_report"
-    append_retry_handoff "$prompt_file" "$event_file" "OpenCode/$model"
-  done
-  printf 'all OpenCode coordinator fallback models failed\n' >&2
-  return 1
-}
-
-run_coordinator() {
-  local preferred_route="$1" prompt_file="$2" report_file="$3" event_file="$4"
-  if [[ "$preferred_route" == "codex" ]]; then
-    if run_codex "$prompt_file" "$report_file" "$event_file" && [[ -s "$report_file" ]]; then
-      printf 'coordinator_route=codex model=%s\n' "$EUNOMIA_PATROL_COORDINATOR_MODEL"
-      return 0
-    fi
-    printf 'coordinator_fallback=opencode reason=codex_unavailable_or_incomplete\n'
-    printf '\ncoordinator_fallback=opencode reason=codex_unavailable_or_incomplete\n' >>"$event_file"
-    append_retry_handoff "$prompt_file" "$event_file" "Codex/$EUNOMIA_PATROL_COORDINATOR_MODEL"
-    rm -f -- "$THREAD_FILE"
-    : >"$report_file"
-  fi
-  run_opencode_coordinator "$prompt_file" "$report_file" "$event_file"
 }
 
 run_patrol() {
