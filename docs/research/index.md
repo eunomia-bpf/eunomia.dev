@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Add Native Operations Without Creating a Second Verifier?](https://eunomia.dev/research/ebpf-native-operation-contract/)
+
+Native operations can recover machine-specific performance without changing the portable BPF source, but every backend emit adds trust below the verifier. This report develops verifier-visible typed effect contracts, cross-architecture conformance gates, and revocable implementation provenance with a portable fallback.
+
 ### [Can eBPF Use Runtime Profiles Without Changing Program Semantics?](https://eunomia.dev/research/ebpf-runtime-profile-specialization/)
 
 Runtime profiles can reveal branch bias, deployment constants, and machine-specific optimization opportunities that the stock JIT cannot know ahead of time. This report separates verifier safety from semantic equivalence and develops equivalence certificates, guarded specialization and deoptimization, plus phase-shift counterexamples for stale profiles.
