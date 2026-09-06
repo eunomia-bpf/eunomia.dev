@@ -14,7 +14,7 @@
 - Last verified Daily Report squash commit: `e5a521a9fb7e3787be57084b58d8b3ed2687c3e3`
 - Last verified production publication from a Daily Report run: static export commit `72d9f79f2b7b6fc6a8bc7ebe14dcc484d25743bd`
 - Current daily branch: `daily/2026-09-06-ebpf-native-operation-contract`
-- Current daily pull request: pending until opened
+- Current daily pull request: `#188`
 - Current branch base: `79a2464f24fc007106009469faa32978a97b2de7`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
@@ -109,7 +109,7 @@ justify a pointer-only update because the consuming contract must migrate first.
 
 ## Current focus
 
-1. Complete the September 6 native-operation-contract Daily Report through non-draft PR, terminal expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
+1. Complete PR `#188` for the September 6 native-operation-contract Daily Report through terminal expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and one merged-PR closeout comment.
 2. Advance **eBPF Optimization and Execution Specialization** with a typed native-operation trust contract, cross-architecture conformance, and implementation provenance/revocation. Do not repeat the September 5 runtime-profile equivalence thesis.
 3. Keep the next series question distinct. Candidate boundaries include portable optimization evidence across JIT backends, a generic verifier/JIT optimization IR, or debugging/provenance mechanisms with an operator failure beyond operation-version revocation.
 4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
