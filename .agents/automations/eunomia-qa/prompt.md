@@ -11,6 +11,9 @@ Inputs:
 - Private snapshot (today's monitored discussions): `__SNAPSHOT_PATH__`
 - The receipt is written by the verifier to `__RECEIPT_PATH__` (you never write it).
 
+Before running Step 0, read the complete `.agents/skills/eunomia-community-radar/SKILL.md`
+and obey it.
+
 Step 0 — before any availability or coverage decision, run this exact command
 exactly once, then read the private snapshot file it writes:
 

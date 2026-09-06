@@ -745,6 +745,7 @@ class RunnerOrderingTests(unittest.TestCase):
         self.assertEqual(len(cmd_lines), 1, cmd_lines)
         self.assertTrue(cmd_lines[0].lstrip().startswith("snap_cmd="))
         self.assertEqual(self.prompt.count("__SNAPSHOT_COMMAND__"), 1)
+        self.assertIn(".agents/skills/eunomia-community-radar/SKILL.md", self.prompt)
 
     def test_snapshot_check_and_verifier_follow_the_model(self):
         model_idx = self._model_line()
