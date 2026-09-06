@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 加原生硬件操作时，能不造第二个 Verifier 吗？](https://eunomia.dev/zh/research/ebpf-native-operation-contract/)
+
+Native operation 可以恢复特定硬件能力，却也让每个 backend 的 native emit 在 verifier 之后增加新的信任。本文提出 verifier 可见的 typed-effect contract、跨架构 conformance gate，以及可撤销并能退回 portable sequence 的 implementation provenance。
+
 ### [eBPF 能用运行时画像做优化而不改变程序语义吗？](https://eunomia.dev/zh/research/ebpf-runtime-profile-specialization/)
 
 运行时 profile 能暴露 branch bias、deployment constant 和 generic JIT 提前不知道的机器特征。本文把 verifier safety 与 semantic equivalence 分开，提出 equivalence certificate、带 guard 的 specialization/deoptimization，以及专门让 stale profile 暴露问题的 phase-shift benchmark。
