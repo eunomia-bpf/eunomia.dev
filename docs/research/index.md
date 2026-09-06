@@ -59,7 +59,7 @@ BPF bytecode can stay portable while JIT backends use different machine instruct
 
 ### [Can eBPF Add Native Operations Without Creating a Second Verifier?](https://eunomia.dev/research/ebpf-native-operation-contract/)
 
-Native operations can recover machine-specific performance without changing the portable BPF source, but every backend emit adds trust below the verifier. This report develops verifier-visible typed effect contracts, cross-architecture conformance gates, and revocable implementation provenance with a portable fallback.
+Native operations can recover machine-specific performance without changing the portable BPF source, but each backend's native emit adds trust below the verifier. This report develops verifier-visible typed effect contracts, cross-architecture conformance gates, and revocable implementation provenance with a portable fallback.
 
 ### [Can eBPF Use Runtime Profiles Without Changing Program Semantics?](https://eunomia.dev/research/ebpf-runtime-profile-specialization/)
 
