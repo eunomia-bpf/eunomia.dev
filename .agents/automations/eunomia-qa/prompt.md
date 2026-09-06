@@ -11,6 +11,17 @@ Inputs:
 - Private snapshot (today's monitored discussions): `__SNAPSHOT_PATH__`
 - The receipt is written by the verifier to `__RECEIPT_PATH__` (you never write it).
 
+Step 0 — before any availability or coverage decision, run this exact command
+exactly once, then read the private snapshot file it writes:
+
+    __SNAPSHOT_COMMAND__
+
+If the command fails, or the snapshot is missing, empty, or holds no usable
+evidence for a well-grounded question, create NO QA files and stop immediately.
+Archive-backed Slack channels come from that snapshot only; every other
+community stays visible-browser-only (no APIs, no hidden endpoints, no
+transcript persistence).
+
 Read the publication standard first:
 `.claude/skills/eunomia-community-radar/references/qa-publication-standard.md`
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# eunomia-qa runner: --check | --probe | --run
+# eunomia-qa runner: --check | --run
 set -u
 
 QA_DIR="${EUNOMIA_QA_DIR:-$(cd "$(dirname "$0")" && pwd)}"
@@ -64,11 +64,6 @@ cmd_check() {
   return "$fail"
 }
 
-cmd_probe() {
-  cd "$QA_DIR" || die "cannot cd $QA_DIR"
-  "$VENV_PY" archive_reader.py probe
-}
-
 # Internal mode: runs under flock + timeout, preconditions already verified.
 resolve_opencode() {
   if command -v opencode >/dev/null 2>&1; then
@@ -84,7 +79,7 @@ resolve_opencode() {
 
 cmd_locked() {
   umask 077
-  local work snapshot receipt prompt_resolved model_out model_err
+  local work snapshot receipt prompt_resolved model_out model_err snap_cmd
   local model start_sha run_date rc snapsize
   local modpid=""
   local opencode_bin
@@ -133,15 +128,6 @@ cmd_locked() {
   run_date="$(date +%F)"
   model="$(pick_model)" || { log "model not allowed"; exit 2; }
 
-  log "probe: archive_reader.py probe"
-  ( cd "$QA_DIR" && "$VENV_PY" archive_reader.py probe ) || exit 1
-  log "snapshot: archive_reader.py snapshot"
-  ( cd "$QA_DIR" && "$VENV_PY" archive_reader.py snapshot --output "$snapshot" ) || exit 1
-  snapsize="$(wc -c <"$snapshot")" || exit 1
-  if [ "$snapsize" -gt 120000 ]; then
-    log "snapshot too large ($snapsize > 120000 bytes)"; exit 1
-  fi
-
   [ -n "${OPENCODE_CONFIG:-}" ] || { log "OPENCODE_CONFIG unset"; exit 1; }
   [ -f "$OPENCODE_CONFIG" ] || { log "OPENCODE_CONFIG file missing"; exit 1; }
   [ -n "${EUNOMIA_QA_OPENCODE_CONFIG_CONTENT:-}" ] || { log "EUNOMIA_QA_OPENCODE_CONFIG_CONTENT unset"; exit 1; }
@@ -152,7 +138,10 @@ cmd_locked() {
   mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
   export PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-$STATE_DIR/browsers}"
 
-  sed -e "s|__SNAPSHOT_PATH__|$snapshot|g" \
+  snap_cmd="( cd '$QA_DIR' && '$VENV_PY' archive_reader.py snapshot --output '$snapshot' )"
+
+  sed -e "s|__SNAPSHOT_COMMAND__|$snap_cmd|g" \
+      -e "s|__SNAPSHOT_PATH__|$snapshot|g" \
       -e "s|__RECEIPT_PATH__|$receipt|g" \
       -e "s|__RUN_DATE__|$run_date|g" \
       "$QA_DIR/prompt.md" >"$prompt_resolved" || exit 1
@@ -164,8 +153,19 @@ cmd_locked() {
   wait "$modpid"
   rc=$?
   if [ "$rc" -ne 0 ]; then
-    log "model failed rc=$rc (raw output kept in private tmpdir only)"; exit "$rc"
+    log "model exited rc=$rc (raw output kept in private tmpdir only)"
   fi
+
+  # Fail closed: the model ran the archive snapshot command itself. Verify the
+  # private snapshot exists and is bounded before validating content.
+  if [ ! -f "$snapshot" ]; then
+    log "snapshot missing after model exit; failing closed"; exit 1
+  fi
+  snapsize="$(wc -c <"$snapshot")" || exit 1
+  if [ "$snapsize" -eq 0 ] || [ "$snapsize" -gt 120000 ]; then
+    log "snapshot unusable after model exit ($snapsize bytes); failing closed"; exit 1
+  fi
+
   [ -f "$QA_DIR/verify_publication.py" ] || { log "verifier MISSING, not bypassing"; exit 1; }
   log "verify: verify_publication.py"
   "$VENV_PY" "$QA_DIR/verify_publication.py" \
@@ -189,8 +189,7 @@ cmd_run() {
 
 case "${1:---help}" in
   --check)  cmd_check ;;
-  --probe)  cmd_probe ;;
   --run)    cmd_run ;;
   --locked) cmd_locked ;;
-  *) log "usage: run.sh --check | --probe | --run"; exit 2 ;;
+  *) log "usage: run.sh --check | --run"; exit 2 ;;
 esac
