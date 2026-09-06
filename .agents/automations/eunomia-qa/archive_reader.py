@@ -410,6 +410,7 @@ def run_probe(sources, connect, now=None) -> tuple:
         return _bounded_report(lines, "readonly_unenforceable", "inaccessible"), EXIT_INACCESSIBLE
     reason = "ok"
     all_ok = True
+    ok_count = 0
     try:
         for index, source in enumerate(sources, start=1):
             total = len(source["channels"])
@@ -443,16 +444,19 @@ def run_probe(sources, connect, now=None) -> tuple:
                 "source=%d status=ok channels=%d/%d messages_24h=%d messages_7d=%d"
                 % (index, total, total, len(rows_24h), len(rows_7d))
             )
+            ok_count += 1
     except Exception:
         all_ok = False
         if reason == "ok":
             reason = "read_failed"
     finally:
         _close(conn)
-    result = "ok" if all_ok else "inaccessible"
+    # Existing-data gating (2026-09-06): a degraded source set is usable when
+    # at least one opt-in source is readable; per-source lines keep the gaps.
+    result = "ok" if ok_count else "inaccessible"
     if all_ok:
         reason = "ok"
-    return _bounded_report(lines, reason, result), EXIT_OK if all_ok else EXIT_INACCESSIBLE
+    return _bounded_report(lines, reason, result), EXIT_OK if ok_count else EXIT_INACCESSIBLE
 
 
 def _bounded_utf8(text: str, limit: int = MAX_SNAPSHOT_BYTES) -> bytes:
@@ -482,14 +486,24 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
         candidate_schemas = _discover_candidate_schemas(conn)
         current_user = _current_user(conn)
         _check_write_grants(conn, candidate_schemas, current_user)
-        for source in sources:
+        skipped_count = 0
+        skipped_reason = None
+        for index, source in enumerate(sources, start=1):
             try:
                 coverage, code = _source_coverage(conn, candidate_schemas, source)
             except Exception:
                 coverage, code = None, "read_failed"
             if code != "ok":
-                _close(conn)
-                return _bounded_report(lines, code, "inaccessible"), EXIT_INACCESSIBLE
+                # Existing-data gating (2026-09-06): skip this source, keep
+                # reading the others; zero readable sources still fails below.
+                skipped_count += 1
+                if skipped_reason is None:
+                    skipped_reason = code
+                lines.append(
+                    "source=%d status=%s channels=0/%d skipped=1"
+                    % (index, code, len(source["channels"]))
+                )
+                continue
             resolved.append(coverage)
     except _InvariantFailure as failure:
         _close(conn)
@@ -497,6 +511,12 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
     except Exception:
         _close(conn)
         return _bounded_report(lines, "readonly_unenforceable", "inaccessible"), EXIT_INACCESSIBLE
+    if not resolved:
+        _close(conn)
+        return (
+            _bounded_report(lines, skipped_reason or "no_opt_in", "inaccessible"),
+            EXIT_INACCESSIBLE,
+        )
     fd = None
     try:
         fd = os.open(str(output_path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -555,12 +575,11 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
             except OSError:
                 pass
     if succeeded:
+        extra = ["snapshot=ok bytes=%d messages=%d" % (payload_len, total)]
+        if skipped_count:
+            extra.append("coverage=partial skipped_sources=%d" % skipped_count)
         return (
-            _bounded_report(
-                lines + ["snapshot=ok bytes=%d messages=%d" % (payload_len, total)],
-                "ok",
-                "ok",
-            ),
+            _bounded_report(lines + extra, "ok", "ok"),
             EXIT_OK,
         )
     return _bounded_report(lines, reason, "inaccessible"), EXIT_INACCESSIBLE

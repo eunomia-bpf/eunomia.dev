@@ -643,7 +643,7 @@ class SnapshotFileModeTests(Base):
             self.assert_last_line(lines, "reason=channel_missing")
             self.assertFalse(out_path.exists())
 
-    def test_snapshot_requires_all_sources_covered(self):
+    def test_snapshot_uses_available_sources_when_partial(self):
         two_sources = [
             {"team": TEAM_A, "channels": ["ebpf"]},
             {"team": "Team B", "channels": ["general"]},
@@ -651,16 +651,23 @@ class SnapshotFileModeTests(Base):
         backend = FakeBackend(
             team_by_schema={"team_a": TEAM_A, "other_ws": "Some Other Team"},
             channels_by_schema={"team_a": {"ebpf": "C_EBPF"}},
+            messages_by_schema={
+                "team_a": [{"channel_id": "C_EBPF", "ts": "900.0000", "txt": "PARTIAL_DATA_MSG"}]
+            },
             channel_flags={"C_EBPF": {"is_private": False, "is_im": False, "is_mpim": False}},
         )
         connector, holder = make_connector(backend)
         with tempfile.TemporaryDirectory() as tmp:
             out_path = Path(tmp) / "all.txt"
             lines, code = ar.run_snapshot(two_sources, connector, str(out_path), now=1000.0)
-            self.assertEqual(code, 1)
-            # Second source (Team B) has no matching schema, so schema_none
-            self.assertEqual(lines[-1], "reason=schema_none")
-            self.assertFalse(out_path.exists())
+            # Existing-data gating (2026-09-06): the readable source is used;
+            # the unreadable one is reported as skipped, not fatal. Zero
+            # readable sources remains fail-closed (channel_missing test above).
+            self.assertEqual(code, 0)
+            self.assertIn("source=2 status=schema_none channels=0/1 skipped=1", lines)
+            self.assertIn("coverage=partial skipped_sources=1", lines)
+            self.assertEqual(lines[-1], "reason=ok")
+            self.assertEqual(out_path.read_text(encoding="utf-8"), "PARTIAL_DATA_MSG")
 
 
 class WatchlistTests(Base):
