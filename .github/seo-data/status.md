@@ -12,15 +12,16 @@
 - Latest completed daily record before the current run: `2026-09-06`
 - Last merged Daily Report pull request: `#189`
 - Last merged Daily Report squash commit: `e091531a375c458ed34c973a5861b75ebf9b3473`
-- Exact-merge September 6 deployment: `Deploy Static App` run `34140327505`, still in progress while the September 7 branch is prepared
+- September 6 production export: `fe48a46224768cd0270280f8c4fd0d559bfd366f`
+- September 6 exact-merge deployment run: `34140327505` — success
 - Current daily branch: `daily/2026-09-07-ebpf-native-fastpath-trust-boundary`
-- Current daily pull request: pending creation
+- Current daily pull request: `#190`
 - Current branch base: `e091531a375c458ed34c973a5861b75ebf9b3473`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR `#189`, **Daily: define portable architecture specialization for eBPF**, passed both PR-head expected checks and was squash-merged as `e091531a375c458ed34c973a5861b75ebf9b3473` after a complete final source-diff self-review. Exact-merge `Validate SEO Operations` run `34140327427` succeeded. The exact-merge production workflow remains active; its static verification stage has succeeded and production build is running. No September 6 deployment-complete claim is made before that workflow reaches terminal success and generated bilingual production artifacts are checked.
+PR `#189`, **Daily: define portable architecture specialization for eBPF**, passed both PR-head expected checks and was squash-merged as `e091531a375c458ed34c973a5861b75ebf9b3473` after complete final review. Exact-merge `Validate SEO Operations` run `34140327427` succeeded. Exact-merge `Deploy Static App` run `34140327505` then completed successfully through static verification, production build, URL assertions, publication, and GitHub Pages deployment. The production `new` branch is `fe48a46224768cd0270280f8c4fd0d559bfd366f`, explicitly bound by `deploy static app for e091531a375c458ed34c973a5861b75ebf9b3473`.
 
-Independent public discovery currently exposes the September 5 runtime-profile-specialization report but has not yet refreshed the September 6 report. This is supplementary retrievability evidence only and is not interpreted as a defect while the exact production deployment remains in progress.
+Generated EN/ZH September 6 artifacts were re-read for locale-correct canonical URLs, reciprocal `en`/`zh` plus `x-default`, Article JSON-LD, Daily Report navigation/content, and the intended report structure. The production sitemap contains both routes and matching language alternates. Exactly one top-level closeout comment records that completion on merged PR `#189`. Independent crawler discovery had not yet refreshed the September 6 route, so this remains crawler-lag uncertainty rather than a false edge-verification claim.
 
 ## Current Daily Report mix
 
@@ -56,7 +57,7 @@ Sessions are about **2.3% higher** week over week while engagement is about **3.
 
 ### Public technical evidence
 
-No current evidence establishes a crawl, robots, sitemap, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that justifies a separate technical SEO implementation change today. September 6 crawler lag is explicitly treated as retrievability uncertainty, not as a defect, until exact deployment and generated artifacts are reconciled.
+No current evidence establishes a crawl, robots, sitemap, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that justifies a separate technical SEO implementation change today. Independent crawler lag for a newly deployed report is retrievability uncertainty, not by itself a defect.
 
 Cloudflare remains disabled by repository configuration, so no Cloudflare-grounded traffic, cache, bot, country, or status-code conclusion is made.
 
@@ -68,11 +69,10 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Finish September 6 exact-squash deployment reconciliation and its single merged-PR closeout comment; queued deployment is not failure.
-2. Deliver the September 7 native-fast-path trust-boundary report through non-draft PR, terminal green expected checks, complete final self-review, squash merge, exact production deployment, bilingual generated/public verification, sitemap verification, and exactly one merged-PR closeout comment.
-3. Keep **eBPF Optimization and Execution Specialization** materially distinct. After today's TCB/translation-validation boundary, debugging/provenance for the exact native implementation is a strong next candidate; higher-level hardware delegation remains possible if it avoids repeating heterogeneous execution placement.
-4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
-5. Keep Cloudflare evidence unavailable until a supported read-only path is enabled in repository configuration.
-6. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
+1. Deliver PR `#190`, **Daily: bound the trust surface of native eBPF fast paths**, through terminal green expected checks, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+2. Keep **eBPF Optimization and Execution Specialization** materially distinct. After today's TCB/translation-validation boundary, debugging/provenance for the exact native implementation is a strong next candidate; higher-level hardware delegation remains possible if it avoids repeating heterogeneous execution placement.
+3. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
+4. Keep Cloudflare evidence unavailable until a supported read-only path is enabled in repository configuration.
+5. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
 
 Detailed run history belongs in `.github/seo-data/daily/` and merged daily pull requests.
