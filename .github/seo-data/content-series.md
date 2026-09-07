@@ -451,9 +451,9 @@ Working question: **How can eBPF programs and runtimes specialize to hardware an
 workload behavior without silently changing verifier-approved semantics,
 portability, or debuggability?**
 
-This series becomes active after the GPU/runtime series reaches its normal
-six-report boundary on `2026-09-04`. The rolling mix is then **5 / 0 / 5**, so a
-genuinely eBPF-centered question is preferred, but the normal evidence and
+This series became active after the GPU/runtime series reached its normal
+six-report boundary on `2026-09-04`. The rolling mix was then **5 / 0 / 5**, so a
+genuinely eBPF-centered question remains preferred while the normal evidence and
 novelty gates still apply.
 
 Candidate boundaries include:
@@ -470,12 +470,7 @@ Candidate boundaries include:
 - debugging and provenance for dynamically specialized BPF code so operators can
   explain which version and optimization decision actually executed.
 
-The first report must establish one concrete optimization boundary with current
-primary evidence and measurable ground truth. Do not restate the completed
-userspace-runtime contract, hook-composition contract, heterogeneous execution
-placement report, or transactional-upgrade report under a new optimization name.
-
-The `2026-09-05` report establishes that first boundary. It separates kernel
+The `2026-09-05` report establishes the first boundary. It separates kernel
 verifier safety from optimizer equivalence and from the lifetime of profile-based
 assumptions. K2 and EPSO show that semantics-preserving BPF rewrites can carry
 explicit equivalence checking; Kops shows proof-structured hardware
@@ -485,6 +480,19 @@ the stock verifier/JIT. The report develops an optimization-equivalence
 certificate, guarded specialization dependencies with bounded deoptimization,
 and a phase-shift/rare-path benchmark whose correctness oracle is observable
 divergence from the portable source program.
+
+The `2026-09-06` report advances a separate second boundary: architecture-specific
+native optimization can preserve one portable BPF semantic artifact only if the
+implementation eligibility and fallback are explicit. RFC 9669 conformance groups
+show that capability discovery is already part of BPF interoperability; current
+Linux JIT hooks expose backend-dependent capabilities; and Kops shows that a
+verifier-visible ordinary-BPF proof sequence can coexist with per-architecture
+native emits whose implementation coverage differs by target. The report develops
+a two-level semantic/implementation capability manifest, a multi-backend
+proof-linked operation package with deterministic portable fallback, and a
+cross-JIT benchmark that measures semantic equality, specialization coverage,
+fallback reasons, cross-target performance regret, proof/selection overhead, and
+trusted-code growth.
 
 ### Published progress
 
@@ -496,18 +504,30 @@ divergence from the portable source program.
    correctness under adversarial profile staleness before treating speedup as a
    win. It is eBPF-centered because BPF bytecode semantics, verifier/JIT
    acceptance, BPF effects, and link generations are the object of the contract.
+2. `2026-09-06`: `/research/ebpf-portable-architecture-specialization/` asks how
+   architecture-specific BPF fast paths can remain optional implementations of
+   one portable semantic operation instead of becoming an implicit machine ABI.
+   It separates BPF semantic capability from native implementation eligibility,
+   packages per-architecture emits around a shared proof sequence and explicit
+   fallback, and evaluates portability across JIT backends and kernel versions.
+   It is eBPF-centered because BPF ISA conformance, verifier-visible proof
+   sequences, JIT capability, and native lowering are the object of the contract.
 
-Before the September 5 publication, the newest ten contain **5 eBPF-centered / 0
-pure Agent / 5 adjacent systems**. The incoming eBPF-centered report rotates the
-`2026-08-25` eBPF-centered report out, so after publication the mix remains **5 /
-0 / 5**. No classification was changed to obtain that result.
+Before the September 5 publication, the newest ten contained **5 eBPF-centered /
+0 pure Agent / 5 adjacent systems**. The September 5 eBPF-centered report rotated
+the `2026-08-25` eBPF-centered report out, so the mix remained **5 / 0 / 5**.
+Before the September 6 publication the mix is therefore still **5 / 0 / 5**. The
+incoming eBPF-centered report rotates the `2026-08-26` eBPF-centered report out,
+so after publication the mix again remains **5 / 0 / 5**. No classification was
+changed to obtain that result.
 
-A later report should not repeat "verifier accepted is not equivalent" or stale
-profile invalidation with a different optimizer example. The next distinct
-boundaries remain architecture-specific specialization contracts, delegated
-native operations and their trust boundary, portable optimization evidence
-across JIT backends, and debugging/provenance mechanisms that go beyond the
-source-to-generation certificate introduced here.
+A later report should not repeat "verifier accepted is not equivalent", stale
+profile invalidation, architecture capability negotiation, proof-linked portable
+fallback, or cross-JIT portability measurement with a different optimizer
+example. Distinct remaining boundaries include delegated native operations and
+their trust/TCB boundary, safe delegation of higher-level operations to
+hardware-specific implementations, and debugging/provenance mechanisms that can
+explain which native implementation and optimization decision actually executed.
 
 ## Queued series — Agent Systems (limited)
 

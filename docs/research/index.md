@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can Architecture-Specific eBPF Optimization Stay Portable?](https://eunomia.dev/research/ebpf-portable-architecture-specialization/)
+
+BPF bytecode can stay portable while JIT backends use different machine instructions, but optimizer-added native fast paths need a clearer deployment contract. This report develops two-level capability negotiation, proof-linked multi-backend operation packages, and a cross-JIT benchmark that treats safe fallback and performance portability as first-class outcomes.
+
 ### [Can eBPF Use Runtime Profiles Without Changing Program Semantics?](https://eunomia.dev/research/ebpf-runtime-profile-specialization/)
 
 Runtime profiles can reveal branch bias, deployment constants, and machine-specific optimization opportunities that the stock JIT cannot know ahead of time. This report separates verifier safety from semantic equivalence and develops equivalence certificates, guarded specialization and deoptimization, plus phase-shift counterexamples for stale profiles.

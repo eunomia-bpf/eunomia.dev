@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 针对特定架构做优化后，还能保持可移植吗？](https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/)
+
+同一份 BPF bytecode 可以跨架构加载，但 optimizer 自己加入的 native fast path 需要更明确的 deployment contract。本文提出两层 capability negotiation、一个 semantic operation 搭配多个 proof-linked backend，以及把安全 fallback 和 performance portability 一起测量的 cross-JIT benchmark。
+
 ### [eBPF 能用运行时画像做优化而不改变程序语义吗？](https://eunomia.dev/zh/research/ebpf-runtime-profile-specialization/)
 
 运行时 profile 能暴露 branch bias、deployment constant 和 generic JIT 提前不知道的机器特征。本文把 verifier safety 与 semantic equivalence 分开，提出 equivalence certificate、带 guard 的 specialization/deoptimization，以及专门让 stale profile 暴露问题的 phase-shift benchmark。
