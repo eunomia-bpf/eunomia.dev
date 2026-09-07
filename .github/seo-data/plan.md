@@ -2,17 +2,11 @@
 
 ## Purpose
 
-Make eunomia.dev a reliable canonical source for eBPF, systems infrastructure,
-observability, profiling, networking, security, runtimes, and heterogeneous
-systems research. AI-agent infrastructure is a deliberately smaller adjacent
-topic rather than the center of the publication program.
+Make eunomia.dev a reliable canonical source for eBPF, systems infrastructure, observability, profiling, networking, security, runtimes, and heterogeneous systems research. AI-agent infrastructure is a deliberately smaller adjacent topic rather than the center of the publication program.
 
-Optimize for technically useful discovery and citation by people and software
-agents without creating shallow, repetitive, or trend-driven content.
+Optimize for technically useful discovery and citation by people and software agents without creating shallow, repetitive, or trend-driven content.
 
-`DAILY_TASK.md` is the authoritative operating entrypoint. It combines daily data
-analysis, technical SEO/GEO, and one mandatory new Daily Report. This file stores
-durable goals and constraints, not duplicated scheduler instructions.
+`DAILY_TASK.md` is the authoritative operating entrypoint. It combines daily data analysis, technical SEO/GEO, and one mandatory new Daily Report. This file stores durable goals and constraints, not duplicated scheduler instructions.
 
 ## Success signals
 
@@ -34,31 +28,26 @@ durable goals and constraints, not duplicated scheduler instructions.
 - Every scheduled run must add exactly one new bilingual Daily Report. A weak candidate is replaced by another approved question rather than published or converted into a no-report day.
 - Technical SEO changes remain evidence-driven and may be skipped on a given day; the Daily Report may not be skipped.
 - Keep the rolling topic mix compliant and classify by the report's actual central mechanism, not by superficial keyword mentions.
-- Do not combine unrelated technical SEO and content work when that makes the daily pull request incoherent; put unrelated durable SEO work in this plan for a focused follow-up.
 - Required and expected CI must pass before a clean final automated self-review and squash merge.
 - Every daily report is a public change, so the exact squash commit must deploy successfully and both language pages must be verified.
 - Do not create a second closeout pull request. Put the verified closeout in one compact comment on the merged daily pull request, then refresh `status.md` in the next run.
 - `.agents/skills/seo-geo` and `.github/seo-skills` own technical SEO mechanics.
 - `.agents/skills/eunomia-research-report` owns Daily Report research, quality, writing, and publication gates.
 
-Short-term fixes and remediation backlogs belong in GitHub issues. Durable priorities that can guide a later daily run belong below.
-
 ## Current priorities
 
-1. Preserve the rolling ten-report mix mechanically from the actually published archive. Before the `2026-09-06` publication the newest ten contain **5 eBPF-centered / 0 pure Agent / 5 adjacent systems**. The architecture-specialization report is genuinely eBPF-centered because portable BPF semantics, JIT capability, proof-linked native implementations, and fallback are the central mechanism. It rotates the `2026-08-26` eBPF-centered report out, so the newest-ten mix remains **5 / 0 / 5** after publication. Never repair the ratio through classification or by publishing an extra report.
-2. **eBPF Optimization and Execution Specialization** is the active series. The September 5 report established verifier-safety versus optimizer-equivalence and the lifetime of profile-derived assumptions. The September 6 report advances a distinct second boundary: architecture-specific native fast paths must expose target eligibility, preserve one portable semantic witness, and fall back deterministically when a machine/JIT capability is unavailable. It develops a two-level capability manifest, proof-linked multi-backend operation packages, and a cross-JIT portability benchmark.
-3. Keep later optimization-series reports materially distinct from those first two boundaries. Good remaining candidates include delegated native operations and their trust/TCB boundary, safe delegation of higher-level operations to hardware-specific implementations, and debugging/provenance that explains the actual native implementation and optimization decision executed. Do not repackage verifier-safety-versus-equivalence, stale-profile invalidation, capability negotiation, or cross-JIT fallback with another optimizer name.
-4. Treat **eBPF Networking and Security** as complete at its normal six-report boundary after the `2026-08-28` proxy handoff report. Return only when fresh evidence supports a mechanism beyond policy composition, zero-copy ownership, temporal state correctness, revocation, complete mediation, or proxy identity continuity.
-5. Treat **GPU and Heterogeneous Runtime Systems** as complete at its normal six-report post-activation boundary after `2026-09-04`. Do not continue with a seventh report merely because another GPU paper exists. Its covered boundaries are memory-placement evidence, instrumentation non-interference, candidate-conditioned allocatability, membership/generation continuity, semantic observability after megakernel fusion, and application-consistent checkpoint/restore.
-6. Use all verified weekly Search Console and GA4 Drive export sets in every run. As of `2026-09-06`, no source set newer than `2026-08-24..30` is present. Its Search Console date rows remain verified through `2026-08-29`, with `2026-08-30` absent.
-7. Record the current Search Console `2026-08-24..29` slice as **436 clicks / 55,594 impressions / ~0.784% CTR / ~10.73 impression-weighted position**. The equal-duration `2026-08-17..22` slice is **477 / 59,798 / ~0.798% / ~9.56**. Current clicks are ~8.6% lower, impressions ~7.0% lower, CTR ~0.013 percentage points lower, and position ~1.17 worse. Label this as a six-day source-native comparison, not a complete seven-day trend.
-8. Keep complete GSC 7-day and 28-day comparisons unavailable until source history supports them. The prior weekly export omits `2026-08-23`, the current set omits `2026-08-30`, and other older gaps prevent a complete preceding 28-day source window. Missing rows are never zero.
-9. Weekly GSC page aggregates may prioritize inspection but must not be used for page-level causal claims without date-by-page evidence. Daily Report pages show 6 clicks / 1,017 impressions in the current weekly page export versus 5 / 744 previously, but volume is still too small to justify a title, navigation, or metadata change by itself.
-10. Treat the GA4 `2026-08-24..30` organic landing-page aggregate as fully finalized. It contains 1,007 sessions at about 45.88% session-weighted engagement. The preceding finalized `2026-08-17..23` aggregate contains 984 sessions at about 49.29% engagement. Sessions are about **2.3% higher** week over week while engagement is about **3.41 percentage points lower**.
-11. Use finalized date-by-page or date-by-query evidence before attributing search movement to one page, report, title, or topic family. Weekly page/query aggregates without a date dimension are prioritization evidence, not causal attribution.
-12. The independent crawler/search view discovers the September 5 runtime-profile-specialization report as of `2026-09-06`, after previously confirming the September 4 checkpoint report and September 3 megakernel report. Treat this as supplementary retrievability evidence. Exact-SHA Pages deployment and generated production artifacts remain the stronger publication acceptance evidence.
-13. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement and technical SEO questions that require richer source-native evidence rather than as reasons to steer Daily Report topics.
-14. Add Cloudflare coverage only when a supported read-only route is enabled in repository configuration.
-15. Use search behavior, GitHub activity, primary research, kernel changes, and production evidence to order questions inside approved eBPF and adjacent systems series.
-16. Revisit a dedicated public hub for a series only after at least three strong reports and report-level acquisition or navigation evidence show that it would improve retrieval beyond the existing Daily Report index.
-17. Migrate the consuming SEO contract before moving the pinned `seo-skills` submodule to a newer upstream layout. Upstream `main` is newer at `f42128a3f05c73cf10c786a2711c488bb3a14839`, but upstream movement alone is not evidence that a pointer-only bump is safe.
+1. Preserve the rolling ten-report mix mechanically from the published archive. Before the `2026-09-07` publication the newest ten contain **5 eBPF-centered / 0 pure Agent / 5 adjacent systems**. Today's report is genuinely eBPF-centered and rotates the `2026-08-27` eBPF-centered report out, so the window remains **5 / 0 / 5** after publication.
+2. **eBPF Optimization and Execution Specialization** is the active series. September 5 established verifier safety versus optimizer equivalence and profile-assumption lifetime. September 6 established architecture-specific implementation eligibility, a portable semantic witness, deterministic fallback, and cross-JIT portability evidence. September 7 advances the separate native-operation trust/TCB boundary: the selected implementation must be independently bound to verifier-approved semantics instead of making every optimizer/backend trusted.
+3. Keep later optimization-series reports materially distinct. Good next candidates include safe delegation of higher-level operations with explicit semantic/effect contracts, and debugging/provenance that explains the exact specialized implementation, certificate, optimizer generation, and decision that executed. Do not repackage stale-profile invalidation, architecture capability negotiation, portable fallback, cross-JIT portability, or today's trust/TCB thesis with a new optimizer name.
+4. Treat **eBPF Networking and Security** as complete at its six-report boundary after `2026-08-28`; return only for a mechanism beyond policy composition, zero-copy ownership, temporal state correctness, revocation, complete mediation, or proxy identity continuity.
+5. Treat **GPU and Heterogeneous Runtime Systems** as complete at its six-report post-activation boundary after `2026-09-04`; do not continue merely because another GPU paper exists.
+6. Use all verified weekly Search Console and GA4 Drive export sets in every run. As of `2026-09-07`, a new `2026-08-31..09-06` set is present. GSC rows exist through `2026-09-05`; rows through September 4 are treated as finalized under the configured three-day lag, September 5 as partial, and September 6 is absent.
+7. Record finalized GSC `2026-08-31..09-04` as **368 clicks / 53,341 impressions / ~0.690% CTR / ~7.45 impression-weighted position**. Equal-duration `2026-08-24..28` is **398 / 48,044 / ~0.828% / ~10.04**. Current clicks are ~7.5% lower, impressions ~11.0% higher, CTR ~0.139 percentage points lower, and position ~2.59 positions better. Label this as a five-day source-native comparison, not a complete seven-day trend.
+8. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous. Missing `2026-08-30`, absent `2026-09-06`, and older gaps are never converted to zero.
+9. The new GA4 `2026-08-31..09-06` weekly landing-page aggregate is partial under the configured lag because it has no date dimension. Do not compare it as a finalized week. The latest fully finalized aggregate remains `2026-08-24..30`: 1,007 sessions at ~45.88% engagement versus 984 at ~49.29% for `2026-08-17..23`.
+10. Weekly GSC page/query aggregates may prioritize inspection but must not support page-level causal claims without date-resolved evidence. Use finalized date-by-page or date-by-query evidence before attributing movement to one report, title, metadata change, or topic family.
+11. Exact-SHA Pages deployment and generated production artifacts remain stronger publication acceptance evidence than crawler discovery alone.
+12. Treat GA4 `(not set)` and remaining legacy `/en/` traffic as measurement or technical SEO questions requiring richer source-native evidence rather than reasons to steer Daily Report topics.
+13. Add Cloudflare coverage only when a supported read-only route is enabled in repository configuration.
+14. Revisit a dedicated public series hub only after at least three strong reports and report-level acquisition/navigation evidence show retrieval benefit beyond the existing Daily Report index.
+15. Migrate the consuming SEO contract before moving the pinned `seo-skills` submodule to a newer upstream layout. Upstream movement alone is not evidence that a pointer-only bump is safe.
