@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 加入 Native 快路径后，可信计算基最小能缩到多小？](https://eunomia.dev/zh/research/ebpf-native-fastpath-trust-boundary/)
+
+Verifier 批准的 BPF semantics 并不会自动证明 CPU 最后执行的 architecture-specific bytes。本文提出 proof-carrying native-operation capsule、effect-typed emitter，以及用故障注入直接测量 TCB-performance frontier 的 benchmark，而不是只比较 speedup。
+
 ### [eBPF 针对特定架构做优化后，还能保持可移植吗？](https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/)
 
 同一份 BPF bytecode 可以跨架构加载，但 optimizer 自己加入的 native fast path 需要更明确的 deployment contract。本文提出两层 capability negotiation、一个 semantic operation 搭配多个 proof-linked backend，以及把安全 fallback 和 performance portability 一起测量的 cross-JIT benchmark。
