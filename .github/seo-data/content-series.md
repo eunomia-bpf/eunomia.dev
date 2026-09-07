@@ -494,6 +494,18 @@ cross-JIT benchmark that measures semantic equality, specialization coverage,
 fallback reasons, cross-target performance regret, proof/selection overhead, and
 trusted-code growth.
 
+The `2026-09-07` report advances a third boundary after implementation selection:
+who must be trusted when verifier-visible BPF semantics are delegated to native
+code. Linux kfuncs show that verifier-enforced argument, ownership, RCU,
+sleepability, and destructive-call contracts can coexist with an implementation
+that still requires kernel review. Kops makes the native-emission TCB trade-off
+explicit and demonstrates proof-linked native operations as well as a larger-TCB
+whole-program native replacement. The report separates semantic authority from
+implementation authority and develops independently checked native-operation
+certificates, runtime effect envelopes for partially verified delegation, and a
+TCB mutation benchmark whose primary oracle is escaped semantic divergence from
+the verifier-approved BPF program.
+
 ### Published progress
 
 1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
@@ -512,22 +524,32 @@ trusted-code growth.
    fallback, and evaluates portability across JIT backends and kernel versions.
    It is eBPF-centered because BPF ISA conformance, verifier-visible proof
    sequences, JIT capability, and native lowering are the object of the contract.
+3. `2026-09-07`: `/research/ebpf-native-operation-trust-boundary/` asks why a
+   selected native implementation should be allowed to exercise the same
+   authority as verifier-approved BPF semantics without making its entire
+   optimizer/backend toolchain trusted. It proposes independently checkable
+   operation certificates, explicit effect envelopes and bounded differential
+   canaries, plus an adversarial TCB-mutation benchmark. It is eBPF-centered
+   because the verifier boundary, BPF semantic witness, native JIT lowering, and
+   delegated execution authority are the central object of the contract.
 
 Before the September 5 publication, the newest ten contained **5 eBPF-centered /
 0 pure Agent / 5 adjacent systems**. The September 5 eBPF-centered report rotated
-the `2026-08-25` eBPF-centered report out, so the mix remained **5 / 0 / 5**.
-Before the September 6 publication the mix is therefore still **5 / 0 / 5**. The
-incoming eBPF-centered report rotates the `2026-08-26` eBPF-centered report out,
-so after publication the mix again remains **5 / 0 / 5**. No classification was
-changed to obtain that result.
+an eBPF-centered report out, so the mix remained **5 / 0 / 5**. The September 6
+report likewise kept the mix at **5 / 0 / 5**. Before the September 7 publication
+the mix is still **5 / 0 / 5**; the incoming eBPF-centered report rotates the
+`2026-08-27` eBPF-centered complete-mediation report out, so after publication
+the mix again remains **5 / 0 / 5**. No classification was changed to obtain that
+result.
 
 A later report should not repeat "verifier accepted is not equivalent", stale
 profile invalidation, architecture capability negotiation, proof-linked portable
-fallback, or cross-JIT portability measurement with a different optimizer
-example. Distinct remaining boundaries include delegated native operations and
-their trust/TCB boundary, safe delegation of higher-level operations to
-hardware-specific implementations, and debugging/provenance mechanisms that can
-explain which native implementation and optimization decision actually executed.
+fallback, cross-JIT portability measurement, or today's delegated-native trust
+and TCB thesis with a different optimizer example. Distinct remaining boundaries
+include safe delegation of higher-level operations with explicit semantic/effect
+contracts and debugging/provenance mechanisms that can explain which native
+implementation, certificate, specialization generation, and optimization decision
+actually executed.
 
 ## Queued series — Agent Systems (limited)
 
