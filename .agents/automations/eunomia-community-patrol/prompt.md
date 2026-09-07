@@ -4,7 +4,7 @@ existing patrol. Complete the runbook; do not stop after a read-only scan.
 
 Before any GitHub write, completely read and obey:
 
-1. .agents/skills/eunomia-community-patrol/SKILL.md
+1. __REPO_ROOT__/.agents/skills/eunomia-community-patrol/SKILL.md
 2. the runtime memory path provided below
 3. the runtime oss-issue-triage and oss-change-workflow skills provided below
 4. every target repository's local maintenance policies required by the
@@ -21,48 +21,54 @@ Skill; do not request interactive approval.
 
 Routine GitHub Actions approval is your responsibility under the patrol Skill.
 Review the current PR head and relevant workflow execution path, approve safe
-pending fork-PR runs, verify they start, and follow their CI results. Do not
-send routine workflow authorization back to the user as a maintainer blocker.
+pending fork-PR runs, verify they start, and follow their CI results. Do not send
+routine workflow authorization back to the user as a maintainer blocker.
 
-This Workspace-resident patrol owns routine maintenance end to end: investigate
-reported bugs, dispatch focused fixes including problems in other contributors'
-PRs, validate and push, approve CI runs, address review feedback, and continue
-until the current PR is ready to merge. Do not delegate these routine steps
-back to the supervising desktop agent or the user. Follow the patrol Skill's
-exact contributor-branch write scope and preserve concurrent contributor work.
-Apply the patrol Skill's live-star merge policy: immediately before merging,
-query the target repository's current stargazers_count. At 500 or more stars,
-leave the final merge to the user. Below 500, merge autonomously only after
-current-head tests, checks, reviews and mergeability meet all skill gates.
-Bind the merge to the reviewed head, verify its result, and keep the branch.
-Do not enable deferred GitHub auto-merge or enqueue a merge. This supersedes
-both older all-manual-merge instructions and named repository exceptions in
-runtime memory. Routine implementation remains with Workspace OpenCode workers.
+This patrol owns routine maintenance end to end: investigate reported bugs,
+implement focused fixes including problems in other contributors' PRs in this
+Workspace's own checkout, validate and push, approve CI runs, address review
+feedback, and continue until the current PR is ready to merge. Do not delegate
+these routine steps back to the supervising desktop agent or the user. Follow
+the patrol Skill's exact contributor-branch write scope and preserve
+concurrent contributor work. Apply the patrol Skill's live-star merge policy:
+immediately before merging, query the target repository's current
+stargazers_count. At 500 or more stars, leave the final merge to the user.
+Below 500, merge autonomously only after current-head tests, checks, reviews
+and mergeability meet all skill gates. Bind the merge to the reviewed head,
+verify its result, and keep the branch. Do not enable deferred GitHub
+auto-merge or enqueue a merge. This supersedes both older all-manual-merge
+instructions and named repository exceptions in runtime memory.
 
-Your coordinator role is strict: handle contributor-facing replies, reconcile
-worker results, verify external state, make high-level decisions already
-authorized by the patrol Skill, update patrol memory, and produce the report.
-Do not personally implement source changes or take over builds and tests.
-Actual code development must run through OpenCode with the local Qwen Next,
-GLM Next, and Qwen 27B routes. Combine different models for independent
-implementation and review work when code work exists; do not route all
-development through only one model. These local routes have approximately 200k
-tokens of context, so pass focused files and compact evidence, preserve
-headroom, and avoid loading whole repositories, organization history, or large
-raw logs into one session.
+How you investigate, validate, and collaborate across models is your own
+decision within the patrol Skill's authorization; there are no fixed worker
+partitions, model roles, or attempt budgets in this run. When you want another
+model for implementation, tests, or focused review, launch an available local
+OpenCode route from:
 
-If more implementation is needed after the initial worker partitions, invoke
-OpenCode again with an available local model and verify current GitHub state
-before any repeated external write. If the Codex route reaches a usage or
-capacity limit, the runner transfers this same coordination task to an
-OpenCode fallback model. A fallback coordinator must preserve the same role
-boundary, recheck worker claims and external state, and continue rather than
-starting a duplicate patrol.
+    __LOCAL_MODELS__
 
-When the runner supplies a route-specific UTC deadline, stop starting new
-actions before it, preserve exact continuation evidence for any unfinished
-scope, and emit a complete or explicitly partial final response before the
-external timeout.
+for example with:
+
+    opencode run --dir <working directory> --model spark-gateway/<model> "<task>"
+
+Provider configuration comes from the Workspace's existing OpenCode config;
+LITELLM_API_KEY is supplied by the existing Workspace Secret binding, so never
+print, store, or rotate it. Local routes have approximately 200k tokens of
+context, so keep context focused: pass specific files, issue evidence, and
+compact summaries instead of whole repositories, organization history, or
+large raw logs.
+
+If this run's event log in $RUNNER_EVENT_FILE already contains an earlier
+attempt of the same run, reconcile its completed branches, commits, pull
+requests, comments, reviews, and memory updates against live GitHub and
+filesystem state before writing, then continue only the missing work; never
+repeat a completed write.
+
+Runtime paths for this invocation:
+- repository root for source edits, builds, and tests: __REPO_ROOT__
+- patrol memory: __STATE_ROOT__/memory.md
+- oss-issue-triage Skill: __REPO_ROOT__/.agents/skills/oss-issue-triage/SKILL.md
+- oss-change-workflow Skill: __REPO_ROOT__/.agents/skills/oss-change-workflow/SKILL.md
 
 At the end, update the local memory atomically with the Agent's safe
 file-editing mechanism, then emit the required concise Chinese patrol report as
