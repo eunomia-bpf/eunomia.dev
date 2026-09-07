@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [How Small Can the Trusted Computing Base for Native eBPF Fast Paths Be?](https://eunomia.dev/research/ebpf-native-fastpath-trust-boundary/)
+
+Verifier-approved BPF semantics do not automatically prove the architecture-specific bytes a CPU finally executes. This report develops proof-carrying native-operation capsules, effect-typed emitters, and a fault-injection benchmark that measures the TCB-performance frontier rather than speedup alone.
+
 ### [Can Architecture-Specific eBPF Optimization Stay Portable?](https://eunomia.dev/research/ebpf-portable-architecture-specialization/)
 
 BPF bytecode can stay portable while JIT backends use different machine instructions, but optimizer-added native fast paths need a clearer deployment contract. This report develops two-level capability negotiation, proof-linked multi-backend operation packages, and a cross-JIT benchmark that treats safe fallback and performance portability as first-class outcomes.
