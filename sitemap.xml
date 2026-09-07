@@ -4899,6 +4899,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-network-policy-composition/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/ebpf-portable-architecture-specialization/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-portable-architecture-specialization/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-portable-architecture-specialization/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-portable-architecture-specialization/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-portable-architecture-specialization/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/ebpf-runtime-profile-specialization/</loc>
     <lastmod>2026-09-05</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-runtime-profile-specialization/" />
@@ -5054,14 +5068,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
