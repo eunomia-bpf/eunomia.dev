@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can You Debug the eBPF Program That Actually Ran?](https://eunomia.dev/research/ebpf-specialization-debug-provenance/)
+
+Dynamic specialization can produce several verifier-safe BPF generations and JIT images from one source program. This report develops execution receipts, generation-aware sample attribution, and an adversarial re-JIT forensic benchmark for proving which optimized code actually ran during an incident.
+
 ### [Can Architecture-Specific eBPF Optimization Stay Portable?](https://eunomia.dev/research/ebpf-portable-architecture-specialization/)
 
 BPF bytecode can stay portable while JIT backends use different machine instructions, but optimizer-added native fast paths need a clearer deployment contract. This report develops two-level capability negotiation, proof-linked multi-backend operation packages, and a cross-JIT benchmark that treats safe fallback and performance portability as first-class outcomes.
