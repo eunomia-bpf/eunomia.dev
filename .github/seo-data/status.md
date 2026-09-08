@@ -6,125 +6,72 @@
 - Technical SEO subtask: `.github/seo-data/daily-task.md`
 - Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: configured and enabled
-- Verified raw Google export window: through `2026-08-30`
-- Search Console newest verified row: `2026-08-29`; `2026-08-30` is absent
+- Verified raw Google export window: through `2026-09-06`
+- Search Console newest verified row: `2026-09-05`; finalized rows used through `2026-09-05`; `2026-09-06` absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
-- Latest completed daily record before the current run: `2026-09-05`
-- Last completed Daily Report pull request: `#187`
-- Last verified Daily Report squash commit: `e5a521a9fb7e3787be57084b58d8b3ed2687c3e3`
-- Last verified production publication from a Daily Report run: static export commit `72d9f79f2b7b6fc6a8bc7ebe14dcc484d25743bd`
-- Current daily branch: `daily/2026-09-06-ebpf-portable-architecture-specialization`
-- Current daily pull request: `#189`
-- Current branch base: `7c16962c9a1971e2ef87afa06e5f0ec36e0ecd8e`
+- Newest GA4 weekly aggregate: `2026-08-31` through `2026-09-06`, partial under the configured lag
+- Latest completed daily record before the current run: `2026-09-06`
+- Last completed Daily Report pull request: `#189`
+- Last verified Daily Report squash commit: `e091531a375c458ed34c973a5861b75ebf9b3473`
+- Last verified production publication from a Daily Report run: static export commit `fe48a46224768cd0270280f8c4fd0d559bfd366f`
+- Current daily branch: `daily/2026-09-08-ebpf-native-operation-trust-boundary`
+- Current branch base: `b59ab22ef3b2eb14917192cb2f5c6ef2ad265f7e`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR `#187` is independently reconciled from GitHub. It squash-merged as
-`e5a521a9fb7e3787be57084b58d8b3ed2687c3e3`; exact-merge `Validate SEO
-Operations` run `33977190232` and exact-merge `Deploy Static App` run
-`33977190225` both completed successfully. The deployment produced static export
-`72d9f79f2b7b6fc6a8bc7ebe14dcc484d25743bd`, explicitly built for that squash
-commit. The merged PR contains exactly one top-level Daily closeout comment.
+PR `#189` is fully reconciled. It squash-merged as `e091531a375c458ed34c973a5861b75ebf9b3473`; exact-merge `Validate SEO Operations` run `34140327427` and `Deploy Static App` run `34140327505` succeeded. Production static export `fe48a46224768cd0270280f8c4fd0d559bfd366f` is explicitly built for that squash commit, and the merged PR contains exactly one top-level Daily closeout comment.
 
-The September 5 runtime-profile-specialization report is freshly discoverable in
-a public crawler/search snapshot on `2026-09-06`. Exact deployment and generated
-artifacts remain the publication acceptance boundary; crawler discovery is only
-supplementary retrievability evidence.
+The September 7 attempts did not complete the repository's delivery contract: PRs `#190` and `#191` were closed without merge, while PR `#192` remains open and unmerged on an older base. They are not counted as published Daily Reports or completed daily records. The current run starts from the latest default-branch head instead of treating an interrupted branch as authoritative publication state.
 
 ## Current Daily Report mix
 
-Before today's publication, the newest ten actually published reports contain:
+Before today's publication, the newest ten actually published reports contain **5 eBPF-centered / 0 pure Agent / 5 adjacent systems**.
 
-- eBPF-centered: **5 of 10**
-- pure Agent-centered: **0 of 10**
-- adjacent systems: **5 of 10**
+Today's selected `/research/ebpf-native-operation-trust-boundary/` report is **eBPF-centered**. It asks how verifier-approved BPF semantics can be delegated to native implementations without making every optimizer, backend, and generator part of the trusted computing base. The incoming eBPF report rotates the `2026-08-27` eBPF-centered complete-mediation report out of the newest-ten window, so after publication the mix remains **5 / 0 / 5** without changing any existing classification.
 
-Today's selected `/research/ebpf-portable-architecture-specialization/` report is
-**eBPF-centered**. Its central mechanism is a portability contract between
-portable BPF semantics, architecture-specific JIT capabilities, proof-linked
-native implementations, and deterministic fallback. eBPF is essential rather
-than optional instrumentation.
-
-The incoming eBPF report rotates the `2026-08-26` eBPF-centered authorization
-revocation report out of the newest-ten window, so after publication the mix
-remains **5 / 0 / 5**. This stays at the lower edge of the configured normal
-5–7 eBPF band without changing any existing classification.
-
-**eBPF Optimization and Execution Specialization** remains the active series.
-The September 5 report established verifier safety versus optimizer equivalence
-and profile-assumption lifetime. Today's report advances a separate second
-boundary: architecture-specific fast paths need explicit target eligibility,
-portable semantic witnesses, and safe fallback across JIT backends.
+**eBPF Optimization and Execution Specialization** remains the active series. September 5 covered optimizer equivalence and profile-assumption lifetime; September 6 covered architecture eligibility, portable semantic witnesses, and deterministic fallback; September 8 advances the separate trust/TCB boundary after a native implementation has already been selected.
 
 ## Current signals
 
 ### Google Search Console
 
-The exact configured Drive folder was rechecked on `2026-09-06`; no weekly source
-set newer than `2026-08-24..30` is present. Search Console rows remain verified
-through `2026-08-29`, with `2026-08-30` absent.
+The configured Drive folder was rechecked on `2026-09-08` and contains the `2026-08-31..09-06` set. Date rows are present through `2026-09-05`; under the configured three-day lag, rows through September 5 are treated as finalized for this run.
 
-The source-native `2026-08-24..29` six-day slice contains **436 clicks / 55,594
-impressions / ~0.784% aggregate CTR / ~10.73 impression-weighted average
-position**. The equal-duration `2026-08-17..22` slice contains **477 / 59,798 /
-~0.798% / ~9.56**. Current clicks are about **8.6% lower**, impressions about
-**7.0% lower**, CTR about **0.013 percentage points lower**, and average position
-about **1.17 positions worse**.
+Finalized `2026-08-31..09-05` contains **388 clicks / 60,880 impressions / ~0.637% CTR / ~7.35 impression-weighted position**. Equal-duration `2026-08-24..29` contains **436 / 55,594 / ~0.784% / ~10.73**. Current clicks are about **11.0% lower**, impressions about **9.5% higher**, CTR about **0.147 percentage points lower**, and weighted position about **3.38 positions better**.
 
-This is not a complete seven-day trend. The preceding weekly export omits
-`2026-08-23`, the current set omits `2026-08-30`, and older gaps prevent a
-complete preceding 28-day source window. Missing rows are never interpreted as
-zero.
+This is not a complete seven-day trend. Missing `2026-08-30` and `2026-09-06` prevent the configured complete short comparison, and older gaps prevent a complete 28-day comparison. Missing dates remain missing rather than zero.
 
-Weekly page aggregates show Daily Report routes at **6 clicks / 1,017
-impressions** versus **5 / 744** in the preceding weekly page export. The exports
-lack a date-by-page dimension and the volume remains too small for a causal
-metadata, navigation, or topic conclusion.
+The current GSC page aggregate contains **8 clicks / 1,812 impressions** across 48 `/research/` rows, versus **6 / 1,017** across 33 rows in the preceding weekly page export. The export lacks a date-by-page dimension and volumes are still small, so this is not causal evidence for a title, metadata, navigation, or topic intervention.
+
+At query level, `ebpf` remains at **6 clicks** while impressions rise from **140 to 185**; CTR falls from about **4.29% to 3.24%** and average position moves from about **11.09 to 16.37**. That is a broad visibility/ranking signal worth watching, not evidence that one Daily Report caused the movement.
 
 ### Google Analytics 4
 
-The finalized `2026-08-24..30` organic landing-page aggregate contains **1,007
-sessions** at about **45.88% session-weighted engagement**. The preceding
-finalized `2026-08-17..23` aggregate contains **984 sessions** at about **49.29%
-engagement**.
+The new `2026-08-31..09-06` landing-page aggregate contains **913 organic sessions** at about **47.54% session-weighted engagement**, but is **partial** under the configured lag and lacks a date dimension. It is not compared as a finalized week.
 
-Sessions are about **2.3% higher** week over week while engagement is about
-**3.41 percentage points lower**. Weekly landing-page exports have no date
-dimension, so they cannot support within-week causal attribution to one report or
-page change.
+The latest fully finalized aggregate remains `2026-08-24..30`: **1,007 organic landing-page sessions** at about **45.88% session-weighted engagement**, versus **984 sessions** at about **49.29%** for `2026-08-17..23`. The last finalized comparison remains about **+2.3% sessions** and **-3.41 percentage points engagement**.
 
 ### Public technical evidence
 
-The production robots file currently allows crawling and points at the canonical
-sitemap. The generated sitemap continues to expose canonical English/Chinese
-alternates, and public search discovery now exposes the September 5 English
-Daily Report. No current evidence establishes a crawl, robots, sitemap,
-canonical, hreflang, structured-data, redirect, broken-link, rendering,
-accessibility, persistent-performance, or deployment defect that justifies a
-separate technical SEO implementation change today.
+The current public-safe daily technical brief records the homepage at HTTP 200 in about **293 ms**, `robots.txt` and `sitemap.xml` at HTTP 200, and **742 sitemap entries**. The homepage remains publicly retrievable with Daily Report and language navigation. No current evidence establishes a crawl, robots, sitemap, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that justifies a separate technical SEO implementation change today.
 
-Cloudflare remains disabled by repository configuration, so no
-Cloudflare-grounded traffic, cache, bot, country, or status-code conclusion is
-made.
+Current public repository evidence also shows the site's underlying technical portfolio remains active; it is supporting context rather than a ranking metric and does not override source-native Search Console or GA4 evidence.
+
+Cloudflare remains disabled by repository configuration, so no Cloudflare-grounded conclusion is made.
 
 ## Current technical baseline
 
-The repository generates sitemap, robots, canonical, `hreflang`, Open Graph,
-structured data, legacy redirect stubs, and static audit artifacts. Production
-deploys through `Deploy Static App`.
+The repository generates sitemap, robots, canonical, `hreflang`, Open Graph, structured data, legacy redirect stubs, and static audit artifacts. Production deploys through `Deploy Static App`.
 
-The SEO skill submodule remains pinned at
-`516e9e2dcf012506a677a749049d64c5914643e9`. Its upstream `main` is newer at
-`f42128a3f05c73cf10c786a2711c488bb3a14839`, but the durable plan requires the
-consuming SEO contract to be migrated before the pointer moves. Upstream movement
-alone is not sufficient evidence for a pointer-only update.
+The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c5914643e9`. A newer upstream pointer is not adopted until the consuming SEO contract migration required by `plan.md` is completed.
 
 ## Current focus
 
-1. Complete PR `#189` through expected CI, complete final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and exactly one merged-PR closeout comment.
-2. Advance **eBPF Optimization and Execution Specialization** with the architecture-portability boundary: one portable semantic witness, explicit native implementation eligibility, proof-linked multi-backend fast paths, and deterministic fallback.
-3. Keep the next question materially distinct. Delegated native-operation trust/TCB, safe high-level operation delegation, and machine-code debugging/provenance remain candidates; do not repeat today's capability negotiation or cross-JIT fallback thesis.
-4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
-5. Keep Cloudflare evidence unavailable until a supported read-only path is enabled in repository configuration.
-6. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
+1. Complete today's single daily PR through authoritative CI, full final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, and exactly one top-level merged-PR closeout comment.
+2. Publish the third **eBPF Optimization and Execution Specialization** report on native-operation trust/TCB, with independent certificates, effect envelopes, artifact identity, and a semantic-divergence mutation benchmark.
+3. Keep later reports distinct from profile invalidation, architecture capability/fallback, cross-JIT portability, and today's native trust thesis. Safe higher-level delegation and specialized-code debugging/provenance remain candidates.
+4. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
+5. Keep the newest GA4 week partial until its dates are outside the finalization lag or a date-resolved export supports finalized comparison.
+6. Keep Cloudflare evidence unavailable until repository configuration enables a supported read-only path.
+7. Keep the shared SEO skill pointer unchanged until the consuming-contract migration is completed.
 
 Detailed run history belongs in `.github/seo-data/daily/` and merged daily pull requests.
