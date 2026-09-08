@@ -466,9 +466,7 @@ Candidate boundaries include:
   hardware-specific implementations without repeating the completed execution-
   placement thesis;
 - optimization evidence that distinguishes a portable semantic contract from
-  one lucky microbenchmark or one JIT backend;
-- debugging and provenance for dynamically specialized BPF code so operators can
-  explain which version and optimization decision actually executed.
+  one lucky microbenchmark or one JIT backend.
 
 The `2026-09-05` report establishes the first boundary. It separates kernel
 verifier safety from optimizer equivalence and from the lifetime of profile-based
@@ -494,6 +492,18 @@ cross-JIT benchmark that measures semantic equality, specialization coverage,
 fallback reasons, cross-target performance regret, proof/selection overhead, and
 trusted-code growth.
 
+The `2026-09-07` report advances a third boundary: a dynamically specialized BPF
+program can be semantically valid and portable yet still become impossible to
+explain after several re-JIT and deoptimization generations. Linux already
+exposes program IDs, BPF tags, translated bytecode, JIT images, BTF line
+information, and load/runtime metadata; the missing property is a durable chain
+that joins an incident observation to the exact specialization generation,
+optimizer assumptions and transforms, verifier/JIT context, active native image,
+and activation/retirement interval. The report develops content-addressed
+execution receipts, generation-aware sample attribution with an explicit unknown
+state, and an adversarial re-JIT forensic benchmark that unloads the faulty
+generation before analysis.
+
 ### Published progress
 
 1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
@@ -512,22 +522,35 @@ trusted-code growth.
    fallback, and evaluates portability across JIT backends and kernel versions.
    It is eBPF-centered because BPF ISA conformance, verifier-visible proof
    sequences, JIT capability, and native lowering are the object of the contract.
+3. `2026-09-07`: `/research/ebpf-specialization-debug-provenance/` asks how a
+   postmortem can prove which dynamically specialized BPF generation and JIT
+   image actually executed after the runtime has already replaced or unloaded
+   it. It separates source/BTF mapping from optimization history, proposes a
+   durable execution receipt plus generation interval map, and evaluates exact
+   attribution, explicit unknown handling, replay, storage/runtime overhead, and
+   operator time-to-root-cause under adversarial re-JIT churn. It is
+   eBPF-centered because BPF generation identity, verifier/JIT artifacts, link
+   activation, and specialized instruction images are the core objects of the
+   provenance contract.
 
 Before the September 5 publication, the newest ten contained **5 eBPF-centered /
 0 pure Agent / 5 adjacent systems**. The September 5 eBPF-centered report rotated
 the `2026-08-25` eBPF-centered report out, so the mix remained **5 / 0 / 5**.
-Before the September 6 publication the mix is therefore still **5 / 0 / 5**. The
-incoming eBPF-centered report rotates the `2026-08-26` eBPF-centered report out,
-so after publication the mix again remains **5 / 0 / 5**. No classification was
+Before the September 6 publication the mix was therefore still **5 / 0 / 5**;
+the incoming eBPF-centered report rotated the `2026-08-26` eBPF-centered report
+out, so the mix again remained **5 / 0 / 5**. Before the September 7 publication
+the mix is still **5 / 0 / 5**; the incoming eBPF-centered report rotates the
+`2026-08-27` eBPF-centered report out, so after publication the newest ten remain
+**5 eBPF-centered / 0 pure Agent / 5 adjacent systems**. No classification was
 changed to obtain that result.
 
 A later report should not repeat "verifier accepted is not equivalent", stale
 profile invalidation, architecture capability negotiation, proof-linked portable
-fallback, or cross-JIT portability measurement with a different optimizer
+fallback, cross-JIT portability measurement, execution receipts, generation-aware
+sample attribution, or re-JIT forensic provenance with a different optimizer
 example. Distinct remaining boundaries include delegated native operations and
-their trust/TCB boundary, safe delegation of higher-level operations to
-hardware-specific implementations, and debugging/provenance mechanisms that can
-explain which native implementation and optimization decision actually executed.
+their trust/TCB boundary, plus safe delegation of higher-level operations to
+hardware-specific implementations.
 
 ## Queued series — Agent Systems (limited)
 
