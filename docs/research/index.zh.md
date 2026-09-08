@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 动态优化后，怎么知道事故时真正跑的是哪份代码？](https://eunomia.dev/zh/research/ebpf-specialization-debug-provenance/)
+
+动态特化会从同一份源码产生多代通过 verifier 的 BPF 程序和 JIT 机器码。本文提出可长期保存的执行收据、按程序代次归属采样的方法，以及在分析前主动卸载故障代次的对抗式 re-JIT 取证 benchmark。
+
 ### [eBPF 针对特定架构做优化后，还能保持可移植吗？](https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/)
 
 同一份 BPF bytecode 可以跨架构加载，但 optimizer 自己加入的 native fast path 需要更明确的 deployment contract。本文提出两层 capability negotiation、一个 semantic operation 搭配多个 proof-linked backend，以及把安全 fallback 和 performance portability 一起测量的 cross-JIT benchmark。
