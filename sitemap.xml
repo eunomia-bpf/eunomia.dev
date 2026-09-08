@@ -2975,6 +2975,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-06-tcp-recovery-benchmark-failure-scenarios/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
     <lastmod>2026-09-08</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
