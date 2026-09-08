@@ -336,10 +336,13 @@ def render_route(
 
 
 def check_public(route: str, expected_text: str) -> None:
-    """Bounded per-request retries against the live public URL."""
+    """Wait through the normal Pages deployment window for a live route."""
     url = f"{PUBLIC_BASE}{route}"
     last = ""
-    for _ in range(5):
+    # Recent production deploys take about 15-17 minutes.  A 20-minute bound
+    # prevents a healthy push from being recorded as failed merely because the
+    # previous deployment is still live.
+    for _ in range(80):
         try:
             req = urllib.request.Request(
                 url, headers={"User-Agent": "eunomia-qa-verifier"}
@@ -357,7 +360,7 @@ def check_public(route: str, expected_text: str) -> None:
             last = f"HTTP {exc.code}"
         except Exception as exc:  # noqa: BLE001 - aggregate any transport error
             last = f"{type(exc).__name__}: {exc}"
-        time.sleep(8)
+        time.sleep(15)
     die(f"public check failed for {url}: {last}")
 
 

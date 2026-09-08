@@ -5,6 +5,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 MODULE_PATH = Path(__file__).with_name("verify_publication.py")
@@ -96,6 +97,20 @@ class SharedCheckoutTests(unittest.TestCase):
             vp.built_route_path(out, "/ebpf-qa/example/"),
             out / "ebpf-qa" / "example" / "index.html",
         )
+
+    def test_public_check_waits_past_short_deployment_race(self):
+        body = b"deployed content"
+        response = mock.MagicMock()
+        response.__enter__.return_value.status = 200
+        response.__enter__.return_value.read.return_value = body
+        responses = [vp.urllib.error.HTTPError("url", 404, "", {}, None)] * 5
+        responses.append(response)
+        with (
+            mock.patch.object(vp.urllib.request, "urlopen", side_effect=responses),
+            mock.patch.object(vp.time, "sleep") as sleep,
+        ):
+            vp.check_public("/new-route/", "deployed content")
+        self.assertEqual(sleep.call_count, 5)
 
 
 if __name__ == "__main__":
