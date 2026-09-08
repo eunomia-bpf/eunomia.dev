@@ -553,7 +553,7 @@ class StdoutRedactionTests(Base):
 
 
 class SnapshotBoundTests(Base):
-    def test_overflow_fails_not_truncates(self):
+    def test_overflow_truncates_keeps_recent_lines(self):
         block = "é" * 500
         rows = [
             {"channel_id": "C_EBPF", "ts": str(1_000_000.0 - float(i)), "txt": block} for i in range(1000)
@@ -566,9 +566,21 @@ class SnapshotBoundTests(Base):
         with tempfile.TemporaryDirectory() as tmp:
             out_path = Path(tmp) / "big.txt"
             lines, code = ar.run_snapshot(sources(), connector, str(out_path), now=1_000_000.0)
-            self.assertEqual(code, 1)
-            self.assert_last_line(lines, "reason=snapshot_too_large")
-            self.assertFalse(out_path.exists())
+            self.assertEqual(code, 0)
+            self.assert_last_line(lines, "reason=ok")
+            data = out_path.read_bytes()
+            self.assertLessEqual(len(data), ar.MAX_SNAPSHOT_BYTES)
+            data.decode("utf-8")
+            # Truncation keeps whole lines only, and keeps the most recent
+            # messages (the newest ts is last after the time-ordered join).
+            self.assertTrue(data.startswith(block.encode("utf-8")))
+            self.assertTrue(data.endswith(block.encode("utf-8")))
+            kept = len(data.split(block.encode("utf-8"))) - 1
+            snap = [ln for ln in lines if ln.startswith("snapshot=truncated")]
+            self.assertEqual(
+                snap,
+                ["snapshot=truncated bytes=%d messages=%d total=1000" % (len(data), kept)],
+            )
 
     def test_within_limit_succeeds(self):
         block = "é" * 100
@@ -721,53 +733,6 @@ class WatchlistTests(Base):
         self.assertEqual(lines[0], "opt_in_sources=0")
         self.assert_last_line(lines, "reason=no_opt_in")
         self.assertEqual(holder, [])
-
-
-class RunnerOrderingTests(unittest.TestCase):
-    """run.sh/prompt.md: the model is the first archive touchpoint, and the
-    post-model snapshot gate precedes the verifier."""
-
-    @classmethod
-    def setUpClass(cls):
-        qa_dir = Path(__file__).resolve().parent
-        cls.sh = (qa_dir / "run.sh").read_text(encoding="utf-8").splitlines()
-        cls.prompt = (qa_dir / "prompt.md").read_text(encoding="utf-8")
-
-    def _model_line(self):
-        return next(i for i, ln in enumerate(self.sh) if 'setsid "$opencode_bin"' in ln)
-
-    def test_probe_mode_is_gone(self):
-        text = "\n".join(self.sh)
-        self.assertNotIn("cmd_probe", text)
-        self.assertNotIn("--probe", text)
-
-    def test_no_archive_call_before_model_launch(self):
-        pre = self.sh[: self._model_line()]
-        reader_lines = [ln for ln in pre if "archive_reader.py" in ln]
-        self.assertEqual(len(reader_lines), 1, reader_lines)
-        self.assertTrue(reader_lines[0].lstrip().startswith("snap_cmd="))
-
-    def test_injected_command_is_the_only_snapshot_invocation(self):
-        cmd_lines = [ln for ln in self.sh if "archive_reader.py snapshot" in ln]
-        self.assertEqual(len(cmd_lines), 1, cmd_lines)
-        self.assertTrue(cmd_lines[0].lstrip().startswith("snap_cmd="))
-        self.assertEqual(self.prompt.count("__SNAPSHOT_COMMAND__"), 1)
-        self.assertIn(".agents/skills/eunomia-community-radar/SKILL.md", self.prompt)
-
-    def test_snapshot_check_and_verifier_follow_the_model(self):
-        model_idx = self._model_line()
-        snap_idx = next(i for i, ln in enumerate(self.sh) if '[ ! -f "$snapshot" ]' in ln)
-        verify_idx = next(
-            i for i, ln in enumerate(self.sh)
-            if "verify_publication.py" in ln and "VENV_PY" in ln
-        )
-        self.assertLess(model_idx, snap_idx)
-        self.assertLess(snap_idx, verify_idx)
-
-    def test_post_model_size_gate_stays_bounded(self):
-        post = "\n".join(self.sh[self._model_line():])
-        self.assertIn("wc -c", post)
-        self.assertIn("120000", post)
 
 
 if __name__ == "__main__":

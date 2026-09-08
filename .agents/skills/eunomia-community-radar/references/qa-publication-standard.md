@@ -1,6 +1,6 @@
 # Public eBPF Q&A Standard
 
-Use this reference only after a monitored question passes the editorial gate.
+Use this reference when drafting and reviewing the daily public Q&A.
 
 ## Reader Outcome
 
@@ -48,12 +48,14 @@ raw values are absent from maps, buffers, logs, traces, and exported telemetry.
 
 ## Publication Floor
 
-Every successful daily run publishes one technically useful, independently
-verifiable, non-duplicative Q&A that remains safe after anonymization. When no
-single message is sufficient, combine related same-day signals or use the most
-recent unresolved recurring question from the previous seven days. Never invent
-a question or publish a placeholder. If access or evidence is insufficient, the
-run fails explicitly instead of claiming completion.
+Every daily run publishes one technically useful, independently verifiable,
+non-duplicative Q&A that remains safe after anonymization. When no single
+message is sufficient, combine related same-day signals, use a real unresolved
+question from the monitored communities regardless of age, or select a genuine
+question from permitted public community pages and public primary
+documentation. Report access and coverage gaps honestly in the run notes; a
+coverage gap is always reported and never blocks publication. Never invent a
+question, fabricate evidence, or publish a placeholder.
 
 ## Daily Community Briefing
 

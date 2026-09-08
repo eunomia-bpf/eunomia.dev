@@ -8,11 +8,14 @@ Questions may begin in public issues, mailing lists, forums, or technical chat
 communities. Before publication, we rewrite them to remove identities, private
 deployment details, and wording that could identify the original participant.
 The answer is then checked against public primary sources. One question is
-published after each successful daily review; access or evidence failures are
-reported as failures rather than filled with invented material.
+published each day; when part of the monitored window cannot be covered, the
+gap is reported honestly on the page instead of stopping publication, and no
+invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Which technical boundaries actually constrain malicious eBPF payloads in practice?](/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/)
+- [Which failure scenarios are mandatory before a transient-TCP-recovery eBPF benchmark is meaningful?](/ebpf-qa/2026-09-06-tcp-recovery-benchmark-failure-scenarios/)
 - [Why can the eBPF verifier lose a relationship that is true for the low 32 bits?](/ebpf-qa/2026-09-04-ebpf-verifier-low-32-bit-scalar-equality/)
 - [Why can reverse-path filtering drop return traffic in an eBPF Kubernetes datapath?](/ebpf-qa/2026-09-03-ebpf-kubernetes-rp-filter-return-traffic/)
 - [Why can't an eBPF program read `bpf_tail_call()`'s return value?](/ebpf-qa/2026-09-02-bpf-tail-call-return-value/)
