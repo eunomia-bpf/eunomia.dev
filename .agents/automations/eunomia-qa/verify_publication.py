@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-"""Deterministic publication verifier for the daily eBPF Q&A run.
+"""Validate and publish one dated bilingual eBPF Q&A candidate.
 
-The writing model leaves exactly one dated bilingual Q&A pair plus both index
-files uncommitted. This script owns all mechanical validation and the
-publication itself: content tests, static build, real Chromium rendering of
-both generated routes, a scoped four-path commit/push, remote-HEAD
-verification, and public-page checks. It never trusts model-written booleans.
+The caller chooses a candidate date. This tool validates that pair and its
+index links, builds and renders the site, commits only those owned paths while
+preserving all unrelated worktree and index state, pushes, and verifies both
+articles and both public indexes.
 
-Usage (called by run.sh AFTER the local model has drafted the content):
+Usage:
 
-    python verify_publication.py --before START_SHA --receipt PRIVATE_RECEIPT_PATH \
-        --date YYYY-MM-DD
+    python verify_publication.py --receipt PRIVATE_RECEIPT_PATH --date YYYY-MM-DD
 
 On success it exits 0 and writes a truthful receipt. On any failure it exits
 nonzero and still writes a truthful receipt (useful when push succeeded but the
@@ -123,46 +121,7 @@ def read_frontmatter(text: str) -> dict[str, str]:
     return data
 
 
-def detect_dirty_paths() -> list[Path]:
-    """Return absolute repo-relative paths of all modified/new/deleted files."""
-    proc = subprocess.run(
-        ["git", "status", "--porcelain"],
-        cwd=REPO,
-        text=True,
-        capture_output=True,
-    )
-    if proc.returncode != 0:
-        raise Failure(f"git status failed: {proc.stderr.strip()}")
-    paths: list[Path] = []
-    for raw in proc.stdout.splitlines():
-        if not raw.strip():
-            continue
-        status = raw[:2]
-        target = raw[3:].strip()
-        if " -> " in target:  # rename
-            target = target.split(" -> ", 1)[1]
-        target = target.strip('"')
-        abs_path = REPO / target
-        if abs_path.is_dir() or status in {"??",}:
-            # For untracked, git may report a directory; expand it.
-            if abs_path.is_dir():
-                found = sorted(
-                    p for p in abs_path.rglob("*") if p.is_file()
-                )
-                paths.extend(found)
-                continue
-        if abs_path.exists() or status in {"M", "MM", "D", "A", "R", "C", "?"}:
-            paths.append(abs_path)
-    return sorted(set(paths))
-
-
-def check_baseline(before_sha: str) -> None:
-    head = git("rev-parse", "HEAD")
-    if head != before_sha:
-        die(
-            f"repo HEAD {head[:12]} != --before {before_sha[:12]} "
-            f"(expected the model to leave the tree clean apart from its four paths)"
-        )
+def check_branch() -> None:
     branch = git("rev-parse", "--abbrev-ref", "HEAD")
     if branch != "main":
         die(f"not on main (branch={branch})")
@@ -195,24 +154,31 @@ def find_qa_pair(date: str) -> tuple[Path, Path]:
     return english[slug], zh[slug]
 
 
-def assert_exactly_four(paths: list[Path], eng: Path, zhd: Path, date: str, slug: str) -> None:
+def check_candidate_paths(eng: Path, zhd: Path, slug: str) -> list[Path]:
     index = DOCS / "index.md"
     index_zh = DOCS / "index.zh.md"
-    expected = {eng, zhd, index, index_zh}
-    actual = set(paths)
-    extra = actual - expected
-    missing = expected - actual
-    if missing:
-        die(f"missing expected modified paths: {sorted(p.name for p in missing)}")
-    if extra:
-        die(
-            "unexpected dirty paths (must be exactly the pair + both indexes): "
-            + ", ".join(sorted(str(p.relative_to(REPO)) for p in extra))
-        )
-    # Both index files must actually reference the new route.
-    for idx in (index, index_zh):
-        if f"/{slug}/" not in idx.read_text(encoding="utf-8"):
-            die(f"{idx.name} does not link the new /{slug}/ entry")
+    paths = [eng, zhd, index, index_zh]
+    for path in paths:
+        if not path.is_file():
+            die(f"candidate path missing: {path.relative_to(REPO)}")
+    expected_links = {
+        index: f"/ebpf-qa/{eng.stem}/",
+        index_zh: f"/zh/ebpf-qa/{eng.stem}/",
+    }
+    for idx, link in expected_links.items():
+        if link not in idx.read_text(encoding="utf-8"):
+            die(f"{idx.name} does not link the new {link} entry")
+    proc = subprocess.run(
+        ["git", "status", "--porcelain", "--", *[str(p.relative_to(REPO)) for p in paths]],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+    )
+    if proc.returncode != 0:
+        die(f"git status failed for candidate paths: {proc.stderr.strip()}")
+    if not proc.stdout.strip():
+        die("candidate paths have no unpublished changes")
+    return paths
 
 
 def scan_privacy_hazards(eng: Path, zhd: Path) -> None:
@@ -364,7 +330,7 @@ def render_route(
     }
 
 
-def check_public(route: str, expected_h1: str) -> None:
+def check_public(route: str, expected_text: str) -> None:
     """Bounded per-request retries against the live public URL."""
     url = f"{PUBLIC_BASE}{route}"
     last = ""
@@ -378,8 +344,8 @@ def check_public(route: str, expected_h1: str) -> None:
                     last = f"HTTP {resp.status}"
                 else:
                     body = resp.read().decode("utf-8", errors="replace")
-                    if expected_h1 not in body:
-                        last = f"h1 not found for {url}"
+                    if expected_text not in body:
+                        last = f"expected content not found for {url}"
                     else:
                         return
         except urllib.error.HTTPError as exc:
@@ -416,20 +382,29 @@ def write_receipt(
 
 
 def commit_and_push(paths: list[Path], slug: str, date: str) -> str:
-    for p in paths:
+    relative = [str(p.relative_to(REPO)) for p in paths]
+    try:
+        for path in relative:
+            subprocess.run(
+                ["git", "add", path],
+                cwd=REPO,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
         subprocess.run(
-            ["git", "add", str(p.relative_to(REPO))],
+            [
+                "git", "commit", "--only", "-m",
+                f"docs(ebpf-qa): {slug} ({date})", "--", *relative,
+            ],
             cwd=REPO,
             check=True,
             capture_output=True,
+            text=True,
         )
-    subprocess.run(
-        ["git", "commit", "-m", f"docs(ebpf-qa): {slug} ({date})"],
-        cwd=REPO,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "").strip()
+        raise Failure(f"scoped git commit failed: {detail[:500]}") from exc
     new_head = git("rev-parse", "HEAD")
     proc = subprocess.run(
         ["git", "push", "origin", "main"],
@@ -444,25 +419,35 @@ def commit_and_push(paths: list[Path], slug: str, date: str) -> str:
     return new_head
 
 
-def verify_remote_head(new_head: str) -> None:
+def verify_remote_contains(new_head: str) -> None:
     proc = subprocess.run(
-        ["git", "ls-remote", "origin", "refs/heads/main"],
+        ["git", "fetch", "origin", "main"],
         cwd=REPO,
         text=True,
         capture_output=True,
     )
     if proc.returncode != 0:
-        raise Failure(f"git ls-remote failed: {proc.stderr.strip()}")
-    remote_sha = proc.stdout.split()[0] if proc.stdout else ""
-    if remote_sha != new_head:
+        raise Failure(f"git fetch origin main failed: {proc.stderr.strip()}")
+    contained = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", new_head, "origin/main"],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+    )
+    if contained.returncode != 0:
+        remote_sha = git("rev-parse", "origin/main")
         raise Failure(
-            f"remote main {remote_sha[:12] or '<none>'} != new local HEAD {new_head[:12]}"
+            f"publication commit {new_head[:12]} is not contained in remote main "
+            f"{remote_sha[:12]}"
         )
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--before", required=True, help="HEAD SHA before the model ran")
+    ap.add_argument(
+        "--before",
+        help="deprecated compatibility argument; concurrent HEAD movement is allowed",
+    )
     ap.add_argument("--receipt", required=True, help="private receipt.json path")
     ap.add_argument("--date", required=True, help="run date YYYY-MM-DD")
     args = ap.parse_args()
@@ -489,14 +474,13 @@ def main() -> int:
         if not (TEST / "node_modules" / "playwright" / "index.mjs").exists():
             die("Playwright module not installed in test/node_modules")
 
-        check_baseline(args.before)
-        checks["baseline"] = "ok"
+        check_branch()
+        checks["branch"] = "ok"
 
-        paths = detect_dirty_paths()
         eng, zhd = find_qa_pair(args.date)
         slug = eng.stem.replace(f"{args.date}-", "", 1)
-        assert_exactly_four(paths, eng, zhd, args.date, slug)
-        checks["dirty_paths"] = "ok"
+        paths = check_candidate_paths(eng, zhd, slug)
+        checks["candidate_paths"] = "ok"
 
         checks["index_links"] = "ok"
         scan_privacy_hazards(eng, zhd)
@@ -521,21 +505,31 @@ def main() -> int:
         )
         checks["render"] = "ok"
 
-        commit = commit_and_push([eng, zhd, DOCS / "index.md", DOCS / "index.zh.md"],
-                                 slug, args.date)
+        commit = commit_and_push(paths, slug, args.date)
         checks["commit_push"] = "ok"
-        verify_remote_head(commit)
-        checks["remote_head"] = "ok"
+        verify_remote_contains(commit)
+        checks["remote_contains_commit"] = "ok"
 
-        public_urls = [f"{PUBLIC_BASE}{en_route}", f"{PUBLIC_BASE}{zh_route}"]
+        en_index_route = "/ebpf-qa/"
+        zh_index_route = "/zh/ebpf-qa/"
+        public_urls = [
+            f"{PUBLIC_BASE}{en_route}",
+            f"{PUBLIC_BASE}{zh_route}",
+            f"{PUBLIC_BASE}{en_index_route}",
+            f"{PUBLIC_BASE}{zh_index_route}",
+        ]
         check_public(en_route, expected_h1)
         check_public(zh_route, zh_h1)
+        check_public(en_index_route, f"/{eng.stem}/")
+        check_public(zh_index_route, f"/zh/ebpf-qa/{eng.stem}/")
         checks["public"] = "ok"
 
         status = "published"
         reason = None
     except Failure as exc:
         reason = str(exc)
+    except Exception as exc:  # noqa: BLE001 - receipt must record execution failures
+        reason = f"unexpected {type(exc).__name__}: {str(exc)[:500]}"
 
     write_receipt(
         receipt,

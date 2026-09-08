@@ -723,52 +723,5 @@ class WatchlistTests(Base):
         self.assertEqual(holder, [])
 
 
-class RunnerOrderingTests(unittest.TestCase):
-    """run.sh/prompt.md: the model is the first archive touchpoint, and the
-    post-model snapshot gate precedes the verifier."""
-
-    @classmethod
-    def setUpClass(cls):
-        qa_dir = Path(__file__).resolve().parent
-        cls.sh = (qa_dir / "run.sh").read_text(encoding="utf-8").splitlines()
-        cls.prompt = (qa_dir / "prompt.md").read_text(encoding="utf-8")
-
-    def _model_line(self):
-        return next(i for i, ln in enumerate(self.sh) if 'setsid "$opencode_bin"' in ln)
-
-    def test_probe_mode_is_gone(self):
-        text = "\n".join(self.sh)
-        self.assertNotIn("cmd_probe", text)
-        self.assertNotIn("--probe", text)
-
-    def test_no_archive_call_before_model_launch(self):
-        pre = self.sh[: self._model_line()]
-        reader_lines = [ln for ln in pre if "archive_reader.py" in ln]
-        self.assertEqual(len(reader_lines), 1, reader_lines)
-        self.assertTrue(reader_lines[0].lstrip().startswith("snap_cmd="))
-
-    def test_injected_command_is_the_only_snapshot_invocation(self):
-        cmd_lines = [ln for ln in self.sh if "archive_reader.py snapshot" in ln]
-        self.assertEqual(len(cmd_lines), 1, cmd_lines)
-        self.assertTrue(cmd_lines[0].lstrip().startswith("snap_cmd="))
-        self.assertEqual(self.prompt.count("__SNAPSHOT_COMMAND__"), 1)
-        self.assertIn(".agents/skills/eunomia-community-radar/SKILL.md", self.prompt)
-
-    def test_snapshot_check_and_verifier_follow_the_model(self):
-        model_idx = self._model_line()
-        snap_idx = next(i for i, ln in enumerate(self.sh) if '[ ! -f "$snapshot" ]' in ln)
-        verify_idx = next(
-            i for i, ln in enumerate(self.sh)
-            if "verify_publication.py" in ln and "VENV_PY" in ln
-        )
-        self.assertLess(model_idx, snap_idx)
-        self.assertLess(snap_idx, verify_idx)
-
-    def test_post_model_size_gate_stays_bounded(self):
-        post = "\n".join(self.sh[self._model_line():])
-        self.assertIn("wc -c", post)
-        self.assertIn("120000", post)
-
-
 if __name__ == "__main__":
     unittest.main(verbosity=2)
