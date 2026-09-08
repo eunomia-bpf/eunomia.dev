@@ -47,6 +47,9 @@ Workspace agent.
    with the candidate date.
 5. The validator commits only the candidate pair and indexes, preserves other
    worktree/index state, pushes, and verifies both articles and both indexes.
+   When the candidate is already committed and contained in remote main, it
+   skips the commit/push and re-verifies the live pages instead of failing on
+   the published state.
 6. Any failure is reported as incomplete and repaired in the same work chain;
    only a successful live verification is publication success.
 
@@ -55,9 +58,10 @@ Workspace agent.
 - All intermediate files live in the private temporary directory (0700);
   the runner forces the report/events files to 0600.
 - `archive_reader.py` enforces read-only transactions, rejects privileged
-  roles, rejects any write grant, bounds the snapshot to 120 KB, and bounds
-  stdout to counts/reason codes (never raw message text, identities, the DSN,
-  SQL, or exception details).
+  roles, rejects any write grant, bounds the snapshot to 120 KB (truncating at
+  a line boundary with the most recent messages kept when the window is
+  larger), and bounds stdout to counts/reason codes (never raw message text,
+  identities, the DSN, SQL, or exception details).
 - The raw snapshot lives only in the private workdir and is removed when the
   run exits; transcripts, logs, prompts, sessions, and raw snapshot text are
   never stored in Git or persistent state.

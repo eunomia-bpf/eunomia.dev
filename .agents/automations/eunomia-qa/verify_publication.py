@@ -5,6 +5,8 @@ The caller chooses a candidate date. This tool validates that pair and its
 index links, builds and renders the site, commits only those owned paths while
 preserving all unrelated worktree and index state, pushes, and verifies both
 articles and both public indexes.
+When the candidate is already committed and contained in remote main, the
+run re-verifies the live public pages instead of duplicating the commit.
 
 Usage:
 
@@ -128,7 +130,12 @@ def check_branch() -> None:
 
 
 def find_qa_pair(date: str) -> tuple[Path, Path]:
-    """Locate the dated pair for `date`; enforce exactly one slug pair."""
+    """Locate the dated pair for `date`; resolve to one concrete candidate.
+
+    A shared checkout may hold more than one dated English file after an
+    interrupted attempt. That must not stop the run: prefer a complete
+    (bilingual) pair, then the most recently touched candidate.
+    """
     pattern = re.compile(
         rf"^{re.escape(date)}-(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)\.md$"
     )
@@ -146,15 +153,15 @@ def find_qa_pair(date: str) -> tuple[Path, Path]:
 
     if not english:
         die(f"no English Q&A file for {date} in docs/ebpf-qa")
-    if len(english) > 1:
-        die(f"multiple English Q&A pairs for {date}: {sorted(english)}")
-    slug = next(iter(english))
+    complete = [slug for slug in english if slug in zh]
+    pool = complete if complete else list(english)
+    slug = max(pool, key=lambda name: english[name].stat().st_mtime)
     if slug not in zh:
-        die(f"missing Chinese counterpart for {slug}")
+        die(f"missing Chinese counterpart for {slug}; complete the retained candidate")
     return english[slug], zh[slug]
 
 
-def check_candidate_paths(eng: Path, zhd: Path, slug: str) -> list[Path]:
+def check_candidate_paths(eng: Path, zhd: Path) -> list[Path]:
     index = DOCS / "index.md"
     index_zh = DOCS / "index.zh.md"
     paths = [eng, zhd, index, index_zh]
@@ -168,6 +175,15 @@ def check_candidate_paths(eng: Path, zhd: Path, slug: str) -> list[Path]:
     for idx, link in expected_links.items():
         if link not in idx.read_text(encoding="utf-8"):
             die(f"{idx.name} does not link the new {link} entry")
+    return paths
+
+
+def pending_candidate_changes(paths: list[Path]) -> str:
+    """Git porcelain status for the owned candidate paths only.
+
+    Unrelated dirty or staged files in the shared checkout never appear
+    here: the scope is the candidate pair and both indexes.
+    """
     proc = subprocess.run(
         ["git", "status", "--porcelain", "--", *[str(p.relative_to(REPO)) for p in paths]],
         cwd=REPO,
@@ -176,9 +192,15 @@ def check_candidate_paths(eng: Path, zhd: Path, slug: str) -> list[Path]:
     )
     if proc.returncode != 0:
         die(f"git status failed for candidate paths: {proc.stderr.strip()}")
-    if not proc.stdout.strip():
-        die("candidate paths have no unpublished changes")
-    return paths
+    return proc.stdout.strip()
+
+
+def find_published_commit(eng: Path) -> str:
+    """Commit that last touched the candidate, for already-committed pairs."""
+    sha = git("log", "-1", "--format=%H", "--", str(eng.relative_to(REPO)))
+    if not sha:
+        die("candidate is not committed anywhere; nothing to re-verify")
+    return sha
 
 
 def scan_privacy_hazards(eng: Path, zhd: Path) -> None:
@@ -477,47 +499,22 @@ def main() -> int:
     screenshots_map: dict[str, dict[str, str]] = {}
 
     try:
-        if not npm_present():
-            die("npm/node not found; coordinator must install app & test dependencies")
-        if not (TEST / "node_modules" / "playwright" / "index.mjs").exists():
-            die("Playwright module not installed in test/node_modules")
-
         check_branch()
         checks["branch"] = "ok"
 
         eng, zhd = find_qa_pair(args.date)
         slug = eng.stem.replace(f"{args.date}-", "", 1)
-        paths = check_candidate_paths(eng, zhd, slug)
+        paths = check_candidate_paths(eng, zhd)
         checks["candidate_paths"] = "ok"
 
         checks["index_links"] = "ok"
         scan_privacy_hazards(eng, zhd)
         checks["privacy"] = "ok"
 
-        run_content_test(logs)
-        checks["content_test"] = "ok"
-
-        run_build(logs)
-        checks["build"] = "ok"
-
-        out_dir = locate_out_dir()
         expected_h1 = first_h1(eng.read_text(encoding="utf-8"))
         zh_h1 = first_h1(zhd.read_text(encoding="utf-8"))
         en_route = f"/ebpf-qa/{eng.stem}/"
         zh_route = f"/zh/ebpf-qa/{eng.stem}/"
-        screenshots_map[en_route] = render_route(
-            out_dir, en_route, expected_h1, screenshots, "en"
-        )
-        screenshots_map[zh_route] = render_route(
-            out_dir, zh_route, zh_h1, screenshots, "zh"
-        )
-        checks["render"] = "ok"
-
-        commit = commit_and_push(paths, slug, args.date)
-        checks["commit_push"] = "ok"
-        verify_remote_contains(commit)
-        checks["remote_contains_commit"] = "ok"
-
         en_index_route = "/ebpf-qa/"
         zh_index_route = "/zh/ebpf-qa/"
         public_urls = [
@@ -526,6 +523,43 @@ def main() -> int:
             f"{PUBLIC_BASE}{en_index_route}",
             f"{PUBLIC_BASE}{zh_index_route}",
         ]
+
+        if pending_candidate_changes(paths):
+            # Candidate has local changes: run the full validation pipeline,
+            # then commit only the owned paths and push.
+            if not npm_present():
+                die("npm/node not found; install app & test dependencies")
+            if not (TEST / "node_modules" / "playwright" / "index.mjs").exists():
+                die("Playwright module not installed in test/node_modules")
+
+            run_content_test(logs)
+            checks["content_test"] = "ok"
+
+            run_build(logs)
+            checks["build"] = "ok"
+
+            out_dir = locate_out_dir()
+            screenshots_map[en_route] = render_route(
+                out_dir, en_route, expected_h1, screenshots, "en"
+            )
+            screenshots_map[zh_route] = render_route(
+                out_dir, zh_route, zh_h1, screenshots, "zh"
+            )
+            checks["render"] = "ok"
+
+            commit = commit_and_push(paths, slug, args.date)
+            checks["commit_push"] = "ok"
+        else:
+            # Candidate already committed with no local changes: re-verify the
+            # already-published entry instead of duplicating the commit.
+            commit = find_published_commit(eng)
+            checks["content_test"] = "skipped_already_published"
+            checks["build"] = "skipped_already_published"
+            checks["render"] = "skipped_already_published"
+            checks["commit_push"] = "skipped_already_published"
+        verify_remote_contains(commit)
+        checks["remote_contains_commit"] = "ok"
+
         check_public(en_route, expected_h1)
         check_public(zh_route, zh_h1)
         check_public(en_index_route, f"/{eng.stem}/")
@@ -551,7 +585,8 @@ def main() -> int:
     )
 
     if status == "published":
-        print(f"PUBLISHED {slug} {commit[:12]}")
+        mode = "verified already-published" if checks.get("commit_push") == "skipped_already_published" else "committed and pushed"
+        print(f"PUBLISHED {slug} {commit[:12]} ({mode})")
         return 0
     print(f"FAILED {reason}")
     return 1

@@ -1,6 +1,7 @@
 """Regression tests for publication scoping in a shared checkout."""
 
 import importlib.util
+import os
 import subprocess
 import tempfile
 import unittest
@@ -63,16 +64,51 @@ class SharedCheckoutTests(unittest.TestCase):
     def test_candidate_check_ignores_unrelated_dirty_file(self):
         stem, eng, zhd = self.candidate()
         (self.repo / "unrelated.txt").write_text("dirty\n", encoding="utf-8")
-        paths = vp.check_candidate_paths(eng, zhd, "shared-checkout")
+        paths = vp.check_candidate_paths(eng, zhd)
         self.assertEqual(paths, [eng, zhd, self.docs / "index.md", self.docs / "index.zh.md"])
         self.assertIn("unrelated.txt", run(self.repo, "status", "--short"))
+
+    def test_clean_candidate_resolves_published_commit(self):
+        stem, eng, zhd = self.candidate()
+        run(self.repo, "add", "docs/ebpf-qa")
+        run(self.repo, "commit", "-m", "publish candidate", "--", "docs/ebpf-qa")
+        paths = [eng, zhd, self.docs / "index.md", self.docs / "index.zh.md"]
+        self.assertEqual(vp.pending_candidate_changes(paths), "")
+        self.assertEqual(
+            vp.find_published_commit(eng), run(self.repo, "rev-parse", "HEAD")
+        )
+
+    def test_unpublished_candidate_reports_pending(self):
+        stem, eng, zhd = self.candidate()
+        paths = [eng, zhd, self.docs / "index.md", self.docs / "index.zh.md"]
+        self.assertTrue(vp.pending_candidate_changes(paths))
+        with self.assertRaisesRegex(vp.Failure, "not committed"):
+            vp.find_published_commit(eng)
+
+    def test_multiple_dated_candidates_resolve_to_complete_pair(self):
+        stem, eng, zhd = self.candidate()
+        (self.docs / f"{stem}-abandoned.md").write_text("# Older one?\n", encoding="utf-8")
+        picked_eng, picked_zhd = vp.find_qa_pair("2026-09-06")
+        self.assertEqual((picked_eng, picked_zhd), (eng, zhd))
+
+    def test_multiple_complete_candidates_resolve_to_most_recent(self):
+        stem, eng, zhd = self.candidate()
+        old_eng = self.docs / f"{stem}-old.md"
+        old_zhd = self.docs / f"{stem}-old.zh.md"
+        old_eng.write_text("# Older question?\n", encoding="utf-8")
+        old_zhd.write_text("# 旧问题？\n", encoding="utf-8")
+        old_ts = 1_000_000.0
+        for path in (old_eng, old_zhd):
+            os.utime(path, ns=(int(old_ts * 1e9), int(old_ts * 1e9)))
+        picked_eng, _ = vp.find_qa_pair("2026-09-06")
+        self.assertEqual(picked_eng, eng)
 
     def test_scoped_commit_preserves_unrelated_staged_change(self):
         stem, eng, zhd = self.candidate()
         unrelated = self.repo / "unrelated.txt"
         unrelated.write_text("staged but unrelated\n", encoding="utf-8")
         run(self.repo, "add", "unrelated.txt")
-        paths = vp.check_candidate_paths(eng, zhd, "shared-checkout")
+        paths = vp.check_candidate_paths(eng, zhd)
         commit = vp.commit_and_push(paths, "shared-checkout", "2026-09-06")
         changed = set(run(self.repo, "show", "--format=", "--name-only", commit).splitlines())
         self.assertEqual(

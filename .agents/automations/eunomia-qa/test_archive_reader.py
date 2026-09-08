@@ -553,7 +553,7 @@ class StdoutRedactionTests(Base):
 
 
 class SnapshotBoundTests(Base):
-    def test_overflow_fails_not_truncates(self):
+    def test_overflow_truncates_keeps_recent_lines(self):
         block = "é" * 500
         rows = [
             {"channel_id": "C_EBPF", "ts": str(1_000_000.0 - float(i)), "txt": block} for i in range(1000)
@@ -566,9 +566,21 @@ class SnapshotBoundTests(Base):
         with tempfile.TemporaryDirectory() as tmp:
             out_path = Path(tmp) / "big.txt"
             lines, code = ar.run_snapshot(sources(), connector, str(out_path), now=1_000_000.0)
-            self.assertEqual(code, 1)
-            self.assert_last_line(lines, "reason=snapshot_too_large")
-            self.assertFalse(out_path.exists())
+            self.assertEqual(code, 0)
+            self.assert_last_line(lines, "reason=ok")
+            data = out_path.read_bytes()
+            self.assertLessEqual(len(data), ar.MAX_SNAPSHOT_BYTES)
+            data.decode("utf-8")
+            # Truncation keeps whole lines only, and keeps the most recent
+            # messages (the newest ts is last after the time-ordered join).
+            self.assertTrue(data.startswith(block.encode("utf-8")))
+            self.assertTrue(data.endswith(block.encode("utf-8")))
+            kept = len(data.split(block.encode("utf-8"))) - 1
+            snap = [ln for ln in lines if ln.startswith("snapshot=truncated")]
+            self.assertEqual(
+                snap,
+                ["snapshot=truncated bytes=%d messages=%d total=1000" % (len(data), kept)],
+            )
 
     def test_within_limit_succeeds(self):
         block = "é" * 100

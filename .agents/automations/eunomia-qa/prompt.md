@@ -74,6 +74,9 @@ Task:
      checks, runs the content tests, the static build, and the Chromium
      render, then commits only the candidate pair and both indexes to `main`
      (`docs(ebpf-qa): <slug> (<date>)`), pushes, and checks the public pages.
+     When the candidate is already published on `origin/main`, it skips the
+     commit/push and re-verifies the live public pages instead of failing on
+     the published state.
    - If any stage fails, diagnose and fix the actual source problem, then
      rerun the same validator. If the push fails because `origin/main`
      advanced, preserve every local change, integrate the remote with a safe
