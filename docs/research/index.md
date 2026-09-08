@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Delegate Native Operations Without Growing Its Trust Boundary?](https://eunomia.dev/research/ebpf-native-operation-trust-boundary/)
+
+A verifier-approved BPF sequence can still become unsafe if an optimizer replaces it with native code whose implementation is simply trusted. This report separates semantic authority from implementation authority and develops independently checked operation certificates, runtime effect envelopes, and a mutation benchmark whose primary metric is escaped semantic divergence.
+
 ### [Can Architecture-Specific eBPF Optimization Stay Portable?](https://eunomia.dev/research/ebpf-portable-architecture-specialization/)
 
 BPF bytecode can stay portable while JIT backends use different machine instructions, but optimizer-added native fast paths need a clearer deployment contract. This report develops two-level capability negotiation, proof-linked multi-backend operation packages, and a cross-JIT benchmark that treats safe fallback and performance portability as first-class outcomes.

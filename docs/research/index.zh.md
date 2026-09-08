@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 把操作交给原生代码后，怎样控制可信边界？](https://eunomia.dev/zh/research/ebpf-native-operation-trust-boundary/)
+
+一段通过 verifier 的 BPF 语义，如果被 optimizer 换成只靠信任的 native code，仍然可能越过原来的安全边界。本文把 semantic authority 与 implementation authority 分开，提出可独立检查的 operation certificate、runtime effect envelope，以及以 escaped semantic violation 为主指标的 mutation benchmark。
+
 ### [eBPF 针对特定架构做优化后，还能保持可移植吗？](https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/)
 
 同一份 BPF bytecode 可以跨架构加载，但 optimizer 自己加入的 native fast path 需要更明确的 deployment contract。本文提出两层 capability negotiation、一个 semantic operation 搭配多个 proof-linked backend，以及把安全 fallback 和 performance portability 一起测量的 cross-JIT benchmark。
