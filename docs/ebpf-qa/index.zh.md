@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [实践中，哪些技术边界真正约束恶意的 eBPF 载荷？](/zh/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/)
 - [eBPF 瞬时 TCP 故障恢复基准必须覆盖哪些场景才有意义？](/zh/ebpf-qa/2026-09-06-tcp-recovery-benchmark-failure-scenarios/)
 - [为什么只在低 32 位成立的关系会被 eBPF 验证器丢失？](/zh/ebpf-qa/2026-09-04-ebpf-verifier-low-32-bit-scalar-equality/)
 - [为什么反向路径过滤会丢弃 eBPF Kubernetes 数据路径中的返回流量？](/zh/ebpf-qa/2026-09-03-ebpf-kubernetes-rp-filter-return-traffic/)
