@@ -31,20 +31,19 @@
 - Google Drive folder name: `eunomia.dev SEO Weekly CSV`
 - GA4 export filename pattern: `*_ga4_*.csv`
 - Search Console export filename pattern: `*_gsc_*.csv`
-- Verified raw export window: `2026-07-27` through `2026-08-30`
-- Search Console newest verified row: `2026-08-29`; finalized rows are used through `2026-08-29`; `2026-08-30` is absent
+- Verified raw export window: `2026-07-27` through `2026-09-06`
+- Search Console newest verified row: `2026-09-05`; finalized rows are used through `2026-09-05`; `2026-09-06` is absent
 - Latest fully finalized GA4 aggregate: `2026-08-24` through `2026-08-30`
+- Newest GA4 aggregate: `2026-08-31` through `2026-09-06`, partial under the configured lag because the export has no date dimension
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
-The configured folder was directly reverified on `2026-09-05`. It contains weekly Google export sets for `2026-07-27..08-02`, `2026-08-03..09`, `2026-08-10..16`, `2026-08-17..23`, and `2026-08-24..30`. The newest set remains the current source-native export material; no later weekly set was observed. Missing rows are not converted to zero.
+The configured folder was directly reverified on `2026-09-08`. It contains the `2026-08-31..09-06` weekly export set in addition to earlier weekly sets. Missing rows are never converted to zero.
 
-For Search Console, the newest source-native date export contains rows for `2026-08-24..29`; `2026-08-30` is absent. Every row actually present in that six-day slice is finalized evidence under the configured lag. The `2026-08-24..29` slice contains 436 clicks / 55,594 impressions, about 0.784% aggregate CTR, and impression-weighted average position about 10.73.
+For Search Console, finalized `2026-08-31..09-05` rows contain **388 clicks / 60,880 impressions / ~0.637% aggregate CTR / ~7.35 impression-weighted average position**. The equal-duration finalized `2026-08-24..29` slice contains **436 / 55,594 / ~0.784% / ~10.73**. Relative to that slice, clicks are about **11.0% lower**, impressions **9.5% higher**, CTR about **0.147 percentage points lower**, and weighted average position about **3.38 positions better**.
 
-The equal-duration source-native `2026-08-17..22` slice contains 477 clicks / 59,798 impressions / about 0.798% CTR / about 9.56 impression-weighted position. Relative to that six-day slice, the current `2026-08-24..29` slice has about 8.6% fewer clicks, 7.0% fewer impressions, CTR about 0.013 percentage points lower, and average position about 1.17 positions worse. This is explicitly not a complete seven-day comparison.
+This is a six-day source-native comparison, not the configured complete seven-day trend. `2026-08-30` is missing from the previous export and `2026-09-06` is absent from the new one; older gaps also prevent a complete preceding 28-day source window.
 
-A complete latest-seven-days versus previous-seven-days GSC comparison remains unavailable because verified source rows are not contiguous across the required windows: the preceding weekly export omits `2026-08-23` and the newest set omits `2026-08-30`; older gaps also prevent a complete preceding 28-day source window. Missing rows are not converted to zero.
-
-The GA4 `2026-08-24..30` organic landing-page aggregate is fully finalized and contains 1,007 sessions at about 45.88% session-weighted engagement. The preceding finalized `2026-08-17..23` aggregate contains 984 organic landing-page sessions at about 49.29% engagement, including 118 `(not set)` sessions. Week over week, sessions are about 2.3% higher while engagement is about 3.41 percentage points lower. The earlier `2026-08-10..16` aggregate contains 970 sessions at about 44.95% engagement. These weekly aggregates have no date dimension, so they do not support daily or within-week causal attribution.
+The GA4 `2026-08-24..30` organic landing-page aggregate remains the latest fully finalized weekly aggregate: **1,007 sessions** at about **45.88% session-weighted engagement** versus **984 sessions** at about **49.29% engagement** for `2026-08-17..23`. The new `2026-08-31..09-06` aggregate contains **913 sessions** at about **47.54% session-weighted engagement**, but it remains partial under the lag because the file has no date dimension, so it is not used as a finalized week-over-week comparison.
 
 Public repository and live-site data supplement these exports but do not replace their source-native meanings.
 
@@ -60,7 +59,7 @@ Public repository and live-site data supplement these exports but do not replace
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
 
-Fresh public search discovery on `2026-09-05` exposes the `2026-09-04` checkpoint-recovery Daily Report and the `2026-09-03` eBPF megakernel report. The independent crawler uncertainty recorded at the September 4 closeout is therefore resolved for those routes. This discovery evidence supplements, rather than replaces, exact-SHA deployment and generated-output verification.
+Public discovery is supplementary retrievability evidence. Exact-SHA deployment and generated production artifacts remain the publication acceptance boundary.
 
 ## Deployment
 
