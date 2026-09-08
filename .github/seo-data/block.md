@@ -1,7 +1,6 @@
 # Human-only blockers
 
-Only unresolved external conditions belong here. The daily ChatGPT scheduler is
-already configured and enabled; it is not a blocker.
+Only unresolved external conditions belong here. The daily ChatGPT scheduler is already configured and enabled; it is not a blocker.
 
 ## Cloudflare analytics is not configured
 
@@ -12,33 +11,16 @@ already configured and enabled; it is not a blocker.
 
 ## Current data-history constraint
 
-Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-09-05`. No export newer than the source-native
-`2026-08-24..30` weekly set is present.
+Google Drive access is verified and is not a blocker. The configured folder was directly rechecked on `2026-09-08` and contains the `2026-08-31..09-06` weekly source set.
 
-For Search Console, the newest date export contains rows for `2026-08-24..29` and
-no row for `2026-08-30`. Every row actually present in that six-day slice is
-finalized evidence under the configured lag. Those six rows sum to **436 clicks
-and 55,594 impressions**, with aggregate CTR about **0.784%** and
-impression-weighted average position about **10.73**.
+For Search Console, date rows are present for `2026-08-31..09-05`; `2026-09-06` is absent. Under the configured three-day lag, rows through September 5 are finalized for this run. Finalized `2026-08-31..09-05` contains **388 clicks / 60,880 impressions / ~0.637% aggregate CTR / ~7.35 impression-weighted average position**.
 
-The equal-duration `2026-08-17..22` slice has 477 clicks, 59,798 impressions,
-~0.798% CTR, and ~9.56 weighted position. The comparison is useful but is not a
-complete seven-day trend because the preceding weekly export omits `2026-08-23`
-and the current export omits `2026-08-30`. Other historical gaps also prevent the
-required complete 28-day comparison. Missing rows are never converted to zero.
+The equal-duration finalized `2026-08-24..29` slice contains **436 clicks / 55,594 impressions / ~0.784% CTR / ~10.73 weighted position**. Relative to it, current clicks are about **11.0% lower**, impressions **9.5% higher**, CTR about **0.147 percentage points lower**, and weighted position about **3.38 positions better**.
 
-The GA4 organic landing-page aggregate for `2026-08-24..30` is fully finalized.
-It contains **1,007 sessions** at about **45.88% session-weighted engagement**.
-The preceding finalized `2026-08-17..23` aggregate contains 984 sessions at about
-49.29% engagement. Sessions are about **2.3% higher** week over week while
-engagement is about **3.41 percentage points lower**.
+This remains a source-history constraint rather than a collection failure. Missing `2026-08-30` and absent `2026-09-06` prevent the required complete latest-seven versus previous-seven comparison, and older gaps still prevent a complete 28-day comparison. Missing rows are never converted to zero.
 
-These constraints never justify skipping the daily operation. Each run must use
-the available Google evidence, live-site evidence, public GitHub evidence, and
-public primary-source evidence; missing or partial coverage must never be
-converted into zero. Every run must still publish one new Daily Report under the
-current repository contract.
+A new GA4 organic landing-page aggregate for `2026-08-31..09-06` is present at **913 sessions** and about **47.54% session-weighted engagement**, but the weekly file has no date dimension and includes a date inside the finalization lag, so it is treated as partial. The latest fully finalized GA4 aggregate remains `2026-08-24..30`: **1,007 sessions** at about **45.88% session-weighted engagement**, versus 984 sessions at about 49.29% for `2026-08-17..23`.
 
-Remove or narrow a blocker in the next daily pull request after the external
-condition is verified as resolved.
+These constraints never justify skipping the daily operation. Each run must use the available Google evidence, live-site evidence, public GitHub evidence, and public primary-source evidence; missing or partial coverage must never be converted into zero. Every run must still publish one new Daily Report under the current repository contract.
+
+Remove or narrow a blocker in the next daily pull request after the external condition is verified as resolved.
