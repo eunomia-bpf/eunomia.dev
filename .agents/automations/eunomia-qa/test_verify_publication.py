@@ -90,6 +90,13 @@ class SharedCheckoutTests(unittest.TestCase):
         with self.assertRaisesRegex(vp.Failure, "scoped git commit failed"):
             vp.commit_and_push(paths, "no-change", "2026-09-06")
 
+    def test_public_route_stays_below_static_export(self):
+        out = self.repo / "app" / "out"
+        self.assertEqual(
+            vp.built_route_path(out, "/ebpf-qa/example/"),
+            out / "ebpf-qa" / "example" / "index.html",
+        )
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

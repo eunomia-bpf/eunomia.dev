@@ -243,11 +243,16 @@ def locate_out_dir() -> Path:
     die("no static export found (looked for app/out or app/.static-builds/export)")
 
 
+def built_route_path(out_dir: Path, route: str) -> Path:
+    """Map an absolute public route to its file below the static export."""
+    return out_dir / route.lstrip("/") / "index.html"
+
+
 def render_route(
     out_dir: Path, route: str, expected_h1: str, shots: Path, label: str
 ) -> dict[str, str]:
     """Render one built route with real Chromium; return hashes + checks."""
-    html = out_dir / route / "index.html"
+    html = built_route_path(out_dir, route)
     if not html.is_file():
         die(f"built route missing: {html.relative_to(APP.parent)}")
     # Confirm the generated HTML actually contains the expected H1 text.
