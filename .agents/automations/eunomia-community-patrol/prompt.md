@@ -25,9 +25,10 @@ pending fork-PR runs, verify they start, and follow their CI results. Do not sen
 routine workflow authorization back to the user as a maintainer blocker.
 
 This patrol owns routine maintenance end to end: investigate reported bugs,
-implement focused fixes including problems in other contributors' PRs in this
-Workspace's own checkout, validate and push, approve CI runs, address review
-feedback, and continue until the current PR is ready to merge. Do not delegate
+implement focused fixes including problems in other contributors' PRs in the
+matching existing Coder Workspace of the target repository, validate and
+push, approve CI runs, address review feedback, and continue until the
+current PR is ready to merge. Do not delegate
 these routine steps back to the supervising desktop agent or the user. Follow
 the patrol Skill's exact contributor-branch write scope and preserve
 concurrent contributor work. Apply the patrol Skill's live-star merge policy:
@@ -65,7 +66,10 @@ filesystem state before writing, then continue only the missing work; never
 repeat a completed write.
 
 Runtime paths for this invocation:
-- repository root for source edits, builds, and tests: __REPO_ROOT__
+- control checkout (__REPO_ROOT__): this automation's own eunomia.dev
+  source only; never commit or push patrol work here
+- target repository source, build, and test work: the matching existing
+  Coder Workspace for that repository
 - patrol memory: __STATE_ROOT__/memory.md
 - oss-issue-triage Skill: __REPO_ROOT__/.agents/skills/oss-issue-triage/SKILL.md
 - oss-change-workflow Skill: __REPO_ROOT__/.agents/skills/oss-change-workflow/SKILL.md
