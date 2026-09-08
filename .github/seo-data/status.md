@@ -15,8 +15,9 @@
 - Last verified Daily Report squash commit: `e091531a375c458ed34c973a5861b75ebf9b3473`
 - Last verified production publication from a Daily Report run: static export commit `fe48a46224768cd0270280f8c4fd0d559bfd366f`
 - Current daily branch: `daily/2026-09-07-ebpf-specialization-provenance`
-- Current daily pull request: pending
-- Current branch base: `e091531a375c458ed34c973a5861b75ebf9b3473`
+- Current daily pull request: `#192`
+- Current branch original base: `e091531a375c458ed34c973a5861b75ebf9b3473`
+- Current default branch observed during closeout: `b59ab22ef3b2eb14917192cb2f5c6ef2ad265f7e`; intervening changes are on unrelated community-Q&A, automation, shared-skill, and daily-data paths
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
 PR `#189`, **Daily: define portable architecture specialization for eBPF**, is independently reconciled from GitHub. It squash-merged as `e091531a375c458ed34c973a5861b75ebf9b3473`; the exact merge completed the expected validation and production deployment workflow, and the `new` branch contains static export `fe48a46224768cd0270280f8c4fd0d559bfd366f` with commit message `deploy static app for e091531a375c458ed34c973a5861b75ebf9b3473`. The merged PR contains exactly one top-level Daily closeout comment.
@@ -33,13 +34,13 @@ Today's selected `/research/ebpf-specialization-debug-provenance/` report is **e
 
 The incoming eBPF report rotates the `2026-08-27` eBPF-centered complete-mediation report out of the newest-ten window, so after publication the mix remains **5 / 0 / 5**. No existing report classification is changed.
 
-**eBPF Optimization and Execution Specialization** remains the active series. The September 5 report established verifier safety versus optimizer equivalence and profile-assumption lifetime. The September 6 report established architecture-specific capability eligibility, proof-linked native implementations, and deterministic fallback. Today's third boundary is postmortem debuggability: after repeated re-JIT and deoptimization, an operator still needs to prove which optimization generation and native image actually executed during an observation.
+**eBPF Optimization and Execution Specialization** remains the active series. The September 5 report established verifier safety versus optimizer equivalence and profile-assumption lifetime. The September 6 report established architecture-specific capability eligibility, proof-linked native implementations, and deterministic fallback. The September 7 report adds the third distinct boundary: after repeated re-JIT and deoptimization, an operator still needs durable evidence proving which optimization generation and native image actually executed during an observation.
 
 ## Current signals
 
 ### Google Search Console
 
-The exact configured Drive folder was rechecked on `2026-09-07` and now contains the `2026-08-31..09-06` weekly source set. Its date export has rows for `2026-08-31..09-05` and no row for `2026-09-06`.
+The exact configured Drive folder was rechecked on `2026-09-07` and again on `2026-09-08`; no source set newer than `2026-08-31..09-06` is present. Its date export has rows for `2026-08-31..09-05` and no row for `2026-09-06`.
 
 Under the configured three-day lag, the newest finalized contiguous slice is `2026-08-31..09-04`: **368 clicks / 53,341 impressions / ~0.690% aggregate CTR / ~7.45 impression-weighted average position**. The equal-duration finalized `2026-08-24..28` slice contains **398 / 48,044 / ~0.828% / ~10.04**. Relative to that five-day slice, clicks are about **7.5% lower**, impressions about **11.0% higher**, CTR about **0.139 percentage points lower**, and weighted average position about **2.59 positions better**.
 
@@ -69,9 +70,9 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete the September 7 Daily Report through a real non-draft PR, expected CI, complete final diff and generated-output self-review, squash merge, exact production deployment, bilingual production verification, and exactly one merged-PR closeout comment.
-2. Advance **eBPF Optimization and Execution Specialization** with a distinct third boundary: durable execution receipts, generation-aware observation attribution, and adversarial re-JIT forensics for the code that actually ran.
-3. Keep later optimization-series work materially distinct. Delegated native-operation trust/TCB and safe high-level operation delegation remain candidates; do not repeat verifier-safety-versus-equivalence, stale-profile invalidation, architecture capability negotiation, cross-JIT fallback, or today's debugging/provenance thesis.
+1. Complete PR `#192` through final branch synchronization, expected CI, complete final diff and generated-output self-review, squash merge, exact production deployment, bilingual production verification, and exactly one merged-PR closeout comment.
+2. Advance **eBPF Optimization and Execution Specialization** with the distinct third boundary now recorded in `content-series.md`: durable execution receipts, generation-aware observation attribution, and adversarial re-JIT forensics for the code that actually ran.
+3. Keep later optimization-series work materially distinct. Delegated native-operation trust/TCB and safe high-level operation delegation remain candidates; do not repeat verifier-safety-versus-equivalence, stale-profile invalidation, architecture capability negotiation, cross-JIT fallback, or the debugging/provenance thesis.
 4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
 5. Keep the newest GA4 weekly aggregate explicitly partial until every date in its weekly bucket is outside the finalization lag or a source with a date dimension permits a finalized subset.
 6. Keep Cloudflare evidence unavailable until a supported read-only path is enabled in repository configuration.
