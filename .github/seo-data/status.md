@@ -15,7 +15,7 @@
 - Last verified Daily Report squash commit: `2aa611900b56d9fbb7e609d64dfe55f8aa13243d`
 - Last verified production publication from a Daily Report run: static export commit `9f5ddf4bb07543fa7364b500714d7f3d2228b523`
 - Current daily branch: `daily/2026-09-09-ebpf-native-trust`
-- Current daily pull request: pending
+- Current daily pull request: `#193`
 - Current branch original base: `f6e6ebba2c272e1d4227615932ab7474b9a4d2a0`
 - Current default branch observed at run start: `f6e6ebba2c272e1d4227615932ab7474b9a4d2a0`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
