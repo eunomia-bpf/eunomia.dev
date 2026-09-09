@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 把工作交给原生代码后，哪些东西必须被信任？](https://eunomia.dev/zh/research/ebpf-native-operation-trust-boundary/)
+
+eBPF 可以验证 proof sequence 和调用侧约束，但 JIT、kfunc 或 native operation 的实现本身仍然属于受信任代码。本文提出与 verifier 相连的 native-operation contract、按证据强度划分的 trust tier，以及同时测 escaped fault、性能和 trusted-code growth 的对抗式 benchmark。
+
 ### [eBPF 动态优化后，怎么知道事故时真正跑的是哪份代码？](https://eunomia.dev/zh/research/ebpf-specialization-debug-provenance/)
 
 动态特化会从同一份源码产生多代通过 verifier 的 BPF 程序和 JIT 机器码。本文提出可长期保存的执行收据、按程序代次归属采样的方法，以及在分析前主动卸载故障代次的对抗式 re-JIT 取证 benchmark。
