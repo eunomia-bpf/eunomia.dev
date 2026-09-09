@@ -449,7 +449,7 @@ checkpoint recovery-cut consistency with a different product example alone.
 
 Working question: **How can eBPF programs and runtimes specialize to hardware and
 workload behavior without silently changing verifier-approved semantics,
-portability, or debuggability?**
+portability, debuggability, or the system's trusted boundary?**
 
 This series became active after the GPU/runtime series reached its normal
 six-report boundary on `2026-09-04`. The rolling mix was then **5 / 0 / 5**, so a
@@ -462,6 +462,8 @@ Candidate boundaries include:
   equivalence while changing machine code or helper lowering;
 - specialization contracts that make architecture-specific assumptions explicit
   rather than hiding them behind one nominal BPF program;
+- delegated native operations whose trusted computing base, effects, proof or
+  validation evidence, and implementation identity can be made explicit;
 - safe delegation of high-level operations to kernel, NIC, DPU, or other
   hardware-specific implementations without repeating the completed execution-
   placement thesis;
@@ -504,6 +506,18 @@ execution receipts, generation-aware sample attribution with an explicit unknown
 state, and an adversarial re-JIT forensic benchmark that unloads the faulty
 generation before analysis.
 
+The `2026-09-09` report advances a fourth boundary: after the runtime chooses a
+native implementation and can identify the exact generation that executed, the
+correctness argument still depends on code outside the verifier-visible BPF
+program. Linux kfuncs encode caller-side ownership, pointer, sleepability, and
+other constraints while trusting the kernel function body; Jitterbug shows that
+JIT translation itself can contain semantic bugs; Kops makes the trade-off
+explicit by pairing verifier-checked proof sequences with native emits and by
+showing that larger native replacement increases the TCB. The report develops a
+verifier-linked native-operation effect contract, evidence-carrying trust tiers,
+and an adversarial trust-budget benchmark that measures escaped faults,
+validation cost, performance, and trusted-code growth together.
+
 ### Published progress
 
 1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
@@ -532,6 +546,14 @@ generation before analysis.
    eBPF-centered because BPF generation identity, verifier/JIT artifacts, link
    activation, and specialized instruction images are the core objects of the
    provenance contract.
+4. `2026-09-09`: `/research/ebpf-native-operation-trust-boundary/` asks how a
+   verifier-safe BPF operation can delegate execution to native code without
+   turning the whole implementation path into an opaque `verified` bit. It
+   separates verifier-visible caller obligations from native implementation
+   effects and identity, proposes version-bound operation contracts and assurance
+   tiers, and evaluates semantic fault escape under a fixed trust/performance
+   budget. It is eBPF-centered because BPF verifier semantics, JIT/kfunc/native
+   delegation, and proof-linked BPF fallback are the core trust boundary.
 
 Before the September 5 publication, the newest ten contained **5 eBPF-centered /
 0 pure Agent / 5 adjacent systems**. The September 5 eBPF-centered report rotated
@@ -539,18 +561,22 @@ the `2026-08-25` eBPF-centered report out, so the mix remained **5 / 0 / 5**.
 Before the September 6 publication the mix was therefore still **5 / 0 / 5**;
 the incoming eBPF-centered report rotated the `2026-08-26` eBPF-centered report
 out, so the mix again remained **5 / 0 / 5**. Before the September 7 publication
-the mix is still **5 / 0 / 5**; the incoming eBPF-centered report rotates the
-`2026-08-27` eBPF-centered report out, so after publication the newest ten remain
-**5 eBPF-centered / 0 pure Agent / 5 adjacent systems**. No classification was
+the mix was still **5 / 0 / 5**; the incoming eBPF-centered report rotated the
+`2026-08-27` eBPF-centered report out, so after publication the newest ten
+remained **5 / 0 / 5**. Before the September 9 publication the mix is again **5 /
+0 / 5**; the incoming eBPF-centered report rotates the `2026-08-28` eBPF-centered
+proxy-identity report out, so after publication the newest ten still contain **5
+eBPF-centered / 0 pure Agent / 5 adjacent systems**. No classification was
 changed to obtain that result.
 
-A later report should not repeat "verifier accepted is not equivalent", stale
-profile invalidation, architecture capability negotiation, proof-linked portable
-fallback, cross-JIT portability measurement, execution receipts, generation-aware
-sample attribution, or re-JIT forensic provenance with a different optimizer
-example. Distinct remaining boundaries include delegated native operations and
-their trust/TCB boundary, plus safe delegation of higher-level operations to
-hardware-specific implementations.
+A later report should not repeat verifier acceptance versus semantic equivalence,
+stale-profile invalidation, architecture capability negotiation, proof-linked
+portable fallback, cross-JIT portability measurement, execution receipts,
+generation-aware sample attribution, re-JIT forensic provenance, or the native
+operation trust/TCB contract with a different optimizer example. A distinct
+remaining boundary is safe delegation of higher-level semantic operations to
+kernel, NIC, DPU, or other hardware-specific implementations without collapsing
+back into execution placement or native-operation trust accounting.
 
 ## Queued series — Agent Systems (limited)
 
