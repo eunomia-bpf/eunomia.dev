@@ -1,7 +1,7 @@
 ---
 date: 2026-09-09
 title: "When eBPF Calls Native Code, What Exactly Has to Be Trusted?"
-description: "eBPF can verify the caller while native operations remain trusted. This report asks how to bound that TCB with proof-linked contracts, attestation, and fault tests."
+description: "eBPF verifies callers while native operations stay trusted. This report asks how to bound the TCB with effect contracts, artifact binding, and fault tests."
 tags:
   - Daily Report
   - eBPF
