@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [When eBPF Calls Native Code, What Exactly Has to Be Trusted?](https://eunomia.dev/research/ebpf-native-operation-trust-boundary/)
+
+eBPF can verify a proof sequence or caller-side contract while a JIT, kfunc, or native operation still executes trusted native code. This report develops verifier-linked native-operation contracts, proof-carrying trust tiers, and an adversarial benchmark that measures performance against escaped faults and trusted-code growth.
+
 ### [Can You Debug the eBPF Program That Actually Ran?](https://eunomia.dev/research/ebpf-specialization-debug-provenance/)
 
 Dynamic specialization can produce several verifier-safe BPF generations and JIT images from one source program. This report develops execution receipts, generation-aware sample attribution, and an adversarial re-JIT forensic benchmark for proving which optimized code actually ran during an incident.
