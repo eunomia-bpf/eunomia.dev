@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [一个 eBPF 操作跨主机和硬件拆分后，还能保持同一种语义吗？](https://eunomia.dev/zh/research/ebpf-split-operation-semantics/)
+
+高级 offload 可能让一个逻辑 eBPF effect 一部分留在主机，另一部分交给 NIC、DPU 或其他设备。本文提出按 effect class 判断能否拆分、绑定 generation 的 operation receipt，以及用于检测重复、丢失、乱序和旧 generation effect 的故障 benchmark。
+
 ### [eBPF 把工作交给原生代码后，哪些东西必须被信任？](https://eunomia.dev/zh/research/ebpf-native-operation-trust-boundary/)
 
 eBPF 可以验证 proof sequence 和调用侧约束，但 JIT、kfunc 或 native operation 的实现本身仍然属于受信任代码。本文提出与 verifier 相连的 native-operation contract、按证据强度划分的 trust tier，以及同时测 escaped fault、性能和 trusted-code growth 的对抗式 benchmark。
