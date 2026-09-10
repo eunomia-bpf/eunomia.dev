@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [同一个 eBPF 操作放到 CPU、NIC 和 DPU 上，语义还能一致吗？](https://eunomia.dev/zh/research/ebpf-cross-backend-operation-semantics/)
+
+一个高层 eBPF 操作可以拥有 host、native、NIC 或 DPU 实现，简单结果相同却可能在并发与故障时产生不同语义。本文提出显式 state-transition contract、可执行 conformance model，以及验证跨 backend 语义连续性的 mixed-backend benchmark。
+
 ### [eBPF 把工作交给原生代码后，哪些东西必须被信任？](https://eunomia.dev/zh/research/ebpf-native-operation-trust-boundary/)
 
 eBPF 可以验证 proof sequence 和调用侧约束，但 JIT、kfunc 或 native operation 的实现本身仍然属于受信任代码。本文提出与 verifier 相连的 native-operation contract、按证据强度划分的 trust tier，以及同时测 escaped fault、性能和 trusted-code growth 的对抗式 benchmark。
