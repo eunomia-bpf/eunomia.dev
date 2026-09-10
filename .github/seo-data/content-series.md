@@ -464,9 +464,8 @@ Candidate boundaries include:
   rather than hiding them behind one nominal BPF program;
 - delegated native operations whose trusted computing base, effects, proof or
   validation evidence, and implementation identity can be made explicit;
-- safe delegation of high-level operations to kernel, NIC, DPU, or other
-  hardware-specific implementations without repeating the completed execution-
-  placement thesis;
+- split high-level operations whose host and hardware stages need explicit
+  commit, replay, state-ownership, ordering, and generation semantics;
 - optimization evidence that distinguishes a portable semantic contract from
   one lucky microbenchmark or one JIT backend.
 
@@ -518,6 +517,18 @@ verifier-linked native-operation effect contract, evidence-carrying trust tiers,
 and an adversarial trust-budget benchmark that measures escaped faults,
 validation cost, performance, and trusted-code growth together.
 
+The `2026-09-10` report advances a fifth boundary: moving an implementation and
+splitting one logical operation are not equivalent transformations. Linux
+CPUMAP/DEVMAP provide explicit XDP handoffs, hardware BPF offload binds programs
+to devices, XFRM exposes increasingly stateful software/hardware splits, and
+flowtable hardware installation can overlap software execution. Those mechanisms
+show that individually valid stages still need a cross-domain rule for commit,
+retry, state ownership, ordering, and generation changes. The report develops
+effect-typed split-operation descriptors, generation-bound operation receipts,
+and a semantic fault benchmark that injects partial completion, duplicate
+completion, device reset, fallback, and stale-generation execution around the
+host/device handoff.
+
 ### Published progress
 
 1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
@@ -554,6 +565,14 @@ validation cost, performance, and trusted-code growth together.
    tiers, and evaluates semantic fault escape under a fixed trust/performance
    budget. It is eBPF-centered because BPF verifier semantics, JIT/kfunc/native
    delegation, and proof-linked BPF fallback are the core trust boundary.
+5. `2026-09-10`: `/research/ebpf-split-operation-semantics/` asks how one logical
+   eBPF operation can be jointly implemented by host and hardware stages without
+   exposing a half-completed or duplicated result. It separates whole-program
+   offload from cross-domain operation composition, proposes effect classes and
+   generation-bound receipts, and evaluates duplicate, lost, reordered, and
+   stale-generation outcomes under injected handoff failures. It is eBPF-centered
+   because BPF/XDP handoffs, device offload, BPF-side state, and policy-generation
+   semantics are the core execution contract.
 
 Before the September 5 publication, the newest ten contained **5 eBPF-centered /
 0 pure Agent / 5 adjacent systems**. The September 5 eBPF-centered report rotated
@@ -563,20 +582,23 @@ the incoming eBPF-centered report rotated the `2026-08-26` eBPF-centered report
 out, so the mix again remained **5 / 0 / 5**. Before the September 7 publication
 the mix was still **5 / 0 / 5**; the incoming eBPF-centered report rotated the
 `2026-08-27` eBPF-centered report out, so after publication the newest ten
-remained **5 / 0 / 5**. Before the September 9 publication the mix is again **5 /
-0 / 5**; the incoming eBPF-centered report rotates the `2026-08-28` eBPF-centered
-proxy-identity report out, so after publication the newest ten still contain **5
-eBPF-centered / 0 pure Agent / 5 adjacent systems**. No classification was
-changed to obtain that result.
+remained **5 / 0 / 5**. Before the September 9 publication the mix was again **5 /
+0 / 5**; the incoming eBPF-centered report rotated the `2026-08-28` eBPF-centered
+proxy-identity report out, so after publication the newest ten still contained
+**5 eBPF-centered / 0 pure Agent / 5 adjacent systems**. Before the September 10
+publication the mix is therefore **5 / 0 / 5**; the incoming eBPF-centered report
+rotates the `2026-08-30` adjacent GPU-instrumentation report out, so after
+publication the newest ten contain **6 eBPF-centered / 0 pure Agent / 4 adjacent
+systems**. No classification was changed to obtain that result.
 
 A later report should not repeat verifier acceptance versus semantic equivalence,
 stale-profile invalidation, architecture capability negotiation, proof-linked
 portable fallback, cross-JIT portability measurement, execution receipts,
-generation-aware sample attribution, re-JIT forensic provenance, or the native
-operation trust/TCB contract with a different optimizer example. A distinct
-remaining boundary is safe delegation of higher-level semantic operations to
-kernel, NIC, DPU, or other hardware-specific implementations without collapsing
-back into execution placement or native-operation trust accounting.
+generation-aware sample attribution, re-JIT forensic provenance, the native
+operation trust/TCB contract, or split-operation commit/replay semantics with a
+different optimizer example. A distinct remaining boundary is optimization
+evidence that distinguishes a portable semantic contract from one lucky
+microbenchmark or one JIT backend.
 
 ## Queued series — Agent Systems (limited)
 
