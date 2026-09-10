@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Split One Operation Across Host and Hardware?](https://eunomia.dev/research/ebpf-split-operation-semantics/)
+
+High-level offload can leave one logical eBPF effect partly on the host and partly on a NIC, DPU, or other device. This report develops effect-typed split operations, generation-bound receipts, and a fault benchmark for detecting duplicate, lost, reordered, and stale-generation effects.
+
 ### [When eBPF Calls Native Code, What Exactly Has to Be Trusted?](https://eunomia.dev/research/ebpf-native-operation-trust-boundary/)
 
 eBPF can verify a proof sequence or caller-side contract while a JIT, kfunc, or native operation still executes trusted native code. This report develops verifier-linked native-operation contracts, proof-carrying trust tiers, and an adversarial benchmark that measures performance against escaped faults and trusted-code growth.
