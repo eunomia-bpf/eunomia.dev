@@ -518,6 +518,18 @@ verifier-linked native-operation effect contract, evidence-carrying trust tiers,
 and an adversarial trust-budget benchmark that measures escaped faults,
 validation cost, performance, and trusted-code growth together.
 
+The `2026-09-10` report advances a fifth boundary: several implementations can be
+eligible, identifiable, and individually trusted while still disagreeing on the
+observable meaning of one stateful operation. Linux BPF map types already expose
+atomicity, per-CPU state, eviction, locking, and failure semantics, while the
+kernel's offload path dispatches map operations through device-specific
+implementations. The report therefore moves above single-call result equality and
+defines cross-backend equivalence over state transitions, concurrency histories,
+visibility, failures, and handoff. It develops a backend-independent operation
+transition contract, executable reference/history conformance, and a mixed-
+backend continuity benchmark that treats semantic divergence as the primary
+failure rather than a throughput loss.
+
 ### Published progress
 
 1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
@@ -554,6 +566,14 @@ validation cost, performance, and trusted-code growth together.
    tiers, and evaluates semantic fault escape under a fixed trust/performance
    budget. It is eBPF-centered because BPF verifier semantics, JIT/kfunc/native
    delegation, and proof-linked BPF fallback are the core trust boundary.
+5. `2026-09-10`: `/research/ebpf-cross-backend-operation-semantics/` asks whether
+   host, native, NIC, and DPU implementations of one higher-level BPF operation
+   preserve the same observable state machine. It separates capability and trust
+   from state-transition equivalence, defines explicit atomicity, visibility,
+   failure, retry, and ownership semantics, and evaluates concurrent histories
+   across backend handoff and injected faults. It is eBPF-centered because BPF
+   map semantics, offload dispatch, and BPF-facing operation continuity are the
+   core objects of the contract.
 
 Before the September 5 publication, the newest ten contained **5 eBPF-centered /
 0 pure Agent / 5 adjacent systems**. The September 5 eBPF-centered report rotated
@@ -563,20 +583,24 @@ the incoming eBPF-centered report rotated the `2026-08-26` eBPF-centered report
 out, so the mix again remained **5 / 0 / 5**. Before the September 7 publication
 the mix was still **5 / 0 / 5**; the incoming eBPF-centered report rotated the
 `2026-08-27` eBPF-centered report out, so after publication the newest ten
-remained **5 / 0 / 5**. Before the September 9 publication the mix is again **5 /
-0 / 5**; the incoming eBPF-centered report rotates the `2026-08-28` eBPF-centered
-proxy-identity report out, so after publication the newest ten still contain **5
-eBPF-centered / 0 pure Agent / 5 adjacent systems**. No classification was
-changed to obtain that result.
+remained **5 / 0 / 5**. Before the September 9 publication the mix was again **5 /
+0 / 5**; the incoming eBPF-centered report rotated the `2026-08-28` eBPF-centered
+proxy-identity report out, so after publication the newest ten still contained
+**5 eBPF-centered / 0 pure Agent / 5 adjacent systems**. Before the September 10
+publication the mix is therefore **5 / 0 / 5**; today's eBPF-centered report
+rotates the `2026-08-29` adjacent GPU memory-placement report out, so after
+publication the newest ten contain **6 eBPF-centered / 0 pure Agent / 4 adjacent
+systems**. No classification was changed to obtain that result.
 
 A later report should not repeat verifier acceptance versus semantic equivalence,
 stale-profile invalidation, architecture capability negotiation, proof-linked
 portable fallback, cross-JIT portability measurement, execution receipts,
-generation-aware sample attribution, re-JIT forensic provenance, or the native
-operation trust/TCB contract with a different optimizer example. A distinct
-remaining boundary is safe delegation of higher-level semantic operations to
-kernel, NIC, DPU, or other hardware-specific implementations without collapsing
-back into execution placement or native-operation trust accounting.
+generation-aware sample attribution, re-JIT forensic provenance, native-operation
+trust/TCB accounting, or cross-backend state-transition equivalence with a
+different optimizer example. With five strong reports, one additional
+series-closing question is allowed only if fresh evidence exposes a genuinely
+separate optimization boundary; otherwise close the series and activate another
+approved eBPF-centered roadmap.
 
 ## Queued series — Agent Systems (limited)
 
