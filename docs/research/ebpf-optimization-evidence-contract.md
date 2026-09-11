@@ -1,5 +1,6 @@
 ---
 date: 2026-09-11
+slug: ebpf-optimization-evidence-contract
 title: "When Is an eBPF Optimization Result Strong Enough to Ship?"
 description: "eBPF optimizations can win one microbenchmark and regress real applications. This report develops evidence envelopes, holdout tests, and promotion gates."
 tags:
@@ -28,7 +29,7 @@ This report closes the current optimization series after [runtime-profile specia
 
 Those reports establish five different questions: is the transformation equivalent, are runtime assumptions still valid, can the implementation run on this architecture, which specialization actually executed, and does delegated stateful behavior preserve one semantic contract? Here we assume those gates pass. The remaining question is whether the *performance evidence* justifies saying that an optimization is useful outside the exact experiment that discovered it.
 
-## The same optimization can have several different performance truths
+## Why one eBPF optimization benchmark does not define the performance truth
 
 Kops is a useful example because it reports both microbenchmark and application results. Its EInsn operations replace verifier-visible BPF instruction sequences with native machine idioms. The paper reports microbenchmark improvements up to 24%, while production applications improve by up to 12% on x86-64 and ARM64. Those numbers are not contradictory. They answer different questions.
 
@@ -42,7 +43,7 @@ That is the evidence problem in one sentence. An optimization result is not a sc
 
 ## What current evaluation still leaves underspecified
 
-The first gap is **the unit of a performance claim**. “Up to 20% faster” can mean one instruction sequence, one BPF program, one application phase, or one end-to-end workload. Without an explicit claim boundary, a valid local result can be read as a much broader result.
+The first gap is **the unit of a performance claim**. "Up to 20% faster" can mean one instruction sequence, one BPF program, one application phase, or one end-to-end workload. Without an explicit claim boundary, a valid local result can be read as a much broader result.
 
 The second gap is **profitability coverage**. Correctness can often be binary: the transformed program is equivalent or it is not. Profitability is rarely binary. A pass may help 30 programs, be neutral on 100, and regress 16. A single geomean can hide whether those regressions occur on rare utilities or on the programs consuming most fleet CPU time.
 
@@ -77,9 +78,11 @@ regression_budget = <= 1% on guarded metrics
 claim_scope = {this program, this workload family, this target class}
 ```
 
-The key difference from ordinary benchmark metadata is the final field. The artifact states what the result is allowed to justify. A microbenchmark can support “this instruction idiom is cheaper on this target.” It cannot automatically support “the application is faster.” A production replay can support an application-level claim, but only for the workload and target family represented by the replay.
+The key difference from ordinary benchmark metadata is the final field. The artifact states what the result is allowed to justify. A microbenchmark can support "this instruction idiom is cheaper on this target." It cannot automatically support "the application is faster." A production replay can support an application-level claim, but only for the workload and target family represented by the replay.
 
 The research artifact would be a schema plus a comparison engine that can combine envelopes only when their claim scopes are compatible. Evaluation should take published-style optimization summaries and ask whether the envelope prevents over-broad conclusions while remaining compact enough to generate automatically. A useful metric is *claim escape*: how often a result accepted under a weaker metadata scheme fails when rerun outside its hidden assumptions.
+
+The academic value is a testable model for the scope of systems-performance claims: which dimensions must match before two results may be aggregated or generalized. The production user is a compiler/JIT or fleet-performance team; the integration boundary is the benchmark-to-promotion pipeline, where the envelope can travel with the optimized artifact and constrain where it is eligible to run.
 
 The idea is not worthwhile if ordinary benchmark manifests already capture every condition that materially changes the result and reviewers or deployment systems consistently enforce that scope. The experiment should try to falsify the need for another artifact.
 
@@ -91,21 +94,27 @@ Split evidence into at least three groups. A development set is visible to the o
 
 The [`bpf-bench`](https://github.com/eunomia-bpf/bpf-benchmark) integrity model already points in this direction by treating the optimizer as untrusted and forbidding tricks such as shortening workloads, filtering failed programs, bypassing real loaders, or fabricating result files. A research system can make that principle quantitative.
 
-The primary score should not be “best speedup found.” Report at least acceptance coverage, worst guarded regression, holdout speedup distribution, invalid-result rate, and the fraction of development wins that reproduce on holdout targets. For agentic search, freeze the holdout oracle until final evaluation so the search loop cannot adapt to it.
+The primary score should not be "best speedup found." Report at least acceptance coverage, worst guarded regression, holdout speedup distribution, invalid-result rate, and the fraction of development wins that reproduce on holdout targets. For agentic search, freeze the holdout oracle until final evaluation so the search loop cannot adapt to it.
 
 An ablation can intentionally leak holdout results back to the optimizer. If the final score rises while independent reproduction gets worse, the benchmark has demonstrated the exact overfitting problem it is meant to measure.
 
-This would produce a reusable benchmark methodology rather than another optimization pass. The production analogue is equally useful: canary workloads and machines become holdouts for a newly discovered optimization policy.
+The academic contribution is a methodology for measuring adaptive-search overfit in systems optimization rather than treating the benchmark as a passive test set. In production, compiler or performance teams can use canary workloads and machines as sealed holdouts before widening an optimization policy to the fleet.
+
+This machinery should be rejected if, at a comparable measurement budget, it neither improves independent reproduction of development-set wins nor detects materially more regressions than a development-only benchmark. It also loses if the extra holdout cost is large enough that a simpler fixed validation matrix provides the same decision quality.
 
 ### 3. Promote optimizations through a profitability contract, not a global enable bit
 
 Many optimizations do not need to be universally good. They need a reliable applicability rule.
 
-A promotion system could learn or derive a small profitability predicate from the evidence envelope: target architecture, JIT capabilities, program features, code-size delta, runtime profile stability, and application/workload class. The optimization is enabled only when the predicate matches. The runtime then records whether the expected benefit appears and disables or rolls back the specialization when a guarded regression budget is exceeded.
+A promotion system could learn or derive a small profitability predicate from the evidence envelope: target architecture, JIT capabilities, program features, code-size delta, runtime profile stability, and application/workload class. The optimization is enabled only when the predicate matches. The runtime then records whether the expected benefit appears.
+
+A noisy metric should not cause an immediate rollback. The controller can require a minimum sample count and a sustained budget breach across two independent observation windows, with the optimized and baseline distributions compared at a predefined confidence level. A correctness failure still rolls back immediately. After a performance rollback, a cooldown prevents automatic re-enablement until fresh evidence extends the envelope or an operator explicitly reopens the target class. Evaluation should report false rollback rate and enable/disable flapping in addition to detection delay.
 
 This is deliberately different from the September 5 deoptimization mechanism. That report asks whether a stale runtime assumption can change program semantics. Here semantics remain valid; the predicate controls *economic usefulness*. The fallback may be triggered because p99 latency regressed 3%, because JIT size crossed an instruction-cache budget, or because the optimized program accounts for too little runtime to justify added complexity.
 
-The evaluation should compare three policies: globally enable the optimization, statically enable it on a hand-written target allowlist, and evidence-driven promotion. Test across kernel versions, x86-64 and ARM64, several CPU generations, microbenchmarks, and real application workloads. Measure realized fleet-weighted speedup, worst regression, fraction of eligible executions, decision overhead, rollback frequency, and how quickly the policy adapts after a workload or kernel change.
+The academic question is whether a compact applicability predicate can preserve most optimization benefit under non-stationary workloads while bounding regret and rollback error. The production user is the team operating the BPF loader, JIT policy, or rollout service; the integration boundary is the point where an already-correct optimized artifact is selected for a concrete program and target.
+
+The evaluation should compare three policies: globally enable the optimization, statically enable it on a hand-written target allowlist, and evidence-driven promotion. Test across kernel versions, x86-64 and ARM64, several CPU generations, microbenchmarks, and real application workloads. Measure realized fleet-weighted speedup, worst regression, fraction of eligible executions, decision overhead, rollback frequency, false rollback rate, flapping, and how quickly the policy adapts after a workload or kernel change.
 
 The system loses if a simple static allowlist achieves the same realized benefit and regression bound. That failure condition matters: not every optimization needs an online controller.
 
@@ -135,7 +144,7 @@ The argument would also weaken if existing BPF CI already provided one end-to-en
 
 Finally, a profitability contract is not justified if the optimization has negligible downside and an overwhelming benefit on every supported target. The right answer for a universally profitable transformation is still to make the compiler better, not to build a control plane around it.
 
-But for optimizations that are architecture-sensitive, profile-sensitive, or discovered by adaptive search, “the benchmark got faster” is only the beginning of the evidence. The result is strong enough to ship when the system can state **where the claim applies, which counterexamples were tested, what regressions are bounded, and what observation will revoke the optimization when reality leaves the measured envelope.**
+But for optimizations that are architecture-sensitive, profile-sensitive, or discovered by adaptive search, "the benchmark got faster" is only the beginning of the evidence. The result is strong enough to ship when the system can state **where the claim applies, which counterexamples were tested, what regressions are bounded, and what observation will revoke the optimization when reality leaves the measured envelope.**
 
 ## References
 
@@ -143,4 +152,3 @@ But for optimizations that are architecture-sensitive, profile-sensitive, or dis
 - Linux BPF CI, [kernel-patches/bpf](https://github.com/kernel-patches/bpf), accessed 2026-09-11.
 - libbpf, [`veristat`](https://github.com/libbpf/veristat), accessed 2026-09-11.
 - Eunomia, [`bpf-bench`](https://github.com/eunomia-bpf/bpf-benchmark), accessed 2026-09-11.
-- sched_ext, [Developer Guide](https://github.com/sched-ext/scx/blob/main/DEVELOPER_GUIDE.md), accessed 2026-09-11.
