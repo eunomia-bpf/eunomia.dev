@@ -1,5 +1,6 @@
 ---
 date: 2026-09-11
+slug: ebpf-optimization-evidence-contract
 title: "一个 eBPF 优化结果，到什么程度才值得上线？"
 description: "eBPF 优化可能在单个 microbenchmark 上很快，却让真实应用退化。本文讨论 evidence envelope、holdout 测试和上线 promotion gate。"
 tags:
@@ -30,7 +31,7 @@ status: daily-report
 
 前五篇分别解决 transformation 是否等价、runtime assumption 是否还成立、当前 architecture 能不能执行、事故时到底是哪一代 specialization 在跑、以及 delegated stateful operation 是否保持同一份 semantic contract。这里把这些 gate 都假设为已经通过，只剩最后一个问题：**发现一个 speedup 以后，我们凭什么认为它不是某一次实验的偶然结果？**
 
-## 同一个优化，其实可以同时存在几种不同的“性能真相”
+## 为什么单个 benchmark 不能定义 eBPF 优化的“性能真相”
 
 Kops 是一个很好的例子，因为它同时报告了 microbenchmark 和 application 结果。EInsn 用 native machine idiom 替换 verifier-visible BPF instruction sequence。论文里 microbenchmark 最高提升 24%，production application 最高提升 12%，并且在 x86-64 与 ARM64 上做了评估。
 
@@ -87,6 +88,8 @@ Microbenchmark 可以支持“这个 instruction idiom 在这个 target 上更�
 
 Research artifact 可以是一份 schema 加 comparison engine。只有 claim scope 相容的 envelope 才能被 aggregate。Evaluation 可以拿常见的 optimization summary，观察弱 metadata 下会被接受的结论，有多少在离开隐藏 assumption 后无法 reproduce。可以把这个指标叫做 *claim escape*。
 
+学术价值在于把 systems performance claim 的适用范围变成可验证模型：哪些维度必须一致，两个结果才允许被 aggregate 或 generalize。生产上，compiler/JIT 或 fleet performance 团队可以在 benchmark-to-promotion pipeline 接入这份 envelope，让它跟着 optimized artifact 一起传递，并限制 artifact 到底能在哪些 target 上启用。
+
 如果普通 benchmark manifest 已经能完整记录所有 materially relevant condition，而且 reviewer 和 deployment system 真的会严格限制 claim scope，那么这层 artifact 就是多余的。实验应该主动尝试证明它不需要存在。
 
 ### 2. 给 optimizer 准备 holdout 和 counterexample suite
@@ -101,17 +104,23 @@ Primary score 不应该只剩“找到的最好 speedup”。至少要报告 acc
 
 Ablation 可以故意把 holdout result 泄露回 optimizer。如果 benchmark score 上升，但独立 reproduction 变差，就直接展示了我们想捕获的 overfitting。
 
-这个方向的 artifact 不是另一个 optimization pass，而是一套可以复用的 optimization benchmark methodology。生产里的对应物也很自然：canary workload 和 canary machine 就是新 optimization policy 的 holdout。
+学术上，这个方向提供的是测量 adaptive-search overfit 的 systems optimization methodology，而不是把 benchmark 当成一个被动 test set。生产上，compiler 或 performance 团队可以把 canary workload 和 canary machine 当作 sealed holdout，在扩大 optimization policy 的 fleet 覆盖前先做独立验证。
+
+如果在相近 measurement budget 下，这套机制既不能提高 development-set win 的独立复现率，也不能比 development-only benchmark 发现更多有实际影响的 regression，就应该放弃它。如果额外 holdout 成本很高，而一个固定 validation matrix 能做出同样质量的决策，也没有必要增加这层复杂度。
 
 ### 3. 用 profitability contract 上线，而不是只有一个 global enable bit
 
 很多 optimization 不需要 everywhere profitable，只需要一个足够可靠的 applicability rule。
 
-可以从 evidence envelope 推导或学习一个小的 profitability predicate：target architecture、JIT capability、program feature、code-size delta、runtime profile stability、application/workload class。只有 predicate match 时才 enable。Runtime 再观察实际效果，一旦 guarded regression budget 被突破，就 disable 或 rollback specialization。
+可以从 evidence envelope 推导或学习一个小的 profitability predicate：target architecture、JIT capability、program feature、code-size delta、runtime profile stability、application/workload class。只有 predicate match 时才 enable。Runtime 再观察实际效果。
+
+噪声较大的 metric 不应该一次越线就立即 rollback。Controller 可以先要求最小 sample 数，再要求 regression budget 在两个独立 observation window 中持续被突破，并用预先定义的 confidence rule 比较 optimized 与 baseline distribution。Correctness failure 仍然立即回滚。Performance rollback 之后进入 cooldown，在新的 evidence 扩展 envelope 或 operator 明确重新开放该 target class 之前不自动 re-enable。Evaluation 除了 detection delay，还需要报告 false rollback rate 和 enable/disable flapping。
 
 这和 9 月 5 日讨论的 deoptimization 不一样。那篇关心 stale runtime assumption 会不会改变 program semantics；这里 semantics 一直是合法的，predicate 只控制“这个优化值不值得”。Fallback 可以因为 p99 latency 退化 3%、JIT size 超过 I-cache budget，或者 program 的 runtime share 太低，根本不值得增加复杂度而触发。
 
-Evaluation 至少比较三种 policy：全局打开、手写 target allowlist、evidence-driven promotion。跨 kernel version、x86-64 与 ARM64、多个 CPU generation、microbenchmark 和真实 application workload 测试。指标应该包括 fleet-weighted realized speedup、worst regression、eligible execution fraction、decision overhead、rollback frequency，以及 workload/kernel 变化之后 policy 需要多久才能重新收敛。
+学术问题是：在 non-stationary workload 下，一个 compact applicability predicate 能不能保留大部分 optimization benefit，同时约束 regret 和 rollback error。生产使用者是负责 BPF loader、JIT policy 或 rollout service 的团队，接入点是已经通过 correctness gate 的 optimized artifact 被映射到具体 program 与 target 的那一步。
+
+Evaluation 至少比较三种 policy：全局打开、手写 target allowlist、evidence-driven promotion。跨 kernel version、x86-64 与 ARM64、多个 CPU generation、microbenchmark 和真实 application workload 测试。指标应该包括 fleet-weighted realized speedup、worst regression、eligible execution fraction、decision overhead、rollback frequency、false rollback rate、flapping，以及 workload/kernel 变化之后 policy 需要多久才能重新收敛。
 
 如果一个简单 static allowlist 已经能达到同样的 realized benefit 和 regression bound，那么 online controller 就没有必要。这个 failure condition 很重要，不是每个 compiler pass 都值得造一个 control plane。
 
@@ -149,4 +158,3 @@ Evaluation 至少比较三种 policy：全局打开、手写 target allowlist、
 - Linux BPF CI, [kernel-patches/bpf](https://github.com/kernel-patches/bpf), accessed 2026-09-11.
 - libbpf, [`veristat`](https://github.com/libbpf/veristat), accessed 2026-09-11.
 - Eunomia, [`bpf-bench`](https://github.com/eunomia-bpf/bpf-benchmark), accessed 2026-09-11.
-- sched_ext, [Developer Guide](https://github.com/sched-ext/scx/blob/main/DEVELOPER_GUIDE.md), accessed 2026-09-11.
