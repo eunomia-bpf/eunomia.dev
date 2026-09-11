@@ -32,22 +32,22 @@
 - GA4 export filename pattern: `*_ga4_*.csv`
 - Search Console export filename pattern: `*_gsc_*.csv`
 - Verified raw export window: `2026-07-27` through `2026-09-06`
-- Search Console newest observed source row: `2026-09-05`; under the configured three-day lag, finalized rows are used through `2026-09-04`; `2026-09-06` is absent
+- Search Console newest observed source row: `2026-09-05`; under the configured three-day lag all observed rows through that date are finalized; `2026-09-06` is absent
 - Latest fully finalized GA4 aggregate: `2026-08-24` through `2026-08-30`
-- Newest GA4 aggregate: `2026-08-31` through `2026-09-06`, partial under the configured lag and not used as a finalized week-over-week comparison
+- Newest GA4 aggregate: `2026-08-31` through `2026-09-06`, still treated as partial because the frozen export was created while lagged dates were present and has no date dimension
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
-The configured folder was directly reverified on `2026-09-07`. It now contains weekly Google export sets through `2026-08-31..09-06`, in addition to the previously verified sets beginning `2026-07-27..08-02`. Missing rows are not converted to zero.
+The configured folder was directly reverified on `2026-09-11`. It contains no weekly source set newer than `2026-08-31..09-06`. Missing rows are not converted to zero.
 
-For Search Console, the newest date export contains rows for `2026-08-31..09-05`; `2026-09-06` is absent. Under the configured three-day lag, the finalized contiguous slice available from the new set is `2026-08-31..09-04`. Those five rows contain **368 clicks / 53,341 impressions / about 0.690% aggregate CTR / about 7.45 impression-weighted average position**.
+For Search Console, the newest date export contains rows for `2026-08-31..09-05`; `2026-09-06` is absent. All currently observed rows are now outside the three-day finalization lag. The finalized six-day `2026-08-31..09-05` slice contains **388 clicks / 60,880 impressions / about 0.637% aggregate CTR / about 7.35 impression-weighted average position**.
 
-The equal-duration finalized `2026-08-24..28` slice contains **398 clicks / 48,044 impressions / about 0.828% CTR / about 10.04 weighted position**. Relative to that five-day slice, clicks are about **7.5% lower**, impressions about **11.0% higher**, CTR about **0.139 percentage points lower**, and weighted average position about **2.59 positions better**. This is an equal-duration source-native comparison, not a complete seven-day trend.
+The equal-duration finalized `2026-08-24..29` slice contains **436 clicks / 55,594 impressions / about 0.784% CTR / about 10.73 weighted position**. Relative to that six-day slice, clicks are about **11.0% lower**, impressions about **9.5% higher**, CTR about **0.147 percentage points lower**, and weighted average position about **3.38 positions better**. This is an equal-duration source-native comparison, not a complete seven-day trend.
 
-A complete latest-seven-days versus previous-seven-days GSC comparison remains unavailable because the required history is not contiguous: the prior weekly set omits `2026-08-30`, and older history also contains the previously recorded `2026-08-23` gap. The same historical gaps prevent the required complete 28-day versus preceding-comparable-period comparison. Missing rows are not converted to zero.
+A complete latest-seven-days versus previous-seven-days GSC comparison remains unavailable because the newest weekly set omits `2026-09-06` and the preceding set omits `2026-08-30`. Older history also contains the recorded `2026-08-23` gap, preventing the required complete 28-day versus preceding-comparable-period comparison. Missing rows are never synthesized as zero.
 
-The newest weekly GSC page aggregate contains Daily Report routes at **8 clicks / 1,812 impressions**, compared with **6 / 1,017** in the preceding weekly page export. The page export has no date dimension and the newest weekly set includes dates inside the finalization lag, so this is prioritization evidence only, not causal evidence for a title, topic, navigation, or metadata change.
+The newest weekly GSC page aggregate contains Daily Report routes at **8 clicks / 1,812 impressions**, compared with **6 / 1,017** in the preceding weekly page export. The page export has no date dimension and the published report set grew between weeks, so this is prioritization evidence only, not causal evidence for a title, topic, navigation, or metadata change.
 
-The GA4 `2026-08-24..30` organic landing-page aggregate remains the latest fully finalized weekly aggregate and contains **1,007 sessions** at about **45.88% session-weighted engagement**. The new `2026-08-31..09-06` aggregate contains **913 sessions** at about **47.54% session-weighted engagement**, but it includes dates inside the configured finalization lag and has no date dimension, so it is explicitly partial and is not used as a finalized week-over-week trend. The preceding finalized `2026-08-17..23` aggregate contains 984 sessions at about 49.29% engagement. Weekly aggregates do not support daily or within-week causal attribution.
+The GA4 `2026-08-24..30` organic landing-page aggregate remains the latest fully finalized weekly aggregate and contains **1,007 sessions** at about **45.88% session-weighted engagement**. The newer frozen `2026-08-31..09-06` aggregate contains **913 sessions** at about **47.54% session-weighted engagement**. It remains explicitly partial because it was exported while lagged dates were present and has no date dimension for safe finalized subsetting. The preceding finalized `2026-08-17..23` aggregate contains **984 sessions** at about **49.29% engagement**.
 
 Public repository and live-site data supplement these exports but do not replace their source-native meanings.
 
