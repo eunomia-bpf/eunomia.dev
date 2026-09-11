@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can One eBPF Operation Mean the Same Thing on CPU, NIC, and DPU?](https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/)
+
+A higher-level eBPF operation can have host, native, NIC, or DPU implementations that agree on simple results but diverge under concurrency and failures. This report develops an explicit state-transition contract, executable conformance model, and mixed-backend continuity benchmark for semantic equivalence across implementations.
+
 ### [When eBPF Calls Native Code, What Exactly Has to Be Trusted?](https://eunomia.dev/research/ebpf-native-operation-trust-boundary/)
 
 eBPF can verify a proof sequence or caller-side contract while a JIT, kfunc, or native operation still executes trusted native code. This report develops verifier-linked native-operation contracts, proof-carrying trust tiers, and an adversarial benchmark that measures performance against escaped faults and trusted-code growth.
