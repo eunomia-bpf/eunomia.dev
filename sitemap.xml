@@ -4871,6 +4871,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-complete-mediation-offload/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/</loc>
+    <lastmod>2026-09-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-cross-backend-operation-semantics/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-cross-backend-operation-semantics/</loc>
+    <lastmod>2026-09-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-cross-backend-operation-semantics/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/</loc>
     <lastmod>2026-08-22</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-diagnostic-telemetry-compression/" />
@@ -5138,14 +5152,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
