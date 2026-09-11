@@ -10,17 +10,18 @@
 - Search Console newest observed source row: `2026-09-05`; under the configured three-day lag all observed rows through that date are finalized; `2026-09-06` is absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
 - Newest GA4 weekly organic landing-page aggregate: `2026-08-31` through `2026-09-06`, still partial because the frozen export was generated while lagged dates were present and has no date dimension
-- Latest completed daily record before the current run: `2026-09-10`, pending final production reconciliation at current-run start
+- Latest completed daily record before the current run: `2026-09-10`
 - Last merged Daily Report pull request: `#195`
 - Last Daily Report squash commit: `59fc26a8599728e6e0ac3d5a6e06b993b9a63cc2`
 - Exact-merge `Validate SEO Operations` run for `#195`: `34618891189`, success
-- Exact-merge `Deploy Static App` run for `#195`: `34618891146`, still in progress when this run began and therefore not yet counted as verified production
+- Exact-merge `Deploy Static App` run for `#195`: `34618891146`, success
+- Static production export for `#195`: `b9bab3bfd4897272ca6264d66c450ad5236feb2a`, committed as `deploy static app for 59fc26a8599728e6e0ac3d5a6e06b993b9a63cc2`
 - Current daily branch: `daily/2026-09-11-ebpf-optimization-evidence`
-- Current daily pull request: pending at record creation
+- Current daily pull request: `#196`
 - Current branch original base: `59fc26a8599728e6e0ac3d5a6e06b993b9a63cc2`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-The valid September 10 delivery is PR `#195`, **Daily: define cross-backend semantics for eBPF operations**. It replaced the failed duplicate attempt `#194`. The current run must finish exact production verification for `#195` and close `#194` as superseded before closing today's work.
+The valid September 10 delivery is PR `#195`, **Daily: define cross-backend semantics for eBPF operations**. Its exact-merge validation and deployment are terminal-success, the generated bilingual production artifacts and sitemap were verified against the squash SHA, and the single compact merged-PR closeout comment was added. Failed duplicate PR `#194` is closed as superseded and was not merged.
 
 ## Current Daily Report mix
 
@@ -72,12 +73,11 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Finish the September 10 `#195` exact production deployment and generated/public bilingual verification, add its single compact merged-PR closeout comment, and close failed duplicate `#194` as superseded.
-2. Complete today's optimization-evidence report through a non-draft PR, terminal-green PR-head CI, final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
-3. Close **eBPF Optimization and Execution Specialization** at six reports and preserve the next **eBPF Deployment Compatibility and Lifecycle** roadmap without exceeding the rolling 7-of-10 eBPF cap.
-4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
-5. Keep the newest GA4 weekly aggregate explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
-6. Keep Cloudflare evidence unavailable until a supported read-only path is enabled.
-7. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
+1. Complete today's optimization-evidence report through PR `#196`, terminal-green PR-head CI, final diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+2. Close **eBPF Optimization and Execution Specialization** at six reports and preserve the next **eBPF Deployment Compatibility and Lifecycle** roadmap without exceeding the rolling 7-of-10 eBPF cap.
+3. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
+4. Keep the newest GA4 weekly aggregate explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
+5. Keep Cloudflare evidence unavailable until a supported read-only path is enabled.
+6. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
 
 Detailed run history belongs in `.github/seo-data/daily/` and merged daily pull requests.
