@@ -5207,6 +5207,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/io-uring-bpf-programmability/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/linux-atomic-write-crash-semantics/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/linux-atomic-write-crash-semantics/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/linux-atomic-write-crash-semantics/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/linux-atomic-write-crash-semantics/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/linux-atomic-write-crash-semantics/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/page-level-ebpf-memory-attribution/</loc>
     <lastmod>2026-08-18</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/page-level-ebpf-memory-attribution/" />
