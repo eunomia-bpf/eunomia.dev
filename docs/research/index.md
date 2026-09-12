@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Why Is Linux Capability Detection Harder Than Checking the Kernel Version?](https://eunomia.dev/research/linux-capability-detection-contract/)
+
+Linux release strings cannot reliably describe backports, boot configuration, execution policy, and semantic fixes. This report compares Landlock, io_uring, and openat2 negotiation patterns, then develops typed capability receipts, a compatibility counterexample corpus, and scoped evidence leases.
+
 ### [When Is an eBPF Optimization Result Strong Enough to Ship?](https://eunomia.dev/research/ebpf-optimization-evidence-contract/)
 
 eBPF optimizations can be semantically correct yet win only one microbenchmark, JIT, or tuned workload. This report develops scoped evidence envelopes, holdout and counterexample suites for adaptive optimizers, and profitability-aware promotion gates that bound regressions before fleet rollout.
