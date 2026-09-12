@@ -72,7 +72,6 @@ known, and QA state.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - first visible lines make the value clear before "see more"
 - link card, media, or document preview renders correctly

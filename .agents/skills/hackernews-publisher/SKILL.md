@@ -60,7 +60,6 @@ and any full paste-ready comment options for user review.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - the same URL/topic is not already active
 - title is neutral, not all-caps, and does not include the site name

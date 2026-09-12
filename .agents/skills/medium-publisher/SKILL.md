@@ -93,7 +93,6 @@ supported metadata changes or repairs that remain necessary after creation.
 
 ## Browser QA
 
-Before stopping for user confirmation or sending the API request, verify:
 
 - canonical/import relationship is correct when configured
 - the Medium body has not drifted from the canonical article except for

@@ -63,7 +63,6 @@ comment copy.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - target subreddit and flair are correct
 - title is factual and not editorialized

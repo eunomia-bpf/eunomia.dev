@@ -70,7 +70,6 @@ account target when known, and QA state.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - text is not truncated unexpectedly and the thread order is correct
 - link cards resolve to the intended URL

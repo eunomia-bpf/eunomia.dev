@@ -84,7 +84,6 @@ that remain necessary after creation.
 
 ## Browser QA
 
-Before stopping for user confirmation or sending the API request, verify:
 
 - title matches the source exactly; description, tags, cover, and optional
   canonical URL accurately reflect the unchanged source

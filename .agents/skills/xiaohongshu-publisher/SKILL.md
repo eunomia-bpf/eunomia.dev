@@ -70,7 +70,6 @@ state.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - title and cover communicate the concrete problem or result at first glance
 - first screen is understandable without clicking an external link

@@ -57,7 +57,6 @@ note, and any full paste-ready comment options.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - title, URL, and tags are correct
 - duplicate/recent same-topic searches are clean
