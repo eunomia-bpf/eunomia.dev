@@ -2,7 +2,7 @@
 date: 2026-09-12
 slug: linux-atomic-write-crash-semantics
 title: "Does an Atomic Linux Write Mean the Data Survives a Crash?"
-description: "Linux atomic writes prevent torn data ranges, but crash-safe applications also need persistence, ordering, metadata, and recovery guarantees."
+description: "Linux atomic writes prevent torn ranges, but crash-safe applications still need durability, ordering, metadata, and recovery guarantees before removing a WAL."
 tags:
   - Daily Report
   - Linux
@@ -16,7 +16,7 @@ status: daily-report
 
 # Does an Atomic Linux Write Mean the Data Survives a Crash?
 
-Linux now has a real atomic-write interface for regular files. With `pwritev2(..., RWF_ATOMIC)`, a supported block filesystem can ask the storage stack for torn-write protection: after a power failure or hardware failure, the target range must contain either the old data or the new data, not a mixture of both.
+Linux now has a real atomic-write interface for regular files. With `pwritev2(..., RWF_ATOMIC)`, an application can ask a supported block filesystem and storage path for torn-write protection: after a power failure or hardware failure, the target range must contain either the old data or the new data, not a mixture of both.
 
 That sounds close to the property a database wants from a page update. It is also easy to over-read it.
 
@@ -25,8 +25,6 @@ An untorn write answers one narrow question: **can one eligible data range be ob
 The distinction matters because Linux exposes these properties through different mechanisms. `RWF_ATOMIC` controls torn-write protection. `O_SYNC`, `O_DSYNC`, `RWF_SYNC`, `fsync()`, and filesystem journaling address different persistence and metadata boundaries. An application that compresses all of these into one Boolean called `atomic_write_supported` can still recover into a state that no application-level transaction ever intended.
 
 <!-- more -->
-
-This report is an adjacent Linux/storage detour from the active eBPF deployment-compatibility roadmap. The current rolling Daily Report window is already at the normal seven-of-ten eBPF ceiling, so another eBPF-centered report would violate the repository's topic-mix contract. The storage question is nevertheless directly relevant to systems software: it asks how a new kernel capability should be exposed without letting a narrow lower-layer guarantee silently expand into a broader application guarantee.
 
 ## Linux atomic writes solve torn writes, not every crash-consistency problem
 
@@ -98,7 +96,7 @@ For a page-oriented database, a witness could say:
 ```text
 WAL record W must be durable before page P may become authoritative
 P may use one RWF_ATOMIC write if its range is eligible
-commit marker C may become durable only after W's persistence edge
+commit marker C may become durable only after both W and P are durable
 metadata operation M is required only when allocation/layout changes
 recovery may accept cuts {old, W-only, W+P, W+P+C}
 recovery must reject every other visible combination
@@ -135,7 +133,7 @@ This benchmark is unnecessary if an existing block/filesystem test suite already
 
 For now, an application should treat `RWF_ATOMIC` as a capability to simplify one part of a crash protocol, not as permission to delete the protocol.
 
-First query the actual file capability with `statx()` rather than infer it from the kernel version. Respect Direct I/O, alignment, range, and segment constraints. Decide separately whether completion needs synchronized I/O. Keep ordering requirements explicit between writes. Treat filesystem metadata and namespace operations according to the filesystem's own persistence rules. Finally, validate the application's recovery state machine with crash injection before replacing a WAL, copy-on-write step, or barrier.
+First request `STATX_WRITE_ATOMIC` with `statx()` for the actual file rather than infer support from the kernel version. Verify that the returned `stx_mask` contains `STATX_WRITE_ATOMIC` before reading the atomic-write fields, then respect their Direct I/O, alignment, range, and segment constraints. Decide separately whether completion needs synchronized I/O. Keep ordering requirements explicit between writes. Treat filesystem metadata and namespace operations according to the filesystem's own persistence rules. Finally, validate the application's recovery state machine with crash injection before replacing a WAL, copy-on-write step, or barrier.
 
 The earlier [stateful eBPF transactional-upgrade report](https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/) used generation-gated commit and recovery to avoid interpreting a partially applied multi-object update as a valid new generation. Storage software faces the same class of composition mistake even though the primitives are different: one locally atomic operation does not make a multi-object transition atomic.
 

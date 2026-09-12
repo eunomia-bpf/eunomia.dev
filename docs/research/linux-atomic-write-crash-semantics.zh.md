@@ -2,7 +2,7 @@
 date: 2026-09-12
 slug: linux-atomic-write-crash-semantics
 title: "Linux 原子写成功后，数据就一定能抗崩溃吗？"
-description: "Linux 原子写可以防止单个数据范围被撕裂，但真正的 crash consistency 还要分别处理持久化、顺序、文件系统元数据和应用恢复。"
+description: "Linux 原子写可以防止单个数据范围被撕裂，但崩溃一致性仍需组合持久化、写入顺序、文件系统元数据与应用恢复，应用只有验证这些边界后才能安全简化 WAL 或同步屏障。"
 tags:
   - Daily Report
   - Linux
@@ -27,8 +27,6 @@ Untorn write 只回答一个很窄的问题：**一个满足条件的数据范�
 Linux 也正是把这些性质拆成不同机制暴露出来的。`RWF_ATOMIC` 负责 torn-write protection；`O_SYNC`、`O_DSYNC`、`RWF_SYNC`、`fsync()` 以及文件系统 journal 分别处理不同层次的持久化和元数据问题。如果应用最后只留下一个 `atomic_write_supported=true`，就很可能把一条窄的底层 guarantee 放大成并不存在的应用级 guarantee。
 
 <!-- more -->
-
-本文是当前 eBPF deployment-compatibility roadmap 中的一次 adjacent Linux/storage detour。最新十篇 Daily Report 已经达到正常规则允许的 **7 篇 eBPF-centered** 上限，如果今天继续发布 eBPF-centered 报告就会超过比例约束。这个存储问题仍然符合系统方向：它讨论的是一个新 kernel capability 应该怎样被上层安全消费，而不是怎样把局部机制的名字直接当成全局语义。
 
 ## Linux 原子写解决的是 torn write，不是全部 crash consistency
 
@@ -106,7 +104,7 @@ fallback = WAL/fsync 或 copy-on-write path
 ```text
 WAL record W 必须 durable 后，page P 才能成为 authoritative
 P 满足 range constraint 时可以使用一次 RWF_ATOMIC
-commit marker C 只能在 W 的 persistence edge 之后 durable
+commit marker C 只能在 W 和 P 都持久化之后 durable
 只有 allocation/layout 改变时才需要 metadata operation M
 recovery 可以接受 {old, W-only, W+P, W+P+C}
 其他所有 visible combination 都必须拒绝
@@ -143,7 +141,7 @@ Evaluation 至少拿 atomic-write-aware protocol 和传统 WAL + `fsync()` basel
 
 现在更合理的做法，是把 `RWF_ATOMIC` 当作简化 crash protocol 某一个局部步骤的 capability，而不是删除 crash protocol 的许可证。
 
-先用 `statx()` 查询这个具体文件的能力，不要根据 kernel version 猜。严格满足 Direct I/O、alignment、range 和 segment constraint。然后单独决定 completion 是否需要 synchronized I/O。多次 write 之间的 ordering 要继续显式表达。Filesystem metadata 和 namespace operation 按 filesystem 自己的 persistence rule 处理。最后在真的删除 WAL、COW step 或 barrier 之前，用 crash injection 验证 application recovery state machine。
+先对这个具体文件调用 `statx()` 并请求 `STATX_WRITE_ATOMIC`，不要根据 kernel version 猜。读取 atomic-write 字段前，必须确认返回的 `stx_mask` 包含 `STATX_WRITE_ATOMIC`，随后严格满足 Direct I/O、alignment、range 和 segment constraint。然后单独决定 completion 是否需要 synchronized I/O。多次 write 之间的 ordering 要继续显式表达。Filesystem metadata 和 namespace operation 按 filesystem 自己的 persistence rule 处理。最后在真的删除 WAL、COW step 或 barrier 之前，用 crash injection 验证 application recovery state machine。
 
 此前的 [有状态 eBPF 原子升级报告](https://eunomia.dev/zh/research/stateful-ebpf-transactional-upgrade/) 用 generation-gated commit 和 recovery 避免把 multi-object update 的中间状态误认成新 generation。Storage software 虽然使用完全不同的 primitive，但会犯同一类 composition mistake：**一个 locally atomic operation 并不会自动让 multi-object transition 也 atomic。**
 
