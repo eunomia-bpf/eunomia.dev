@@ -43,21 +43,17 @@ instructions and named repository exceptions in runtime memory.
 How you investigate, validate, and collaborate across models is your own
 decision within the patrol Skill's authorization; there are no fixed worker
 partitions, model roles, or attempt budgets in this run. When you want another
-model for implementation, tests, or focused review, launch an available local
-OpenCode route from:
+model for implementation, tests, or focused review, drive the pinned OMP
+binary, which is the local-model subagent for this patrol:
 
-    __LOCAL_MODELS__
+    /workspaces/.agent-state/eunomia-community-patrol/bin/omp --model litellm/local-small --approval-mode yolo --session-dir /workspaces/.agent-state/eunomia-community-patrol/omp-sessions -p "<subtask as one argument>"
 
-for example with:
-
-    opencode run --dir <working directory> --model spark-gateway/<model> "<task>"
-
-Provider configuration comes from the Workspace's existing OpenCode config;
-LITELLM_API_KEY is supplied by the existing Workspace Secret binding, so never
-print, store, or rotate it. Local routes have approximately 200k tokens of
-context, so keep context focused: pass specific files, issue evidence, and
-compact summaries instead of whole repositories, organization history, or
-large raw logs.
+OpenCode is not used for this patrol. The local model runs through the
+Workspace's existing LiteLLM gateway; LITELLM_API_KEY is supplied by the
+existing Workspace Secret binding, so never print, store, or commit it. The
+local model has approximately 200k tokens of context, so keep context
+focused: pass specific files, issue evidence, and compact summaries instead of
+whole repositories, organization history, or large raw logs.
 
 If this run's event log in $RUNNER_EVENT_FILE already contains an earlier
 attempt of the same run, reconcile its completed branches, commits, pull
