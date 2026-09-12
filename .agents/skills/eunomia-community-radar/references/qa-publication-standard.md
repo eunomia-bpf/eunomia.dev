@@ -48,14 +48,20 @@ raw values are absent from maps, buffers, logs, traces, and exported telemetry.
 
 ## Publication Floor
 
-Every daily run publishes one technically useful, independently verifiable,
-non-duplicative Q&A that remains safe after anonymization. When no single
-message is sufficient, combine related same-day signals, use a real unresolved
-question from the monitored communities regardless of age, or select a genuine
-question from permitted public community pages and public primary
-documentation. Report access and coverage gaps honestly in the run notes; a
-coverage gap is always reported and never blocks publication. Never invent a
-question, fabricate evidence, or publish a placeholder.
+Every daily run publishes exactly one technically useful, independently
+verifiable, non-duplicative, anonymized Q&A in both English and Chinese that
+remains safe after anonymization. Select the question from the previous 24
+hours; when that window is sparse, fall back to the previous 7 days; when it
+still yields nothing usable, keep selecting a verifiable real question from
+the permitted readable historical archives, a genuine unresolved community
+question, permitted public community pages, or public primary documentation,
+until the run is complete. When no single message is sufficient, combine
+related same-day signals. Slack, Discord, and Reddit coverage that is partial,
+inaccessible, or sparse is a coverage gap to record, not a gate: it is
+reported honestly in the run notes and never blocks publication. A channel
+that could not be reached is recorded as inaccessible, never as quiet.
+Coverage and freshness gaps are always reported and never block publication.
+Never invent a question, fabricate evidence, or publish a placeholder.
 
 ## Daily Community Briefing
 

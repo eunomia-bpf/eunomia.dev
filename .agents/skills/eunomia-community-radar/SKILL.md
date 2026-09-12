@@ -7,9 +7,15 @@ description: Monitor approved eBPF, Linux, observability, and AI-infrastructure 
 
 Turn daily community discussion into one durable answer and one compact view of
 what eBPF practitioners are trying to solve. Every daily run publishes exactly
-one combined Q&A and community briefing. Never invent a question or publish
-without real public primary sources; coverage, freshness, and access gaps are
-reported honestly and never stop the publication itself.
+one real, anonymized, bilingual (English and Chinese) Q&A with its community
+briefing. Never invent a question or publish without a real public primary
+source. Start from the previous 24 hours; when that window is sparse, fall
+back to the previous 7 days; when it still yields nothing usable, keep
+selecting a verifiable real question from the permitted readable historical
+archives, a genuine unresolved community question, permitted public community
+pages, or public primary documentation, until the run is complete. Coverage,
+freshness, and access gaps are recorded honestly in the run result and never
+stop the publication itself.
 
 ## Required Context
 
@@ -68,15 +74,17 @@ several discussions. The question must be:
   and
 - materially different from an existing Q&A, tutorial, or blog post.
 
-When no single message is strong enough, combine related same-day signals into
-one practical question. Partial archive coverage, inaccessible or sparse
-sources, or a thin daily window never stop publication: continue selecting and
-verifying a real question from existing readable archive material, a genuine
-unresolved question from the monitored communities regardless of age, permitted
-public community pages, or public primary documentation, and say in the
+When no single message in the 24-hour window is strong enough, first widen to
+the previous 7 days; when that is still sparse, keep selecting and verifying a
+real question from the permitted readable historical archives, a genuine
+unresolved question from the monitored communities regardless of age,
+permitted public community pages, or public primary documentation, until the
+run is complete. Partial archive coverage, inaccessible or sparse sources, and
+thin windows are recorded, never treated as a failure or a reason to stop, and
+inaccessible channels are never claimed to have been quiet. Say in the
 internal run result which fallback supplied the question. Never publish a
-placeholder, promotional topic, or speculation, and never fabricate a question
-or evidence.
+placeholder, promotional topic, or speculation, and never fabricate a
+question or evidence.
 
 ### 3. Write The Answer
 
