@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why can't SIGKILL stop a BPF program load after verification succeeds?](/ebpf-qa/2026-09-11-bpf-post-verification-rewrite-sigkill/)
 - [What eBPF/kernel limitations should a process behavior reconstruction tool account for in its architecture?](/ebpf-qa/2026-09-10-process-behavior-reconstruction-event-loss/)
 - [Which technical boundaries actually constrain malicious eBPF payloads in practice?](/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/)
 - [Which failure scenarios are mandatory before a transient-TCP-recovery eBPF benchmark is meaningful?](/ebpf-qa/2026-09-06-tcp-recovery-benchmark-failure-scenarios/)

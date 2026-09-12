@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 SIGKILL 无法终止 BPF 程序加载，即使验证已经成功？](/zh/ebpf-qa/2026-09-11-bpf-post-verification-rewrite-sigkill/)
 - [构建进程行为重构工具时，架构上需要把哪些 eBPF/内核限制考虑进去？](/zh/ebpf-qa/2026-09-10-process-behavior-reconstruction-event-loss/)
 - [实践中，哪些技术边界真正约束恶意的 eBPF 载荷？](/zh/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/)
 - [eBPF 瞬时 TCP 故障恢复基准必须覆盖哪些场景才有意义？](/zh/ebpf-qa/2026-09-06-tcp-recovery-benchmark-failure-scenarios/)
