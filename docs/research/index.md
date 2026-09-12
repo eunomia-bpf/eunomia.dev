@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Does an Atomic Linux Write Mean the Data Survives a Crash?](https://eunomia.dev/research/linux-atomic-write-crash-semantics/)
+
+Linux `RWF_ATOMIC` can prevent torn writes for one supported data range without defining persistence, ordering, metadata, or multi-object recovery. This report separates those guarantees and develops crash-semantics descriptors, crash-cut witnesses, and failure-class benchmarks for atomic I/O.
+
 ### [When Is an eBPF Optimization Result Strong Enough to Ship?](https://eunomia.dev/research/ebpf-optimization-evidence-contract/)
 
 eBPF optimizations can be semantically correct yet win only one microbenchmark, JIT, or tuned workload. This report develops scoped evidence envelopes, holdout and counterexample suites for adaptive optimizers, and profitability-aware promotion gates that bound regressions before fleet rollout.
