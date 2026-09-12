@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [Linux 原子写成功后，数据就一定能抗崩溃吗？](https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/)
+
+Linux `RWF_ATOMIC` 可以让一个受支持的数据范围不被 torn，却没有同时定义持久化、写入顺序、metadata 和 multi-object recovery。本文把这些 guarantee 分开，并提出 crash-semantics descriptor、crash-cut witness 和按 failure class 评测 atomic I/O 的 benchmark。
+
 ### [一个 eBPF 优化结果，到什么程度才值得上线？](https://eunomia.dev/zh/research/ebpf-optimization-evidence-contract/)
 
 eBPF 优化即使语义完全正确，也可能只在单个 microbenchmark、JIT 或被调过的 workload 上获胜。本文提出带 claim scope 的 evidence envelope、面向自适应 optimizer 的 holdout/counterexample suite，以及在 fleet rollout 前限制 regression 的 profitability-aware promotion gate。
