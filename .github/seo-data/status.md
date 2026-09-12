@@ -10,17 +10,19 @@
 - Search Console newest observed source row: `2026-09-05`; under the configured three-day lag all observed rows through that date are finalized; `2026-09-06` is absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
 - Newest GA4 weekly organic landing-page aggregate: `2026-08-31` through `2026-09-06`, still partial because the frozen export was generated while lagged dates were present and has no date dimension
-- Latest completed daily record before the current run: `2026-09-11` content was squash-merged during this run; exact production closeout remains gated on its in-flight exact-merge deployment
+- Latest completed daily record before the current run: `2026-09-11`, fully closed after exact-merge production deployment and bilingual/sitemap verification
 - Last merged Daily Report pull request: `#196`
 - Last Daily Report squash commit: `5989df8f4d05370bc9cf8bfcecf2680056c3a60d`
 - PR-head `Validate SEO Operations` and `Deploy Static App` for `#196`: terminal-success before merge
-- Exact-merge `Deploy Static App` for `#196`: run `34703868336`, started from the squash SHA and still in progress when this status snapshot was written
+- Exact-merge `Deploy Static App` for `#196`: run `34703868336`, terminal-success
+- Production static export for `#196`: `128c9d43241d9258d09053e1f60278aa5e21be03`, explicitly bound to the squash SHA
+- Merged-PR closeout for `#196`: exactly one compact top-level closeout comment added after verification
 - Current daily branch: `daily/2026-09-12-linux-atomic-write-crash-semantics`
 - Current daily pull request: `#197`
 - Current branch original base: `5989df8f4d05370bc9cf8bfcecf2680056c3a60d`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-September 11's publication is not treated as fully closed until the exact squash-SHA production workflow is terminal-success, the generated bilingual pages and sitemap are verified, and exactly one compact closeout comment is placed on merged PR `#196`. Merge alone is not publication acceptance.
+September 11 is fully reconciled: the exact squash-SHA deployment reached terminal-success, generated English/Chinese production pages were verified for locale-correct canonical and reciprocal language alternates plus Article JSON-LD and Daily Report navigation, both sitemap routes and alternates were verified, and one compact closeout comment was added to merged PR `#196`. Independent crawler/search discovery had not refreshed the new route at closeout, so exact-SHA deployment plus generated production artifacts were used as acceptance evidence rather than a false fresh-crawl claim.
 
 ## Current Daily Report mix
 
@@ -70,12 +72,9 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Finish reconciling PR `#196` through terminal exact-merge production deployment, generated bilingual/sitemap verification, and exactly one merged-PR closeout comment.
-2. Complete PR `#197` through terminal-green PR-head CI, full diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
-3. Keep today's adjacent Linux/storage detour within the mechanical **7 / 0 / 3** rolling mix and resume **eBPF Deployment Compatibility and Lifecycle** as soon as the window permits.
-4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
-5. Keep the newest GA4 weekly aggregate explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
-6. Keep Cloudflare evidence unavailable until a supported read-only path is enabled.
-7. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
-
-Detailed run history belongs in `.github/seo-data/daily/` and merged daily pull requests.
+1. Complete PR `#197` through terminal-green PR-head CI, full diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+2. Keep today's adjacent Linux/storage detour within the mechanical **7 / 0 / 3** rolling mix and resume **eBPF Deployment Compatibility and Lifecycle** as soon as the window permits.
+3. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
+4. Keep the newest GA4 weekly aggregate explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
+5. Keep Cloudflare evidence unavailable until a supported read-only path is enabled.
+6. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
