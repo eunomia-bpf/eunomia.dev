@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [为什么 Linux 能力检测不能只看内核版本？](https://eunomia.dev/zh/research/linux-capability-detection-contract/)
+
+Linux 版本号无法可靠表达发行版回移植、启动配置、执行策略和语义修复。本文比较 Landlock、io_uring 与 openat2 的协商方式，并提出有类型的 capability receipt、兼容性反例语料以及带作用域的证据有效期。
+
 ### [一个 eBPF 优化结果，到什么程度才值得上线？](https://eunomia.dev/zh/research/ebpf-optimization-evidence-contract/)
 
 eBPF 优化即使语义完全正确，也可能只在单个 microbenchmark、JIT 或被调过的 workload 上获胜。本文提出带 claim scope 的 evidence envelope、面向自适应 optimizer 的 holdout/counterexample suite，以及在 fleet rollout 前限制 regression 的 profitability-aware promotion gate。
