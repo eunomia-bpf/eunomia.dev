@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [When Is an eBPF Optimization Result Strong Enough to Ship?](https://eunomia.dev/research/ebpf-optimization-evidence-contract/)
+
+eBPF optimizations can be semantically correct yet win only one microbenchmark, JIT, or tuned workload. This report develops scoped evidence envelopes, holdout and counterexample suites for adaptive optimizers, and profitability-aware promotion gates that bound regressions before fleet rollout.
+
 ### [Can One eBPF Operation Mean the Same Thing on CPU, NIC, and DPU?](https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/)
 
 A higher-level eBPF operation can have host, native, NIC, or DPU implementations that agree on simple results but diverge under concurrency and failures. This report develops an explicit state-transition contract, executable conformance model, and mixed-backend continuity benchmark for semantic equivalence across implementations.

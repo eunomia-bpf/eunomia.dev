@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [一个 eBPF 优化结果，到什么程度才值得上线？](https://eunomia.dev/zh/research/ebpf-optimization-evidence-contract/)
+
+eBPF 优化即使语义完全正确，也可能只在单个 microbenchmark、JIT 或被调过的 workload 上获胜。本文提出带 claim scope 的 evidence envelope、面向自适应 optimizer 的 holdout/counterexample suite，以及在 fleet rollout 前限制 regression 的 profitability-aware promotion gate。
+
 ### [同一个 eBPF 操作放到 CPU、NIC 和 DPU 上，语义还能一致吗？](https://eunomia.dev/zh/research/ebpf-cross-backend-operation-semantics/)
 
 一个高层 eBPF 操作可以拥有 host、native、NIC 或 DPU 实现，简单结果相同却可能在并发与故障时产生不同语义。本文提出显式 state-transition contract、可执行 conformance model，以及验证跨 backend 语义连续性的 mixed-backend benchmark。
