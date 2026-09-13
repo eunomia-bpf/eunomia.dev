@@ -58,7 +58,7 @@ The newer `2026-08-31..09-06` aggregate contains **913 sessions** at about **47.
 
 ### Public and repository technical evidence
 
-The latest public-safe data brief generated on `2026-09-13` reports the canonical homepage at HTTP 200 in **179 ms**, robots at HTTP 200, sitemap at HTTP 200, and **758** sitemap entries. It records **99** active non-fork repositories, **9,999** stars, **1,308** forks, and **289** open issue/PR records across the observed public portfolio. These are context, not a blended SEO score.
+The latest public-safe data brief generated on `2026-09-13` reports the canonical homepage at HTTP 200 in **179 ms**, robots at HTTP 200, sitemap at HTTP 200, and **758** sitemap entries. It records **99** active non-fork repositories, **9,999** stars, **1,308** forks, and **289** open issue/PR records across the observed public portfolio. The same brief reports a DEV publication surface of **63 observed articles, 43 public reactions, and 4 comments**. These are source-native context, not a blended SEO score.
 
 Current analytics, prior exact-SHA deployment evidence, and public-safe evidence do not establish a concrete crawlability, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that warrants a separate technical SEO implementation change today.
 
