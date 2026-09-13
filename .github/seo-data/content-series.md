@@ -150,7 +150,7 @@ Working question: **How can eBPF programs and runtimes specialize to hardware an
 workload behavior without silently changing verifier-approved semantics,
 portability, debuggability, trust, or the validity of the performance claim?**
 
-This series became active after the GPU/runtime series closed and reaches its
+This series became active after the GPU/runtime series closed and reached its
 normal six-report boundary with the `2026-09-11` publication.
 
 The six boundaries are intentionally different:
@@ -184,9 +184,9 @@ Before September 10 the newest ten contained **5 eBPF-centered / 0 pure Agent /
 5 adjacent systems**. The September 10 eBPF-centered report rotated the August
 29 adjacent GPU memory-placement report out, producing **6 / 0 / 4**.
 
-Before September 11 the mix is therefore **6 / 0 / 4**. The September 11
-optimization-evidence report is eBPF-centered and rotates the August 30 adjacent
-GPU-instrumentation report out. After publication the newest ten contain **7
+Before September 11 the mix was therefore **6 / 0 / 4**. The September 11
+optimization-evidence report was eBPF-centered and rotated the August 30 adjacent
+GPU-instrumentation report out. After publication the newest ten contained **7
 eBPF-centered / 0 pure Agent / 3 adjacent systems**. No classification changes
 were made to obtain that result.
 
@@ -201,7 +201,7 @@ Working question: **How can one eBPF application remain loadable, semantically
 correct, and operationally explainable across real kernel, distribution,
 backport, toolchain, and BPF-interface evolution?**
 
-This roadmap becomes active after the optimization series reaches six reports on
+This roadmap became active after the optimization series reached six reports on
 `2026-09-11`. It is deliberately about deployment compatibility across evolving
 systems, not architecture-specific code generation and not application-level
 transactional upgrade.
@@ -229,13 +229,29 @@ Novelty guards:
 - require current primary evidence from Linux/BPF tooling, distributions, CI, or
   production compatibility systems before selecting a boundary.
 
-The newest-ten mix after September 11 sits at the allowed maximum of **7
-eBPF-centered / 0 pure Agent / 3 adjacent systems**. Therefore the next scheduled
-run must not mechanically publish another eBPF-centered report if doing so would
-push the rolling window above 7. When the active series is temporarily blocked by
-that arithmetic, select a strong approved adjacent-systems detour (or, if it
-passes the quality bar, a limited pure-Agent systems question) and record the
-detour. Resume this active series as soon as the rolling window permits it.
+### Temporary mix-driven detours before activation
+
+The active series is not replaced by these detours. It remains the next normal
+eBPF roadmap, but the rolling window reached the 7-of-10 eBPF ceiling before its
+first report could enter.
+
+1. `2026-09-12` — `/research/linux-atomic-write-crash-semantics/`: adjacent
+   Linux/storage report separating one-range `RWF_ATOMIC` torn-write protection
+   from durability, ordering, filesystem metadata, and application recovery.
+   The oldest report rotating out was also adjacent, so the mix remained
+   **7 eBPF / 0 pure Agent / 3 adjacent**.
+2. `2026-09-13` — `/research/cxl-memory-hot-remove-reliability/`: adjacent
+   Linux/CXL memory-management report separating hot-add/onlining capability from
+   the runtime ownership state that determines whether CXL memory can later be
+   evacuated, offlined, and physically detached. The oldest report rotating out
+   is the adjacent September 2 GPU-membership report, so the mix again remains
+   **7 / 0 / 3**.
+
+After the September 13 publication, the oldest report that will rotate out on the
+next run is the eBPF-centered September 3 GPU-megakernel report. An eBPF-centered
+compatibility report can therefore enter while preserving the **7 / 0 / 3** mix.
+Resume this active series on the next run if the candidate passes evidence,
+novelty, and quality gates.
 
 ## Queued series — Agent Systems (limited)
 
