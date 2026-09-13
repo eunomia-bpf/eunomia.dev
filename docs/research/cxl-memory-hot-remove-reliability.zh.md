@@ -2,7 +2,7 @@
 date: 2026-09-13
 slug: cxl-memory-hot-remove-reliability
 title: "Linux 能保证 CXL 内存以后还能热移除吗？"
-description: "Linux 只有在相关内存块全部安全迁出后才能热移除 CXL 内存。ZONE_MOVABLE 能提高成功率，但长期页固定、页表和巨页仍可能阻止迁出。本文解释为什么热插拔能力不等于未来可移除，并提出可验证的准入和热移除机制。"
+description: "CXL 内存通过 dax_kmem 转成 System RAM 后，只有相关内存块都能安全迁出并 offline，才可能继续热移除。ZONE_MOVABLE 能提高成功率，但长期页固定、页表和巨页仍会让未来可移除性取决于运行时 ownership。"
 tags:
   - Daily Report
   - Linux
@@ -78,7 +78,7 @@ CXL region topology 还会限制动态变化方式。固件需要在启动时准
 
 任何前置阶段失败，后续阶段都应该停止。这里的失败不是简单的“这块容量还在线”。如果在仍有 stale reference 时继续物理移除，结果可能直接升级成主机故障。
 
-用户态工具其实已经暴露出这种现实。`daxctl reconfigure-device` 在把 `system-ram` 模式转换回 `devdax` 之前，预期相关 memory section 已经 offline。`--force` 可以尝试替用户完成 offlining，但工具文档也明确警告：如果强行绕过 auto-online policy，虽然一次 reconfiguration 可能成功，之后却可能再也无法在不重启的情况下把这些内存 offline。ndctl 的一个真实 issue 还展示过 CXL 设备卡在 `system-ram` 模式的情况，因为多个 memory section 在转换回 `devdax` 时返回 `Device or resource busy`。
+用户态工具其实已经暴露出这种现实。`daxctl reconfigure-device` 在把 `system-ram` 模式转换回 `devdax` 之前，预期相关 memory section 已经 offline。`--force` 可以尝试替用户完成 offlining，但工具文档也明确警告：如果强行绕过 auto-online policy，虽然一次 reconfiguration 可能成功，之后却可能再也无法在不重启的情况下把这些内存 offline。ndctl 的一个真实 issue 还展示过 CXL 设备卡在 `system-ram` 模式的情况，因为其中一个 memory section 在转换回 `devdax` 时返回 `Device or resource busy`。
 
 这类生产证据说明的是同一个边界：**内存能顺利加入系统，不代表以后一定能顺利撤销。**
 
