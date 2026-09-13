@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [什么时候应该用 BPF ring buffer 而不是 perf event 数组来采集 eBPF 样本？](/zh/ebpf-qa/2026-09-12-bpf-ringbuffer-vs-perf-event-array/)
 - [为什么 SIGKILL 无法终止 BPF 程序加载，即使验证已经成功？](/zh/ebpf-qa/2026-09-11-bpf-post-verification-rewrite-sigkill/)
 - [构建进程行为重构工具时，架构上需要把哪些 eBPF/内核限制考虑进去？](/zh/ebpf-qa/2026-09-10-process-behavior-reconstruction-event-loss/)
 - [实践中，哪些技术边界真正约束恶意的 eBPF 载荷？](/zh/ebpf-qa/2026-09-08-malicious-ebpf-payload-boundaries/)
