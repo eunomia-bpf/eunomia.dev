@@ -1,0 +1,9 @@
+# 2026-09-12 content patrol (America/Los_Angeles day; system clock 09-13 +08)
+
+- Invoked `eunomia-social-radar` checks, the Juejin publisher, and a Zhihu mounted-state login recheck through normal visible Chrome.
+- Published [48-energy on Juejin](https://juejin.cn/post/7684795356321628170) (source `docs/tutorials/48-energy/README.zh.md`, source H1 removed, body unchanged; 14 H2, 20 code blocks, 1 table, single-copy body) using the 09-12 normal slot; public-page QA passed, ledger recorded as `confirmed`.
+- Resolved the pending Runtime Security item: the 09-09 submission cleared review and [is now public](https://juejin.cn/post/7683507165231841295); completed public-page QA and moved it to `confirmed` in the ledger. This resolved a pending-verification item, not a new submission.
+- Zhihu remains blocked: the mounted signed-in state has 11 zhihu.com cookies but no `z_c0` auth cookie, so the session is not signed in. No Zhihu task was attempted; the first queued AgentCgroup Zhihu task resumes after a visible signed-in session.
+- Catch-up slots: three documented gaps remain (2026-08-29, 2026-09-01, 2026-09-03); none was consumed today because Zhihu is blocked and Juejin is capped at one post per day.
+- Social radar: [Juejin ACRFence](https://juejin.cn/post/7682314741114077211) at 32 reads with 2 comments; [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395) at 219 reads with stable single-body structure; the two new posts show low early reads (Runtime Security 14, 48-energy 2). No response or correction is due; next useful checkpoint is after the next Juejin publication. Findings appended to `community-feedback.md`.
+- Ledger/queue updated: Juejin now 40/107 mapped (67 unmatched, 41 confirmed); queue remaining 24 Zhihu + 38 Juejin; `not-published.md` and both platform ledgers last_checked to 2026-09-12.
