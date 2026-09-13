@@ -229,7 +229,7 @@ Novelty guards:
 - require current primary evidence from Linux/BPF tooling, distributions, CI, or
   production compatibility systems before selecting a boundary.
 
-### Temporary mix-driven detours before activation
+### Temporary mix-driven detours while the active series is blocked
 
 The active series is not replaced by these detours. It remains the next normal
 eBPF roadmap, but the rolling window reached the 7-of-10 eBPF ceiling before its
