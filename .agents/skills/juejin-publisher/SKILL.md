@@ -98,6 +98,13 @@ artifact, ledger, queue, and snapshots instead.
    - eBPF tutorials: `后端`, `Linux`, `开源`, `云原生`, `架构`
    - AI agent or runtime posts: `人工智能`, `AIGC`, `后端`, `架构`, `安全`
    - GPU observability posts: `人工智能`, `后端`, `架构`, `Linux`, `性能优化`
+   - The tag field is a search-select widget that exposes only a curated option
+     list; not every intended tag is offered, and typing a term can commit an
+     unrelated suggestion. For the 2026-09-12 48-energy tutorial, only
+     `Linux`, `后端`, and `性能优化` were available — `eBPF` and `开源` were not.
+     Verify each tag chip by clicking `确定` (or the confirm control) one at a
+     time, read the committed chips back, and record the actually-committed
+     tags in the ledger rather than the intended list.
 7. Complete `确定并发布` when the task requests publication or the queue item
    is marked `排队`; do not ask for duplicate confirmation. Stop at preview only
    for a draft or preview task.
