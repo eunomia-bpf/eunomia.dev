@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [使用 io_uring 的进程，检查点究竟必须保存什么？](https://eunomia.dev/zh/research/io-uring-checkpoint-recovery/)
+
+`io_uring` checkpoint 不能只复制共享 ring 内存，还要处理飞行中的请求、ring 持有的文件与缓冲区、completion 可见性、multishot 进度和外部副作用。本文提出 recovery manifest、completion/effect frontier 和对抗式 checkpoint benchmark，并把保守的 drain-and-recreate 作为首要 baseline。
+
 ### [Linux 原子写成功后，数据就一定能抗崩溃吗？](https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` 可以让一个受支持的数据范围不被 torn，却没有同时定义持久化、写入顺序、metadata 和 multi-object recovery。本文把这些 guarantee 分开，并提出 crash-semantics descriptor、crash-cut witness 和按 failure class 评测 atomic I/O 的 benchmark。
