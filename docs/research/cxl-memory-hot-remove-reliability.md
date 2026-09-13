@@ -2,7 +2,7 @@
 date: 2026-09-13
 slug: cxl-memory-hot-remove-reliability
 title: "Can Linux Promise That CXL Memory Will Be Removable Later?"
-description: "Linux can hot-remove CXL memory only after every block is safely evacuated. ZONE_MOVABLE improves the odds, but future removability is still a runtime property."
+description: "Linux can hot-remove CXL System RAM only after its blocks are evacuated. ZONE_MOVABLE helps, but future removability still depends on runtime ownership."
 tags:
   - Daily Report
   - Linux
@@ -78,7 +78,7 @@ physically detach or reconfigure the device
 
 A failure at any earlier stage should stop the later stage. Treating device removal as a best-effort command after a timeout is unsafe because the failure mode is not merely "capacity stayed online." A physical removal with stale references can become a host fault.
 
-The userspace tooling already exposes some of this reality. `daxctl reconfigure-device` expects System RAM sections to be offline before converting a DAX device back to `devdax`. Its `--force` mode can attempt the offlining, but the documentation warns that overriding auto-online policy may produce a configuration that cannot later be offlined without a reboot. A real ndctl issue shows a CXL device stuck in `system-ram` because several memory sections returned `Device or resource busy` during the attempted conversion back to `devdax`.
+The userspace tooling already exposes some of this reality. `daxctl reconfigure-device` expects System RAM sections to be offline before converting a DAX device back to `devdax`. Its `--force` mode can attempt the offlining, but the documentation warns that overriding auto-online policy may produce a configuration that cannot later be offlined without a reboot. A real ndctl issue shows a CXL device stuck in `system-ram` after one memory section returned `Device or resource busy` during the attempted conversion back to `devdax`.
 
 That is deployment evidence for the same distinction: **successful admission of memory does not imply successful revocation of memory later**.
 
