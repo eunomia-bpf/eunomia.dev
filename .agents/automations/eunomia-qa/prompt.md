@@ -77,6 +77,16 @@ Task:
      When the candidate is already published on `origin/main`, it skips the
      commit/push and re-verifies the live public pages instead of failing on
      the published state.
+   - A local static build or render that stalls under resource contention is a
+     pre-flight, not a publication stopper: the Markdown is validated by the
+     content and privacy checks, and the authoritative build, render, and
+     deploy run on the Pages pipeline when the candidate is pushed to `main`.
+     When the local build cannot complete on this machine, commit only the
+     scoped candidate pair and both indexes (which triggers that pipeline)
+     and rerun the same validator: its re-verify path completes the run
+     against the live public pages and writes the receipt. Never abandon the
+     run, and never skip or weaken the privacy, content, or public-page
+     checks to work around a stalled build.
    - If any stage fails, diagnose and fix the actual source problem, then
      rerun the same validator. If the push fails because `origin/main`
      advanced, preserve every local change, integrate the remote with a safe
