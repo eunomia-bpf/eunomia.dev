@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [What Must Be Saved to Checkpoint a Process Using io_uring?](https://eunomia.dev/research/io-uring-checkpoint-recovery/)
+
+An `io_uring` checkpoint has to account for in-flight requests, ring-owned files and buffers, completion visibility, multishot progress, and external effects rather than copying shared ring memory alone. This report develops a recovery manifest, a completion/effect frontier, and an adversarial checkpoint benchmark while treating conservative drain-and-recreate as the baseline.
+
 ### [Does an Atomic Linux Write Mean the Data Survives a Crash?](https://eunomia.dev/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` can prevent torn writes for one supported data range without defining persistence, ordering, metadata, or multi-object recovery. This report separates those guarantees and develops crash-semantics descriptors, crash-cut witnesses, and failure-class benchmarks for atomic I/O.
