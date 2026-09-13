@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-12",
+  "last_checked": "2026-09-13",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -216,6 +216,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7684547172777443374",
+      "status": "confirmed",
+      "title": "eBPF 教程：追踪 CUDA GPU 操作",
+      "url": "https://juejin.cn/post/7684547172777443374",
+      "staged_url": "https://juejin.cn/spost/7684547172777443374",
+      "source_path": "docs/tutorials/47-cuda-events/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Published and confirmed public on 2026-09-13 (09-13 normal slot). Category 后端; tags Linux, 后端, 性能优化 (Juejin tag option list has no eBPF/开源). The public page preserves the exact title and single-copy source body with thirteen H2 headings, six H3 headings, 30 code blocks (23 c, 4 bash, 3 program-output blocks left unlabeled as in the source), twelve external links, and no images; the source H1 is rendered once by the title field and not repeated in the body. No review/update/rejection marker. QA passed on 2026-09-13."
+    },
     {
       "id": "juejin-7684795356321628170",
       "status": "confirmed",
