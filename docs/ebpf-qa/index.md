@@ -8,14 +8,9 @@ Questions may begin in public issues, mailing lists, forums, or technical chat
 communities. Before publication, we rewrite them to remove identities, private
 deployment details, and wording that could identify the original participant.
 The answer is then checked against public primary sources. One question is
-published each day in both English and Chinese; when part of the monitored
-window cannot be covered, the gap is reported honestly on the page instead of
-stopping publication, and no invented material is ever used to fill it. The
-day's question is chosen from the previous 24 hours; when that window is
-sparse, the previous 7 days are used, and when that is still thin the question
-is selected from the permitted readable historical archives, a genuine
-unresolved community question, permitted public community pages, or public
-primary documentation, until a real answer is complete.
+published each day; when part of the monitored window cannot be covered, the
+gap is reported honestly on the page instead of stopping publication, and no
+invented material is ever used to fill it.
 
 ## Latest Answers
 
