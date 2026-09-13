@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [Linux 能保证 CXL 内存以后还能热移除吗？](https://eunomia.dev/zh/research/cxl-memory-hot-remove-reliability/)
+
+Linux 可以把 CXL 容量加入 System RAM，但以后能否拆除取决于所有 memory block 能否迁空，以及 DAX/CXL device stack 能否完整 teardown。本文把 hotplug capability 与未来可移除性分开，并提出 removability budget、evacuation witness 和按 blocker class 评测生命周期的 benchmark。
+
 ### [Linux 原子写成功后，数据就一定能抗崩溃吗？](https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` 可以让一个受支持的数据范围不被 torn，却没有同时定义持久化、写入顺序、metadata 和 multi-object recovery。本文把这些 guarantee 分开，并提出 crash-semantics descriptor、crash-cut witness 和按 failure class 评测 atomic I/O 的 benchmark。
