@@ -55,34 +55,38 @@ operating entrypoint; this file stores durable goals and constraints.
   the merged daily PR, then reconcile `status.md` in the next run.
 - `.agents/skills/seo-geo` and `.github/seo-skills` own technical SEO mechanics;
   `.agents/skills/eunomia-research-report` owns Daily Report research and quality.
+- The recurring operations schedule stays enabled unless the user explicitly asks
+  to pause, disable, stop, or delete it.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix mechanically. After the `2026-09-11`
-   eBPF optimization-evidence publication, the newest ten contain **7
-   eBPF-centered / 0 pure Agent / 3 adjacent systems**, which is the allowed eBPF
-   maximum. The oldest report rotating out on September 12 is the adjacent
-   `2026-08-31` GPU-utilization report, so another eBPF-centered report would
-   produce 8 of 10 and is not allowed. Never repair the ratio by relabeling.
-2. Keep **eBPF Deployment Compatibility and Lifecycle** as the active normal eBPF
+1. Preserve the rolling ten-report mix mechanically. Before the `2026-09-13`
+   publication the newest ten contain **7 eBPF-centered / 0 pure Agent / 3
+   adjacent systems**, already at the allowed eBPF maximum. The oldest report
+   rotating out today is the adjacent `2026-09-02` GPU-membership report, so an
+   eBPF-centered publication would produce 8 of 10 and is not allowed. Never
+   repair the ratio by relabeling.
+2. Use the September 13 publication as a strong adjacent Linux/CXL memory-management
+   detour: `/research/cxl-memory-hot-remove-reliability/`. It separates CXL
+   hot-add/onlining capability from the runtime ownership state that determines
+   whether the capacity can later be evacuated, offlined, and physically
+   detached. Because an adjacent report enters while an adjacent report rotates
+   out, the newest-ten mix remains **7 / 0 / 3** after publication.
+3. Keep **eBPF Deployment Compatibility and Lifecycle** as the active normal eBPF
    roadmap. Candidate boundaries remain real-kernel/backport feature evidence,
    verifier behavior drift, CO-RE relocation versus semantic compatibility,
    kfunc/`struct_ops` capability negotiation, persistent-state lifecycle across
    host upgrades, and reproducible capability/artifact manifests across
-   distributions. Resume it as soon as the rolling window permits.
-3. Use the September 12 publication as an approved adjacent Linux/storage detour:
-   `/research/linux-atomic-write-crash-semantics/`. The report separates
-   `RWF_ATOMIC` torn-write protection from persistence, ordering, filesystem
-   metadata, and application recovery. Because an adjacent report enters while an
-   adjacent report rotates out, the newest-ten mix remains **7 / 0 / 3** after
-   publication.
+   distributions. On the next run the oldest rotating report is eBPF-centered,
+   so the series can resume without exceeding 7 of 10 if the candidate passes
+   evidence and novelty gates.
 4. Keep **eBPF Optimization and Execution Specialization**, **eBPF Networking and
    Security**, **eBPF Observability and Profiling**, **eBPF Runtime,
    Extensibility, and Composition**, and **GPU and Heterogeneous Runtime Systems**
    closed at their normal boundaries unless fresh evidence supports a genuinely
    new mechanism.
 5. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-12`, the newest source set remains
+   As rechecked on `2026-09-13`, the newest source set remains
    `2026-08-31..09-06`. Search Console contains rows through `2026-09-05`; under
    the configured three-day lag all observed rows are finalized, while
    `2026-09-06` is absent.
@@ -91,8 +95,8 @@ operating entrypoint; this file stores durable goals and constraints.
    position**. The equal-duration `2026-08-24..29` slice is **436 / 55,594 /
    ~0.784% / ~10.73**. Current clicks are ~11.0% lower, impressions ~9.5% higher,
    CTR ~0.147 percentage points lower, and weighted position ~3.38 positions
-   better. This is a six-day source-native comparison, not a complete seven-day
-   trend.
+   better. This remains a six-day source-native comparison, not a complete
+   seven-day trend.
 7. Keep complete GSC 7-day and 28-day comparisons unavailable until source
    history is contiguous. The newest export omits `2026-09-06`, the preceding
    export omits `2026-08-30`, and older history includes the recorded
