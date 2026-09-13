@@ -18,7 +18,7 @@
 - Production static export for `#197`: `58fb2309785cdb352042fac83fccec319cde69b8`, explicitly bound to the squash SHA
 - Merged-PR closeout for `#197`: exactly one compact top-level closeout comment added after verification
 - Current daily branch: `daily/2026-09-13-cxl-memory-hot-remove-reliability`
-- Current daily pull request: pending
+- Current daily pull request: `#200`
 - Current branch original base: `e0c7d35cbcf07a4a763446d812c56f0126ad78a8`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
@@ -72,7 +72,7 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete the September 13 daily PR through terminal-green PR-head CI, full diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+1. Complete PR `#200` through terminal-green PR-head CI, full diff/generated-output self-review, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
 2. Keep today's adjacent CXL memory-management detour within the mechanical **7 / 0 / 3** rolling mix, then resume **eBPF Deployment Compatibility and Lifecycle** on the next run if the candidate passes normal gates.
 3. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
 4. Keep the newest GA4 weekly aggregate explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
