@@ -58,31 +58,35 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix mechanically. After the `2026-09-11`
-   eBPF optimization-evidence publication, the newest ten contain **7
-   eBPF-centered / 0 pure Agent / 3 adjacent systems**, which is the allowed eBPF
-   maximum. The oldest report rotating out on September 12 is the adjacent
-   `2026-08-31` GPU-utilization report, so another eBPF-centered report would
-   produce 8 of 10 and is not allowed. Never repair the ratio by relabeling.
+1. Preserve the rolling ten-report mix mechanically. After the `2026-09-12`
+   adjacent Linux/storage publication, the newest ten contain **7 eBPF-centered /
+   0 pure Agent / 3 adjacent systems**. The oldest report rotating out on
+   September 13 is the adjacent `2026-09-02` GPU membership-continuity report, so
+   another eBPF-centered report would produce 8 of 10 and is not allowed. Never
+   repair the ratio by relabeling.
 2. Keep **eBPF Deployment Compatibility and Lifecycle** as the active normal eBPF
    roadmap. Candidate boundaries remain real-kernel/backport feature evidence,
    verifier behavior drift, CO-RE relocation versus semantic compatibility,
    kfunc/`struct_ops` capability negotiation, persistent-state lifecycle across
    host upgrades, and reproducible capability/artifact manifests across
-   distributions. Resume it as soon as the rolling window permits.
-3. Use the September 12 publication as an approved adjacent Linux/storage detour:
-   `/research/linux-atomic-write-crash-semantics/`. The report separates
-   `RWF_ATOMIC` torn-write protection from persistence, ordering, filesystem
-   metadata, and application recovery. Because an adjacent report enters while an
-   adjacent report rotates out, the newest-ten mix remains **7 / 0 / 3** after
-   publication.
+   distributions. On September 14 the oldest report rotating out is eBPF-centered,
+   so the series can resume if the selected boundary passes evidence and novelty
+   gates.
+3. Use the September 13 publication as an approved adjacent Linux/runtime detour:
+   `/research/io-uring-checkpoint-recovery/`. The report separates request
+   ownership, completion visibility, ring-owned resource identity, and external
+   effects during checkpoint/restore. It treats conservative drain-and-recreate
+   as the baseline and develops recovery manifests, completion/effect frontiers,
+   and an adversarial migration benchmark. Because an adjacent report enters
+   while an adjacent report rotates out, the newest-ten mix remains **7 / 0 / 3**
+   after publication.
 4. Keep **eBPF Optimization and Execution Specialization**, **eBPF Networking and
    Security**, **eBPF Observability and Profiling**, **eBPF Runtime,
    Extensibility, and Composition**, and **GPU and Heterogeneous Runtime Systems**
    closed at their normal boundaries unless fresh evidence supports a genuinely
    new mechanism.
 5. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-12`, the newest source set remains
+   As rechecked on `2026-09-13`, the newest source set remains
    `2026-08-31..09-06`. Search Console contains rows through `2026-09-05`; under
    the configured three-day lag all observed rows are finalized, while
    `2026-09-06` is absent.
