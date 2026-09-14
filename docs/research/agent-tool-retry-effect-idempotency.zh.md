@@ -38,7 +38,7 @@ status: daily-report
 | --- | --- | --- |
 | 协议 request ID | JSON-RPC `id: 37` | 对应一次 request 和 response |
 | attempt ID | `attempt-3` | 标识一次真实执行尝试，便于 tracing 与调试 |
-| effect ID | `launch-report-job-2026-09-14` 或 opaque UUID | 标识工作流真正想产生的那一个外部副作用 |
+| effect ID | `launch-report-job-2026-09-14` 或 opaque UUID | 标识 workflow 声明的一个外部 mutation |
 
 当前 MCP 的语义本身就说明三者不能混为一谈。普通 `tools/call` 带 JSON-RPC request ID；如果 server 返回 `input_required`，client 会带补充输入再次调用，而规范明确要求 retry 使用不同的 JSON-RPC ID。这对 request/response correlation 是正确的，但也意味着 request ID 不适合作为逻辑操作的长期身份。
 
@@ -81,21 +81,21 @@ Agent 系统还多一层风险：恢复过程通常由模型参与。模型可�
 
 ## 现有研究还缺什么
 
-第一处缺口是 **跨 Agent layer 的 effect identity**。模型的 tool-call ID、JSON-RPC ID、trace span ID、workflow node ID、provider idempotency token、最终资源 ID 都各有用途，但大多数 Agent runtime 并没有一个从“用户想做的 mutation”开始，经过模型 retry、协议 retry、tool server restart 和下游 API 之后仍然不变的 durable identifier。
+第一处缺口是 **跨 Agent layer 的 effect identity**。模型的 tool-call ID、JSON-RPC ID、trace span ID、workflow node ID、provider idempotency token、最终资源 ID 都各有用途。本文核查到的协议与 provider contract 分别定义了各自层次的 identity，但没有一份规范定义一个能同时跨越用户声明的 mutation、模型或协议 retry、tool server restart 与 downstream API execution 的统一标识。某个具体 Agent runtime 是否已经补上这个端到端 identity，应当作为实现事实去测，而不是在这里假设“多数 runtime 都没有”。
 
-第二处缺口是 **ambiguous completion 之后的 reconciliation**。支付和云 API 往往有 idempotency token 或查询接口，但通用工具还会封装 shell、browser、email、自建 API 和多阶段 workflow。调用 timeout 后，Agent 通常缺少一个统一问题：“effect E 是否已经发生？如果发生了，它对应的真实 result 是什么？”
+第二处缺口是 **ambiguous completion 之后的 reconciliation**。支付和云 API 往往有 idempotency token 或查询接口，但通用工具还会封装 shell、browser、email、自建 API 和多阶段 workflow。调用 timeout 后，通用 tool contract 未必提供统一问题：“effect E 是否已经发生？如果发生了，它对应的真实 result 是什么？”
 
 第三处缺口是 **idempotency contract discovery**。MCP 的 `idempotentHint` 有用，但规范故意把它设计成 advisory hint。不同 provider 的 token scope、retention period、参数等价规则和 failure behavior 都不同。一个 tool 自己可能看起来 idempotent，但内部某个 downstream call 并不是；反过来也可能成立。一个 Boolean 描述不了真实 replay boundary。
 
-第四处缺口是 **evaluation**。很多 Agent benchmark 测 task completion、tool-call accuracy 或 latency，却很少专门在“外部系统已经 commit，但 acknowledgement 还没回来”这个点注入故障，再去数真实世界里出现了几个副作用。因此某个 runtime 可能在普通 API error 下看起来很可靠，却在真正需要 retry 时制造重复动作。
+第四处缺口是 **evaluation coverage 本身也需要先验证**。本文不预设现有 Agent benchmark 一定没有覆盖 post-commit acknowledgement loss。更合理的第一步是盘点代表性 suite，检查它们是否会在“外部系统已经 commit、ack 尚未返回”的精确边界注入故障，并以外部状态而不是工具返回值作为 oracle。如果现有 suite 已经跨 retry 与 restart 完整覆盖这些情况，这个 proposed gap 就不成立；如果没有，普通 task-completion 或 tool-call score 才可能掩盖重复的真实副作用。
 
-这个问题与之前的[并行 Agent effect serializability 报告](https://eunomia.dev/zh/research/parallel-agent-effect-serializability/)并不相同。之前问的是多个 worker 的副作用如何组合成一个合法结果；这里甚至可以只有一个 worker、一个用户意图。问题是多个 execution attempt 会不会把同一个 mutation 实体化多次。
+这个问题与之前的[并行 Agent effect serializability 报告](https://eunomia.dev/zh/research/parallel-agent-effect-serializability/)并不相同。之前问的是多个 worker 的副作用如何组合成一个合法结果；这里甚至可以只有一个 worker、一个声明的外部 mutation。问题是多个 execution attempt 会不会让它超过声明的 multiplicity。
 
 ## 有学术价值也有生产价值的方向
 
 ### 1. 给每一个外部 mutation 分配 durable effect identity
 
-Agent runtime 可以在 dispatch mutation 前生成 `effect_id`，并在后续 retry 中保持不变。这个 ID 应该由 runtime 生成，而不是让语言模型临时想一个字符串。
+Agent runtime 可以在 dispatch mutation 前生成 `effect_id`，并在后续 retry 中保持不变。这个 ID 应该由 runtime 生成，而不是让语言模型临时想一个字符串。一个 workflow 如果本来就要产生多个外部 effect，应为它们分配多个 effect ID；同一个 effect 的 retry attempt 则继续复用它自己的 effect ID。
 
 最小的 effect record 可以是：
 
@@ -117,7 +117,7 @@ retention_deadline = provider dedupe horizon if known
 
 adapter 再把稳定的 effect identity 映射到不同 provider 的机制上。AWS 支持的 API 可以使用 client token；Stripe 可以生成符合其 account/API scope 的 idempotency key；数据库可以使用 unique constraint 或 transaction record；文件系统可以用 staged object 加 atomic rename。完全没有 dedup 支持的工具，也至少可以声明：一旦结果进入 unknown，就必须 reconcile 或重新确认，而不是自动 replay。
 
-评测时，应在 provider 明确 commit 后故意丢掉 response，重启 Agent runtime，再恢复同一个 workflow。第一指标不是“retry 成功率”，而是 **每一个 logical effect 实际产生了多少个 authoritative external effect**。第二指标再看误拦截合法新操作、ledger 存储开销和额外 latency。
+评测时，应在 provider 明确 commit 后故意丢掉 response，重启 Agent runtime，再恢复同一个 workflow。第一指标不是“retry 成功率”，而是 **每一个 declared effect 因 retry 多产生了多少 external effect**。第二指标再看误拦截合法新操作、ledger 存储开销和额外 latency。
 
 学术贡献是一个端到端 naming model，把 transport identity、execution attempt 和外部 effect identity 分离。生产集成点则是 agent tool gateway 或 workflow runtime，因为这些位置能在调用进入任意 provider 之前统一生成 identity。
 
@@ -143,15 +143,18 @@ reconciliation record 不能只有 success/failure。它应记录外部状态是
 
 如果盲目 retry 配合现有 provider API 在同样的 fault matrix 上已经实现零 duplicate，而且 unresolved task 更少，那么这个方向没有必要。reconciliation 不应成为每个调用都必经的重型步骤，只应覆盖那些 outcome ambiguity 会制造第二个真实副作用的边界。
 
-### 3. 做一个测“exactly-once intent”而不是“exactly-once execution”的对抗性 benchmark
+### 3. 做一个测 declared-effect correctness，而不是“exactly-once execution”的对抗性 benchmark
 
-在分布式系统里，“exactly once”这个词很容易让人承诺过头。Agent runtime 很难保证整个调用链每一层只执行一次。更可操作的目标是：**一个经过用户授权的 logical intent，最终最多只能形成一个 authoritative external effect，即使系统内部执行过多个 attempt。**
+在分布式系统里，“exactly once”这个词很容易让人承诺过头。Agent runtime 很难保证整个调用链每一层只执行一次。更可操作的目标是显式声明 effect multiplicity：**一个经过用户授权的 intent 定义允许的外部结果集合 `O(I)`；系统内部可以有多个 attempt，但 retry 不能产生集合之外的 effect，也不能把声明 multiplicity 为 1 的 effect 额外复制。**
 
-benchmark 可以把这个目标直接写成 oracle。每个 workload 声明：
+因此 one-to-many intent 完全合法。例如一次授权给五个收件人发送消息，可以声明五个 effect slot；有意创建三个资源，也可以声明三个。benchmark 要判断的是 retry 是否在声明结果之外制造了额外副作用，而不是假设每个用户 intent 只能对应一个外部对象。
+
+每个 workload 声明：
 
 ```text
 intent I
 allowed external outcome set O(I)
+declared multiplicity for each effect class
 effect observation oracle
 provider idempotency/reconciliation contract
 failure injection points
@@ -172,11 +175,11 @@ failure injection points
 
 workload 既要包含有强 idempotency 的真实 provider adapter，也应包含故意较弱的工具，例如“append 一行”“发送消息”“没有 client token 的 create resource”。Ground truth 必须来自外部状态，而不是 tool 是否返回了 `success`。
 
-至少把四个指标分开报告：duplicate authoritative effects、missing intended effects、把合法新动作误判成重复的 false deduplication、以及最终仍 unresolved 的 ambiguous outcomes。latency 和 token cost 放在后面。一个 task-completion 分数很高但偶尔能支付两次的 Agent runtime，不应该通过这类测试。
+至少把四个指标分开报告：retry 导致的 `O(I)` 之外 effect 或超过声明 multiplicity 的 effect、missing intended effects、把合法新动作误判成重复的 false deduplication、以及最终仍 unresolved 的 ambiguous outcomes。latency 和 token cost 放在后面。一个 task-completion 分数很高、但偶尔会把本应发给五个收件人的消息发出第六份副本的 Agent runtime，不应该通过这类测试。
 
 它的学术价值是一套针对 Agent tool reliability 的 failure model 和 correctness metric；生产价值则是为 retry middleware、MCP gateway、workflow engine 和高风险 tool adapter 做 regression testing。
 
-如果现有 Agent reliability suite 已经能注入 post-commit acknowledgement loss，并且可以证明 restart、cancel、load balancing 和 dedup-window expiry 下的外部 effect uniqueness，那么这个 benchmark 就不该重复造轮子。第一步应该是先验证现有测试究竟覆盖到哪里。
+如果现有 Agent reliability suite 已经能注入 post-commit acknowledgement loss，并且可以证明 restart、cancel、load balancing 和 dedup-window expiry 下的 declared-effect correctness，那么这个 benchmark 就不该重复造轮子。第一步应该是先验证现有测试究竟覆盖到哪里。
 
 ## 现在部署 Agent runtime，可以先遵守什么规则
 
@@ -196,9 +199,9 @@ read-only 调用没有必要承担这套开销；真正有明确幂等契约的 
 
 如果 Agent protocol 以后标准化了一个可信的端到端 mutation identity，而且它能跨 transport retry、tool-server restart、模型 repair 和 downstream provider 继续保持同一语义，并且真实实现已经能在 fault injection 中消除 duplicate external effect，那么本文提出的 runtime-level effect ledger 就会明显变轻，甚至没有必要。
 
-如果生产 Agent 的绝大多数工具最终被证明都是 read-only，或者业务层天然 idempotent，这个问题也会变成少数高风险 adapter 的局部工作，而不是通用 runtime 问题。
+如果生产 Agent 工具最终被证明绝大多数都是 read-only，或者业务层天然 idempotent，这个问题也会变成少数高风险 adapter 的局部工作，而不是通用 runtime 问题。
 
-最后还应与更简单的方案竞争。如果“provider 支持 native idempotency token 就用；不支持的 mutation 一旦 outcome ambiguous 就不自动 retry”在真实 workload 上能得到相同 completion rate 和零 duplicate，那么通用 effect ledger 是过度设计。
+最后还应与更简单的方案竞争。如果“provider 支持 native idempotency token 就用；不支持的 mutation 一旦 outcome ambiguous 就不自动 retry”在真实 workload 上能得到相同 completion rate 和零 retry-induced duplicate，那么通用 effect ledger 是过度设计。
 
 所以最有用的边界其实很简单：**retry 是一次新的执行尝试，但不自动意味着用户产生了一个新的意图。网络不再告诉你刚才发生了什么时，Agent runtime 需要足够持久的 identity 与 reconciliation，才能守住这条线。**
 
