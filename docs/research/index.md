@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [When an AI Agent Retries a Tool Call, How Do You Know It Didn't Do It Twice?](https://eunomia.dev/research/agent-tool-retry-effect-idempotency/)
+
+A tool can commit a payment, message, deployment, or cloud mutation before its response is lost. This report separates protocol request IDs, execution attempts, and logical effect identity, then develops durable effect records, ambiguous-outcome reconciliation, and a post-commit fault benchmark for safe agent retries.
+
 ### [Does an Atomic Linux Write Mean the Data Survives a Crash?](https://eunomia.dev/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` can prevent torn writes for one supported data range without defining persistence, ordering, metadata, or multi-object recovery. This report separates those guarantees and develops crash-semantics descriptors, crash-cut witnesses, and failure-class benchmarks for atomic I/O.
