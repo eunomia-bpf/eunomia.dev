@@ -95,7 +95,7 @@ Agent 系统还多一层风险：恢复过程通常由模型参与。模型可�
 
 ### 1. 给每一个外部 mutation 分配 durable effect identity
 
-Agent runtime 可以在 dispatch mutation 前生成 `effect_id`，并在后续 retry 中保持不变。这个 ID 应该由 runtime 生成，而不是让语言模型临时想一个字符串。一个 workflow 如果本来就要产生多个外部 effect，应为它们分配多个 effect ID；同一个 effect 的 retry attempt 则继续复用它自己的 effect ID。
+Agent runtime 应先生成 `effect_id`，并在任何外部 dispatch 之前把对应的 effect record **持久化成功**。只有这条 write-ahead record 已经能在进程重启后恢复，才允许发出 mutation；之后所有 retry 都保持同一个 `effect_id`。这个 ID 应该由 runtime 生成，而不是让语言模型临时想一个字符串。一个 workflow 如果本来就要产生多个外部 effect，应为它们分配多个 effect ID；同一个 effect 的 retry attempt 则继续复用它自己的 effect ID。
 
 最小的 effect record 可以是：
 
@@ -107,11 +107,13 @@ tool = provider + tool name + contract version
 authority = principal + approval/policy generation
 target = normalized logical resource
 attempts = [a1, a2, ...]
-state = prepared | dispatched | committed | failed | unknown
+state = not_started | in_progress | committed | failed_before_effect | unknown_after_dispatch
 provider_key = downstream idempotency token if supported
 receipt = provider result/resource identity if known
 retention_deadline = provider dedupe horizon if known
 ```
+
+这里的顺序必须是明确的：先持久化 `not_started`，在 dispatch 前或 dispatch 时进入 `in_progress`，能证明最终结果后再写 terminal state。如果 crash 后只留下 durable `in_progress`，恢复逻辑必须保守地把结果视为 unknown，继续使用原来的 `effect_id` 并进入 reconciliation，而不能新建一个 effect。`failed_before_effect` 只表示已经证明外部 mutation 尚未开始的失败，因此 replay policy 能把它与 post-dispatch ambiguity 分开。
 
 这里最重要的是把 `effect_id` 和 `attempts` 分开。一次 timeout 可以新增 attempt，但不应该自动新增 effect。如果模型修改了操作，而且修改已经足以改变 canonicalized intent，runtime 也不应偷偷复用旧 effect ID；它应该把这次变化识别成 conflicting retry，或者只有在 workflow 明确进入新动作时才生成新 effect。
 
