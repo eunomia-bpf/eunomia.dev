@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can Linux Promise That CXL Memory Will Be Removable Later?](https://eunomia.dev/research/cxl-memory-hot-remove-reliability/)
+
+Linux can add CXL capacity as System RAM, but later removal depends on evacuating every block and tearing down the device stack. This report separates hotplug capability from future removability and develops admission budgets, evacuation witnesses, and blocker-class lifecycle benchmarks.
+
 ### [Does an Atomic Linux Write Mean the Data Survives a Crash?](https://eunomia.dev/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` can prevent torn writes for one supported data range without defining persistence, ordering, metadata, or multi-object recovery. This report separates those guarantees and develops crash-semantics descriptors, crash-cut witnesses, and failure-class benchmarks for atomic I/O.
