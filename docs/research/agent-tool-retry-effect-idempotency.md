@@ -38,7 +38,7 @@ It helps to separate three identities that are often collapsed into one:
 | --- | --- | --- |
 | Protocol request ID | JSON-RPC `id: 37` | Correlate one request with one response |
 | Attempt ID | `attempt-3` | Identify one execution attempt for tracing and debugging |
-| Effect ID | `launch-report-job-2026-09-14` or an opaque UUID | Identify the one logical external mutation the workflow intends |
+| Effect ID | `launch-report-job-2026-09-14` or an opaque UUID | Identify one declared external mutation the workflow intends |
 
 The distinction is visible in current MCP semantics. A normal `tools/call` carries a JSON-RPC request ID. If a tool returns `input_required`, the client retries the call with the additional answers and the specification requires the JSON-RPC ID to be different from the initial request. That is correct for request/response correlation, but it means request identity cannot also serve as the durable identity of the logical operation.
 
@@ -81,21 +81,21 @@ The runtime therefore needs a policy stronger than “retry transient errors.”
 
 ## Where current work is still weak
 
-The first gap is **effect identity across agent layers**. Model tool-call IDs, JSON-RPC IDs, tracing span IDs, workflow-node IDs, provider idempotency tokens, and created resource IDs all exist for different reasons. Most agent runtimes do not expose one durable identifier that begins at the user's intended mutation and survives model retries, protocol retries, tool-server restarts, and downstream API calls.
+The first gap is **effect identity across agent layers**. Model tool-call IDs, JSON-RPC IDs, tracing span IDs, workflow-node IDs, provider idempotency tokens, and created resource IDs all exist for different reasons. The protocol and provider contracts examined here define identities at separate layers, but none of those specifications defines one identifier that spans the user-declared mutation, model or protocol retries, tool-server restarts, and downstream API execution. Whether a particular agent runtime already supplies that end-to-end identity is an implementation question to measure rather than an assumption of this report.
 
-The second gap is **reconciliation after ambiguous completion**. Mature payment and cloud APIs often provide idempotency tokens or lookup mechanisms, but generic tools may wrap shell commands, browser actions, email systems, custom APIs, or multi-step workflows. After a timeout, the agent frequently has no standard way to ask: “Did logical effect E already happen, and if so, what result should I attach to it?”
+The second gap is **reconciliation after ambiguous completion**. Mature payment and cloud APIs often provide idempotency tokens or lookup mechanisms, but generic tools may wrap shell commands, browser actions, email systems, custom APIs, or multi-step workflows. After a timeout, a generic tool contract may not provide a standard way to ask: “Did logical effect E already happen, and if so, what result should I attach to it?”
 
 The third gap is **idempotency-contract discovery**. MCP exposes `idempotentHint`, but it is deliberately advisory. Downstream APIs can have different token scopes, retention periods, parameter-equivalence rules, and failure behavior. A tool can also be internally idempotent while one of its downstream calls is not, or vice versa. A single boolean cannot describe the actual replay boundary.
 
-The fourth gap is **evaluation**. Agent benchmarks commonly score task completion, tool-call accuracy, or latency. They rarely inject failures precisely after an external commit but before acknowledgment, then count duplicate real effects. A runtime can look reliable under ordinary API errors while failing exactly when retries matter most.
+The fourth gap is **evaluation coverage as an empirical question**. This report does not assume that representative agent benchmarks omit post-commit acknowledgment loss. A useful benchmark should first inventory existing suites, then test whether they inject failures precisely after an external commit but before acknowledgment and verify the resulting external state. If current suites already exercise that boundary across retries and restarts, this proposed gap disappears; if they do not, ordinary task-completion or tool-call scores can hide duplicate real effects.
 
-This question is narrower than the earlier [parallel-agent effect-serializability report](https://eunomia.dev/research/parallel-agent-effect-serializability/). That report asks whether several workers' effects can compose into one valid result. Here there may be only one worker and one intended mutation. The problem is whether several attempts accidentally materialize that one mutation more than once.
+This question is narrower than the earlier [parallel-agent effect-serializability report](https://eunomia.dev/research/parallel-agent-effect-serializability/). That report asks whether several workers' effects can compose into one valid result. Here there may be only one worker and one declared external mutation. The problem is whether several attempts accidentally materialize that mutation more than its declared multiplicity.
 
 ## Promising directions with academic and production value
 
 ### 1. Give every external mutation a durable effect identity
 
-An agent runtime should allocate an `effect_id` before dispatching a mutation and keep it stable across retries. The identifier should be generated by the runtime, not improvised by the language model.
+An agent runtime should allocate an `effect_id` before dispatching a mutation and keep it stable across retries. The identifier should be generated by the runtime, not improvised by the language model. A workflow that intentionally creates several external effects gets several effect IDs; retry attempts for one effect keep that effect ID stable.
 
 A minimal effect record might look like:
 
@@ -117,7 +117,7 @@ The important part is the split between `effect_id` and `attempts`. A timeout ca
 
 Adapters can map the stable effect ID to downstream mechanisms. An AWS call can use it as a client token where allowed. A Stripe call can derive an idempotency key with the right account and API scope. A database adapter can use a unique constraint or transaction record. A filesystem adapter can use a staged object plus atomic rename. Tools with no deduplication mechanism can still be marked as requiring reconciliation or human confirmation after an ambiguous outcome.
 
-Evaluation should inject response loss after a confirmed provider commit, restart the agent runtime, and retry the workflow. The primary metric is **duplicate external effects per logical effect**, not retry success rate. Secondary metrics are false suppression of legitimate new operations, ledger storage cost, and added latency.
+Evaluation should inject response loss after a confirmed provider commit, restart the agent runtime, and retry the workflow. The primary metric is **retry-induced duplicate external effects per declared effect**, not retry success rate. Secondary metrics are false suppression of legitimate new operations, ledger storage cost, and added latency.
 
 The academic contribution is an end-to-end naming model that separates effect identity from transport and execution attempts. The production integration point is the agent tool gateway or workflow runtime, where calls can be assigned identities before they reach arbitrary providers.
 
@@ -143,9 +143,11 @@ The academic contribution is a recovery protocol for agent side effects under in
 
 This direction loses if blind retry with existing provider APIs already produces zero duplicates and fewer unresolved tasks across the same fault matrix. The point is not to insert a generic “reconcile” step into every call; it is to use it only where outcome uncertainty can create a second real-world effect.
 
-### 3. Build an adversarial benchmark for exactly-once *intent*, not exactly-once execution
+### 3. Build an adversarial benchmark for exactly-once declared effects, not exactly-once execution
 
-“Exactly once” is a dangerous phrase in distributed systems because runtimes cannot generally guarantee that every component executes exactly once. The more useful target for agents is narrower: **one user-approved logical intent should materialize at most one externally authoritative effect, even if the system executes several attempts**.
+“Exactly once” is a dangerous phrase in distributed systems because runtimes cannot generally guarantee that every component executes exactly once. A more useful target is explicit effect multiplicity: **a user-approved intent declares an allowed external outcome set `O(I)`; retries may use several execution attempts, but they must not add external effects beyond that set or duplicate an effect whose declared multiplicity is one**.
+
+A one-to-many intent is therefore valid. Sending one approved message to five recipients can declare five effect slots; creating three resources can declare three. The benchmark judges retry-induced extras against the declared outcome, not against an assumption that every user intent maps to one external object.
 
 A benchmark can make this measurable.
 
@@ -154,6 +156,7 @@ Each workload would declare:
 ```text
 intent I
 allowed external outcome set O(I)
+declared multiplicity for each effect class
 effect observation oracle
 provider idempotency/reconciliation contract
 failure injection points
@@ -174,11 +177,11 @@ Then inject faults at boundaries that ordinary unit tests miss:
 
 The benchmark should contain both provider-backed adapters with strong idempotency and deliberately weak tools such as “append a line,” “send a message,” or “create a resource with no unique client token.” Ground truth must come from the external state, not from whether the tool returned `success`.
 
-Report at least four metrics separately: duplicate authoritative effects, missing intended effects, false deduplication of legitimate new actions, and unresolved ambiguous outcomes. Latency and token cost are secondary. A system that gets a good task-completion score by occasionally sending two payments should fail the benchmark.
+Report at least four metrics separately: retry-induced effects beyond `O(I)` or its declared multiplicities, missing intended effects, false deduplication of legitimate new actions, and unresolved ambiguous outcomes. Latency and token cost are secondary. A system that gets a good task-completion score by occasionally sending a sixth copy of an intended five-recipient message should fail the benchmark.
 
 The academic value is a fault model and correctness metric for agent tool reliability. The production value is regression testing for retry middleware, MCP gateways, workflow engines, and high-consequence tool adapters.
 
-This benchmark is unnecessary if existing agent reliability suites already inject post-commit acknowledgment loss and can prove external-effect uniqueness across restarts, cancellation, load balancing, and deduplication-window expiry. The benchmark should first try to demonstrate that current suites already cover these cases rather than assume a gap.
+This benchmark is unnecessary if existing agent reliability suites already inject post-commit acknowledgment loss and can prove declared-effect correctness across restarts, cancellation, load balancing, and deduplication-window expiry. The benchmark should first try to demonstrate that current suites already cover these cases rather than assume a gap.
 
 ## A practical rule for agent runtimes today
 
@@ -198,9 +201,9 @@ The current MCP design is compatible with this approach but does not supply it a
 
 The argument would weaken if agent protocols standardized a trusted, end-to-end mutation identity whose semantics survived transport retries, tool-server restarts, model repair, and downstream provider calls, and if real implementations enforced parameter binding and replay retention well enough that duplicate external effects disappeared under fault injection.
 
-It would also weaken if most production agent tools proved to be read-only or naturally idempotent at the business level. In that world, a durable effect ledger would impose complexity on a rare corner case rather than protect a common failure boundary.
+It would also weaken if production agent tools proved to be overwhelmingly read-only or naturally idempotent at the business level. In that world, a durable effect ledger would impose complexity on a rare corner case rather than protect a common failure boundary.
 
-Finally, the proposed mechanism should be rejected if a simpler adapter policy works just as well. If “use the provider's native idempotency token when present; otherwise do not automatically retry mutations” reaches the same completion rate and zero-duplicate result across realistic workloads, a general effect ledger is unnecessary.
+Finally, the proposed mechanism should be rejected if a simpler adapter policy works just as well. If “use the provider's native idempotency token when present; otherwise do not automatically retry mutations” reaches the same completion rate and zero retry-induced duplicates across realistic workloads, a general effect ledger is unnecessary.
 
 The useful distinction is therefore simple: **a retry is a new execution attempt, not automatically a new user intent. Agent runtimes need enough durable identity and reconciliation to preserve that distinction when the network stops telling them what happened.**
 
