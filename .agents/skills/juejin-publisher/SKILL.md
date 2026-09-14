@@ -118,6 +118,33 @@ the local publishing copy, and confirm that the failure marker is gone and the
 rendered image has non-zero dimensions. Verify the same image again on the
 public page.
 
+## Session And Editor Recovery
+
+- Environment restarts can drop the visible Chrome profile's Juejin login even
+  though the profile directory and the mounted
+  `/run/social-manager-session/browser-state.json` still hold valid Juejin
+  session cookies (`sid_tt`, `sessionid`, `sid_guard`, `uid_tt`, `n_mh`, ...).
+  Symptom: `/editor/drafts/new` redirects to `/login`, and the profile page
+  shows no creator controls.
+- `agent-browser cookies set` writes only non-httpOnly cookies on the current
+  page and does not restore the session; the browser-target CDP
+  `Network.setCookies` is not exposed here (`'Network.setCookies' wasn't
+  found`). The reliable import is the page-target CDP domain `Storage`:
+  `Storage.setCookies` with the cookie objects from the mounted state file,
+  then verify with `Storage.getCookies`. This restores all httpOnly session
+  cookies (55 cookies imported, 19 Juejin cookies observed on 2026-09-14).
+- After import, the first navigation may hit a ByteDance
+  `验证码中间页` (slide CAPTCHA) on the profile or editor URL. Do not solve the
+  CAPTCHA. Re-navigating to `/` and then back to
+  `/editor/drafts/new` cleared it on 2026-09-14, and the editor rendered with
+  the title input and CodeMirror.
+- Setting the body through `document.querySelector('.CodeMirror').CodeMirror.setValue(...)`
+  requires an explicit UTF-8 decode. Passing `atob(base64)` directly yields
+  mojibake (Latin-1 interpretation of UTF-8 bytes); decode with
+  `new TextDecoder('utf-8').decode(Uint8Array.from(atob(b64), c => c.charCodeAt(0)))`.
+  Verify the resulting character count equals the local artifact byte-length in
+  characters before submitting.
+
 ## Content Strategy
 
 Juejin-native short posts and new articles can use immediately useful technical

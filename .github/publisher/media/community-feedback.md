@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-09-14
+
+- Content patrol published the [46-xdp-test Juejin tutorial](https://juejin.cn/post/7685094363799207982), confirmed public with six H2 headings, six H3 headings, three H4 headings, sixteen code blocks, five external links, no content images, and a single-copy body with no review marker. [Juejin ACRFence](https://juejin.cn/post/7682314741114077211) rose from 34 to 36 reads and its visible comment section now shows the platform's `暂无评论数据` empty state (the earlier count of two visible comments is gone); [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395) rose from 222 to 234 reads with its repaired single-body structure still stable. The other recently public tutorial posts show low reads (47-cuda-events 26, 48-energy 12, Runtime Security 17) and no comment requiring a response. Zhihu's visible session still redirects `/creator` to `/signin` and lacks the `z_c0` auth cookie, so Zhihu monitoring and the first queued AgentCgroup task remain blocked. No reply or correction is due anywhere.
+
 ### 2026-09-13
 
 - Content patrol published the [47-cuda-events Juejin tutorial](https://juejin.cn/post/7684547172777443374), confirmed public with 13 H2 headings, 6 H3 headings, 30 code blocks, and a single-copy body, no review marker. [Juejin ACRFence](https://juejin.cn/post/7682314741114077211) rose from 32 to 34 reads with its 2 visible comments unchanged; [Juejin Agent Sandbox](https://juejin.cn/post/7680709250218426395) rose from 219 to 222 reads with the repaired single-body structure still stable. The two newly public posts show low early reads (47-cuda-events 5, 48-energy 4) and no comment requiring a response. Zhihu's mounted signed-in state still lacks the `z_c0` auth cookie, so Zhihu monitoring and the first queued AgentCgroup task remain blocked. No reply or correction is due; take the next useful checkpoint after the following Juejin publication or a new technical comment.

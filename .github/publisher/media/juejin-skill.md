@@ -1,6 +1,6 @@
 # Juejin Publishing Skill Brief
 
-Last checked: 2026-07-18
+Last checked: 2026-09-14
 
 Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.agents/skills/juejin-publisher/SKILL.md`.
 
@@ -61,6 +61,21 @@ Juejin readers reward immediately useful technical framing. For eunomia.dev post
 - Use screenshots, diagrams, and command output only when they advance the tutorial.
 - Add precise tags; the xitu/gold-miner guide notes that accurate categories and tags improve discoverability: <https://github.com/xitu/gold-miner/wiki/%E5%88%86%E4%BA%AB%E5%88%B0%E6%8E%98%E9%87%91%E6%8C%87%E5%8D%97>.
 - Prefer one article per concrete technique. For large docs, split into a series and link the canonical full tutorial.
+
+## Session Recovery
+
+An environment restart can drop the visible Chrome profile's Juejin login even
+though the mounted `/run/social-manager-session/browser-state.json` still holds
+valid session cookies (`sid_tt`, `sessionid`, `sid_guard`, ...). The symptom is
+`/editor/drafts/new` redirecting to `/login` with no creator controls.
+
+`agent-browser cookies set` only writes non-httpOnly cookies on the current
+page, and the browser-target CDP `Network.setCookies` is not exposed here. The
+working import is the page-target CDP domain `Storage.setCookies` with the
+cookie objects from the mounted state file, verified with `Storage.getCookies`
+(2026-09-14: 55 cookies imported, 19 Juejin cookies present). The first
+navigation after import may show a ByteDance `验证码中间页` slide CAPTCHA; do not
+solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
 
 ## Do Not Automate
 

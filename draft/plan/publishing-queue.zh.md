@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-09-13。
+> 状态：内部执行 checklist，不发布。更新时间：2026-09-14。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -11,14 +11,14 @@
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- 阻塞：2026-09-05 复查时，现有 Chrome `Yunwei` 可见会话访问 `https://www.zhihu.com/creator` 仍重定向到 `https://www.zhihu.com/signin?next=%2Fcreator`；页面提供验证码、密码和第三方登录入口，均未操作。恢复条件是用户在该可见 Chrome profile 中完成知乎登录，且重新打开 `/creator` 能进入创作中心而非 `/signin`；恢复后从 AgentCgroup 的知乎任务继续。阻塞期间继续执行其他平台任务。
-- 补发缺口：3 条（2026-08-29、2026-09-01、2026-09-03）。2026-09-13 巡检使用 09-13 正常额度发布 47-cuda-events（<https://juejin.cn/post/7684547172777443374>，公开页 QA 通过、ledger 已 `confirmed`）；知乎仍因登录阻塞，3 条补发额度未在本日核销，保留到后续可用日。2026-09-12 巡检确认 09-09 提交的 Runtime Security 文章（`/spost/7683507165231841295`）审核完成、`/spost/` 跳转公开 `/post/`，完成公开页 QA，属于待核销项而非当日新发布；48-energy 使用 09-12 正常额度公开发布（<https://juejin.cn/post/7684795356321628170>），3 条补发额度未在本日核销，保留到后续可用日。2026-09-06 复查已核销 2026-09-02 缺口（Agent Sandbox 单份正文替换通过审核）并完成 ACRFence QA；2026-08-22 由教程 53 的 Medium 补齐；08-23/08-24/08-25/08-26/08-27/08-28/08-30/08-31 的正常额度分别由 DEV、教程 54 Medium、教程 54 DEV、教程 54 LinkedIn、AgentCgroup DEV、CPU noise 掘金、AgentCgroup 掘金、HID 教程掘金完成。
-- Ledger 基线：知乎有 39 个未映射中文源，掘金有 66 个（2026-09-13 巡检更新）；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- 阻塞：2026-09-14 复查时，现有 Chrome `Yunwei` 可见会话访问 `https://www.zhihu.com/creator` 仍重定向到 `https://www.zhihu.com/signin?next=%2Fcreator`，cookie 中仍无 `z_c0` 登录凭证；页面提供验证码、密码和第三方登录入口，均未操作。恢复条件是用户在该可见 Chrome profile 中完成知乎登录，且重新打开 `/creator` 能进入创作中心而非 `/signin`；恢复后从 AgentCgroup 的知乎任务继续。阻塞期间继续执行其他平台任务。
+- 补发缺口：3 条（2026-08-29、2026-09-01、2026-09-03）。2026-09-14 巡检使用 09-14 正常额度发布 46-xdp-test（<https://juejin.cn/post/7685094363799207982>，公开页 QA 通过、ledger 已 `confirmed`）；知乎仍因登录阻塞，3 条补发额度未在本日核销，保留到后续可用日。2026-09-13 巡检使用 09-13 正常额度发布 47-cuda-events（<https://juejin.cn/post/7684547172777443374>，公开页 QA 通过、ledger 已 `confirmed`）；知乎仍因登录阻塞，3 条补发额度未在本日核销，保留到后续可用日。2026-09-12 巡检确认 09-09 提交的 Runtime Security 文章（`/spost/7683507165231841295`）审核完成、`/spost/` 跳转公开 `/post/`，完成公开页 QA，属于待核销项而非当日新发布；48-energy 使用 09-12 正常额度公开发布（<https://juejin.cn/post/7684795356321628170>），3 条补发额度未在本日核销，保留到后续可用日。2026-09-06 复查已核销 2026-09-02 缺口（Agent Sandbox 单份正文替换通过审核）并完成 ACRFence QA；2026-08-22 由教程 53 的 Medium 补齐；08-23/08-24/08-25/08-26/08-27/08-28/08-30/08-31 的正常额度分别由 DEV、教程 54 Medium、教程 54 DEV、教程 54 LinkedIn、AgentCgroup DEV、CPU noise 掘金、AgentCgroup 掘金、HID 教程掘金完成。
+- Ledger 基线：知乎有 39 个未映射中文源，掘金有 65 个（2026-09-14 巡检更新；掘金已映射 42/107）；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
 - Medium 和 DEV 的 BPFix、tutorial 50–54、AgentCgroup、CPU noise、Agent Sandbox、ACRFence 与 Runtime Security 已完成；后续新增英文长文继续交叉排入，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
-- 剩余队列：知乎 24 条、掘金 37 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 61 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 24 条、掘金 36 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 60 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -76,7 +76,7 @@
 - [x] `排队` 掘金：`docs/tutorials/48-energy/README.zh.md`。2026-09-12 已发布并确认公开：<https://juejin.cn/post/7684795356321628170>；原标题、14 个正文标题、20 个代码块、1 张表、外链完整，正文单份无重复，`Linux`、`后端`、`性能优化` 标签正常，无审核标记，ledger 已记录为 `confirmed`。
 - [x] `排队` 掘金：`docs/tutorials/47-cuda-events/README.zh.md`。2026-09-13 使用 09-13 正常额度已发布并确认公开：<https://juejin.cn/post/7684547172777443374>；原标题、13 个正文标题、6 个 H3、30 个代码块（23 c、4 bash、3 个输出块保持源文裸围栏）、12 条外链、无图片，正文单份无重复，`Linux`、`后端`、`性能优化` 标签正常，无审核/更新标记，ledger 已记录为 `confirmed`。
 - [ ] `排队` 知乎：`docs/tutorials/46-xdp-test/README.zh.md`。
-- [ ] `排队` 掘金：`docs/tutorials/46-xdp-test/README.zh.md`。
+- [x] `排队` 掘金：`docs/tutorials/46-xdp-test/README.zh.md`。2026-09-14 使用 09-14 正常额度已发布并确认公开：<https://juejin.cn/post/7685094363799207982>；原标题、6 个 H2、6 个 H3、3 个 H4、16 个代码块（9 c、5 bash、2 个输出块保持源文裸围栏）、5 条外链、无正文图片，正文单份无重复，`Linux`、`后端`、`性能优化` 标签正常，无审核/更新标记，ledger 已记录为 `confirmed`。
 - [ ] `排队` 掘金：`docs/tutorials/45-scx-nest/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/44-scx-simple/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/43-kfuncs/README.zh.md`。

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-13",
+  "last_checked": "2026-09-14",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,14 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-09-14",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7685094363799207982",
+      "review_status": "confirmed",
+      "notes": "46-xdp-test published through the visible Juejin editor with the prepared local artifact, category 后端 and tags Linux/后端/性能优化, then confirmed public at the /post/ URL with the exact title, single-copy body, six H2 headings, six H3 headings, three H4 headings, sixteen code blocks, five external links, no content images, and no review marker."
+    },
     {
       "checked_at": "2026-09-12",
       "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
@@ -216,6 +224,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7685094363799207982",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：构建高性能 XDP 数据包生成器",
+      "url": "https://juejin.cn/post/7685094363799207982",
+      "staged_url": "https://juejin.cn/spost/7685094363799207982",
+      "source_path": "docs/tutorials/46-xdp-test/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Published and confirmed public on 2026-09-14 (09-14 normal slot; JSON-LD datePublished 2026-09-14T15:04:37+08:00 = 00:04 PDT 2026-09-14). Category 后端; tags Linux, 后端, 性能优化 (Juejin tag option list has no eBPF/开源). The public page preserves the exact title and single-copy source body with six H2 headings, six H3 headings, three H4 headings, sixteen code blocks (nine c, five bash, two program-output blocks left unlabeled as in the source), five external links, and no content images; the source H1 is rendered once by the title field and not repeated in the body. No review/update/rejection marker. QA passed on 2026-09-14."
+    },
     {
       "id": "juejin-7684547172777443374",
       "status": "confirmed",
