@@ -55,57 +55,66 @@ operating entrypoint; this file stores durable goals and constraints.
   the merged daily PR, then reconcile `status.md` in the next run.
 - `.agents/skills/seo-geo` and `.github/seo-skills` own technical SEO mechanics;
   `.agents/skills/eunomia-research-report` owns Daily Report research and quality.
+- The recurring operations schedule remains enabled when a source or repository
+  operation is blocked; record the blocker rather than stopping the schedule.
 
 ## Current priorities
 
-1. Preserve the rolling ten-report mix mechanically. After the `2026-09-11`
-   eBPF optimization-evidence publication, the newest ten contain **7
-   eBPF-centered / 0 pure Agent / 3 adjacent systems**, which is the allowed eBPF
-   maximum. The oldest report rotating out on September 12 is the adjacent
-   `2026-08-31` GPU-utilization report, so another eBPF-centered report would
-   produce 8 of 10 and is not allowed. Never repair the ratio by relabeling.
-2. Keep **eBPF Deployment Compatibility and Lifecycle** as the active normal eBPF
-   roadmap. Candidate boundaries remain real-kernel/backport feature evidence,
-   verifier behavior drift, CO-RE relocation versus semantic compatibility,
-   kfunc/`struct_ops` capability negotiation, persistent-state lifecycle across
-   host upgrades, and reproducible capability/artifact manifests across
-   distributions. Resume it as soon as the rolling window permits.
-3. Use the September 12 publication as an approved adjacent Linux/storage detour:
-   `/research/linux-atomic-write-crash-semantics/`. The report separates
-   `RWF_ATOMIC` torn-write protection from persistence, ordering, filesystem
-   metadata, and application recovery. Because an adjacent report enters while an
-   adjacent report rotates out, the newest-ten mix remains **7 / 0 / 3** after
-   publication.
+1. Preserve the rolling ten-report mix mechanically. Before the `2026-09-14`
+   publication, the newest ten actually published reports contain **7
+   eBPF-centered / 0 pure Agent / 3 adjacent systems**. The oldest actually
+   published report rotating out is the adjacent `2026-09-02` GPU-membership
+   report, so another eBPF-centered report would produce 8 of 10 and is not
+   allowed. Never repair the ratio by relabeling older work.
+2. Use the September 14 publication as an approved pure-Agent systems detour:
+   `/research/agent-tool-retry-effect-idempotency/`. It separates protocol request
+   identity, execution-attempt identity, and logical external-effect identity,
+   then develops durable effect records, ambiguous-outcome reconciliation, and a
+   post-commit fault benchmark. After publication the rolling mix becomes **7 /
+   1 / 2**.
+3. Keep **eBPF Deployment Compatibility and Lifecycle** as the active normal eBPF
+   roadmap. The next rolling-window rotation removes the eBPF-centered
+   `2026-09-03` GPU-megakernel report, so one eBPF-centered compatibility report
+   can enter on the next run without exceeding 7 of 10. Candidate boundaries
+   remain real-kernel/backport feature evidence, verifier behavior drift, CO-RE
+   relocation versus semantic compatibility, kfunc/`struct_ops` capability
+   negotiation, persistent-state lifecycle across host upgrades, and reproducible
+   capability/artifact manifests across distributions.
 4. Keep **eBPF Optimization and Execution Specialization**, **eBPF Networking and
    Security**, **eBPF Observability and Profiling**, **eBPF Runtime,
    Extensibility, and Composition**, and **GPU and Heterogeneous Runtime Systems**
    closed at their normal boundaries unless fresh evidence supports a genuinely
    new mechanism.
 5. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-12`, the newest source set remains
-   `2026-08-31..09-06`. Search Console contains rows through `2026-09-05`; under
-   the configured three-day lag all observed rows are finalized, while
-   `2026-09-06` is absent.
-6. Record the newest finalized Search Console `2026-08-31..09-05` slice as **388
-   clicks / 60,880 impressions / ~0.637% CTR / ~7.35 impression-weighted
-   position**. The equal-duration `2026-08-24..29` slice is **436 / 55,594 /
-   ~0.784% / ~10.73**. Current clicks are ~11.0% lower, impressions ~9.5% higher,
-   CTR ~0.147 percentage points lower, and weighted position ~3.38 positions
-   better. This is a six-day source-native comparison, not a complete seven-day
+   As rechecked on `2026-09-14`, the newest source set is now
+   `2026-09-07..09-13`. Search Console contains rows through `2026-09-12`; under
+   the configured three-day lag rows through `2026-09-11` are finalized,
+   `2026-09-12` remains partial, and `2026-09-13` is absent.
+6. Record the newest finalized Search Console `2026-09-07..11` slice as **343
+   clicks / 47,606 impressions / ~0.720% CTR / ~6.47 impression-weighted
+   position**. The equal-duration `2026-08-31..09-04` slice is **368 / 53,341 /
+   ~0.690% / ~7.45**. Current clicks are ~6.8% lower, impressions ~10.8% lower,
+   CTR ~0.031 percentage points higher, and weighted position ~0.98 positions
+   better. This is a five-day source-native comparison, not a complete seven-day
    trend.
 7. Keep complete GSC 7-day and 28-day comparisons unavailable until source
-   history is contiguous. The newest export omits `2026-09-06`, the preceding
-   export omits `2026-08-30`, and older history includes the recorded
-   `2026-08-23` gap. Missing rows are never zero.
+   history is contiguous. The preceding export omits `2026-09-06`, the newest
+   export omits `2026-09-13`, and older history includes the recorded
+   `2026-08-23` and `2026-08-30` gaps. Missing rows are never zero.
 8. Weekly GSC page/query aggregates may prioritize inspection but cannot support
-   causal metadata claims without date-dimensional evidence. High-impression
-   pages with low aggregate CTR are candidates for future measurement, not an
-   automatic title/description rewrite.
+   causal metadata claims without date-dimensional evidence. In the newest
+   partial aggregate, watch the WASI/component-model article at **5,469
+   impressions / 3 clicks / ~5.08 average position** and the query `ai large
+   language model linux kernel driver development` at **766 impressions / 0
+   clicks / ~6.00 average position**. Require finalized date-dimensional evidence
+   or a concrete live snippet/technical defect before changing metadata.
 9. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
    landing-page aggregate: **1,007 sessions** at about **45.88% session-weighted
-   engagement**. The newer frozen `2026-08-31..09-06` aggregate contains **913
-   sessions** at about **47.54% engagement**, but remains partial because it was
-   exported while lagged dates were present and has no date dimension.
+   engagement**. The newly available `2026-09-07..13` aggregate contains **880
+   sessions** at about **43.52% engagement**, while `2026-08-31..09-06` contains
+   **913 sessions** at about **47.54% engagement**. Both newer frozen aggregates
+   remain partial because they were generated while lagged dates were present and
+   have no date dimension; do not promote either into a finalized trend claim.
 10. Treat exact-SHA Pages deployment and generated production artifacts as the
     primary publication acceptance evidence; independent crawler/search discovery
     is supplementary and can lag immediately after deployment.
@@ -115,3 +124,11 @@ operating entrypoint; this file stores durable goals and constraints.
     migrated to the newer upstream layout; do not make a pointer-only update.
 13. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
+14. For mutating agent-tool work, distinguish an ambiguous post-dispatch outcome
+    from a clean failure. Provider-native idempotency, retention windows, and
+    reconciliation evidence should determine retry safety rather than model
+    inference from a timeout string.
+15. Treat open, unmerged daily PRs as unpublished state for rolling-mix
+    arithmetic. PR `#200` is not part of the public index until it is actually
+    merged and verified; any future reconciliation of it must recompute the mix
+    against then-current published state rather than reuse stale assumptions.
