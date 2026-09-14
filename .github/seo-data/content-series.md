@@ -244,6 +244,21 @@ Pure Agent systems work remains intentionally a minority topic. Existing anchors
 - `/research/agent-trace-evidence-budget/`
 - `/research/parallel-agent-effect-serializability/`
 
+`2026-09-14` uses one approved pure-Agent detour while the eBPF rolling count is
+already at 7 of 10:
+
+- `/research/agent-tool-retry-effect-idempotency/`: separates transport request
+  IDs and execution attempts from one logical external effect, then develops a
+  durable effect identity, an `unknown_after_dispatch` reconciliation path, and a
+  fault benchmark that injects failures after commit but before acknowledgement.
+  The mechanism is distinct from the parallel-agent serializability report: it
+  addresses duplicate materialization of one intended mutation rather than
+  global composition of several workers' effects.
+
+After the September 14 publication the newest ten contain **7 eBPF-centered / 1
+pure Agent / 2 adjacent systems**. The active eBPF deployment-compatibility series
+remains the next normal series and resumes when the rolling window permits it.
+
 Pure-Agent publication is allowed by the cap but is never required. Prefer Agent
 questions with strong systems consequences, especially OS-level effect tracing,
 eBPF policy enforcement, sandbox visibility, syscall/tool causality, or runtime
