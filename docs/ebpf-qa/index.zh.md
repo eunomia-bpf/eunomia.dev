@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 BPF 程序不能睡眠或阻塞，在不可睡眠上下文里应该用什么替代？](/zh/ebpf-qa/2026-09-14-bpf-sleep-non-sleepable-context-alternatives/)
 - [为什么函数被编译器内联后，给它的 kprobe 永远不会触发？](/zh/ebpf-qa/2026-09-13-kprobe-inlined-function-never-fires/)
 - [什么时候应该用 BPF ring buffer 而不是 perf event 数组来采集 eBPF 样本？](/zh/ebpf-qa/2026-09-12-bpf-ringbuffer-vs-perf-event-array/)
 - [为什么 SIGKILL 无法终止 BPF 程序加载，即使验证已经成功？](/zh/ebpf-qa/2026-09-11-bpf-post-verification-rewrite-sigkill/)

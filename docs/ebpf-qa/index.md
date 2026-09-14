@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why can't a BPF program sleep or block, and what should you use instead in a non-sleepable context?](/ebpf-qa/2026-09-14-bpf-sleep-non-sleepable-context-alternatives/)
 - [Why does a kprobe on a function never fire when the compiler inlined it?](/ebpf-qa/2026-09-13-kprobe-inlined-function-never-fires/)
 - [When should I collect eBPF samples in a BPF ring buffer instead of a perf event array?](/ebpf-qa/2026-09-12-bpf-ringbuffer-vs-perf-event-array/)
 - [Why can't SIGKILL stop a BPF program load after verification succeeds?](/ebpf-qa/2026-09-11-bpf-post-verification-rewrite-sigkill/)
