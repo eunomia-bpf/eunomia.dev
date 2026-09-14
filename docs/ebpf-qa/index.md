@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does a kprobe on a function never fire when the compiler inlined it?](/ebpf-qa/2026-09-13-kprobe-inlined-function-never-fires/)
 - [When should I collect eBPF samples in a BPF ring buffer instead of a perf event array?](/ebpf-qa/2026-09-12-bpf-ringbuffer-vs-perf-event-array/)
 - [Why can't SIGKILL stop a BPF program load after verification succeeds?](/ebpf-qa/2026-09-11-bpf-post-verification-rewrite-sigkill/)
 - [What eBPF/kernel limitations should a process behavior reconstruction tool account for in its architecture?](/ebpf-qa/2026-09-10-process-behavior-reconstruction-event-loss/)
