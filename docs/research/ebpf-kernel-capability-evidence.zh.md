@@ -1,7 +1,8 @@
 ---
 date: 2026-09-15
+slug: ebpf-kernel-capability-evidence
 title: "eBPF 加载器能相信内核版本号吗？"
-description: "内核版本号不能证明回移发行版上的 eBPF 能力。本文提出可复现 capability receipt、semantic canary 与 artifact-to-kernel support envelope。"
+description: "内核版本号不能证明真实 eBPF 能力。本文提出与程序绑定的能力证据、语义 canary 和可复现支持范围。"
 tags:
   - Daily Report
   - eBPF
@@ -114,7 +115,7 @@ verifier 同时处理 program type、helper/kfunc contract、pointer/lifetime ru
 1. **Target identity。** Distribution/package identity、完整 kernel release、architecture、能获得时的 boot/build identity、相关 config evidence、BTF digest，以及 security/privilege context。
 2. **Probe identity。** bpftool/libbpf version、probe mode、effective capability，以及 policy 实际使用的 general feature result。
 3. **Artifact identity。** BPF object/skeleton hash，必要时记录 compiler/libbpf compatibility metadata，expected program/map/attach type、kfunc/helper dependency，以及 CO-RE relocation result。
-4. **Admission result。** verifier/load outcome、规范化 error class、verifier-log digest 或按策略保存的完整 log、尝试过时的 attach result、selected fallback，以及 semantic canary result。
+4. **Admission result。** verifier/load outcome、规范化 error class、verifier-log digest 或按策略保存的完整 log、尝试过的 attach result、selected fallback，以及 semantic canary result。
 
 例如：
 
@@ -165,7 +166,7 @@ admission:
 
 ### Host 一旦升级，compatibility incident 很难复现
 
-fleet rolling upgrade 后，一条 `object failed on kernel 5.14` 的记录通常太弱。到底是那个 distribution build、config、BTF、权限、libbpf、verifier backport、kfunc contract 还是 object 本身？
+fleet rolling upgrade 后，一条 `object failed on kernel 5.14` 的记录通常太弱。到底是哪个 distribution build、config、BTF、权限、libbpf、verifier backport、kfunc contract 还是 object 本身？
 
 如果没有 durable receipt，host reboot 或升级后关键证据就消失了。support matrix 可以告诉你“理论上应该工作”，却不能 replay loader 当时真实观察到了什么。
 
@@ -187,7 +188,7 @@ fleet rolling upgrade 后，一条 `object failed on kernel 5.14` 的记录通�
 
 当 general probe 加 object load 仍不足够时，可以运行一个只覆盖不确定边界的极小 canary。
 
-map canary 可以 create/drop 目标 map type。kfunc canary 可以 load 一段在目标 program context 中调用该函数的最小合法程序。attach canary 如果必须真正 attach，可以使用 isolated namespace、temporary cgroup、disposable link 或 test interface。每个 canary 都需要显式 side-effect budget 和 cleanup contract。
+map canary 可以 create/drop 目标 map type。kfunc canary 可以 load 一段在目标 program context 中调用该函数的最小合法程序。attach canary 只有在目标 hook 已证明受 namespace、temporary cgroup 或 test interface 的隔离边界约束时，才可以依赖这些环境；disposable link 只能限制生命周期，不能限制观测范围。像 fentry、tracepoint 这类可能观察 host-wide 事件的 hook 应该放到 dedicated test VM/host 中验证，或者不要在生产环境主动探测。每个 canary 都需要显式 side-effect budget 和 cleanup contract。
 
 研究问题是怎样选择足够强、能预测真实应用，又足够安全便宜的 canary。它可以被建模成 **compatibility test selection**：已知 dependency graph 与历史 failure，挑选最小 probe set，把 deployment uncertainty 降到阈值以下。
 
@@ -217,7 +218,7 @@ map canary 可以 create/drop 目标 map type。kfunc canary 可以 load 一段�
 
 主动证据并不意味着每个 process start 都要完整扫描 kernel。
 
-生产实现可以用 kernel package/build identity、BTF digest、相关 config/security-policy identity 和 privilege profile 构成 target identity，按它 cache receipt。object-specific result 再按 artifact hash cache。任何会影响 decision 的 identity component 变化时才 invalidate。
+生产实现可以用一个组合 identity 缓存 receipt：kernel package/build identity、BTF digest、相关 config/security-policy identity、privilege profile、BPF artifact hash，以及覆盖 bpftool/libbpf、dependency extractor 和 admission policy 版本的 probe/policy digest。只有所有组件都匹配时才能复用；probe logic 或 policy 变化必须像 target 或 artifact 变化一样让缓存失效。
 
 version metadata 也仍然可以保留成外层 support boundary：
 
@@ -264,4 +265,4 @@ fallback 也必须可观测。如果 fentry 不可用而系统选择 tracepoint 
 - libbpf. [`libbpf_probe_bpf_prog_type`, `libbpf_probe_bpf_map_type`, `libbpf_probe_bpf_helper`](https://github.com/libbpf/libbpf/blob/master/src/libbpf.h)，访问于 2026-09-15。
 - bpftool. [`bpftool feature` manual](https://manpages.debian.org/unstable/bpftool/bpftool-feature.8.en.html)，访问于 2026-09-15。
 - Ubuntu Security. [CVE-2021-3490](https://ubuntu.com/security/CVE-2021-3490)，2026 年更新，访问于 2026-09-15。
-- Amery Hung. [Unify helper and kfunc argument checks, v2](https://lwn.net/Articles/1093919/)，BPF patch posting，2026-09-11。
+- Amery Hung. [PATCH bpf-next v2 00/23: Unify helper and kfunc argument checks](https://lore-kernel.gnuweeb.org/bpf/20260911221956.1F62A1F00893%40smtp.kernel.org/T/)，BPF 邮件列表归档，2026-09-11。
