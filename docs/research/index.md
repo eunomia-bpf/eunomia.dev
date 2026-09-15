@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Loader Trust the Kernel Version?](https://eunomia.dev/research/ebpf-kernel-capability-evidence/)
+
+Kernel version strings can hide distribution backports, configuration, BTF, privilege, and verifier differences that decide whether a real BPF object loads. This report develops artifact-bound capability receipts, side-effect-bounded semantic canaries, and replayable support envelopes that make admission and fallback explainable.
+
 ### [When an AI Agent Retries a Tool Call, How Do You Know It Didn't Do It Twice?](https://eunomia.dev/research/agent-tool-retry-effect-idempotency/)
 
 A tool can commit a payment, message, deployment, or cloud mutation before its response is lost. This report separates protocol request IDs, execution attempts, and logical effect identity, then develops durable effect records, ambiguous-outcome reconciliation, and a post-commit fault benchmark for safe agent retries.
