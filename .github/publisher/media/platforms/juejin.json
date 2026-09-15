@@ -18,11 +18,12 @@
   "browser_observations": [
     {
       "checked_at": "2026-09-15",
-      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_staged_page_qa",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
       "profile_url": "https://juejin.cn/user/4288563097635144/posts",
       "staged_url": "https://juejin.cn/spost/7685561582916009994",
-      "review_status": "review_pending",
-      "notes": "45-scx-nest published through the visible Juejin editor with the prepared local artifact, category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article under 审核中; the staged /spost/ page carries the exact title, exact 24628-character single-copy body, six H2, six H3, twenty-one H4, twenty-four code blocks, eight external links, and no images. The canonical /post/ URL still returns 找不到页面 pending review."
+      "review_status": "confirmed",
+      "notes": "45-scx-nest submitted through the visible Juejin editor with the prepared local artifact, category 后端 and tags Linux/后端/性能优化; the submission page showed 发布成功 and the article entered 审核中. Review cleared by 2026-09-15 01:21 PDT: the canonical /post/7685561582916009994 URL renders the public article with the exact title, a single-copy body, six H2, six H3, twenty-one H4, twenty-four code blocks, eight external links, no images, and no review/update/deletion marker.",
+      "public_url": "https://juejin.cn/post/7685561582916009994"
     },
     {
       "checked_at": "2026-09-14",
@@ -234,13 +235,13 @@
   "published": [
     {
       "id": "juejin-7685561582916009994",
-      "status": "review_pending",
+      "status": "confirmed",
       "title": "eBPF 示例教程：实现 `scx_nest` 调度器",
       "url": "https://juejin.cn/post/7685561582916009994",
       "staged_url": "https://juejin.cn/spost/7685561582916009994",
       "source_path": "docs/tutorials/45-scx-nest/README.zh.md",
-      "checked_via": "chrome_yunwei_visible_editor_import_and_staged_page_qa",
-      "notes": "Submitted through the visible Juejin editor on 2026-09-15 (09-15 normal slot; JSON-LD datePublished 2026-09-15T15:09:52+08:00 = 00:09 PDT 2026-09-15) and the submission page returned 发布成功. Category 后端; tags Linux, 后端, 性能优化. The staged page preserves the exact source title and single-copy body with six H2 headings, six H3 headings, twenty-one H4 headings, twenty-four code blocks (twenty-one c, two bash, one program-output block left unlabeled as in the source), eight external links, and no content images; the source H1 is rendered once by the title field and not repeated in the body. The submission is still 审核中, so the canonical /post/ URL does not resolve yet; recheck before marking confirmed."
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted through the visible Juejin editor on 2026-09-15 (09-15 normal slot; JSON-LD datePublished 2026-09-15T15:09:52+08:00 = 00:09 PDT 2026-09-15); the submission page returned 发布成功. Category 后端; tags Linux, 后端, 性能优化. Review cleared by 2026-09-15 01:21 PDT, when the canonical /post/ URL resolved to the public article. The public page preserves the exact title and single-copy body (opening paragraph occurs once, no H1 inside the body) with six H2 headings, six H3 headings, twenty-one H4 headings, twenty-four code blocks (twenty-one c, two bash, one program-output block left unlabeled as in the source), eight external links, and no content images; the source H1 is rendered once by the title field and not repeated in the body. No review/update/rejection marker. QA passed on 2026-09-15."
     },
     {
       "id": "juejin-7685094363799207982",

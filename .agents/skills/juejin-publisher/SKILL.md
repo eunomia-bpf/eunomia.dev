@@ -171,6 +171,11 @@ Verified against the 2026-09-15 45-scx-nest submission.
   `/spost/<id>` staged URL renders. Treat that as `review_pending`, not a
   confirmed publication; leave the queue item `阻塞` with the staged URL and the
   recovery condition so the next run does not resubmit the same source.
+- Review can clear within minutes, so a `review_pending` observation is not the
+  end of the run. On 2026-09-15 the 45-scx-nest article 404'd immediately after
+  submission and was public roughly an hour later in the same session; recheck
+  `/post/<id>` before finishing, and on clearance run the full public-page QA,
+  flip the queue item to `[x]`, and set the ledger entry to `confirmed`.
 - Passing a long body through `agent-browser eval` as an inline argument fails
   when the payload is large. Build the whole script with the base64 embedded and
   pipe it to `agent-browser eval --stdin`, which avoids the shell and CLI
