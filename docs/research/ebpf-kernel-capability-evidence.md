@@ -1,5 +1,6 @@
 ---
 date: 2026-09-15
+slug: ebpf-kernel-capability-evidence
 title: "Can an eBPF Loader Trust the Kernel Version?"
 description: "Kernel versions do not prove eBPF capability on backported systems. This report develops capability receipts, semantic canaries, and support envelopes."
 tags:
@@ -187,7 +188,7 @@ This direction fails if the derived dependency set is unstable, nearly as large 
 
 When general probing plus object load is insufficient, run a deliberately tiny canary that exercises only the uncertain boundary.
 
-A map canary can create and destroy the required map type. A kfunc canary can load the smallest legal program that calls the required function in the intended program context. An attach canary can use an isolated namespace, temporary cgroup, disposable link, or test interface when the hook semantics require actual attachment. Every canary should have an explicit side-effect budget and cleanup contract.
+A map canary can create and destroy the required map type. A kfunc canary can load the smallest legal program that calls the required function in the intended program context. An attach canary may use a namespace, temporary cgroup, or test interface only when that hook is proven to be scoped to that isolation boundary; a disposable link limits lifetime, not observation scope. Host-wide hooks such as fentry or tracepoints should be exercised on a dedicated test VM or host, or not probed in production. Every canary should have an explicit side-effect budget and cleanup contract.
 
 The research problem is choosing canaries that are strong enough to predict the real application while remaining safe and cheap. One can model this as **compatibility test selection**: given a dependency graph and prior failures, choose the smallest set of probes that reduces uncertainty below a deployment threshold.
 
@@ -217,7 +218,7 @@ This direction fails if target identities fragment so aggressively that receipts
 
 Active evidence does not require probing the whole kernel on every process start.
 
-A production implementation can cache receipts by a target identity containing the kernel package/build identity, BTF digest, relevant config or security-policy identity, and privilege profile. Object-specific results can then be cached by artifact hash. The cache must be invalidated when any identity component that matters to the decision changes.
+A production implementation can cache receipts by a composite identity containing the kernel package/build identity, BTF digest, relevant config or security-policy identity, privilege profile, BPF artifact hash, and a probe/policy digest covering bpftool/libbpf, dependency-extractor, and admission-policy versions. Reuse is valid only while every component matches; changes in probe logic or policy invalidate the result just as target or artifact changes do.
 
 The decision policy can also preserve version metadata as an outer support boundary:
 
@@ -264,4 +265,4 @@ Current evidence does not support those simplifications. RHEL explicitly documen
 - libbpf. [`libbpf_probe_bpf_prog_type`, `libbpf_probe_bpf_map_type`, and `libbpf_probe_bpf_helper`](https://github.com/libbpf/libbpf/blob/master/src/libbpf.h), accessed 2026-09-15.
 - bpftool. [`bpftool feature` manual](https://manpages.debian.org/unstable/bpftool/bpftool-feature.8.en.html), accessed 2026-09-15.
 - Ubuntu Security. [CVE-2021-3490](https://ubuntu.com/security/CVE-2021-3490), updated 2026, accessed 2026-09-15.
-- Amery Hung. [Unify helper and kfunc argument checks, v2](https://lwn.net/Articles/1093919/), BPF patch posting dated 2026-09-11.
+- Amery Hung. [PATCH bpf-next v2 00/23: Unify helper and kfunc argument checks](https://lore-kernel.gnuweeb.org/bpf/20260911221956.1F62A1F00893%40smtp.kernel.org/T/), BPF mailing-list archive, 2026-09-11.
