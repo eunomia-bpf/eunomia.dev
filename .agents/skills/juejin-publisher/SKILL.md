@@ -145,6 +145,37 @@ public page.
   Verify the resulting character count equals the local artifact byte-length in
   characters before submitting.
 
+## Publish Dialog Mechanics
+
+Verified against the 2026-09-15 45-scx-nest submission.
+
+- The settings dialog is `<div class="publish-popup ...">`. Querying
+  `.byte-modal` and reading its `innerText` returns an empty string, so read the
+  popup text from `.publish-popup` instead.
+- Category chips are `.category-list .item`, but a selected one carries the
+  class `active`, not `selected`. Read back
+  `[...document.querySelectorAll('.category-list .item.active')]` to confirm the
+  choice instead of looking for `.selected`, which returns nothing.
+- The popup holds several `.byte-select` widgets in DOM order: index 0 is tags,
+  then collections, then topics. Focus `publish-popup .byte-select__input`[0] to
+  add a tag. Typing a trigger character with the CLI's `keyboard type` opens the
+  option list in `.byte-select-option`; click the option whose exact text equals
+  the target to commit the chip. Between tags, clear the input by setting
+  `value = ''` and dispatching a bubbling `input` event, otherwise the previous
+  term stays in the search box. Read the committed chips back from
+  `.byte-select__tag` before submitting.
+- The final control is the popup button with exact text `确定并发布`. Success is
+  `document.title === '发布成功'` on `https://juejin.cn/published`.
+- A newly submitted article may sit in review: the profile lists it under
+  `审核中`, the canonical `/post/<id>` URL returns `找不到页面`, and only the
+  `/spost/<id>` staged URL renders. Treat that as `review_pending`, not a
+  confirmed publication; leave the queue item `阻塞` with the staged URL and the
+  recovery condition so the next run does not resubmit the same source.
+- Passing a long body through `agent-browser eval` as an inline argument fails
+  when the payload is large. Build the whole script with the base64 embedded and
+  pipe it to `agent-browser eval --stdin`, which avoids the shell and CLI
+  argument-length limits.
+
 ## Content Strategy
 
 Juejin-native short posts and new articles can use immediately useful technical

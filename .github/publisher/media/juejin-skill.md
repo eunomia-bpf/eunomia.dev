@@ -1,6 +1,6 @@
 # Juejin Publishing Skill Brief
 
-Last checked: 2026-09-14
+Last checked: 2026-09-15
 
 Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.agents/skills/juejin-publisher/SKILL.md`.
 
@@ -76,6 +76,24 @@ cookie objects from the mounted state file, verified with `Storage.getCookies`
 (2026-09-14: 55 cookies imported, 19 Juejin cookies present). The first
 navigation after import may show a ByteDance `验证码中间页` slide CAPTCHA; do not
 solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
+
+
+## Publish Dialog
+
+- The category and tag dialog is `.publish-popup`, not `.byte-modal` (the modal
+  node renders with empty text). A selected category chip has class `active`,
+  not `selected`.
+- Tag entry: focus `publish-popup .byte-select__input`[0] (index 0 is tags),
+  type a trigger term, click the `.byte-select-option` with the exact target
+  text, then read chips back from `.byte-select__tag`. Clear the input between
+  tags with `value = ''` plus a bubbling `input` event.
+- The confirm button's exact text is `确定并发布`; success lands on
+  `https://juejin.cn/published` with `document.title === '发布成功'`.
+- A submitted article can remain in review: only `/spost/<id>` renders and
+  `/post/<id>` returns `找不到页面`. Record it as `review_pending` and mark the
+  queue item `阻塞` so the next run does not submit the same source twice.
+- Injecting a long body through `agent-browser eval` needs `--stdin` with the
+  base64 embedded in the script; an inline argument fails for large payloads.
 
 ## Do Not Automate
 
