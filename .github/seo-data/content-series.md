@@ -189,7 +189,7 @@ Novelty guards:
 ### Rolling mix after the September 15 publication
 
 Before September 15 the newest ten actually published reports contain **7
- eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report rotating
+eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report rotating
 out is the eBPF-centered `2026-09-03` GPU-megakernel report. Adding the September
 15 eBPF-centered compatibility report therefore keeps the newest ten at **7 / 1 /
 2**. Open, unmerged PRs do not count as published state.
@@ -212,3 +212,20 @@ addresses duplicate materialization of one intended mutation rather than global
 composition of several workers' effects. Any future pure-Agent detour must remain
 inside the 1–2 of 10 cap and clear the same evidence and novelty gates as eBPF
 work.
+
+## Choosing the next report
+
+Each daily run should:
+
+1. calculate the actual rolling topic mix from the published index;
+2. start inside the active series when the mix permits it;
+3. research multiple candidate questions when necessary;
+4. reject candidates that fail evidence, novelty, or usefulness gates;
+5. choose one question that preserves the editorial mix without relabeling old
+   reports;
+6. publish exactly one new bilingual Daily Report;
+7. record the chosen series, classification, useful rejected candidates, and why
+   the report materially advances the roadmap.
+
+Temporary detours must be recorded here or in the daily operating record so the
+repository, not chat history, remains authoritative.
