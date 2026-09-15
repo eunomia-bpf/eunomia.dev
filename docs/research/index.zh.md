@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 加载器能相信内核版本号吗？](https://eunomia.dev/zh/research/ebpf-kernel-capability-evidence/)
+
+内核版本号可能隐藏 distribution backport、config、BTF、权限和 verifier 差异，而这些因素会直接决定真实 BPF object 能否加载。本文提出与 artifact 绑定的 capability receipt、限制副作用的 semantic canary，以及可 replay 的 support envelope，让 admission 和 fallback 都能解释。
+
 ### [AI Agent 重试一次工具调用，怎么知道没有把事情做两遍？](https://eunomia.dev/zh/research/agent-tool-retry-effect-idempotency/)
 
 工具可能已经完成支付、消息、部署或云资源 mutation，却在响应返回前断线。本文把 protocol request、execution attempt 和 logical effect identity 分开，并提出 durable effect record、ambiguous outcome reconciliation，以及专门攻击“commit 已发生、ack 丢失”场景的 fault benchmark。
