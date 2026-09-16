@@ -18,7 +18,7 @@
 - Production artifact commit for `#202`: `76515c340fc321090396fe442f301aa578cefff4`, message `deploy static app for 79ad87c2d89ac5761d68f6f77fb940fcda49e147`
 - Merged-PR closeout for `#202`: exactly one compact top-level closeout comment present
 - Current daily branch: `daily/2026-09-16-cxl-memory-tier-isolation`
-- Current daily pull request: pending creation
+- Current daily pull request: `#204`
 - Current branch original base: `0ee8ed2d0cc77d5d9d03f8af02c2bf42b0e8fc17`
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
@@ -58,7 +58,7 @@ Cloudflare remains disabled by repository configuration, so no Cloudflare-ground
 
 ## Current focus
 
-1. Deliver the September 16 CXL memory-tier-isolation report through one fresh non-draft PR, terminal-green final-head CI, complete diff/generated-output review, resolved-review reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+1. Deliver PR `#204` through terminal-green final-head CI, complete diff/generated-output review, resolved-review reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
 2. Make no unrelated technical SEO change without defect evidence.
 3. Recalculate the actual published newest-ten mix before every publication; open or unmerged PRs never count as published state.
 4. Resume **eBPF Deployment Compatibility and Lifecycle** only when the mix permits it and the selected boundary is distinct. Verifier drift, CO-RE versus semantic compatibility, interface negotiation, persistent-state lifecycle, and reproducible capability/artifact manifests remain candidates.
