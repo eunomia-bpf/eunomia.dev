@@ -70,7 +70,7 @@ multishot 请求只有在最终 CQE 不再带 `IORING_CQE_F_MORE` 时才结束�
 
 第一个缺口是**跨 opcode 的用户态终态契约**。`io_uring` 本身保留了不同操作的真实行为，但语言运行时、网络框架和存储引擎往往会统一包装成 future、promise 或 callback。这个统一抽象必须回答：什么时候 buffer、registered resource、file-related state 和逻辑 request identity 才真的不会再被内核触及？一个有价值的测试应该让通用运行时在高频 cancel/reuse 下配合 ASan、generation-tagged buffer 运行，检查是否出现 stale completion 归错对象。
 
-第二个缺口是**和外部效果关联的取消语义**。result CQE 能说明一个内核请求怎么完成，但应用真正关心的是更高层效果：数据是否已经发送、write 是否已经进入更低层、设备命令是否跨过不可逆边界、zero-copy notification 是否仍持有 buffer、multishot source 是否还能产出事件。不同 opcode 和 backing object 的答案不同，因此评估不能只数 `-ECANCELED`，而要故意制造 cancel race，并观察外部效果。
+第二个缺口是**和外部效果关联的取消语义**。result CQE 能说明一个内核请求怎么完成，但应用真正关心的是更高层效果：数据是否已经发送、write 是否已经在文件系统视图中可见、设备命令是否跨过不可逆边界、zero-copy notification 是否仍持有 buffer、multishot source 是否还能产出事件。不同 opcode 和 backing object 的答案不同，因此评估不能只数 `-ECANCELED`，而要故意制造 cancel race，并观察与具体 claim 对应的外部效果。
 
 第三个缺口是**可解释的 teardown 证据**。线上运行时出了问题之后，维护者需要知道某个资源为什么被释放：正常完成、取消获胜、zero-copy notification 已释放 buffer、ring shutdown drain，还是请求进入不可取消阶段后又晚一些完成。只留下 `user_data` 和结果码，在 identifier 被复用、或者一个逻辑操作有多个 completion event 时，往往不够恢复真实生命周期。
 
@@ -136,7 +136,7 @@ retire_after = retirement_event
 
 **机制。** 建一个 adversarial harness，主动控制 submission、执行、cancel、`close(fd)`、资源复用、target-CQE consumption，以及 zero-copy notification 等额外 lifetime event 的相对时序。每次运行同时记录 kernel-visible completion sequence 和 operation-specific external-effect oracle。
 
-网络 I/O 可以由 peer 记录实际收到的 bytes；文件写入可以在终态后和强制 shutdown 后回读；poll/multishot 可以统计 final CQE 前后产生的事件；zero-copy send 可以在 result CQE 和 notification CQE 之间尝试修改 buffer，验证 harness 能否发现 premature reuse；io-wq 路径则可以设置可控 blocking point，把 `-EALREADY` 的竞争窗口放大。
+网络 I/O 可以由 peer 记录实际收到的 bytes；文件写入可以在 completion 后回读目标，只把它当作 post-completion read visibility 的 oracle；稳定存储或崩溃后存活需要独立的持久化 oracle，本测试在未显式加入这类证据时不做 durability 结论。poll/multishot 可以统计 final CQE 前后产生的事件；zero-copy send 可以在 result CQE 和 notification CQE 之间尝试修改 buffer，验证 harness 能否发现 premature reuse；io-wq 路径则可以设置可控 blocking point，把 `-EALREADY` 的竞争窗口放大。
 
 **和现有方案的区别。** liburing 自己已经有大量 regression tests。这里要测试的不是内核 API 是否通过回归，而是**用户态 lifetime/effect contract 在恶意时序下是否仍然正确**。`0`、`-ENOENT`、`-EALREADY`、target success、target error、`-ECANCELED`、`F_MORE` 和 `F_NOTIF` 都只是 oracle 输入，不是最终分数。
 
