@@ -1,30 +1,30 @@
 self.__BUILD_MANIFEST = {
   "/": [
-    "static/chunks/13ahca26ji6ku.js"
+    "static/chunks/0f2inkv4opnc-.js"
   ],
   "/404": [
-    "static/chunks/0tcdp369ce9en.js"
+    "static/chunks/0s~r-w6xynsji.js"
   ],
   "/500": [
-    "static/chunks/0fue.ww.mkpny.js"
+    "static/chunks/04ny81o~jtfcd.js"
   ],
   "/[...slug]": [
-    "static/chunks/0cq-fmen24.u8.js"
+    "static/chunks/0529~flmjt8t7.js"
   ],
   "/_error": [
     "static/chunks/0036zwu~03yhw.js"
   ],
   "/search": [
-    "static/chunks/0~hu16sqowj82.js"
+    "static/chunks/0tnuf~7o-fcfx.js"
   ],
   "/zh": [
-    "static/chunks/01~pm-vqg5ev2.js"
+    "static/chunks/0nqhuc9.~vz3u.js"
   ],
   "/zh/[...slug]": [
-    "static/chunks/11-q9mwxvjeoo.js"
+    "static/chunks/17eo4oxja57sn.js"
   ],
   "/zh/search": [
-    "static/chunks/14tsix0pdx7.h.js"
+    "static/chunks/0a63a2zyjb9p0.js"
   ],
   "__rewrites": {
     "afterFiles": [],
