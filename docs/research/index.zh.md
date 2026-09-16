@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [io_uring 取消 I/O 后，这个操作真的结束了吗？](https://eunomia.dev/zh/research/io-uring-cancel-terminal-state/)
+
+`io_uring` 的取消会和目标请求自己的 completion path 竞争。本文区分 cancel control flow 与真正的 terminal completion，并提出终态回执、带 generation 的资源生命周期栅栏，以及验证 teardown 安全性的对抗式 race benchmark。
+
 ### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
 
 kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。
