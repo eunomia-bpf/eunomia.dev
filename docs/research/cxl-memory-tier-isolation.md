@@ -2,7 +2,7 @@
 date: 2026-09-16
 slug: cxl-memory-tier-isolation
 title: "Can a Container Keep Its Memory Out of CXL?"
-description: "Linux can place local DRAM and CXL memory in different NUMA tiers, but cpuset placement, reclaim demotion, shared pages, and multi-tenant fairness do not form one hard isolation contract."
+description: "Linux can separate DRAM and CXL NUMA tiers, but cpusets, reclaim demotion, and shared pages do not form a hard per-container residency boundary."
 tags:
   - Daily Report
   - Linux
@@ -107,7 +107,7 @@ A node counter can reveal the symptom while leaving the policy path uncertain. T
 
 ## Where current work is still weak
 
-The first gap is **contract semantics**. Linux exposes cpuset eligibility, cgroup memory control, NUMA policy, tier topology, and reclaim behavior as separate mechanisms. There is no single statement such as "private anonymous pages for this cgroup may use tiers 0 and 1; shared executable pages may use tier 1 only if every active consumer permits it; otherwise fail closed."
+The first gap is **contract semantics**. Linux exposes cpuset eligibility, cgroup memory control, NUMA policy, tier topology, and reclaim behavior as separate mechanisms. There is no single statement such as "private anonymous pages for this cgroup may use local tier 0 only; shared executable pages may use a remote tier only if every active consumer permits it; otherwise fail closed."
 
 The second gap is **shared-page policy composition**. One physical page can serve consumers with different placement requirements. Charging and allocation ownership are not automatically the right authority for latency or isolation policy.
 
