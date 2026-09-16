@@ -18,7 +18,7 @@
 - Production branch for `#202`: `new` at `76515c340fc321090396fe442f301aa578cefff4`
 - Merged-PR closeout for `#202`: exactly one compact top-level closeout comment present
 - Current daily branch: `daily/2026-09-16-io-uring-cancel-contract`
-- Current daily pull request: pending creation until the branch content is complete
+- Current daily pull request: `#203`
 - Current branch original base: `0ee8ed2d0cc77d5d9d03f8af02c2bf42b0e8fc17`
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
@@ -72,7 +72,7 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete the September 16 daily branch through one non-draft PR, terminal-green final-head CI, full diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+1. Complete PR `#203` through terminal-green final-head CI, full diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
 2. Keep today's adjacent `io_uring` cancellation report within the mechanical **7 / 1 / 2** newest-ten mix. Future selection must recalculate the actual published window rather than assuming an open PR was published.
 3. Resume **eBPF Deployment Compatibility and Lifecycle** only when the rolling-mix contract permits it. Verifier drift, CO-RE versus semantic compatibility, rapidly evolving interface negotiation, persistent-state lifecycle, and reproducible capability/artifact manifests remain candidate boundaries.
 4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
