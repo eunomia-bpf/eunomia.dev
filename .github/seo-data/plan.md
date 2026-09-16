@@ -45,7 +45,7 @@ operating entrypoint; this file stores durable goals and constraints.
   replaced rather than converted into a no-report day.
 - Technical SEO changes remain evidence-driven and may be skipped when no concrete
   defect is established.
-- Classify reports by the central mechanism, not keywords, and preserve the
+- Classify reports by the central mechanism, not by keywords, and preserve the
   mechanical rolling mix.
 - Required and expected CI must be terminal-green before final automated
   self-review and squash merge.
