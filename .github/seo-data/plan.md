@@ -60,28 +60,33 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-15`
+1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-16`
    publication the actually published window contains **7 eBPF-centered / 1 pure
    Agent / 2 adjacent systems**. The oldest report rotating out today is the
-   eBPF-centered `2026-09-03` GPU-megakernel report, so one eBPF-centered report
-   keeps the window at **7 / 1 / 2**. Never repair the ratio by relabeling older
-   work or counting an open PR as published.
-2. Publish the first boundary of the active **eBPF Deployment Compatibility and
-   Lifecycle** series as `/research/ebpf-kernel-capability-evidence/`. The report
-   separates version/distribution support metadata from direct capability
-   evidence and develops artifact-bound capability receipts, bounded semantic
-   canaries, and replayable support envelopes. It must not collapse back into a
-   `kernel >= X` heuristic.
-3. Continue the deployment-compatibility series only with distinct remaining
-   boundaries: same-object verifier/behavior drift; CO-RE structural relocation
-   versus helper/map/kfunc/attach semantic compatibility; capability negotiation
-   for rapidly evolving BPF-facing interfaces; pinned-map and persistent-state
-   lifecycle across host upgrades; and reproducible capability/artifact manifests
-   across distributions. Do not repeat today's version/backport-evidence boundary,
-   September 6 architecture-specific specialization, August 10 transactional
-   upgrade, or August 8 userspace-runtime capability/lifetime work.
+   adjacent `2026-09-04` GPU-checkpoint report. An eBPF-centered report would
+   create **8 / 1 / 1** and violate the upper bound, so today's report must be
+   Agent-centered or adjacent. The selected `io_uring` cancellation report is
+   adjacent and preserves **7 / 1 / 2**. Never repair the ratio by relabeling
+   older work or counting an open PR as published.
+2. Publish `/research/io-uring-cancel-terminal-state/` as the September 16
+   adjacent-systems detour. The report must distinguish cancel-request outcome
+   from target terminal completion, explain `-ENOENT`/`-EALREADY`, descriptor
+   closure, multishot completion, and hardware-inflight limits, then develop
+   terminal-state receipts, generation-aware resource retirement fences, and an
+   adversarial cancellation-race benchmark. It must not claim that successful
+   cancellation universally rolls back external effects.
+3. Keep **eBPF Deployment Compatibility and Lifecycle** as the active series, but
+   resume it only when the rolling-mix contract permits. Remaining distinct
+   boundaries include same-object verifier/behavior drift; CO-RE structural
+   relocation versus helper/map/kfunc/attach semantic compatibility; capability
+   negotiation for rapidly evolving BPF-facing interfaces; pinned-map and
+   persistent-state lifecycle across host upgrades; and reproducible
+   capability/artifact manifests across distributions. Do not repeat the
+   September 15 version/backport-evidence boundary, September 6
+   architecture-specific specialization, August 10 transactional upgrade, or
+   August 8 userspace-runtime capability/lifetime work.
 4. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-15`, no export newer than `2026-09-07..09-13` is
+   As rechecked on `2026-09-16`, no export newer than `2026-09-07..09-13` is
    present. Search Console contains rows through `2026-09-12`; under the configured
    three-day lag rows through `2026-09-11` are finalized, `2026-09-12` is partial,
    and `2026-09-13` is absent.
@@ -111,9 +116,11 @@ operating entrypoint; this file stores durable goals and constraints.
 9. Treat exact-SHA Pages deployment and generated production artifacts as the
    primary publication acceptance evidence; independent crawler/search discovery
    is supplementary and can lag immediately after deployment.
-10. The public-safe brief generated `2026-09-15 12:45 UTC` reports the homepage
-    at HTTP 200 in **208 ms**, robots and sitemap at HTTP 200, and **764** sitemap
-    entries. Current evidence does not establish a separate crawlability,
+10. The public-safe brief generated `2026-09-16 12:40 UTC` reports the homepage
+    at HTTP 200 in **147 ms**, robots and sitemap at HTTP 200, and **768** sitemap
+    entries, plus **99** active non-fork repositories, **10,015** stars, **1,310**
+    forks, **293** open issue/PR records, and **63 DEV articles / 43 reactions / 4
+    comments**. Current evidence does not establish a separate crawlability,
     canonical, hreflang, structured-data, redirect, rendering, accessibility,
     persistent-performance, or deployment defect, so do not make an unrelated
     technical SEO implementation change today.
@@ -123,10 +130,11 @@ operating entrypoint; this file stores durable goals and constraints.
     migrated to the newer upstream layout; do not make a pointer-only update.
 13. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
-14. PR `#201` is fully reconciled after exact-merge CI/deployment verification and
-    one top-level closeout comment. PR `#200` remains open and unmerged and is not
-    part of published-state arithmetic.
-15. Complete PR `#202` through terminal-green final-head CI, full diff and
-    generated-output self-review, review-thread reinspection, squash merge,
-    exact-merge deployment, bilingual production/sitemap verification, and one
-    compact merged-PR closeout comment.
+14. PR `#202` is fully reconciled after exact-merge CI/deployment verification,
+    production branch verification, resolved review threads, and one top-level
+    closeout comment. PR `#200` remains open and unmerged and is not part of
+    published-state arithmetic.
+15. Complete the September 16 branch through one non-draft PR, terminal-green
+    final-head CI, full diff and generated-output self-review, review-thread
+    reinspection, squash merge, exact-merge deployment, bilingual
+    production/sitemap verification, and one compact merged-PR closeout comment.
