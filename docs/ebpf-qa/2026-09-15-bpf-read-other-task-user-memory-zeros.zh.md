@@ -1,4 +1,4 @@
-# BPF 程序能否读取另一个进程的用户态内存？为什么对不是当前任务的 `bpf_probe_read_user` 会返回全零？
+# BPF 程序能否读取另一个进程的用户态内存？为什么对不是当前任务的 bpf_probe_read_user 会返回全零？
 
 **简短回答：** BPF 程序无法用 `bpf_probe_read_user*` 这类 helper 直接读取*另一个*任务的用户态内存——这些 helper 通过 `copy_from_user_nofault()` 读取的是*当前任务*的用户态地址空间，一旦访问出错就静默返回零填充的数据。要在 BPF 里检查*别的*任务的用户态状态，有两条受支持的路径：要么在目标任务自己的上下文里跑（uprobe 打在该任务的用户库上、fentry/fexit 打在该任务的内核入口上），让探针本身落在那个任务上，然后 `bpf_probe_read_user()` 自然读它的内存；要么用 `bpf_task_storage_*`（按任意 `task_struct` 作为 key）去读该任务自己存进 `BPF_MAP_TYPE_TASK_STORAGE` 的每任务数据。当前 BPF helper 集合里并没有“从一个与目标任务不匹配的上下文读取任意其他任务用户内存”的单一 helper。
 

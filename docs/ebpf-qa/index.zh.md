@@ -6,7 +6,7 @@
 
 ## 最新回答
 
-- [BPF 程序能否读取另一个进程的用户态内存？为什么对不是当前任务的 `bpf_probe_read_user` 会返回全零？](/zh/ebpf-qa/2026-09-15-bpf-read-other-task-user-memory-zeros/)
+- [BPF 程序能否读取另一个进程的用户态内存？为什么对不是当前任务的 bpf_probe_read_user 会返回全零？](/zh/ebpf-qa/2026-09-15-bpf-read-other-task-user-memory-zeros/)
 - [为什么 BPF 程序不能睡眠或阻塞，在不可睡眠上下文里应该用什么替代？](/zh/ebpf-qa/2026-09-14-bpf-sleep-non-sleepable-context-alternatives/)
 - [为什么函数被编译器内联后，给它的 kprobe 永远不会触发？](/zh/ebpf-qa/2026-09-13-kprobe-inlined-function-never-fires/)
 - [什么时候应该用 BPF ring buffer 而不是 perf event 数组来采集 eBPF 样本？](/zh/ebpf-qa/2026-09-12-bpf-ringbuffer-vs-perf-event-array/)
