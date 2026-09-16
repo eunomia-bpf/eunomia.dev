@@ -14,7 +14,7 @@ an individual run cannot complete a repository or source operation.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-09-15`; no weekly source set newer than
+directly rechecked on `2026-09-16`; no weekly source set newer than
 `2026-09-07..09-13` is present.
 
 For Search Console, the newest date export contains rows for `2026-09-07..09-12`
