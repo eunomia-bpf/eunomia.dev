@@ -65,7 +65,7 @@ This series reached its six-report boundary on `2026-08-17`:
 4. `2026-08-12` — `/research/async-ebpf-causal-profiler/`: typed lifetime-aware
    causal handoff edges across `io_uring`, workqueues, runtimes, and application
    resources.
-5. `2026-08-15` — `/research/io-uring-bpf-programmability/`: cBPF admission versus
+5. `2026-08-14` — `/research/io-uring-bpf-programmability/`: cBPF admission versus
    eBPF `io_uring_bpf_ops`, capability, policy generation, provenance, and
    resource ownership.
 6. `2026-08-17` — `/research/heterogeneous-ebpf-execution-placement/`: target
@@ -199,7 +199,7 @@ The approved detour is `2026-09-16` —
 asks when an `io_uring` operation is truly terminal after cancellation races with
 normal completion. The report develops terminal-state receipts,
 generation-aware resource retirement fences, and an adversarial race/effect
-benchmark. This is distinct from the August 15 eBPF/io_uring programmability
+benchmark. This is distinct from the August 14 eBPF/io_uring programmability
 report because eBPF is not part of the mechanism under study, and distinct from
 the September 14 Agent retry report because kernel completion channels are
 available here even though application lifetime handling can still be wrong.
