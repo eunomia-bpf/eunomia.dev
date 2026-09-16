@@ -92,6 +92,13 @@ but cannot replace reading them. Separate established behavior, operational
 advice, and open limitations. Add a `References` section after the answer with
 only the public sources used.
 
+Title/H1 note: keep the H1 free of underscores, backticks, and apostrophes. The
+publisher renders the question as the page H1 and the validator re-checks that the
+exact Markdown title string is present verbatim in the live HTML; the site's H1
+pipeline strips underscores and HTML-encodes apostrophes, so such characters force
+a failed live-content check and an extra redeploy. Put helper names as ordinary
+words in the H1 and reserve backticked code for the answer body.
+
 ### 4. Summarize The Day's Discussion
 
 After the references, add `Community discussion today`. Cover as much of the

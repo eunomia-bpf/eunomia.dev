@@ -18,6 +18,16 @@ verify it, and state where the answer stops applying.
 6. Add a References section with the public primary sources used.
 7. End with an anonymized analysis of the day's wider community discussion.
 
+The H1 must read as a plain technical question. The publisher renders each
+question as the page H1, and the publication validator re-fetches that H1 from
+the live page and requires the exact Markdown title string to appear verbatim.
+Because the site's H1 pipeline strips underscores from a plain-text title (so
+`bpf_probe_read_user` renders as `bprobereaduser`) and HTML-encodes apostrophes,
+keep the H1 free of underscores, backticks, and apostrophes; put helper names
+inside the H1 as ordinary words or move them into the answer body where
+backticks belong. An H1 that fails the live-content check forces an extra
+redeploy just to fix the title.
+
 Use only the sections the question needs. This is a useful shape, not a required
 template.
 
