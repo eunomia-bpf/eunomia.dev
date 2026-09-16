@@ -25,6 +25,10 @@ CO-RE can repair structural differences while verifier rules, unstable kernel-fa
 
 `cpuset.mems` constrains NUMA placement, but reclaim demotion, incomplete migration, and shared pages can still break a naive hard-tier interpretation. This report separates allocation policy from lifetime residency and develops a tier-residency hardwall, multi-owner shared-page policy, and adversarial isolation benchmark.
 
+### [When io_uring Cancels I/O, Is the Operation Really Over?](https://eunomia.dev/research/io-uring-cancel-terminal-state/)
+
+`io_uring` cancellation races with the target request's own completion path. This report separates cancel control flow from terminal completion, then develops terminal-state receipts, generation-aware resource fences, and adversarial race tests for safe teardown.
+
 ### [Can an eBPF Loader Trust the Kernel Version?](https://eunomia.dev/research/ebpf-kernel-capability-evidence/)
 
 Kernel version strings can hide distribution backports, configuration, BTF, privilege, and verifier differences that decide whether a real BPF object loads. This report develops artifact-bound capability receipts, side-effect-bounded semantic canaries, and replayable support envelopes that make admission and fallback explainable.
