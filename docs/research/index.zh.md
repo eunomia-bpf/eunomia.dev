@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [io_uring 取消 I/O 后，这个操作真的结束了吗？](https://eunomia.dev/zh/research/io-uring-cancel-terminal-state/)
+
+`io_uring` 的取消会和目标请求自己的 completion path 竞争。本文区分 cancel control flow 与真正的 terminal completion，并提出终态回执、带 generation 的资源生命周期栅栏，以及验证 teardown 安全性的对抗式 race benchmark。
+
 ### [eBPF 加载器能相信内核版本号吗？](https://eunomia.dev/zh/research/ebpf-kernel-capability-evidence/)
 
 内核版本号可能隐藏 distribution backport、config、BTF、权限和 verifier 差异，而这些因素会直接决定真实 BPF object 能否加载。本文提出与 artifact 绑定的 capability receipt、限制副作用的 semantic canary，以及可 replay 的 support envelope，让 admission 和 fallback 都能解释。
