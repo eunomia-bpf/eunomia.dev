@@ -186,16 +186,29 @@ Novelty guards:
 - require current primary evidence from Linux/BPF tooling, distributions, CI, or
   production compatibility systems before selecting the next boundary.
 
-### Rolling mix after the September 15 publication
+### Mix-driven adjacent detour — 2026-09-16
 
-Before September 15 the newest ten actually published reports contain **7
-eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report rotating
-out is the eBPF-centered `2026-09-03` GPU-megakernel report. Adding the September
-15 eBPF-centered compatibility report therefore keeps the newest ten at **7 / 1 /
-2**. Open, unmerged PRs do not count as published state.
+Before the September 16 publication, the newest ten actually published reports
+contain **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report
+rotating out today is the adjacent `2026-09-04` GPU-checkpoint report. Publishing
+an eBPF-centered report today would move the window to **8 / 1 / 1** and violate
+the configured 5–7 eBPF-centered range, so the active series is paused for this
+one run.
 
-Recompute this window from the actually published index before the next topic is
-selected; do not assume the next eBPF report is mechanically allowed.
+The selected adjacent report is:
+
+- `2026-09-16` — `/research/cxl-memory-tier-isolation/`: Linux CXL/NUMA/cgroup
+  lifetime residency semantics. It separates initial allocation eligibility from
+  reclaim demotion, migration, and shared-page residency, then develops a
+  tier-residency hardwall, multi-owner shared-page policy, and adversarial
+  conformance benchmark.
+
+This report is adjacent rather than eBPF-centered because Linux memory tiering is
+the central mechanism. Publishing it keeps the newest-ten mix at **7 / 1 / 2**.
+On the next run the oldest report due to rotate out is the eBPF-centered
+`2026-09-05` runtime-profile report, so the active eBPF series can become
+mechanically eligible again. Recompute the actual published window before topic
+selection rather than assuming eligibility.
 
 ## Queued series — Agent Systems (limited)
 
