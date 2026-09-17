@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why did enabling an eBPF tracer on a Node.js service triple p99 on the hot path when the eBPF probes are cheap?](/ebpf-qa/2026-09-16-nodejs-tracer-async-hooks-p99-cost/)
 - [Can a BPF program safely read user-space memory that belongs to another process?](/ebpf-qa/2026-09-15-bpf-read-other-task-user-memory-zeros/)
 - [Why can't a BPF program sleep or block, and what should you use instead in a non-sleepable context?](/ebpf-qa/2026-09-14-bpf-sleep-non-sleepable-context-alternatives/)
 - [Why does a kprobe on a function never fire when the compiler inlined it?](/ebpf-qa/2026-09-13-kprobe-inlined-function-never-fires/)

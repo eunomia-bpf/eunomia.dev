@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么给 Node.js 服务启用 eBPF 追踪后，热路径的 p99 会翻三倍，而 eBPF 探针本身却很廉价？](/zh/ebpf-qa/2026-09-16-nodejs-tracer-async-hooks-p99-cost/)
 - [BPF 程序能否安全读取属于另一个进程的用户态内存？](/zh/ebpf-qa/2026-09-15-bpf-read-other-task-user-memory-zeros/)
 - [为什么 BPF 程序不能睡眠或阻塞，在不可睡眠上下文里应该用什么替代？](/zh/ebpf-qa/2026-09-14-bpf-sleep-non-sleepable-context-alternatives/)
 - [为什么函数被编译器内联后，给它的 kprobe 永远不会触发？](/zh/ebpf-qa/2026-09-13-kprobe-inlined-function-never-fires/)
