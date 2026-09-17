@@ -23,7 +23,7 @@ CXL 内存接进 Linux 后，常见做法是把本地 DRAM 和较慢的 CXL memo
 
 Linux 里能改变物理页面位置的路径不只有第一次 allocation。内存压力出现后，reclaim 可以把页面 demote 到更慢的 memory tier；修改 cpuset 后触发的 migration 明确允许不完全成功；file-backed page、shared library 和其他共享映射可能同时被多个 cgroup 使用，却只有一个物理页面；tiering controller 也可能优先优化全局 hotness 或公平性，而不是保持某个 tenant 最初的 placement intent。
 
-Linux 当前的 CXL 文档直接暴露了这个边界。reclaim 文档说明，较早的 demotion 路径不会遵守 `cpuset.mems_allowed`；后续实现会尽量尊重它，但由别的 cgroup 创建的共享内存仍可能被 demote 到当前 consumer 不希望使用的节点。因此，文档明确提醒：`mems_allowed` 依然不能提供对 remote node 的完美隔离。
+Linux 当前的 CXL 文档直接暴露了这个边界。reclaim 文档说明，较早的 demotion 路径不会遵守 `cpusets.mems_allowed`；后续实现会尽量尊重它，但由别的 cgroup 创建的共享内存仍可能被 demote 到当前 consumer 不希望使用的节点。因此，文档明确提醒：`mems_allowed` 依然不能提供对 remote node 的完美隔离。
 
 所以真正的问题不是 Linux 能不能限制内存放在哪里。它当然能。更难的问题是：**当一个容器说“这类内存绝不能驻留在 CXL tier”时，这句话到底约束哪些页面、哪些迁移路径，以及内存压力下系统应该怎样失败？**
 
