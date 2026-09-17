@@ -14,21 +14,20 @@ an individual run cannot complete a repository or source operation.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
-directly rechecked on `2026-09-15`; no weekly source set newer than
+directly rechecked on `2026-09-17`; no weekly source set newer than
 `2026-09-07..09-13` is present.
 
 For Search Console, the newest date export contains rows for `2026-09-07..09-12`
-and no row for `2026-09-13`. Under the configured three-day finalization lag,
-rows through `2026-09-11` are treated as finalized, while the observed
-`2026-09-12` row remains partial. The finalized five-day `2026-09-07..11` slice
-contains **343 clicks / 47,606 impressions / ~0.720% aggregate CTR / ~6.47
-impression-weighted average position**.
+and no row for `2026-09-13`. Under the configured three-day finalization lag, all
+six observed rows through `2026-09-12` are now treated as finalized. The finalized
+six-day `2026-09-07..12` slice contains **376 clicks / 55,036 impressions /
+~0.683% aggregate CTR / ~6.46 impression-weighted average position**.
 
-The equal-duration finalized `2026-08-31..09-04` slice contains **368 clicks /
-53,341 impressions / ~0.690% CTR / ~7.45 weighted position**. Relative to that
-slice, the current five days have about **6.8% fewer clicks**, **10.8% fewer
-impressions**, CTR about **0.031 percentage points higher**, and weighted average
-position about **0.98 positions better**. This is useful source-native evidence
+The equal-duration finalized `2026-08-31..09-05` slice contains **388 clicks /
+60,880 impressions / ~0.637% CTR / ~7.35 weighted position**. Relative to that
+slice, the current six days have about **3.1% fewer clicks**, **9.6% fewer
+impressions**, CTR about **0.046 percentage points higher**, and weighted average
+position about **0.89 positions better**. This is useful source-native evidence
 but is not a complete seven-day trend.
 
 A complete latest-seven-days versus previous-seven-days comparison remains
@@ -38,12 +37,12 @@ required complete 28-day versus preceding-comparable-period comparison is also
 unavailable. Missing rows are never converted to zero.
 
 The newest GA4 organic landing-page aggregate for `2026-09-07..13` contains **880
-sessions** at about **43.52% session-weighted engagement**. It is partial because
-the frozen export includes lagged dates and has no date dimension for safe
-finalized subsetting. The `2026-08-31..09-06` aggregate contains **913 sessions**
-at about **47.54% engagement** and remains partial for the same reason. The latest
-fully finalized weekly aggregate remains `2026-08-24..30` at **1,007 sessions**
-and about **45.88% engagement**.
+sessions** at about **43.52% session-weighted engagement**. It remains partial
+because the frozen export was generated while lagged dates were present and has
+no date dimension for safe finalized subsetting. The `2026-08-31..09-06`
+aggregate contains **913 sessions** at about **47.54% engagement** and remains
+partial for the same reason. The latest fully finalized weekly aggregate remains
+`2026-08-24..30` at **1,007 sessions** and about **45.88% engagement**.
 
 These constraints never justify skipping the daily operation. Each run must use
 the available Google evidence, live-site evidence, public GitHub/DEV evidence,
