@@ -23,13 +23,13 @@ That rule is useful, but it is not a complete isolation contract.
 
 Linux can move or account pages through paths that are independent of the first allocation. Reclaim can demote pages to a slower memory tier. Changing a cpuset can trigger migration that the cgroup v2 documentation explicitly says may be incomplete. File-backed and other shared pages can have users in several cgroups while still being one physical page. A tiering controller may optimize global hotness or fairness rather than preserve a tenant's original placement intent.
 
-Current Linux CXL documentation makes the problem unusually explicit. Its reclaim guide says older demotion behavior did not respect `cpusets.mems_allowed`. Newer work attempts to respect it, but shared memory instantiated by another cgroup can still be demoted outside the nodes a consumer expected. The documentation therefore warns that `mems_allowed` still cannot provide perfect isolation from remote nodes.
+Current Linux CXL documentation makes the problem unusually explicit. Its reclaim guide says older demotion behavior did not respect `cpuset.mems_allowed`. Newer work attempts to respect it, but shared memory instantiated by another cgroup can still be demoted outside the nodes a consumer expected. The documentation therefore warns that `mems_allowed` still cannot provide perfect isolation from remote nodes.
 
 So the hard question is not whether Linux can constrain placement. It can. The harder question is: **what exactly does a container mean when it says that some class of its memory must never reside on a CXL tier, and which kernel paths must preserve that statement?**
 
 <!-- more -->
 
-## Allocation policy and residency policy are different contracts
+## CXL allocation policy and residency policy are different contracts
 
 Linux memory placement starts with NUMA policy and the page allocator. With local DRAM and CXL memory exposed as different NUMA nodes, `cpuset.mems` constrains which memory nodes tasks in a cgroup may use. `cpuset.mems.effective` exposes the nodes actually granted after parent and online-node constraints are applied.
 
