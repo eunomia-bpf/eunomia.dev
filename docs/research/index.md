@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can a Container Keep Its Memory Out of CXL?](https://eunomia.dev/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` constrains NUMA placement, but reclaim demotion, incomplete migration, and shared pages can still break a naive hard-tier interpretation. This report separates allocation policy from lifetime residency and develops a tier-residency hardwall, multi-owner shared-page policy, and adversarial isolation benchmark.
+
 ### [Can an eBPF Loader Trust the Kernel Version?](https://eunomia.dev/research/ebpf-kernel-capability-evidence/)
 
 Kernel version strings can hide distribution backports, configuration, BTF, privilege, and verifier differences that decide whether a real BPF object loads. This report develops artifact-bound capability receipts, side-effect-bounded semantic canaries, and replayable support envelopes that make admission and fallback explainable.

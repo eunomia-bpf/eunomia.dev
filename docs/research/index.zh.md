@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [容器能保证自己的内存不被放进 CXL 吗？](https://eunomia.dev/zh/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` 可以约束 NUMA placement，但 reclaim demotion、不完整 migration 与共享页会让“绝不进入某个 tier”变成更复杂的生命周期问题。本文提出带失败语义的 tier-residency hardwall、multi-owner shared-page policy，以及专门攻击隔离声明的对抗式 benchmark。
+
 ### [eBPF 加载器能相信内核版本号吗？](https://eunomia.dev/zh/research/ebpf-kernel-capability-evidence/)
 
 内核版本号可能隐藏 distribution backport、config、BTF、权限和 verifier 差异，而这些因素会直接决定真实 BPF object 能否加载。本文提出与 artifact 绑定的 capability receipt、限制副作用的 semantic canary，以及可 replay 的 support envelope，让 admission 和 fallback 都能解释。
