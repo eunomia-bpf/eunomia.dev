@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [内核升级后，同一个 eBPF 对象还能保持原来的语义吗？](https://eunomia.dev/zh/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE 能修正结构差异，但 verifier、非稳定的 kernel-facing interface 与 feature probe 行为仍可能在升级后变化。本文提出跨内核 semantic witness、dependency-based drift localization，以及验证应用行为而不只是 loadability 的 semantic promotion gate。
+
 ### [容器能保证自己的内存不被放进 CXL 吗？](https://eunomia.dev/zh/research/cxl-memory-tier-isolation/)
 
 `cpuset.mems` 可以约束 NUMA placement，但 reclaim demotion、不完整 migration 与共享页会让“绝不进入某个 tier”变成更复杂的生命周期问题。本文提出带失败语义的 tier-residency hardwall、multi-owner shared-page policy，以及专门攻击隔离声明的对抗式 benchmark。
