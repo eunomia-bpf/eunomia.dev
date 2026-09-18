@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-15",
+  "last_checked": "2026-09-17",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,15 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-09-17",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7686408837754142770",
+      "review_status": "confirmed",
+      "notes": "44-scx-simple submitted through the visible Juejin editor with the prepared local artifact (11651 chars), category 后端 and tags Linux/后端/性能优化; the submission page showed 发布成功. Review cleared the same LA day: the canonical /post/7686408837754142770 URL renders the public article with the exact title, a single-copy body, seven H2, thirteen H3, two H4, six code blocks, seven external links, no images, and no review/update/deletion marker.",
+      "public_url": "https://juejin.cn/post/7686408837754142770"
+    },
     {
       "checked_at": "2026-09-15",
       "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
@@ -233,6 +242,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7686408837754142770",
+      "status": "confirmed",
+      "title": "eBPF 教程：BPF 调度器入门",
+      "url": "https://juejin.cn/post/7686408837754142770",
+      "staged_url": "https://juejin.cn/spost/7686408837754142770",
+      "source_path": "docs/tutorials/44-scx-simple/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted through the visible Juejin editor on 2026-09-17 (09-17 normal slot; JSON-LD datePublished 2026-09-18T07:35:58+08:00 = 16:35 PDT 2026-09-17); the submission page returned 发布成功. Category 后端; tags Linux, 后端, 性能优化. Review cleared the same LA day, when the canonical /post/ URL resolved to the public article. The public page preserves the exact title and single-copy body (opening paragraph occurs once, no H1 inside the body) with seven H2 headings, thirteen H3 headings, two H4 headings, six code blocks (two c, two bash, two unlabeled program-output blocks as in the source), seven external links, and no content images; the source H1 is rendered once by the title field and not repeated in the body. No review/update/rejection marker. QA passed on 2026-09-17."
+    },
     {
       "id": "juejin-7685561582916009994",
       "status": "confirmed",

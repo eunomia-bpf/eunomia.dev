@@ -114,6 +114,34 @@ Medium and DEV publishers use their documented APIs by default; all other
 platform actions use normal visible-browser workflows. Never use hidden
 platform APIs, background endpoints, or scraping datasets.
 
+## Visible Browser Recovery
+
+Before routing any browser-based platform action, confirm the persistent
+visible Chrome answers on CDP 9222. Every browser publisher depends on it, so a
+dead browser blocks the whole run, not one platform.
+
+- Probe with `curl -s --max-time 12 http://127.0.0.1:9222/json/version`.
+- Check the supervisor log `/var/log/gem/browser-supervisor.log`. Repeated
+  `Chromium exited before CDP became ready: rc=-5` means Chrome is
+  crash-looping, not merely restarting; a healthy restart logs
+  `Chromium ready on 127.0.0.1:9222, pid=...`.
+- `rc=-5` is SIGTRAP from crashpad aborting when it cannot create
+  `$HOME/.config/chromium/Crash Reports/new`. That directory being owned by
+  root in the user's own `$HOME` causes the abort, and the profile directory
+  can carry the same root ownership. Confirm with
+  `stat -c '%A %U:%G %n' ~/.config/chromium` and
+  `find ~/.config/browser -user root | head`.
+- Repair ownership only; never delete or recreate the profile, which holds the
+  mounted login state:
+  `sudo chown -R gem:gem ~/.config/chromium` and
+  `sudo find ~/.config/browser -user root -exec chown gem:gem {} +`.
+  Then wait for the supervisor to relaunch and re-probe 9222.
+- Verify the fix from the user's own `HOME` before concluding, because a clean
+  `HOME` can mask the fault: launching with `HOME=/tmp/...` succeeds while
+  `HOME=/home/gem` still fails.
+- After recovery, confirm the platform is still signed in before acting.
+  Sessions survive the repair because only ownership changed.
+
 ## No-Filler Rule
 
 Do not manufacture a visible artifact to satisfy the scheduler. Match the

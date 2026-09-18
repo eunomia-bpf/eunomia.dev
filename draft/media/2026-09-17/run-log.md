@@ -1,4 +1,17 @@
-# 2026-09-17 eBPF 每日问答发布（America/Los_Angeles 自然日）
+# 2026-09-17 内容巡检
+
+- 运行模式：定时巡检（eunomia-content-patrol），LA 自然日 2026-09-17。
+- 调用子技能：eunomia-social-radar、juejin-publisher。
+- 异常恢复：持久可见 Chrome 自 2026-09-16 00:52 PDT 起以 `rc=-5`（SIGTRAP）崩溃重启循环，共 128105 次失败重启，CDP 9222 不可用。根因是用户 HOME 内 `~/.config/chromium` 及 profile 内 108 个条目被 root 拥有，crashpad 无法创建 `Crash Reports/new` 而 abort；仅修正归属（不改动、不删除 profile）后，09-18 07:11 恢复 `Chromium ready on 127.0.0.1:9222`，Juejin 登录态保持。根因与修复步骤已写入 `.agents/skills/eunomia-content-patrol/SKILL.md` 的“Visible Browser Recovery”。
+- 异常恢复：同一次 root 事故（2026-09-15 20:47-20:50）还使仓库 416 个条目（含 `.git`、`draft/`）归属 root，导致本地无法 `git add`/提交；另删除了 10 个受版本控制的符号链接/子模块条目（`AGENTS.md`、`agent.md`、`.claude/skills`、`.agents/sources/agent-skills`、`.github/seo-skills`、`docs/tutorials/third_party/libbpf` 及 4 个 `vmlinux.h`）。本次修正归属并以 `git checkout --` 还原这些已跟踪条目，未提交内容改动。
+- 发布：掘金 44-scx-simple 教程，2026-09-17 使用 09-17 正常额度发布并确认公开：<https://juejin.cn/post/7686408837754142770>。提交时先进入“审核中”，同日复查审核通过、`/post/` 解析为公开页后完成公开页 QA；ledger 记为 `confirmed`。
+- 已用 artifact：`draft/media/2026-09-16/44-scx-simple/juejin-body.md`（11651 字符）与 `juejin.md` 记录。
+- 监测发现（16:20-16:27 PDT）：45-scx-nest 28 阅读 / 6 个 H2；46-xdp-test 23 / 6；ACRFence 48 / 10；Agent Sandbox 257 / 单份正文结构稳定；47-cuda-events 49 / 13；48-energy 32 / 14；Runtime Security 32 / 10。七篇均无审核/更新/删除标记、0 评论（`暂无评论数据`），无回复或更正待办。注意：掘金公开页阅读计数每次加载自增 1，故读数包含巡检自身访问，不与上一基线严格可比。`https://eunomia.dev/zh/tutorials/45-scx-nest/` 返回 200。
+- 阻塞：知乎 `/creator` 仍跳转 `/signin`，可见会话无 `z_c0`，24 条知乎任务继续阻塞（恢复条件同队列第 14 行）。
+- 补发缺口：09-16 因浏览器故障无发布窗口，新增 1 条补发额度，现共 4 条（2026-08-29、2026-09-01、2026-09-03、2026-09-16），因知乎阻塞且掘金每日上限未核销。
+- 下一步：下一个 Juejin LA 自然日额度处理队列第 82 行 `docs/tutorials/43-kfuncs/README.zh.md`。
+
+## eBPF 每日问答发布（2026-09-17 LA 额度）
 
 - 运行模式：eunomia-qa 定时问答巡检（eunomia-community-radar 路由）。任务日 2026-09-17，LA 时区 16:02 PDT 起执行。
 - 候选来源：当日 25 条 opt-in Slack 归档消息（技术密度高，含 4 条实质线程）。选定问题——「GenAI 智能体 span 是否应把每次工具执行嵌套在请求它的模型调用下面，还是把模型调用与工具执行都作为同一个智能体 span 的兄弟节点？」，slug `genai-agent-invoke-agent-chat-execute-tool-sibling-tree`。与既往 32 篇无重复（既有 GenAI 篇覆盖属性稳定性、OpenInference 共存、评估证据引用，均不涉及 span 树的父子/兄弟形状）。
