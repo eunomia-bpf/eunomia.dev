@@ -60,32 +60,30 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-17`
+1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-18`
    publication the actually published window contains **7 eBPF-centered / 1 pure
    Agent / 2 adjacent systems**. The oldest report rotating out today is the
-   adjacent `2026-09-04` GPU-checkpoint report, so another eBPF-centered report
-   would move the window to **8 / 1 / 1** and violate the configured 5–7 range.
-   Today's adjacent CXL report preserves **7 / 1 / 2**. Never repair the ratio by
-   relabeling older work or counting an open or closed-but-unmerged PR as
-   published.
-2. Publish `/research/cxl-memory-tier-isolation/` as the required adjacent detour.
-   The report separates first-allocation eligibility from lifetime residency
-   across reclaim demotion, migration, shared pages, and memory-pressure failure
-   behavior, and develops a tier-residency hardwall, multi-owner shared-page
-   policy, and adversarial conformance benchmark. It is not an eBPF-centered
-   report and does not consume a slot in the active eBPF series.
-3. Keep **eBPF Deployment Compatibility and Lifecycle** as the active series and
-   resume it when the actual published window permits. Distinct remaining
-   boundaries include same-object verifier/behavior drift; CO-RE structural
-   relocation versus helper/map/kfunc/attach semantic compatibility; capability
-   negotiation for rapidly evolving BPF-facing interfaces; pinned-map and
-   persistent-state lifecycle across host upgrades; and reproducible
-   capability/artifact manifests across distributions. Do not repeat the
-   September 15 version/backport-evidence boundary, September 6 architecture
-   specialization, August 10 transactional upgrade, or August 8 userspace-runtime
-   capability/lifetime work.
+   eBPF-centered `2026-09-05` runtime-profile report. Today's eBPF-centered
+   `/research/ebpf-kernel-upgrade-semantic-compatibility/` report replaces it and
+   therefore preserves **7 / 1 / 2**. Never repair the ratio by relabeling older
+   work or counting an open or closed-but-unmerged PR as published.
+2. Resume **eBPF Deployment Compatibility and Lifecycle** with a boundary
+   downstream of the September 15 capability-admission report. The September 18
+   report asks how an artifact that relocates, verifies, and attaches on both
+   sides of a kernel upgrade can prove application-level behavioral continuity.
+   It develops cross-kernel semantic witnesses, dependency-based drift
+   localization, and a semantic promotion gate.
+3. Keep later reports in this active series distinct. Strong remaining boundaries
+   include capability negotiation for rapidly evolving kfunc/`struct_ops`/
+   iterator interfaces, pinned-map and persistent-state lifecycle across host
+   upgrades, and reproducible capability/artifact manifests across
+   distributions. A standalone CO-RE-versus-semantics report is deferred unless
+   it develops a mechanism materially beyond the broader September 18 behavior
+   contract. Do not repeat the September 15 version/backport evidence boundary,
+   September 6 architecture specialization, August 10 transactional upgrade, or
+   August 8 userspace-runtime capability/lifetime work.
 4. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-17`, no export newer than `2026-09-07..09-13` is
+   As rechecked on `2026-09-18`, no export newer than `2026-09-07..09-13` is
    present. Search Console contains observed rows through `2026-09-12`; all six
    observed rows are now outside the configured three-day lag, while
    `2026-09-13` is absent.
@@ -101,9 +99,9 @@ operating entrypoint; this file stores durable goals and constraints.
    export omits `2026-09-13`, and older history includes recorded gaps. Missing
    rows are never zero.
 7. Weekly GSC page/query aggregates may prioritize inspection but cannot support
-   causal metadata claims without date-dimensional evidence. Continue watching
-   the WASI/component-model article and AI-kernel-driver query as measurement
-   candidates rather than automatic title/description changes.
+   causal metadata claims without date-dimensional evidence. Continue treating
+   high-impression/low-click pages and queries as measurement candidates rather
+   than automatic title/description changes.
 8. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
    landing-page aggregate: **1,007 sessions** at about **45.88% session-weighted
    engagement**. The `2026-09-07..13` aggregate contains **880 sessions** at about
@@ -114,23 +112,21 @@ operating entrypoint; this file stores durable goals and constraints.
 9. Treat exact-SHA Pages deployment and generated production artifacts as the
    primary publication acceptance evidence; independent crawler/search discovery
    is supplementary and can lag immediately after deployment.
-10. The public-safe brief generated `2026-09-17 12:39 UTC` reports the homepage
-    at HTTP 200 in **247 ms**, robots and sitemap at HTTP 200, and **770** sitemap
-    entries. Current evidence does not establish a separate crawlability,
-    canonical, hreflang, structured-data, redirect, rendering, accessibility,
-    persistent-performance, or deployment defect, so do not make an unrelated
-    technical SEO implementation change today.
+10. Current public retrieval and repository evidence do not establish a separate
+    crawlability, canonical, hreflang, structured-data, redirect, rendering,
+    accessibility, persistent-performance, or deployment defect. Do not make an
+    unrelated technical SEO implementation change without a concrete defect.
 11. Keep Cloudflare evidence unavailable until a supported read-only route is
     enabled in repository configuration.
 12. Keep the shared SEO skill submodule pinned until its consuming contract is
     migrated to the newer upstream layout; do not make a pointer-only update.
 13. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
-14. PR `#202` is fully reconciled after exact-merge CI/deployment verification and
+14. PR `#205` is fully reconciled after exact-merge CI/deployment verification and
     one top-level closeout comment. PRs `#200` and `#203` remain open and unmerged;
     PR `#204` was closed without merge. None of these unmerged attempts is counted
     as published state.
-15. Complete PR `#205` through terminal-green final-head CI, full diff and
+15. Complete PR `#206` through terminal-green final-head CI, full diff and
     generated-output self-review, review-thread reinspection, squash merge,
     exact-merge deployment, bilingual production/sitemap verification, and one
     compact merged-PR closeout comment.

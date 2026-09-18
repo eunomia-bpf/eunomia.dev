@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Object Keep Its Meaning After a Kernel Upgrade?](https://eunomia.dev/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE can repair structural differences while verifier rules, unstable kernel-facing interfaces, and feature-probe behavior still change across upgrades. This report develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic promotion gate for proving application behavior rather than loadability alone.
+
 ### [Can a Container Keep Its Memory Out of CXL?](https://eunomia.dev/research/cxl-memory-tier-isolation/)
 
 `cpuset.mems` constrains NUMA placement, but reclaim demotion, incomplete migration, and shared pages can still break a naive hard-tier interpretation. This report separates allocation policy from lifetime residency and develops a tier-residency hardwall, multi-owner shared-page policy, and adversarial isolation benchmark.
