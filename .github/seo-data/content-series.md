@@ -66,8 +66,11 @@ This series reached its six-report boundary on `2026-08-17`:
    causal handoff edges across `io_uring`, workqueues, runtimes, and application
    resources.
 5. `2026-08-15` — `/research/io-uring-bpf-programmability/`: cBPF admission versus
-   eBPF `io_uring_bpf_ops`, capability, policy generation, provenance, and
-   resource ownership.
+   eBPF `struct_ops` execution path. This report separates the cBPF admission gate
+   from the eBPF ring-loop control surface, then asks how restrictions, LSM
+   authority, policy generations, provenance, and resource accounting should
+   compose as io_uring absorbs FUSE, zero-copy networking, ublk, and other
+   registered I/O resources.
 6. `2026-08-17` — `/research/heterogeneous-ebpf-execution-placement/`: target
    manifests and generation-scoped state ownership across kernel, userspace,
    NIC/DPU, and GPU-side execution.
@@ -153,8 +156,7 @@ Working question: **How can one eBPF application remain loadable, semantically
 correct, and operationally explainable across real kernel, distribution,
 backport, toolchain, and BPF-interface evolution?**
 
-This roadmap became active after the optimization series closed. Its first
-published boundary is:
+Published boundaries:
 
 1. `2026-09-15` — `/research/ebpf-kernel-capability-evidence/`: kernel and
    distribution version metadata versus direct capability evidence. The report
@@ -163,23 +165,33 @@ published boundary is:
    envelopes. The central mechanism is deployment admission on real
    distribution/backport/configuration/privilege combinations, not
    architecture-specific native code generation.
+2. `2026-09-18` — `/research/ebpf-kernel-upgrade-semantic-compatibility/`: what
+   must be re-proven when the same artifact relocates, verifies, and attaches on
+   both sides of a kernel upgrade. The report separates CO-RE structural
+   adaptation and load-time admission from application behavior, then develops
+   artifact-specific cross-kernel semantic witnesses, a compatibility dependency
+   graph for drift localization, and a semantic kernel-upgrade promotion gate.
+   Recent Linux 7.2/Cilium probe failures provide direct evidence that even the
+   loader's interpretation of a verifier result can be a compatibility surface.
 
 Remaining candidate boundaries include:
 
-- verifier-acceptance and behavior drift across kernels/toolchains, including how
-  a deployment records and diagnoses “same object, different verifier outcome”;
-- CO-RE relocation compatibility versus semantic compatibility of helpers, maps,
-  kfuncs, program types, and attachment behavior;
 - version/capability negotiation for kfunc, `struct_ops`, iterator, and other
   rapidly evolving BPF-facing interfaces;
 - pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
   object layouts evolve across host upgrades;
 - reproducible capability and artifact manifests across distributions so a
-  loader can explain why a program chose, rejected, or downgraded one path.
+  loader can explain why a program chose, rejected, or downgraded one path;
+- a narrower CO-RE structural-versus-semantic boundary only if it develops a
+  mechanism materially distinct from the September 18 cross-kernel behavior
+  contract, rather than merely restating that successful relocation is not a
+  semantic proof.
 
 Novelty guards:
 
 - do not repeat the `2026-09-15` version/backport capability-evidence boundary;
+- do not repeat the `2026-09-18` post-admission cross-kernel behavioral-compatibility
+  boundary with a different example;
 - do not repeat September 6 architecture-specific specialization and fallback;
 - do not repeat the August 10 application-level transactional-upgrade protocol;
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
@@ -189,13 +201,13 @@ Novelty guards:
 ### Mix-driven adjacent detour — 2026-09-17
 
 Before the September 17 publication, the newest ten actually published reports
-contain **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report
-rotating out today is the adjacent `2026-09-04` GPU-checkpoint report. Publishing
-an eBPF-centered report today would move the window to **8 / 1 / 1** and violate
-the configured 5–7 eBPF-centered range, so the active series is paused for this
-one run.
+contained **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest
+report rotating out that day was the adjacent `2026-09-04` GPU-checkpoint report.
+Publishing an eBPF-centered report would have moved the window to **8 / 1 / 1**
+and violated the configured 5–7 eBPF-centered range, so the active series paused
+for one run.
 
-The selected adjacent report is:
+The selected adjacent report was:
 
 - `2026-09-17` — `/research/cxl-memory-tier-isolation/`: Linux CXL/NUMA/cgroup
   lifetime residency semantics. It separates initial allocation eligibility from
@@ -203,13 +215,12 @@ The selected adjacent report is:
   behavior, then develops a tier-residency hardwall, multi-owner shared-page
   policy, and adversarial conformance benchmark.
 
-This report is adjacent rather than eBPF-centered because Linux memory tiering is
-the central mechanism. Publishing it keeps the newest-ten mix at **7 / 1 / 2**.
-On the next run the oldest report due to rotate out is the eBPF-centered
-`2026-09-05` runtime-profile report, so the active eBPF series should become
-mechanically eligible again if the published window otherwise remains unchanged.
-Recompute the actual published window before topic selection rather than assuming
-eligibility.
+That report is adjacent rather than eBPF-centered because Linux memory tiering is
+the central mechanism. It preserved the newest-ten mix at **7 / 1 / 2**. On
+September 18 the oldest report rotating out became the eBPF-centered September 5
+runtime-profile report, so the active eBPF series became mechanically eligible
+again. The September 18 eBPF report replaces that eBPF slot and keeps the mix at
+**7 / 1 / 2**.
 
 The abandoned September 16 CXL draft and the still-open September 16 `io_uring`
 draft are not published-state boundaries and must not be counted in this roadmap.
