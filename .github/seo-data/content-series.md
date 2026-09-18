@@ -66,11 +66,8 @@ This series reached its six-report boundary on `2026-08-17`:
    causal handoff edges across `io_uring`, workqueues, runtimes, and application
    resources.
 5. `2026-08-15` — `/research/io-uring-bpf-programmability/`: cBPF admission versus
-   eBPF `struct_ops` execution path. This report separates the cBPF admission gate
-   from the eBPF ring-loop control surface, then asks how restrictions, LSM
-   authority, policy generations, provenance, and resource accounting should
-   compose as io_uring absorbs FUSE, zero-copy networking, ublk, and other
-   registered I/O resources.
+   eBPF `io_uring_bpf_ops`, capability, policy generation, provenance, and
+   resource ownership.
 6. `2026-08-17` — `/research/heterogeneous-ebpf-execution-placement/`: target
    manifests and generation-scoped state ownership across kernel, userspace,
    NIC/DPU, and GPU-side execution.
