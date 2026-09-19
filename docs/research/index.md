@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can a Pinned eBPF Map Survive a Host Reboot?](https://eunomia.dev/research/ebpf-pinned-map-reboot-state/)
+
+A bpffs pin extends an in-kernel map's lifetime beyond one userspace process, but it does not provide durable state across a reboot. This report develops per-map restart contracts, consistency-aware checkpoint cuts, and a staged restore gate for reconstructing eBPF state safely.
+
 ### [Can an eBPF Object Keep Its Meaning After a Kernel Upgrade?](https://eunomia.dev/research/ebpf-kernel-upgrade-semantic-compatibility/)
 
 CO-RE can repair structural differences while verifier rules, unstable kernel-facing interfaces, and feature-probe behavior still change across upgrades. This report develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic promotion gate for proving application behavior rather than loadability alone.

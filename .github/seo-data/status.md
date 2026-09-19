@@ -10,40 +10,41 @@
 - Search Console newest observed source row: `2026-09-12`; all observed rows through that date are outside the configured three-day lag, while `2026-09-13` is absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
 - Newest GA4 weekly organic landing-page aggregate: `2026-09-07` through `2026-09-13`, partial because the frozen export includes lagged dates and has no date dimension
-- Last fully reconciled Daily Report run: `2026-09-17`
-- Last merged Daily Report pull request: `#205`
-- Last Daily Report squash commit: `b4bb7a0388b0f23210fd0d72c1da6531a49467c8`
-- Exact-merge `Validate SEO Operations` for `#205`: run `35246283580`, terminal-success
-- Exact-merge `Deploy Static App` for `#205`: run `35246283380`, terminal-success
-- Merged-PR closeout for `#205`: exactly one compact top-level closeout comment present
-- Current production `new` tip at this run's start: `41009e1fc2f5c15606e3881777792238987338c2`, built from default-branch commit `38dcb11a3c0f7f204e912ff711813e3d75f35668`
-- Current daily branch: `daily/2026-09-18-ebpf-kernel-semantic-drift`
-- Current daily pull request: `#206`
-- Current branch original base: `38dcb11a3c0f7f204e912ff711813e3d75f35668`
+- Last fully reconciled Daily Report run: `2026-09-18`
+- Last merged Daily Report pull request: `#206`
+- Last Daily Report squash commit: `c39296a51d3ed1e386c22e3b6dcde9cfdd9b62cb`
+- Exact-merge `Validate SEO Operations` for `#206`: run `35365632145`, terminal-success
+- Exact-merge `Deploy Static App` for `#206`: run `35365632168`, terminal-success
+- Deployed static revision for `#206`: `e37bd2519672496466ac9f2f8cb19dffa6de3477`
+- Merged-PR closeout for `#206`: exactly one compact top-level closeout comment present
+- Current production `new` tip at this run's start: `86a2796c65202342f49441539de3d7c71fcb0d17`, built from default-branch commit `f0e98964ef410bb604c9aa6f7c7f39a8e0a39de7`
+- Current daily branch: `daily/2026-09-19-ebpf-reboot-state`
+- Current daily pull request: `#207`
+- Current branch original base: `f0e98964ef410bb604c9aa6f7c7f39a8e0a39de7`
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
-- Shared agent-skills submodule commit: `c2a48c28495150f86adeb961323e65a4b7fb08f4`
+- Shared agent-skills submodule commit: `d9791c478f0e251b3f840e82a64e47eed2b43faa`
 
-September 17 is fully reconciled. PR `#205` was squash-merged as `b4bb7a0388b0f23210fd0d72c1da6531a49467c8`; exact-merge validation and deployment passed; English and Chinese production artifacts plus sitemap alternates were verified; review threads were resolved; and exactly one merged-PR closeout comment is present. The production branch has since advanced through maintenance, so the deployment SHA recorded in that closeout remains historical evidence for the September 17 acceptance event rather than the current tip.
+September 18 is fully reconciled. PR `#206` was squash-merged as `c39296a51d3ed1e386c22e3b6dcde9cfdd9b62cb`; exact-merge validation and deployment passed; English and Chinese production artifacts plus sitemap alternates were verified; and exactly one merged-PR closeout comment is present. The production branch has since advanced through maintenance, so the deployed static revision recorded for September 18 remains historical evidence for that acceptance event rather than the current tip.
 
 PRs `#200` and `#203` remain open and unmerged. PR `#204` was closed without merge. None is counted as published state.
 
 ## Current Daily Report mix
 
-Before the September 18 publication, the newest ten actually published reports contain:
+Before the September 19 publication, the newest ten actually published reports contain:
 
 - eBPF-centered: **7 of 10**
 - pure Agent-centered: **1 of 10**
 - adjacent systems: **2 of 10**
 
-The oldest report rotating out when today's report enters is the eBPF-centered `2026-09-05` runtime-profile report. Today's `/research/ebpf-kernel-upgrade-semantic-compatibility/` report is eBPF-centered, so one eBPF report leaves and one enters. Publication therefore preserves the rolling mix at **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**.
+The oldest report rotating out when today's report enters is the eBPF-centered `2026-09-06` architecture-specialization report. Today's `/research/ebpf-pinned-map-reboot-state/` report is eBPF-centered, so one eBPF report leaves and one enters. Publication therefore preserves the rolling mix at **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**.
 
-The active roadmap is **eBPF Deployment Compatibility and Lifecycle**. Today's boundary is deliberately downstream of the September 15 admission boundary: it asks whether an artifact that is admitted before and after a kernel upgrade still preserves application-level behavior. It develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic upgrade promotion gate.
+The active roadmap is **eBPF Deployment Compatibility and Lifecycle**. Today's boundary is deliberately about state after the old kernel object graph disappears: a bpffs pin extends live object lifetime beyond one userspace process, but reboot durability requires an explicit checkpoint/reconstruct/reset contract, a consistent recovery cut, and post-restore validation. This is distinct from the August 10 live transactional-upgrade protocol and the September 18 cross-kernel behavioral-compatibility contract.
 
 ## Current signals
 
 ### Google Search Console
 
-The configured Drive folder was directly rechecked on `2026-09-18`. No newer weekly export than `2026-09-07..13` is present. The newest date export has rows for `2026-09-07..12`, with no `2026-09-13` row. Under the configured three-day lag, all six observed rows through `2026-09-12` are finalized.
+The configured Drive folder was directly rechecked on `2026-09-19`. No newer weekly export than `2026-09-07..13` is present. The newest date export has rows for `2026-09-07..12`, with no `2026-09-13` row. Under the configured three-day lag, all six observed rows through `2026-09-12` are finalized.
 
 The finalized six-day slice `2026-09-07..12` contains **376 clicks / 55,036 impressions / ~0.683% aggregate CTR / ~6.46 impression-weighted average position**. The equal-duration finalized `2026-08-31..09-05` slice contains **388 / 60,880 / ~0.637% / ~7.35**. Relative to that slice, clicks are about **3.1% lower**, impressions about **9.6% lower**, CTR about **0.046 percentage points higher**, and weighted position about **0.89 positions better**.
 
@@ -59,9 +60,11 @@ The `2026-09-07..13` aggregate contains **880 sessions** at about **43.52% sessi
 
 ### Public and repository technical evidence
 
-The canonical homepage is publicly retrievable during the September 18 run. Before today's report work, production branch `new` points to `41009e1fc2f5c15606e3881777792238987338c2`, explicitly built from current default-branch commit `38dcb11a3c0f7f204e912ff711813e3d75f35668` after maintenance deployment.
+The canonical homepage is publicly retrievable during the September 19 run. Public repository metadata reports **235 stars / 40 forks / 58 open issues or pull requests** for `eunomia-bpf/eunomia.dev`; without a comparable prior timestamped baseline this is treated as a current snapshot, not a growth claim.
 
-Current analytics, repository health, public retrieval, and static-site architecture do not establish a concrete crawlability, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that warrants a separate technical SEO implementation change today.
+Direct external-browser retrieval of `robots.txt`, `sitemap.xml`, and the September 18 localized report routes is unavailable through the current browser path. That tool limitation is not interpreted as a production failure. Exact deployed static artifacts plus the exact-SHA Pages deployment remain the primary publication acceptance evidence, with public browser/search discovery as supplementary evidence when available.
+
+Current analytics, repository health, homepage retrieval, and static-site architecture do not establish a concrete crawlability, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that warrants a separate technical SEO implementation change today.
 
 Cloudflare remains disabled by repository configuration, so no Cloudflare-grounded traffic, cache, bot, country, or status-code conclusion is made.
 
@@ -73,10 +76,10 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete PR `#206` through terminal-green final-head CI, complete diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+1. Complete PR `#207` through terminal-green final-head CI, complete diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
 2. Preserve the mechanical **7 / 1 / 2** newest-ten mix with today's eBPF-centered report. Future selection must recalculate the actual published window rather than assuming an open or closed-but-unmerged PR was published.
-3. Continue the active **eBPF Deployment Compatibility and Lifecycle** series only with distinct boundaries. After the September 15 admission/capability boundary and September 18 behavioral-upgrade boundary, remaining candidates include rapidly evolving interface negotiation, pinned-map/persistent-state lifecycle, and reproducible capability/artifact manifests.
-4. Treat a standalone CO-RE-versus-semantics report as deferred unless it develops a mechanism materially distinct from today's broader behavioral-compatibility contract.
+3. Continue the active **eBPF Deployment Compatibility and Lifecycle** series only with distinct boundaries. After the September 15 admission/capability boundary, September 18 behavioral-upgrade boundary, and September 19 reboot-state boundary, remaining candidates include rapidly evolving kfunc/`struct_ops`/iterator negotiation and a sharper cross-distribution artifact/capability reproducibility contract.
+4. Do not repeat the August 10 live transactional-upgrade protocol when following up on persistent BPF state. Future state work must move beyond today's reboot durability, checkpoint consistency, and restore-validation boundary.
 5. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
 6. Keep both newer GA4 weekly aggregates explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
 7. Keep high-impression/low-click candidates as measurement targets rather than automatic metadata-change targets.

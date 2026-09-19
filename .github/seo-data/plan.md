@@ -60,30 +60,30 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-18`
+1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-19`
    publication the actually published window contains **7 eBPF-centered / 1 pure
    Agent / 2 adjacent systems**. The oldest report rotating out today is the
-   eBPF-centered `2026-09-05` runtime-profile report. Today's eBPF-centered
-   `/research/ebpf-kernel-upgrade-semantic-compatibility/` report replaces it and
+   eBPF-centered `2026-09-06` architecture-specialization report. Today's
+   eBPF-centered `/research/ebpf-pinned-map-reboot-state/` report replaces it and
    therefore preserves **7 / 1 / 2**. Never repair the ratio by relabeling older
    work or counting an open or closed-but-unmerged PR as published.
-2. Resume **eBPF Deployment Compatibility and Lifecycle** with a boundary
-   downstream of the September 15 capability-admission report. The September 18
-   report asks how an artifact that relocates, verifies, and attaches on both
-   sides of a kernel upgrade can prove application-level behavioral continuity.
-   It develops cross-kernel semantic witnesses, dependency-based drift
-   localization, and a semantic promotion gate.
+2. Continue **eBPF Deployment Compatibility and Lifecycle** with a boundary
+   distinct from both admission and live upgrade. The September 15 report covers
+   direct capability evidence for deployment admission. The September 18 report
+   covers post-admission application behavior across a kernel upgrade. The
+   September 19 report asks what happens when the old kernel object graph is gone:
+   a bpffs pin is a live object reference, not durable storage, so reboot recovery
+   needs per-map restart policy, a consistent recovery cut, semantic state
+   versioning, and post-restore validation.
 3. Keep later reports in this active series distinct. Strong remaining boundaries
    include capability negotiation for rapidly evolving kfunc/`struct_ops`/
-   iterator interfaces, pinned-map and persistent-state lifecycle across host
-   upgrades, and reproducible capability/artifact manifests across
-   distributions. A standalone CO-RE-versus-semantics report is deferred unless
-   it develops a mechanism materially beyond the broader September 18 behavior
-   contract. Do not repeat the September 15 version/backport evidence boundary,
-   September 6 architecture specialization, August 10 transactional upgrade, or
-   August 8 userspace-runtime capability/lifetime work.
+   iterator interfaces and a sharper reproducible artifact/capability contract
+   across distributions. Do not repeat the September 19 reboot-durability,
+   checkpoint-consistency, or restore-gate boundary, the August 10 live
+   transactional-upgrade protocol, the September 18 behavioral-upgrade boundary,
+   or the September 15 version/backport admission boundary.
 4. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-18`, no export newer than `2026-09-07..09-13` is
+   As rechecked on `2026-09-19`, no export newer than `2026-09-07..09-13` is
    present. Search Console contains observed rows through `2026-09-12`; all six
    observed rows are now outside the configured three-day lag, while
    `2026-09-13` is absent.
@@ -122,11 +122,11 @@ operating entrypoint; this file stores durable goals and constraints.
     migrated to the newer upstream layout; do not make a pointer-only update.
 13. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
-14. PR `#205` is fully reconciled after exact-merge CI/deployment verification and
-    one top-level closeout comment. PRs `#200` and `#203` remain open and unmerged;
-    PR `#204` was closed without merge. None of these unmerged attempts is counted
-    as published state.
-15. Complete PR `#206` through terminal-green final-head CI, full diff and
+14. PR `#206` is fully reconciled after exact-merge CI/deployment verification,
+    bilingual production/sitemap verification, and one top-level closeout comment.
+    PRs `#200` and `#203` remain open and unmerged; PR `#204` was closed without
+    merge. None of those unmerged attempts is counted as published state.
+15. Complete PR `#207` through terminal-green final-head CI, full diff and
     generated-output self-review, review-thread reinspection, squash merge,
     exact-merge deployment, bilingual production/sitemap verification, and one
     compact merged-PR closeout comment.
