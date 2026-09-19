@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
+
+kfunc、open-coded iterator、`struct_ops` 与 provider-scoped operation 都带有类型和上下文约束，简单的 Boolean feature check 无法描述完整 contract。本文提出 typed artifact requirement、scoped capability negotiation 和 dependency-driven compatibility CI。
+
 ### [内核升级后，同一个 eBPF 对象还能保持原来的语义吗？](https://eunomia.dev/zh/research/ebpf-kernel-upgrade-semantic-compatibility/)
 
 CO-RE 能修正结构差异，但 verifier、非稳定的 kernel-facing interface 与 feature probe 行为仍可能在升级后变化。本文提出跨内核 semantic witness、dependency-based drift localization，以及验证应用行为而不只是 loadability 的 semantic promotion gate。
