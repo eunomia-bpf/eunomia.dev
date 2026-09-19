@@ -60,73 +60,59 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-18`
+1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-19`
    publication the actually published window contains **7 eBPF-centered / 1 pure
    Agent / 2 adjacent systems**. The oldest report rotating out today is the
-   eBPF-centered `2026-09-05` runtime-profile report. Today's eBPF-centered
-   `/research/ebpf-kernel-upgrade-semantic-compatibility/` report replaces it and
-   therefore preserves **7 / 1 / 2**. Never repair the ratio by relabeling older
-   work or counting an open or closed-but-unmerged PR as published.
-2. Resume **eBPF Deployment Compatibility and Lifecycle** with a boundary
-   downstream of the September 15 capability-admission report. The September 18
-   report asks how an artifact that relocates, verifies, and attaches on both
-   sides of a kernel upgrade can prove application-level behavioral continuity.
-   It develops cross-kernel semantic witnesses, dependency-based drift
-   localization, and a semantic promotion gate.
-3. Keep later reports in this active series distinct. Strong remaining boundaries
-   include capability negotiation for rapidly evolving kfunc/`struct_ops`/
-   iterator interfaces, pinned-map and persistent-state lifecycle across host
-   upgrades, and reproducible capability/artifact manifests across
-   distributions. A standalone CO-RE-versus-semantics report is deferred unless
-   it develops a mechanism materially beyond the broader September 18 behavior
-   contract. Do not repeat the September 15 version/backport evidence boundary,
-   September 6 architecture specialization, August 10 transactional upgrade, or
-   August 8 userspace-runtime capability/lifetime work.
+   eBPF-centered `2026-09-06` architecture-specialization report. Today's
+   eBPF-centered `/research/ebpf-kernel-interface-negotiation/` report replaces
+   it and therefore preserves **7 / 1 / 2**. Never count open or closed-unmerged
+   work as published.
+2. Continue **eBPF Deployment Compatibility and Lifecycle** with distinct
+   boundaries. September 15 covers artifact admission from direct capability
+   evidence; September 18 covers post-admission behavior across kernel upgrades;
+   September 19 covers variant negotiation for typed and scoped kfunc, iterator,
+   `struct_ops`, and provider-specific contracts.
+3. The strongest next boundary is pinned-map and persistent-state lifecycle across
+   host reboot or replacement, but it must be kept materially distinct from the
+   August 10 transactional application-upgrade protocol. A broad generic
+   capability/artifact manifest should not repeat September 15 or September 19.
 4. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-18`, no export newer than `2026-09-07..09-13` is
+   As rechecked on `2026-09-19`, no export newer than `2026-09-07..09-13` is
    present. Search Console contains observed rows through `2026-09-12`; all six
-   observed rows are now outside the configured three-day lag, while
-   `2026-09-13` is absent.
+   observed rows are outside the configured three-day lag, while `2026-09-13` is
+   absent.
 5. Record the newest finalized Search Console `2026-09-07..12` slice as **376
    clicks / 55,036 impressions / ~0.683% CTR / ~6.46 impression-weighted
    position**. The equal-duration finalized `2026-08-31..09-05` slice is **388 /
-   60,880 / ~0.637% / ~7.35**. Current clicks are ~3.1% lower, impressions ~9.6%
-   lower, CTR ~0.046 percentage points higher, and weighted position ~0.89
-   positions better. This is a six-day source-native comparison, not a complete
-   seven-day trend.
-6. Keep complete GSC 7-day and 28-day comparisons unavailable until source
-   history is contiguous. The preceding export omits `2026-09-06`, the newest
-   export omits `2026-09-13`, and older history includes recorded gaps. Missing
-   rows are never zero.
+   60,880 / ~0.637% / ~7.35**. This is a six-day source-native comparison, not a
+   complete seven-day trend.
+6. Keep complete GSC seven-day and 28-day comparisons unavailable until source
+   history is contiguous. Missing dates are never zero.
 7. Weekly GSC page/query aggregates may prioritize inspection but cannot support
-   causal metadata claims without date-dimensional evidence. Continue treating
-   high-impression/low-click pages and queries as measurement candidates rather
-   than automatic title/description changes.
+   causal metadata claims without date-dimensional evidence. Treat
+   high-impression/low-click pages as measurement candidates, not automatic
+   title/description changes.
 8. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
    landing-page aggregate: **1,007 sessions** at about **45.88% session-weighted
-   engagement**. The `2026-09-07..13` aggregate contains **880 sessions** at about
-   **43.52% engagement**, while `2026-08-31..09-06` contains **913 sessions** at
-   about **47.54% engagement**. Both newer frozen aggregates remain partial
-   because they were generated with lagged dates and have no date dimension for
-   safe finalized subsetting.
-9. Treat exact-SHA Pages deployment and generated production artifacts as the
-   primary publication acceptance evidence; independent crawler/search discovery
-   is supplementary and can lag immediately after deployment.
+   engagement**. The two newer frozen weekly aggregates remain partial because
+   they include lagged dates and have no date dimension for safe subsetting.
+9. Treat exact-SHA Pages deployment and generated production artifacts as primary
+   publication acceptance evidence; independent crawler/search discovery is
+   supplementary and may lag.
 10. Current public retrieval and repository evidence do not establish a separate
     crawlability, canonical, hreflang, structured-data, redirect, rendering,
     accessibility, persistent-performance, or deployment defect. Do not make an
-    unrelated technical SEO implementation change without a concrete defect.
+    unrelated SEO change without a concrete defect.
 11. Keep Cloudflare evidence unavailable until a supported read-only route is
     enabled in repository configuration.
 12. Keep the shared SEO skill submodule pinned until its consuming contract is
     migrated to the newer upstream layout; do not make a pointer-only update.
-13. Do not create a thin public series hub without report-level acquisition or
-    navigation evidence that it would improve retrieval.
-14. PR `#205` is fully reconciled after exact-merge CI/deployment verification and
-    one top-level closeout comment. PRs `#200` and `#203` remain open and unmerged;
-    PR `#204` was closed without merge. None of these unmerged attempts is counted
-    as published state.
-15. Complete PR `#206` through terminal-green final-head CI, full diff and
-    generated-output self-review, review-thread reinspection, squash merge,
-    exact-merge deployment, bilingual production/sitemap verification, and one
-    compact merged-PR closeout comment.
+13. Do not create a thin public series hub without acquisition or navigation
+    evidence that it would improve retrieval.
+14. PR `#206` is fully reconciled with one closeout comment. PRs `#200` and `#203`
+    remain open and unmerged; PR `#204` was closed without merge. These attempts
+    are not part of published-state counting.
+15. Complete the September 19 single daily PR through terminal-green final-head
+    CI, full diff/generated-output self-review, review-thread reinspection,
+    squash merge, exact-merge deployment, bilingual production/sitemap
+    verification, and one compact merged-PR closeout comment.
