@@ -317,7 +317,7 @@ The current mechanisms support a narrower conclusion. Linux pinning is excellent
 - Linux UAPI `BPF_OBJ_PIN` / `BPF_OBJ_GET` lifetime semantics: <https://github.com/torvalds/linux/blob/master/include/uapi/linux/bpf.h>
 - Linux kernel BTF documentation, including map key/value BTF metadata and `BPF_OBJ_GET_INFO_BY_FD`: <https://docs.kernel.org/bpf/btf.html>
 - Linux BPF hash-map documentation on concurrent access and userspace iteration: <https://docs.kernel.org/bpf/map_hash.html>
-- Linux bpftool map documentation on pinning, map creation, batch-style operations, and map inspection: <https://github.com/torvalds/linux/blob/master/tools/bpf/bpftool/Documentation/bpftool-map.rst>
+- Linux bpftool map documentation on pinning, map creation, and map inspection: <https://github.com/torvalds/linux/blob/master/tools/bpf/bpftool/Documentation/bpftool-map.rst>
 - libbpf source and pinned-map reuse compatibility logic: <https://github.com/libbpf/libbpf/blob/master/src/libbpf.c>
 - eBPF Docs pinning concept, including the system-restart boundary: <https://docs.ebpf.io/linux/concepts/pinning/>
 - Cilium issue #44277, February 10, 2026, showing production recovery failure around an existing global BPF map pin: <https://github.com/cilium/cilium/issues/44277>
