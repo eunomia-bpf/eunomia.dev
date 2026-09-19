@@ -15,7 +15,7 @@
 - Last Daily Report squash commit: `c39296a51d3ed1e386c22e3b6dcde9cfdd9b62cb`
 - Merged-PR closeout for `#206`: exactly one compact top-level closeout comment present
 - Current daily branch: `daily/2026-09-19-ebpf-interface-negotiation`
-- Current daily pull request: pending at this record revision; set after PR creation
+- Current daily pull request: `#208`, non-draft
 - Current branch original base: `f0e98964ef410bb604c9aa6f7c7f39a8e0a39de7`
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 - Shared agent-skills submodule commit on the branch base: `d9791c478f0e251b3f840e82a64e47eed2b43faa`
@@ -68,7 +68,7 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete the September 19 single daily PR through terminal-green final-head CI, complete diff/generated-output self-review, explicit review-thread/Copilot reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+1. Complete PR `#208` through terminal-green final-head CI, complete diff/generated-output self-review, explicit review-thread/Copilot reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
 2. Preserve the mechanical **7 / 1 / 2** newest-ten mix and recalculate the actual published window before every future topic selection.
 3. Continue the active eBPF series only with distinct boundaries. After admission evidence, post-upgrade semantics, and interface negotiation, the strongest remaining candidate is pinned-map/persistent-state lifecycle across host upgrades, provided it is kept distinct from the August transactional-upgrade report.
 4. Recheck Drive freshness every run. Keep complete GSC seven-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
