@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [Pinned eBPF Map 能跨主机重启保住状态吗？](https://eunomia.dev/zh/research/ebpf-pinned-map-reboot-state/)
+
+bpffs pin 能让 live BPF map 跨 controller process 重启继续存在，却不能跨 host reboot 保存旧 kernel object。本文提出 per-map restart contract、带一致性 cut 的 checkpoint protocol，以及重建后再进入 production 的 staged restore gate。
+
 ### [内核升级后，同一个 eBPF 对象还能保持原来的语义吗？](https://eunomia.dev/zh/research/ebpf-kernel-upgrade-semantic-compatibility/)
 
 CO-RE 能修正结构差异，但 verifier、非稳定的 kernel-facing interface 与 feature probe 行为仍可能在升级后变化。本文提出跨内核 semantic witness、dependency-based drift localization，以及验证应用行为而不只是 loadability 的 semantic promotion gate。
