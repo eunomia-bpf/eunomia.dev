@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
+
+kfuncs, open-coded iterators, `struct_ops`, and provider-scoped operations expose typed and contextual contracts that a Boolean feature check cannot capture. This report develops typed artifact requirements, scoped capability negotiation, and dependency-driven compatibility CI.
+
 ### [Can an eBPF Object Keep Its Meaning After a Kernel Upgrade?](https://eunomia.dev/research/ebpf-kernel-upgrade-semantic-compatibility/)
 
 CO-RE can repair structural differences while verifier rules, unstable kernel-facing interfaces, and feature-probe behavior still change across upgrades. This report develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic promotion gate for proving application behavior rather than loadability alone.

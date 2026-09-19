@@ -7,59 +7,54 @@
 - Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: configured and enabled
 - Verified raw Google export window: through `2026-09-13`
-- Search Console newest observed source row: `2026-09-12`; all observed rows through that date are outside the configured three-day lag, while `2026-09-13` is absent
+- Search Console newest observed source row: `2026-09-12`; `2026-09-13` is absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
-- Newest GA4 weekly organic landing-page aggregate: `2026-09-07` through `2026-09-13`, partial because the frozen export includes lagged dates and has no date dimension
-- Last fully reconciled Daily Report run: `2026-09-17`
-- Last merged Daily Report pull request: `#205`
-- Last Daily Report squash commit: `b4bb7a0388b0f23210fd0d72c1da6531a49467c8`
-- Exact-merge `Validate SEO Operations` for `#205`: run `35246283580`, terminal-success
-- Exact-merge `Deploy Static App` for `#205`: run `35246283380`, terminal-success
-- Merged-PR closeout for `#205`: exactly one compact top-level closeout comment present
-- Current production `new` tip at this run's start: `41009e1fc2f5c15606e3881777792238987338c2`, built from default-branch commit `38dcb11a3c0f7f204e912ff711813e3d75f35668`
-- Current daily branch: `daily/2026-09-18-ebpf-kernel-semantic-drift`
-- Current daily pull request: `#206`
-- Current branch original base: `38dcb11a3c0f7f204e912ff711813e3d75f35668`
+- Newest GA4 weekly organic landing-page aggregate: `2026-09-07` through `2026-09-13`, partial under the configured finalization policy
+- Last fully reconciled Daily Report run: `2026-09-18`
+- Last merged Daily Report pull request: `#206`
+- Last Daily Report squash commit: `c39296a51d3ed1e386c22e3b6dcde9cfdd9b62cb`
+- Merged-PR closeout for `#206`: exactly one compact top-level closeout comment present
+- Current daily branch: `daily/2026-09-19-ebpf-interface-negotiation`
+- Current daily pull request: `#208`, non-draft
+- Current branch original base: `f0e98964ef410bb604c9aa6f7c7f39a8e0a39de7`
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
-- Shared agent-skills submodule commit: `c2a48c28495150f86adeb961323e65a4b7fb08f4`
+- Shared agent-skills submodule commit on the branch base: `d9791c478f0e251b3f840e82a64e47eed2b43faa`
 
-September 17 is fully reconciled. PR `#205` was squash-merged as `b4bb7a0388b0f23210fd0d72c1da6531a49467c8`; exact-merge validation and deployment passed; English and Chinese production artifacts plus sitemap alternates were verified; review threads were resolved; and exactly one merged-PR closeout comment is present. The production branch has since advanced through maintenance, so the deployment SHA recorded in that closeout remains historical evidence for the September 17 acceptance event rather than the current tip.
+September 18 is reconciled. PR `#206` was squash-merged as `c39296a51d3ed1e386c22e3b6dcde9cfdd9b62cb`; its exact-merge validation and production deployment succeeded, the deployed English and Chinese artifacts plus sitemap were verified, and exactly one merged-PR closeout comment records the final evidence and crawler-freshness uncertainty.
 
 PRs `#200` and `#203` remain open and unmerged. PR `#204` was closed without merge. None is counted as published state.
 
 ## Current Daily Report mix
 
-Before the September 18 publication, the newest ten actually published reports contain:
+Before the September 19 publication, the newest ten actually published reports contain:
 
 - eBPF-centered: **7 of 10**
 - pure Agent-centered: **1 of 10**
 - adjacent systems: **2 of 10**
 
-The oldest report rotating out when today's report enters is the eBPF-centered `2026-09-05` runtime-profile report. Today's `/research/ebpf-kernel-upgrade-semantic-compatibility/` report is eBPF-centered, so one eBPF report leaves and one enters. Publication therefore preserves the rolling mix at **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**.
+The oldest report rotating out when today's report enters is the eBPF-centered `2026-09-06` architecture-specialization report. Today's `/research/ebpf-kernel-interface-negotiation/` report is eBPF-centered, so one eBPF report leaves and one enters. Publication preserves the rolling mix at **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**.
 
-The active roadmap is **eBPF Deployment Compatibility and Lifecycle**. Today's boundary is deliberately downstream of the September 15 admission boundary: it asks whether an artifact that is admitted before and after a kernel upgrade still preserves application-level behavior. It develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic upgrade promotion gate.
+The active roadmap remains **eBPF Deployment Compatibility and Lifecycle**. Today's boundary is interface negotiation before admission: a loader selecting among artifacts that target evolving kfunc, iterator, `struct_ops`, or provider-scoped interfaces needs typed and scoped evidence rather than one host-global present/missing bit. This remains distinct from September 15 host admission and September 18 post-admission behavioral compatibility.
 
 ## Current signals
 
 ### Google Search Console
 
-The configured Drive folder was directly rechecked on `2026-09-18`. No newer weekly export than `2026-09-07..13` is present. The newest date export has rows for `2026-09-07..12`, with no `2026-09-13` row. Under the configured three-day lag, all six observed rows through `2026-09-12` are finalized.
+The configured Drive folder was directly rechecked on `2026-09-19`. No newer weekly export than `2026-09-07..13` is present. The newest date export has rows for `2026-09-07..12`, with no `2026-09-13` row. Under the configured three-day lag, all six observed rows through `2026-09-12` are finalized.
 
 The finalized six-day slice `2026-09-07..12` contains **376 clicks / 55,036 impressions / ~0.683% aggregate CTR / ~6.46 impression-weighted average position**. The equal-duration finalized `2026-08-31..09-05` slice contains **388 / 60,880 / ~0.637% / ~7.35**. Relative to that slice, clicks are about **3.1% lower**, impressions about **9.6% lower**, CTR about **0.046 percentage points higher**, and weighted position about **0.89 positions better**.
 
-This remains a six-day source-native comparison, not a complete seven-day trend. The preceding export omits `2026-09-06`, the newest export omits `2026-09-13`, and older history contains recorded gaps. Missing rows are never interpreted as zero. Complete latest-seven-day and 28-day comparable-period analyses remain unavailable.
-
-Weekly query/page aggregates remain prioritization evidence only. Existing high-impression/low-click candidates do not establish a title, description, canonical, indexing, or rendering defect without new date-dimensional evidence.
+This remains a six-day source-native comparison, not a complete seven-day trend. Missing `2026-09-06`, missing `2026-09-13`, and older recorded gaps keep complete latest-seven-day and 28-day comparable-period analyses unavailable. Missing rows are never interpreted as zero.
 
 ### Google Analytics 4
 
 The finalized `2026-08-24..30` organic landing-page aggregate remains **1,007 sessions** at about **45.88% session-weighted engagement**. The preceding finalized `2026-08-17..23` aggregate contains **984 sessions** at about **49.29% engagement**.
 
-The `2026-09-07..13` aggregate contains **880 sessions** at about **43.52% session-weighted engagement** and remains partial because the frozen export was produced while lagged dates were present and provides no date dimension for safe finalized subsetting. The `2026-08-31..09-06` aggregate contains **913 sessions** at about **47.54% engagement** and remains partial for the same reason. Neither frozen partial aggregate is promoted into a finalized week-over-week claim after the fact.
+The `2026-08-31..09-06` and `2026-09-07..13` frozen aggregates remain partial because they contain lagged dates and expose no date dimension for safe finalized subsetting. Neither is promoted into a finalized week-over-week claim.
 
 ### Public and repository technical evidence
 
-The canonical homepage is publicly retrievable during the September 18 run. Before today's report work, production branch `new` points to `41009e1fc2f5c15606e3881777792238987338c2`, explicitly built from current default-branch commit `38dcb11a3c0f7f204e912ff711813e3d75f35668` after maintenance deployment.
+The September 19 public-data brief reports the homepage at HTTP `200` in `244 ms`, robots and sitemap at HTTP `200`, **778 sitemap entries**, **99 active non-fork repositories**, **10,028 GitHub stars**, and **63 DEV articles**. The public homepage was independently retrievable and exposes the Daily Report navigation entry.
 
 Current analytics, repository health, public retrieval, and static-site architecture do not establish a concrete crawlability, canonical, hreflang, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that warrants a separate technical SEO implementation change today.
 
@@ -73,13 +68,12 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete PR `#206` through terminal-green final-head CI, complete diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
-2. Preserve the mechanical **7 / 1 / 2** newest-ten mix with today's eBPF-centered report. Future selection must recalculate the actual published window rather than assuming an open or closed-but-unmerged PR was published.
-3. Continue the active **eBPF Deployment Compatibility and Lifecycle** series only with distinct boundaries. After the September 15 admission/capability boundary and September 18 behavioral-upgrade boundary, remaining candidates include rapidly evolving interface negotiation, pinned-map/persistent-state lifecycle, and reproducible capability/artifact manifests.
-4. Treat a standalone CO-RE-versus-semantics report as deferred unless it develops a mechanism materially distinct from today's broader behavioral-compatibility contract.
-5. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
-6. Keep both newer GA4 weekly aggregates explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
-7. Keep high-impression/low-click candidates as measurement targets rather than automatic metadata-change targets.
-8. Keep Cloudflare evidence unavailable until a supported read-only path is enabled.
-9. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
-10. Keep the recurring operations schedule enabled regardless of source or delivery blockers; blockers are recorded rather than used to stop scheduling.
+1. Complete PR `#208` through terminal-green final-head CI, complete diff/generated-output self-review, explicit review-thread/Copilot reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one merged-PR closeout comment.
+2. Preserve the mechanical **7 / 1 / 2** newest-ten mix and recalculate the actual published window before every future topic selection.
+3. Continue the active eBPF series only with distinct boundaries. After admission evidence, post-upgrade semantics, and interface negotiation, the strongest remaining candidate is pinned-map/persistent-state lifecycle across host upgrades, provided it is kept distinct from the August transactional-upgrade report.
+4. Recheck Drive freshness every run. Keep complete GSC seven-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
+5. Keep newer GA4 weekly aggregates explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
+6. Keep high-impression/low-click candidates as measurement targets rather than automatic metadata-change targets.
+7. Keep Cloudflare evidence unavailable until a supported read-only path is enabled.
+8. Keep the shared SEO skill pointer unchanged until the consuming-contract migration required by `plan.md` is completed.
+9. Keep the recurring operations schedule enabled regardless of source or delivery blockers; blockers are recorded rather than used to stop scheduling.

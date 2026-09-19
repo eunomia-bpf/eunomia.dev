@@ -168,27 +168,33 @@ Published boundaries:
    adaptation and load-time admission from application behavior, then develops
    artifact-specific cross-kernel semantic witnesses, a compatibility dependency
    graph for drift localization, and a semantic kernel-upgrade promotion gate.
-   Recent Linux 7.2/Cilium probe failures provide direct evidence that even the
-   loader's interpretation of a verifier result can be a compatibility surface.
+3. `2026-09-19` — `/research/ebpf-kernel-interface-negotiation/`: how a loader
+   selects among artifact variants that depend on evolving kfunc, iterator,
+   `struct_ops`, or provider-scoped contracts. The report separates a typed,
+   scoped interface requirement from host-global feature presence, preserves the
+   verifier as final admission authority, and develops artifact requirement
+   manifests, scoped negotiation receipts, and dependency-driven compatibility
+   CI.
 
 Remaining candidate boundaries include:
 
-- version/capability negotiation for kfunc, `struct_ops`, iterator, and other
-  rapidly evolving BPF-facing interfaces;
-- pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
-  object layouts evolve across host upgrades;
-- reproducible capability and artifact manifests across distributions so a
-  loader can explain why a program chose, rejected, or downgraded one path;
+- pinned-map and persistent-state lifecycle when kernel capabilities, BTF, map
+  definitions, or object layouts evolve across host reboot/replacement;
+- reproducible artifact/environment manifests only where the mechanism remains
+  distinct from September 15 admission receipts and September 19 typed interface
+  negotiation;
 - a narrower CO-RE structural-versus-semantic boundary only if it develops a
   mechanism materially distinct from the September 18 cross-kernel behavior
-  contract, rather than merely restating that successful relocation is not a
-  semantic proof.
+  contract, rather than restating that successful relocation is not a semantic
+  proof.
 
 Novelty guards:
 
 - do not repeat the `2026-09-15` version/backport capability-evidence boundary;
 - do not repeat the `2026-09-18` post-admission cross-kernel behavioral-compatibility
   boundary with a different example;
+- do not repeat the `2026-09-19` interface-variant negotiation boundary as a
+  generic capability manifest;
 - do not repeat September 6 architecture-specific specialization and fallback;
 - do not repeat the August 10 application-level transactional-upgrade protocol;
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
@@ -215,8 +221,9 @@ The selected adjacent report was:
 That report is adjacent rather than eBPF-centered because Linux memory tiering is
 the central mechanism. It preserved the newest-ten mix at **7 / 1 / 2**. On
 September 18 the oldest report rotating out became the eBPF-centered September 5
-runtime-profile report, so the active eBPF series became mechanically eligible
-again. The September 18 eBPF report replaces that eBPF slot and keeps the mix at
+runtime-profile report; on September 19 the next rotating report is the
+eBPF-centered September 6 architecture-specialization report. The September 18
+and September 19 eBPF publications replace eBPF slots, so the mix remains
 **7 / 1 / 2**.
 
 The abandoned September 16 CXL draft and the still-open September 16 `io_uring`
