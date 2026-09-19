@@ -170,13 +170,17 @@ Published boundaries:
    graph for drift localization, and a semantic kernel-upgrade promotion gate.
    Recent Linux 7.2/Cilium probe failures provide direct evidence that even the
    loader's interpretation of a verifier result can be a compatibility surface.
+3. `2026-09-19` — `/research/ebpf-pinned-map-reboot-state/`: the lifetime boundary
+   between a bpffs pin and durable application state after the old kernel object
+   graph disappears. The report separates live pinned-map reuse from reboot
+   recovery, then develops per-map restart contracts, quiescence-aware checkpoint
+   cuts, and a staged restore gate that validates reconstructed state before
+   production attachment.
 
 Remaining candidate boundaries include:
 
 - version/capability negotiation for kfunc, `struct_ops`, iterator, and other
   rapidly evolving BPF-facing interfaces;
-- pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
-  object layouts evolve across host upgrades;
 - reproducible capability and artifact manifests across distributions so a
   loader can explain why a program chose, rejected, or downgraded one path;
 - a narrower CO-RE structural-versus-semantic boundary only if it develops a
@@ -189,6 +193,8 @@ Novelty guards:
 - do not repeat the `2026-09-15` version/backport capability-evidence boundary;
 - do not repeat the `2026-09-18` post-admission cross-kernel behavioral-compatibility
   boundary with a different example;
+- do not repeat the `2026-09-19` reboot-state boundary by renaming pinning,
+  checkpoint consistency, semantic state versioning, or restore validation;
 - do not repeat September 6 architecture-specific specialization and fallback;
 - do not repeat the August 10 application-level transactional-upgrade protocol;
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
@@ -216,8 +222,10 @@ That report is adjacent rather than eBPF-centered because Linux memory tiering i
 the central mechanism. It preserved the newest-ten mix at **7 / 1 / 2**. On
 September 18 the oldest report rotating out became the eBPF-centered September 5
 runtime-profile report, so the active eBPF series became mechanically eligible
-again. The September 18 eBPF report replaces that eBPF slot and keeps the mix at
-**7 / 1 / 2**.
+again. The September 18 eBPF report replaced that eBPF slot and kept the mix at
+**7 / 1 / 2**. On September 19 the oldest report rotating out is the eBPF-centered
+September 6 architecture-specialization report, so the new eBPF reboot-state
+report again replaces an eBPF slot and preserves **7 / 1 / 2**.
 
 The abandoned September 16 CXL draft and the still-open September 16 `io_uring`
 draft are not published-state boundaries and must not be counted in this roadmap.
