@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does an injected Node.js agent from an eBPF tracer stay inside a process after the service is excluded, until a pod restart?](/ebpf-qa/2026-09-18-nodejs-agent-lives-past-service-exclusion-until-pod-restart/)
 - [Should GenAI agent spans nest each tool execution under the model call that requested it, or keep model calls and tool executions as siblings under one agent span?](/ebpf-qa/2026-09-17-genai-agent-invoke-agent-chat-execute-tool-sibling-tree/)
 - [Why did enabling an eBPF tracer on a Node.js service triple p99 on the hot path when the eBPF probes are cheap?](/ebpf-qa/2026-09-16-nodejs-tracer-async-hooks-p99-cost/)
 - [Can a BPF program safely read user-space memory that belongs to another process?](/ebpf-qa/2026-09-15-bpf-read-other-task-user-memory-zeros/)
