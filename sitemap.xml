@@ -3115,6 +3115,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-18-nodejs-agent-lives-past-service-exclusion-until-pod-restart/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
     <lastmod>2026-09-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
