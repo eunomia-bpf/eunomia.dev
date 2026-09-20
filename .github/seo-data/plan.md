@@ -60,33 +60,30 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-18`
+1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-20`
    publication the actually published window contains **7 eBPF-centered / 1 pure
    Agent / 2 adjacent systems**. The oldest report rotating out today is the
-   eBPF-centered `2026-09-05` runtime-profile report. Today's eBPF-centered
-   `/research/ebpf-kernel-upgrade-semantic-compatibility/` report replaces it and
+   eBPF-centered `2026-09-06` architecture-specialization report. Today's
+   eBPF-centered `/research/ebpf-exception-cleanup-unwind/` report replaces it and
    therefore preserves **7 / 1 / 2**. Never repair the ratio by relabeling older
    work or counting an open or closed-but-unmerged PR as published.
-2. Resume **eBPF Deployment Compatibility and Lifecycle** with a boundary
-   downstream of the September 15 capability-admission report. The September 18
-   report asks how an artifact that relocates, verifies, and attaches on both
-   sides of a kernel upgrade can prove application-level behavioral continuity.
-   It develops cross-kernel semantic witnesses, dependency-based drift
-   localization, and a semantic promotion gate.
-3. Keep later reports in this active series distinct. Strong remaining boundaries
-   include capability negotiation for rapidly evolving kfunc/`struct_ops`/
-   iterator interfaces, pinned-map and persistent-state lifecycle across host
-   upgrades, and reproducible capability/artifact manifests across
-   distributions. A standalone CO-RE-versus-semantics report is deferred unless
-   it develops a mechanism materially beyond the broader September 18 behavior
-   contract. Do not repeat the September 15 version/backport evidence boundary,
-   September 6 architecture specialization, August 10 transactional upgrade, or
-   August 8 userspace-runtime capability/lifetime work.
+2. Treat September 20 as a material-external-development detour from the active
+   **eBPF Deployment Compatibility and Lifecycle** series. The fresh `bpf-next`
+   cleanup-landing-pad series spans compiler metadata, verifier resource state,
+   libbpf transport, and architecture JIT unwinding. Today's report develops a
+   cleanup-effect discipline, auditable cleanup metadata, and cross-JIT
+   differential conformance. It must not be presented as a merged production ABI.
+3. Resume **eBPF Deployment Compatibility and Lifecycle** after this detour only
+   with a boundary materially distinct from September 15 capability admission and
+   September 18 post-admission behavioral compatibility. Open PR `#207` (pinned
+   state durability) and PR `#208` (evolving interface negotiation) are unmerged
+   attempts and do not count as published boundaries, but a fresh run should not
+   duplicate their work without first resolving or superseding it deliberately.
 4. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
-   As rechecked on `2026-09-18`, no export newer than `2026-09-07..09-13` is
+   As rechecked on `2026-09-20`, no export newer than `2026-09-07..09-13` is
    present. Search Console contains observed rows through `2026-09-12`; all six
-   observed rows are now outside the configured three-day lag, while
-   `2026-09-13` is absent.
+   observed rows are outside the configured three-day lag, while `2026-09-13` is
+   absent.
 5. Record the newest finalized Search Console `2026-09-07..12` slice as **376
    clicks / 55,036 impressions / ~0.683% CTR / ~6.46 impression-weighted
    position**. The equal-duration finalized `2026-08-31..09-05` slice is **388 /
@@ -112,21 +109,24 @@ operating entrypoint; this file stores durable goals and constraints.
 9. Treat exact-SHA Pages deployment and generated production artifacts as the
    primary publication acceptance evidence; independent crawler/search discovery
    is supplementary and can lag immediately after deployment.
-10. Current public retrieval and repository evidence do not establish a separate
-    crawlability, canonical, hreflang, structured-data, redirect, rendering,
+10. The September 20 public-safe data brief reports homepage, robots, and sitemap
+    HTTP 200 with 780 sitemap entries, and direct homepage retrieval succeeds.
+    Current public/repository evidence does not establish a separate crawlability,
+    canonical, `hreflang`, structured-data, redirect, broken-link, rendering,
     accessibility, persistent-performance, or deployment defect. Do not make an
     unrelated technical SEO implementation change without a concrete defect.
 11. Keep Cloudflare evidence unavailable until a supported read-only route is
-    enabled in repository configuration.
+    enabled in repository configuration. Do not infer GitHub traffic/referrer/
+    clone semantics from public repository metadata.
 12. Keep the shared SEO skill submodule pinned until its consuming contract is
     migrated to the newer upstream layout; do not make a pointer-only update.
 13. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
-14. PR `#205` is fully reconciled after exact-merge CI/deployment verification and
-    one top-level closeout comment. PRs `#200` and `#203` remain open and unmerged;
-    PR `#204` was closed without merge. None of these unmerged attempts is counted
-    as published state.
-15. Complete PR `#206` through terminal-green final-head CI, full diff and
-    generated-output self-review, review-thread reinspection, squash merge,
-    exact-merge deployment, bilingual production/sitemap verification, and one
-    compact merged-PR closeout comment.
+14. PR `#206` is fully reconciled after exact-merge CI/deployment verification and
+    one top-level closeout comment. PRs `#200`, `#203`, `#207`, and `#208` remain
+    unmerged attempts; PR `#204` was closed without merge. None is counted as
+    current published state.
+15. Complete the September 20 daily PR through terminal-green final-head CI, full
+    diff and generated-output self-review, review-thread reinspection, squash
+    merge, exact-merge deployment, bilingual production/sitemap verification, and
+    one compact merged-PR closeout comment.
