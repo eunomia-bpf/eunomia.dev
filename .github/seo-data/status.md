@@ -18,7 +18,7 @@
 - Merged-PR closeout for `#206`: exactly one compact top-level closeout comment present
 - Current production `new` tip at this run's start: `5f9e2429071397e09bceb2e132df87d940491cc6`, built from default-branch commit `abcfea7b48c833e2eeb55823447c843914636477`
 - Current daily branch: `daily/2026-09-20-ebpf-exception-cleanup`
-- Current daily pull request: pending creation
+- Current daily pull request: `#209`
 - Current branch original base: `776d156e11352dfc16029da35ab6d183d8d78004`
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 - Shared agent-skills submodule commit used for workflow guidance: `d9791c478f0e251b3f840e82a64e47eed2b43faa`
@@ -73,7 +73,7 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete the September 20 daily PR through terminal-green final-head CI, complete diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one compact merged-PR closeout comment.
+1. Complete PR `#209` through terminal-green final-head CI, complete diff/generated-output self-review, review-thread reinspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one compact merged-PR closeout comment.
 2. Preserve the mechanical **7 / 1 / 2** newest-ten mix with today's eBPF-centered exception-cleanup report. Future selection must recalculate the actual published window rather than assuming an open or closed-but-unmerged PR was published.
 3. Resume **eBPF Deployment Compatibility and Lifecycle** after this material external-development detour only with a boundary distinct from the published September 15 and September 18 reports. Open PRs `#207` and `#208` remain unmerged attempts, not roadmap publication state.
 4. Recheck Drive freshness every run. Keep complete GSC 7-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
