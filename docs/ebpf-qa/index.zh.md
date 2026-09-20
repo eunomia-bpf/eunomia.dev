@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [当智能体循环跑在厂商托管服务里而不是你的进程内时，如何从托管智能体 harness 里取出可观测数据？](/zh/ebpf-qa/2026-09-20-hosted-agent-harness-otel-export-boundary/)
 - [为什么 OBI 的 v1 到 v2 配置迁移在有些字段无法映射时拒绝写出文件，中间地带是什么？](/zh/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/)
 - [为什么把服务排除出 eBPF 追踪后，eBPF 追踪器注入的 Node.js 代理仍留在进程里，直到 pod 重启才消失？](/zh/ebpf-qa/2026-09-18-nodejs-agent-lives-past-service-exclusion-until-pod-restart/)
 - [GenAI 智能体 span 是否应把每次工具执行嵌套在请求它的模型调用下面，还是把模型调用与工具执行都作为同一个智能体 span 的兄弟节点？](/zh/ebpf-qa/2026-09-17-genai-agent-invoke-agent-chat-execute-tool-sibling-tree/)
