@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Control Plane Restart Without Duplicating the Datapath?](https://eunomia.dev/research/ebpf-controller-restart-link-adoption/)
+
+A pinned BPF link can outlive its loader while a restarted controller loses the bpffs mount or attachment identity needed to adopt it. This report develops restart receipts, kernel-first reconciliation, and crash-point testing for proving ownership before creating another datapath effect.
+
 ### [Can eBPF Exceptions Unwind Resources Safely?](https://eunomia.dev/research/ebpf-exception-cleanup-unwind/)
 
 A new BPF cleanup-table proposal connects compiler-generated landing pads to verifier resource tracking and JIT stack unwinding. This report develops a cleanup-effect discipline, auditable cleanup metadata, and cross-JIT differential tests for proving that non-local control flow really releases the resources the verifier expects.
@@ -139,7 +143,7 @@ Current Linux has both per-opcode io_uring BPF request filtering and an eBPF `st
 
 ### [What Must an eBPF Profiler Track Beyond Threads?](https://eunomia.dev/research/async-ebpf-causal-profiler/)
 
-Async work can leave one thread through `io_uring`, workqueues, runtime tasks, and application-defined resources, so CPU and off-CPU stacks can lose logical attribution even when the samples themselves are accurate. This report develops a typed causal-edge model, a budget that treats topology edges differently from context samples, and a ground-truth benchmark for cross-thread attribution.
+Async work can leave one thread through `io_uring`, workqueues, runtimes, and application-defined resources, so CPU and off-CPU stacks can lose logical attribution even when the samples themselves are accurate. This report develops a typed causal-edge model, a budget that treats topology edges differently from context samples, and a ground-truth benchmark for cross-thread attribution.
 
 ### [Can a Stateful eBPF Application Upgrade Atomically?](https://eunomia.dev/research/stateful-ebpf-transactional-upgrade/)
 
