@@ -14,7 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
-- [For a Node.js service instrumented by OBI, why can't I just turn off the per-callback `async_hooks` trace-context sentinel because the service doesn't use manual spans or log enrichment?](/ebpf-qa/2026-09-21-nodejs-traces-ctx-sentinel-gating-consumers/)
+- [For a Node.js service instrumented by OBI, why can't I just turn off the per-callback trace-context sentinel because the service doesn't use manual spans or log enrichment?](/ebpf-qa/2026-09-21-nodejs-traces-ctx-sentinel-gating-consumers/)
 - [How do you get observability out of a hosted agent harness when the agent loop runs in a vendor service rather than your process?](/ebpf-qa/2026-09-20-hosted-agent-harness-otel-export-boundary/)
 - [Why does the OBI config migration from v1 to v2 refuse to write a file when some fields have no mapping, and what is the middle ground?](/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/)
 - [Why does an injected Node.js agent from an eBPF tracer stay inside a process after the service is excluded, until a pod restart?](/ebpf-qa/2026-09-18-nodejs-agent-lives-past-service-exclusion-until-pod-restart/)

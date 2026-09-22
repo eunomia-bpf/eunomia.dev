@@ -6,7 +6,7 @@
 
 ## 最新回答
 
-- [被 OBI 插桩的 Node.js 服务，为什么不能因为不用手动 span 和日志富化就直接关掉每次回调的 `async_hooks` trace 上下文哨兵？](/zh/ebpf-qa/2026-09-21-nodejs-traces-ctx-sentinel-gating-consumers/)
+- [被 OBI 插桩的 Node.js 服务，为什么不能因为不用手动 span 和日志富化就直接关掉每次回调的 trace 上下文哨兵？](/zh/ebpf-qa/2026-09-21-nodejs-traces-ctx-sentinel-gating-consumers/)
 - [当智能体循环跑在厂商托管服务里而不是你的进程内时，如何从托管智能体 harness 里取出可观测数据？](/zh/ebpf-qa/2026-09-20-hosted-agent-harness-otel-export-boundary/)
 - [为什么 OBI 的 v1 到 v2 配置迁移在有些字段无法映射时拒绝写出文件，中间地带是什么？](/zh/ebpf-qa/2026-09-19-obi-config-migration-v1-v2-partial-fields/)
 - [为什么把服务排除出 eBPF 追踪后，eBPF 追踪器注入的 Node.js 代理仍留在进程里，直到 pod 重启才消失？](/zh/ebpf-qa/2026-09-18-nodejs-agent-lives-past-service-exclusion-until-pod-restart/)

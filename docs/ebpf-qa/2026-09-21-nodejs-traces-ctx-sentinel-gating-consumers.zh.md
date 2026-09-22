@@ -1,4 +1,4 @@
-# 被 OBI 插桩的 Node.js 服务，为什么不能因为不用手动 span 和日志富化就直接关掉每次回调的 `async_hooks` trace 上下文哨兵？
+# 被 OBI 插桩的 Node.js 服务，为什么不能因为不用手动 span 和日志富化就直接关掉每次回调的 trace 上下文哨兵？
 
 **简短回答：** 因为这个哨兵不是 OBI 自己的功能，而是一个共享的、被 pin（按名字固定）的内核 map 的写端，它的消费者集合超出了 OBI 自身的配置范围。注入的 Node 智能体的 `async_hooks` `before` 钩子（在每个 JS 回调之前触发 `fs.existsSync("/dev/null/obi-ctx/<fd>")`）让 `traces_ctx_v1` —— 一个按名字固定的 LRU hash，键是 pid/tgid，值是活动的请求的 `{trace_id, span_id}` —— 与该线程上正在执行的请求保持一致。OBI 自己的消费者（手动 span 父化、日志 trace 标注）只是消费者集合的一部分：这个 map 的头部声明它的规格属于一个 OTEP，并警告修改它"可能破坏依赖它其他组件"；一个读这个被 pin 的 map、把它的 profile 关联到 OBI 的 trace 的进程外 eBPF profiler，就是 OBI 的配置选择器看不到的那个消费者。所以一个按"手动 span 关 + 日志标注关"算出来的 gate 看起来是完整的——却悄悄丢掉了外部 trace/profile 关联这条通道。
 
