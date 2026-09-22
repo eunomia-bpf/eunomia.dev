@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
+
+kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。
+
 ### [eBPF 异常展开时，能安全释放资源吗？](https://eunomia.dev/zh/research/ebpf-exception-cleanup-unwind/)
 
 新的 BPF cleanup-table proposal 把 compiler 生成的 landing pad、verifier resource tracking 与 JIT stack unwinding 连接起来。本文进一步提出 cleanup-effect discipline、可审计 cleanup metadata，以及跨 JIT differential test，用来验证 non-local control flow 是否真的释放了 verifier 预期的资源。
