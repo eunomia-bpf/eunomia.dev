@@ -2,7 +2,7 @@
 date: 2026-09-22
 slug: ebpf-kernel-interface-negotiation
 title: "Can an eBPF Loader Treat a kfunc as Just Present or Missing?"
-description: "kfuncs, struct_ops, and BPF iterators expose typed, context-specific contracts that make simple present-or-missing feature checks incomplete."
+description: "kfuncs, struct_ops, and BPF iterators expose typed, context-specific contracts that make simple present-or-missing feature checks unsafe for variant selection."
 tags:
   - Daily Report
   - eBPF
