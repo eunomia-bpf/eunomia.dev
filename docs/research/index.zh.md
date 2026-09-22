@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF Link 比控制器活得更久，安全吗？](https://eunomia.dev/zh/research/ebpf-link-controller-reconciliation/)
+
+Pinned BPF link 可以跨过 controller 退出继续存在，但 userspace ownership metadata 可能已经丢失或改变。本文提出 generation-scoped attachment receipt、对 ambiguous link 的 quarantine，以及 crash-fuzzed reconciliation，避免 restart 产生重复 attachment 或误删其他 controller 的状态。
+
 ### [eBPF 异常展开时，能安全释放资源吗？](https://eunomia.dev/zh/research/ebpf-exception-cleanup-unwind/)
 
 新的 BPF cleanup-table proposal 把 compiler 生成的 landing pad、verifier resource tracking 与 JIT stack unwinding 连接起来。本文进一步提出 cleanup-effect discipline、可审计 cleanup metadata，以及跨 JIT differential test，用来验证 non-local control flow 是否真的释放了 verifier 预期的资源。

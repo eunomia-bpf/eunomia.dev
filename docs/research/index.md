@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Link Outlive Its Controller Safely?](https://eunomia.dev/research/ebpf-link-controller-reconciliation/)
+
+Pinned BPF links can survive controller exits while userspace ownership metadata disappears or changes. This report develops generation-scoped attachment receipts, quarantine for ambiguous links, and crash-fuzzed reconciliation to keep restarts from duplicating attachments or deleting another controller's state.
+
 ### [Can eBPF Exceptions Unwind Resources Safely?](https://eunomia.dev/research/ebpf-exception-cleanup-unwind/)
 
 A new BPF cleanup-table proposal connects compiler-generated landing pads to verifier resource tracking and JIT stack unwinding. This report develops a cleanup-effect discipline, auditable cleanup metadata, and cross-JIT differential tests for proving that non-local control flow really releases the resources the verifier expects.
