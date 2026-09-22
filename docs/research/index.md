@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
+
+kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
+
 ### [Can eBPF Exceptions Unwind Resources Safely?](https://eunomia.dev/research/ebpf-exception-cleanup-unwind/)
 
 A new BPF cleanup-table proposal connects compiler-generated landing pads to verifier resource tracking and JIT stack unwinding. This report develops a cleanup-effect discipline, auditable cleanup metadata, and cross-JIT differential tests for proving that non-local control flow really releases the resources the verifier expects.
