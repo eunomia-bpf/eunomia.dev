@@ -13,16 +13,17 @@
 - Last published Daily Report before this run: `2026-09-22`
 - Last merged Daily Report pull request: `#211`
 - Last Daily Report squash commit: `bd751f30ad19b6692326f1260d6f84e924aa3b02`
-- Exact-merge validation for `#211`: terminal-success
-- Exact-merge `Deploy Static App` for `#211`: terminal-success
-- Merged-PR closeout for `#211`: missing at this run's start; repair from verified facts only
+- Exact-merge validation for `#211`: run `35754194946`, terminal-success
+- Exact-merge `Deploy Static App` for `#211`: run `35754194965`, terminal-success
+- Production revision for `#211`: `e26311c5dd088c13e6800f24fd50db3181f2be7d`
+- Merged-PR closeout for `#211`: exactly one compact top-level closeout comment present; repaired on `2026-09-23`
 - Current daily branch: `daily/2026-09-23-ebpf-map-reuse-semantics`
 - Current branch original base: `fdf7681cd36da1de674aa888bd3d1b0bff27d40c`
 - Current report: `/research/ebpf-map-reuse-semantic-compatibility/`
 - Current daily pull request: pending until branch publication is complete
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-The September 22 interface-negotiation report is counted as published because PR `#211` was squash-merged and the exact merge commit passed validation and production deployment. Its missing top-level closeout comment is an operating-record reconciliation gap, not a reason to remove the deployed report from the published mix.
+The September 22 interface-negotiation run is fully reconciled. PR `#211` was squash-merged as `bd751f30ad19b6692326f1260d6f84e924aa3b02`; exact-merge validation and production deployment passed; production revision `e26311c5dd088c13e6800f24fd50db3181f2be7d` was generated; and the previously missing merged-PR closeout record was repaired with exactly one top-level comment.
 
 ## Current Daily Report mix
 
@@ -68,7 +69,7 @@ The shared SEO skill remains pinned at `516e9e2dcf012506a677a749049d64c5914643e9
 2. Preserve the mechanical **7 / 1 / 2** newest-ten mix.
 3. Keep map-definition compatibility, BTF-derived structural schema, and application semantic schema as separate layers; do not claim bpffs pinning survives reboot.
 4. Complete terminal-green final-head CI, full diff/generated-output review, review-thread inspection, squash merge, exact-SHA production deployment, bilingual production verification, sitemap verification, and exactly one compact closeout comment.
-5. Repair the missing `#211` closeout comment from verified facts if it remains absent; never add a duplicate.
+5. Keep the repaired `#211` single closeout comment as the only top-level Daily closeout record; do not duplicate it.
 6. Recheck Drive freshness every run. Keep complete GSC seven-day/28-day comparisons unavailable until source history is contiguous.
 7. Keep newer GA4 weekly aggregates explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
 8. Keep Cloudflare evidence unavailable until a supported read-only route is enabled.
