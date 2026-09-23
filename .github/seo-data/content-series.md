@@ -267,3 +267,26 @@ Pure Agent systems work remains intentionally a minority topic. Existing anchors
 - `2026-09-14` — `/research/agent-tool-retry-effect-idempotency/`: durable effect
   identity, ambiguous post-dispatch reconciliation, and post-commit fault
   injection for one intended external mutation.
+
+The September 14 report is distinct from parallel-agent serializability: it
+addresses duplicate materialization of one intended mutation rather than global
+composition of several workers' effects. Any future pure-Agent detour must remain
+inside the 1–2 of 10 cap and clear the same evidence and novelty gates as eBPF
+work.
+
+## Choosing the next report
+
+Each daily run should:
+
+1. calculate the actual rolling topic mix from the published index;
+2. start inside the active series when the mix permits it;
+3. research multiple candidate questions when necessary;
+4. reject candidates that fail evidence, novelty, or usefulness gates;
+5. choose one question that preserves the editorial mix without relabeling old
+   reports;
+6. publish exactly one new bilingual Daily Report;
+7. record the chosen series, classification, useful rejected candidates, and why
+   the report materially advances the roadmap.
+
+Temporary detours must be recorded here or in the daily operating record so the
+repository, not chat history, remains authoritative.
