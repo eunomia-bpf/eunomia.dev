@@ -105,6 +105,13 @@ files. The same 2026-09-23 run found the drift class was not Juejin-specific:
 Zhihu was short 40 confirmed rows and LinkedIn was short every entry whose only
 evidence was a search URL, while the checker still exited 0.
 
+It also fails when a summary date lags the ledgers: `sources.json`
+`last_checked` and the snapshot's `Last checked:` line must each be at least as
+recent as the newest per-platform `last_checked`. The same 2026-09-23 run found
+both stale — the checker had been printing a `2026-08-02` headline date that was
+seven weeks behind the `platforms/*.json` files it summarizes — so refresh those
+two summary dates whenever the run touches the ledger.
+
 Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority

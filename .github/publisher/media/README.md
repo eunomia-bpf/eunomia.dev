@@ -1,6 +1,6 @@
 # Media Publishing Notes
 
-Last checked: 2026-08-17
+Last checked: 2026-09-23
 
 This folder records cross-platform publishing state, public-page QA, and
 community feedback for eunomia.dev content.
@@ -16,6 +16,13 @@ drifted from the ledgers: every confirmed entry's `url` (or `evidence_url`, when
 permalink was captured) must appear in the snapshot. Keep the snapshot and the
 ledgers current in the same change so the human-readable view never under-reports
 what was published. Point at a different snapshot with `--snapshot`.
+
+It also fails when a summary date lags the ledgers: the `last_checked` value in
+[sources.json](sources.json) and the `Last checked:` line in the snapshot must
+each be at least as recent as the newest `last_checked` among
+[platforms/](platforms/). Those two files are cross-platform summaries, so a
+stale date there misstates how recently the ledger was verified even when every
+row is correct.
 
 ## Current Setup
 

@@ -36,3 +36,11 @@
 - 已补齐：知乎 40 行、领英 4 行，以及 3 条仅有 `evidence_url`（无固定 permalink）的领英条目；领英表按日期倒序重排，相对日期行置后。X/Twitter 表曾被误写入 11 行领英行，已移除。
 - 根因修复：`check_media_ledger.py` 原先只校验 JSON 与源文件覆盖，快照漂移时仍返回 0。新增 `validate_snapshot`：每条 confirmed 的 `url`（无 permalink 时用 `evidence_url`）必须在 `published.md` 出现，可 `--snapshot` 指定他文件。负例删除 1 行知乎即 exit 2，修复后 exit 0。
 - 已记录到 `.github/publisher/media/README.md` 与 `.agents/skills/eunomia-content-patrol/SKILL.md`。
+
+## 汇总日期核对（同类漂移的第三处）
+
+- 复查 ledger 时发现 checker 首行打印的 `Last checked: 2026-08-02` 来自 `sources.json`，而 `platforms/*.json` 最新为 `2026-09-23`（juejin），`README.md` 头部为 `2026-08-17`：两份汇总日期分别落后其所汇总的分平台 ledger 约 7 周与 5 周。`published.md` / `not-published.md` 头部已是 `2026-09-23`，无需改动。
+- 已把 `sources.json` 的 `last_checked` 与 `README.md` 的头部日期更新为 `2026-09-23`（二者均为 LF，JSON 保持字节级 roundtrip）。
+- 与快照漂移同源的根因修复：`check_media_ledger.py` 新增 `validate_freshness`，要求 `sources.json` 的 `last_checked` 与快照的 `Last checked:` 均不早于分平台最新的 `last_checked`。负例：`sources.json` 改回 `2026-08-02` → exit 2；快照改回 `2026-08-01` → exit 2；复原后 exit 0。
+- 已同步记录到 `.github/publisher/media/README.md` 与 `.agents/skills/eunomia-content-patrol/SKILL.md`。
+- 会话复核（无发布动作）：持久可见 Chrome CDP 9222 存活（`Chrome/146.0.7680.31`，pid 664572，profile `/home/gem/.config/browser`，Xvnc `:99.0` 1280x1024，窗口归属同 pid）。登录态：掘金 ✅、LinkedIn ✅、X ✅、Medium ✅、Reddit ✅、知乎 ❌（无 `z_c0`，仍 `阻塞`）、**DEV ⚠️ 浏览器会话失效**（`/dashboard` → `/magic_links/new`），且本机无 `DEV_TO_API_KEY` / `MEDIUM_API_KEY`，下次 DEV 发布前需补密钥或重新登录。
