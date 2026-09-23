@@ -29,3 +29,10 @@
 - 补发缺口保持 4 条（2026-08-29、2026-09-01、2026-09-03、2026-09-16），本日未核销（知乎仍阻塞）。
 - 队列更新：头部日期、补发缺口、Ledger 基线（掘金 46/107）、剩余队列（知乎 24、掘金 32、共 56）、43-kfuncs 与 42-xdp-loadbalancer 两行。
 - ledger checker `.github/publisher/media/check_media_ledger.py` 退出码 0；掘金 47 条 `confirmed`、0 条 `review_pending`。
+
+## 可读快照对账（回答“为何与 ledger 不一致”）
+
+- 巡检 skill 要求 `published.md`/`not-published.md` 与 `platforms/*.json` 同步。本轮复核对账发现同类漂移不止掘金一处：知乎快照仅 26/66 条 confirmed，领英快照漏掉全部以搜索证据 URL 记录的条目（JSON 15 条 confirmed / 12 个唯一公开 URL）。
+- 已补齐：知乎 40 行、领英 4 行，以及 3 条仅有 `evidence_url`（无固定 permalink）的领英条目；领英表按日期倒序重排，相对日期行置后。X/Twitter 表曾被误写入 11 行领英行，已移除。
+- 根因修复：`check_media_ledger.py` 原先只校验 JSON 与源文件覆盖，快照漂移时仍返回 0。新增 `validate_snapshot`：每条 confirmed 的 `url`（无 permalink 时用 `evidence_url`）必须在 `published.md` 出现，可 `--snapshot` 指定他文件。负例删除 1 行知乎即 exit 2，修复后 exit 0。
+- 已记录到 `.github/publisher/media/README.md` 与 `.agents/skills/eunomia-content-patrol/SKILL.md`。
