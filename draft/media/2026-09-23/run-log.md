@@ -44,3 +44,12 @@
 - 与快照漂移同源的根因修复：`check_media_ledger.py` 新增 `validate_freshness`，要求 `sources.json` 的 `last_checked` 与快照的 `Last checked:` 均不早于分平台最新的 `last_checked`。负例：`sources.json` 改回 `2026-08-02` → exit 2；快照改回 `2026-08-01` → exit 2；复原后 exit 0。
 - 已同步记录到 `.github/publisher/media/README.md` 与 `.agents/skills/eunomia-content-patrol/SKILL.md`。
 - 会话复核（无发布动作）：持久可见 Chrome CDP 9222 存活（`Chrome/146.0.7680.31`，pid 664572，profile `/home/gem/.config/browser`，Xvnc `:99.0` 1280x1024，窗口归属同 pid）。登录态：掘金 ✅、LinkedIn ✅、X ✅、Medium ✅、Reddit ✅、知乎 ❌（无 `z_c0`，仍 `阻塞`）、**DEV ⚠️ 浏览器会话失效**（`/dashboard` → `/magic_links/new`），且本机无 `DEV_TO_API_KEY` / `MEDIUM_API_KEY`，下次 DEV 发布前需补密钥或重新登录。
+
+## 排队任务 41-xdp-tcpdump 的额度判定（未发布，待 09-24 额度）
+
+- 本轮获用户明确授权（`authorized`）执行队列 `排队` 任务。队首为 `draft/plan/publishing-queue.zh.md` 第 84 行 `掘金：docs/tutorials/41-xdp-tcpdump/README.zh.md`。
+- 阻塞点不是审核或编辑器，而是**同一平台同一自然日只能一篇**（队列第 137 行规则）。09-23 的正常掘金额度已由 42-xdp-loadbalancer 用掉：公开页 JSON-LD `datePublished` 为 `2026-09-23T10:52:25+00:00`，落在 LA 2026-09-23 内（同页 43-kfuncs 为 `2026-09-23T05:29:32+00:00`）。若此刻再发，将是同一 LA 自然日的第二篇掘金文。
+- 补发缺口（4 条）能否核销为“当天再发一篇”：**不能**。解析队列全部 `- [x]` 行的 `(日期, 平台)` 组合，除 2026-08-27 的 `Medium 5 / DEV 5`（该日行文为「对账确认此前已公开」，属存量发现而非当日新增发布）外，**没有任何一天在同一平台发布过两篇**；掘金历史上从未同日两篇。且 2026-09-14/09-17/09-22/09-23 五份 run-log 均记 `因知乎阻塞且掘金每日上限 1 条`、`保留到后续可用日`——补发额度是**向上追平**的容量，不是“同日同平台第二篇”的许可，每个补发日仍需独立自然日。
+- 准备已就绪（不消耗额度）：`draft/media/2026-09-24/41-xdp-tcpdump/juejin-body.md`（源 H1 移除外逐字保留，11793 字符、15125 字节、LF 0 CRLF、5 H2 / 9 H3 / 9 H4、34 个代码围栏 [12 c + 3 bash + 19 源文裸围栏输出块]、0 图片、0 表格、3 条外链、无相对链接）与 `juejin.md`。
+- 重复检查：作者公开列表 `https://juejin.cn/user/4288563097635144/posts`（向下滚动加载，115 条标题）**无** 41-xdp-tcpdump 对应标题，可安全首发。
+- 下一步：LA ≥ 2026-09-24 00:00 PDT 时执行第 84 行发布，按 42-xdp-loadbalancer 已验证的编辑器械流程与公开页 QA 清单，随后更新 `platforms/juejin.json`、`published.md`、`not-published.md`、队列行与本 run-log，同一提交内完成。
