@@ -21,11 +21,11 @@ Reports:
 - Record the rolling mix before topic selection. Never relabel old reports or add
   an extra report merely to repair the ratio.
 
-Before the `2026-09-22` publication, the newest ten actually published reports
+Before the `2026-09-23` publication, the newest ten actually published reports
 contain **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report
-rotating out is the eBPF-centered `2026-09-07` specialization-debug-provenance
-report. Today's eBPF-centered interface-negotiation report replaces that eBPF
-slot, so publication preserves **7 / 1 / 2**.
+rotating out is the eBPF-centered `2026-09-09` native-operation-trust report.
+Today's eBPF-centered reboot-state report replaces that eBPF slot, so successful
+publication preserves **7 / 1 / 2**.
 
 ## Daily publication rule
 
@@ -183,15 +183,22 @@ Published boundaries:
    requirements, scoped capability-negotiation receipts, and dependency-driven
    compatibility CI while keeping trial loading and the target verifier as the
    final admission authority.
+4. `2026-09-23` — `/research/ebpf-pinned-map-reboot-state/`: what state contract
+   is required when a host reboot destroys the old pinned map objects. The
+   report separates live-object pin lifetime from durable state semantics, then
+   develops per-map reboot state contracts, consistency-aware checkpoint epochs,
+   and staged restore gates before production reattachment. The central boundary
+   is reconstruction after the old kernel object graph has disappeared, not
+   live transactional cutover.
 
 Remaining candidate boundaries include:
 
-- pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
-  object layouts evolve across host upgrades;
 - a narrower CO-RE structural-versus-semantic boundary only if it develops a
   mechanism materially distinct from the September 18 cross-kernel behavior
   contract, rather than merely restating that successful relocation is not a
-  semantic proof.
+  semantic proof;
+- controller restart and persistent-link ownership only if future evidence keeps
+  it materially distinct from the September 23 host-reboot state boundary.
 
 Novelty guards:
 
@@ -200,6 +207,8 @@ Novelty guards:
   boundary with a different example;
 - do not repeat the `2026-09-22` typed/scoped interface-negotiation boundary with
   a host-global capability manifest or ordered trial-loading wrapper;
+- do not repeat the `2026-09-23` reboot-state contract with a generic pinned-map
+  persistence tutorial or live-upgrade example;
 - do not repeat September 6 architecture-specific specialization and fallback;
 - do not repeat the August 10 application-level transactional-upgrade protocol;
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
@@ -245,8 +254,9 @@ boundary of the active deployment-compatibility series.
 
 The abandoned September 16 CXL draft and the still-open September 16 `io_uring`
 draft are not published-state boundaries and must not be counted in this roadmap.
-The unmerged September 19 interface-negotiation attempt is likewise not a
-published boundary; the September 22 report deliberately supersedes it.
+The unmerged September 19 reboot-state attempt `#207` and controller-restart
+attempt `#210` are likewise not published boundaries; today's fresh September 23
+run supersedes `#207` from current `main`.
 
 ## Queued series — Agent Systems (limited)
 
@@ -257,26 +267,3 @@ Pure Agent systems work remains intentionally a minority topic. Existing anchors
 - `2026-09-14` — `/research/agent-tool-retry-effect-idempotency/`: durable effect
   identity, ambiguous post-dispatch reconciliation, and post-commit fault
   injection for one intended external mutation.
-
-The September 14 report is distinct from parallel-agent serializability: it
-addresses duplicate materialization of one intended mutation rather than global
-composition of several workers' effects. Any future pure-Agent detour must remain
-inside the 1–2 of 10 cap and clear the same evidence and novelty gates as eBPF
-work.
-
-## Choosing the next report
-
-Each daily run should:
-
-1. calculate the actual rolling topic mix from the published index;
-2. start inside the active series when the mix permits it;
-3. research multiple candidate questions when necessary;
-4. reject candidates that fail evidence, novelty, or usefulness gates;
-5. choose one question that preserves the editorial mix without relabeling old
-   reports;
-6. publish exactly one new bilingual Daily Report;
-7. record the chosen series, classification, useful rejected candidates, and why
-   the report materially advances the roadmap.
-
-Temporary detours must be recorded here or in the daily operating record so the
-repository, not chat history, remains authoritative.
