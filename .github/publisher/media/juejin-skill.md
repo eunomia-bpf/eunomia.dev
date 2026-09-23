@@ -1,6 +1,6 @@
 # Juejin Publishing Skill Brief
 
-Last checked: 2026-09-15
+Last checked: 2026-09-22
 
 Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.agents/skills/juejin-publisher/SKILL.md`.
 
@@ -88,7 +88,7 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
   text, then read chips back from `.byte-select__tag`. Clear the input between
   tags with `value = ''` plus a bubbling `input` event.
 - The confirm button's exact text is `确定并发布`; success lands on
-  `https://juejin.cn/published` with `document.title === '发布成功'`.
+  `https://juejin.cn/published` with `document.title === '发布成功'`. The 确定并发布 button ignores a synthetic `element.click()` and a CLI `agent-browser click` on `.publish-popup .ui-btn.primary` (observed 2026-09-22 on 43-kfuncs: both only fired the autosave toast, no publish); dispatch a real pointer-event sequence (pointerdown/mousedown/focus/pointerup/mouseup/click with view:window, button:0) via eval. The tag search widget is not reached by CLI fill/keyboard type (typed text leaks into the title or body); set `.byte-select__input` value with the native HTMLInputElement value setter plus a bubbling `input` event, then click the exact `.byte-select-option`. Read back and reset the title input to the exact source H1 before the final submit, because early tag typing can pollute the title.
 - A submitted article can remain in review: only `/spost/<id>` renders and
   `/post/<id>` returns `找不到页面`. Record it as `review_pending` and mark the
   queue item `阻塞` so the next run does not submit the same source twice.

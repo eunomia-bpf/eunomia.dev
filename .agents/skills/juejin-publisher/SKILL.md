@@ -147,7 +147,7 @@ public page.
 
 ## Publish Dialog Mechanics
 
-Verified against the 2026-09-15 45-scx-nest submission.
+Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions.
 
 - The settings dialog is `<div class="publish-popup ...">`. Querying
   `.byte-modal` and reading its `innerText` returns an empty string, so read the
@@ -166,6 +166,29 @@ Verified against the 2026-09-15 45-scx-nest submission.
   `.byte-select__tag` before submitting.
 - The final control is the popup button with exact text `确定并发布`. Success is
   `document.title === '发布成功'` on `https://juejin.cn/published`.
+- The `确定并发布` button ignores a synthetic `element.click()` and a CLI
+  `agent-browser click` on `.publish-popup .ui-btn.primary` (on the 2026-09-22
+  43-kfuncs submission both attempts only fired the autosave toast and the page
+  stayed in the editor; only a real pointer sequence published). Dispatch the
+  full real pointer-event sequence via `eval`:
+
+  ```js
+  (function(){
+    var b=Array.prototype.slice.call(document.querySelectorAll('.publish-popup button')).filter(function(x){return (x.textContent||'').trim()==='确定并发布';})[0];
+    var r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+    function ev(t,T){b.dispatchEvent(new T(t,{bubbles:true,cancelable:true,view:window,clientX:x,clientY:y,button:0}));}
+    ev('pointerdown',PointerEvent);ev('mousedown',MouseEvent);b.focus();ev('pointerup',PointerEvent);ev('mouseup',MouseEvent);b.click();
+    return 'dispatched';
+  })()
+  ```
+- The tag search widget (`.publish-popup .byte-select__input`, index 0) is not
+  reachable by CLI `fill` or `keyboard type` — typed text leaks into the title
+  or body instead. Set its value with the native setter
+  `Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set`
+  plus `dispatchEvent(new Event('input',{bubbles:true}))`, then click the
+  exact `.byte-select-option`.
+- Before the final submit, read back `input[placeholder*=标题].value` and reset
+  it to the exact source H1: early tag typing can pollute the title field.
 - A newly submitted article may sit in review: the profile lists it under
   `审核中`, the canonical `/post/<id>` URL returns `找不到页面`, and only the
   `/spost/<id>` staged URL renders. Treat that as `review_pending`, not a
