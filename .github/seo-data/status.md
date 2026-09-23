@@ -18,13 +18,13 @@
 - Merged-PR closeout for `#211`: exactly one compact top-level closeout comment present
 - Production revision accepted for the September 22 run: `e26311c5dd088c13e6800f24fd50db3181f2be7d`
 - Current daily branch: `daily/2026-09-23-ebpf-reboot-state`
-- Current daily pull request: pending
+- Current daily pull request: `#213`, open and non-draft
 - Current branch original base: `fdf7681cd36da1de674aa888bd3d1b0bff27d40c`
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
 September 22 is fully reconciled. PR `#211` was squash-merged as `bd751f30ad19b6692326f1260d6f84e924aa3b02`; exact-merge validation and deployment passed; generated production English and Chinese artifacts plus sitemap metadata were verified; and exactly one merged-PR closeout comment is present. The earlier unmerged interface-negotiation attempt `#208` is closed and is not counted as published state.
 
-Open historical PRs `#207` and `#210` remain outside published-state accounting. Today's run supersedes `#207` with a fresh branch from current `main`; `#210` is a distinct controller-restart/link-ownership boundary.
+Historical reboot-state PR `#207` is now closed as superseded by fresh PR `#213`. PR `#210` remains open and outside published-state accounting; it covers a distinct controller-restart/link-ownership boundary.
 
 ## Current Daily Report mix
 
@@ -72,9 +72,9 @@ The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c591464
 
 ## Current focus
 
-1. Complete the September 23 fresh daily PR through terminal-green final-head CI, full diff and generated-output self-review, review-thread inspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one compact merged-PR closeout comment.
+1. Complete PR `#213` through terminal-green final-head CI, full diff and generated-output self-review, review-thread inspection, squash merge, exact production deployment, bilingual production verification, sitemap verification, and exactly one compact merged-PR closeout comment.
 2. Preserve the mechanical **7 / 1 / 2** newest-ten mix with today's eBPF-centered reboot-state report.
-3. Close unmerged PR `#207` as superseded by the fresh September 23 run after today's PR exists. Keep `#210` unmerged and outside published state unless a future run completes it.
+3. Keep closed PR `#207` outside published state. Keep `#210` unmerged and outside published state unless a future run completes it.
 4. Recheck Drive freshness every run. Keep complete GSC seven-day and 28-day comparisons unavailable until source history is contiguous; never fill missing dates with zero.
 5. Keep the newer GA4 weekly aggregates explicitly partial until refreshed or date-dimensional evidence supports finalized interpretation.
 6. Keep high-impression/low-click candidates as measurement targets rather than automatic metadata-change targets.
