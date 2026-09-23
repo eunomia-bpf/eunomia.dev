@@ -20,7 +20,7 @@
 - Current daily branch: `daily/2026-09-23-ebpf-map-reuse-semantics`
 - Current branch original base: `fdf7681cd36da1de674aa888bd3d1b0bff27d40c`
 - Current report: `/research/ebpf-map-reuse-semantic-compatibility/`
-- Current daily pull request: pending until branch publication is complete
+- Current daily pull request: `#212`, non-draft
 - SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
 The September 22 interface-negotiation run is fully reconciled. PR `#211` was squash-merged as `bd751f30ad19b6692326f1260d6f84e924aa3b02`; exact-merge validation and production deployment passed; production revision `e26311c5dd088c13e6800f24fd50db3181f2be7d` was generated; and the previously missing merged-PR closeout record was repaired with exactly one top-level comment.
@@ -65,7 +65,7 @@ The shared SEO skill remains pinned at `516e9e2dcf012506a677a749049d64c5914643e9
 
 ## Current focus
 
-1. Publish exactly one bilingual September 23 report on eBPF map-reuse semantic compatibility from the fresh daily branch.
+1. Publish exactly one bilingual September 23 report on eBPF map-reuse semantic compatibility from PR `#212`.
 2. Preserve the mechanical **7 / 1 / 2** newest-ten mix.
 3. Keep map-definition compatibility, BTF-derived structural schema, and application semantic schema as separate layers; do not claim bpffs pinning survives reboot.
 4. Complete terminal-green final-head CI, full diff/generated-output review, review-thread inspection, squash merge, exact-SHA production deployment, bilingual production verification, sitemap verification, and exactly one compact closeout comment.
