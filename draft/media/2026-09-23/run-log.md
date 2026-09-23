@@ -53,3 +53,10 @@
 - 准备已就绪（不消耗额度）：`draft/media/2026-09-24/41-xdp-tcpdump/juejin-body.md`（源 H1 移除外逐字保留，11793 字符、15125 字节、LF 0 CRLF、5 H2 / 9 H3 / 9 H4、34 个代码围栏 [12 c + 3 bash + 19 源文裸围栏输出块]、0 图片、0 表格、3 条外链、无相对链接）与 `juejin.md`。
 - 重复检查：作者公开列表 `https://juejin.cn/user/4288563097635144/posts`（向下滚动加载，115 条标题）**无** 41-xdp-tcpdump 对应标题，可安全首发。
 - 下一步：LA ≥ 2026-09-24 00:00 PDT 时执行第 84 行发布，按 42-xdp-loadbalancer 已验证的编辑器械流程与公开页 QA 清单，随后更新 `platforms/juejin.json`、`published.md`、`not-published.md`、队列行与本 run-log，同一提交内完成。
+
+### 「同一天」的时区口径（实测判定：LA 自然日）
+
+- 运行主机本地时区为 `Asia/Singapore`（+08），而仓库所有 run-log 标题、队列补发缺口与 Ledger 基线均按 **America/Los_Angeles 自然日**记账；两者在 +08 的 00:00–08:00 之间会指向不同日期，因此实测判定该规则的日期边界。
+- 抓取 ledger 内全部 47 篇掘金公开页的 JSON-LD `datePublished`，按三个时区分别统计「同平台同日」碰撞：UTC 与 Asia/Shanghai 均出现 2026-09-13 与 2026-09-23 两组碰撞；**America/Los_Angeles 下 2026 年无任何碰撞**（仅 2023 年历史批量回补存在）。
+- 09-23 这组碰撞即 43-kfuncs（`13:29 CST` = `05:29 UTC` = **22:29 PDT 09-22**）与 42-xdp-loadbalancer（`18:52 CST` = `10:52 UTC` = `03:52 PDT 09-23`）。仓库自身把它们分别记为 **09-22** 与 **09-23** 两个运行日各自的额度，只有按 LA 边界才与该记账一致；UTC/+08 会把它们错误地压进同一天。
+- 结论：`同一平台同一天最多一篇` 的「天」= LA 自然日。故 41-xdp-tcpdump 在 LA 2026-09-23 已无名额（该日额度属 42-xdp-loadbalancer），须等 LA 2026-09-24 00:00 PDT（= 2026-09-24 07:00:30 UTC）。
