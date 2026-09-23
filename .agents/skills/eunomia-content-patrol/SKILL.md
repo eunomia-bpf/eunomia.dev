@@ -98,6 +98,13 @@ Juejin entries and still marking Agent Sandbox `Needs repair` after its
 duplicate body had been repaired and confirmed). Keep each snapshot's existing
 line endings: `published.md` uses LF while `not-published.md` uses CRLF.
 
+`check_media_ledger.py` now enforces this: beyond source coverage it fails with
+exit 2 when any confirmed ledger entry's `url` or `evidence_url` is absent from
+`published.md`, so run it after any ledger change instead of eyeballing the two
+files. The same 2026-09-23 run found the drift class was not Juejin-specific:
+Zhihu was short 40 confirmed rows and LinkedIn was short every entry whose only
+evidence was a search URL, while the checker still exited 0.
+
 Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority

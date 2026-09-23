@@ -11,6 +11,12 @@ Canonical machine-readable ledgers use one JSON file per platform under [platfor
 python .github/publisher/media/check_media_ledger.py --show-missing
 ```
 
+The same command also fails when the readable snapshot [published.md](published.md) has
+drifted from the ledgers: every confirmed entry's `url` (or `evidence_url`, when no
+permalink was captured) must appear in the snapshot. Keep the snapshot and the
+ledgers current in the same change so the human-readable view never under-reports
+what was published. Point at a different snapshot with `--snapshot`.
+
 ## Current Setup
 
 Medium and DEV.to are API-first. Use their documented endpoints with local
