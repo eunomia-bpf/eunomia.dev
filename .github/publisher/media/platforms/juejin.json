@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-22",
+  "last_checked": "2026-09-23",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,22 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-09-23",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/post/7688532185121947658",
+      "review_status": "confirmed",
+      "notes": "42-xdp-loadbalancer published through the visible Juejin editor with the prepared local artifact (16487 chars), category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article as public. The canonical /post/7688532185121947658 page carries the exact title, the single-copy body, five H2, nineteen H3, two H4, twenty-five code blocks, four external links, no content image, and the 暂无评论数据 empty state."
+    },
+    {
+      "checked_at": "2026-09-23",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7688489073967251494",
+      "review_status": "confirmed",
+      "notes": "Review cleared: the canonical https://juejin.cn/post/7688489073967251494 now renders its .markdown-body with the exact H1 \"超越 eBPF 的极限：在内核模块中定义自定义 kfunc\", nine H2, eleven H3, three H4, twenty code blocks, eight unique external links, and the content image at 800x500 complete. No 审核中 / 文章有更新 / 已被删除 marker; comment section shows the 暂无评论数据 empty state. The /post/ URL no longer returns 找不到页面."
+    },
     {
       "checked_at": "2026-09-22",
       "checked_via": "chrome_yunwei_visible_editor_import_submit_and_staged_page_qa",
@@ -252,13 +268,13 @@
   "published": [
     {
       "id": "juejin-7688489073967251494",
-      "status": "review_pending",
+      "status": "confirmed",
       "title": "超越 eBPF 的极限：在内核模块中定义自定义 kfunc",
       "url": "https://juejin.cn/post/7688489073967251494",
       "staged_url": "https://juejin.cn/spost/7688489073967251494",
       "source_path": "docs/tutorials/43-kfuncs/README.zh.md",
-      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_staged_page_qa",
-      "notes": "Submitted through the visible Juejin editor on 2026-09-22 (09-22 normal slot; JSON-LD datePublished 2026-09-23T13:29:32+08:00 = 22:29 PDT 2026-09-22) and the submission page returned 发布成功. Category 后端; tags Linux, 后端, 性能优化. The staged page preserves the exact source title and single-copy body with nine H2 headings, eleven H3 headings, three H4 headings, twenty code blocks (the source's twenty fenced blocks — two c, two makefile, ten bash, two sh, four program-output txt — including seven indented fences inside ordered lists, all rendered one-to-one with no content lost or duplicated), nine external links, and one content image (the raw.githubusercontent cumulative_helper_kfunc_timeline.png transfers directly at 800x500 with no 转存失败 marker); the source H1 is rendered once by the title field and not repeated in the body. The submission is still 审核中, so the canonical /post/ URL does not resolve yet; recheck before marking confirmed."
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted through the visible Juejin editor on 2026-09-22 (09-22 normal slot) and confirmed public on 2026-09-23 after review cleared: /spost/7688489073967251494 now resolves to the canonical /post/7688489073967251494 page. Category 后端; tags Linux, 后端, 性能优化. Public-page QA on 2026-09-23 preserves the exact source title and single-copy body with nine H2 headings, eleven H3 headings, three H4 headings, twenty code blocks (2 c, 2 makefile, 10 bash, 2 sh, 4 program-output txt, including seven indented fences inside ordered lists, rendered one-to-one with no content lost or duplicated), eight unique external links (ten anchors, two of them duplicate destinations), and one content image (raw.githubusercontent cumulative_helper_kfunc_timeline.png renders at 800x500 with no 转存失败 marker). No 审核中 / 文章有更新 / 已被删除 marker and the 暂无评论数据 empty state (0 comments)."
     },
     {
       "id": "juejin-7686408837754142770",
@@ -651,6 +667,15 @@
       "source_path": "docs/tutorials/0-introduce/README.zh.md",
       "checked_via": "published_article_page_visible",
       "notes": "The visible article is the older introductory edition for the current tutorial 0 topic. Do not republish it merely because the source title and numbering were later revised."
+    },
+    {
+      "id": "juejin-7688532185121947658",
+      "status": "confirmed",
+      "title": "eBPF 开发者教程： 简单的 XDP 负载均衡器",
+      "url": "https://juejin.cn/post/7688532185121947658",
+      "source_path": "docs/tutorials/42-xdp-loadbalancer/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-23 with the 09-23 normal slot and the prepared local artifact (16487 chars, source H1 removed). Category 后端; tags Linux, 后端, 性能优化. The submission page returned 发布成功 and the article landed directly public at the canonical /post/ URL (no staging interval). Public-page QA preserves the exact source title and single-copy body with five H2 headings, nineteen H3 headings, two H4 headings, twenty-five code blocks (12 c, 8 sh, 4 console, 1 txt, rendered one-to-one with no content lost or duplicated), four unique external links, and no content image. No 审核中 / 文章有更新 / 已被删除 marker and the 暂无评论数据 empty state (0 comments)."
     }
   ],
   "references": [

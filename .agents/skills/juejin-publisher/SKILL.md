@@ -203,6 +203,29 @@ Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions
   when the payload is large. Build the whole script with the base64 embedded and
   pipe it to `agent-browser eval --stdin`, which avoids the shell and CLI
   argument-length limits.
+- The `.byte-select-option` list is NOT inside `.publish-popup`; query it
+  document-wide. Several hidden dropdowns exist at once (collections, topics),
+  so filter `[...document.querySelectorAll('.byte-select-option')]` by
+  `offsetParent !== null` before clicking the option whose exact text matches
+  the target tag. A popup-scoped query returns zero options even when the tag
+  dropdown is open (verified on the 2026-09-23 42-xdp-loadbalancer submission).
+- Setting the tag input value with the native setter alone does not open the
+  option list. The reliable sequence is: set `value = ''` with the native setter
+  and dispatch a bubbling `input` event, `focus()` the input, then type the tag
+  with CLI `keyboard type`. The committed chip appears in `.byte-select__tag`
+  one interaction later, so read the chips back only after the next tag's
+  dropdown has opened, not immediately after each option click.
+- The category chip click needs the full hover-inclusive pointer sequence and
+  may need a retry: `mouseover`, `pointerover`, `pointerenter`, `mouseenter`,
+  then `pointerdown`/`mousedown` with `buttons: 1`, `focus()`, then
+  `pointerup`/`mouseup` and `click()`. A shorter down/up/click sequence left the
+  chip unselected on the 2026-09-23 submission; the fuller sequence then set
+  `.category-list .item.active` on the first retry.
+- A newly submitted article does not always enter review: the 2026-09-23
+  42-xdp-loadbalancer submission went straight to the canonical `/post/<id>`
+  URL (no `/spost/` staging interval), so check the author profile list
+  (`https://juejin.cn/user/<id>/posts`) to find the new public URL rather than
+  assuming a staged URL exists.
 
 ## Content Strategy
 

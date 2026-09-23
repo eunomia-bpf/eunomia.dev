@@ -1,6 +1,6 @@
 # Juejin Publishing Skill Brief
 
-Last checked: 2026-09-22
+Last checked: 2026-09-23
 
 Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.agents/skills/juejin-publisher/SKILL.md`.
 
@@ -94,6 +94,21 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
   queue item `阻塞` so the next run does not submit the same source twice.
 - Injecting a long body through `agent-browser eval` needs `--stdin` with the
   base64 embedded in the script; an inline argument fails for large payloads.
+- `.byte-select-option` lives outside `.publish-popup`; query it document-wide and
+  filter by `offsetParent !== null` (several dropdowns are hidden at once). The
+  popup-scoped query returns zero options even when the tag dropdown is open
+  (observed 2026-09-23 on 42-xdp-loadbalancer). To open the list, clear the
+  input with the native setter, `focus()` it, then type with CLI `keyboard type`.
+  Committed chips appear in `.byte-select__tag` one interaction later, so read
+  them back after the next dropdown opens, not right after each click.
+- Selecting a category chip may need the fuller pointer sequence
+  (mouseover/pointerover/pointerenter/mouseenter, then pointerdown/mousedown with
+  `buttons: 1`, focus, pointerup/mouseup, click) and a retry; the shorter
+  down/up/click left the chip unselected on 2026-09-23.
+- A submission does not always enter review: the 2026-09-23 42-xdp-loadbalancer
+  article went straight to the canonical `/post/<id>` URL with no `/spost/`
+  staging interval. Find the new public URL from the author profile list
+  (`https://juejin.cn/user/<id>/posts`) rather than assuming a staged URL exists.
 
 ## Do Not Automate
 
