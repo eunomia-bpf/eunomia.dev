@@ -9,10 +9,10 @@ For full per-platform counts across all configured source files, run `python .gi
 ## Current Publisher Queue
 
 The machine ledger currently reports 39 unmatched Chinese sources on Zhihu and
-65 on Juejin (42/107 mapped). These raw counts include paused material,
+61 on Juejin (46/107 mapped). These raw counts include paused material,
 non-standalone index or reference pages, and duplicate source representations.
 The ordered platform actions that remain suitable candidates are maintained
-one-by-one in `draft/plan/publishing-queue.zh.md`; 24 Zhihu and 36 Juejin tasks
+one-by-one in `draft/plan/publishing-queue.zh.md`; 24 Zhihu and 32 Juejin tasks
 remain. Each checkbox is one platform task. The normal target is one
 publication per day; documented catch-up slots may add another platform, never
 a second post on the same platform that day.
