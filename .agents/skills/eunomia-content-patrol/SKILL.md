@@ -19,6 +19,7 @@ Read these before routing work:
 - today's `draft/media/YYYY-MM-DD/` workspace and recent run log, when present
 - `.github/publisher/media/README.md`
 - `.github/publisher/media/community-feedback.md`
+- `.github/publisher/media/published.md`
 - `.github/publisher/media/not-published.md`
 - relevant `.github/publisher/media/platforms/*.json`
 
@@ -85,6 +86,17 @@ Do not duplicate a child skill's workflow inside this orchestrator.
 6. Confirm that `eunomia-social-radar` appended today's compact checkpoint to
    `.github/publisher/media/community-feedback.md`. Do not copy that checkpoint
    into the run log.
+
+The `platforms/*.json` files are the canonical record; `published.md` and
+`not-published.md` are readable snapshots that drift if a run edits only the
+JSON. When a run changes a confirmed publication, update the matching snapshot
+in the same commit: add the new row to `published.md`, remove or update the
+`not-published.md` row, and refresh both `Last checked:` dates. Treat a
+snapshot row that contradicts the live public page as a defect to reconcile
+(the 2026-09-23 run found `published.md` lagging the JSON by 25 confirmed
+Juejin entries and still marking Agent Sandbox `Needs repair` after its
+duplicate body had been repaired and confirmed). Keep each snapshot's existing
+line endings: `published.md` uses LF while `not-published.md` uses CRLF.
 
 Do not create a standalone orchestration report.
 
