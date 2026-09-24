@@ -55,3 +55,11 @@
 
 - 创作者中心按 URL 直接进入，勿点 SPA 导航：`https://juejin.cn/creator/content/article/all` 的 `.byte-tab-pane` 为空，且会叠加 `选择你感兴趣的技术方向` 引导弹窗与 `当前操作失败` 提示，页面文本只剩背景框架，看起来像空账号。
 - 直接加载 `https://juejin.cn/creator/content/article/essays?status=all`，数秒后计数（`全部 (N)`/`已发布 (N)`/`审核中 (N)`/`未通过 (N)`）与逐篇 `展现 / 阅读 / 点赞 / 评论 / 收藏` 均出现在 `document.body.innerText`。已回写 `.agents/skills/juejin-publisher/SKILL.md` 与 `.github/publisher/media/juejin-skill.md`。
+
+## 更正：已发布 EN+ZH Q&A 的 BPF hash map 值清零事实修复
+
+- 对象：已发布双语 Q&A 对 `docs/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete(.zh).md`（`/ebpf-qa/…/` 与 `/zh/ebpf-qa/…/`）。
+- 缺陷一（自相矛盾）：原文在描述了 `BPF_F_CPU` 创建路径的旧值残留后，仍笼统否认存在任何 API 可见的逻辑泄漏。更正：该创建路径本身即 API 可见的跨 key 泄漏——对未指定 CPU 以 `BPF_F_CPU|cpu<<32` 执行 `bpf_map_lookup_elem_flags` / lookup-batch，可读到前任元素在这些 CPU 上的 per-CPU 值，直至 2026-09-23 提交至 bpf 邮件列表的清零补丁合入（截至 2026-09-24 主线抓取尚未合入）；普通 HASH 全值更新与 BPF 程序创建路径（经 `pcpu_init_value` 清零非当前 CPU 槽位）无跨 key API 泄漏。
+- 缺陷二（LRU 擦除 + 复零过度声明）：「删除/驱逐前写零是唯一可靠擦除方式」暗示不存在的用户态驱逐前钩子；「删除或复用时无路径复零」过度声明——BPF 程序 per-CPU 创建路径会通过 `pcpu_init_value` 清零其他 CPU 的槽位（用户态 `BPF_F_CPU` 创建路径不会，即该 bug）。现措辞：显式 `delete` 前写零仍是唯一可靠擦除；自动 LRU 驱逐无用户态保证时点，被驱逐值的字节可能存活至后续分配覆写；创建后唯一的其他复零点即 `pcpu_init_value` 的非当前 CPU 清零。
+- 引用：清零补丁与自测按 URL + 主题引用（linux-kernel 邮件列表 2026-09-23 第 16、18 号，`[PATCH bpf v2 1/2] bpf: Zero-fill other CPUs when BPF_F_CPU creates a per-cpu hash element` 及其自测）；合入声明限定为「截至 2026-09-24 主线抓取尚未合入」，不使用「已修复」措辞。
+- 提交：`b81bcae86`（仅该 EN+ZH 对，18 增 18 删；index 两页无改动，H1 未变）；验证器 re-verify 分支通过（receipt `…/eunomia-qa/receipt-2026-09-23.json`，commit `b81bcae86`，status `published`）；内容测试 82/82 通过；Pages 部署成功（含 `b81bcae86` 的运行成功）；线上 EN 页确认更正锚点（`bpf_map_lookup_elem_flags`、`previous occupant`、`cross-key value leak`、合入限定措辞）与 ZH 页确认对应锚点（「经由 map API 唯一能触发的跨 key 值泄漏」等），双 H1 逐字在位。
