@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Does deleting a key from a BPF hash map zero out the value memory, and can a reused slot still hold the old value bytes?](/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/)
 - [Why do TLS-encrypted service-to-service traces not stitch together in zero-code eBPF tracing, and which component actually bridges the encrypted hop?](/ebpf-qa/2026-09-22-tls-context-propagation-tcp-option-boundary/)
 - [For a Node.js service instrumented by OBI, why can't I just turn off the per-callback trace-context sentinel because the service doesn't use manual spans or log enrichment?](/ebpf-qa/2026-09-21-nodejs-traces-ctx-sentinel-gating-consumers/)
 - [How do you get observability out of a hosted agent harness when the agent loop runs in a vendor service rather than your process?](/ebpf-qa/2026-09-20-hosted-agent-harness-otel-export-boundary/)

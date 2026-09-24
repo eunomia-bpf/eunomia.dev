@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [删除 BPF hash 表的一个 key 时，值内存会被清零吗？被复用的槽位是否可能残留旧值的字节？](/zh/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/)
 - [为什么 TLS 加密的服务间 trace 无法拼接，而零代码 eBPF 追踪中真正跨越加密边界的又是哪个组件？](/zh/ebpf-qa/2026-09-22-tls-context-propagation-tcp-option-boundary/)
 - [被 OBI 插桩的 Node.js 服务，为什么不能因为不用手动 span 和日志富化就直接关掉每次回调的 trace 上下文哨兵？](/zh/ebpf-qa/2026-09-21-nodejs-traces-ctx-sentinel-gating-consumers/)
 - [当智能体循环跑在厂商托管服务里而不是你的进程内时，如何从托管智能体 harness 里取出可观测数据？](/zh/ebpf-qa/2026-09-20-hosted-agent-harness-otel-export-boundary/)
