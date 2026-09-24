@@ -40,7 +40,7 @@
 - 发布稿 `draft/media/2026-09-24/40-mysql/juejin-body.md`：源文 `docs/tutorials/40-mysql/README.zh.md` 移除源 H1，其余正文逐字保留；3237 字符、6071 字节、5 个 H2、4 个 H3、0 个 H4、3 个代码块（1 bt、1 bash、1 console）、0 张图片、0 个表格、3 条唯一外链。
 - 提交：草稿 id `7688990935071096882` 已预置（标题、正文、分类、标签全部服务端持久化），提交时刻 2026-09-24 18:44 +08 = 10:44 UTC = 03:44 PDT；弹窗「确定并发布」用真实 CDP 指针序列，一次即成，返回 `https://juejin.cn/published` 且 `document.title === '发布成功'`。
 - 提交结果：`/post/7689030007914545198` 返回 200，`/spost/7689030007914545198` 与草稿 `/spost/7688990935071096882` 均 404 —— 直接公开、无审核等待，记 `confirmed`。创作者中心 已发布 (61) / 审核中 (0) / 未通过 (0)。
-- 公开页 QA：标题逐字、正文单份、5 个 H2、4 个 H3、0 个 H4、3 个代码块（`language-bt`/`language-bash`/`language-console`）、0 张正文图片（页面上 5 个 `img` 均为头像与 `xitu_juejin_web` 图标）、0 个表格、3 条唯一外链目标（均被掘金改写为 `link.juejin.cn/?target=`）、无 `审核中`/`文章有更新`/`已被删除` 标记、评论 0。
+- 公开页 QA：标题逐字、正文单份、5 个 H2、4 个 H3、0 个 H4、3 个代码块（`language-bt`/`language-bash`/`language-console`）、0 张正文图片（页面上 5 个 `img` 均为头像与 `xitu_juejin_web` 图标）、0 个表格、3 条唯一外链目标（均被掘金改写为 `link.juejin.cn?target=`）、无 `审核中`/`文章有更新`/`已被删除` 标记、评论 0。
 - 已查重：`platforms/juejin.json` 原无 40-mysql 条目，源文此前未在掘金发布过。
 
 ## 社会雷达（40-mysql 发布后）
