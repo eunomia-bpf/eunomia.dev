@@ -1,6 +1,6 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-09-23
+Last checked: 2026-09-24
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
@@ -9,10 +9,10 @@ For full per-platform counts across all configured source files, run `python .gi
 ## Current Publisher Queue
 
 The machine ledger currently reports 39 unmatched Chinese sources on Zhihu and
-61 on Juejin (46/107 mapped). These raw counts include paused material,
+60 on Juejin (47/107 mapped). These raw counts include paused material,
 non-standalone index or reference pages, and duplicate source representations.
 The ordered platform actions that remain suitable candidates are maintained
-one-by-one in `draft/plan/publishing-queue.zh.md`; 24 Zhihu and 32 Juejin tasks
+one-by-one in `draft/plan/publishing-queue.zh.md`; 24 Zhihu and 31 Juejin tasks
 remain. Each checkbox is one platform task. The normal target is one
 publication per day; documented catch-up slots may add another platform, never
 a second post on the same platform that day.
@@ -35,7 +35,7 @@ Requirements table was repaired in place on 2026-08-30; no duplicate was created
 | X / Twitter | Several historical self-authored posts are confirmed on `@yunwei37`; see `published.md` | The configured/planned `@eaborai` account currently showed `此账号不存在`; no full X archive export was done | Replace or verify `@eaborai` in planning/metadata; paginate/export `@yunwei37` before declaring full X history complete |
 | LinkedIn | Normal visible browser checks confirmed the `Yusheng Zheng` / `yunwei37` profile and tutorial 50-54 shares; see `platforms/linkedin.json` | Machine ledger maps 11/124 English sources; no unfinished LinkedIn queue task | Monitor existing posts; unmatched sources are not automatic publication tasks |
 | Zhihu | Normal visible browser checks confirmed the fsession tutorial publication on 2026-08-14; machine ledger maps 68/107 Chinese sources | 39 configured Chinese sources remain unmatched; the visible profile was rechecked on 2026-09-23 and `/creator` still redirects to `/signin`, with no `z_c0` auth cookie, so the session is not signed in | Resume the first queued AgentCgroup task after a visible Zhihu session is signed in; recheck the title before submission |
-| Juejin | 45-scx-nest at <https://juejin.cn/post/7685561582916009994> (2026-09-15), 44-scx-simple at <https://juejin.cn/post/7686408837754142770> (2026-09-17), 43-kfuncs at <https://juejin.cn/post/7688489073967251494> (2026-09-22, review cleared 2026-09-23), and 42-xdp-loadbalancer at <https://juejin.cn/post/7688532185121947658> (2026-09-23) are confirmed public with full public-page QA, joining Runtime Security, 48-energy, 47-cuda-events, and 46-xdp-test | No known unresolved Juejin publication defect; the machine ledger maps 46/107 sources, with 61 unmatched and 32 open rolling-queue tasks; four documented catch-up gaps remain (2026-08-29, 2026-09-01, 2026-09-03, 2026-09-16) | Continue with the next queued Juejin task (41-xdp-tcpdump) in the next available Juejin daily slot |
+| Juejin | 41-xdp-tcpdump at <https://juejin.cn/post/7688905828694294566> (2026-09-24) is confirmed public with full public-page QA, alongside 45-scx-nest at <https://juejin.cn/post/7685561582916009994> (2026-09-15), 44-scx-simple at <https://juejin.cn/post/7686408837754142770> (2026-09-17), 43-kfuncs at <https://juejin.cn/post/7688489073967251494> (2026-09-22, review cleared 2026-09-23), and 42-xdp-loadbalancer at <https://juejin.cn/post/7688532185121947658> (2026-09-23), joining Runtime Security, 48-energy, 47-cuda-events, and 46-xdp-test | No known unresolved Juejin publication defect; the machine ledger maps 47/107 sources, with 60 unmatched and 31 open rolling-queue tasks; four documented catch-up gaps remain (2026-08-29, 2026-09-01, 2026-09-03, 2026-09-16) | Continue with the next queued Juejin task (40-mysql) on the next available LA day |
 | Medium | All currently queued English articles are confirmed in `platforms/medium.json`; tutorial 53 formatting repair passed public QA on 2026-08-30 | No unfinished Medium queue task or known tutorial 53 formatting defect | Monitor existing articles; do not republish completed items |
 | DEV Community | AgentCgroup was confirmed public on 2026-08-27; all current DEV queue items are complete | No unfinished DEV queue task | Monitor the confirmed public pages; queue new sources only when separately authorized |
 | Reddit | Historical `u/yunwei123` posts are confirmed for eBPF tutorial, GPTtrace, Code-Survey-like discussion, and Wasm-bpf; see `published.md` | No evidence yet that current 2026 flagship posts were submitted to r/eBPF, r/netsec, r/LocalLLaMA, HN, or lobste.rs | Use Reddit only manually for flagship posts; check subreddit fit before posting |

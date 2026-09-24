@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-09-23
+Last checked: 2026-09-24
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -105,9 +105,11 @@ On 2026-08-31, the same visible duplicate and review checks preceded the HID tut
 
 On 2026-09-02, Agent Sandbox became publicly listed, but the mechanical update that removes a repeated body H1 remained under review. It stays pending rather than confirmed until the corrected public page can be checked.
 On 2026-09-23, the 42-xdp-loadbalancer tutorial landed directly public and the 09-22 43-kfuncs submission cleared review, so the canonical `/post/` URL replaced its staged `/spost/` URL; both passed full public-page QA. The same recheck confirmed Agent Sandbox now renders a single-copy body.
+On 2026-09-24, the 41-xdp-tcpdump tutorial was submitted through the visible editor and cleared review within the same session, so the canonical `/post/` URL replaced the short-lived `/spost/` staging URL; it passed full public-page QA and is the newest item on the author profile.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | eBPF 示例教程：使用 XDP 捕获 TCP 信息 | <https://juejin.cn/post/7688905828694294566> | Published 2026-09-24 from `docs/tutorials/41-xdp-tcpdump/README.zh.md` through the visible Juejin editor using the 2026-09-24 America/Los_Angeles normal slot; category `后端`; tags `Linux`, `后端`, `性能优化`; cleared review in the same session so the canonical `/post/` URL replaced the staged `/spost/` URL; public-page QA confirmed the exact title, single-copy body, 5 H2, 9 H3, 9 H4, 17 code blocks (12 c, 3 bash, 2 bare sample-output blocks), 0 content images, 0 tables, 3 unique external targets, no review/update/deletion marker, and 0 comments |
 | Confirmed | eBPF 开发者教程： 简单的 XDP 负载均衡器 | <https://juejin.cn/post/7688532185121947658> | Published 2026-09-23 from `docs/tutorials/42-xdp-loadbalancer/README.zh.md` through the visible Juejin editor using the 2026-09-23 America/Los_Angeles normal slot; category `后端`; tags `Linux`, `后端`, `性能优化`; landed directly public with no review interval; public-page QA confirmed the exact title, single-copy body, 5 H2, 19 H3, 2 H4, 25 code blocks (12 c, 8 sh, 4 console, 1 txt), 4 external links, no content image, no review/update/deletion marker, and 0 comments |
 | Confirmed | 超越 eBPF 的极限：在内核模块中定义自定义 kfunc | <https://juejin.cn/post/7688489073967251494> | Published 2026-09-22 from `docs/tutorials/43-kfuncs/README.zh.md` through the visible Juejin editor using the 2026-09-22 America/Los_Angeles normal slot; category `后端`; tags `Linux`, `后端`, `性能优化`; submitted as `review_pending`, then confirmed public 2026-09-23 after review cleared and the canonical `/post/` URL replaced the staged `/spost/` URL; public-page QA confirmed the exact title, single-copy body, 9 H2, 11 H3, 3 H4, 20 code blocks, 8 unique external links, 1 content image rendering at 800x500, no review/update/deletion marker, and 0 comments |
 | Confirmed | eBPF 教程：BPF 调度器入门 | <https://juejin.cn/post/7686408837754142770> | Published 2026-09-17 from `docs/tutorials/44-scx-simple/README.zh.md` through the visible Juejin editor using the 2026-09-17 America/Los_Angeles normal slot; category `后端`; tags `Linux`, `后端`, `性能优化`; confirmed public after review cleared the same LA day; public-page QA confirmed the exact title, single-copy body, 7 H2, 13 H3, 2 H4, 6 code blocks, 7 external links, no content image, and no review/update/deletion marker |

@@ -83,32 +83,43 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
 - The category and tag dialog is `.publish-popup`, not `.byte-modal` (the modal
   node renders with empty text). A selected category chip has class `active`,
   not `selected`.
-- Tag entry: focus `publish-popup .byte-select__input`[0] (index 0 is tags),
-  type a trigger term, click the `.byte-select-option` with the exact target
-  text, then read chips back from `.byte-select__tag`. Clear the input between
-  tags with `value = ''` plus a bubbling `input` event.
+- Tag entry: focus `.publish-popup .byte-select__input`[0] (index 0 is tags),
+  set its value with the native `HTMLInputElement` value setter plus a bubbling
+  `input` event, click the document-wide visible `.byte-select-option` whose text
+  matches exactly, then read chips back from `.publish-popup .byte-select__tag`.
+  Clear the input between tags with `value = ''` plus a bubbling `input` event.
+  Avoid CLI `keyboard type` here: the text can leak into the title or body, and
+  the option list does not always open (observed 2026-09-24).
 - The confirm button's exact text is `确定并发布`; success lands on
   `https://juejin.cn/published` with `document.title === '发布成功'`. The 确定并发布 button ignores a synthetic `element.click()` and a CLI `agent-browser click` on `.publish-popup .ui-btn.primary` (observed 2026-09-22 on 43-kfuncs: both only fired the autosave toast, no publish); dispatch a real pointer-event sequence (pointerdown/mousedown/focus/pointerup/mouseup/click with view:window, button:0) via eval. The tag search widget is not reached by CLI fill/keyboard type (typed text leaks into the title or body); set `.byte-select__input` value with the native HTMLInputElement value setter plus a bubbling `input` event, then click the exact `.byte-select-option`. Read back and reset the title input to the exact source H1 before the final submit, because early tag typing can pollute the title.
 - A submitted article can remain in review: only `/spost/<id>` renders and
-  `/post/<id>` returns `找不到页面`. Record it as `review_pending` and mark the
-  queue item `阻塞` so the next run does not submit the same source twice.
+  `/post/<id>` returns `找不到页面`. Record it as `review_pending` only after
+  probing both. Review can also clear within minutes: on 2026-09-24 the 41-xdp-tcpdump
+  article staged briefly, then `/post/<id>` returned 200 with no `审核中` marker
+  and the `/spost/<id>` URL 404'd in the same session, so record `confirmed`.
 - Injecting a long body through `agent-browser eval` needs `--stdin` with the
   base64 embedded in the script; an inline argument fails for large payloads.
 - `.byte-select-option` lives outside `.publish-popup`; query it document-wide and
   filter by `offsetParent !== null` (several dropdowns are hidden at once). The
   popup-scoped query returns zero options even when the tag dropdown is open
-  (observed 2026-09-23 on 42-xdp-loadbalancer). To open the list, clear the
-  input with the native setter, `focus()` it, then type with CLI `keyboard type`.
-  Committed chips appear in `.byte-select__tag` one interaction later, so read
-  them back after the next dropdown opens, not right after each click.
-- Selecting a category chip may need the fuller pointer sequence
-  (mouseover/pointerover/pointerenter/mouseenter, then pointerdown/mousedown with
-  `buttons: 1`, focus, pointerup/mouseup, click) and a retry; the shorter
-  down/up/click left the chip unselected on 2026-09-23.
+  (observed 2026-09-23 on 42-xdp-loadbalancer). Set the input value with the
+  native setter plus a bubbling `input` event to open the list; CLI `keyboard
+  type` leaks the text elsewhere. Read committed chips back from
+  `.publish-popup .byte-select__tag` after each option click.
+- Select a category chip with **real CDP pointer events**
+  (`page.mouse.move` → `move` → `down` → `up`). In-page synthetic events are not
+  enough: on 2026-09-24 a full synthetic hover-inclusive sequence (mouseover/
+  pointerover/pointerenter/mouseenter, then pointerdown/mousedown with
+  `buttons: 1`, focus, pointerup/mouseup, click) still left
+  `.category-list .item.active` empty, while the real CDP mouse sequence selected
+  it on the first try.
 - A submission does not always enter review: the 2026-09-23 42-xdp-loadbalancer
   article went straight to the canonical `/post/<id>` URL with no `/spost/`
-  staging interval. Find the new public URL from the author profile list
-  (`https://juejin.cn/user/<id>/posts`) rather than assuming a staged URL exists.
+  staging interval. The author profile list can lag or omit the new item, so the
+  reliable URL sources are the creator center article list (`文章管理` →
+  `https://juejin.cn/creator/content/article/essays?status=all`, whose `审核中`
+  tab names the staged URL) and a direct `curl` status probe on the candidate
+  `/post/<id>` URL.
 
 ## Do Not Automate
 
