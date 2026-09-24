@@ -245,6 +245,16 @@ Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions
   clicking `文章管理`), whose `审核中` tab names the staged URL, and (2) a direct
   `curl` status probe on the candidate `/post/<id>` URL, which returned 200
   while the profile list still omitted the article.
+- Navigate the creator center by URL, not by clicking through the SPA.
+  `https://juejin.cn/creator/content/article/all` renders a shell whose tab panes
+  are empty (`.byte-tab-pane` has zero elements) and, on a fresh load, a
+  `选择你感兴趣的技术方向` onboarding modal plus a `当前操作失败` alert can overlay
+  the list. Go straight to
+  `https://juejin.cn/creator/content/article/essays?status=all`, which renders
+  the counts (`全部 (N)` `已发布 (N)` `审核中 (N)` `未通过 (N)`) and the row list
+  with per-post `展现 / 阅读 / 点赞 / 评论 / 收藏` in `document.body.innerText`
+  after a few seconds. The `/all` shell alone returns only the backdrop text and
+  will falsely look like an empty account.
 
 ## Content Strategy
 

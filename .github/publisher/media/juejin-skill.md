@@ -124,6 +124,13 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
   `https://juejin.cn/creator/content/article/essays?status=all`, whose `审核中`
   tab names the staged URL) and a direct `curl` status probe on the candidate
   `/post/<id>` URL.
+- Read the creator center by URL rather than clicking through the SPA. The
+  `https://juejin.cn/creator/content/article/all` shell renders empty
+  `.byte-tab-pane` elements and can show a `选择你感兴趣的技术方向` onboarding
+  modal over the list, which makes the account look empty. Load
+  `https://juejin.cn/creator/content/article/essays?status=all` directly; its
+  counts and per-post `展现 / 阅读 / 点赞 / 评论 / 收藏` appear in
+  `document.body.innerText` within a few seconds.
 
 ## Do Not Automate
 
