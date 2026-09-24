@@ -1,6 +1,6 @@
 # 掘金发布稿：40-mysql 教程
 
-- 状态：草稿已预置，待提交（准备于 2026-09-24，目标 LA 2026-09-25 正常额度；09-24 掘金额度已被 41-xdp-tcpdump 用掉，同日不得再发同平台一篇）
+- 状态：已发布并确认公开（2026-09-24 LA 自然日，作为核销补发缺口的当日第二条掘金任务；当日正常额度已由 41-xdp-tcpdump 使用）。正式地址 https://juejin.cn/post/7689030007914545198（`/post/` 200、`/spost/` 404，无审核等待），公开页 QA 通过，`platforms/juejin.json` 记为 `confirmed`
 - 正文：`juejin-body.md`（源文 `docs/tutorials/40-mysql/README.zh.md` 移除源 H1，其余正文逐字保留；3237 字符、6071 字节、5 个 H2、4 个 H3、0 个 H4、3 个代码块 [1 bt + 1 bash + 1 console]、0 张图片、0 个表格、3 条唯一外链、无相对链接）
 - 标题：使用 eBPF 跟踪 MySQL 查询（源 H1 逐字）
 - 原文：https://eunomia.dev/zh/tutorials/40-mysql/

@@ -33,9 +33,25 @@
 - 外部回声：精确标题的网页搜索只返回官方源页、GitHub 源码与新发布掘金页，尚无转载或引用。无需行动。
 - 下一检查点：40-mysql 发布后复查是否出现首条非空评论。
 
-## 队列准备：掘金 40-mysql（待 LA 2026-09-25 发布）
+## 队列任务：掘金 40-mysql（LA 2026-09-24 补发缺口额度）
 
 - 任务行：`draft/plan/publishing-queue.zh.md` 第 86 行（`排队`）。第 85 行知乎同源文仍 `阻塞`（无 `z_c0`）。
-- 本日掘金额度已被 41-xdp-tcpdump 用尽，故只准备不提交；目标提交时刻 LA 2026-09-25 00:00:00 PDT = 2026-09-25 07:00:00 UTC。
-- 发布稿 `draft/media/2026-09-24/40-mysql/juejin-body.md`：源文 `docs/tutorials/40-mysql/README.zh.md` 移除源 H1，其余正文逐字保留；3237 字符、5 个 H2、4 个 H3、0 个 H4、3 个代码块（1 bt、1 bash、1 console）、0 张图片、0 个表格、3 条唯一外链。
-- 已查重：`platforms/juejin.json` 无 40-mysql 条目，源文未在掘金发布过。
+- 当日正常额度已由 41-xdp-tcpdump 使用，本次经用户指示按补发缺口额度发布，作为当日同平台第二条；发布后核销最早缺口 2026-08-29，缺口由 4 条减为 3 条（2026-09-01、2026-09-03、2026-09-16）。
+- 发布稿 `draft/media/2026-09-24/40-mysql/juejin-body.md`：源文 `docs/tutorials/40-mysql/README.zh.md` 移除源 H1，其余正文逐字保留；3237 字符、6071 字节、5 个 H2、4 个 H3、0 个 H4、3 个代码块（1 bt、1 bash、1 console）、0 张图片、0 个表格、3 条唯一外链。
+- 提交：草稿 id `7688990935071096882` 已预置（标题、正文、分类、标签全部服务端持久化），提交时刻 2026-09-24 18:44 +08 = 10:44 UTC = 03:44 PDT；弹窗「确定并发布」用真实 CDP 指针序列，一次即成，返回 `https://juejin.cn/published` 且 `document.title === '发布成功'`。
+- 提交结果：`/post/7689030007914545198` 返回 200，`/spost/7689030007914545198` 与草稿 `/spost/7688990935071096882` 均 404 —— 直接公开、无审核等待，记 `confirmed`。创作者中心 已发布 (61) / 审核中 (0) / 未通过 (0)。
+- 公开页 QA：标题逐字、正文单份、5 个 H2、4 个 H3、0 个 H4、3 个代码块（`language-bt`/`language-bash`/`language-console`）、0 张正文图片（页面上 5 个 `img` 均为头像与 `xitu_juejin_web` 图标）、0 个表格、3 条唯一外链目标（均被掘金改写为 `link.juejin.cn/?target=`）、无 `审核中`/`文章有更新`/`已被删除` 标记、评论 0。
+- 已查重：`platforms/juejin.json` 原无 40-mysql 条目，源文此前未在掘金发布过。
+
+## 社会雷达（40-mysql 发布后）
+
+- 观察时刻 2026-09-24 20:47 +08（05:47 PDT）。创作者中心显示 已发布 (61) / 审核中 (0) / 未通过 (0)，较发布前 60 增加 1。
+- 新文 <https://juejin.cn/post/7689030007914545198> 公开，标题逐字、无审核/更新/删除标记；早期计数 2 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏。
+- 同日 <https://juejin.cn/post/7688905828694294566>（41-xdp-tcpdump）计数由 01:05 PDT 的 1886 展现 / 13 阅读 增至 3425 展现 / 18 阅读，仍 0 评论。
+- 当前列出的 10 篇公开掘金文章全部保持 0 评论，`暂无评论数据` 空评论状态延续，无需回复或更正。阅读数领先者：47-cuda-events 59、44-scx-simple 51（1 收藏）、45-scx-nest 35、48-energy 35。
+- 外部回声：尚无转载或引用。下一检查点：39-nginx 发布后复查是否出现首条非空评论。
+
+## 编辑器经验补充（创作者中心读取）
+
+- 创作者中心按 URL 直接进入，勿点 SPA 导航：`https://juejin.cn/creator/content/article/all` 的 `.byte-tab-pane` 为空，且会叠加 `选择你感兴趣的技术方向` 引导弹窗与 `当前操作失败` 提示，页面文本只剩背景框架，看起来像空账号。
+- 直接加载 `https://juejin.cn/creator/content/article/essays?status=all`，数秒后计数（`全部 (N)`/`已发布 (N)`/`审核中 (N)`/`未通过 (N)`）与逐篇 `展现 / 阅读 / 点赞 / 评论 / 收藏` 均出现在 `document.body.innerText`。已回写 `.agents/skills/juejin-publisher/SKILL.md` 与 `.github/publisher/media/juejin-skill.md`。
