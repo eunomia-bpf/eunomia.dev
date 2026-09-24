@@ -24,3 +24,18 @@
 - 标签输入：`.publish-popup .byte-select__input` index 0 需用原生 value setter + 冒泡 `input` 事件写入，再点击文档级可见 `.byte-select-option`；CLI `keyboard type` 会把文本泄漏到标题/正文。
 - 提交按钮：`确定并发布` 只需真实 CDP 指针序列（move → move → down → up），本次一次即成，返回 `https://juejin.cn/published` 且 `document.title === '发布成功'`。
 - 审核不是稳定态：本次 `/spost/` 暂存仅维持数分钟，同会话内即换为 `/post/`。`/post/` 返回 200 且无 `审核中` 标记即可直接记 `confirmed`，不必按 09-22 的 `/spost/` 惯例先记 `review_pending`。
+
+## 社会雷达（41-xdp-tcpdump 发布后）
+
+- 观察时刻 2026-09-24 01:05 PDT（08:05 UTC）。创作者中心显示 已发布 (60) / 审核中 (0) / 未通过 (0)。
+- 新文 <https://juejin.cn/post/7688905828694294566> 公开，标题逐字、无审核/更新/删除标记；早期计数 1886 展现 / 13 阅读 / 0 评论。
+- 跟踪中的 10 篇公开掘金文章全部保持 `暂无评论数据` 空评论状态，无需回复或更正。阅读数领先者：44-scx-simple 51、47-cuda-events 59、ACRFence 54。
+- 外部回声：精确标题的网页搜索只返回官方源页、GitHub 源码与新发布掘金页，尚无转载或引用。无需行动。
+- 下一检查点：40-mysql 发布后复查是否出现首条非空评论。
+
+## 队列准备：掘金 40-mysql（待 LA 2026-09-25 发布）
+
+- 任务行：`draft/plan/publishing-queue.zh.md` 第 86 行（`排队`）。第 85 行知乎同源文仍 `阻塞`（无 `z_c0`）。
+- 本日掘金额度已被 41-xdp-tcpdump 用尽，故只准备不提交；目标提交时刻 LA 2026-09-25 00:00:00 PDT = 2026-09-25 07:00:00 UTC。
+- 发布稿 `draft/media/2026-09-24/40-mysql/juejin-body.md`：源文 `docs/tutorials/40-mysql/README.zh.md` 移除源 H1，其余正文逐字保留；3237 字符、5 个 H2、4 个 H3、0 个 H4、3 个代码块（1 bt、1 bash、1 console）、0 张图片、0 个表格、3 条唯一外链。
+- 已查重：`platforms/juejin.json` 无 40-mysql 条目，源文未在掘金发布过。
