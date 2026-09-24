@@ -100,11 +100,15 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
 - Injecting a long body through `agent-browser eval` needs `--stdin` with the
   base64 embedded in the script; an inline argument fails for large payloads.
 - `.byte-select-option` lives outside `.publish-popup`; query it document-wide and
-  filter by `offsetParent !== null` (several dropdowns are hidden at once). The
-  popup-scoped query returns zero options even when the tag dropdown is open
-  (observed 2026-09-23 on 42-xdp-loadbalancer). Set the input value with the
-  native setter plus a bubbling `input` event to open the list; CLI `keyboard
-  type` leaks the text elsewhere. Read committed chips back from
+  filter by `getBoundingClientRect().width > 0` (several dropdowns are hidden at
+  once). Do NOT use `offsetParent !== null`: an unopened
+  `.byte-select-dropdown__wrap` keeps its options in the DOM at zero size with a
+  non-null `offsetParent`, so that filter reports an open dropdown as empty
+  (hit on the 2026-09-24 40-mysql prep). The popup-scoped query returns zero
+  options even when the tag dropdown is open (observed 2026-09-23 on
+  42-xdp-loadbalancer). Set the input value with the native setter plus a
+  bubbling `input` event to open the list, clearing any leftover text first;
+  CLI `keyboard type` leaks the text elsewhere. Read committed chips back from
   `.publish-popup .byte-select__tag` after each option click.
 - Select a category chip with **real CDP pointer events**
   (`page.mouse.move` → `move` → `down` → `up`). In-page synthetic events are not

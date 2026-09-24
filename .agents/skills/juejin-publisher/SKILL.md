@@ -209,10 +209,15 @@ Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions
   argument-length limits.
 - The `.byte-select-option` list is NOT inside `.publish-popup`; query it
   document-wide. Several hidden dropdowns exist at once (collections, topics),
-  so filter `[...document.querySelectorAll('.byte-select-option')]` by
-  `offsetParent !== null` before clicking the option whose exact text matches
-  the target tag. A popup-scoped query returns zero options even when the tag
-  dropdown is open (verified on the 2026-09-23 42-xdp-loadbalancer submission).
+  so filter `[...document.querySelectorAll('.byte-select-option')]` before
+  clicking the option whose exact text matches the target tag. Use
+  `getBoundingClientRect().width > 0` as the visibility test, NOT
+  `offsetParent !== null`: an unopened `.byte-select-dropdown__wrap` keeps its
+  options in the DOM with zero width/height but a non-null `offsetParent`, so
+  the `offsetParent` filter reports an open dropdown as empty (hit on the
+  2026-09-24 40-mysql prep, where the tag options were present and clickable all
+  along). A popup-scoped query returns zero options even when the tag dropdown is
+  open (verified on the 2026-09-23 42-xdp-loadbalancer submission).
 - Typing into the tag input with CLI `keyboard type` is unreliable: the text can
   leak into the title or body, and the option list does not always open. The
   sequence that worked on both the 2026-09-23 and 2026-09-24 submissions is the
