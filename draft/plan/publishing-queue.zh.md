@@ -84,7 +84,7 @@
 - [x] `排队` 掘金：`docs/tutorials/41-xdp-tcpdump/README.zh.md`。 2026-09-24 使用 LA 自然日正常额度，经可见编辑器发布；提交返回“发布成功”，同会话审核通过，正式地址 <https://juejin.cn/post/7688905828694294566>（短暂暂存 /spost/7688905828694294566）。分类 后端；标签 Linux、后端、性能优化；公开页 QA 通过（标题逐字、正文单份、5 H2 / 9 H3 / 9 H4、17 个代码块、0 图片、0 表格、3 条唯一外链、0 评论）；台账已记 confirmed（47/107）。
 - [ ] `排队` 知乎：`docs/tutorials/40-mysql/README.zh.md`。
 - [x] `排队` 掘金：`docs/tutorials/40-mysql/README.zh.md`。 2026-09-24 经可见编辑器发布，作为核销补发缺口的当日第二条掘金任务（当日正常额度已由 41-xdp-tcpdump 使用）；发布成功且同会话确认公开，正式地址 <https://juejin.cn/post/7689030007914545198>（/post/ 200、/spost/ 404，无审核等待）；分类 后端；标签 Linux、后端、性能优化；公开页 QA 通过（标题逐字、正文单份、5 H2 / 4 H3 / 0 H4、3 个代码块、0 内容图片、0 表格、3 条唯一外链、0 评论）；台账已记 confirmed（48/107），并据此核销缺口 2026-08-29。
-- [ ] `排队` 掘金：`docs/tutorials/39-nginx/README.zh.md`。
+- [ ] `排队` 掘金：`docs/tutorials/39-nginx/README.zh.md`。 已预置草稿 id `7689029864910929970`（标题、4838 字符正文、分类 后端、标签 Linux/后端/性能优化 均已服务端持久化，重载回读一致）；因 09-24 正常额度（41-xdp-tcpdump）与补发额度（40-mysql）均已用尽，最早可提交时刻为 LA 2026-09-25 00:00 PDT = 2026-09-25 07:00 UTC；到点打开该草稿单次弹窗提交，再按 /post/ 状态与公开页 QA 回落台账。发布稿 `draft/media/2026-09-25/39-nginx/`。
 - [ ] `排队` 知乎：`docs/tutorials/38-btf-uprobe/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/38-btf-uprobe/README.zh.md`。
 - [ ] `排队` 知乎：`docs/tutorials/37-uprobe-rust/README.zh.md`。
