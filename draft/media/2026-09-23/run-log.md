@@ -98,3 +98,11 @@
   (`2c8a97b2`) was restored to keep its `MM` shape; the staged deletions and
   the agent-skills gitlink (`4a69aa0`) were left untouched. No concurrent
   bytes were lost.
+
+## Post-publication correction (2026-09-23, BPF hash-map article)
+
+- 当日已发布的 `bpf-hash-map-value-zeroing-on-delete`（EN `docs/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete.md`，ZH `...zh.md`）两处事实错误修正，正文 H1 逐字不变，index 路径无改动。
+- 错误 1（“经由 map API 不存在跨 key 的值泄漏”）：per-CPU hash map 的 `BPF_F_CPU` 创建路径上 `pcpu_copy_value` 只写指定 CPU 槽位即返回，其余 CPU 保留被回收元素的原始字节，新 key 的 lookup 会读到已删除 key 的 per-CPU 值。修复补丁（`Fixes: c6936161fd55`，`pcpu_init_value` diff）+ 元素复用 selftest 已于 2026-09-23 提交 bpf 邮件列表（openwall msg 16/18，`test_percpu_map_cpu_flag_create`），截至行文尚未合入主线。文中仅以 URL 与主题引用。
+- 错误 2（“hash 值既不在创建时也不在删除时清零”）：不精确——非 per-CPU 预分配池在 map 创建时经 `__GFP_ZERO`（`__bpf_map_area_alloc`，`kernel/bpf/syscall.c`）清零；per-CPU 值区域由 `prealloc_init` 的 `bpf_map_alloc_percpu` 分配，创建时经 `alloc_percpu` 零填充保证清零（BPF 代码无 `__GFP_ZERO` 标志，属 `alloc_percpu` 本身性质）；普遍成立的是删除或复用时不重新清零。
+- 更正落地：EN/ZH 各 10 处镜像更正；提交 `d4e09ecd4`（4 路径：EN+ZH 两篇 + 两 index 文件，显式 pathspec），已推 `main`。本地 `node --test` 内容测试（`eBPF Q&A`）1/1 通过。
+- 发布器 skill 的 10 处更正记录在 `.agents/skills/eunomia-content-patrol/SKILL.md`；`check_media_ledger.py` 新增 `validate_snapshot` 与 `validate_freshness` 校验（负例 exit 2 / 修复后 exit 0）。
