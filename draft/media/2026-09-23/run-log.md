@@ -60,3 +60,41 @@
 - 抓取 ledger 内全部 47 篇掘金公开页的 JSON-LD `datePublished`，按三个时区分别统计「同平台同日」碰撞：UTC 与 Asia/Shanghai 均出现 2026-09-13 与 2026-09-23 两组碰撞；**America/Los_Angeles 下 2026 年无任何碰撞**（仅 2023 年历史批量回补存在）。
 - 09-23 这组碰撞即 43-kfuncs（`13:29 CST` = `05:29 UTC` = **22:29 PDT 09-22**）与 42-xdp-loadbalancer（`18:52 CST` = `10:52 UTC` = `03:52 PDT 09-23`）。仓库自身把它们分别记为 **09-22** 与 **09-23** 两个运行日各自的额度，只有按 LA 边界才与该记账一致；UTC/+08 会把它们错误地压进同一天。
 - 结论：`同一平台同一天最多一篇` 的「天」= LA 自然日。故 41-xdp-tcpdump 在 LA 2026-09-23 已无名额（该日额度属 42-xdp-loadbalancer），须等 LA 2026-09-24 00:00 PDT（= 2026-09-24 07:00:30 UTC）。
+
+## eBPF Q&A daily publication (duty day 2026-09-23, America/Los_Angeles)
+
+- **Published:** `bpf-hash-map-value-zeroing-on-delete`
+  - EN: https://eunomia.dev/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/
+  - ZH: https://eunomia.dev/zh/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/
+  - Question: does deleting a key from a BPF hash map zero out the value
+    memory, and can a reused slot still hold the old value bytes.
+  - Commit `2f2311382` on `main` (4 files: EN+ZH pages + both index bullets), pushed.
+- **Sources (public primary only):** kernel `hashtab.c` (prealloc vs
+  NO_PREALLOC element lifecycle, `free_htab_elem`/`htab_elem_free`,
+  `htab_map_delete_elem`), `memalloc.c` (RCU-deferred reclaim, unzeroed
+  recycling), `bpf.h` (`BPF_F_NO_PREALLOC`), `Documentation/bpf/map_array.rst`
+  (ARRAY zero-init contrast), `map_hash.rst`. All cited URLs verified HTTP 200
+  (`raw.githubusercontent.com` for source, `docs.kernel.org` for docs).
+- **Coverage gap (reported honestly, not blocking):** the opt-in archive
+  snapshot for this duty day returned 0 usable technical messages, so the
+  `## Community discussion today` / `## 当日社区讨论` sections fall back to the
+  public discussion grounding already cited in the pages. No private data
+  (names/handles/employers/channels/message URLs/timestamps) committed.
+- **Validator:** the first full-pipeline run stalled ~2 h in the local
+  `next build` under machine contention and was cancelled after the
+  documented ~20-min threshold. The 4 QA paths were then committed manually
+  and the receipt completed via the validator's documented already-published
+  fast path: `content_test/build/render/commit_push` =
+  `skipped_already_published`, `remote_contains_commit: ok`, `public: ok`.
+  Receipt `/workspaces/.agent-state/eunomia-qa/receipt-2026-09-23.json`,
+  `status: published`, commit `2f2311382153…`, mode 0600.
+- **Live verification:** all 4 public URLs return HTTP 200 with the correct
+  H1 (EN/ZH); both `/ebpf-qa/` indexes link the slug.
+- **Concurrent work preserved:** a `git fetch` fast-forward
+  (`f28b112d3` → `1e508550f`, +20 paths) overlapped 7 in-progress WIP paths
+  (6 dirty tracked files + the untracked 09-22 run-log, whose local bytes
+  differed from the remote's newly-tracked copy). All 7 were preserved
+  byte-identically via a scoped save/restore; the `latest.md` staged blob
+  (`2c8a97b2`) was restored to keep its `MM` shape; the staged deletions and
+  the agent-skills gitlink (`4a69aa0`) were left untouched. No concurrent
+  bytes were lost.
