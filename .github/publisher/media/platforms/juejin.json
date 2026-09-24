@@ -267,6 +267,16 @@
   ],
   "published": [
     {
+      "id": "juejin-7689030007914545198",
+      "status": "confirmed",
+      "title": "使用 eBPF 跟踪 MySQL 查询",
+      "url": "https://juejin.cn/post/7689030007914545198",
+      "staged_url": "https://juejin.cn/spost/7688990935071096882",
+      "source_path": "docs/tutorials/40-mysql/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-24 (JSON-LD datePublished 2026-09-24T10:44:20+00:00 = 03:44 PDT 2026-09-24) as a gap-funded extra task: the 2026-09-24 America/Los_Angeles normal slot was already used by 41-xdp-tcpdump (00:10 PDT), and this second Juejin post on the same LA day redeems one catch-up gap. The article was pre-staged as draft 7688990935071096882 (title, body, category, and tags all server-persisted across a reload) so the at-submit action was a single popup submit. Submission returned 发布成功; the creator center reported 已发布 (61) / 审核中 (0) / 未通过 (0). Public URL was resolved empirically from the creator-center row rather than assumed: /post/7689030007914545198 returns HTTP 200 while /spost/7689030007914545198 returns 404, so the entry is confirmed with no review_pending interval. Category 后端; tags Linux, 后端, 性能优化. Public-page QA on 2026-09-24 preserved the exact title with a single-copy body (the source H1 is rendered once by the title field and not repeated) with five H2 headings, four H3 headings, zero H4 headings, three code blocks (bt, bash, console), zero content images (the five img elements on the page are two user avatars and three xitu_juejin_web interface icons), zero tables, and three unique external targets, all rewritten by Juejin to link.juejin.cn/?target= (github.com/eunomia-bpf/bpftime, github.com/eunomia-bpf/bpf-developer-tutorial, eunomia.dev/tutorials/); no 审核中, no 文章有更新, and no 已被删除 marker; 评论 0."
+    },
+    {
       "id": "juejin-7688489073967251494",
       "status": "confirmed",
       "title": "超越 eBPF 的极限：在内核模块中定义自定义 kfunc",
