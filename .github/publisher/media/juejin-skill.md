@@ -95,8 +95,14 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
 - A submitted article can remain in review: only `/spost/<id>` renders and
   `/post/<id>` returns `找不到页面`. Record it as `review_pending` only after
   probing both. Review can also clear within minutes: on 2026-09-24 the 41-xdp-tcpdump
-  article staged briefly, then `/post/<id>` returned 200 with no `审核中` marker
-  and the `/spost/<id>` URL 404'd in the same session, so record `confirmed`.
+  and 40-mysql articles staged briefly, then `/post/<id>` returned 200 with no `审核中`
+  marker and the `/spost/<id>` URL 404'd in the same session, so record `confirmed`.
+  While in review BOTH `/spost/<id>` and `/post/<id>` can 404 (observed on 2026-09-22
+  43-kfuncs and 2026-09-24 39-nginx), and the 39-nginx `/post/<id>` returned 200 about
+  45–60 s after submission, so poll `/post/<id>` for a minute before concluding
+  `review_pending`; after clearance the creator center's `/spost/<id>` row link also
+  404s and only `/post/<id>` remains. Three posts on one LA day (2026-09-24) is legal
+  only when the extras are funded by catch-up gaps.
 - Injecting a long body through `agent-browser eval` needs `--stdin` with the
   base64 embedded in the script; an inline argument fails for large payloads.
 - `.byte-select-option` lives outside `.publish-popup`; query it document-wide and

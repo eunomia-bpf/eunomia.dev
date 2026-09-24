@@ -267,6 +267,16 @@
   ],
   "published": [
     {
+      "id": "juejin-7689030180350394419",
+      "status": "confirmed",
+      "title": "使用 eBPF 跟踪 Nginx 请求",
+      "url": "https://juejin.cn/post/7689030180350394419",
+      "staged_url": "https://juejin.cn/spost/7689030180350394419",
+      "source_path": "docs/tutorials/39-nginx/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-24 (JSON-LD datePublished 2026-09-24T13:55:37+00:00 = 06:55 PDT 2026-09-24) as the third Juejin post on the same America/Los_Angeles day: the LA 2026-09-24 normal slot was already used by 41-xdp-tcpdump (00:10 PDT) and the catch-up gap slot by 40-mysql (03:44 PDT, redeeming the 2026-08-29 gap). The task was targeted at the LA 2026-09-25 normal slot; the early submission was explicitly requested by the user and is recorded as a second gap-funded extra task on this platform day, redeeming the next-oldest outstanding gap 2026-09-01 (gaps 3 -> 2). The article was pre-staged as draft 7689029864910929970 (title, 4838-character body, category 后端, and tags all server-persisted) so the at-submit action was a single popup submit. Submission returned 发布成功; the creator center moved to 已发布 (62) / 审核中 (0) / 未通过 (0). Public URL was resolved empirically from the creator-center row: both /spost/7689030180350394419 and /post/7689030180350394419 returned 404 while in review, then about a minute later /post/7689030180350394419 returned HTTP 200 while /spost/ stayed 404, so it is confirmed with no review interval. Public-page QA confirmed the exact title, single-copy body (4477 rendered characters), 6 H2, 5 H3, 0 H4, 3 code blocks (2 bt, 1 console), 0 content images, 0 tables, 4 unique external targets all rewritten to link.juejin.cn?target=, no review/update/deletion marker, and 0 comments."
+    },
+    {
       "id": "juejin-7689030007914545198",
       "status": "confirmed",
       "title": "使用 eBPF 跟踪 MySQL 查询",

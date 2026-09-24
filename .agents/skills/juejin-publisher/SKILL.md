@@ -195,9 +195,18 @@ Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions
   center shows it under `审核中` and `/post/<id>` 404s (2026-09-22 43-kfuncs);
   (c) staged for only minutes, then review clears in the same session so
   `/post/<id>` returns 200 with no `审核中` marker and `/spost/<id>` 404s
-  (2026-09-24 41-xdp-tcpdump). Probe `curl -o /dev/null -w '%{http_code}'` on
-  both URLs plus the creator center's `审核中` tab, then record `review_pending`
-  only when `/post/` is genuinely unavailable.
+  (2026-09-24 41-xdp-tcpdump, 40-mysql). While in review, BOTH `/spost/<id>` and
+  `/post/<id>` can 404 (observed on 2026-09-22 43-kfuncs and 2026-09-24
+  39-nginx), and the 39-nginx `/post/<id>` URL returned 200 about 45–60 s after
+  submission, so poll `/post/<id>` for a minute or so before concluding
+  `review_pending`; on clearance the creator center's `/spost/<id>` row link also
+  404s and only `/post/<id>` remains. Three Juejin posts on one
+  America/Los_Angeles day (2026-09-24: 41-xdp-tcpdump, 40-mysql, 39-nginx) is
+  legal only when the extras are funded by catch-up gaps; the same-day normal
+  slot still belongs to the next queued task. Probe
+  `curl -o /dev/null -w '%{http_code}'` on both URLs plus the creator center's
+  `审核中` tab, then record `review_pending` only when `/post/` is still
+  unavailable after that re-poll.
 - Review can clear within minutes, so a `review_pending` observation is not the
   end of the run. On 2026-09-15 the 45-scx-nest article 404'd immediately after
   submission and was public roughly an hour later in the same session; recheck
