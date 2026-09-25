@@ -3185,6 +3185,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
     <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
