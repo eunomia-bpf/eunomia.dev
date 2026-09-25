@@ -1,251 +1,120 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for agents (Claude Code, Codex, and others) in this repository.
+`AGENTS.md` is a symlink to this file.
 
 ## Project Overview
 
-This is the source code for the eunomia-bpf project website (https://eunomia.dev). The site provides comprehensive tutorials and documentation for eBPF programming, the eunomia-bpf framework, bpftime, and related projects.
+Source for the eunomia-bpf project website (https://eunomia.dev): tutorials
+and docs for eBPF, eunomia-bpf, bpftime, and related projects, plus the
+eunomia-bpf community's site operations, media publishing, and external
+communications. Public media separates voice from ownership: personal
+accounts carry the maintainer's judgment; org/project accounts carry formal
+releases. Eunomia.dev is the institutional canonical archive (eunomia-bpf,
+AgentSight, ActPlane, bpftime, papers, tutorials, talks), community-first in
+identity, eBPF as the technical anchor, AI agents as a primary workload/user.
+Eunomia Labs, Inc. may be named transparently as steward/builder, but don't
+turn the site into a sales-first company page; keep pricing/CTAs on product
+surfaces unless explicitly asked otherwise.
 
-This repository is also responsible for the complete operation of the
-eunomia-bpf community, including documentation/site operations, community
-coordination, media publishing, and external communications/promotion.
+## Precedence Rule
 
-Public media work separates voice from ownership. Personal accounts carry the
-maintainer's judgment, research choices, and engineering experience;
-organization and project accounts carry formal releases and commitments.
-Eunomia.dev is the institutional canonical archive and portfolio, with
-eunomia-bpf, AgentSight, ActPlane, bpftime, papers, tutorials, and talks as the
-core public evidence assets. Optimize platform posts for native account trust,
-discussion, and community reach rather than website ranking alone.
+Inside this repo's already-authorized goals (site/content changes, scheduled
+patrols, publishing runs, skill-routed tasks), continue, repair, and deliver
+automatically — don't stop to ask for approval. Ask or wait only where a
+genuine external constraint requires it: the team's branch/PR/review process
+(below), publishing beyond what's already authorized (see Publishing),
+spending money, or handling credentials. Nothing else is an approval gate.
+Report a genuine external blocker honestly and keep working on unaffected
+tasks rather than stalling the whole run.
 
-The public site identity is community-first. Eunomia.dev is the home of an
-open-source systems community building agent-native eBPF runtime infrastructure.
-Keep eBPF as the technical anchor; AI agents are a primary workload and can also
-be direct users of the infrastructure. Eunomia Labs, Inc. may be named
-transparently as a steward, supporter, and commercial builder around the
-open-source work, but do not rewrite eunomia.dev as a conventional company or
-sales website. Preserve the prominence of projects, docs, tutorials, research,
-and community work. Product-specific pricing and conversion should live on
-product surfaces unless the user explicitly requests otherwise, and do not add
-sales-first navigation or CTAs without an explicit request.
+**Rule hygiene:** keep rules few and non-contradictory. Before adding a rule
+here or in a skill, delete or merge an existing one instead of stacking an
+exception on top. Each rule has one home — skills/automations link to this
+file instead of restating it. Incident stories and dated logs belong in git
+history or an issue; a one-line pointer here is enough.
 
-## Required Workflow
+## Workflow: Branch, Commit, Push
 
-For open-source code, documentation, synchronization, CI, release-readiness, or
-PR-bound changes in this repository, use the `oss-change-workflow` skill before
-editing. Follow its scope-control, validation, review, and CI guidance.
+Work directly on `main`: no new branches/worktrees, no PRs, unless the user
+explicitly asks for one. This checkout may be shared with the user or other
+agents, so run `git status --short --branch` before any branch/stash/rebase/
+reset/commit, stage only the explicit paths you intended to change, and
+rebase onto `origin/main` when it has advanced before pushing `main` directly.
+For OSS code/docs/sync/CI/release changes, follow `oss-change-workflow` for
+scope, validation, and review. Every configured agent/model may do real work
+within its task's already-authorized scope; coordinator roles only prevent
+duplicate work, never reduce another model to read-only. Don't set a timeout
+on a subagent — let it finish; stop it only if cancelled, obsolete, or stuck.
 
-### Agent Skills Source
+## Skills & Planning Material
 
-Reusable maintainer and organization-level skills come from the pinned
-`eunomia-bpf/agent-skills` submodule at `.agents/sources/agent-skills`.
-Repository-specific content, publishing, SEO, and research skills remain
-tracked directly under `.agents/skills`. The sync scripts add shared links to
-that combined directory; they do not own or replace the local skills.
+See `.agents/README.md` for how the skills bridge (submodule + sync script)
+works and how to change a shared vs. repo-specific skill. Track short-term
+fixes as GitHub issues, not draft docs; only reusable, durable, public-safe
+decisions belong in documentation/skills.
 
-For a durable shared-skill change, update and validate the standalone
-`agent-skills` repository on `main`, push it first, update this repository's
-submodule gitlink, rerun the sync script, and validate the consuming workflow
-here. Edit a repository-specific skill in `.agents/skills` instead. A fresh
-clone must initialize the submodule and run the sync script before using the
-shared skills.
+## Publishing
 
-Before adding or keeping planning material in the repository, classify it by
-lifespan. Short-term fixes, cleanup backlogs, one-off audits, and tactical
-remediation plans should be tracked as GitHub issues, not long-lived draft
-documents. Long-term decisions that are reusable, public-safe, and durable may
-remain as documentation or skill guidance. When a document mixes both, split it:
-move stable strategy or workflow guidance into the appropriate durable doc/skill,
-open issues for concrete short-term fixes, then remove the temporary planning
-file.
+- Standing authorization: a request to publish/post/submit, or a queue item
+  marked `排队`, authorizes completing that publication end to end (prep,
+  preview, publish, QA, ledger update) without re-asking at the last step —
+  except private messages, follows, likes, votes, account settings, payments,
+  and deletions. Stop only for a draft/preview-only task or a real external
+  blocker (report it, keep working on other eligible tasks).
+- Medium/DEV.to are API-first: use local `MEDIUM_API_KEY`/`DEV_TO_API_KEY`,
+  never print or commit them; follow with visible-browser QA. Other platforms
+  are visible-browser-only.
+- Prepare the platform artifact locally first (typically
+  `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md`); use the platform
+  editor for import/settings/preview/QA, not large rewrites. Record any new
+  concrete platform problem/workaround in the matching publisher skill instead
+  of a disposable per-run file.
 
-After every external platform publishing session, do a short publishing
-lessons pass before reporting completion. Any concrete problem encountered
-during drafting, preview, publishing, or public-page QA must be recorded in the
-matching publisher skill or reference file, so the same platform mistake does
-not recur in the next launch.
+## Blog Writing & Confidentiality
 
-Medium and DEV.to are API-first publishing platforms. Use locally supplied
-`MEDIUM_API_KEY` and `DEV_TO_API_KEY` credentials, never print or commit them,
-and finish every API publication with normal visible-browser QA of the public
-article. Other social/media platforms remain visible-browser-only unless the
-user explicitly establishes a different durable rule.
+`blog-writing-style` owns finished-prose style (English/Chinese);
+`blog-writer` owns source prep, writing/editing, verification, and
+publication-integrity checks — neither duplicates the other.
 
-For public media publishing, an explicit user request to publish, post, or
-submit, and any eligible queue item marked `排队`, is standing authorization
-to complete the final externally visible publication action. Do not stop at the
-last button or ask for the same confirmation again. Stop without publishing
-only when the user asks for a draft, preview, or preparation only, or when a
-real external blocker prevents completion. This standing authorization does
-not extend to private messages, follows, likes, votes, account settings,
-payments, deletions, or other actions outside the named publication task.
+PUBLIC repository: never write business strategy, fundraising plans, pricing,
+customer info, competitive analysis, personal constraints, or papers under
+review here (including `draft/`) — that belongs in the private
+`~/workspace/eunomia-strategy` repo. Site ops, SEO/content plans, and brand
+style guidance are fine here.
 
-For long-form publishing on any external platform, prepare the platform-specific
-upload/import artifact locally before opening the editor whenever practical.
-Use a temporary file or `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md`
-for the final title, body/H1 shape, image URLs or upload assets, table/code
-fallbacks, links, tags/categories, and source/project note. Use platform
-editors for import/upload, metadata/settings, preview, and QA, not for large
-rewrites or fragile structural repairs. No platform requires a visible
-canonical/source link in the article body; include one only when it helps the
-reader.
+## Tech Stack, Commands, Architecture
 
-If a same-day content-operations log is genuinely useful, write only
-`draft/media/YYYY-MM-DD/run-log.md`. Do not create monthly daily-log files or
-standalone figure inventories, platform-hook notes, per-article publish-QA
-notes, or other disposable files whose only purpose is to prove that a workflow
-step happened.
+Custom **Next.js (pages router) + React 19 + Tailwind** frontend in `app/`,
+statically exported (`output: "export"`) — not a runtime MkDocs site. Content
+is Markdown in `docs/**` (`tutorials/` synced from bpf-developer-tutorial —
+edit there, not here); `app/scripts/generate-*` builds it into JSON artifacts
+consumed by the Next.js pages. **`mkdocs.yaml` is the permanent, single source
+of truth for site IA/navigation** (parsed by `app/lib/content/mkdocs-config.ts`);
+components render generated data from it, never their own route tables or
+hard-coded hrefs. Details: `app/README.md`, `app/ARCHITECTURE.md`. Deploy via
+`.github/workflows/app-static-pages.yml` (`app/out` -> GitHub Pages);
+`mkdocs.yml` is legacy/manual-only.
 
-Work in this checkout directly on `main`. Do not create or switch to another
-branch or worktree, and do not open a pull request. Before committing, inspect
-the worktree, stage only explicit intended paths, run the smallest relevant
-validation, and preserve unrelated user changes. Commit the validated change on
-`main`, rebase onto `origin/main` when the remote has advanced, and push `main`
-directly. This standing repository rule applies to daily `draft/`, agent-skills
-gitlink/synchronization, code, site, build, and documentation maintenance unless
-the user explicitly replaces it.
-
-### Branch And Parallel Work
-
-Treat this checkout as shared with the user and possibly other agents. Before
-any branch, worktree, stash, rebase, reset, or commit operation, run
-`git status --short --branch` and understand the current branch, upstream state,
-dirty tracked files, and untracked files.
-
-Keep this checkout on `main`; branch changes are prohibited by the standing
-repository workflow. Preserve user work in place unless the user explicitly
-asks you to move, stash, or discard it.
-
-When another person or agent may be working in parallel, keep the scope narrow,
-edit only requested files, and stage with explicit pathspecs. Never stage
-unrelated dirty files or broad untracked directories.
-
-Do not set a timeout when invoking a Subagent. Let it finish naturally; stop it
-only when the user explicitly cancels it, its task has become obsolete, or it
-has been confirmed stuck.
-
-Do not create a model-based permission hierarchy. Every configured Agent and
-model may perform real work with the full tool permissions already authorized
-for the task and environment, including commands, edits, tests, and external
-writes within that task's explicit scope. Parallel partitions and coordinator
-roles exist only to prevent duplicate or conflicting work; they must not make
-Codex the sole writer or reduce other models to read-only/advisory-only roles.
-Apply this convention consistently across Workspaces and computers unless the
-user explicitly requests a narrower role for a particular task.
-
-### Tech stack (current)
-
-The site is rendered by a **custom Next.js + React + Tailwind CSS frontend** living in `app/`, statically exported to plain HTML/CSS/JS. It is **not** a runtime MkDocs site anymore.
-
-- **Next.js** (pages router under `app/pages/`, `output: "export"` static export) — note the directory is named `app/` but uses the *pages* router, not the App Router
-- **React 19** + **TypeScript** for components in `app/components/` and content/loader logic in `app/lib/`
-- **Tailwind CSS** (`app/tailwind.config.ts`) for styling
-- Content is still authored as **Markdown in `docs/**`**; a build-time pipeline (`app/scripts/generate-*`) parses it into JSON artifacts (content index, search index, manifest, static metadata) that the Next.js pages consume.
-- **`mkdocs.yaml` is retained as the site IA / navigation configuration source** (parsed by `app/lib/content/mkdocs-config.ts`), not as a renderer. The MkDocs build itself is legacy — see `.github/workflows/mkdocs.yml` (`workflow_dispatch` only).
-
-See `app/README.md` and `app/ARCHITECTURE.md` for the frontend in depth (note: `ARCHITECTURE.md` still names Cloudflare Pages as the target; the live deploy is GitHub Pages — see Deployment below).
-
-## Common Development Commands
-
-### Frontend Development (Next.js app)
 ```bash
-cd app
-
-# Install dependencies (Node.js 22+)
-npm ci
-
-# Run the local dev server (http://localhost:3000)
-# Regenerates content artifacts, then runs `next dev`
-npm run dev
-
-# Production-compatible static export -> app/out
-NEXT_PUBLIC_SITE_URL=https://eunomia.dev npm run build
-
-# Quality gates
-npm run lint        # eslint over components/lib/pages/scripts/tests
-npm run typecheck   # tsc --noEmit
-npm run verify      # lint + verify.mjs (used in CI)
+cd app && npm ci                                          # Node.js 22+
+npm run dev                                 # dev server :3000
+NEXT_PUBLIC_SITE_URL=https://eunomia.dev npm run build     # static export -> app/out
+npm run lint && npm run typecheck && npm run verify        # quality gates (verify = CI)
 ```
 
-> Legacy MkDocs commands (`mkdocs serve` / `make build`) only drive the deprecated
-> `.github/workflows/mkdocs.yml` path and are no longer how the live site is built.
-
-### Content Synchronization
 ```bash
-# Clone/update the tutorial repository
-make tutorial
-
-# Clone/update other documentation repositories
-make bpftime
-make cuda-exp
-make cupti-exp
+make tutorial  # clone/update bpf-developer-tutorial; also: make bpftime / cuda-exp / cupti-exp
 ```
 
-**Important**: Tutorials are maintained in a separate repository (https://github.com/eunomia-bpf/bpf-developer-tutorial). Edit tutorials there, not in this repository.
+Multilingual: `/zh/**` mirrors English routes; RSS at `feed.xml`/`zh/feed.xml`.
+Project home pages live in their own repo's README, not here. eBPF tutorial
+code: each tutorial has its own libbpf Makefile (`.bpf.c` for BPF programs,
+`.c` for user space; `make` / `make clean`).
 
-## Architecture and Structure
+## Invariants
 
-### Documentation Organization
-- `/docs/` - All website content
-  - `tutorials/` - eBPF programming tutorials (synced from external repo)
-  - `blog/` & `blogs/` - Technical blog posts
-  - `eunomia-bpf/` - Framework documentation
-  - `bpftime/` - Userspace eBPF runtime docs
-  - `GPTtrace/` - GPTtrace tool documentation
-  - `wasm-bpf/` - WebAssembly/eBPF integration docs
-  - `others/` - Additional content (CUDA tutorials, ideas)
-
-### Key Configuration
-- `mkdocs.yaml` - Main site configuration
-  - Configures Material theme, navigation, plugins
-  - Sets up i18n for English/Chinese support
-  - Defines site structure and features
-
-### Deployment
-- `.github/workflows/app-static-pages.yml` builds the Next.js app (`cd app && npm run build`),
-  verifies the static export (no `localhost`/`127.0.0.1` leakage, correct canonical URLs in
-  `sitemap.xml`/`robots.txt`/`feed.xml`), then deploys `app/out` to **GitHub Pages** via
-  `actions/deploy-pages@v5`.
-- The MkDocs workflow (`mkdocs.yml`) is legacy and only runs on manual `workflow_dispatch`.
-
-### Content Management
-- The site is multilingual (English and Chinese); locale routing is handled by the
-  content manifest / loaders (`/zh/**` mirrors English route identities)
-- Blog posts support tags and RSS feeds (`feed.xml`, `zh/feed.xml` emitted at build time)
-- Git revision date and authors are collected at build time and surfaced per page
-
-### Working with eBPF Tutorial Code
-When working with eBPF examples in the tutorials:
-- Each tutorial has its own Makefile using the libbpf build system
-- BPF programs use `.bpf.c` extension
-- User-space programs are regular `.c` files
-- Build with `make` in the tutorial directory
-- Clean with `make clean`
-
-## Blog Writing Responsibilities
-
-Keep blog style and blog production separate:
-
-- `.agents/skills/blog-writing-style/SKILL.md` is the only source for how the
-  finished English and Chinese prose should read. It may contain style guidance
-  and examples, but no content requirements, model choices, editing procedure,
-  or review workflow.
-- `.agents/skills/blog-writer/SKILL.md` owns source preparation, writing and
-  rewriting stages, model responsibilities, factual verification, and
-  publication-integrity checks. It must not duplicate sentence-level or prose
-  style rules.
-- When both skills apply, `blog-writer` uses `blog-writing-style` as the target
-  result. The editor may be Codex or another available agent; neither skill
-  requires a particular model or provider.
-
-## Confidentiality Boundary
-
-This is a PUBLIC repository. Business strategy, fundraising/incubator plans, pricing, customer lists or conversations, competitive analysis, personal constraints, and papers under review must NEVER be written into this repo (including `draft/`). That content belongs in the private strategy repo at `~/workspace/eunomia-strategy` (github.com/yunwei37/eunomia-strategy). Site operations, SEO/content plans, and brand style guidance are fine here.
-
-## Important Notes
-- Do not edit tutorial content directly in this repo - edit in the bpf-developer-tutorial repository
-- Project home pages should be edited in their respective repository README files
-- The site automatically syncs content from external repositories during build
-- Always test changes locally with `cd app && npm run dev` (and run `npm run verify`) before committing
-- Never change existing public paths, source paths, route slugs, or existing navigation target hrefs unless the user explicitly requests that exact path change. Adding a new page is acceptable only when it does not move, rename, or reparent existing content paths. In particular, keep project documentation URL ownership stable: `/bpftime/` and `/bpftime/**` must remain bpftime paths, not be moved under `/products/` or another section.
-- **`mkdocs.yaml` is the permanent, single source of truth for site IA configuration** (this is a fixed architectural decision, not a transitional state). All site URL, route, navigation, nav-dropdown, sidebar, and page-link configuration belongs in `mkdocs.yaml`. React/TypeScript components may render configured links, but must NOT define route tables, navigation entries, or hard-coded internal hrefs for site pages. Use generated content/IA data derived from `mkdocs.yaml` (via `app/lib/content/mkdocs-config.ts`) instead.
+- Test with `cd app && npm run dev` and `npm run verify` before committing.
+- Never change existing public paths, route slugs, or nav hrefs without an
+  explicit request for that exact change; new pages are fine if they don't
+  move/reparent existing content. `/bpftime/**` stays under bpftime.

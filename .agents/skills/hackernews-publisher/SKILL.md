@@ -5,9 +5,8 @@ description: Prepare or publish Hacker News submissions and follow-up drafts for
 
 # Hacker News Publisher
 
-Prepare Hacker News submissions. A request to submit or a queue item marked
-`排队` authorizes the final submission; do not ask again at the last button.
-Stop only when the task is limited to a draft or preview.
+Prepare Hacker News submissions. Publication authorization follows CLAUDE.md's
+Precedence Rule and Publishing section.
 
 ## Inputs
 

@@ -116,25 +116,16 @@ Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority
 
-Each eligible queue item explicitly marked `排队` within today's normal or
-catch-up slots is standing authorization to complete the named platform action
-end to end, including preparation, preview, publication, public-page QA, and
-ledger updates.
-
-Do not ask for another confirmation or let a child publisher's normal
-confirmation step stop an authorized scheduled run. Resolve routine details
-from the queue, artifacts, ledgers, publisher conventions, and visible account
-state. A draft or preview is not completion when the task calls for publication.
-
-No other queue status grants that authority. Manual patrol runs do not inherit
-standing authority unless the user explicitly asks to execute the tasks.
-
-Do not mark a task blocked until practical recovery paths have been attempted
-and a real external condition prevents completion. Record the attempted action
-and exact external condition rather than a generic process objection.
-
-Never infer authorization for private messages, connection requests, follows,
-likes, votes, account settings, monetization changes, or deletion.
+CLAUDE.md's Precedence Rule and Publishing section apply; this section only
+adds patrol-specific scope. A queue item marked `排队` within today's normal
+or catch-up slots is standing authorization for that action end to end
+(preparation, preview, publication, public-page QA, ledger updates) — resolve
+routine details from the queue, artifacts, ledgers, publisher conventions, and
+visible account state instead of re-confirming. No other queue status grants
+that authority, and manual patrol runs do not inherit it unless the user
+explicitly asks to execute the tasks. Mark a task blocked only after
+practical recovery paths have been attempted and a real external condition
+remains; record the attempted action and the exact condition.
 
 Medium and DEV publishers use their documented APIs by default; all other
 platform actions use normal visible-browser workflows. Never use hidden

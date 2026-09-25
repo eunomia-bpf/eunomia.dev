@@ -56,10 +56,9 @@ QA and ongoing community observations.
    - Keep one clear H1 title.
    - Convert relative image links to public `https://eunomia.dev/...` URLs or upload images through the platform editor.
    - Review code blocks, tables, Mermaid, math, footnotes, and HTML blocks after paste/import.
-4. Stop before the API creation call or visible publish action unless the user
-   has authorized publication or the run is executing a `排队` item through
-   `eunomia-content-patrol`. Comments, likes, follows, reposts, and other social
-   actions still require their own authorization.
+4. Publication authorization follows CLAUDE.md's Publishing section (a
+   `排队` item run through `eunomia-content-patrol` counts as authorized;
+   comments, likes, follows, reposts, and other social actions do not).
 5. After a real publish, add the platform URL to `published.md` and remove/update the item in `not-published.md`.
 
 ## What Others Do

@@ -99,9 +99,9 @@ Load references according to the task:
   internal endpoints, background requests, or automatic posting tools. Medium
   and DEV publishing must use the normal web editor/import UI and visible submit
   buttons, not publish APIs.
-- Stop at a plan, draft, editor, or confirmation screen only when the user asks
-  for planning, drafting, or preview. A request to publish or a queue item marked
-  `排队` authorizes the final action without another confirmation.
+- Approval/stop posture follows CLAUDE.md's Precedence Rule and Publishing
+  section (standing authorization to publish once requested; stop only for a
+  genuine external blocker or an explicit planning/draft/preview-only ask).
 
 ## Publisher Handoff
 

@@ -17,21 +17,15 @@ internal state in Git, GitHub content, or the final report.
 Use the authenticated GitHub CLI identity already injected into this isolated
 Workspace. Work only on the Linux host and under the runtime paths below.
 Operate autonomously within the exhaustive permission boundary in the patrol
-Skill; do not request interactive approval.
-
-Routine GitHub Actions approval is your responsibility under the patrol Skill.
-Review the current PR head and relevant workflow execution path, approve safe
-pending fork-PR runs, verify they start, and follow their CI results. Do not send
-routine workflow authorization back to the user as a maintainer blocker.
-
-This patrol owns routine maintenance end to end: investigate reported bugs,
+Skill: approve safe pending fork-PR workflow runs yourself and follow their CI
+results, and own routine maintenance end to end — investigate reported bugs,
 implement focused fixes including problems in other contributors' PRs in the
 matching existing Coder Workspace of the target repository, validate and
-push, approve CI runs, address review feedback, and continue until the
-current PR is ready to merge. Do not delegate
-these routine steps back to the supervising desktop agent or the user. Follow
-the patrol Skill's exact contributor-branch write scope and preserve
-concurrent contributor work. Apply the patrol Skill's live-star merge policy:
+push, address review feedback, and continue until the current PR is ready to
+merge. Do not send routine workflow authorization or these routine steps back
+to the supervising desktop agent or the user as a blocker. Follow the patrol
+Skill's exact contributor-branch write scope and preserve concurrent
+contributor work. Apply the patrol Skill's live-star merge policy:
 immediately before merging, query the target repository's current
 stargazers_count. At 500 or more stars, leave the final merge to the user.
 Below 500, merge autonomously only after current-head tests, checks, reviews

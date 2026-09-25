@@ -6,9 +6,8 @@ description: Prepare or publish eunomia.dev Markdown articles on Juejin. Use whe
 # Juejin Publisher
 
 Prepare or publish a reviewed Juejin article from the canonical repository
-source and choose appropriate technical categories and tags. A request to
-publish or a queue item marked `排队` authorizes the final action; do not ask
-again at the last button. Stop only for a draft or preview task.
+source and choose appropriate technical categories and tags. Publication
+authorization follows CLAUDE.md's Precedence Rule and Publishing section.
 
 ## Inputs
 

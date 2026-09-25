@@ -5,10 +5,9 @@ description: Prepare or publish Lobsters submissions and follow-up drafts for eu
 
 # Lobsters Publisher
 
-Prepare Lobsters submissions that fit the computing-focused community. A
-request to submit or a queue item marked `排队` authorizes the final submission;
-do not ask again at the last button. Stop only when the task is limited to a
-draft or preview.
+Prepare Lobsters submissions that fit the computing-focused community.
+Publication authorization follows CLAUDE.md's Precedence Rule and Publishing
+section.
 
 ## Inputs
 

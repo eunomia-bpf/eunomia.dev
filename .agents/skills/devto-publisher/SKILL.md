@@ -6,9 +6,8 @@ description: Prepare or publish eunomia.dev Markdown articles on DEV Community t
 # DEV.to Publisher
 
 Prepare and publish DEV Community articles from canonical eunomia.dev content
-through the DEV API. A request to publish or a queue item marked `排队`
-authorizes creation; do not ask for another confirmation. Stop only for a draft
-or preview task.
+through the DEV API. Publication authorization follows CLAUDE.md's Precedence
+Rule and Publishing section.
 
 ## Inputs
 

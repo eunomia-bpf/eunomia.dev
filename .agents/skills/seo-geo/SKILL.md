@@ -6,11 +6,8 @@ description: Technical-only page-level and site-level SEO/GEO checklist for euno
 # Technical SEO / GEO Checklist
 
 This file is the technical rulebook for search and AI-engine readability on
-eunomia.dev pages. It is an implementation and QA checklist only. It contains
-no user-pain discovery, campaign strategy, channel planning, platform posting
-process, or brand-priority judgment. It also does not decide title quality,
-article angle, story hooks, or prose style. Those rules live in
-`blog-writing-style` and strategy drafts.
+eunomia.dev pages. It is an implementation and QA checklist only — see Scope
+below for what it does and does not cover.
 
 ## Scope
 
