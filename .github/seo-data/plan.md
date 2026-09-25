@@ -8,8 +8,8 @@ systems research. AI-agent infrastructure remains a smaller adjacent topic rathe
 than the center of the publication program.
 
 Optimize for technically useful discovery and citation without creating shallow,
-repetitive, or trend-driven content. `DAILY_TASK.md` is the authoritative
-operating entrypoint; this file stores durable goals and constraints.
+repetitive, or trend-driven content. DAILY_TASK.md is the authoritative operating
+entrypoint; this file stores durable goals and constraints.
 
 ## Success signals
 
@@ -52,72 +52,64 @@ operating entrypoint; this file stores durable goals and constraints.
 - The exact squash commit must deploy successfully. Both language pages and the
   sitemap must be verified from the production artifact/public site.
 - Do not create a second closeout PR. Put one compact verified closeout comment on
-  the merged daily PR, then reconcile `status.md` in the next run.
-- `.agents/skills/seo-geo` and `.github/seo-skills` own technical SEO mechanics;
-  `.agents/skills/eunomia-research-report` owns Daily Report research and quality.
+  the merged daily PR, then reconcile status.md in the next run.
+- .agents/skills/seo-geo and .github/seo-skills own technical SEO mechanics;
+  .agents/skills/eunomia-research-report owns Daily Report research and quality.
 - The recurring operations schedule remains enabled when a source or repository
   operation is blocked; record the blocker rather than stopping the schedule.
 
 ## Current priorities
 
-1. Complete September 22 PR `#211`, which publishes
-   `/research/ebpf-kernel-interface-negotiation/` in English and Chinese from a
-   fresh branch based on current `main`. The report is eBPF-centered and keeps the
-   newest-ten mix at **7 eBPF / 1 pure Agent / 2 adjacent systems** because the
-   rotating-out September 7 report is also eBPF-centered.
-2. Treat September 22 as the third published boundary in **eBPF Deployment
-   Compatibility and Lifecycle** if and only if PR `#211` completes the full
-   acceptance path. It is a pre-admission variant-selection boundary: typed
-   artifact interface requirements, scoped capability negotiation, and
-   dependency-driven compatibility CI for unstable/context-scoped kfunc,
-   iterator, `struct_ops`, and provider contracts. It must remain distinct from
-   September 15 host capability admission and September 18 post-admission
-   semantic compatibility.
-3. PR `#208` is an unmerged earlier attempt at the same interface-negotiation
-   boundary. The September 22 run deliberately supersedes it from current `main`;
-   close `#208` rather than leaving two competing attempts. PRs `#207` and `#210`
-   remain unmerged and do not establish published roadmap state.
-4. The newest Search Console source family is `2026-09-14..09-20`; its date export
-   has finalized observed rows for `2026-09-14..19` totaling **391 clicks / 55,086
+1. Complete the September 25 fresh daily run for
+   /research/ebpf-map-reuse-semantic-compatibility/ in English and Chinese. The
+   report is eBPF-centered; because the rotating-out September 9 report is also
+   eBPF-centered, successful publication keeps the newest-ten mix at
+   **7 eBPF / 1 pure Agent / 2 adjacent systems**.
+2. Treat map-state reuse as the fourth published boundary in **eBPF Deployment
+   Compatibility and Lifecycle** only after the complete acceptance path
+   succeeds. Keep it distinct from August 10 whole-application transactional
+   upgrade: September 25 decides whether one existing map may be reused directly
+   or must migrate/reset/refuse.
+3. PR #211 is fully reconciled as the September 22 published interface-negotiation
+   boundary: squash commit bd751f30ad19b6692326f1260d6f84e924aa3b02;
+   exact-merge validation run 35754194946; exact-merge deployment run
+   35754194965; one closeout comment. Do not create another closeout for it.
+4. PR #212 is an unmerged stale attempt at the same map-reuse boundary and should
+   be closed as superseded by the fresh September 25 run. PR #213 is a different
+   unmerged reboot-state attempt and does not count as published state.
+5. The newest Search Console source family remains 2026-09-14..09-20, but its
+   date export has rows only for 2026-09-14..19: **391 clicks / 55,086
    impressions / ~0.710% CTR / ~6.79 weighted position**. The equal-duration
-   `2026-09-07..12` slice is **376 / 55,036 / ~0.683% / ~6.46**. Current clicks are
-   ~4.0% higher, impressions ~0.1% higher, CTR ~0.027 percentage points higher,
-   and weighted position ~0.33 positions worse.
-5. Keep complete GSC 7-day and 28-day comparisons unavailable until source
-   history is contiguous. Weekly date exports omit their final Sunday rows and
-   older history includes recorded gaps. Missing rows are never zero.
-6. Weekly GSC page/query aggregates may prioritize inspection but cannot support
-   causal metadata claims without date-dimensional evidence. The newest page
-   aggregate has Daily Report routes at **12 clicks / 2,926 impressions** versus
-   **11 / 2,932** previously, but the report set grew and the export has no date
-   dimension.
-7. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
-   landing-page aggregate: **1,007 sessions** at about **45.88% session-weighted
-   engagement**. The newest `2026-09-14..20` aggregate contains **935 sessions** at
-   about **45.13% engagement** and remains partial; `2026-09-07..13` and
-   `2026-08-31..09-06` remain partial as well.
-8. Treat exact-SHA Pages deployment and generated production artifacts as the
-   primary publication acceptance evidence; independent crawler/search discovery
-   is supplementary and may lag immediately after deployment.
-9. The September 22 public-safe data brief reports homepage, robots, and sitemap
-   HTTP 200 with **786 sitemap entries**. Direct homepage retrieval exposes Daily
-   Report navigation. Current public/repository evidence does not establish a
-   separate crawlability, canonical, `hreflang`, structured-data, redirect,
-   broken-link, rendering, accessibility, persistent-performance, or deployment
-   defect. Do not make an unrelated technical SEO implementation change without
-   a concrete defect.
-10. Keep Cloudflare evidence unavailable until a supported read-only route is
-    enabled in repository configuration. Do not infer GitHub traffic/referrer/
-    clone semantics from public repository metadata.
-11. Keep the shared SEO skill submodule pinned until its consuming contract is
-    migrated to the newer upstream layout; do not make a pointer-only update.
-12. Do not create a thin public series hub without report-level acquisition or
-    navigation evidence that it would improve retrieval.
-13. After September 22, continue the active series only with a materially distinct
-    boundary. Pinned-map/persistent-state lifecycle across host reboot or
-    replacement remains a candidate if it stays distinct from the August
-    transactional-upgrade report and current unmerged attempts.
-14. Final acceptance for `#211` requires terminal-green final-head CI, full diff
-    and generated-output self-review, review-thread reinspection, squash merge,
-    exact-merge validation and production deployment, bilingual production/sitemap
-    verification, and exactly one compact merged-PR closeout comment.
+   2026-09-07..12 slice is **376 / 55,036 / ~0.683% / ~6.46**. Treat this only as
+   a six-day comparison.
+6. Keep complete GSC seven-day and 28-day comparisons unavailable until source
+   history is contiguous. Missing dates are never zero.
+7. The newest GSC page aggregate has Daily Report routes at **12 clicks / 2,926
+   impressions across 74 rows**, versus **11 / 2,932 across 59 rows** previously.
+   Because the report set grew and the export has no date dimension, use this for
+   prioritization only, not causal metadata claims.
+8. Treat GA4 2026-08-24..30 as the latest fully finalized weekly organic
+   landing-page aggregate: **1,007 sessions at ~45.88% weighted engagement**.
+   The newest 2026-09-14..20 aggregate is **935 sessions at ~45.13%** and remains
+   partial; 2026-09-07..13 remains partial as well.
+9. The September 25 public-safe brief reports homepage, robots, and sitemap HTTP
+   200, **796 sitemap entries**, canonical https://eunomia.dev/, and no evidence
+   of a separate crawlability/canonical/hreflang/structured-data/redirect/
+   broken-link/rendering/accessibility/persistent-performance defect. Do not make
+   an unrelated technical SEO implementation change without concrete evidence.
+10. Treat exact-SHA Pages deployment and generated production artifacts as the
+    primary publication acceptance evidence; independent crawler/search discovery
+    is supplementary and may lag a fresh deployment.
+11. Keep Cloudflare unavailable until a supported read-only route is enabled.
+    Do not infer GitHub traffic/referrer/clone semantics from public repository
+    metadata.
+12. Keep the shared SEO skill submodule pinned at
+    516e9e2dcf012506a677a749049d64c5914643e9 until its consuming contract is
+    deliberately migrated.
+13. After successful September 25 publication, continue the active series only
+    with a distinct lifecycle boundary supported by fresh primary evidence. Do
+    not repeat capability evidence, cross-kernel behavioral compatibility,
+    interface negotiation, or map-state reuse under different names.
+14. Keep the recurring operations schedule enabled and recurring through source,
+    review, CI, merge, or deployment blockers; report blockers instead of
+    stopping scheduling.
