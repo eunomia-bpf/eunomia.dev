@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does a full BPF hash map reject new keys with E2BIG, while updating an existing key still succeed?](/ebpf-qa/2026-09-25-bpf-hash-map-full-update-vs-insert/)
 - [Why does a BPF LPM-trie lookup return a less specific stored prefix, and how does the key prefixlen field decide which entry wins?](/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/)
 - [Does deleting a key from a BPF hash map zero out the value memory, and can a reused slot still hold the old value bytes?](/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/)
 - [Why do TLS-encrypted service-to-service traces not stitch together in zero-code eBPF tracing, and which component actually bridges the encrypted hop?](/ebpf-qa/2026-09-22-tls-context-propagation-tcp-option-boundary/)
