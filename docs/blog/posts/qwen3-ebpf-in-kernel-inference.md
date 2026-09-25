@@ -1,0 +1,55 @@
+---
+date: 2026-09-24
+slug: qwen3-ebpf-in-kernel-inference
+description: A real Qwen3-0.6B forward pass runs in Linux eBPF. Here is the division of work, the measured speed, and the verifier, memory, and numerical limits behind the result.
+---
+
+# Running Qwen3-0.6B in Linux eBPF: what actually happens?
+
+An eBPF program can inspect a model server without running the model. [qwen3-ebpf](https://github.com/eunomia-bpf/qwen3-ebpf) asks a harder question: can verified Linux BPF programs perform the forward pass of a real language model? The experiment uses the official Qwen3-0.6B weights. Its BPF programs calculate all 28 decoder layers, the output logits, and the choice of the next token. A C program still handles text, model loading, and the order in which those programs run.
+
+This is a feasibility experiment, not a new inference service. After reducing dispatch and weight-conversion overhead, exploratory one-token runs still took about one second on the test machine. Ordinary optimized CPU and GPU engines are the right tools for serving a model. The useful result here is more specific: a full transformer forward path can be expressed as bounded, verifier-accepted integer BPF programs, and we can measure the cost of that boundary.
+
+<!-- more -->
+
+## What does “in eBPF” mean here?
+
+eBPF is a way to load restricted programs into the Linux kernel. Before a program runs, the verifier checks properties such as bounded execution and safe memory access. This makes eBPF a very different environment from a normal C process: an implementation must expose enough bounds for verification, use the available helpers and maps, and keep each program tractable.
+
+A language model takes token IDs, looks up their embedding vectors, repeatedly transforms the vectors through decoder layers, and scores the vocabulary to choose a next token. In this project, each layer's matrix-vector products, RMSNorm, SiLU, RoPE rotation, residual and gating operations, and causal attention run in eBPF. BPF also reduces the final 151,936 vocabulary scores to an argmax. The driver invokes these programs as socket-filter test runs through `bpf_prog_test_run_opts`; it attaches to no interface and installs no persistent service.
+
+The surrounding work remains in C. The driver reads the official BF16 Safetensors file, converts active weights and activations to fixed-point values, supplies RoPE trigonometric inputs, and dispatches operators in model order. A C ByteLevel/BPE tokenizer turns text into IDs using the separately supplied official `tokenizer.json`; C decodes generated IDs back to text. The model weights are not resident in a BPF arena. Thus “in-kernel inference” refers to the forward-pass arithmetic and token selection, not the complete text-to-text application or an absence of user/kernel transitions.
+
+## Following one token through the system
+
+After tokenization, C finds the input embedding and places the working vectors in memory-mapped BPF maps. For each of 28 layers it invokes normalization, the Q/K/V projections, Q/K normalization and RoPE, attention over the available KV history, an output projection, and the gated MLP. The newly calculated K/V vectors enter a memory-mapped BPF array so later tokens can reuse them. At the end, the vocabulary projection and BPF argmax produce the next ID. For a longer prompt, each input position traverses the model; during generation, the cache avoids recomputing earlier K/V vectors.
+
+Bounded loops reduce, but do not eliminate, driver calls. One `bpf_loop` invocation calculates up to 16 matrix rows; two callbacks inside a single RMSNorm program process up to eight 128-element tiles; attention scans up to 256 historical positions per invocation. The driver still has to invoke matrix batches, normalization calls, and successive layers. Increasing the matrix batch from four to 16 rows reduced a measured one-token run from 143,667 to 50,667 `bpf` syscalls. Making RMSNorm a single call reduced the count further to 43,171. A 32-row matrix variant loaded and produced identical logits, but its single timing did not show an additional gain, so the smaller work map stayed.
+
+## Why not put the whole model into one kernel program?
+
+The verifier has to reason about every program it accepts. An early RMSNorm version combined accumulation with a branching integer square root and exceeded the test kernel's one-million-instruction processing budget. Splitting it into accumulate, finalize, and apply programs first got the calculation running. The current version uses bounded `bpf_loop` callbacks around the square-root step and passed verification as one program on the test kernel. Moving BF16-to-Q24 conversion inside the 3,072-column BPF loop separately failed with “The sequence of 8193 jumps is too complex.” These are results for specific implementations, not a proof that every larger BPF design is impossible.
+
+Program size is only one boundary. Loading and converting Qwen3-0.6B's weights, then running thousands of matrix batches for each token, creates substantial data movement. A memory-mapped BPF array removed per-batch map update/lookup syscalls; mapping the BF16 model file once removed hundreds of thousands of file seek and read calls seen in an earlier driver. The BPF programs still see only the active rows copied into their shared work map, not the entire mapped model file. A resident-weight arena would require another representation and a loader for it. The tested all-Q24 representation doubled the model file from 1.5 to 3.0 GB, while the test host had about 4.6 GiB available. Allocating that much kernel-accessible memory before establishing a benefit would risk replacing conversion cost with memory pressure. An arena changes addressing; it does not compress weights or fuse 28 layers into one invocation.
+
+Text handling has a different shape from matrix arithmetic. The exact tokenizer parses a large JSON vocabulary, uses regex splitting and dynamic BPE structures, and must reconstruct output bytes. Keeping it in C avoids imposing BPF verification and bounded-memory constraints on that I/O-heavy path. Moving it into eBPF would require a separate implementation and validation effort, without addressing the dense matrix cost. The same distinction applies to text decoding and top-level operator scheduling.
+
+## Numerical and memory limits
+
+The BPF arithmetic uses fixed point rather than the model's BF16 floating point: Q16 activations, Q24 matrix weights, and Q20 RMSNorm scales. Some official scale weights exceed Q24's range, which is why normalization uses Q20. SiLU and the attention softmax use integer approximations; C provides trigonometric inputs while BPF performs RoPE's vector rotation. A real-weight row test showed a sizeable error from naïvely using Q8 for a cancellation-heavy dot product, so a smaller weight format needs full-model accuracy checks, not only a size comparison.
+
+Weight preparation is expensive. A 512 KiB lookup table now maps BF16 bit patterns to Q24 values, avoiding repeated floating-point conversion for active matrix rows. An exhaustive test checked all 65,536 patterns: finite representable values matched the previous formula, while non-finite and out-of-range values were rejected. Three interleaved one-token runs took 1.154/1.258/1.049 seconds with lookup versus 1.425/1.576/1.476 seconds before it; the full-vocabulary logits matched byte for byte. These are small same-host samples, not a stable throughput claim.
+
+A different shortcut, preconverting every rank-two BF16 tensor into a self-contained Q24 Safetensors file, did not help. It preserved the one-token logits, but doubled the file from about 1.5 to 3.0 GB and ran slower in interleaved trials: 5.18/3.93 seconds versus 3.22/2.37 seconds for the original BF16 file. The host had about 4.6 GiB available memory, so cache pressure is a plausible contributor, not an established sole cause. That variant was not retained.
+
+Packed INT4 weights are a more promising *experiment*, not an already demonstrated fix. Four bits per weight make the raw weight payload about one quarter of BF16 before group scales and metadata; embeddings or sensitive matrices may need higher precision. A useful design would prepack weights once, apply group-wise scales, and measure whether the BPF dot product can consume packed values without spending more time unpacking and rescaling than it saves on memory traffic and C-side conversion. The earlier Q8 failure came from one naïve row quantization, so it neither validates nor rules out a properly calibrated INT4 model. We would compare full-vocabulary logits, generated tokens across varied prompts, verifier acceptance, peak memory, and same-host latency against the current BF16-to-Q24 path before making INT4 the default. KV-cache size and the thousands of BPF dispatches are separate bottlenecks that weight quantization alone will not solve.
+
+The KV cache is shared through a memory-mapped BPF map, not copied through a syscall for every attention step. Its present layout reserves about 224 KiB per position. Allocating the configured 40,960-position maximum would require roughly 8.75 GiB for KV alone; actual long-context inference and quality have not been validated. `bpf_loop` lets attention process history in bounded 256-position chunks, but it does not remove growth in memory use or attention work.
+
+## What the tests establish
+
+On a Linux 6.17 arm64 host, the BPF programs passed the verifier and operator tests. With the official model and tokenizer, `Hello, world!` became the expected IDs `[9707, 11, 1879, 0]` and generated ` This` (ID `1096`). Its five highest-scoring vocabulary IDs agreed with an official BF16 Transformers reference; full-vocabulary mean absolute logit error was 0.035. The project also compared several token-ID prompts and a second generated token that reused the KV cache. These checks exercise all layers and attention, but they cover a small set of inputs, not general generation quality or every supported context length.
+
+Timing improved as the driver batched more work: one recorded four-row run took 2.695 seconds and a 16-row run took 1.605 seconds for the same one-token input, with identical full-vocabulary Q16 logits. The later lookup-table change reduced measured weight-preparation time without changing the kernel arithmetic. Fusing RMSNorm reduced system calls but showed no clear one-token latency gain in small interleaved trials. These timings are isolated observations, not a throughput distribution. The result is best read as a systems boundary study: BPF can carry the actual model arithmetic under verification, while verifier complexity, dispatch, fixed-point error, and memory layout determine how far the approach can go.
+
+The [source and validation record](https://github.com/eunomia-bpf/qwen3-ebpf) include the build instructions and measured checks. Model details are in the [official Qwen3-0.6B repository](https://huggingface.co/Qwen/Qwen3-0.6B); the [Linux verifier documentation](https://docs.kernel.org/bpf/verifier.html) explains the safety constraints behind the program structure.
