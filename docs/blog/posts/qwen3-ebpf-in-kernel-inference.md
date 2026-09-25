@@ -1,5 +1,5 @@
 ---
-date: 2026-09-25
+date: 2026-09-24
 slug: qwen3-ebpf-in-kernel-inference
 description: Can Linux eBPF execute a real language model? A Qwen3-0.6B experiment shows exactly which work runs in the kernel, how fast it is, and why INT4 and arena memory remain open tradeoffs.
 ---

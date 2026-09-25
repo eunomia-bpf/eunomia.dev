@@ -1,5 +1,5 @@
 ---
-date: 2026-09-25
+date: 2026-09-24
 slug: qwen3-ebpf-in-kernel-inference
 description: Linux eBPF 真能计算一个语言模型吗？用 Qwen3-0.6B 的实测结果，解释哪些工作在内核、速度如何，以及 INT4 与 arena 还有哪些取舍。
 ---
