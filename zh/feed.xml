@@ -8,11 +8,11 @@
   <lastBuildDate>Thu, 24 Sep 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>在 Linux eBPF 中运行 Qwen3-0.6B：内核到底做了什么？</title>
+  <title>语言模型能在 Linux eBPF 里运行吗？</title>
   <link>https://eunomia.dev/zh/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</link>
   <guid>https://eunomia.dev/zh/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</guid>
   <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-  <description>用 eBPF 观察模型服务，与让 eBPF 自己执行模型计算，是两件不同的事。qwen3-ebpf 探索的是后一件事：把真实 Qwen3-0.6B 模型的前向计算放进通过 Linux 内核验证的 BPF 程序。当前程序完成全部 28 层 decoder 计算、输出词表分数，并在内核里选出下一个 token；C 程序仍负责文本处理、模型加载和算子调度。</description>
+  <description>我们通常用 eBPF 观察或影响别的程序：跟踪系统调用、过滤网络包，或者调整调度策略。qwen3-ebpf 提了一个不同的问题：通过内核验证的 BPF 程序，能否亲自完成真实语言模型的数值计算，而不只是观察模型服务？</description>
   <author>i@littlefisher.me (Littlefisher619)</author>
   <category>eBPF</category>
 </item>

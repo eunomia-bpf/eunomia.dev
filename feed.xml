@@ -8,11 +8,11 @@
   <lastBuildDate>Thu, 24 Sep 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>Running Qwen3-0.6B in Linux eBPF: what actually happens?</title>
+  <title>Can a language model run in Linux eBPF?</title>
   <link>https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</link>
   <guid>https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</guid>
   <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-  <description>An eBPF program can inspect a model server without running the model. qwen3-ebpf asks a harder question: can verified Linux BPF programs perform the forward pass of a real language model?</description>
+  <description>Linux eBPF programs usually observe or influence work done elsewhere: trace a syscall, filter a packet, or choose a scheduling policy. qwen3-ebpf asks a different question.</description>
   <author>i@littlefisher.me (Littlefisher619)</author>
   <category>eBPF</category>
 </item>
