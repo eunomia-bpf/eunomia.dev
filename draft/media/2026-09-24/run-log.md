@@ -88,3 +88,12 @@
 - 同日 <https://juejin.cn/post/7688905828694294566>（41-xdp-tcpdump）计数由 40-mysql 检查点的 3425 展现 / 18 阅读 增至 3657 展现 / 25 阅读；<https://juejin.cn/post/7689030007914545198>（40-mysql）为 3 展现 / 3 阅读。
 - 当前列出的 11 篇公开掘金文章全部保持 `暂无评论数据` 空评论状态，无需回复或更正。
 - 外部回声：尚无转载或引用。下一检查点：38-btf-uprobe 额度使用后复查是否出现首条非空评论。
+
+## eBPF 每日 Q&A（bpf-lpm-trie-lookup-prefixlen-caps-match）
+
+- 观察时刻 2026-09-24 17:52 PDT。当日问题：BPF LPM-trie 查找 key 的 `prefixlen` 如何决定最长前缀匹配的胜负（`limit = min(node->prefixlen, key->prefixlen)`，`kernel/bpf/lpm_trie.c`）。
+- 覆盖缺口（如实记录）：两个 watchlist 选中的 Slack 存档本次不可访问——只读快照读取器拒绝覆盖已存在的 0 字节快照文件，Step 0 快照返回 `output_exists`，未读到任何存档内容；allowlist 里的 Discord 频道与公开邮件列表仅限 visible-browser，且本次无可用浏览器会话。因此本次为**回退选择**：问题取自被监控的 eBPF 开发社区中反复出现的从业者边界，完全依据公开一手资料（内核 BPF 文档 + 上游 `lpm_trie.c` + `uapi bpf.h`），而非任何 thread；页内已如实标注该缺口。
+- 发布：Commit A `364886a8e`（4 条路径：EN 页、ZH 镜像、两个 index），Pages run 36074436282 部署成功。
+- 验证：校验器 re-verify 分支 rc=0，receipt `receipt-2026-09-24.json` status=published；本地 headless-chromium render 步骤在该运行环境失败（环境原因，非内容问题），故以 re-verify 分支跳过本地渲染/提交。
+- 线上核验（EN+ZH 逐字 H1 + 内容锚点）：`192.168.0.5`、`min(node->prefixlen, key->prefixlen)`、`LPM_TREE_NODE_FLAG_IM`、`max_prefixlen`、`output_exists`（EN）；`当日社区讨论`（ZH）——均命中；两个 index 路由上的 href 均在线。
+- 内容测试：`npm --prefix app run test:content` 82/82 通过（~14 min）。
