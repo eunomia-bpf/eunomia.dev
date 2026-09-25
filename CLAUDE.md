@@ -235,8 +235,8 @@ Keep blog style and blog production separate:
   publication-integrity checks. It must not duplicate sentence-level or prose
   style rules.
 - When both skills apply, `blog-writer` uses `blog-writing-style` as the target
-  result. A style problem returns to the designated writer; Codex does not take
-  over the body rewrite.
+  result. The editor may be Codex or another available agent; neither skill
+  requires a particular model or provider.
 
 ## Confidentiality Boundary
 
