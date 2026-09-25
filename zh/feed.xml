@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Sat, 25 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 24 Sep 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>在 Linux eBPF 中运行 Qwen3-0.6B：内核到底做了什么？</title>
+  <link>https://eunomia.dev/zh/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</guid>
+  <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+  <description>用 eBPF 观察模型服务，与让 eBPF 自己执行模型计算，是两件不同的事。qwen3-ebpf 探索的是后一件事：把真实 Qwen3-0.6B 模型的前向计算放进通过 Linux 内核验证的 BPF 程序。当前程序完成全部 28 层 decoder 计算、输出词表分数，并在内核里选出下一个 token；C 程序仍负责文本处理、模型加载和算子调度。</description>
+  <author>i@littlefisher.me (Littlefisher619)</author>
+  <category>eBPF</category>
+</item>
+<item>
   <title>为什么 eBPF verifier 报错难修：诊断鸿沟</title>
   <link>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
@@ -295,16 +304,6 @@
   <description>Software extensions and plugins allow customization and added features across many systems – from web servers and databases to browsers, IDEs, and CMS platforms.</description>
   <author>yusen356@gmail.com (weekendfish)</author>
   <category>eBPF</category>
-</item>
-<item>
-  <title>Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases</title>
-  <link>https://eunomia.dev/zh/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</guid>
-  <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
-  <description>Ever tried diving into a massive codebase like the Linux kernel and felt like you were swimming in an ocean of code with no land in sight?</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
-  <category>AI agent observability</category>
 </item>
 </channel>
 </rss>
