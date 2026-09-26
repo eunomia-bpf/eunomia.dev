@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 connect 或 accept 探针会漏掉通过文件描述符交接而换了主人的 socket？](/zh/ebpf-qa/2026-09-26-tcp-socket-ownership-after-fd-handoff/)
 - [为什么 BPF hash 表满了以后，插入新 key 会报 E2BIG，而更新已存在的 key 仍然成功？](/zh/ebpf-qa/2026-09-25-bpf-hash-map-full-update-vs-insert/)
 - [为什么 BPF LPM-trie 查找会返回更不具体的已存储前缀，key 的 prefixlen 字段又是怎么决定哪条记录命中的？](/zh/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/)
 - [删除 BPF hash 表的一个 key 时，值内存会被清零吗？被复用的槽位是否可能残留旧值的字节？](/zh/ebpf-qa/2026-09-23-bpf-hash-map-value-zeroing-on-delete/)
