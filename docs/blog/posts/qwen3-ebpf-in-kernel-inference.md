@@ -18,18 +18,26 @@ A language model does not receive text directly. A tokenizer first turns text in
 
 Here is the division of work in this prototype:
 
-```text
-text -> C tokenizer -> token ID and BF16 model weights
-                         |
-                         v
-                 eBPF: 28 decoder layers
-                       matrix math, normalization, RoPE, attention
-                       KV-cache writes and reads
-                       vocabulary projection and argmax
-                         |
-                         v
-                    next token ID -> C text decoder
+```mermaid
+flowchart TD
+    A["C: tokenize text, load BF16 weights"] --> B["C: embed token and dispatch BPF programs"]
+    B --> C
+    subgraph L["One eBPF decoder layer, repeated 28 times"]
+        C["RMSNorm · qwen3_norm"] --> D["Q/K/V matrices · qwen3_batch"]
+        D --> E["Q/K norm and RoPE · qwen3_norm + qwen3_rope"]
+        E --> F["Causal attention · qwen3_attention ↔ KV map"]
+        F --> G["Output projection and residual · qwen3_batch + qwen3_vector"]
+        G --> H["MLP · qwen3_norm + qwen3_batch + qwen3_silu + qwen3_vector"]
+    end
+    H -- "next layer" --> C
+    H -- "after layer 28" --> I["Final norm, vocabulary projection and argmax · qwen3_norm + qwen3_batch"]
+    I --> J["C: decode token ID to text"]
 ```
+
+Each box is a bounded operator, not a stage of one giant BPF program. C
+invokes them in sequence; the attention program writes and reads the BPF KV
+map. The matrix program processes up to 128 rows per invocation, so one box
+can still mean many kernel entries.
 
 The C driver runs BPF socket-filter programs through `bpf_prog_test_run_opts`. They are test-run entry points, not filters attached to an interface, and the project does not install a persistent model service. BPF performs matrix-vector products, RMSNorm, SiLU, vector operations, RoPE rotation, causal attention, and the final argmax. C supplies an embedding, the model weights and RoPE trigonometric values, then invokes the programs in the order required by the model. For a longer prompt, every input position traverses the 28 layers. When generating another token, BPF-written K/V vectors let attention reuse previous positions instead of recomputing them.
 

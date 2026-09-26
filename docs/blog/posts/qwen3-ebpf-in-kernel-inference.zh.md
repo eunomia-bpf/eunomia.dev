@@ -18,18 +18,25 @@ description: Linux eBPF 真能计算一个语言模型吗？用 Qwen3-0.6B 的�
 
 本项目把这条路径分成两部分：
 
-```text
-文本 -> C 分词器 -> token ID、BF16 模型权重
-                       |
-                       v
-              eBPF：28 层 decoder
-                    矩阵计算、归一化、RoPE、注意力
-                    KV cache 的写入和读取
-                    词表投影与最大值选择
-                       |
-                       v
-                  下一个 token ID -> C 文本解码器
+```mermaid
+flowchart TD
+    A["C：文本分词、加载 BF16 权重"] --> B["C：取得 embedding、调度 BPF 程序"]
+    B --> C
+    subgraph L["一层 eBPF decoder，由 C 重复调度 28 次"]
+        C["RMSNorm · qwen3_norm"] --> D["Q/K/V 矩阵 · qwen3_batch"]
+        D --> E["Q/K 归一化与 RoPE · qwen3_norm + qwen3_rope"]
+        E --> F["因果注意力 · qwen3_attention ↔ KV map"]
+        F --> G["输出投影与残差 · qwen3_batch + qwen3_vector"]
+        G --> H["MLP · qwen3_norm + qwen3_batch + qwen3_silu + qwen3_vector"]
+    end
+    H -- "下一层" --> C
+    H -- "完成第 28 层" --> I["最终归一化、词表投影与 argmax · qwen3_norm + qwen3_batch"]
+    I --> J["C：将 token ID 解码成文本"]
 ```
+
+图中每个方框是有界算子，并非一个巨大的 BPF 程序。C 按顺序调用它们；
+注意力程序负责读写 BPF KV map。矩阵程序每次调用最多处理 128 行，
+因此一个方框仍可能对应多次进入内核。
 
 C 驱动通过 `bpf_prog_test_run_opts` 调用 socket-filter BPF 程序。这里使用的是测试运行入口；程序没有挂到网卡上，也不是常驻的模型服务。矩阵向量乘、RMSNorm、SiLU、向量运算、RoPE 旋转、因果注意力和最终 argmax 都在 BPF 中执行。C 提供 embedding、权重和 RoPE 所需的三角函数值，再按模型顺序调用算子。较长的提示词要逐个位置经过 28 层；生成新 token 时，由 BPF 写入的历史 K/V 向量可以被注意力重新使用。
 
