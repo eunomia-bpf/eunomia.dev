@@ -20,6 +20,12 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-09-25
+
+- At 07:27 +08 (16:27 PDT), the [Juejin 38-btf-uprobe tutorial](https://juejin.cn/post/7689065487933833262) was published through the visible editor using the LA 2026-09-25 normal slot (a fresh editor session with no pre-staged draft, single popup submit returning "发布成功"). It entered a review interval: `/spost/7689065487933833262` staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the `/post/` URL, so availability was judged from the logged-in browser plus the creator center, which flipped to 已发布 (63) / 审核中 (0) at ~08:07 +08 when `/post/7689065487933833262` rendered publicly and the staging URL redirected to it. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain.
+- Full public-page QA passed: exact title, single-copy body, 5 H2 / 2 H3 / 0 H4, 18 code blocks (5 c, 4 sh, 9 console), 0 content images, 0 tables, 4 unique external targets all rewritten to `link.juejin.cn?target=`, no review/update/deletion marker, and 0 comments. Early live counters at the 08:12 +08 checkpoint: 0 展现, 2 阅读, 0 点赞, 0 评论, 0 收藏.
+- Same-day [41-xdp-tcpdump](https://juejin.cn/post/7688905828694294566) moved to 3985 展现 / 36 阅读, the [39-nginx tutorial](https://juejin.cn/post/7689030180350394419) reads 1097 展现 / 25 阅读 / 1 点赞 / 1 收藏, and the [40-mysql tutorial](https://juejin.cn/post/7689030007914545198) reads 746 展现 / 24 阅读; all twelve tracked public Juejin posts still read 0 评论, so the `暂无评论数据` empty state persists and no reply or correction is due. No external repost or citation of the new post was found yet, so no outreach is due. Next checkpoint: after the 37-uprobe-rust slot, recheck for the first non-zero comment.
+
 ### 2026-09-24
 
 - At 01:05 PDT, normal visible Chrome checks confirmed the newly published [Juejin 41-xdp-tcpdump tutorial](https://juejin.cn/post/7688905828694294566) is public with the exact title, 5 H2 / 9 H3 / 9 H4, 17 code blocks, and no review/update/deletion marker; the creator center shows 已发布 (60) / 审核中 (0). Early counters: 1886 展现, 13 阅读, 0 comments. All ten tracked public Juejin posts remain in the `暂无评论数据` empty state, so no reply or correction is due.

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-24",
+  "last_checked": "2026-09-25",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7689065487933833262",
+      "status": "confirmed",
+      "title": "借助 eBPF 和 BTF，让用户态也能一次编译、到处运行",
+      "url": "https://juejin.cn/post/7689065487933833262",
+      "staged_url": "https://juejin.cn/spost/7689065487933833262",
+      "source_path": "docs/tutorials/38-btf-uprobe/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-25 (LA date) using the LA 2026-09-25 normal slot: submitted 2026-09-26 07:27 +08 = 16:27 PDT on a fresh editor session (no pre-staged draft); single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化. The post entered review: /spost/7689065487933833262 staged at 07:27 +08 while the creator center showed 审核中 (1); curl probes on /post/ and /spost/ both returned HTTP 200 during the review interval because the Juejin SPA shell answers 200 for any /post/<id> path, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (63) / 审核中 (0) at ~08:07 +08 and /post/7689065487933833262 then rendered publicly with the exact H1 and /spost/ redirecting to /post/. Public-page QA passed: title exact; body opening 在现代 Linux 系统中 occurs once; 5 H2 / 2 H3 / 0 H4; 18 code blocks (5 c, 4 sh, 9 console); 0 content images; 0 tables; 4 unique external link targets all rewritten to link.juejin.cn?target= with no raw slash targets; 0 comments (暂无评论数据); no 审核中/文章有更新/已被删除 markers. Early counters at the checkpoint: 0 展现 / 0 阅读 / 0 点赞 / 0 收藏."
+    },
     {
       "id": "juejin-7689030180350394419",
       "status": "confirmed",

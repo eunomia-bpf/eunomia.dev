@@ -182,39 +182,50 @@ Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions
   ```
 - The tag search widget (`.publish-popup .byte-select__input`, index 0) is not
   reachable by CLI `fill` or `keyboard type` — typed text leaks into the title
-  or body instead. Set its value with the native setter
+  or body instead. The popup may hold SIX `.byte-select__input` elements (tags,
+  collections, and topics each appearing twice: three visible plus three
+  width-0 hidden duplicates; observed 2026-09-25 on 38-btf-uprobe), so always
+  address index 0 explicitly and filter option clicks by
+  `getBoundingClientRect().width > 0` rather than assuming a single widget. Set
+  its value with the native setter
   `Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set`
   plus `dispatchEvent(new Event('input',{bubbles:true}))`, then click the
-  exact `.byte-select-option`.
+  exact `.byte-select-option`. The committed chip DOM order can differ from the
+  typing order (observed 性能优化/后端/Linux against an intended
+  Linux/后端/性能优化); record the actually-committed set, not the intent.
 - Before the final submit, read back `input[placeholder*=标题].value` and reset
   it to the exact source H1: early tag typing can pollute the title field.
-- Decide the article's state empirically, not by precedent. Three outcomes have
-  been observed: (a) direct public at `/post/<id>` with no review interval
-  (2026-09-23 42-xdp-loadbalancer); (b) staged at `/spost/<id>` while the creator
-  center shows it under `审核中` and `/post/<id>` 404s (2026-09-22 43-kfuncs);
-  (c) staged for only minutes, then review clears in the same session so
-  `/post/<id>` returns 200 with no `审核中` marker and `/spost/<id>` 404s
-  (2026-09-24 41-xdp-tcpdump, 40-mysql). While in review, BOTH `/spost/<id>` and
-  `/post/<id>` can 404 (observed on 2026-09-22 43-kfuncs and 2026-09-24
-  39-nginx), and the 39-nginx `/post/<id>` URL returned 200 about 45–60 s after
-  submission, so poll `/post/<id>` for a minute or so before concluding
-  `review_pending`; on clearance the creator center's `/spost/<id>` row link also
-  404s and only `/post/<id>` remains. Three Juejin posts on one
-  America/Los_Angeles day (2026-09-24: 41-xdp-tcpdump, 40-mysql, 39-nginx) is
-  legal only when the extras are funded by catch-up gaps; the same-day normal
-  slot still belongs to the next queued task. Probe
-  `curl -o /dev/null -w '%{http_code}'` on both URLs plus the creator center's
-  `审核中` tab, then record `review_pending` only when `/post/` is still
-  unavailable after that re-poll.
-- Review can clear within minutes, so a `review_pending` observation is not the
-  end of the run. On 2026-09-15 the 45-scx-nest article 404'd immediately after
-  submission and was public roughly an hour later in the same session; recheck
-  `/post/<id>` before finishing, and on clearance run the full public-page QA,
-  flip the queue item to `[x]`, and set the ledger entry to `confirmed`.
+- Decide the article's state empirically, not by precedent, and judge it in the
+  logged-in browser — never by curl status codes. Observed outcomes: (a) direct
+  public at `/post/<id>` with no review interval (2026-09-23 42-xdp-loadbalancer);
+  (b) staged at `/spost/<id>` while the creator center shows it under `审核中` and
+  `/post/<id>` shows 找不到页面 (2026-09-22 43-kfuncs, 2026-09-25 38-btf-uprobe);
+  (c) staged for minutes, then review clears in the same session so `/post/<id>`
+  renders the article and `/spost/<id>` redirects to it (2026-09-24 41-xdp-tcpdump,
+  40-mysql, 39-nginx). **Curl status codes are not a publication signal**: the
+  Juejin SPA shell answers HTTP 200 for ANY `/post/<id>` and `/spost/<id>` path
+  even while the article is in review (2026-09-25 38-btf-uprobe: curl 200/200 at
+  07:29 +08 while the browser still showed 找不到页面 and the creator center still
+  showed 审核中 (1)). Judge availability by (1) the logged-in browser rendering the
+  article body at `/post/<id>` with no `审核中` / `文章有更新` / `已被删除` marker
+  and (2) the creator center's 审核中 count dropping to 0. Poll the logged-in
+  browser (reopen `essays?status=all` and read the 审核中 count) every ~1–2 min
+  until it clears; clearance time is not bounded to a minute — the 38-btf-uprobe
+  post waited ~40 min (07:27 → 08:07 +08) while earlier posts cleared in under a
+  minute. Three Juejin posts on one America/Los_Angeles day (2026-09-24:
+  41-xdp-tcpdump, 40-mysql, 39-nginx) is legal only when the extras are funded by
+  catch-up gaps; the same-day normal slot still belongs to the next queued task.
+- Review clearance time is not bounded: 45-scx-nest took ~1 hour, 38-btf-uprobe
+  ~40 min, while the 2026-09-24 posts cleared in under a minute. Poll the
+  logged-in browser on ~1–2 min intervals until the creator center's 审核中 count
+  reaches 0; before finishing, run the full public-page QA, flip the queue item
+  to `[x]`, and set the ledger entry to `confirmed`.
 - Passing a long body through `agent-browser eval` as an inline argument fails
-  when the payload is large. Build the whole script with the base64 embedded and
-  pipe it to `agent-browser eval --stdin`, which avoids the shell and CLI
-  argument-length limits.
+  when the payload is large, and ANY inline argument containing backticks or
+  double quotes breaks the wrapper's shell parser (`pi-natives:command:
+  unterminated backquote`). Write the script to a `/tmp/*.js` file and pipe it
+  via `agent-browser eval --stdin` instead; embed base64 in the script and split
+  it into a few `window.__b64 += "chunk"` assignments when it is long.
 - The `.byte-select-option` list is NOT inside `.publish-popup`; query it
   document-wide. Several hidden dropdowns exist at once (collections, topics),
   so filter `[...document.querySelectorAll('.byte-select-option')]` before
@@ -250,9 +261,13 @@ Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions
   scrolled profile page may not show the new item at all. The reliable sources
   are (1) the creator center article list
   (`https://juejin.cn/creator/content/article/essays?status=all`, reachable by
-  clicking `文章管理`), whose `审核中` tab names the staged URL, and (2) a direct
-  `curl` status probe on the candidate `/post/<id>` URL, which returned 200
-  while the profile list still omitted the article.
+  clicking `文章管理`), whose `审核中` tab names the staged URL and whose counts
+  flip 审核中 (N) → 0 on clearance, and (2) the logged-in browser rendering the
+  article body at `/post/<id>`. Do NOT rely on a `curl` status probe of the
+  candidate `/post/<id>` URL: the SPA shell answers 200 for any such path even
+  while the article is in review (observed 2026-09-25 on 38-btf-uprobe —
+  curl 200/200 while the browser showed 找不到页面 and the creator center still
+  showed 审核中 (1)).
 - Navigate the creator center by URL, not by clicking through the SPA.
   `https://juejin.cn/creator/content/article/all` renders a shell whose tab panes
   are empty (`.byte-tab-pane` has zero elements) and, on a fresh load, a
