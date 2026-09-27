@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-25",
+  "last_checked": "2026-09-26",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7689408456146599963",
+      "status": "confirmed",
+      "title": "eBPF 实践：使用 Uprobe 追踪用户态 Rust 应用",
+      "url": "https://juejin.cn/post/7689408456146599963",
+      "staged_url": "https://juejin.cn/spost/7689408456146599963",
+      "source_path": "docs/tutorials/37-uprobe-rust/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-26 (LA date) using the LA 2026-09-26 normal slot: submitted 2026-09-27 07:21 +08 = 16:21 PDT on a fresh editor session (no pre-staged draft, editor auto-saved draft 7689077368330289203 consumed by this submission); single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips 性能优化/Linux/后端 in DOM order. The post entered review: /spost/7689408456146599963 staged while the creator center showed 审核中 (1); curl probes answer HTTP 200 from the Juejin SPA shell for any /post/<id> or /spost/<id> path during that interval, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (64) / 审核中 (0) by the 07:57 +08 checkpoint (~36 min after submission) and /post/7689408456146599963 rendered publicly with the staged URL redirecting to it. Full public-page QA confirmed the exact title, single-copy body with the opening paragraph occurring once, 5 H2 / 0 H3 / 0 H4, 9 code blocks (2 rust, 7 console) with language classes on pre code, 0 content images, 0 tables, 8 unique external targets all rewritten to link.juejin.cn?target=, no 审核中/文章有更新/已被删除 marker, and 暂无评论数据 (0 comments); early live counters 2 展现 / 6 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
     {
       "id": "juejin-7689065487933833262",
       "status": "confirmed",
