@@ -1,46 +1,76 @@
-# SEO operations status
+# SEO status
 
-Updated: 2026-09-28
+## Current state
 
-## Current verified state
+- Authoritative task: `DAILY_TASK.md`
+- Technical SEO subtask: `.github/seo-data/daily-task.md`
+- Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
+- External daily scheduler: configured and enabled
+- Verified raw Google export window: through `2026-09-20`
+- Search Console newest observed source row: `2026-09-19`; the `2026-09-20` row is absent
+- Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
+- Newest GA4 weekly organic landing-page aggregate: `2026-09-14` through `2026-09-20`, partial
+- Last fully reconciled Daily Report run: `2026-09-22`
+- Last merged Daily Report pull request: `#211`
+- Last Daily Report squash commit: `bd751f30ad19b6692326f1260d6f84e924aa3b02`
+- Exact-merge `Validate SEO Operations` for `#211`: run `35754194946`, terminal-success
+- Exact-merge `Deploy Static App` for `#211`: run `35754194965`, terminal-success
+- Merged-PR closeout for `#211`: exactly one compact top-level closeout comment present
+- Production revision accepted for the September 22 run: `e26311c5dd088c13e6800f24fd50db3181f2be7d`
+- Current daily branch: `daily/2026-09-28-ebpf-target-identity`
+- Current branch original base: `bf377342a1e009ab7b57b1323347eee5942e6a05`
+- SEO skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-PR #211 is the latest published Daily Report before today's delivery. It was squash-merged as
-`bd751f30ad19b6692326f1260d6f84e924aa3b02`; exact-merge SEO validation and static
-deployment completed successfully, and its existing closeout comment records production
-verification. Open PRs #210, #212, and #213 are not published state.
+September 22 is fully reconciled. PR `#211` was squash-merged, exact-merge validation and deployment passed, production bilingual artifacts and sitemap inclusion were verified, and one merged-PR closeout comment is present.
 
-Today's branch is `daily/2026-09-28-ebpf-attachment-target-identity`, adding
-`/research/ebpf-attachment-target-identity/` in English and Chinese. The current rolling
-newest-ten mix is **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. Today's eBPF report
-replaces an eBPF slot and preserves **7 / 1 / 2**.
+Open PRs `#210`, `#212`, and `#213` remain unmerged and do not establish published state. Today's fresh report is developed independently from current `main`.
 
-## Source coverage
+## Current Daily Report mix
 
-The weekly export folder was rechecked on 2026-09-28. The newest family remains
-`2026-09-14..09-20`. GSC has observed date rows only through 2026-09-19: 391 clicks /
-55,086 impressions / 0.710% CTR / ~6.79 weighted position for 2026-09-14..19 versus
-376 / 55,036 / 0.683% / ~6.46 for the equal six-day 2026-09-07..12 slice. Complete current
-seven-day and 28-day comparable claims remain unavailable.
+Before the September 28 publication, the newest ten actually published reports contain:
 
-GA4 `2026-09-14..20` remains partial at 935 sessions and ~45.13% session-weighted
-engagement. The latest fully finalized aggregate retained for trend context is
-`2026-08-24..30`: 1,007 sessions and ~45.88% engagement.
+- eBPF-centered: **7 of 10**
+- pure Agent-centered: **1 of 10**
+- adjacent systems: **2 of 10**
 
-The 2026-09-28 public-safe collection reports homepage, robots, and sitemap HTTP 200,
-802 sitemap entries, and the correct homepage canonical. Cloudflare analytics is disabled.
+The oldest report rotating out is the eBPF-centered `2026-09-09` native-operation-trust report. Today's `/research/ebpf-attachment-target-identity/` report is eBPF-centered, so one eBPF report leaves and one enters. Publication therefore preserves the rolling mix at **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**.
 
-## Technical SEO/GEO
+The active roadmap is **eBPF Deployment Compatibility and Lifecycle**. Today's boundary asks how logical attachment continuity is proved when an orchestrator replaces the cgroup, namespace, network device, or other concrete kernel target while workload intent remains the same. This is distinct from controller ownership recovery, host-reboot durability, and program/state transactional upgrade.
 
-No standalone technical SEO/GEO implementation is selected for 2026-09-28. Current evidence
-does not establish a crawl, canonical, sitemap, hreflang, rendering, or indexability defect.
-Site-facing scope is the bilingual report and hub links.
+## Current signals
 
-## Active series
+### Google Search Console
 
-**eBPF Deployment Compatibility and Lifecycle** remains active. Today's report adds the
-kernel-target replacement boundary: BPF link lifetime is distinct from logical workload
-attachment continuity.
+The configured Drive folder was directly rechecked on `2026-09-28`. The newest weekly source family remains `2026-09-14..09-20`; its date export has rows for `2026-09-14..09-19` and no `2026-09-20` row.
 
-## Delivery state
+The observed six-day slice `2026-09-14..19` contains **391 clicks / 55,086 impressions / ~0.710% aggregate CTR / ~6.79 impression-weighted average position**. The equal-duration `2026-09-07..12` slice contains **376 / 55,036 / ~0.683% / ~6.46**. Relative to that slice, clicks are about **4.0% higher**, impressions about **0.1% higher**, CTR about **0.027 percentage points higher**, and weighted position about **0.33 positions worse**.
 
-PR number and final production evidence are recorded after the same-branch delivery flow.
+This is a six-day source-native comparison, not a complete seven-day trend. Older history also contains recorded gaps, so complete current seven-day and 28-day comparable-period claims remain unavailable. Missing rows are never interpreted as zero.
+
+### Google Analytics 4
+
+The finalized `2026-08-24..30` organic landing-page aggregate remains **1,007 sessions** at about **45.88% session-weighted engagement**.
+
+The newest `2026-09-14..20` aggregate contains **935 sessions** at about **45.13% session-weighted engagement** and remains partial because the export provides no date dimension for safe finalized subsetting.
+
+### Public and repository technical evidence
+
+The public-safe data brief generated on `2026-09-28 15:40 UTC` reports the canonical homepage, `robots.txt`, and sitemap as HTTP 200, with **802 sitemap entries**. It reports **100 active non-fork repositories**, **10,079 stars**, **1,326 forks**, **305 open issue/PR records**, and **63 DEV articles**.
+
+Current analytics, repository health, and public retrieval do not establish a concrete crawlability, canonical, `hreflang`, structured-data, redirect, broken-link, rendering, accessibility, persistent-performance, or deployment defect that warrants a separate technical SEO implementation today.
+
+Cloudflare remains disabled by repository configuration, so no Cloudflare-grounded conclusion is made.
+
+## Current technical baseline
+
+The repository generates sitemap, robots, canonical, `hreflang`, Open Graph, Article structured data, legacy redirect stubs, and static audit artifacts. Production deploys through `Deploy Static App`.
+
+The SEO skill submodule remains pinned at `516e9e2dcf012506a677a749049d64c5914643e9`. Upstream movement alone is not evidence that a pointer-only update is safe; the consuming contract must be migrated first.
+
+## Current focus
+
+1. Deliver `/research/ebpf-attachment-target-identity/` in English and Chinese from the fresh September 28 branch.
+2. Keep the report eBPF-centered and preserve the newest-ten mix at **7 / 1 / 2**.
+3. Make no unrelated technical SEO/GEO implementation change without a concrete defect.
+4. Complete the standard PR, final-head CI, self-review, squash merge, exact-merge production deployment, public EN/ZH and sitemap verification, and one merged-PR closeout comment.
+5. Keep the shared SEO skill submodule pinned until the repository's compatibility migration is complete.

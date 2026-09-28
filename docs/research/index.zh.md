@@ -9,9 +9,9 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
-### [eBPF 挂载如何处理工作负载重建？](https://eunomia.dev/zh/research/ebpf-attachment-target-identity/)
+### [eBPF 挂载能自动跟随被重建的工作负载吗？](https://eunomia.dev/zh/research/ebpf-attachment-target-identity/)
 
-BPF link 对应具体内核 target。本文讨论工作负载重建之后，如何区分逻辑身份、编排器代际和内核 target 代际，并验证新的 target 已经被正确观测。
+BPF link 对应具体内核 target。本文讨论工作负载被替换以后，如何区分逻辑身份、编排器代际与内核 target 代际，并验证新 target 的观测连续性。
 
 ### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
 
