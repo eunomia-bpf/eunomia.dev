@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Attachment Follow a Recreated Workload?](https://eunomia.dev/research/ebpf-attachment-target-identity/)
+
+A pinned BPF link can outlive its loader while still naming one concrete kernel target. This report separates logical workload identity from orchestrator and kernel target generations, then develops target-generation receipts, two-generation reconciliation, and a coverage-witness benchmark for target replacement.
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.

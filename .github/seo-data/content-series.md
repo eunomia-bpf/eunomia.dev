@@ -184,6 +184,16 @@ Published boundaries:
    compatibility CI while keeping trial loading and the target verifier as the
    final admission authority.
 
+4. `2026-09-28` — `/research/ebpf-attachment-target-identity/`: how a
+   controller preserves logical attachment continuity when an orchestrator
+   replaces the cgroup, namespace, network device, or other kernel target under
+   the same workload intent. The report separates BPF-link lifetime from target
+   generation lifetime, then develops target-generation receipts,
+   two-generation reconciliation, and an adversarial coverage-witness
+   benchmark. This is distinct from controller ownership recovery, reboot
+   durability, and program/state transactional upgrade because the BPF artifact
+   can stay identical while the kernel target itself changes.
+
 Remaining candidate boundaries include:
 
 - pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
