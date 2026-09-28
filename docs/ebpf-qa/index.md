@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why do BPF task iterators split between sleepable and non-sleepable programs, and which process views fall on each side?](/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/)
 - [Why does a connect or accept probe miss a socket that changed owner through a file descriptor handoff?](/ebpf-qa/2026-09-26-tcp-socket-ownership-after-fd-handoff/)
 - [Why does a full BPF hash map reject new keys with E2BIG, while updating an existing key still succeed?](/ebpf-qa/2026-09-25-bpf-hash-map-full-update-vs-insert/)
 - [Why does a BPF LPM-trie lookup return a less specific stored prefix, and how does the key prefixlen field decide which entry wins?](/ebpf-qa/2026-09-24-bpf-lpm-trie-lookup-prefixlen-caps-match/)
