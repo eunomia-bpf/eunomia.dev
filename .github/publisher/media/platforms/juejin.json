@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-26",
+  "last_checked": "2026-09-27",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7689742195037110323",
+      "status": "confirmed",
+      "title": "eBPF开发实践：使用 user ring buffer 向内核异步发送信息",
+      "url": "https://juejin.cn/post/7689742195037110323",
+      "staged_url": "https://juejin.cn/spost/7689742195037110323",
+      "source_path": "docs/tutorials/35-user-ringbuf/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-27 (LA date) using the LA 2026-09-27 normal slot: submitted 2026-09-28 07:08 +08 = 16:08 PDT on a fresh editor session (no pre-staged draft; the draft box stayed at 4 items, so no auto-saved draft was consumed), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7689742195037110323 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (65) / 审核中 (0) by the 08:13 +08 checkpoint, at which point /post/7689742195037110323 rendered the public body and /spost/ redirected to /post/; full public-page QA passed (exact title, single-copy body, 4 H2 / 4 H3 / 0 H4, 6 code blocks (4 c, 1 sh, 1 console), 0 content images, 0 tables, 8 unique external targets all rewritten to link.juejin.cn?target=, no review/update/deletion marker, 0 comments), with early counters 0 展现 / 2 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
     {
       "id": "juejin-7689408456146599963",
       "status": "confirmed",
