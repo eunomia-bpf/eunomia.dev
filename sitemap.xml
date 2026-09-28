@@ -3241,15 +3241,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-26-tcp-socket-ownership-after-fd-handoff/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
