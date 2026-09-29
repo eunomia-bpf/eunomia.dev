@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-27",
+  "last_checked": "2026-09-28",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7690415131084324902",
+      "status": "confirmed",
+      "title": "eBPF 开发实践：使用 eBPF 修改系统调用参数",
+      "url": "https://juejin.cn/post/7690415131084324902",
+      "staged_url": "https://juejin.cn/spost/7690415131084324902",
+      "source_path": "docs/tutorials/34-syscall/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-28 (LA date) using the LA 2026-09-28 normal slot: submitted 2026-09-29 07:27 +08 = 16:27 PDT on a fresh editor session (no pre-staged draft; the editor auto-saved draft 7690415131084292134 was consumed by this submission and the draft box stayed at 4 items), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips 后端/Linux/性能优化 in DOM order. The post entered review: /spost/7690415131084324902 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (66) / 审核中 (0) by the 09:52 +08 checkpoint, at which point /post/7690415131084324902 rendered the public body and /spost/ redirected to /post/; full public-page QA passed (exact title, single-copy body, 3 H2 / 0 H3 / 0 H4, 8 code blocks (3 c, 3 bash, 1 sh, 1 console), 0 content images, 0 tables, 5 unique external targets (6 links) all rewritten to link.juejin.cn?target=, no review/update/deletion marker, 0 comments), with early counters 2 展现 / 5 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
     {
       "id": "juejin-7689742195037110323",
       "status": "confirmed",
