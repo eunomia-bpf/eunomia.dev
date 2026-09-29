@@ -8,7 +8,7 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import List, Dict, Any
 
@@ -146,8 +146,25 @@ def write_markdown_list(f, items: List[str], empty_text: str = "- (none)", limit
         f.write(f"- ... {omitted} more omitted from this website archive\n")
 
 
+def star_count_in_week(week: Dict[str, Any], start_z: str, end_z: str) -> int:
+    """Count stars in an inclusive date range from one repository star-history week."""
+    days = week.get("days") or []
+    total = 0
+    for offset, day_count in enumerate(days):
+        day = datetime.fromtimestamp(week["week"], tz=timezone.utc) + timedelta(days=offset)
+        if start_z <= day.strftime("%Y-%m-%dT00:00:00Z") and day.strftime("%Y-%m-%dT23:59:59Z") <= end_z:
+            total += day_count or 0
+    return total
+
+
 def get_new_stars(org: str, start_z: str, end_z: str) -> tuple[int, List[str], int]:
-    """Return new stars for active repos, their breakdown, and the current org total."""
+    """Return new stars for active repos, their breakdown, and the current org total.
+
+    Uses the repository star-history endpoint, which reports per-day counts. The
+    stargazer listing endpoint is restricted to a repository's admins and
+    collaborators, so a report job could only read stars for the repository it
+    runs in.
+    """
     total_stars = 0
     repo_stars = []
     failed_repos = []
@@ -160,16 +177,11 @@ def get_new_stars(org: str, start_z: str, end_z: str) -> tuple[int, List[str], i
         repo_name = repo["name"]
         repo_full_name = repo["full_name"]
         try:
-            stargazers = run_gh_api_with_header(
-                f"/repos/{org}/{repo_name}/stargazers?per_page=100",
-                ["Accept: application/vnd.github.star+json"],
+            weeks = run_gh_api(
+                f"/repos/{org}/{repo_name}/stargazers/history?per_page=30",
                 paginate=True
             )
-            count = sum(
-                1
-                for star in stargazers
-                if start_z <= star.get("starred_at", "") <= end_z
-            )
+            count = sum(star_count_in_week(week, start_z, end_z) for week in weeks)
             if count > 0:
                 repo_stars.append(f"  - [{repo_full_name}]({repo['html_url']}): **{count}** new stars")
             total_stars += count
