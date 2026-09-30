@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-28",
+  "last_checked": "2026-09-29",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7690830871915216922",
+      "status": "confirmed",
+      "title": "使用 eBPF 测量函数延迟",
+      "url": "https://juejin.cn/post/7690830871915216922",
+      "staged_url": "https://juejin.cn/spost/7690830871915216922",
+      "source_path": "docs/tutorials/33-funclatency/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-29 (LA date) using the LA 2026-09-29 normal slot: submitted 2026-09-30 08:51 +08 = 17:51 PDT on a fresh editor session (no pre-staged draft; the editor auto-saved draft 7690839722769514505 was consumed by this submission and the draft box stayed at 4 items), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips 后端/Linux/性能优化 in DOM order. The post landed directly public with no review interval: the creator center immediately showed 已发布 (67) / 审核中 (0) at the 08:51 +08 checkpoint, so the canonical /post/ URL was live without any /spost/ staging interval and no curl polling was required (curl probes are not a publication signal in any case, since the SPA shell answers HTTP 200 on any /post/<id> or /spost/<id> path). Public-page QA: exact title, single-copy body (6136 chars / 9254 bytes), 5 H2 / 3 H3 / 0 H4, 3 code blocks (1 c, 2 console), 0 content images, 0 tables, 5 unique external targets (bpftime repo, bpf-developer-tutorial repo root, src/33-funclatency blob, eunomia.dev/tutorials/, iovisor bcc funclatency.c) all rewritten to link.juejin.cn?target=, no review/update/deletion marker, 0 comments; early counters at 08:51 +08: 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. The source carries no 原文地址 footer. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
     {
       "id": "juejin-7690415131084324902",
       "status": "confirmed",
