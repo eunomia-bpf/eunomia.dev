@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 BPF 哈希 map 的键迭代顺序是随机的，而不是插入顺序？](/zh/ebpf-qa/2026-09-29-bpf-hash-map-key-iteration-order-looks-random/)
 - [BPF task 迭代器为什么分为可睡眠与不可睡眠两种程序，哪些进程视图分别落在哪一侧？](/zh/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/)
 - [为什么 connect 或 accept 探针会漏掉通过文件描述符交接而换了主人的 socket？](/zh/ebpf-qa/2026-09-26-tcp-socket-ownership-after-fd-handoff/)
 - [为什么 BPF hash 表满了以后，插入新 key 会报 E2BIG，而更新已存在的 key 仍然成功？](/zh/ebpf-qa/2026-09-25-bpf-hash-map-full-update-vs-insert/)
