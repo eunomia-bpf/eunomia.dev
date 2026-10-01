@@ -1,5 +1,10 @@
-# Community Activity Reports
+# Activity Reports
 
-Weekly and monthly public reports generated from Eunomia's GitHub organization
-activity. The website builds the report dashboard directly from Markdown files
-below this directory, so a new report appears automatically after deployment.
+Monthly public reports generated from GitHub organization activity.
+
+## Monthly Org Reports
+
+- [September 2026](/reports/org/monthly/2026-09/)
+- [July 2026](/reports/org/monthly/2026-07/)
+- [June 2026](/reports/org/monthly/2026-06/)
+- [May 2026](/reports/org/monthly/2026-05/)
