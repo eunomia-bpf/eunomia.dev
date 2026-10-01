@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么在 TLS uprobe 捕获下，TLS 连接上第一个之后的每个 HTTP/2 请求都会 HPACK 解码失败，解码器应如何保持每连接状态？](/zh/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/)
 - [为什么 BPF 哈希 map 的键迭代顺序是随机的，而不是插入顺序？](/zh/ebpf-qa/2026-09-29-bpf-hash-map-key-iteration-order-looks-random/)
 - [BPF task 迭代器为什么分为可睡眠与不可睡眠两种程序，哪些进程视图分别落在哪一侧？](/zh/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/)
 - [为什么 connect 或 accept 探针会漏掉通过文件描述符交接而换了主人的 socket？](/zh/ebpf-qa/2026-09-26-tcp-socket-ownership-after-fd-handoff/)

@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does every HTTP/2 request after the first on a TLS connection fail HPACK decoding when captured with TLS uprobes, and how should a decoder keep per-connection state?](/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/)
 - [Why does BPF hash map key iteration return keys in an order that looks random instead of insertion order?](/ebpf-qa/2026-09-29-bpf-hash-map-key-iteration-order-looks-random/)
 - [Why do BPF task iterators split between sleepable and non-sleepable programs, and which process views fall on each side?](/ebpf-qa/2026-09-28-task-iterator-sleepable-exe-cmdline/)
 - [Why does a connect or accept probe miss a socket that changed owner through a file descriptor handoff?](/ebpf-qa/2026-09-26-tcp-socket-ownership-after-fd-handoff/)
