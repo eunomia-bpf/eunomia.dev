@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-29",
+  "last_checked": "2026-09-30",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7691151105851031590",
+      "status": "confirmed",
+      "title": "eBPF 开发实践教程：示例 32 - 结合 On-CPU 和 Off-CPU 分析的挂钟时间分析",
+      "url": "https://juejin.cn/post/7691151105851031590",
+      "staged_url": "https://juejin.cn/spost/7691151105851031590",
+      "source_path": "docs/tutorials/32-wallclock-profiler/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-30 (LA date) using the LA 2026-09-30 normal slot: submitted 2026-10-01 08:39 +08 = 2026-09-30 17:39 PDT on a fresh editor session (no pre-staged draft; the editor draft box stayed at 4 items, so no auto-saved draft was consumed), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691151105851031590 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 09:06 +08 checkpoint to 已发布 (68) / 审核中 (0) and the canonical /post/7691151105851031590 URL went live; full public-page QA confirmed the exact title, a single-copy body, nine H2, three H3, zero H4, six code blocks (4 bash, 2 c), one content image, zero tables, and 17 external links (16 unique targets) all rewritten to link.juejin.cn?target=, with no review/update/deletion marker and the 暂无评论数据 empty state. Early live counters at the 09:06 +08 checkpoint: 0 展现, 1 阅读, 0 点赞, 0 评论, 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
     {
       "id": "juejin-7690830871915216922",
       "status": "confirmed",
