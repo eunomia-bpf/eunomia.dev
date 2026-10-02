@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-30",
+  "last_checked": "2026-10-01",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7691326130511167526",
+      "status": "confirmed",
+      "title": "eBPF 实践教程：使用 eBPF 跟踪 Go 协程状态",
+      "url": "https://juejin.cn/post/7691326130511167526",
+      "staged_url": "https://juejin.cn/spost/7691326130511167526",
+      "source_path": "docs/tutorials/31-goroutine/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-01 (LA date) using the LA 2026-10-01 normal slot: submitted 2026-10-02 07:25 +08 = 2026-10-01 16:25 PDT on a fresh /editor/drafts/new session (a previously interrupted session had left one auto-saved draft, so the draft box read 5 items, and this submission did not consume it), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691326130511167526 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser at ~2-5 min intervals, the creator center flipped to 已发布 (69) / 审核中 (0) at the 08:18 +08 checkpoint (review interval ~53 min), and the canonical /post/7691326130511167526 rendered with no review marker. Public-page QA preserved the exact source title (single H1 field, not repeated in the body), single-copy body (3823 chars, source H1 removed), 3 H2 / 3 H3 / 0 H4, five code blocks (1 c, 3 bash, 1 console), 0 content images, 0 tables, all four external link targets rewritten to link.juejin.cn?target=, no 审核中 / 文章有更新 / 已被删除 marker, and the empty comment state (0 comments)."
+    },
     {
       "id": "juejin-7691151105851031590",
       "status": "confirmed",
