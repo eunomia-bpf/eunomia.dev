@@ -36,6 +36,24 @@ Workspace agent.
 | `EUNOMIA_QA_ARCHIVE_DSN` | PostgreSQL DSN for the Slack archive (read-only role) |
 | `EUNOMIA_QA_STATE_DIR` | (optional) state dir; default `/workspaces/.agent-state/eunomia-qa` |
 
+## Host prerequisites (validator Chromium render)
+
+The `render` check runs the validator's bundled Chromium headless shell against the
+static export. A freshly provisioned Debian/Ubuntu host is missing the shared
+libraries that shell links against, so `render` fails until they are installed:
+
+```bash
+sudo apt-get install -y \
+  libnspr4 libnss3 libatk1.0-0 libatk-bridge2.0-0 libdbus-1-3 \
+  libatspi2.0-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
+  libgbm1 libxkbcommon0 libx11-6 libxcb1 libpango-1.0-0 libcairo2 libasound2
+```
+
+This is only exercised on the full-publish path (a new candidate commit); the
+`skipped_already_published` re-verify branch does not run `render`, so the receipt
+can still close out without it. Reinstall after a host rebuild before running a
+fresh candidate's validator.
+
 ## Flow
 
 1. The active agent reads the resolved prompt and routed radar skill.
