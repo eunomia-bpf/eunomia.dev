@@ -3269,15 +3269,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-09-29-bpf-hash-map-key-iteration-order-looks-random/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
@@ -4844,14 +4858,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/reports/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-10-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/reports/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-10-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
@@ -4897,6 +4911,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-07/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-07/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-07/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/reports/org/monthly/2026-09/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-09/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-09/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-09/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/org/monthly/2026-09/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-09/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-09/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-09/" />
   </url>
   <url>
     <loc>https://eunomia.dev/reports/org/weekly/2026-05-11/</loc>
