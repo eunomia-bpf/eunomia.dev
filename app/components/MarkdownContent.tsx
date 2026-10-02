@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import DOMPurify from 'dompurify';
 
 type MarkdownContentProps = {
   html: string;
@@ -65,11 +66,13 @@ export function MarkdownContent({ html, className }: MarkdownContentProps) {
     };
   }, [html]);
 
+  const sanitizedHtml = useMemo(() => DOMPurify.sanitize(html), [html]);
+
   return (
     <div
       ref={containerRef}
       className={["content-copy", className].filter(Boolean).join(" ")}
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
     />
   );
 }
