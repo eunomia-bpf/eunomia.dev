@@ -2339,6 +2339,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/cookbook/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/actplane/empirical-study/openagentsafety-policy-compile-audit/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/openagentsafety-policy-compile-audit/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/openagentsafety-policy-compile-audit/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/openagentsafety-policy-compile-audit/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/empirical-study/openagentsafety-policy-compile-audit/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/openagentsafety-policy-compile-audit/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/openagentsafety-policy-compile-audit/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/openagentsafety-policy-compile-audit/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/actplane/empirical-study/</loc>
     <lastmod>2026-06-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/" />
@@ -2351,6 +2365,34 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/empirical-study/rq2-fp-attribution/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/rq2-fp-attribution/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/rq2-fp-attribution/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/rq2-fp-attribution/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/empirical-study/rq2-fp-attribution/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/rq2-fp-attribution/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/rq2-fp-attribution/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/rq2-fp-attribution/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/empirical-study/rq2-reviewer-audit-plan/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/rq2-reviewer-audit-plan/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/rq2-reviewer-audit-plan/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/rq2-reviewer-audit-plan/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/empirical-study/rq2-reviewer-audit-plan/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/rq2-reviewer-audit-plan/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/rq2-reviewer-audit-plan/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/rq2-reviewer-audit-plan/" />
   </url>
   <url>
     <loc>https://eunomia.dev/actplane/</loc>
@@ -2452,14 +2494,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agents/</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agents/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/agents/</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agents/" />
@@ -2508,14 +2550,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
