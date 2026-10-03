@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-01",
+  "last_checked": "2026-10-02",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,36 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7691585964054003758",
+      "status": "confirmed",
+      "title": "eBPF 开发实践：使用 sockops 加速网络请求转发",
+      "url": "https://juejin.cn/post/7691585964054003758",
+      "staged_url": "https://juejin.cn/spost/7691585964054003758",
+      "source_path": "docs/tutorials/29-sockops/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-02 (LA date) using the LA 2026-10-02 normal slot: submitted 2026-10-03 08:17 +08 = 2026-10-02 17:17 PDT on a fresh /editor/drafts/new session, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691585964054003758 staged while the creator center showed 审核中, and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:28 +08 poll to 已发布 (70) / 审核中 (2), with this post's canonical /post/ URL live; by the 08:46 +08 poll the creator center read 已发布 (72) / 审核中 (0) and the two remaining same-slot posts had cleared. Public-page QA confirmed the exact title, single-copy body, 3 H2 / 5 H3 / 0 H4, 13 code blocks (3 c, 5 shell, 2 sh, 3 console), 1 content image, 0 tables, 11 unique external link targets (10 link anchors + 1 image URL) all rewritten to link.juejin.cn?target=, and 0 comments. Early live counters at the 09:01 +08 checkpoint: 1 展现 / 5 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7691345821565141019",
+      "status": "confirmed",
+      "title": "在应用程序退出后运行 eBPF 程序：eBPF 程序的生命周期",
+      "url": "https://juejin.cn/post/7691345821565141019",
+      "staged_url": "https://juejin.cn/spost/7691345821565141019",
+      "source_path": "docs/tutorials/28-detach/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-02 (LA date) as the second publication of the LA 2026-10-02 slot, redeeming the 2026-09-03 normal-slot catch-up gap: submitted 2026-10-03 08:19 +08 = 2026-10-02 17:19 PDT on a fresh /editor/drafts/new session, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691345821565141019 staged while the creator center showed 审核中, and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:46 +08 poll to 已发布 (72) / 审核中 (0), with the canonical /post/ URL live and the same-slot 27-replace cleared in the same poll. Public-page QA confirmed the exact title, single-copy body, 4 H2 / 1 H3 / 0 H4, 5 code blocks (1 c, 4 bash), 0 content images, 0 tables, 9 unique external link targets (10 link anchors) all rewritten to link.juejin.cn?target=, and 0 comments. Early live counters at the 09:01 +08 checkpoint: 0 展现 / 4 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7691510191482519603",
+      "status": "confirmed",
+      "title": "eBPF 教程: 替换任意程序读取或者写入的文本",
+      "url": "https://juejin.cn/post/7691510191482519603",
+      "staged_url": "https://juejin.cn/spost/7691510191482519603",
+      "source_path": "docs/tutorials/27-replace/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-02 (LA date) as the third publication of the LA 2026-10-02 slot, redeeming the 2026-09-16 normal-slot catch-up gap: submitted 2026-10-03 08:20 +08 = 2026-10-02 17:20 PDT on a fresh /editor/drafts/new session, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691510191482519603 staged while the creator center showed 审核中, and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:46 +08 poll to 已发布 (72) / 审核中 (0), with the canonical /post/ URL live and the same-slot 28-detach cleared in the same poll. Public-page QA confirmed the exact title, single-copy body, 8 H2 / 0 H3 / 0 H4, 6 code blocks (1 c, 5 bash), 0 content images, 0 tables, 7 unique external link targets (7 link anchors) all rewritten to link.juejin.cn?target=, and 0 comments. Early live counters at the 09:01 +08 checkpoint: 0 展现 / 4 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
     {
       "id": "juejin-7691326130511167526",
       "status": "confirmed",
