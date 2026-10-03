@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can a Pinned eBPF Map Survive a Host Reboot?](https://eunomia.dev/research/ebpf-pinned-map-reboot-state/)
+
+bpffs pinning keeps a live BPF map across process restarts, not host reboots. This report develops per-map reboot state contracts, consistency-aware checkpoints, and staged restore gates for proving reconstructed state is safe to use.
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.

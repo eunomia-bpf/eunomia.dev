@@ -60,64 +60,66 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
-1. Complete September 22 PR `#211`, which publishes
-   `/research/ebpf-kernel-interface-negotiation/` in English and Chinese from a
-   fresh branch based on current `main`. The report is eBPF-centered and keeps the
-   newest-ten mix at **7 eBPF / 1 pure Agent / 2 adjacent systems** because the
-   rotating-out September 7 report is also eBPF-centered.
-2. Treat September 22 as the third published boundary in **eBPF Deployment
-   Compatibility and Lifecycle** if and only if PR `#211` completes the full
-   acceptance path. It is a pre-admission variant-selection boundary: typed
-   artifact interface requirements, scoped capability negotiation, and
-   dependency-driven compatibility CI for unstable/context-scoped kfunc,
-   iterator, `struct_ops`, and provider contracts. It must remain distinct from
-   September 15 host capability admission and September 18 post-admission
-   semantic compatibility.
-3. PR `#208` is an unmerged earlier attempt at the same interface-negotiation
-   boundary. The September 22 run deliberately supersedes it from current `main`;
-   close `#208` rather than leaving two competing attempts. PRs `#207` and `#210`
-   remain unmerged and do not establish published roadmap state.
-4. The newest Search Console source family is `2026-09-14..09-20`; its date export
-   has finalized observed rows for `2026-09-14..19` totaling **391 clicks / 55,086
-   impressions / ~0.710% CTR / ~6.79 weighted position**. The equal-duration
-   `2026-09-07..12` slice is **376 / 55,036 / ~0.683% / ~6.46**. Current clicks are
-   ~4.0% higher, impressions ~0.1% higher, CTR ~0.027 percentage points higher,
-   and weighted position ~0.33 positions worse.
-5. Keep complete GSC 7-day and 28-day comparisons unavailable until source
+1. Complete the September 23 fresh daily PR publishing
+   `/research/ebpf-pinned-map-reboot-state/` in English and Chinese. The report
+   is eBPF-centered and keeps the newest-ten mix at **7 eBPF / 1 pure Agent / 2
+   adjacent systems** because the rotating-out September 9 report is also
+   eBPF-centered.
+2. Treat September 22 as the fully published third boundary in **eBPF Deployment
+   Compatibility and Lifecycle**. PR `#211` was squash-merged as
+   `bd751f30ad19b6692326f1260d6f84e924aa3b02`; exact-merge validation run
+   `35754194946` and deployment run `35754194965` succeeded, production revision
+   `e26311c5dd088c13e6800f24fd50db3181f2be7d` was generated, and exactly one
+   merged-PR closeout comment is present.
+3. Make September 23 the reboot-state boundary only after the full acceptance
+   path succeeds. The report asks how state crosses a host reboot after the old
+   kernel object graph disappears, using per-map reboot contracts,
+   consistency-aware checkpointing, and staged restore validation. It must remain
+   distinct from August 10 live transactional upgrade, September 18 program
+   semantic compatibility, and September 22 typed/scoped interface negotiation.
+4. PR `#207` is an unmerged earlier attempt at the same reboot-state boundary.
+   Close it as superseded once the September 23 fresh PR exists. PR `#210`
+   remains an unmerged, distinct controller-restart/link-ownership boundary and
+   does not establish published roadmap state.
+5. The newest Search Console source family remains `2026-09-14..09-20`; its date
+   export has finalized observed rows for `2026-09-14..19` totaling **391 clicks
+   / 55,086 impressions / ~0.710% CTR / ~6.79 weighted position**. The
+   equal-duration `2026-09-07..12` slice is **376 / 55,036 / ~0.683% / ~6.46**.
+   Current clicks are ~4.0% higher, impressions ~0.1% higher, CTR ~0.027
+   percentage points higher, and weighted position ~0.33 positions worse.
+6. Keep complete GSC 7-day and 28-day comparisons unavailable until source
    history is contiguous. Weekly date exports omit their final Sunday rows and
    older history includes recorded gaps. Missing rows are never zero.
-6. Weekly GSC page/query aggregates may prioritize inspection but cannot support
+7. Weekly GSC page/query aggregates may prioritize inspection but cannot support
    causal metadata claims without date-dimensional evidence. The newest page
    aggregate has Daily Report routes at **12 clicks / 2,926 impressions** versus
    **11 / 2,932** previously, but the report set grew and the export has no date
    dimension.
-7. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
+8. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
    landing-page aggregate: **1,007 sessions** at about **45.88% session-weighted
-   engagement**. The newest `2026-09-14..20` aggregate contains **935 sessions** at
-   about **45.13% engagement** and remains partial; `2026-09-07..13` and
+   engagement**. The newest `2026-09-14..20` aggregate contains **935 sessions**
+   at about **45.13% engagement** and remains partial; `2026-09-07..13` and
    `2026-08-31..09-06` remain partial as well.
-8. Treat exact-SHA Pages deployment and generated production artifacts as the
+9. Treat exact-SHA Pages deployment and generated production artifacts as the
    primary publication acceptance evidence; independent crawler/search discovery
    is supplementary and may lag immediately after deployment.
-9. The September 22 public-safe data brief reports homepage, robots, and sitemap
-   HTTP 200 with **786 sitemap entries**. Direct homepage retrieval exposes Daily
-   Report navigation. Current public/repository evidence does not establish a
-   separate crawlability, canonical, `hreflang`, structured-data, redirect,
-   broken-link, rendering, accessibility, persistent-performance, or deployment
-   defect. Do not make an unrelated technical SEO implementation change without
-   a concrete defect.
-10. Keep Cloudflare evidence unavailable until a supported read-only route is
+10. The September 23 public-safe data brief reports homepage, robots, and sitemap
+    HTTP 200 with **790 sitemap entries**, plus **99 active non-fork repositories,
+    10,050 stars, 1,318 forks, 300 open issue/PR records, and 63 DEV articles**.
+    Direct homepage retrieval exposes Daily Report navigation. Current evidence
+    does not establish a separate crawlability, canonical, `hreflang`,
+    structured-data, redirect, broken-link, rendering, accessibility,
+    persistent-performance, or deployment defect. Do not make an unrelated
+    technical SEO implementation change without a concrete defect.
+11. Keep Cloudflare evidence unavailable until a supported read-only route is
     enabled in repository configuration. Do not infer GitHub traffic/referrer/
     clone semantics from public repository metadata.
-11. Keep the shared SEO skill submodule pinned until its consuming contract is
+12. Keep the shared SEO skill submodule pinned until its consuming contract is
     migrated to the newer upstream layout; do not make a pointer-only update.
-12. Do not create a thin public series hub without report-level acquisition or
+13. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
-13. After September 22, continue the active series only with a materially distinct
-    boundary. Pinned-map/persistent-state lifecycle across host reboot or
-    replacement remains a candidate if it stays distinct from the August
-    transactional-upgrade report and current unmerged attempts.
-14. Final acceptance for `#211` requires terminal-green final-head CI, full diff
-    and generated-output self-review, review-thread reinspection, squash merge,
-    exact-merge validation and production deployment, bilingual production/sitemap
-    verification, and exactly one compact merged-PR closeout comment.
+14. Final acceptance for the September 23 run requires terminal-green final-head
+    CI, full diff and generated-output self-review, review-thread inspection,
+    squash merge, exact-merge validation and production deployment, bilingual
+    production/sitemap verification, and exactly one compact merged-PR closeout
+    comment.
