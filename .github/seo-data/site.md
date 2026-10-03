@@ -31,23 +31,17 @@
 - Google Drive folder name: `eunomia.dev SEO Weekly CSV`
 - GA4 export filename pattern: `*_ga4_*.csv`
 - Search Console export filename pattern: `*_gsc_*.csv`
-- Verified raw export window: through `2026-09-20`
-- Search Console newest observed source row: `2026-09-19`; the `2026-09-20` row is absent
+- Verified raw export window: through `2026-09-27`
+- Search Console newest observed source row: `2026-09-25`; September 26–27 are absent
 - Latest fully finalized GA4 weekly organic landing-page aggregate: `2026-08-24` through `2026-08-30`
-- Newest GA4 weekly organic landing-page aggregate: `2026-09-14` through `2026-09-20`, partial because the frozen export was generated while lagged dates were present and has no date dimension
+- Newest GA4 weekly organic landing-page aggregate: `2026-09-21` through `2026-09-27`, partial because the frozen export was generated before the labelled period was fully outside the lag window and has no date dimension
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
-The configured folder was directly reverified on `2026-09-22`. The newest source family is `2026-09-14..09-20`. Its Search Console date export contains rows for `2026-09-14..09-19` and no `2026-09-20` row. Under the configured three-day finalization lag, all six observed rows are treated as finalized.
+The configured source folder was reverified on `2026-10-03`. The newest source family remains `2026-09-21..09-27`. Its Search Console date export contains finalized observed rows for `2026-09-21..09-25` and no rows for September 26–27. Those five observed days contain **342 clicks / 37,406 impressions / ~0.914% CTR / ~6.47 impression-weighted position**, versus **349 / 49,798 / ~0.701% / ~6.82** for the equal-duration `2026-09-14..18` slice. This is not a complete seven-day trend, and current history does not support a complete 28-day comparable-period claim.
 
-The finalized six-day `2026-09-14..19` slice contains **391 clicks / 55,086 impressions / ~0.710% aggregate CTR / ~6.79 impression-weighted average position**. The equal-duration finalized `2026-09-07..12` slice contains **376 / 55,036 / ~0.683% / ~6.46**. Relative to that slice, clicks are about **4.0% higher**, impressions about **0.1% higher**, CTR about **0.027 percentage points higher**, and weighted average position about **0.33 positions worse**.
+The newest GSC page aggregate contains Daily Report routes at **11 clicks / 2,052 impressions**, versus **12 / 2,926** in the preceding weekly page export. Because the report set changed and the page export has no date dimension, this is prioritization evidence only.
 
-This is an equal-duration six-day comparison, not a complete seven-day trend. The newest weekly sets omit their final Sunday rows, and older history contains recorded gaps, so complete current seven-day and 28-day comparable-period claims remain unavailable. Missing rows are never synthesized as zero.
-
-The newest weekly GSC page aggregate contains Daily Report routes at **12 clicks / 2,926 impressions** across 74 matching rows, versus **11 / 2,932** across 59 matching rows in the preceding weekly page export. The page set grew and the export has no date dimension, so this is prioritization evidence only, not causal evidence for a metadata or navigation change.
-
-The GA4 `2026-09-14..20` organic landing-page aggregate contains **935 sessions** at about **45.13% session-weighted engagement**. It remains partial because it was generated while dates inside the configured lag were present and has no date dimension for safe finalized subsetting. The `2026-09-07..13` aggregate contains **880 sessions** at about **43.52% engagement**, and `2026-08-31..09-06` contains **913 sessions** at about **47.54% engagement**; both remain partial for the same reason. The latest fully finalized weekly aggregate remains `2026-08-24..30` at **1,007 sessions** and about **45.88% engagement**.
-
-Public repository and live-site evidence supplement these exports but do not replace their source-native meanings.
+The newest GA4 organic landing-page snapshot contains **848 sessions** at **43.75% session-weighted engagement** and remains partial. The latest fully finalized weekly aggregate remains `2026-08-24..30` at **1,007 sessions** and about **45.88% engagement**.
 
 ## Cloudflare data
 
@@ -61,9 +55,9 @@ Public repository and live-site evidence supplement these exports but do not rep
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
 
-The public-safe data brief generated on `2026-09-22 12:42 UTC` reports the homepage, `robots.txt`, and sitemap at HTTP 200, **786 sitemap entries**, canonical `https://eunomia.dev/`, **99 active non-fork repositories**, **10,048 stars**, **1,316 forks**, **304 open issue/PR records**, and **63 DEV articles**. These are contextual public observations, not a blended SEO score.
+The public-safe data brief generated on `2026-10-03 12:38 UTC` reports homepage, `robots.txt`, and sitemap HTTP 200, **810 sitemap entries**, canonical `https://eunomia.dev/`, **100 active non-fork repositories**, **10,116 stars**, **1,335 forks**, **322 open issue/PR records**, and **63 DEV articles**. These are contextual public observations, not a blended SEO score.
 
-The production robots file allows crawling and points to `https://eunomia.dev/sitemap.xml`. Exact static output from the production `new` branch remains the strongest publication-inspection surface when an independent public crawler has not yet refreshed a newly deployed Daily Report route. Crawler discovery is supplementary retrievability evidence and is never substituted for exact-squash deployment verification.
+The production robots file allows crawling and points to `https://eunomia.dev/sitemap.xml`. Exact generated production output remains the primary publication-inspection surface; external crawler discovery may lag a fresh deployment.
 
 ## Deployment
 
