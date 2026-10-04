@@ -9,6 +9,11 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [复用一个 eBPF Map，就代表旧状态还是同一种含义吗？](https://eunomia.dev/zh/research/ebpf-map-reuse-semantic-compatibility/)
+
+Pinned map 通过 libbpf 的 definition-level reuse check，并不代表新版本仍会用同一种 schema 和语义解释旧 bytes。本文把 map parameter、BTF structural evidence 和 application semantics 分开，并提出稳定 schema fingerprint、显式 migration contract，以及在授予 write authority 前做 shadow validation。
+
+
 ### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
 
 kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。

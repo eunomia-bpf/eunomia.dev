@@ -9,6 +9,11 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Does a Reused eBPF Map Still Mean the Same Thing?](https://eunomia.dev/research/ebpf-map-reuse-semantic-compatibility/)
+
+A pinned map can pass libbpf's definition-level reuse checks while an upgraded program assigns a different schema or meaning to the same bytes. This report separates map-parameter compatibility, BTF structural evidence, and application semantics, then proposes stable schema fingerprints, explicit migration contracts, and shadow validation before write authority.
+
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
