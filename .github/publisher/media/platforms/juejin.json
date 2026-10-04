@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-02",
+  "last_checked": "2026-10-03",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,15 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7692143474695012402",
+      "status": "confirmed",
+      "title": "eBPF 教程: 文件操纵实现 sudo 权限提升",
+      "url": "https://juejin.cn/post/7692143474695012402",
+      "source_path": "docs/tutorials/26-sudo/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-03 (LA date) using the LA 2026-10-03 normal slot: submitted 2026-10-04 07:41 +08 = 2026-10-03 16:41 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The article landed directly public at the canonical /post/ URL with no staging interval: at the 07:47 +08 poll the creator center already read 全部 73 / 已发布 73 / 审核中 0 / 未通过 0. Public-page QA preserved the exact source title, single-copy body with 7 H2 headings, 3 code blocks (1 c, 2 bash), 0 content images, 0 tables, 6 unique external link targets rewritten to link.juejin.cn?target=, no 审核中 / 文章有更新 / 已被删除 marker, and the 暂无评论数据 empty state (0 comments). Early counters at the 07:47 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. Prepared local artifact: draft/media/2026-10-03/26-sudo/ (8687 chars, source H1 removed)."
+    },
     {
       "id": "juejin-7691585964054003758",
       "status": "confirmed",
