@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does the OBI Kubernetes cache address environment variable get ignored when the Helm chart renders a Config v2 document, and where must the cache address be written instead?](/ebpf-qa/2026-10-03-obi-k8s-cache-env-var-ignored-in-v2-config/)
 - [Why does a Cilium LoadBalancer frontend stay missing after the conflicting Service that owns a shared VIP port is deleted, and how should a controller recover it?](/ebpf-qa/2026-10-02-cilium-loadbalancer-frontend-stays-missing-after-conflicting-service-deletion/)
 - [Why does every HTTP/2 request after the first on a TLS connection fail HPACK decoding when captured with TLS uprobes, and how should a decoder keep per-connection state?](/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/)
 - [Why does BPF hash map key iteration return keys in an order that looks random instead of insertion order?](/ebpf-qa/2026-09-29-bpf-hash-map-key-iteration-order-looks-random/)

@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么在 OBI 的 Config v2 文档下，Helm 图自动注入的 Kubernetes 缓存地址环境变量会被忽略，缓存地址又该写在哪里？](/zh/ebpf-qa/2026-10-03-obi-k8s-cache-env-var-ignored-in-v2-config/)
 - [在 Cilium LoadBalancer 中，拥有共享 VIP 端口的冲突 Service 被删除后，为什么前端会一直缺失，控制器应如何恢复它？](/zh/ebpf-qa/2026-10-02-cilium-loadbalancer-frontend-stays-missing-after-conflicting-service-deletion/)
 - [为什么在 TLS uprobe 捕获下，TLS 连接上第一个之后的每个 HTTP/2 请求都会 HPACK 解码失败，解码器应如何保持每连接状态？](/zh/ebpf-qa/2026-10-01-http2-hpack-per-connection-decoder-state-in-tls-uprobes/)
 - [为什么 BPF 哈希 map 的键迭代顺序是随机的，而不是插入顺序？](/zh/ebpf-qa/2026-09-29-bpf-hash-map-key-iteration-order-looks-random/)
