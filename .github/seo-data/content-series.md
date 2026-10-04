@@ -21,11 +21,12 @@ Reports:
 - Record the rolling mix before topic selection. Never relabel old reports or add
   an extra report merely to repair the ratio.
 
-Before the `2026-09-22` publication, the newest ten actually published reports
+Before the `2026-10-04` publication, the newest ten actually published reports
 contain **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report
-rotating out is the eBPF-centered `2026-09-07` specialization-debug-provenance
-report. Today's eBPF-centered interface-negotiation report replaces that eBPF
-slot, so publication preserves **7 / 1 / 2**.
+rotating out is the eBPF-centered `2026-09-09` native-operation-trust-boundary
+report. Today's eBPF-centered map-reuse report replaces that eBPF slot, so
+publication preserves **7 / 1 / 2**. PRs #212 and #213 remain unmerged and do not
+count as published state.
 
 ## Daily publication rule
 
@@ -184,10 +185,20 @@ Published boundaries:
    compatibility CI while keeping trial loading and the target verifier as the
    final admission authority.
 
+4. `2026-10-04` — `/research/ebpf-map-reuse-semantic-compatibility/`: when an
+   upgraded application may safely reuse one existing pinned map. The report
+   separates libbpf map-definition compatibility from BTF structural evidence
+   and application semantics, then develops canonical schema fingerprints,
+   explicit semantic revisions/migration contracts, and shadow validation
+   before the new generation receives write authority. This is a one-map
+   state-admission boundary, not the August 10 multi-object transactional
+   upgrade protocol.
+
 Remaining candidate boundaries include:
 
-- pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
-  object layouts evolve across host upgrades;
+- reboot/replacement recovery semantics for state that cannot survive as the
+  same live kernel map object, only if the mechanism stays distinct from today's
+  in-boot reuse-admission boundary;
 - a narrower CO-RE structural-versus-semantic boundary only if it develops a
   mechanism materially distinct from the September 18 cross-kernel behavior
   contract, rather than merely restating that successful relocation is not a
@@ -200,6 +211,8 @@ Novelty guards:
   boundary with a different example;
 - do not repeat the `2026-09-22` typed/scoped interface-negotiation boundary with
   a host-global capability manifest or ordered trial-loading wrapper;
+- do not repeat the `2026-10-04` pinned-map state-admission boundary with only a
+  different map type or schema example;
 - do not repeat September 6 architecture-specific specialization and fallback;
 - do not repeat the August 10 application-level transactional-upgrade protocol;
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
