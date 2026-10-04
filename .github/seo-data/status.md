@@ -7,7 +7,7 @@
 - Last published Daily Report: `2026-09-22`, PR `#211`, squash `bd751f30ad19b6692326f1260d6f84e924aa3b02`
 - PR `#211` has successful exact-merge validation/deployment evidence and exactly one closeout comment
 - PRs `#212` and `#213` remain unmerged and are not published state
-- Current branch: `daily/2026-10-04-ebpf-pinned-map-state-admission-final`
+- Current branch: `daily/2026-10-04-ebpf-pinned-map-state-admission-v2`
 - Current PR: pending at record creation
 - SEO skill submodule: `516e9e2dcf012506a677a749049d64c5914643e9`
 
