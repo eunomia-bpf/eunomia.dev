@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-03",
+  "last_checked": "2026-10-04",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7692741078310912027",
+      "status": "confirmed",
+      "title": "eBPF 开发实践：使用 eBPF 隐藏进程或文件信息",
+      "url": "https://juejin.cn/post/7692741078310912027",
+      "staged_url": "https://juejin.cn/spost/7692741078310912027",
+      "source_path": "docs/tutorials/24-hide/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-04 (LA date) using the LA 2026-10-04 normal slot: submitted 2026-10-05 07:41 +08 = 2026-10-04 16:41 PDT on a fresh /editor/drafts/new session with no preexisting drafts (the editor draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7692741078310912027 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:35 +08 poll to 已发布 (74) / 审核中 (0), with the canonical /post/ URL live; a ~54-minute review interval. Public-page QA preserved the exact source title, single-copy body with 4 H2 / 1 H3 / 0 H4 headings, 14 code blocks (9 c, 1 bash, 1 sh, 3 console), 0 content images, 0 tables, 3 unique external link targets rewritten to link.juejin.cn?target=, no 审核中/文章有更新/已被删除 marker, and 0 comments; early counters at the 08:40 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
     {
       "id": "juejin-7692143474695012402",
       "status": "confirmed",
