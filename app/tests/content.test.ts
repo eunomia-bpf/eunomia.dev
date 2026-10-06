@@ -40,6 +40,7 @@ import {
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
+import { docsRoot } from "../lib/content/roots";
 import { loadSearchDocuments, searchContent, writeSearchIndexes } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { appRoot, siteRoot } from "../lib/content/roots";
@@ -612,10 +613,19 @@ test("reports dashboard is generated from weekly and monthly Markdown", async ()
 
   assert.equal(english?.page.reactPage, "reports-dashboard");
   assert.equal(chinese?.page.reactPage, "reports-dashboard");
-  assert.equal(english?.page.reportEntries?.length, 16);
-  assert.equal(english?.page.reportEntries?.[0]?.href, "/reports/org/monthly/2026-09/");
-  assert.equal(chinese?.page.reportEntries?.[0]?.href, "/zh/reports/org/monthly/2026-09/");
-  assert.equal(english?.page.reportEntries?.[0]?.totalItems, 165);
+  // Report entries are generated from the on-disk Markdown files, so the
+  // expected count follows the tree (the Org Reports workflow adds a weekly
+  // report on a schedule, and a stale hard-coded count blocks deploys).
+  const reportSourceCount = fs
+    .readdirSync(path.join(docsRoot, "reports", "org", "weekly"))
+    .concat(fs.readdirSync(path.join(docsRoot, "reports", "org", "monthly")))
+    .filter((name) => name.endsWith(".md"))
+    .length;
+  assert.equal(english?.page.reportEntries?.length, reportSourceCount);
+  const septemberMonthly = english?.page.reportEntries?.find(
+    (entry) => entry.href === "/reports/org/monthly/2026-09/"
+  );
+  assert.equal(septemberMonthly?.totalItems, 165);
   assert.equal(
     english?.page.reportEntries?.find((entry) => entry.href === "/reports/org/monthly/2026-07/")?.newStars,
     216
