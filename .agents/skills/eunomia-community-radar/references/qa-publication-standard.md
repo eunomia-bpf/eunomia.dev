@@ -86,3 +86,17 @@ When several substantive discussions are present, give them enough space to be
 useful on their own. A one-sentence trend label is not a community report; the
 discussion section should normally be at least twice as detailed as such a
 compressed summary.
+
+## Live Public Routes
+
+After the commit lands on `origin/main`, the routes only go live when the
+GitHub Pages pipeline deploys it. The validator's 20-minute public check assumes
+that pipeline succeeds. If the routes still 404 after that window, do not
+read it as CDN lag: inspect the Pages workflow run for the pushed commit. A
+failed run — typically a failing `npm run test:content` in the static-export
+step — keeps every later route change 404ing until the pipeline is green again
+(a 10-05 run 404ed for hours exactly this way after an unrelated commit broke
+a hard-coded count assertion in the content tests; the unblock was fixing the
+test and getting a later deploy green, not waiting). Check `cache-control`/
+`age` on any fetched page to separate stale content, a failed deploy, and a
+cache.
