@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么冗余包的丢弃判定应该留在内核态，而不是把每次重试都升级给用户态？高负载 BPF ring buffer 又该怎样定容量、盯水位？](/zh/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/)
 - [为什么 trace 看不出智能体当时有哪些技能可选，新的技能定义属性如何让这份列表可见？](/zh/ebpf-qa/2026-10-05-otel-genai-trace-missing-available-skill-definitions/)
 - [当两条重叠的 L3/L4 策略条目同时命中时，为什么 Hubble 会把流量归因到错误的策略规则，而 BPF 数据面实际执行的是正确的那条？](/zh/ebpf-qa/2026-10-04-cilium-hubble-flow-attributed-to-wrong-policy-rule-on-overlap/)
 - [为什么在 OBI 的 Config v2 文档下，Helm 图自动注入的 Kubernetes 缓存地址环境变量会被忽略，缓存地址又该写在哪里？](/zh/ebpf-qa/2026-10-03-obi-k8s-cache-env-var-ignored-in-v2-config/)

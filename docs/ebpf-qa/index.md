@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why should a drop decision for redundant packets stay in the kernel instead of escalating every retry to user space, and how should a busy BPF ring buffer be sized and watched?](/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/)
 - [Why can a trace not show which skills an agent could choose from, and how does the new skill definitions attribute make that list visible?](/ebpf-qa/2026-10-05-otel-genai-trace-missing-available-skill-definitions/)
 - [Why does Hubble attribute a flow to the wrong policy rule when two overlapping L3/L4 policy entries match, even though the BPF datapath enforces the correct one?](/ebpf-qa/2026-10-04-cilium-hubble-flow-attributed-to-wrong-policy-rule-on-overlap/)
 - [Why does the OBI Kubernetes cache address environment variable get ignored when the Helm chart renders a Config v2 document, and where must the cache address be written instead?](/ebpf-qa/2026-10-03-obi-k8s-cache-env-var-ignored-in-v2-config/)
