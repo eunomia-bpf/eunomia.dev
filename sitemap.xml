@@ -3395,15 +3395,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-05-otel-genai-trace-missing-available-skill-definitions/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
