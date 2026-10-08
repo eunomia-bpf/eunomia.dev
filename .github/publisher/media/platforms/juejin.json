@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-06",
+  "last_checked": "2026-10-07",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,15 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7693579496968831022",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程二十：使用 eBPF 进行 tc 流量控制",
+      "url": "https://juejin.cn/post/7693579496968831022",
+      "source_path": "docs/tutorials/20-tc/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-07 (LA date) using the LA 2026-10-07 normal slot: submitted 2026-10-08 07:22 +08 = 2026-10-07 16:22 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 76 / 已发布 76 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The article landed directly public at the canonical /post/ URL with no staging interval: at the 07:34 +08 checkpoint the creator center already read 全部 77 / 已发布 77 / 审核中 0 / 未通过 0, so no /spost/ staging interval or polling was required and the /post/ URL was live from the start. Public-page QA preserved the exact source title, single-copy body (3621 artifact chars), 6 H2 / 0 H3 / 0 H4, 6 code blocks (2 c, 3 console, 1 shell), 0 content images, 0 tables, 5 unique external link targets rewritten to link.juejin.cn?target=, no 审核中 / 文章有更新 / 已被删除 marker, and the 暂无评论数据 empty state (0 comments). Early counters at the 07:34 +08 checkpoint read 0 展现 / 2 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain. Prepared local artifact: draft/media/2026-10-07/20-tc/ (3621 chars, source H1 removed)."
+    },
     {
       "id": "juejin-7693018382872330278",
       "status": "confirmed",
