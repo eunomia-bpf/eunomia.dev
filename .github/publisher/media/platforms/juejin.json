@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-07",
+  "last_checked": "2026-10-08",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7694131662616428571",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程：使用 LSM 进行安全检测防御",
+      "url": "https://juejin.cn/post/7694131662616428571",
+      "staged_url": "https://juejin.cn/spost/7694131662616428571",
+      "source_path": "docs/tutorials/19-lsm-connect/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-08 (LA date) using the LA 2026-10-08 normal slot: submitted 2026-10-09 07:07 +08 = 2026-10-08 16:07 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 77 / 已发布 77 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered a review interval: /spost/7694131662616428571 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 08:03 +08 poll to 已发布 (78) / 审核中 (0) — a ~56-minute review interval. Public-page QA confirmed the exact title, single-copy body (4812 artifact chars), 7 H2 / 0 H3 / 0 H4, 9 code blocks (6 console, 1 conf, 1 C, 1 shell), 0 content images, 0 tables, all 7 external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, and 0 comments (暂无评论数据 empty state). Early live counters at the 08:03 +08 checkpoint: 0 展现, 0 阅读, 0 点赞, 0 评论, 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain. Mirrors the 21-xdp / 24-hide / 22-android / 29-sockops staged_url review-interval precedent."
+    },
     {
       "id": "juejin-7693579496968831022",
       "status": "confirmed",
