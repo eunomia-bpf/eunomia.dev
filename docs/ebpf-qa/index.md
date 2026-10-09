@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does the OpenTelemetry GenAI metric catalog stop at engine-agnostic latency and token counts, and how does model-serving-signals close the model-serving and autoscaling gap?](/ebpf-qa/2026-10-09-otel-genai-metric-catalog-boundary-model-serving-signals/)
 - [Why does a UMEM chunk size cap the largest packet in AF-XDP zero-copy mode, and how must the FILL ring be kept fed so the kernel does not silently drop ingress?](/ebpf-qa/2026-10-07-af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary/)
 - [Why should a drop decision for redundant packets stay in the kernel instead of escalating every retry to user space, and how should a busy BPF ring buffer be sized and watched?](/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/)
 - [Why can a trace not show which skills an agent could choose from, and how does the new skill definitions attribute make that list visible?](/ebpf-qa/2026-10-05-otel-genai-trace-missing-available-skill-definitions/)

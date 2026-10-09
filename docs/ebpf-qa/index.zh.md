@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 OpenTelemetry GenAI 指标目录只到引擎无关的时延与 token 计数，model-serving-signals 又怎样补齐模型服务与自动扩缩容那部分？](/zh/ebpf-qa/2026-10-09-otel-genai-metric-catalog-boundary-model-serving-signals/)
 - [为什么 UMEM 的 chunk 尺寸会封顶 AF-XDP 零拷贝模式下最大的包，FILL 环又该怎样一直喂饱，内核才不会静默丢入向流量？](/zh/ebpf-qa/2026-10-07-af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary/)
 - [为什么冗余包的丢弃判定应该留在内核态，而不是把每次重试都升级给用户态？高负载 BPF ring buffer 又该怎样定容量、盯水位？](/zh/ebpf-qa/2026-10-06-in-kernel-drop-decisions-vs-userspace-escalation-under-ringbuf-load/)
 - [为什么 trace 看不出智能体当时有哪些技能可选，新的技能定义属性如何让这份列表可见？](/zh/ebpf-qa/2026-10-05-otel-genai-trace-missing-available-skill-definitions/)
