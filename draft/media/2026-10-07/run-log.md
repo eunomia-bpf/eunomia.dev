@@ -46,3 +46,93 @@
 - 未动：[32-wallclock-profiler](https://juejin.cn/post/7691151105851031590) 14、[33-funclatency](https://juejin.cn/post/7690830871915216922) 11、[34-syscall](https://juejin.cn/post/7690415131084324902) 12、[35-user-ringbuf](https://juejin.cn/post/7689742195037110323) 17、[37-uprobe-rust](https://juejin.cn/post/7689408456146599963) 19（四条最旧位于创作者中心第 2 页）。
 - 全部 9 条被跟踪行仍读 0 评论（`暂无评论数据` 空态持续），新文 20-tc 早期计数 0 展现 / 2 阅读 / 0 点赞 / 0 评论 / 0 收藏；无需回复或更正。
 - 复核方法：登录创作者中心 `https://juejin.cn/creator/content/article/essays?status=all`，按每行 `<div>` 内 `a[href*="/post/"]` 锚点取 post id（newest-first），与同节点内 `N展现 · N阅读 · N点赞 · N评论 · N收藏` 计数文本逐行配对；第 1 页 10 条 + 第 2 页 10 条（点击 `li.byte-pagination__item` 文本 `2`）。
+
+## 2026-10-07 eBPF Q&A run-report (eunomia-community-radar)
+
+## Selected candidate
+
+- Slug: `af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary`
+- Question: why the UMEM chunk size caps the largest packet an AF_XDP
+  zero-copy socket can hold, and how the FILL ring must stay fed so
+  the kernel does not silently drop ingress.
+- Source: no new question in the 10-07 archive window. Both threads in
+  the snapshot — the OBI Kubernetes cache address env var ignored under
+  a Config v2 document, and the pull request recording which skills an
+  agent had at invocation start — were already published on 10-03 and
+  10-05. The 10-06 thread (in-kernel drop decisions under ring buffer
+  load) had been published on 10-06 and fallen out of the advancing
+  window, so the 10-07 snapshot carries no unpublished thread. This
+  page falls back to a recurring practitioner question about AF_XDP
+  zero-copy sizing, grounded in the public kernel doc and the upstream
+  example.
+
+## Verification against public primary sources
+
+- Linux kernel documentation (`docs.kernel.org/networking/af_xdp.html`):
+  the UMEM is a contiguous virtual memory region divided into
+  equal-sized 2K/4K chunks; the FILL and COMPLETION rings are
+  single-producer/single-consumer and transfer chunk ownership between
+  kernel and user space. The FILL ring is the user-to-kernel channel,
+  and the COMPLETION ring returns chunks after the kernel is done,
+  including chunks reclaimed from rejected invalid TX descriptors.
+  Zero-copy is selected at bind via `XDP_COPY` / `XDP_ZEROCOPY` and
+  silently falls back to copy mode on failure; drop counters come from
+  `XDP_STATISTICS`; the multi-buffer path is `XDP_USE_SG` plus the
+  `xdp.frags` program section; chunk completion is not delivery.
+- xdp-project AF_XDP example
+  (`github.com/xdp-project/bpf-examples/tree/main/AF_XDP-example`):
+  the user-space plus XDP program pair the kernel doc points to, the
+  complete AF_XDP setup and usage reference.
+
+## Privacy + content
+
+- No names/handles/URLs/timestamps/IPs/credentials/private logs in
+  either page; anonymized summary only. Public primary-source links in
+  `## References` / `## 参考` only.
+- Content order per the standard: direct answer, mechanism,
+  verification/debugging path, limitation, references, community
+  discussion. Mobile-clean short inline code tokens.
+
+## Coverage disclosure
+
+Two opt-in archive channels covered (7 messages in the 10-07 snapshot,
+the archive window had advanced past the 10-06 thread and dropped it).
+All seven messages belong to the two threads already published on
+10-03 (OBI k8s-cache env var) and 10-05 (GenAI skill definitions); no
+new question was available. Visible-browser-only sources (Discord,
+the eunomia-bpf and sched-ext communities, the bpf mailing list, and
+r/eBPF) were not reviewed this run (no visible-browser session) —
+marked uncovered-not-quiet on the page.
+
+## Artifacts
+
+- EN: `docs/ebpf-qa/2026-10-07-af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary.md`
+- ZH: `docs/ebpf-qa/2026-10-07-af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary.zh.md`
+- Index links: first items of `docs/ebpf-qa/index.md` (`Latest Answers`)
+  and `docs/ebpf-qa/index.zh.md` (`最新回答`).
+- Published QA commit on `origin/main`: `1c19c76b2`
+  (`docs(ebpf-qa): af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary (2026-10-07)`).
+  The candidate was originally authored and pushed as `442e52b`, whose
+  push was rejected (`fetch first` — `origin/main` had advanced five
+  commits). It was recovered with `git reset --soft origin/main` plus a
+  re-commit of the four owned paths (the concurrent agent's staged set
+  untouched), fast-forwarding `999fe11e8..1c19c76b2`; `442e52b` is now
+  orphaned and was never pushed.
+- Receipt: `/workspaces/.agent-state/eunomia-qa/receipt-2026-10-07.json`
+  `status=published` (written by the validator only).
+- This run-log commits separately as the 10-07 same-day artifact.
+
+## eBPF Q&A publication follow-up (deploy + live verification)
+
+- QA commit `1c19c76b2` (4 paths) landed on `origin/main`; the GitHub
+  Pages `Deploy Static App` run 37936954249 went green on that commit
+  (`conclusion: success`), so all four routes returned 200 with the
+  expected H1s and the new slug in both indexes.
+  `cache-control: public, max-age=0, must-revalidate` and
+  `cf-cache-status: DYNAMIC` confirm a fresh deploy, not a cached copy.
+- Validator re-run on the already-published commit (re-verify path, no
+  re-commit): receipt `status=published`, commit
+  `1c19c76b2d88f58be68e253d901ee0a85b61eb1b`, all checks `ok` (the
+  four content gates `skipped_already_published`; `branch`,
+  `candidate_paths`, `index_links`, `privacy`, `remote_contains_commit`,
+  `public` `ok`).
