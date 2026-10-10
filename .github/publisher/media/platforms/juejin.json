@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-08",
+  "last_checked": "2026-10-09",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7694534084639195174",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程十七：编写 eBPF 程序统计随机/顺序磁盘 I/O",
+      "url": "https://juejin.cn/post/7694534084639195174",
+      "staged_url": "https://juejin.cn/spost/7694534084639195174",
+      "source_path": "docs/tutorials/17-biopattern/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-09 (LA date) using the LA 2026-10-09 normal slot: submitted 2026-10-10 07:17 +08 = 2026-10-09 16:17 PDT on a fresh /editor/drafts/new session (the draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 78 / 已发布 78 / 审核中 0 / 未通过 0; post-submission it read 全部 79 / 已发布 78 / 审核中 1 / 未通过 0. Category 后端; committed tag chips 性能优化/Linux/后端 in DOM order. The post entered a review interval: /spost/7694534084639195174 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 07:52 +08 poll to 已发布 (79) / 审核中 (0) — a ~35-minute review interval — and the canonical /post/7694534084639195174 went live. Public-page QA confirmed the exact title, single-copy body (10501 chars), 4 H2 / 1 H3 / 0 H4, 11 code blocks (8 c, 2 bash, 1 console), 0 content images, 0 tables, all 5 external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, and 0 comments (暂无评论 empty state). Early live counters at the 07:52 +08 clearance checkpoint: 0 展现 / 0 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
     {
       "id": "juejin-7694131662616428571",
       "status": "confirmed",
