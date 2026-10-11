@@ -28,6 +28,17 @@ inside the H1 as ordinary words or move them into the answer body where
 backticks belong. An H1 that fails the live-content check forces an extra
 redeploy just to fix the title.
 
+Keep inline code tokens short. The publication gate renders the built page
+at a 390px mobile viewport and fails on any horizontal overflow, and the
+site does not wrap monospace content, so an unbreakable backticked token
+wider than the mobile content box (roughly 40+ characters, e.g. a dotted
+identifier) pushes the page past the gate even when it looks fine at desk
+width. In flowing body prose, name very long identifiers in words and keep
+the exact backticked form only where it fits (a References list item);
+measure the longest token before publishing. A 10-10 run tripped this on a
+43-character event name and cleared the gate only after rewriting it as
+prose in the body and the references lead-in.
+
 Use only the sections the question needs. This is a useful shape, not a required
 template.
 
