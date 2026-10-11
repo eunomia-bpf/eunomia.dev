@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 GenAI 遥测里可用智能体技能列表应当是挂在 span 上的专属属性，而不是单独的 span 或 span 事件？span 的时长模型又为何排除掉 span 形式？](/zh/ebpf-qa/2026-10-11-genai-available-skills-model-attribute-vs-span-vs-event/)
 - [为什么 GenAI 插桩该用日志管道严重级来控制推理事件发射而不是专门的 emit 标志？logger 的 enabled 是 opt-in 还是 opt-out？](/zh/ebpf-qa/2026-10-10-genai-inference-event-emit-logger-enabled-optin-vs-optout/)
 - [为什么 OpenTelemetry GenAI 指标目录只到引擎无关的时延与 token 计数，model-serving-signals 又怎样补齐模型服务与自动扩缩容那部分？](/zh/ebpf-qa/2026-10-09-otel-genai-metric-catalog-boundary-model-serving-signals/)
 - [为什么 UMEM 的 chunk 尺寸会封顶 AF-XDP 零拷贝模式下最大的包，FILL 环又该怎样一直喂饱，内核才不会静默丢入向流量？](/zh/ebpf-qa/2026-10-07-af-xdp-zero-copy-umem-chunk-size-fills-ring-drop-boundary/)
