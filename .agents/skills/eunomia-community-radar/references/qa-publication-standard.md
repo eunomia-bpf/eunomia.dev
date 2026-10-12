@@ -123,3 +123,16 @@ rewrites the receipt to `status=published` in a couple of seconds (a 10-11 run
 hit exactly this: commit `c3bda5865` landed, the first validator timed out
 at its 600s cap, the Pages run went green, and the re-verify pass completed
 the receipt without touching the commit again).
+
+The cap must also cover the pre-commit work: the validator runs
+`npm test:content`, the full production build, and two Chromium renders
+*before* it commits. A cap shorter than that local pipeline (e.g. 300s)
+kills the run before `commit_and_push` runs at all, so nothing lands and
+no receipt is written - the mirror of the post-commit timeout above. Give
+the run a cap long enough to finish build, render, commit, push, and the
+public poll together; if `origin/main` advanced in the meantime, forward-
+move with `git reset --soft origin/main` (which preserves any concurrent
+staged set and the worktree) and re-run (a 10-12 run hit this: a 300s cap
+killed the first run before the commit, `origin/main` had advanced, the
+forward-move + longer-cap re-run landed commit `5c2bf5ca3`, and the
+re-verify pass then completed the receipt).
