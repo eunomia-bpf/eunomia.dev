@@ -3465,15 +3465,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-11-genai-available-skills-model-attribute-vs-span-vs-event/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
@@ -5289,6 +5303,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/weekly/2026-09-28/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/weekly/2026-09-28/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/weekly/2026-09-28/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/reports/org/weekly/2026-10-05/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/weekly/2026-10-05/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/weekly/2026-10-05/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/weekly/2026-10-05/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/org/weekly/2026-10-05/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/weekly/2026-10-05/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/weekly/2026-10-05/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/weekly/2026-10-05/" />
   </url>
   <url>
     <loc>https://eunomia.dev/research/agent-tool-retry-effect-idempotency/</loc>
