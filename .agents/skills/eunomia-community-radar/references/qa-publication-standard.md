@@ -111,3 +111,15 @@ a hard-coded count assertion in the content tests; the unblock was fixing the
 test and getting a later deploy green, not waiting). Check `cache-control`/
 `age` on any fetched page to separate stale content, a failed deploy, and a
 cache.
+
+The validator's public-route poll is bounded by the shell command cap, which is
+shorter than a Pages deploy (about twenty minutes), so a first validator run
+can time out *after* it has already committed and pushed the QA commit while
+it waits for the live routes. A timed-out run does not mean publication
+failed: check that the QA commit is on `origin/main` and that the Pages run
+for it is green, then re-run the same validator for the date. The re-verify
+path skips the commit, build, and render work, re-checks the live routes, and
+rewrites the receipt to `status=published` in a couple of seconds (a 10-11 run
+hit exactly this: commit `c3bda5865` landed, the first validator timed out
+at its 600s cap, the Pages run went green, and the re-verify pass completed
+the receipt without touching the commit again).
