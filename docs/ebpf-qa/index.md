@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does Node.js GenAI instrumentation live in opentelemetry-js-contrib rather than a dedicated repository, and why is there no Node.js equivalent to the Python GenAI instrumentation repo?](/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/)
 - [Why should the list of available agent skills in GenAI telemetry be a dedicated span attribute instead of a separate span or a span event, and why does the span duration model rule out the span form?](/ebpf-qa/2026-10-11-genai-available-skills-model-attribute-vs-span-vs-event/)
 - [Why should a GenAI instrumentation gate inference events on the log pipeline severity instead of a dedicated emit flag, and is logger enabled an opt-in or an opt-out control?](/ebpf-qa/2026-10-10-genai-inference-event-emit-logger-enabled-optin-vs-optout/)
 - [Why does the OpenTelemetry GenAI metric catalog stop at engine-agnostic latency and token counts, and how does model-serving-signals close the model-serving and autoscaling gap?](/ebpf-qa/2026-10-09-otel-genai-metric-catalog-boundary-model-serving-signals/)
