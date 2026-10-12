@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-10",
+  "last_checked": "2026-10-11",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,15 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7695068144415244323",
+      "status": "confirmed",
+      "title": "bpftrace一行教程",
+      "url": "https://juejin.cn/post/7695068144415244323",
+      "source_path": "docs/tutorials/bpftrace-tutorial/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-12 (LA date) using the LA 2026-10-11 normal slot with no catch-up gap redeemed: submitted 2026-10-12 07:39 +08 = 2026-10-11 16:39 PDT on a fresh /editor/drafts/new session (the draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 80 / 已发布 80 / 审核中 0 / 未通过 0; post-submission it read 全部 81 / 已发布 80 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post landed directly public with no meaningful review interval: at the 07:41 +08 checkpoint the creator center already read 全部 81 / 已发布 81 / 审核中 0 / 未通过 0, so the canonical /post/ URL was live from the start, matching the LA 2026-10-03 26-sudo and LA 2026-10-07 20-tc direct-public precedent. Public-page QA confirmed the exact H1 (once), single-copy body (11798 artifact chars; rendered innerText 11402), 12 H2 / 0 H3 / 0 H4, 12 code blocks, 0 content images, 0 tables, all 5 unique external link targets rewritten to link.juejin.cn?target=, no review/update/deletion marker, and the 暂无评论 empty state (0 comments)."
+    },
     {
       "id": "juejin-7694934986782064649",
       "status": "confirmed",
