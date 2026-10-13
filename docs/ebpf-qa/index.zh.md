@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么通过 Cilium eBPF Go 库 attach 的 tracepoint eBPF 程序在新内核上只在 CPU 0 上触发，而同一程序在旧发行版上却能系统级地记录系统调用？](/zh/ebpf-qa/2026-10-13-cilium-ebpf-tracepoint-cpu-only-new-kernel-regression/)
 - [为什么 Node.js 的 GenAI 插桩放在 opentelemetry-js-contrib 里而不是独立仓库，为什么没有对应 Python GenAI 插桩仓库的 Node.js 仓库？](/zh/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/)
 - [为什么 GenAI 遥测里可用智能体技能列表应当是挂在 span 上的专属属性，而不是单独的 span 或 span 事件？span 的时长模型又为何排除掉 span 形式？](/zh/ebpf-qa/2026-10-11-genai-available-skills-model-attribute-vs-span-vs-event/)
 - [为什么 GenAI 插桩该用日志管道严重级来控制推理事件发射而不是专门的 emit 标志？logger 的 enabled 是 opt-in 还是 opt-out？](/zh/ebpf-qa/2026-10-10-genai-inference-event-emit-logger-enabled-optin-vs-optout/)
