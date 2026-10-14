@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-12",
+  "last_checked": "2026-10-13",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7695977967902933026",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：BPF Arena 零拷贝共享内存",
+      "url": "https://juejin.cn/post/7695977967902933026",
+      "staged_url": "https://juejin.cn/spost/7695977967902933026",
+      "source_path": "docs/tutorials/features/bpf_arena/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-14 07:27 +08 (LA date 2026-10-13) using the LA 2026-10-13 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 82 / 已发布 82 / 审核中 0 / 未通过 0; post-submission it read 全部 83 / 已发布 82 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer clicks on .byte-select-option). The post entered a brief review interval: /spost/7695977967902933026 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 07:30 +08 poll to 全部 83 / 已发布 83 / 审核中 0 (a ~3-minute review interval, in the fast 26-sudo / 20-tc / bpftrace-tutorial tier), after which the canonical /post/ URL went live. Public-page QA confirmed the exact title once as the page H1, a single-copy body (11017 artifact chars; rendered innerText 12633), 7 H2 / 7 H3 / 0 H4, 8 code blocks (4 c, 3 bash, 1 unlabeled test-output block), 0 content images, 0 tables, all 4 external link targets rewritten to link.juejin.cn?target=, no review/update/deletion marker, and 0 comments; early live counters at the 07:30 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
     {
       "id": "juejin-7695667191396040738",
       "status": "confirmed",
