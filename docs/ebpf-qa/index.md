@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [How can a FUSE userspace filesystem daemon inherit OpenTelemetry trace propagation by reading the OBI trace context map keyed by pid and tid?](/ebpf-qa/2026-10-14-fuse-otel-trace-propagation-via-obi-trace-map/)
 - [Why does a tracepoint eBPF program attached through the Cilium eBPF Go library fire only on CPU 0 on a new kernel, when the identical program logged system calls system-wide on older distributions?](/ebpf-qa/2026-10-13-cilium-ebpf-tracepoint-cpu-only-new-kernel-regression/)
 - [Why does Node.js GenAI instrumentation live in opentelemetry-js-contrib rather than a dedicated repository, and why is there no Node.js equivalent to the Python GenAI instrumentation repo?](/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/)
 - [Why should the list of available agent skills in GenAI telemetry be a dedicated span attribute instead of a separate span or a span event, and why does the span duration model rule out the span form?](/ebpf-qa/2026-10-11-genai-available-skills-model-attribute-vs-span-vs-event/)
