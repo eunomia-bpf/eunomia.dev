@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-13",
+  "last_checked": "2026-10-14",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7696384745624141824",
+      "status": "confirmed",
+      "title": "eBPF 教程：BPF 迭代器用于内核数据导出",
+      "url": "https://juejin.cn/post/7696384745624141824",
+      "staged_url": "https://juejin.cn/spost/7696384745624141824",
+      "source_path": "docs/tutorials/features/bpf_iters/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-15 08:51 +08 (LA date 2026-10-14) using the LA 2026-10-14 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 83 / 已发布 83 / 审核中 0 / 未通过 0; post-submission it read 全部 84 / 已发布 83 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for Linux and 性能优化; the 后端 chip required an Enter-key commit because a pointer click did not land it). The post entered a brief review interval: /spost/7696384745624141824 staged while the creator center showed 审核中 (1), with the SPA shell answering HTTP 200 on the /post/ URL during that interval — then at the 08:56 +08 poll the creator center flipped to 全部 84 / 已发布 84 / 审核中 0 (a ~5-minute review interval, in the fast 26-sudo / 20-tc / bpftrace / bpf_arena tier) and the canonical /post/ URL went live; it passed full public-page QA (exact H1 once, single-copy body: 11428 artifact chars, rendered innerText 11063; 6 H2 / 7 H3 / 0 H4; 9 code blocks [5 bash, 2 c, 2 unlabeled blocks auto-tagged ini]; 0 content images; 0 tables; all 6 unique external link targets rewritten to link.juejin.cn?target= with 0 raw external links; no review/update/deletion marker; 0 comments) with early live counters at the 08:56 +08 checkpoint reading 0 展现 / 3 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
     {
       "id": "juejin-7695977967902933026",
       "status": "confirmed",
