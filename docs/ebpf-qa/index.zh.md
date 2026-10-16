@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 eBPF kprobe 的字符串读取会截断较长的 open 与 stat 路径，又如何读取完整路径？](/zh/ebpf-qa/2026-10-15-kprobe-open-path-string-truncation-in-ebpf/)
 - [FUSE 用户态文件系统守护进程如何通过按 pid 和 tid 读取 OBI trace 上下文 map 来继承 OpenTelemetry trace propagation？](/zh/ebpf-qa/2026-10-14-fuse-otel-trace-propagation-via-obi-trace-map/)
 - [为什么通过 Cilium eBPF Go 库 attach 的 tracepoint eBPF 程序在新内核上只在 CPU 0 上触发，而同一程序在旧发行版上却能系统级地记录系统调用？](/zh/ebpf-qa/2026-10-13-cilium-ebpf-tracepoint-cpu-only-new-kernel-regression/)
 - [为什么 Node.js 的 GenAI 插桩放在 opentelemetry-js-contrib 里而不是独立仓库，为什么没有对应 Python GenAI 插桩仓库的 Node.js 仓库？](/zh/ebpf-qa/2026-10-12-nodejs-genai-instrumentation-otel-js-contrib-vs-dedicated-repo/)
