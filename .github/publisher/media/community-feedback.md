@@ -20,6 +20,12 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-10-16
+
+- At 08:17 +08 (17:17 PDT), re-read the tracked top ten on the LA 2026-10-16 morning window (before any 2026-10-16 Juejin publication): [bpf_token](https://juejin.cn/post/7696759034846445583) 1 展现 / 1 阅读; [bpf_iters](https://juejin.cn/post/7696384745624141824) 314 / 13; [bpf_arena](https://juejin.cn/post/7695977967902933026) 2149 / 49; [cgroup](https://juejin.cn/post/7695667191396040738) 5 / 12; [bpftrace](https://juejin.cn/post/7695068144415244323) 3 / 9; [1-helloworld](https://juejin.cn/post/7694934986782064649) 1390 / 39; [17-biopattern](https://juejin.cn/post/7694534084639195174) 1245 / 21; L8–L10: [LSM](https://juejin.cn/post/7694131662616428571) 6 / 17、[二十](https://juejin.cn/post/7693579496968831022) 9 / 16、[二十一](https://juejin.cn/post/7693018382872330278) 14 / 28. Overall creator-center counters: 全部 85 / 已发布 85 / 审核中 0 / 未通过 0.
+- Tracked posts moved since the 10-15 checkpoint: bpf_token 0 展现 / 1 阅读 → 1 展现 / 1 阅读; bpf_iters 311 → 314 展现; bpf_arena 2148 → 2149 展现. The cgroup, bpftrace, 1-helloworld, 17-biopattern, and L8–L10 rows had rotated out of the 10-15 re-measure window, so the values above are their first 10-16 readings; no new public comment or reply appeared on any tracked post.
+- Next useful checkpoint: after the LA 2026-10-16 normal-slot Juejin publication (the next 掘金 queue item, bpf_wq) confirms public (or at its 审核中 clearance), re-read its early counters and the tracked top ten.
+
 ### 2026-10-15
 
 - At 07:36 +08 (16:36 PDT), the [Juejin bpf_token tutorial](https://juejin.cn/post/7696759034846445583) was published through the visible editor using the LA 2026-10-15 normal slot (a fresh `/editor/drafts/new` session, no pre-staged draft; the single popup submit returned “发布成功” and landed at https://juejin.cn/published; pre-submission the creator center read 全部 84 / 已发布 84 / 审核中 0 / 未通过 0; post-submission 全部 85 / 已发布 84 / 审核中 1 / 未通过 0). It entered a brief review interval: `/spost/7696759034846445583` staged while the creator center showed 审核中 (1); during any 审核中 window the SPA shell answers HTTP 200 on the `/post/` URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the ~07:41 +08 poll to 全部 85 / 已发布 85 / 审核中 0 (a ~5-minute review interval, in the fast 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters tier) and the canonical `/post/` URL went live.
