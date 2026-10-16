@@ -49,4 +49,45 @@
 - 复核方法：登录创作者中心 `https://juejin.cn/creator/content/article/essays?status=all`，对每行 `.essays-container a.link` 锚点取 `innerText` 并按 `(\d+)\s*展现\s*·\s*(\d+)\s*阅读\s*·…` 逐行配对（行精确，避免跨行错位配对）。
 
 
+## eBPF Q&A 当日运行报告（eunomia-community-radar）
+
+### 候选选择
+
+- 目标 slug：`kprobe-open-path-string-truncation-in-ebpf`
+- 问题：为什么 eBPF kprobe 的字符串读取会截断较长的 open 与 stat 路径，以及如何读取完整路径。
+- 来源：本 run 的 10-15 快照共 11 条消息，全部在两个 opt-in 的 CNCF OpenTelemetry 插桩渠道。窗口内三个话题都已被回答或并非问题：Cilium eBPF 讨论的交叉转发是 10-13 已发布条目，FUSE 与 OBI trace 传播线程是 10-14 已发布条目，GenAI semantic-conventions 的 PR 备注是评审状态更新而非问题。因此本次从公开一手资料回退选源：回答的是一个反复出现、可用公开资料核对的 eBPF 机制问题——open 与 stat 探针处被栈上限封顶的字符串读取，此前没有任何已发布条目覆盖。
+- 决定性边界：内核侧可见性与 BPF 侧存储的错位。open / openat / stat 交给程序的是一根指向用户态路径的指针，合法长度可达 `PATH_MAX`（4096），但字符串读取助手把目标 `dst` 放在 BPF 栈上，验证器把栈深限制在 `MAX_BPF_STACK`（512 字节），所以一次 `bpf_probe_read_user_str` 最多取到 511 个字符加 NUL；`res == sizeof(buf)` 即截断信号（上限处 511 有歧义）。
+
+### 对照公开一手源的验证
+
+- kernel `include/uapi/linux/bpf.h` L4378–4420：`bpf_probe_read_user_str` 契约——字符串长于 `size` 时只拷 `size - 1` 字节、末字节置 NUL，返回写入字节数（含 NUL），UAPI 示例为 `kprobe/sys_open`、`char buf[PATHLEN]`（256）取 `ctx->di`。`bpf_probe_read_kernel_str`（L4422–4428）同语义；`bpf_probe_read_str` 已弃用（L2894）。
+- kernel `include/linux/filter.h:100`：`#define MAX_BPF_STACK 512`，在 `kernel/bpf/verifier.c`（L5399、L5401 栈深检查）处强制。
+- kernel `include/uapi/linux/limits.h:12-13`：`NAME_MAX` 255、`PATH_MAX` 4096。
+- kernel `include/uapi/linux/bpf.h:1304`：`BPF_F_SLEEPABLE (1U << 4)`；`:7805`：`BPF_F_PAD_ZEROS = (1ULL << 0)`。
+- kernel `kernel/bpf/helpers.c:3635`：`bpf_copy_from_user_str`（`strncpy_from_user(dst, ptr, dst__sz - 1)`，保证 NUL，返回 `ret + 1`）；`:3680`：`bpf_copy_from_user_task_str`（跨任务变体）。
+- kernel `kernel/bpf/helpers.c:4937-4944`：`bpf_probe_read_user_str_dynptr` / `bpf_probe_read_kernel_str_dynptr`（read，`KF_PERFMON`）与 `bpf_copy_from_user_str_dynptr` / `bpf_copy_from_user_task_str_dynptr`（copy，`KF_SLEEPABLE | KF_PERFMON`），全部在 `#ifdef CONFIG_BPF_EVENTS` 之下。
+
+### 隐私与内容
+
+- 两页正文均无姓名 / handle / Slack-Discord 链接 / 时间戳 / 消息序号 / 雇主团队 / 内部仓库名 / IP / 私有日志。快照携带 mention hash 与 PR author handle，均未出现在正文——讨论作者与 maintainer 仅以泛称指代。公开的 kernel 仓库链接仅出现在 `## References` / `## 参考`。
+- 内容顺序符合标准：直接回答、机制、验证与调试路径、局限、参考、当日社区讨论。H1 不含下划线、反引号、撇号；正文最长 backticked token 为 27 字符，远低于 390px 移动端溢出门槛。
+
+### 覆盖披露
+
+本 run 覆盖两个 opt-in 存档渠道（两个 CNCF OpenTelemetry 插桩渠道），10-15 快照共 11 条消息。候选选自公开一手资料回退（窗口内三条均非新问）。可见浏览器专属渠道——eunomia-bpf 与 sched-ext Discord 服务器、bpf 邮件列表、r/eBPF——本次无可见浏览器会话，标记为"未覆盖"而非"安静"。
+
+### 产物
+
+- EN：`docs/ebpf-qa/2026-10-15-kprobe-open-path-string-truncation-in-ebpf.md`
+- ZH：`docs/ebpf-qa/2026-10-15-kprobe-open-path-string-truncation-in-ebpf.zh.md`
+- 索引链接：`docs/ebpf-qa/index.md`（`Latest Answers`）与 `docs/ebpf-qa/index.zh.md`（`最新回答`）首条。
+- 已发布 QA commit（`origin/main`）：`d6905ffe`（完整 `d6905ffe97d3dc912a772501c0c2601604ebed3b`，`docs(ebpf-qa): kprobe-open-path-string-truncation-in-ebpf (2026-10-15)`），恰好含四条 owned paths。
+- Receipt：`/workspaces/.agent-state/eunomia-qa/receipt-2026-10-15.json`，仅由验证器写入，`status=published`，commit `d6905ffe97d3dc912a772501c0c2601604ebed3b`。
+
+### eBPF Q&A 发布跟进（部署 + 线上验证）
+
+- QA commit `d6905ffe`（4 paths）已落到 `origin/main`。首发验证 run 在 push 后被并发 agent 的 push 抢先而 push 被拒，本地经 forward-move（`git reset --soft` 保留并发 staged entries）重建 scoped commit 并 push 成功；该 commit 自身的 Pages `Deploy Static App` run `38829906072` 随即被后续并发 push 取消，携带 QA 文件的实际绿色部署是其后 commit 的 run `38830503552`（`conclusion: success`，19m1s）。四条路由均返回 200，逐字 EN 与 ZH H1 均命中，新 slug 同时出现在两个索引页，`cache-control: public, max-age=0, must-revalidate` 与 `cf-cache-status: DYNAMIC` 确认为新部署而非缓存副本。验证器 re-verify pass 走 `skipped_already_published`，receipt `status=published`（commit `d6905ffe97d3`）。
+- 操作备注：无新增。3600s 上限覆盖 build→render→commit+push→public-poll、commit 前的 forward-move、以及对共享 checkout 上并发 agent staged entries 的 scoped `git commit --only`，均已由 10-12 / 10-13 的持久指引覆盖；本次无新边界。
+
+
 This run-log commits separately as the 10-15 same-day artifact.
