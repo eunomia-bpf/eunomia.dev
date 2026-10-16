@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [How does OpenTelemetry eBPF instrumentation decide which language runtimes it can stamp a trace context on, and how do you verify that a FUSE daemon thread actually receives the inherited context?](/ebpf-qa/2026-10-16-obi-trace-context-supported-language-runtimes/)
 - [Why do eBPF kprobe string reads truncate long open and stat paths, and how do you read the full path?](/ebpf-qa/2026-10-15-kprobe-open-path-string-truncation-in-ebpf/)
 - [How can a FUSE userspace filesystem daemon inherit OpenTelemetry trace propagation by reading the OBI trace context map keyed by pid and tid?](/ebpf-qa/2026-10-14-fuse-otel-trace-propagation-via-obi-trace-map/)
 - [Why does a tracepoint eBPF program attached through the Cilium eBPF Go library fire only on CPU 0 on a new kernel, when the identical program logged system calls system-wide on older distributions?](/ebpf-qa/2026-10-13-cilium-ebpf-tracepoint-cpu-only-new-kernel-regression/)
