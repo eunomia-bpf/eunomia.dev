@@ -47,4 +47,42 @@
 - 未重测：[1-helloworld](https://juejin.cn/post/7694934986782064649)、[17-biopattern](https://juejin.cn/post/7694534084639195174)、L8–L10（[19-lsm-connect](https://juejin.cn/post/7694131662616428571)、[二十](https://juejin.cn/post/7693579496968831022)、[二十一](https://juejin.cn/post/7693018382872330)）已随较新帖（bpf_wq / bpf_token / bpf_iters / bpf_arena / cgroup / bpftrace）挤入而下移出创作者中心「最新十条」可视窗口，故本次未逐行重测其计数；全部被跟踪行仍读 0 评论（`暂无评论数据` 空态持续），无需回复或更正。
 - 复核方法：登录创作者中心 `https://juejin.cn/creator/content/article/essays?status=all`，对每行 `.essays-container a.link` 锚点取 `innerText` 并按 `(\d+)\s*展现\s*·\s*(\d+)\s*阅读\s*·…` 逐行配对（行精确，避免跨行错位配对）。
 
+## 2026-10-16 eBPF Q&A 当日运行报告（eunomia-community-radar）
+
+### 候选选择
+
+- 目标 slug：`obi-trace-context-supported-language-runtimes`
+- 问题：OpenTelemetry eBPF 插桩如何决定它能为哪些语言运行时打上 trace 上下文，以及如何验证 FUSE 守护进程线程确实继承了上下文。
+- 来源：本 run 的 10-16 快照共 11 条消息，全部在两个 opt-in 的 CNCF OpenTelemetry 插桩渠道。窗口内两个实质线程均已回答或并非新问题：FUSE 与 OBI trace 传播线程是 10-14 已发布条目，Cilium eBPF tracepoint 线程是 10-13 已发布条目；另有一条 OpenTelemetry 语义约定（GenAI 统一 agent 间交互模型）PR 的复审与催审备注，是评审状态更新而非问题；以及一条维护者「该方案理论上仅当设置 trace 上下文的线程与执行 FUSE 工作的线程相同时才可行」的提醒。因此本次从公开一手资料回退选源：回答的是反复出现、可用公开资料核对的 OBI 运行时支持边界问题——OBI 究竟能为哪些语言运行时打上 trace 上下文，以及如何验证 FUSE 发起线程是其中之一并确实继承了同一份上下文；该角度区别于 10-14 已回答的 map 读取机制，聚焦运行时支持矩阵与线程关联要求。
+- 决定性边界：语言支持矩阵与线程交接的错位。OBI 的上下文传播是一份带版本门槛的固定清单（Go 1.18+、Node.js 8.0+、JDK 8+、Python 3.9+ 且 uvloop、Ruby Puma 5.0+；C++ 未列出），而按线程的关联只有当具体交接可观察时才成立（同一 OS 线程、可达子线程、或请求线程先做 socket 建立 / 连接存活检查），OBI 不重建任意应用队列或框架上下文对象。于是纯 C++ 客户端没有语言特定关联，FUSE lookup 只有在 C++ 代码于 OBI 看到服务请求的同一线程上发起 FUSE I/O 时才命中。
+
+### 对照公开一手源的验证
+
+- OBI `distributed-traces` 兼容性矩阵（opentelemetry.io/docs/zero-code/obi/distributed-traces）：Go 库级上下文传播用于 Go 1.18+（最多六层嵌套 goroutine）；Node.js async hooks 用于 8.0+（自定义 SIGUSR1 处理可能干扰）；JDK 8+ 经常见任务 API；Python 3.9+ 且 uvloop；Puma 5.0+。C++ 未列出。
+- OBI trace context association（opentelemetry.io/docs/zero-code/obi/context-propagation）：出站工作按运行时特定交接机制关联到入站请求；仅当该匹配不可用才回退到与语言无关信号（同一 OS 线程 / 可达子线程 / 请求线程先做 socket 建立或连接存活检查）；OBI 不重建任意应用队列或框架上下文对象。
+- kernel `include/uapi/linux/fuse.h`：`fuse_in_header.pid` 由内核填入调用线程在挂载 pid 命名空间内的线程 id；flock 路径特意用 `task_tgid`，佐证通用头部的 pid 是线程作用域。
+
+### 隐私与内容
+
+- 两页正文均无姓名 / handle / Slack-Discord 链接 / 时间戳 / 消息序号 / 雇主团队 / 内部仓库名 / IP / 私有日志。快照携带 mention hash 与 PR author handle，均未出现在正文——讨论作者与 maintainer 仅以泛称指代。公开的 OBI / kernel / W3C 仓库链接仅出现在 `## References` / `## 参考`。
+- 内容顺序符合标准：直接回答、机制、验证与调试路径、局限、参考、当日社区讨论。H1 不含下划线、反引号、撇号；正文最长 backticked token 为 `populate_trace_context`（22 字符），远低于 390px 移动端溢出门槛。
+
+### 覆盖披露
+
+本 run 覆盖两个 opt-in 存档渠道（两个 CNCF OpenTelemetry 插桩渠道），10-16 快照共 11 条消息。候选选自公开一手资料回退（窗口内两个实质线程均非新问：FUSE/OBI 线程是 10-14 已发布条目、Cilium tracepoint 线程是 10-13 已发布条目，另 1 条为语义约定 PR 复审备注而非问题）。可见浏览器专属渠道——eunomia-bpf 与 sched-ext Discord 服务器、bpf 邮件列表、r/eBPF——本次无可见浏览器会话，标记为"未覆盖"而非"安静"。
+
+### 产物
+
+- EN：`docs/ebpf-qa/2026-10-16-obi-trace-context-supported-language-runtimes.md`
+- ZH：`docs/ebpf-qa/2026-10-16-obi-trace-context-supported-language-runtimes.zh.md`
+- 索引链接：`docs/ebpf-qa/index.md`（`Latest Answers`）与 `docs/ebpf-qa/index.zh.md`（`最新回答`）首条。
+- 已发布 QA commit（`origin/main`）：`2d85f11`（完整 `2d85f11182b8eb7db671469612675f105810255c`，`docs(ebpf-qa): obi-trace-context-supported-language-runtimes (2026-10-16)`），恰好含四条 owned paths。
+- Receipt：`/workspaces/.agent-state/eunomia-qa/receipt-2026-10-16.json`，仅由验证器写入，`status=published`，commit `2d85f11182b8eb7db671469612675f105810255c`。
+
+### eBPF Q&A 发布跟进（部署 + 线上验证）
+
+- QA commit `2d85f11`（4 paths）已落到 `origin/main`。首发验证 run（build→render→commit+push）的 push 被并发 agent 的 media push（`8a507414f`）抢先而拒，本地经 forward-move（`git reset --soft origin/main`，保留并发 staged entries）重建 scoped commit 并 push 成功，得 `2d85f11`；该 commit 自身的 Pages `Deploy Static App` run `38982987751` 为绿色（`conclusion: success`），故本次携带 QA 文件的绿色部署即 QA commit 自身 run（区别于 10-15 的 QA run 被其后并发 push 取消、需取后续 commit 的 run）。首发验证 run 在 push 后的 20 分钟 public-poll 窗口内 Pages 仍在部署，public check 得 404；待该绿色 Pages run 完成后 re-run 验证器，走 `skipped_already_published`（`content_test` / `build` / `render` / `commit_push` 均 skipped），receipt `status=published`（commit `2d85f11182b8`）。
+- 线上验证：四条路由（EN / ZH article + EN / ZH index）均返回 200，逐字 EN 与 ZH H1 均命中，新 slug 同时出现在两个 live 索引页，`cache-control: public, max-age=0, must-revalidate` 与 `cf-cache-status: DYNAMIC` 确认为新部署而非缓存副本。
+- 操作备注：无新增。3600s 上限覆盖 build→render→commit+push→public-poll、commit 前的 forward-move、以及对共享 checkout 上并发 agent staged entries 的 scoped `git commit --only`，均已由 10-12 / 10-13 的持久指引覆盖；本次 QA commit 自身 Pages run 即为绿色，无需取后续 commit 的 run；public-poll 404 经 re-verify 路径（待绿色 run 后重跑验证器）解决，均为既有流程。
+
 This run-log commits separately as the 10-16 same-day artifact.
