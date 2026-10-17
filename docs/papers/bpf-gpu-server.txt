@@ -281,7 +281,7 @@ Figure 2 shows why. The kernel path cut user time from 11.3 to
 totals stayed within about 1%.
 
 4 RESULTS
-4.1 LLM serving: the transport does not matter
+4.1 LLM serving: no measurable transport effect
 The top half of Table 1 compares the two transports over 172,800
 requests with no failures. Throughput is identical, and the differences in completion P99 (−10 ms, interval [−64, 44]) and process
 CPU cross zero. An earlier variant of the kernel path measured
@@ -299,7 +299,7 @@ general lessons for anyone writing a TCP front end for a GPU. First,
 
 Does Kernel-Owned Networking Make GPU Serving Cheaper?
 
-Table 3: Before/after effects of individual fixes (LLM workload). “Both” means the fix and its gain apply to both transports.
+Table 3: Before/after effects of individual fixes (LLM workload). “Both” means the fix and its gain apply to both transports; ∗ measured on the native transport only.
 Fix
 
 Scope
@@ -333,7 +333,7 @@ decode [9]
 16→32 GPU slots
 
 both
-both
+both∗
 
 loop coordination
 other
