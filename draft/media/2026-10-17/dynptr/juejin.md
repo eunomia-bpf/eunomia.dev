@@ -1,0 +1,14 @@
+# 掘金发布稿：dynptr 教程
+
+- 状态：已确认公开（LA 2026-10-17 正常额度，队列 L128；post `7697186290753159202`）
+- 提交：2026-10-18 07:24 +08（16:24 PDT），全新 `/editor/drafts/new` 会话、无预置草稿，单次弹窗提交返回「发布成功」，落地 https://juejin.cn/published
+- 提交前创作者中心：全部 86 / 已发布 86 / 审核中 0 / 未通过 0；提交后：全部 87 / 已发布 86 / 审核中 1 / 未通过 0
+- 审核间隔：约 23 分钟（慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档先例，为本系列最长审核间隔）——`/spost/7697186290753159202` 暂存、SPA 在 `/post/` 上答 HTTP 200，07:47 +08 前后创作者中心轮询翻为 全部 87 / 已发布 87 / 审核中 0，规范页 `/post/7697186290753159202` 上线
+- 分类：后端；标签 chips `Linux`、`后端`、`性能优化`（DOM 序；每个 chip 经 native-setter 搜索 + 真实 CDP 指针点击 `.byte-select-option`）
+- 公开页 QA（规范 `/post/`，登录浏览器）：标题 H1 ×1（「eBPF 实例教程：BPF 动态指针处理可变长度数据」，正文无重复 H1）、正文单份（源 14223 字符 → 渲染 13785）、7 H2 / 15 H3 / 0 H4、11 代码块（2 c、7 bash、2 无语言标签 [渲染 DOM 自动标 `xml`/`ini`]）、0 图片、0 表格、8 条唯一外链目标全部改写为 `link.juejin.cn?target=`、0 条裸外链、无 审核中 / 文章有更新 / 已被删除 / 找不到页面 / 发布失败 标记、0 评论（`暂无评论` 空态）；07:47 +08 前后早期计数 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏
+- 规范 URL：https://juejin.cn/post/7697186290753159202（暂存 https://juejin.cn/spost/7697186290753159202）
+- 正文：`juejin-body.md`（源文 `docs/tutorials/features/dynptr/README.zh.md` 移除源 H1，其余正文逐字保留；14223 字符、20907 字节、436 行、7 个 H2 / 15 个 H3 / 0 个 H4、11 个代码块 [2 c、7 bash、2 无标签]、0 张图片、0 个表格、8 条唯一外链目标 [github.com/eunomia-bpf/bpf-developer-tutorial、github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/dynptr、eunomia.dev/tutorials/、docs.ebpf.io/linux/concepts/dynptrs/、docs.ebpf.io/linux/helper-function/bpf_ringbuf_reserve_dynptr/、docs.ebpf.io/linux/kfuncs/bpf_dynptr_from_skb/、docs.ebpf.io/linux/kfuncs/bpf_dynptr_slice/、docs.kernel.org/bpf/kfuncs.html]）
+- 标题：eBPF 实例教程：BPF 动态指针处理可变长度数据（源 H1 逐字，无系列编号）
+- 原文：https://eunomia.dev/zh/tutorials/features/dynptr/
+- 分类：后端
+- 标签：`Linux`、`后端`、`性能优化`（沿用 17-biopattern / 19-lsm-connect / 1-helloworld / bpftrace-tutorial / cgroup / bpf_arena / bpf_iters / bpf_token / bpf_wq 教程标签组）
