@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Thu, 24 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 17 Oct 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>把 GPU 服务的请求循环搬进内核，能省下 CPU 吗？</title>
+  <link>https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/</guid>
+  <pubDate>Sat, 17 Oct 2026 00:00:00 GMT</pubDate>
+  <description>设想一台 GPU 服务器在处理大量小请求：一个小语言模型生成 64 个 token，或者一次很短的 cuBLAS、cuFFT 调用。每个请求的 GPU 计算都很短，主机侧的开销就显得突出了。请求要经过网络协议栈，唤醒服务线程，被拷进用户态内存，排队等 GPU，最后再经过一次发送回到客户端。</description>
+  <author>i@littlefisher.me (yunwei37)</author>
+  <category>eBPF</category>
+</item>
+<item>
   <title>语言模型能在 Linux eBPF 里运行吗？</title>
   <link>https://eunomia.dev/zh/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</link>
   <guid>https://eunomia.dev/zh/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</guid>
@@ -293,15 +302,6 @@
   <guid>https://eunomia.dev/zh/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</guid>
   <pubDate>Wed, 12 Feb 2025 00:00:00 GMT</pubDate>
   <description>Extended Berkeley Packet Filter (eBPF) continues to rapidly evolve, cementing its role as a cornerstone for operating system extensibility.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <category>eBPF</category>
-</item>
-<item>
-  <title>Security Vulnerabilities Study in Software Extensions and Plugins</title>
-  <link>https://eunomia.dev/zh/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/</link>
-  <guid>https://eunomia.dev/zh/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/</guid>
-  <pubDate>Mon, 10 Feb 2025 00:00:00 GMT</pubDate>
-  <description>Software extensions and plugins allow customization and added features across many systems – from web servers and databases to browsers, IDEs, and CMS platforms.</description>
   <author>yusen356@gmail.com (weekendfish)</author>
   <category>eBPF</category>
 </item>

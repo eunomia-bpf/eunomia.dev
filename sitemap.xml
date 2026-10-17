@@ -1023,6 +1023,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</loc>
     <lastmod>2026-09-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/" />
@@ -2270,14 +2284,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/papers/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/papers/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/papers/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/papers/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/papers/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/papers/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/" />
