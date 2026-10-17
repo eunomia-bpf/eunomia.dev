@@ -33,6 +33,8 @@ Once the extension philosophy proved viable in userspace, the natural question w
 
 Together these papers demonstrate that the extension model generalizes beyond CPU-bound system calls into the hardware paths where modern infrastructure spends most of its time.
 
+bpf-gpu-server ([technical report](bpf-gpu-server.pdf)) marks a boundary of this direction. It asks whether giving eBPF and io_uring ownership of a GPU server's TCP request loop saves host CPU. Against an efficient epoll server driving the same GPU executor, per-request CPU stayed the same: it moved from user to system time, because the kernel TCP stack and GPU completion coordination remain on both paths. The tail-latency gains it found came from GPU capacity and TCP small-send settings that help both transports.
+
 ### Observing and governing AI agents
 
 The current center of gravity connects back to the runtime and tooling groundwork of the earlier threads: kernel-level infrastructure is what makes deep agent observability and enforcement possible without modifying agent code.
@@ -49,6 +51,7 @@ ActPlane ([arXiv 2606.25189](https://arxiv.org/abs/2606.25189)) synthesizes thes
 
 | Paper | PDF / Text | Artifact | Technical blog | Status |
 |---|---|---|---|---|
+| [Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server](bpf-gpu-server.pdf) | [PDF](bpf-gpu-server.pdf) · [txt](bpf-gpu-server.txt) | [bpf-gpu-server](https://github.com/yunwei37/bpf-gpu-server) | [Read the blog](../blog/posts/bpf-gpu-server.md) | Public preprint |
 | [AgentPProf: Semantic Profiler for Long Horizon AI Agents](agentpprof.pdf) | [PDF](agentpprof.pdf) · [txt](agentpprof.txt) | [AgentSight](https://github.com/eunomia-bpf/agentsight) | [Read the blog](../blog/posts/agentpprof-semantic-flamegraph.md) | Public preprint |
 | [Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections](https://arxiv.org/abs/2607.02748) | [PDF](bpfix.pdf) · [txt](bpfix.txt) | [bpfix](https://github.com/eunomia-bpf/bpfix) | Blog pending | arXiv preprint |
 | [ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses](https://arxiv.org/abs/2606.25189) | [PDF](actplane.pdf) · [txt](actplane.txt) | [ActPlane](https://github.com/eunomia-bpf/ActPlane) | [Read the blog](../blog/posts/actplane.md) | arXiv preprint, v2 |

@@ -33,6 +33,8 @@ CET-disassembly（[arXiv 2506.09426](https://arxiv.org/abs/2506.09426)）处于�
 
 三篇论文共同表明，扩展模型可以从 CPU 约束的系统调用推广到现代基础设施真正消耗时间的硬件路径。
 
+bpf-gpu-server（[技术报告](bpf-gpu-server.pdf)）标出了这条路线的一个边界：让 eBPF 和 io_uring 接管 GPU 服务的 TCP 请求循环，能否省下主机 CPU？与驱动同一个 GPU 执行器的高效 epoll 服务器相比，每个请求的 CPU 总量保持不变，只是从用户态转到了系统态，因为内核 TCP 协议栈和 GPU 完成通知的协调开销在两条路径上都还在。它找到的尾延迟改善来自 GPU 容量和 TCP 小包发送设置，两条路径同样受益。
+
 ### AI agent 时代：观测与执行
 
 当前的研究重心回扣前两条线索的铺垫：内核级基础设施正是使深度 agent 可观测性和策略执行成为可能的关键，且无需修改 agent 代码。
@@ -49,6 +51,7 @@ ActPlane（[arXiv 2606.25189](https://arxiv.org/abs/2606.25189)）将上述线�
 
 | 论文 | PDF / 文本 | 开源实现 | 技术 Blog | 状态 |
 |---|---|---|---|---|
+| [Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server](bpf-gpu-server.pdf) | [PDF](bpf-gpu-server.pdf) · [txt](bpf-gpu-server.txt) | [bpf-gpu-server](https://github.com/yunwei37/bpf-gpu-server) | [阅读 Blog](../blog/posts/bpf-gpu-server.zh.md) | 公开预印本 |
 | [AgentPProf: Semantic Profiler for Long Horizon AI Agents](agentpprof.pdf) | [PDF](agentpprof.pdf) · [txt](agentpprof.txt) | [AgentSight](https://github.com/eunomia-bpf/agentsight) | [阅读 Blog](../blog/posts/agentpprof-semantic-flamegraph.zh.md) | 公开预印本 |
 | [Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections](https://arxiv.org/abs/2607.02748) | [PDF](bpfix.pdf) · [txt](bpfix.txt) | [bpfix](https://github.com/eunomia-bpf/bpfix) | 待补 Blog | arXiv preprint |
 | [ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses](https://arxiv.org/abs/2606.25189) | [PDF](actplane.pdf) · [txt](actplane.txt) | [ActPlane](https://github.com/eunomia-bpf/ActPlane) | [阅读 Blog](../blog/posts/actplane.zh.md) | arXiv preprint，v2 |
