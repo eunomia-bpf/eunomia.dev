@@ -276,9 +276,9 @@ the kernel path’s P99 was 2.6× worse. Whole-host CPU ratios (0.990,
 saturated at the same offered level. Longer GPU work narrowed
 throughput gaps without producing a CPU advantage. All 3.12
 million requests completed without an observed failure.
-Figure 2 shows why. The kernel path cut user time from 11.3 to
-2.8 𝜇s per request, but system time grew from 26.2 to 35.2 𝜇s. The
-totals stayed within about 1%.
+Figure 2 shows why. For FFT, the kernel path cut user time from
+11.3 to 2.8 𝜇s per request, but system time grew from 26.2 to 35.2 𝜇s.
+The totals differed by only 1.1% for FFT and 1.9% for GEMM.
 
 4 RESULTS
 4.1 LLM serving: no measurable transport effect

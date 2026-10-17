@@ -56,7 +56,7 @@ The CPU split explains why:
 | Native epoll | 11.3 µs | 26.2 µs | 37.56 µs |
 | Kernel-owned | 2.8 µs | 35.2 µs | 37.96 µs |
 
-Removing the userspace loop did cut user time by three quarters. The same work then reappeared as system time, and the total stayed within about 1%. Whole-host CPU told the same story.
+Removing the userspace loop did cut user time by three quarters. The same work then reappeared as system time, and the total differed by only 1.1% for FFT and 1.9% for GEMM. Whole-host CPU told the same story.
 
 ## Where the cost goes
 
