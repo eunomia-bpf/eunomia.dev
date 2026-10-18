@@ -136,3 +136,18 @@ staged set and the worktree) and re-run (a 10-12 run hit this: a 300s cap
 killed the first run before the commit, `origin/main` had advanced, the
 forward-move + longer-cap re-run landed commit `5c2bf5ca3`, and the
 re-verify pass then completed the receipt).
+
+The validator's two Chromium renders can fail at browser launch, not at
+render, when the host is missing the system shared libraries the headless
+shell needs (`libnspr4`, `libnss3`, `libatk`, `libdbus`, `libgbm`,
+`libxkbcommon`, `libasound`, and the X11 extras). The failure surfaces as
+`error while loading shared libraries` from the `chrome-headless-shell`
+binary, before any commit lands, so the receipt is `failed` with no QA
+commit. Fix the environment, not the run: `ldd` the headless-shell binary to
+list the missing `.so` files, `apt-get install` the matching packages, confirm
+`ldd` reports no `not found` and the binary's `--version` runs, then re-run
+the validator from the same cap - the content test, build, and render all
+succeed on the retry and the commit lands. A 10-17 run hit this on a fresh
+container: fourteen libraries were absent, the render step aborted before the
+commit, and the forward-move + re-run only completed after the shared
+libraries were installed.
