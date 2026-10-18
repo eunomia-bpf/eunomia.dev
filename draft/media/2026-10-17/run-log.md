@@ -60,4 +60,46 @@
 - 下一条可执行任务为队列第 130 行掘金 struct_ops（LA 2026-10-18 正常额度）；本次不越范围执行。
 - 若下次巡检再遇 CDP 未起：先复查 `sudo ln -sfn /usr/sbin/runuser /usr/local/bin/runuser`（幂等），确认 `gem.sh` pre-service hook 完成、supervisor 日志 `Chromium ready on 127.0.0.1:9222`，再 `curl -s http://127.0.0.1:9222/json/version` 等待 `Chrome/…`；本次根因为 hook 窄 PATH 缺 `runuser`（新故障模式，已随本日志记录）。
 
+## 2026-10-17 eBPF Q&A 当日运行报告（eunomia-community-radar）
+
+### 候选选择
+
+- 目标 slug：`fuse-trace-context-map-lookup-misses-in-pid-namespace`
+- 问题：为什么 FUSE 文件系统运行在 PID 命名空间内时，FUSE 守护进程对 OBI trace 上下文 map 的查询会查不到。
+- 来源：10-17 快照（两条 opt-in 归档渠道、共 11 条消息）与 10-16 快照字节相同——24 小时冻结窗口内无新增实质线程，窗口内实质线程均已在 10-13（Cilium eBPF tracepoint）、10-14（FUSE/OBI trace 传播）、10-16（OBI 运行时支持矩阵）三篇回答或为评审状态更新而非新问题。故从公开一手资料回退选源：这是 10-14 map 读取机制之外的**第三个独立失败维度**——即使 OBI 已开启填充且关联到了正确线程，只要 FUSE 守护进程（或其调用方）所处 PID 命名空间与 OBI 打 key 的命名空间不一致，按请求头构造的 key 也必然落空。
+- 决定性边界：`fuse_in_header.pid` 是调用线程 TID 经挂载 PID 命名空间重新换算的值，而 OBI 的 `traces_ctx_v1` key 取 `bpf_get_current_pid_tgid`（init 命名空间值）。两者在容器化/特权命名空间的 FUSE 守护进程场景下数字不同，查询确定性落空。修复 = 让 FUSE 守护进程以与 OBI key 视角一致的 PID 命名空间运行，或在构造 key 前解析主机可见 TID。
+
+### 对照公开一手源的验证
+
+- 内核 `kernel/bpf/helpers.c`：`bpf_get_current_pid_tgid` 返回 `(u64)task->tgid << 32 | task->pid`（init/全局命名空间值）；旁证 `bpf_get_ns_current_pid_tgid` 返回 `task_pid_nr_ns(task, pidns)`（唯一的命名空间相对变体）。
+- 内核 `fs/fuse/req.c`：`fuse_fill_creds` 把 `args->pid` 设为 `task_pid(current)` 经 `fc->pid_ns` 重新换算（调用线程 TID 于挂载 pid 命名空间内）。
+- 内核 `fs/fuse/inode.c`：`fuse_conn_init` 把 `fc->pid_ns` 取自挂载进程的活跃 PID 命名空间。
+- 内核 `include/uapi/linux/fuse.h`：`fuse_in_header.pid` 字段。
+- libfuse `include/fuse_lowlevel.h`：注明「当 FUSE 文件系统运行在 PID 或 user 命名空间内却从命名空间外被访问时，上报的客户端 uid/gid/pid 可能为零」。
+- OBI `bpf/shared/obi_ctx.h`：固定的 `traces_ctx_v1`（`BPF_MAP_TYPE_LRU_HASH`，`__type(key, u64)`，value = `trace_id[16]` + `span_id[8]`）。
+
+### 隐私与内容
+
+- 两页正文均无姓名 / handle / Slack-Discord 链接 / 时间戳 / 消息序号 / 雇主团队 / 内部仓库名 / IP / 主机名 / 私有日志。讨论作者与 maintainer 仅以泛称指代。公开的 kernel / libfuse / OBI 仓库链接仅出现在 `## References` / `## 参考`。
+- 内容顺序符合标准：直接回答、机制、验证与调试路径、局限、参考、当日社区讨论。H1 不含下划线、反引号、撇号；EN 与 ZH H1 与索引 link text 逐字一致（`bpf_get_ns_current_pid_tgid` 等 token 拆分后最长 backticked token 为 27 字符 `bpf_get_ns_current_pid_tgid`，远低于 390px 移动端溢出门槛）。
+
+### 覆盖披露
+
+本 run 覆盖两个 opt-in 归档渠道（两个 CNCF OpenTelemetry 插桩渠道），10-17 快照共 11 条消息（与 10-16 字节相同，24h 冻结窗口无新增）。候选选自公开一手资料回退：窗口内实质线程均为 10-13 / 10-14 / 10-16 已发布条目或评审备注，无新问。可见浏览器专属渠道——eunomia-bpf 与 sched-ext Discord 服务器、bpf 邮件列表、r/eBPF——本次无可见浏览器会话，标记为「未覆盖」而非「安静」。
+
+### 产物
+
+- EN：`docs/ebpf-qa/2026-10-17-fuse-trace-context-map-lookup-misses-in-pid-namespace.md`
+- ZH：`docs/ebpf-qa/2026-10-17-fuse-trace-context-map-lookup-misses-in-pid-namespace.zh.md`
+- 索引链接：`docs/ebpf-qa/index.md`（`Latest Answers`）与 `docs/ebpf-qa/index.zh.md`（`最新回答`）首条。
+- 已发布 QA commit（`origin/main`）：`447823c76`（完整 `447823c769f8f55c63016a5219d476b1c004d208`，`docs(ebpf-qa): fuse-trace-context-map-lookup-misses-in-pid-namespace (2026-10-17)`），恰好含四条 owned paths。
+- Receipt：`/workspaces/.agent-state/eunomia-qa/receipt-2026-10-17.json`，仅由验证器写入，`status=published`，commit `447823c769f8f55c63016a5219d476b1c004d208`。
+
+### eBPF Q&A 发布跟进（部署 + 线上验证）
+
+- QA commit `447823c76`（4 paths）已落到 `origin/main`。首发验证 run（build→render→commit+push→public-poll）在 render 前因 Chromium headless-shell 缺失 14 个共享库（libnspr4 / libnss3 / atk / dbus / atspi / X11 extras / gbm / xkbcommon / alsa 等）无法启动而失败（commit 未生成）；`apt-get` 安装对应系统依赖（libnspr4 libnss3 libatk1.0-0 libatk-bridge2.0-0 libdbus-1-3 libatspi2.0-0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libxkbcommon0 libasound2 libxfixes3）后重跑，render 通过，但 push 被并发 agent 推进的 `origin/main`（bpf-gpu-server 博客/报告 + 日报，commit `6145cd2df`，不触碰本 owned paths）拒为非 fast-forward；本地经 forward-move（`git reset --soft origin/main`，保留并发 agent 的 149 条 staged entries 与 worktree）重建 scoped commit 并 push 成功，得 `447823c76`。
+- 该 QA commit 自身的 Pages `Deploy Static App` run `39080447994` 为绿色（`conclusion: success`）。首发验证 run 在 push 后的 20 分钟 public-poll 窗口内 Pages 仍在部署，public check 得 404；待该绿色 run 完成后 re-run 验证器，走 `skipped_already_published`（`content_test` / `build` / `render` / `commit_push` 均 skipped），receipt 翻为 `status=published`（commit `447823c769f8`）。
+- 线上验证：四条路由（EN / ZH article + EN / ZH index）均返回 200，逐字 EN 与 ZH H1 均命中，新 slug 同时出现在两个 live 索引页，`cache-control: public, max-age=0, must-revalidate` 与 `cf-cache-status: DYNAMIC` 确认为新部署而非缓存副本。
+- 操作备注：Chromium headless-shell 共享库缺失为**新故障模式**（与 10-05 的 content-test 硬计数断言、10-11/10-12 的 public-poll 404 与 forward-move 均不同），已随本日志记录；3600s 上限覆盖 build→render→commit+push→public-poll、commit 前与 push 前的 forward-move、以及对共享 checkout 上并发 agent staged entries 的 scoped `git commit --only`，均已由 10-12 / 10-13 的持久指引覆盖；本次 QA commit 自身 Pages run 即为绿色，无需取后续 commit 的 run。
+
 This run-log commits separately as the 10-17 same-day artifact.
