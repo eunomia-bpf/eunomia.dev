@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [When a FUSE daemon lookup of the OBI trace context map returns an entry, is that entry the trace context of the current request, and when can the hit be stale?](/ebpf-qa/2026-10-18-fuse-trace-context-map-hit-current-vs-stale/)
 - [Why do FUSE daemon lookups in the OBI trace context map miss when the FUSE filesystem runs inside a PID namespace?](/ebpf-qa/2026-10-17-fuse-trace-context-map-lookup-misses-in-pid-namespace/)
 - [How does OpenTelemetry eBPF instrumentation decide which language runtimes it can stamp a trace context on, and how do you verify that a FUSE daemon thread actually receives the inherited context?](/ebpf-qa/2026-10-16-obi-trace-context-supported-language-runtimes/)
 - [Why do eBPF kprobe string reads truncate long open and stat paths, and how do you read the full path?](/ebpf-qa/2026-10-15-kprobe-open-path-string-truncation-in-ebpf/)

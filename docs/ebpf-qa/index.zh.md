@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [FUSE 守护进程对 OBI trace 上下文 map 的查询返回了一个条目时，这个条目一定是当前请求的 trace 上下文吗？它什么时候会过期？](/zh/ebpf-qa/2026-10-18-fuse-trace-context-map-hit-current-vs-stale/)
 - [为什么 FUSE 文件系统运行在 PID 命名空间内时，FUSE 守护进程对 OBI trace 上下文 map 的查询会查不到？](/zh/ebpf-qa/2026-10-17-fuse-trace-context-map-lookup-misses-in-pid-namespace/)
 - [OpenTelemetry eBPF 插桩如何判定它能为哪些语言运行时打上 trace 上下文，又如何验证 FUSE 守护进程线程确实继承了上下文？](/zh/ebpf-qa/2026-10-16-obi-trace-context-supported-language-runtimes/)
 - [为什么 eBPF kprobe 的字符串读取会截断较长的 open 与 stat 路径，又如何读取完整路径？](/zh/ebpf-qa/2026-10-15-kprobe-open-path-string-truncation-in-ebpf/)
