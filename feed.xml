@@ -17,6 +17,15 @@
   <category>eBPF</category>
 </item>
 <item>
+  <title>When Does CPU Scheduling Help AI Inference?</title>
+  <link>https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/</link>
+  <guid>https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/</guid>
+  <pubDate>Sat, 17 Oct 2026 00:00:00 GMT</pubDate>
+  <description>LLM inference is usually discussed as a GPU problem. That is mostly reasonable: matrix multiplication, attention, KV-cache access, and model execution dominate the compute budget. But a production inference service is</description>
+  <author>iancodinghtml@gmail.com (Ian Chen)</author>
+  <category>AI agent observability</category>
+</item>
+<item>
   <title>Can a language model run in Linux eBPF?</title>
   <link>https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</link>
   <guid>https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/</guid>
@@ -294,15 +303,6 @@
   <description>WebAssembly (WASM) has evolved from a browser-based technology into a promising runtime for server and embedded applications.</description>
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
-  <category>eBPF</category>
-</item>
-<item>
-  <title>eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive</title>
-  <link>https://eunomia.dev/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</link>
-  <guid>https://eunomia.dev/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</guid>
-  <pubDate>Wed, 12 Feb 2025 00:00:00 GMT</pubDate>
-  <description>Extended Berkeley Packet Filter (eBPF) continues to rapidly evolve, cementing its role as a cornerstone for operating system extensibility.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
   <category>eBPF</category>
 </item>
 </channel>
