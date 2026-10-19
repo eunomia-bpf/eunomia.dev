@@ -151,3 +151,17 @@ succeed on the retry and the commit lands. A 10-17 run hit this on a fresh
 container: fourteen libraries were absent, the render step aborted before the
 commit, and the forward-move + re-run only completed after the shared
 libraries were installed.
+
+A fresh container's system `python3` may lack `PyYAML`, and the step-0
+snapshot tool (`archive_reader.py`) reads the watchlist with `import yaml`
+inside a blanket `except Exception` that collapses *any* load failure to the
+bare message `watchlist unreadable` and exits `inaccessible` - so a missing
+interpreter dependency masquerades as an unreadable watchlist and hides the
+real cause. Run the snapshot under the state venv's Python
+(`/workspaces/.agent-state/eunomia-qa/venv/bin/python archive_reader.py …`),
+where `yaml` (and `psycopg`) are installed, and read the step-0 output's
+`opt_in_sources` / message counts before treating the window as frozen: a
+`watchlist unreadable` exit means the archive was *not* actually read this
+run. A 10-18 run hit this on a fresh host: system `python3` had no PyYAML,
+the snapshot aborted as `watchlist unreadable`, and only the venv re-run
+produced the real 2-source, 11-message frozen window.
