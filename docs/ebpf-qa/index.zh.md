@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [BPF LRU 哈希 map 什么时候淘汰一个条目，当它的 LRU 列表是每 CPU 一份而不是跨 CPU 共享时会改变什么？](/zh/ebpf-qa/2026-10-19-bpf-lru-hash-eviction-percpu-vs-global-lru-list/)
 - [FUSE 守护进程对 OBI trace 上下文 map 的查询返回了一个条目时，这个条目一定是当前请求的 trace 上下文吗？它什么时候会过期？](/zh/ebpf-qa/2026-10-18-fuse-trace-context-map-hit-current-vs-stale/)
 - [为什么 FUSE 文件系统运行在 PID 命名空间内时，FUSE 守护进程对 OBI trace 上下文 map 的查询会查不到？](/zh/ebpf-qa/2026-10-17-fuse-trace-context-map-lookup-misses-in-pid-namespace/)
 - [OpenTelemetry eBPF 插桩如何判定它能为哪些语言运行时打上 trace 上下文，又如何验证 FUSE 守护进程线程确实继承了上下文？](/zh/ebpf-qa/2026-10-16-obi-trace-context-supported-language-runtimes/)
