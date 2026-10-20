@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-10-18。
+> 状态：内部执行 checklist，不发布。更新时间：2026-10-19。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -12,13 +12,13 @@
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - 阻塞：2026-09-17 复查时，现有 Chrome `Yunwei` 可见会话访问 `https://www.zhihu.com/creator` 仍重定向到 `https://www.zhihu.com/signin?next=%2Fcreator`，cookie 中仍无 `z_c0` 登录凭证；页面提供验证码、密码和第三方登录入口，均未操作。恢复条件是用户在该可见 Chrome profile 中完成知乎登录，且重新打开 `/creator` 能进入创作中心而非 `/signin`；恢复后从 AgentCgroup 的知乎任务继续。阻塞期间继续执行其他平台任务。
-- 补发缺口：0 条（2026-10-02 巡检已核销 2026-09-03 与 2026-09-16 两条缺口，当前无补发缺口）。  2026-10-18 巡检使用 LA 10-18 正常额度向掘金发布 1 条：struct_ops（<https://juejin.cn/post/7697622920013709347>，提交时刻 2026-10-19 07:23 +08 = 16:23 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697622920013709347 暂存，创作者中心 08:12 +08 前后轮询翻为 全部 88 / 已发布 88 / 审核中 0（审核间隔约 49 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token / dynptr 的 1–23 分钟先例，为本系列最长审核间隔）；QA 通过、ledger 已 `confirmed`）  2026-10-17 巡检使用 LA 10-17 正常额度向掘金发布 1 条：dynptr（<https://juejin.cn/post/7697186290753159202>，提交时刻 2026-10-18 07:24 +08 = 16:24 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697186290753159202 暂存，创作者中心 07:47 +08 前后轮询翻为 全部 87 / 已发布 87 / 审核中 0（审核间隔约 23 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档先例，为本系列最长审核间隔）；QA 通过、ledger 已 `confirmed`）  2026-10-16 巡检使用 LA 10-16 正常额度向掘金发布 1 条：bpf_wq（<https://juejin.cn/post/7697094073967116323>，提交时刻 2026-10-17 07:17 +08 = 16:17 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697094073967116323 暂存，创作者中心 07:18 +08 前后轮询翻为 全部 86 / 已发布 86 / 审核中 0（审核间隔约 1 分钟，快档，与 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 先例一致）；公开页 QA 通过、ledger 已 `confirmed`）  2026-10-15 巡检使用 LA 10-15 正常额度向掘金发布 1 条：bpf_token（<https://juejin.cn/post/7696759034846445583>，提交时刻 2026-10-16 07:36 +08 = 16:36 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7696759034846445583 暂存，创作者中心 07:41 +08 前后轮询翻为 全部 85 / 已发布 85 / 审核中 0（审核间隔约 5 分钟，与 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters 快档先例一致）；公开页 QA 通过、ledger 已 `confirmed`）  2026-10-14 巡检使用 LA 10-14 正常额度向掘金发布 1 条：bpf_iters（<https://juejin.cn/post/7696384745624141824>，提交时刻 2026-10-15 08:51 +08 = 17:51 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7696384745624141824 暂存，创作者中心 08:56 +08 轮询翻为 全部 84 / 已发布 84 / 审核中 0（审核间隔约 5 分钟，与 26-sudo / 20-tc / bpftrace / bpf_arena 快档先例一致）；公开页 QA 通过、ledger 已 `confirmed`）  2026-10-13 巡检使用 LA 10-13
-- Ledger 基线：知乎有 41 个未映射中文源，掘金有 34 个（2026-10-18 巡检更新；掘金已映射 75/109）；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- 补发缺口：0 条（2026-10-02 巡检已核销 2026-09-03 与 2026-09-16 两条缺口，当前无补发缺口）。  2026-10-19 巡检使用 LA 10-19 正常额度向掘金发布 1 条：xpu/flamegraph（<https://juejin.cn/post/7698287001586040872>，提交时刻 2026-10-20 08:44 +08 = 17:44 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7698287001586040872 暂存，创作者中心 09:01 +08 前后轮询翻为 全部 89 / 已发布 89 / 审核中 0（审核间隔约 17 分钟，快于 dynptr 的 23 分钟与 struct_ops 的 49 分钟先例，慢于 bpf_wq / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档）；QA 通过、ledger 已 `confirmed`）  2026-10-18 巡检使用 LA 10-18 正常额度向掘金发布 1 条：struct_ops（<https://juejin.cn/post/7697622920013709347>，提交时刻 2026-10-19 07:23 +08 = 16:23 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697622920013709347 暂存，创作者中心 08:12 +08 前后轮询翻为 全部 88 / 已发布 88 / 审核中 0（审核间隔约 49 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token / dynptr 的 1–23 分钟先例，为本系列最长审核间隔）；QA 通过、ledger 已 `confirmed`）  2026-10-17 巡检使用 LA 10-17 正常额度向掘金发布 1 条：dynptr（<https://juejin.cn/post/7697186290753159202>，提交时刻 2026-10-18 07:24 +08 = 16:24 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697186290753159202 暂存，创作者中心 07:47 +08 前后轮询翻为 全部 87 / 已发布 87 / 审核中 0（审核间隔约 23 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档先例，为本系列最长审核间隔）；QA 通过、ledger 已 `confirmed`）。
+- Ledger 基线：知乎有 41 个未映射中文源，掘金有 33 个（2026-10-19 巡检更新；掘金已映射 76/109）；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
 - Medium 和 DEV 的 BPFix、tutorial 50–54、AgentCgroup、CPU noise、Agent Sandbox、ACRFence 与 Runtime Security 已完成；后续新增英文长文继续交叉排入，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
-- 剩余队列：知乎 24 条、掘金 3 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 27 个平台任务。后续新增内容直接插入合适位置。
+- 剩余队列：知乎 24 条、掘金 2 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 26 个平台任务。后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -127,7 +127,7 @@
 - [ ] `排队` 知乎：`docs/tutorials/features/dynptr/README.zh.md`。
 - [x] `排队` 掘金：`docs/tutorials/features/dynptr/README.zh.md`。 2026-10-18 07:24 +08（16:24 PDT）使用 LA 2026-10-17 正常额度，经可见编辑器（新编辑器会话、无预置草稿）单次弹窗提交，返回"发布成功"，进入审核间隔 /spost/7697186290753159202 暂存；创作者中心 07:47 +08 前后轮询翻为 全部 87 / 已发布 87 / 审核中 0（审核间隔约 23 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档先例，为本系列最长审核间隔）；分类 后端；标签 Linux、后端、性能优化；公开页 QA 通过（精确标题 H1×1、正文单份 14223 字符 [渲染 13785]、7 H2 / 15 H3 / 0 H4、11 个代码块 [2 c / 7 bash / 2 无标签]、0 图片、0 表格、8 条唯一外链目标全部改写为 link.juejin.cn?target=、0 条裸外链、0 评论）；正式地址 <https://juejin.cn/post/7697186290753159202>，ledger 已 `confirmed`。
 - [x] `排队` 掘金：`docs/tutorials/features/struct_ops/README.zh.md`。 2026-10-19 07:23 +08（16:23 PDT）使用 LA 2026-10-18 正常额度，经可见编辑器（新编辑器会话、无预置草稿）单次弹窗提交，返回"发布成功"，进入审核间隔 /spost/7697622920013709347 暂存；创作者中心 08:12 +08 前后轮询翻为 全部 88 / 已发布 88 / 审核中 0（审核间隔约 49 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token / dynptr 的 1–23 分钟先例，为本系列最长审核间隔）；分类 后端；标签 Linux、后端、性能优化；公开页 QA 通过（精确标题 H1×1、正文单份 20570 字符 [渲染 19740]、8 H2 / 16 H3 / 0 H4、20 个代码块 [8 c / 8 bash / 4 无标签 [渲染 21 <pre>]]、0 图片、0 表格、6 条唯一外链目标全部改写为 link.juejin.cn?target=、0 条裸外链、0 评论 [QA 读取时] / 3 评论 [后期计数]）；正式地址 <https://juejin.cn/post/7697622920013709347>，ledger 已 `confirmed`。
-- [ ] `排队` 掘金：`docs/tutorials/xpu/flamegraph/README.zh.md`。
+- [x] `排队` 掘金：`docs/tutorials/xpu/flamegraph/README.zh.md`。 2026-10-20 08:44 +08（17:44 PDT）使用 LA 2026-10-19 正常额度，经可见编辑器（新编辑器会话、无预置草稿）单次弹窗提交，返回"发布成功"，进入审核间隔 /spost/7698287001586040872 暂存；创作者中心 09:01 +08 前后轮询翻为 全部 89 / 已发布 89 / 审核中 0（审核间隔约 17 分钟，快于 dynptr 的 23 分钟与 struct_ops 的 49 分钟先例，慢于 bpf_wq / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档）；分类 后端；标签 Linux、后端、性能优化；公开页 QA 通过（精确标题 H1×1、正文单份 31718 字符 [渲染 31260]、11 H2 / 17 H3 / 5 H4、25 个代码块 [1 c / 1 cpp / 2 python / 18 bash / 3 无标签 [渲染 25 <pre>]]、0 图片 [源第 11 行 qwen3_flamegraph.svg 图片引用为 gitignored 构建产物、线上 404，刻意未上传、从发布稿中省略]、0 表格、11 条唯一外链目标全部改写为 link.juejin.cn?target=、0 条裸外链、1 评论 [放行后读取]）；正式地址 <https://juejin.cn/post/7698287001586040872>，ledger 已 `confirmed`，发布稿 `draft/media/2026-10-19/xpu-flamegraph/`。
 - [ ] `排队` 掘金：`docs/tutorials/xpu/gpu-kernel-driver/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/xpu/npu-kernel-driver/README.zh.md`。
 

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-18",
+  "last_checked": "2026-10-19",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7698287001586040872",
+      "status": "confirmed",
+      "title": "eBPF 示例：使用 CUPTI 构建 GPU 火焰图分析器",
+      "url": "https://juejin.cn/post/7698287001586040872",
+      "staged_url": "https://juejin.cn/spost/7698287001586040872",
+      "source_path": "docs/tutorials/xpu/flamegraph/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-20 08:44 +08 (LA date 2026-10-19) using the LA 2026-10-19 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 88 / 已发布 88 / 审核中 0 / 未通过 0; post-submission it read 全部 89 / 已发布 88 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for each). The post entered a review interval: /spost/7698287001586040872 staged while the creator center showed 审核中 (1); during that window the SPA shell answered HTTP 200 on the /post/ URL, so availability was judged from the logged-in creator center, which cleared at the ~09:01 +08 poll to 全部 89 / 已发布 89 / 审核中 0 (a ~17-minute review interval — longer than the 1-5 minute fast tier of bpf_wq / bpf_arena / bpf_iters / bpf_token but shorter than the 23-minute dynptr and 49-minute struct_ops intervals) and the canonical /post/ URL went live. Full public-page QA: exact title once as the page H1, single-copy body (31718 artifact chars; the rendered DOM normalizes code-block whitespace, so the page innerText reads 31260), 11 H2 / 17 H3 / 5 H4, 25 code blocks (1 c, 1 cpp, 2 python, 18 bash, 3 unlabeled — matching the rendered 25 <pre> one-to-one), 0 content images, 0 tables, all 11 external link targets rewritten to link.juejin.cn?target= with 0 bare external links, no 审核中 / 更新 / 删除 / 找不到 / 发布失败 markers. The source's single image reference (qwen3_flamegraph.svg, source line 11) was deliberately omitted from the published body: that .svg is a gitignored build artifact of the tutorial (never committed, absent from the upstream bpf-developer-tutorial, 404 on the live eunomia.dev tutorial page), so there is no source file to upload; the rest of the body is preserved verbatim. One comment appeared by the post-clearance read."
+    },
     {
       "id": "juejin-7697622920013709347",
       "status": "confirmed",
