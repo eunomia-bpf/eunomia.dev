@@ -150,7 +150,13 @@ the validator from the same cap - the content test, build, and render all
 succeed on the retry and the commit lands. A 10-17 run hit this on a fresh
 container: fourteen libraries were absent, the render step aborted before the
 commit, and the forward-move + re-run only completed after the shared
-libraries were installed.
+libraries were installed. On such a fresh host the apt package index is also
+often empty or stale, so a plain `apt-get install` fails with
+`Unable to locate package` before any of the libraries install; run
+`apt-get update` first, then the install. A 10-19 run hit exactly this:
+`apt-get install` reported every library as unlocatable, and only after an
+`apt-get update` did the fourteen-package install succeed and the re-render
+land the commit.
 
 A fresh container's system `python3` may lack `PyYAML`, and the step-0
 snapshot tool (`archive_reader.py`) reads the watchlist with `import yaml`
