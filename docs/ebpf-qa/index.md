@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why do OBI HTTP spans carry high-cardinality names, and how does the OpenTelemetry semantic convention bound span name cardinality?](/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/)
 - [When does a BPF LRU hash map evict an entry, and what changes when its LRU list is per-CPU instead of shared across CPUs?](/ebpf-qa/2026-10-19-bpf-lru-hash-eviction-percpu-vs-global-lru-list/)
 - [When a FUSE daemon lookup of the OBI trace context map returns an entry, is that entry the trace context of the current request, and when can the hit be stale?](/ebpf-qa/2026-10-18-fuse-trace-context-map-hit-current-vs-stale/)
 - [Why do FUSE daemon lookups in the OBI trace context map miss when the FUSE filesystem runs inside a PID namespace?](/ebpf-qa/2026-10-17-fuse-trace-context-map-lookup-misses-in-pid-namespace/)
