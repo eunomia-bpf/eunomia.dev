@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-19",
+  "last_checked": "2026-10-20",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -266,6 +266,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7698552541928554511",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动",
+      "url": "https://juejin.cn/post/7698552541928554511",
+      "staged_url": "https://juejin.cn/spost/7698552541928554511",
+      "source_path": "docs/tutorials/xpu/gpu-kernel-driver/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-21 07:29 +08 (LA date 2026-10-20) using the LA 2026-10-20 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 89 / 已发布 89 / 审核中 0 / 未通过 0; post-submission it read 全部 90 / 已发布 89 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search on .byte-select__input; the Linux option committed via a real CDP pointer click on the visible .byte-select-option, while 后端 and 性能优化 committed via in-page synthetic click + o.click() because repeated raw CDP pointer clicks at the option center did not land). The post entered a brief review interval: /spost/7698552541928554511 staged while the creator center showed 审核中 (1); during that window the SPA shell answered HTTP 200 on the /post/ URL, so publication state was judged only from the logged-in creator center. It cleared within ~3 minutes to 全部 90 / 已发布 90 / 审核中 0 (faster than the bpf_wq / bpf_arena / bpf_iters / bpf_token 1-5 minute fast tier). Public-page QA on the canonical /post/ URL: H1 exact once; single-copy body (artifact 11994 chars; rendered DOM innerText read 11482 after code-block whitespace normalization); 10 H2 / 3 H3 / 0 H4; source 8 fenced code blocks [1 c, 5 bash, 2 unlabeled] rendered as 8 <pre> in the Juejin DOM (1:1, source count authoritative); 0 images; 0 tables; all 6 unique external link targets (github.com/eunomia-bpf/bpftime/tree/master/example/gpu, github.com/eunomia-bpf/gpu_ext, lpc.events/event/19/contributions/2168/, github.com/eunomia-bpf/bpf-developer-tutorial, eunomia.dev/tutorials/, github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver) rewritten to link.juejin.cn?target= wraps with 0 bare external links; no 审核中 / 文章有更新 / 已被删除 / 找不到页面 / 发布失败 / 转存失败 markers; 5 comments read on the public page. Body injected via 14-chunk base64 write into window.__b64 then UTF-8 decode into CodeMirror (confirmed injected length 11994)."
+    },
     {
       "id": "juejin-7698287001586040872",
       "status": "confirmed",
