@@ -3605,6 +3605,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-19-bpf-lru-hash-eviction-percpu-vs-global-lru-list/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
     <lastmod>2026-10-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
