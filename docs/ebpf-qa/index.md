@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why can an OpenTelemetry OBI metric stay in the store up to twice as long as its TTL, and does the Prometheus exporter drop the same label set on every scrape?](/ebpf-qa/2026-10-21-obi-metric-label-set-ttl-lazy-vs-scrape-driven-expiration/)
 - [Why do OBI HTTP spans carry high-cardinality names, and how does the OpenTelemetry semantic convention bound span name cardinality?](/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/)
 - [When does a BPF LRU hash map evict an entry, and what changes when its LRU list is per-CPU instead of shared across CPUs?](/ebpf-qa/2026-10-19-bpf-lru-hash-eviction-percpu-vs-global-lru-list/)
 - [When a FUSE daemon lookup of the OBI trace context map returns an entry, is that entry the trace context of the current request, and when can the hit be stale?](/ebpf-qa/2026-10-18-fuse-trace-context-map-hit-current-vs-stale/)
