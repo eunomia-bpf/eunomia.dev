@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [OpenTelemetry OBI 的 Collector 接收器为什么保持独立模块和独立版本线，为什么普通的 go get 更新不会把接收器拉到 RC 标签？](/zh/ebpf-qa/2026-10-22-obi-collector-receiver-own-module-version-line-vs-rc-tag-discovery/)
 - [OpenTelemetry OBI 指标为什么会在 TTL 之后还在 store 里保留最长达两倍时长，Prometheus 导出器会不会在每次 scrape 时都删掉同一组 label？](/zh/ebpf-qa/2026-10-21-obi-metric-label-set-ttl-lazy-vs-scrape-driven-expiration/)
 - [OBI 的 HTTP span 为什么会出现高基数的名称，OpenTelemetry 语义约定又如何限制 span 名称的基数？](/zh/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/)
 - [BPF LRU 哈希 map 什么时候淘汰一个条目，当它的 LRU 列表是每 CPU 一份而不是跨 CPU 共享时会改变什么？](/zh/ebpf-qa/2026-10-19-bpf-lru-hash-eviction-percpu-vs-global-lru-list/)
