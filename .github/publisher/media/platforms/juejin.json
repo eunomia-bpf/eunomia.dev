@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-20",
+  "last_checked": "2026-10-21",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -23,6 +23,14 @@
       "staged_url": "https://juejin.cn/post/7688532185121947658",
       "review_status": "confirmed",
       "notes": "42-xdp-loadbalancer published through the visible Juejin editor with the prepared local artifact (16487 chars), category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article as public. The canonical /post/7688532185121947658 page carries the exact title, the single-copy body, five H2, nineteen H3, two H4, twenty-five code blocks, four external links, no content image, and the 暂无评论数据 empty state."
+    },
+    {
+      "checked_at": "2026-10-21",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7698947426490318888",
+      "review_status": "confirmed",
+      "notes": "xpu/npu-kernel-driver published through the visible Juejin editor with the prepared local artifact (9180 chars), category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article under 已发布; the creator center read 全部 91 / 已发布 91 / 审核中 0 / 未通过 0. The canonical /post/7698947426490318888 page carries the exact title, the single-copy body, nine H2, two H3, zero H4, nine code blocks, five unique external link targets all rewritten to link.juejin.cn wraps, no content image, and the 暂无评论 empty state; the /spost/ URL redirects to the public /post/ URL."
     },
     {
       "checked_at": "2026-09-23",
@@ -266,6 +274,16 @@
     }
   ],
   "published": [
+    {
+      "id": "juejin-7698947426490318888",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：跟踪 Intel NPU 内核驱动操作",
+      "url": "https://juejin.cn/post/7698947426490318888",
+      "staged_url": "https://juejin.cn/spost/7698947426490318888",
+      "source_path": "docs/tutorials/xpu/npu-kernel-driver/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on the LA 2026-10-21 normal slot with no catch-up gap redeemed (JSON-LD datePublished 2026-10-21T16:13:55-07:00 = 16:13 PDT = 2026-10-22 07:13:55 +08): submitted on a fresh /editor/drafts/new session with a single popup submit (发布成功 at https://juejin.cn/published). Pre-submission baseline (carried from the 2026-10-20 xpu/gpu-kernel-driver run) was 全部 90 / 已发布 90 / 审核中 0 / 未通过 0; after the review interval cleared, the creator center reads 全部 91 / 已发布 91 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化. The canonical /post/7698947426490318888 page carries the exact title once, a single-copy body (9180-char artifact; rendered DOM 8687), 9 H2, 2 H3, 0 H4, 9 code blocks, zero content images, zero tables, five unique external link targets all rewritten to link.juejin.cn wraps, no 审核中 / 文章有更新 / 已被删除 / 找不到页面 marker, and the 暂无评论 empty state. The /spost/ URL now redirects to the public /post/ URL."
+    },
     {
       "id": "juejin-7698552541928554511",
       "status": "confirmed",
