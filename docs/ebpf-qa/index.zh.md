@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [本地嵌入模型没有服务器也没有 token 计数，为什么它的 GenAI span 属性要声明期望缺失项，这些缺失项如何保持符合规范？](/zh/ebpf-qa/2026-10-23-genai-embeddings-span-expected-gaps-in-process-model/)
 - [OpenTelemetry OBI 的 Collector 接收器为什么保持独立模块和独立版本线，为什么普通的 go get 更新不会把接收器拉到 RC 标签？](/zh/ebpf-qa/2026-10-22-obi-collector-receiver-own-module-version-line-vs-rc-tag-discovery/)
 - [OpenTelemetry OBI 指标为什么会在 TTL 之后还在 store 里保留最长达两倍时长，Prometheus 导出器会不会在每次 scrape 时都删掉同一组 label？](/zh/ebpf-qa/2026-10-21-obi-metric-label-set-ttl-lazy-vs-scrape-driven-expiration/)
 - [OBI 的 HTTP span 为什么会出现高基数的名称，OpenTelemetry 语义约定又如何限制 span 名称的基数？](/zh/ebpf-qa/2026-10-20-obi-http-span-name-cardinality-route-vs-raw-path/)
