@@ -111,6 +111,17 @@ a hard-coded count assertion in the content tests; the unblock was fixing the
 test and getting a later deploy green, not waiting). Check `cache-control`/
 `age` on any fetched page to separate stale content, a failed deploy, and a
 cache.
+A distinct 404 cause is a failing runner image, not a failing content step:
+`ubuntu-latest` can rotate to a distro the pinned Playwright has no chromium
+build for, so the "Install browser audit dependencies" step dies and every
+later step — build, publish, Pages deploy — is skipped. A 10-22 run failed
+exactly this way (the runner resolved to `ubuntu26.04-x64`; Playwright 1.58.2
+refused to install chromium on it; all routes 404ed until the pipeline was
+repaired). Unblock by pinning the deploy job's runner to a distro the pinned
+Playwright supports — commit `runs-on: ubuntu-24.04` on `main`, which
+re-triggers the pipeline because GitHub runs the workflow file from the
+pushed commit — not by waiting, loosening the browser step, or bumping
+Playwright blindly.
 
 The validator's public-route poll is bounded by the shell command cap, which is
 shorter than a Pages deploy (about twenty minutes), so a first validator run
