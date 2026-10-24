@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [BPF binfmt-misc 处理器以透明模式执行 exec 时，为什么进程的 exe 链接、comm 和命令行仍然描述的是被执行的二进制，而不是实际运行的解释器？](/zh/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/)
 - [本地嵌入模型没有服务器也没有 token 计数，为什么它的 GenAI span 属性要声明期望缺失项，这些缺失项如何保持符合规范？](/zh/ebpf-qa/2026-10-23-genai-embeddings-span-expected-gaps-in-process-model/)
 - [OpenTelemetry OBI 的 Collector 接收器为什么保持独立模块和独立版本线，为什么普通的 go get 更新不会把接收器拉到 RC 标签？](/zh/ebpf-qa/2026-10-22-obi-collector-receiver-own-module-version-line-vs-rc-tag-discovery/)
 - [OpenTelemetry OBI 指标为什么会在 TTL 之后还在 store 里保留最长达两倍时长，Prometheus 导出器会不会在每次 scrape 时都删掉同一组 label？](/zh/ebpf-qa/2026-10-21-obi-metric-label-set-ttl-lazy-vs-scrape-driven-expiration/)

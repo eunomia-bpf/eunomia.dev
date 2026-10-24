@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [When a BPF binfmt-misc handler runs an exec in transparent mode, why do the process exe link, comm, and command line still describe the binary instead of the interpreter that actually runs?](/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/)
 - [Why does a local embeddings model with no server and no token count declare expected gaps in its GenAI span attributes, and how do the gaps stay spec-conformant?](/ebpf-qa/2026-10-23-genai-embeddings-span-expected-gaps-in-process-model/)
 - [Why does the OBI Collector receiver keep its own module and version line, and why does a plain go get update not discover the receiver at an RC tag?](/ebpf-qa/2026-10-22-obi-collector-receiver-own-module-version-line-vs-rc-tag-discovery/)
 - [Why can an OpenTelemetry OBI metric stay in the store up to twice as long as its TTL, and does the Prometheus exporter drop the same label set on every scrape?](/ebpf-qa/2026-10-21-obi-metric-label-set-ttl-lazy-vs-scrape-driven-expiration/)
