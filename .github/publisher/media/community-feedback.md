@@ -20,6 +20,14 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-10-25
+
+- LA 2026-10-25 patrol (manual run), no publication: the 掘金 queue has 0 remaining tasks (all 78 mapped posts published; the 24 open 平台任务 are all 知乎 — 23 `排队` + 1 `阻塞` — and 知乎 remains globally `阻塞` on login recovery; a fresh probe re-opened `https://www.zhihu.com/creator` in the persistent visible Chrome, which still redirects to `https://www.zhihu.com/signin?next=%2Fcreator` with no `z_c0` cookie and the 验证码/密码/扫码 login wall, so the 2026-09-17 recovery condition is still unmet; the AgentCgroup 知乎 task is skipped again).
+- Creator-center baseline unchanged since the 10-21 publication: 全部 91 / 已发布 91 / 审核中 0 / 未通过 0 — no new 掘金 publication.
+- Re-read the tracked top ten in the 掘金 creator center (10-25 window, no new publication): [xpu/npu-kernel-driver](https://juejin.cn/post/7698947426490318888) 4923 展现 / 76 阅读 / 0 点赞 / 0 评论 / 1 收藏; [xpu/gpu-kernel-driver](https://juejin.cn/post/7698552541928554511) 5325 / 61 / 1 点赞 / 0 评论 / 1 收藏; [xpu/flamegraph](https://juejin.cn/post/7698287001586040872) 591 / 35; [struct_ops](https://juejin.cn/post/7697622920013709347) 11 / 20; [dynptr](https://juejin.cn/post/7697186290753159202) 2449 / 58 / 1 点赞; [bpf_wq](https://juejin.cn/post/7697094073967116323) 15 / 24; [bpf_token](https://juejin.cn/post/7696759034846445583) 1008 / 48; [bpf_iters](https://juejin.cn/post/7696384745624141824) 864 / 42; [bpf_arena](https://juejin.cn/post/7695977967902933026) 2538 / 74; L10 [cgroup](https://juejin.cn/post/7695667191396040738) 12 / 26. All deltas vs the 10-24 checkpoint are monotonic ↑ (or held); the bpftrace-tutorial post remains rotated out of the top-ten window.
+- Public-surface re-verify: the [xpu/npu-kernel-driver](https://juejin.cn/post/7698947426490318888) staged URL still redirects to the public `/post/`, H1 exact, 9 rendered code blocks, 0 bare external links, and the comment section holds the `暂无评论数据` empty state (0 评论).
+- Next useful checkpoint: the 掘金 queue still has 0 remaining tasks, so the next patrol re-reads the tracked top ten in the creator center without a new publication (or resume the AgentCgroup 知乎 task if the user completes the 知乎 login in the visible profile); new checkpoint targets are inserted when new queue items or publications appear.
+
 ### 2026-10-24
 
 - LA 2026-10-24 patrol (manual run), no publication: the 掘金 queue has 0 remaining tasks (all 78 mapped posts published; the 24 open 平台任务 are all 知乎 — 23 `排队` + 1 `阻塞` — and 知乎 remains globally `阻塞` on login recovery; a fresh probe re-opened `https://www.zhihu.com/creator` in the persistent visible Chrome, which still redirects to `https://www.zhihu.com/signin?next=%2Fcreator` with no `z_c0` cookie and the 验证码/密码/扫码 login wall, so the 2026-09-17 recovery condition is still unmet; the AgentCgroup 知乎 task is skipped again).
