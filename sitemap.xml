@@ -3675,15 +3675,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
@@ -5527,6 +5541,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/weekly/2026-10-12/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/weekly/2026-10-12/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/weekly/2026-10-12/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/reports/org/weekly/2026-10-19/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/weekly/2026-10-19/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/weekly/2026-10-19/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/weekly/2026-10-19/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/org/weekly/2026-10-19/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/weekly/2026-10-19/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/weekly/2026-10-19/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/weekly/2026-10-19/" />
   </url>
   <url>
     <loc>https://eunomia.dev/research/agent-tool-retry-effect-idempotency/</loc>
