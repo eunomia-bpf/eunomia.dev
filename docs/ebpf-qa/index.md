@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why do non-sleepable BPF fentry and fexit programs silently skip calls from another task on the same CPU, and why do the skipped calls show up as recursion misses?](/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/)
 - [When a BPF binfmt-misc handler runs an exec in transparent mode, why do the process exe link, comm, and command line still describe the binary instead of the interpreter that actually runs?](/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/)
 - [Why does a local embeddings model with no server and no token count declare expected gaps in its GenAI span attributes, and how do the gaps stay spec-conformant?](/ebpf-qa/2026-10-23-genai-embeddings-span-expected-gaps-in-process-model/)
 - [Why does the OBI Collector receiver keep its own module and version line, and why does a plain go get update not discover the receiver at an RC tag?](/ebpf-qa/2026-10-22-obi-collector-receiver-own-module-version-line-vs-rc-tag-discovery/)
