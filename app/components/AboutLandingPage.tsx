@@ -190,6 +190,21 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
         </div>
       </div>
 
+      <div className="border-t border-slate-200 py-12">
+        <h2 className="text-2xl font-semibold tracking-normal text-ink">
+          {locale === "zh" ? "云基础设施合作伙伴" : "Cloud Infrastructure Partner"}
+        </h2>
+        <Image
+          src="/images/vultr.png"
+          alt="Vultr"
+          width={1451}
+          height={348}
+          className="mt-6 h-auto w-80 max-w-full"
+          unoptimized
+        />
+        <p className="mt-4 text-base text-slate-600">Cloud Infrastructure powered by Vultr</p>
+      </div>
+
       <ContactCard locale={locale} />
     </section>
   );
