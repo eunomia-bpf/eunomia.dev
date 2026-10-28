@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [BPF 重定向到邻居的辅助函数为什么会在以太网头很短的包上触发内核 BUG，修复又为什么在接收路径和发送路径上读取真实头部长度要使用不同的字段？](/zh/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
 - [为什么不可睡眠的 BPF fentry 与 fexit 程序会悄悄跳过同一 CPU 上其他任务的调用，被跳过的调用又为什么会记成递归丢失？](/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/)
 - [BPF binfmt-misc 处理器以透明模式执行 exec 时，为什么进程的 exe 链接、comm 和命令行仍然描述的是被执行的二进制，而不是实际运行的解释器？](/zh/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/)
 - [本地嵌入模型没有服务器也没有 token 计数，为什么它的 GenAI span 属性要声明期望缺失项，这些缺失项如何保持符合规范？](/zh/ebpf-qa/2026-10-23-genai-embeddings-span-expected-gaps-in-process-model/)
