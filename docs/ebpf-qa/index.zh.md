@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 iocost 的 cgroup 代价模型文件只能在内建模型的 auto 与 user 系数集之间切换，而 BPF struct ops 代价模型接管设备之后，这个文件为什么不再选择模型？](/zh/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/)
 - [BPF 重定向到邻居的辅助函数为什么会在以太网头很短的包上触发内核 BUG，修复又为什么在接收路径和发送路径上读取真实头部长度要使用不同的字段？](/zh/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
 - [为什么不可睡眠的 BPF fentry 与 fexit 程序会悄悄跳过同一 CPU 上其他任务的调用，被跳过的调用又为什么会记成递归丢失？](/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/)
 - [BPF binfmt-misc 处理器以透明模式执行 exec 时，为什么进程的 exe 链接、comm 和命令行仍然描述的是被执行的二进制，而不是实际运行的解释器？](/zh/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/)

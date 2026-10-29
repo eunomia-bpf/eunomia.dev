@@ -14,6 +14,7 @@ invented material is ever used to fill it.
 
 ## Latest Answers
 
+- [Why does the iocost cgroup cost model file only switch the built-in model between auto and user coefficient sets, and how does a BPF struct ops cost model take over a device while that file stops selecting a model?](/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/)
 - [Why does the BPF redirect neighbor helper trip a kernel BUG on a packet whose Ethernet header is short, and how does the fix read the true header length differently on the receive path than on the transmit path?](/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
 - [Why do non-sleepable BPF fentry and fexit programs silently skip calls from another task on the same CPU, and why do the skipped calls show up as recursion misses?](/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/)
 - [When a BPF binfmt-misc handler runs an exec in transparent mode, why do the process exe link, comm, and command line still describe the binary instead of the interpreter that actually runs?](/ebpf-qa/2026-10-24-bpf-binfmt-misc-transparent-exec-exe-link-vs-actual-interpreter/)
