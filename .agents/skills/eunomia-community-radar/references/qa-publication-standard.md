@@ -169,6 +169,16 @@ often empty or stale, so a plain `apt-get install` fails with
 `apt-get update` did the fourteen-package install succeed and the re-render
 land the commit.
 
+A headless host with no CJK font package renders the Chinese page as empty
+tofu boxes in a screenshot while the DOM checks still pass, because the
+render check compares rendered `h1` text content and measures overflow
+numerically rather than reading glyphs. Visual QA of the `zh` route is then
+useless even though the layout is fine. Install `fonts-noto-cjk` before
+judging any Chinese screenshot, and read a missing-glyph screenshot as an
+environment defect, never as a page defect (a 10-30 run saw exactly this: the
+390px mobile layout and code tokens measured intact, and only the screenshot
+was unreadable until the font package was installed and re-shot).
+
 A fresh container's system `python3` may lack `PyYAML`, and the step-0
 snapshot tool (`archive_reader.py`) reads the watchlist with `import yaml`
 inside a blanket `except Exception` that collapses *any* load failure to the
