@@ -62,6 +62,13 @@ If removing those details changes the technical answer, do not publish it.
 Prefer kernel documentation, project documentation, upstream source code,
 standards, and papers. A community message is a lead, not public evidence.
 
+When a References entry cites a mailing-list message, use the archive's full
+permalink, Message-ID with the author suffix included. The bare Message-ID URL
+resolves to a page reading "not found" plus a partial-match suggestion, so the
+reference ships broken even though the message is real; re-fetch every cited
+permalink from the finished page before publication (a 10-30 run resumed a
+retained candidate carrying two bare Message-ID URLs and fixed them pre-commit).
+
 Do not collect sensitive data merely to demonstrate that it can be detected.
 When the subject itself concerns secrets or private payloads, explain which
 component can see plaintext, what leaves that component, and how to verify that
