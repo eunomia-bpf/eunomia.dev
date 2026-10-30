@@ -129,6 +129,21 @@ Do not automate:
 - security, privacy, phone-verification, or CAPTCHA prompts
 - likes, comments, follows, reposts, or private messages
 
+## Session Recovery
+
+- The 知乎 login lives in the `z_c0` cookie. The persistent visible profile's
+  jar can hold anonymous identifiers (`d_c0`, `_xsrf`, `_zap`, `__zse_ck`, and
+  the mounted `SESSIONID`/`JOID`/`osd`/`crystal`) with no `z_c0`, in which case
+  both `https://www.zhihu.com/creator` and `https://zhuanlan.zhihu.com/write`
+  redirect to `/signin`.
+- Unlike Juejin, importing the mounted `/run/social-manager-session/browser-state.json`
+  cookies through the page-target CDP `Storage.setCookies` does NOT recover the
+  session when the mounted state itself carries no `z_c0` (verified 2026-10-30:
+  11 知乎 cookies imported, `/creator` still landed on `/signin`). Treat that
+  result as proof the recovery needs a real user login in the visible profile —
+  do not loop on cookie re-imports, and never solve the CAPTCHA/verification
+  prompt automatically.
+
 ## Ledger Update
 
 After a confirmed publish, update `.github/publisher/media/published.md` with
