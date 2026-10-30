@@ -3717,15 +3717,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
