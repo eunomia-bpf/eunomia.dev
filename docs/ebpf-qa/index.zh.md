@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 libbpf 在对象初始加载时会跳过手动策略程序，struct ops 的 map 初始化遍又为什么会把经接口设置的手动加载策略覆盖回去？](/zh/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/)
 - [为什么 iocost 的 cgroup 代价模型文件只能在内建模型的 auto 与 user 系数集之间切换，而 BPF struct ops 代价模型接管设备之后，这个文件为什么不再选择模型？](/zh/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/)
 - [BPF 重定向到邻居的辅助函数为什么会在以太网头很短的包上触发内核 BUG，修复又为什么在接收路径和发送路径上读取真实头部长度要使用不同的字段？](/zh/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
 - [为什么不可睡眠的 BPF fentry 与 fexit 程序会悄悄跳过同一 CPU 上其他任务的调用，被跳过的调用又为什么会记成递归丢失？](/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/)
