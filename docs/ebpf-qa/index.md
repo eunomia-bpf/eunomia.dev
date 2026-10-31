@@ -13,7 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
-
+- [Why does a generated BPF loader object get rejected when only subprograms or unloaded programs push the count past the cap, and how does the check move to the real loaded program count?](/ebpf-qa/2026-10-30-gen-loader-program-cap-deferred-to-loaded-count/)
 - [Why does libbpf skip manual strategy programs during the initial object load, and how does the struct ops map init pass clobber a manual load strategy set via the API?](/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/)
 - [Why does the iocost cgroup cost model file only switch the built-in model between auto and user coefficient sets, and how does a BPF struct ops cost model take over a device while that file stops selecting a model?](/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/)
 - [Why does the BPF redirect neighbor helper trip a kernel BUG on a packet whose Ethernet header is short, and how does the fix read the true header length differently on the receive path than on the transmit path?](/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
