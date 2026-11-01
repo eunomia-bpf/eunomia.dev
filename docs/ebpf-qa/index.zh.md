@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么带私有栈的 BPF 程序在抛出异常之后会让内核崩溃，而修复又为什么把保存寄存器的指针调整八个字节，而不是改动生成的代码？](/zh/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/)
 - [为什么生成式 BPF loader 对象会在只有子程序或未加载程序把数量推过上限时被拒绝，而检查又如何移到真实的已加载程序数量上？](/zh/ebpf-qa/2026-10-30-gen-loader-program-cap-deferred-to-loaded-count/)
 - [为什么 iocost 的 cgroup 代价模型文件只能在内建模型的 auto 与 user 系数集之间切换，而 BPF struct ops 代价模型接管设备之后，这个文件为什么不再选择模型？](/zh/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/)
 - [BPF 重定向到邻居的辅助函数为什么会在以太网头很短的包上触发内核 BUG，修复又为什么在接收路径和发送路径上读取真实头部长度要使用不同的字段？](/zh/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
