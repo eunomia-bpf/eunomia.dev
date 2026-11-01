@@ -6,45 +6,24 @@ description: CPU scheduling can become part of the AI inference critical path wh
 
 # When Does CPU Scheduling Help AI Inference?
 
-LLM inference is usually discussed as a GPU problem. That is mostly reasonable: matrix multiplication, attention, KV-cache access, and model execution dominate the compute budget. But a production inference service is not only a collection of GPU kernels.
+LLM inference is usually discussed as a GPU problem. Matrix multiplication, attention, KV-cache access, and model execution dominate the compute budget, and that framing is mostly right. But a production inference service is not only a collection of GPU kernels.
 
 The host still has to accept requests, tokenize input, schedule work, launch kernels, process GPU interrupts, move data, run communication progress threads, and keep the surrounding Kubernetes stack alive. If those CPU-side tasks cannot run when the accelerator needs them, the GPU can become indirectly starved.
 
-This post combines two sets of experiments around Gthulhu and vLLM:
+This post combines two sets of experiments:
 
 1. our original **single-node GB10 experiment**, where deliberate CPU saturation severely degraded vLLM and `sched_ext` scheduling recovered much of that loss; and
 2. later **DGX Spark tester results**, which showed both sides of the story: CPU contention can materially hurt multi-node inference, while some GPU/network-bound workloads barely respond to CPU scheduling at all.
 
-The useful conclusion is narrower than "a custom scheduler makes AI inference faster":
+The conclusion that survives both experiments is narrower than "a custom scheduler makes AI inference faster":
 
 > **CPU scheduling helps AI inference when latency-sensitive host work is on the inference critical path and is competing for CPU service.**
 
 When the bottleneck is elsewhere, changing the CPU scheduler should not be expected to move the result.
 
+Our earlier [eBPF tracing study of CPU noise in GPU inference](https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/) reached a similar place from the measurement side: scheduler and IRQ overhead stay small in a clean environment and turn real only under noisy-neighbour conditions. This post asks the complementary question, which is what a scheduler can do about it.
+
 <!-- more -->
-
-## What is Gthulhu?
-
-[Gthulhu](https://gthulhu.org/) is a cloud-native runtime scheduling platform built on eBPF and Linux `sched_ext`.
-
-Kubernetes decides **where a workload runs** and which resources it receives. Gthulhu focuses on what happens after placement: **which Linux tasks get CPU time, when they get it, and how that policy is resolved on each node**.
-
-A user expresses scheduling intent through the Web UI or CRD. The Manager resolves that intent against Kubernetes workloads and distributes policy to each node. A per-node Decision Maker maps the workload to the Linux processes and threads that actually matter, while the Gthulhu Scheduler applies the node-local decision through `sched_ext` and eBPF.
-
-The following workflow shows that path from Kubernetes-level intent to CPU dispatch:
-
-![Gthulhu workflow](https://gthulhu.org/assets/gthulhu-workflow.gif)
-
-In practical terms, Gthulhu separates the process into four steps:
-
-1. **Express intent** at the Kubernetes workload level.
-2. **Resolve the workload** through the Kubernetes API.
-3. **Translate the policy per node** into the processes and threads that matter.
-4. **Apply the decision at CPU dispatch time** through Linux `sched_ext`.
-
-This separation matters for AI inference because a policy such as "keep the vLLM decode path responsive" should not require hard-coding CPU IDs for every machine. Gthulhu can resolve higher-level workload intent against the runtime environment of each node.
-
-The experiments below ask the narrower systems question: **when does this kind of CPU scheduling actually improve AI inference?**
 
 ## Why CPU scheduling can enter the inference critical path
 
@@ -97,9 +76,9 @@ The contention is intentionally aggressive. The purpose is to expose scheduler b
 
 We compared three scenarios:
 
-- **A. Default scheduler + CPU pressure** — Linux EEVDF, no Gthulhu.
-- **B. Gthulhu, no explicit policy** — swap the scheduler while keeping the same contention.
-- **C. Gthulhu + workload policy** — additionally protect GPU/driver work and vLLM's decode-side hot path.
+- **A. Default scheduler + CPU pressure**: Linux EEVDF, no Gthulhu.
+- **B. Gthulhu, no explicit policy**: swap the scheduler while keeping the same contention.
+- **C. Gthulhu + workload policy**: additionally protect GPU/driver work and vLLM's decode-side hot path.
 
 ### A. Default scheduler under CPU pressure
 
@@ -133,7 +112,7 @@ Decode was effectively stuck around **6–7 tok/s**, while TTFT reached roughly 
 
 Decode increased to roughly **17–20 tok/s**, while TTFT fell to roughly **95–142 ms**.
 
-This is an important detail: no application-specific policy had been applied yet. Gthulhu's scheduling core derives from `scx_bpfland`, whose interactive scheduling behavior naturally favors tasks that frequently sleep, wake, and yield over pure CPU burners that continuously consume their time slice. vLLM's decode-side control path has much more of that interactive behavior than `stress-ng --cpu`.
+No application-specific policy had been applied yet. Gthulhu's scheduling core derives from `scx_bpfland`, whose interactive scheduling behaviour naturally favours tasks that frequently sleep, wake, and yield over pure CPU burners that continuously consume their time slice. vLLM's decode-side control path has much more of that interactive behaviour than `stress-ng --cpu`.
 
 ### C. Gthulhu with workload-aware policy
 
@@ -173,7 +152,7 @@ The policy was aimed mainly at the decode-side GPU loop:
 EngineCore → kernel submission → GPU → interrupt/completion → EngineCore
 ```
 
-But TTFT and prefill depend on a longer path:
+TTFT and prefill depend on a longer path:
 
 ```text
 benchmark client
@@ -185,17 +164,15 @@ benchmark client
   → GPU
 ```
 
-Protecting the decode hot path does not automatically protect every stage before it. In scenario C, more CPU service was directed toward decode-critical work, so `tg128` improved while TTFT regressed relative to scenario B.
+Protecting the decode hot path does not automatically protect every stage before it. In scenario C, more CPU service went to decode-critical work, so `tg128` improved while TTFT regressed relative to scenario B.
 
-That is not a contradiction. It shows that scheduling policy has to match the SLO being optimized. "Prioritize vLLM" is too coarse; TTFT, prefill, decode, networking, and distributed communication may require different task-level treatment.
+Not a contradiction. It shows that a scheduling policy has to match the SLO being optimised. "Prioritize vLLM" is too coarse; TTFT, prefill, decode, networking, and distributed communication may each need different task-level treatment.
 
 ---
 
 ## Experiment 2: independent DGX Spark follow-up
 
-A later tester ran a two-node DGX Spark / GB10 setup using tensor parallelism (`TP=2`) over RoCE/NCCL. This experiment is useful because it tested a much less pathological workload and compared the default scheduler with simple static CPU placement.
-
-The relevant results were:
+A later tester ran a two-node DGX Spark / GB10 setup using tensor parallelism (`TP=2`) over RoCE/NCCL. This experiment matters because it tested a much less pathological workload, and because it compared the default scheduler against simple static CPU placement rather than against a custom scheduler.
 
 | Scenario | Decode throughput | TTFT |
 | --- | ---: | ---: |
@@ -204,25 +181,23 @@ The relevant results were:
 | CPU contention, default scheduling | **17.51 ± 4.03 tok/s** | 387 ms |
 | CPU contention, pinned to 10 Cortex-X925 fast cores | **22.34 ± 1.39 tok/s** | **274 ms** |
 
-There are several useful observations here.
+### Under no contention, pinning did not make inference faster
 
-### 1. Under no contention, pinning did not make inference faster
+The default scheduler already placed the workload well enough, and static pinning produced slightly lower average throughput than the idle default case.
 
-The default scheduler already placed the workload well enough. Static pinning actually produced slightly lower average throughput than the idle default case.
+That is a counterexample to "more scheduler tuning is always better." If CPU placement is already adequate and the host is not under pressure, there may be nothing useful for a custom scheduler to fix.
 
-This is a good counterexample to the idea that "more scheduler tuning is always better." If CPU placement is already adequate and the host is not under pressure, there may be nothing useful for a custom scheduler to fix.
-
-### 2. Under contention, host scheduling became part of the distributed inference bottleneck
+### Under contention, host scheduling became part of the distributed bottleneck
 
 Adding CPU spinners reduced default throughput from **23.96 to 17.51 tok/s**, about a **27% drop relative to the idle result**, and variance increased significantly.
 
-Simply isolating the vLLM work onto the fast Cortex-X925 cores brought throughput back to **22.34 tok/s** and improved TTFT from **387 ms to 274 ms**.
+Isolating the vLLM work onto the fast Cortex-X925 cores brought throughput back to **22.34 tok/s** and improved TTFT from **387 ms to 274 ms**.
 
-The workload spans two machines and uses NCCL/RoCE, yet starving host-side work on one node was enough to gate end-to-end decode progress. Distributed GPU inference is still dependent on host scheduling.
+The workload spans two machines and uses NCCL/RoCE, yet starving host-side work on one node was enough to gate end-to-end decode progress. Distributed GPU inference still depends on host scheduling.
 
-### 3. Static CPU pinning is useful, but operationally limited in a heterogeneous cluster
+### Static pinning is useful, but operationally limited in a heterogeneous cluster
 
-In this experiment, "pinning" means assigning a process or thread a fixed CPU affinity so Linux may only run it on a selected set of logical CPUs. One simple way to do that is `taskset`:
+Here "pinning" means giving a process or thread a fixed CPU affinity so Linux may only run it on a selected set of logical CPUs. One simple way is `taskset`:
 
 ```bash
 # Run a process only on CPUs 0-9
@@ -232,51 +207,33 @@ taskset -c 0-9 <command>
 taskset -cp 0-9 <pid>
 ```
 
-The same idea can also be implemented with cpusets, cgroups, or Kubernetes CPU Manager policies. The important point is that the CPU set is chosen explicitly in advance.
+The same idea can be implemented with cpusets, cgroups, or Kubernetes CPU Manager policies. The important property is that the CPU set is chosen explicitly in advance.
 
-That makes static pinning a useful experimental baseline: if pinning the critical inference work to a known-good CPU set restores the lost performance, we have strong evidence that host CPU scheduling or placement is part of the bottleneck.
+That makes static pinning a useful experimental baseline: if pinning the critical inference work to a known-good CPU set restores the lost performance, host CPU scheduling or placement is part of the bottleneck.
 
-But that does **not** mean static pinning is always the practical production answer.
+It does **not** make static pinning the practical production answer.
 
-On a multi-node Kubernetes cluster, the difficulty moves from "can a task run faster on these CPUs?" to "which CPUs should this workload use on whichever node it lands on?" Nodes may have different CPU models, core counts, SMT layouts, NUMA topology, performance/efficiency core mixes, GPU/PCIe locality, and background load. A CPU ID such as `0-9` has no portable meaning across the cluster.
+On a multi-node Kubernetes cluster the difficulty moves from "can a task run faster on these CPUs?" to "which CPUs should this workload use on whichever node it lands on?" Nodes may have different CPU models, core counts, SMT layouts, NUMA topology, performance/efficiency core mixes, GPU/PCIe locality, and background load. A CPU ID such as `0-9` has no portable meaning across the cluster.
 
-The workload may also move. Pods are rescheduled, replicas scale out, nodes are drained, and different nodes may expose different topology. A static affinity rule therefore needs node-specific knowledge and lifecycle management: discover the local topology, decide which tasks should be pinned, translate that decision into the correct CPU IDs, and keep it valid as placement and contention change.
-
-This is exactly where a runtime system such as Gthulhu becomes more interesting. Rather than treating "pin vLLM to CPU 0-9" as a cluster-wide policy, the intent can be expressed at the workload/task level, for example to protect the inference hot path or favor CPUs close to an allocated device, and resolved independently on each node according to that node's actual resources and runtime state.
-
-So static pinning remains an important **baseline and diagnostic tool**, but the comparison we care about is not simply "Gthulhu versus `taskset` on one known machine." A stronger test is whether Gthulhu can preserve the benefit of good CPU placement while adapting across heterogeneous nodes and changing runtime conditions without maintaining per-node affinity rules by hand.
-
-The benchmark should therefore compare:
-
-```text
-default scheduling
-        vs
-manually tuned static affinity / pinning
-        vs
-Gthulhu workload-aware runtime scheduling
-```
-
-across multiple node types and under conditions where placement or contention changes over time.
+The workload also moves. Pods are rescheduled, replicas scale out, nodes are drained, and different nodes may expose different topology. A static affinity rule therefore needs node-specific knowledge and lifecycle management: discover the local topology, decide which tasks to pin, translate that decision into the correct CPU IDs, and keep it valid as placement and contention change.
 
 ---
 
-## A third result: sometimes scheduling barely matters
+## Experiment 3: when scheduling barely matters
 
 Another GB10 test produced the opposite outcome: heavy CPU pressure caused little change to the measured inference result, and scheduler changes provided almost no benefit.
 
-The reason was straightforward: that workload was primarily constrained by **GPU and/or network execution**, not by host CPU scheduling.
+That workload was primarily constrained by **GPU and/or network execution**, not by host CPU scheduling.
 
-This negative result is just as important as the large recovery in Experiment 1.
-
-A scheduler can only improve time spent waiting for schedulable CPU resources. It cannot manufacture GPU compute, HBM bandwidth, PCIe bandwidth, RoCE bandwidth, or faster collective communication.
+The negative result is as important as the large recovery in Experiment 1. A scheduler can only improve time spent waiting for schedulable CPU resources. It cannot manufacture GPU compute, HBM bandwidth, PCIe bandwidth, RoCE bandwidth, or faster collective communication.
 
 ---
 
-## So when does a scheduler help AI inference?
+## Four bottleneck patterns
 
 The experiments suggest thinking in terms of the **bottleneck pattern**, not the model name or GPU type.
 
-### Case 1: CPU contention delays a latency-sensitive host-side loop — high potential
+### When the host loop is starved
 
 Examples:
 
@@ -284,43 +241,41 @@ Examples:
 - GPU IRQ / driver work is delayed by CPU burners;
 - tokenization or API-server workers contend with batch jobs;
 - NCCL / RDMA progress threads are starved;
-- a node is intentionally oversubscribed to improve accelerator utilization.
+- a node is intentionally oversubscribed to improve accelerator utilisation.
 
-Typical symptoms include:
+Typical symptoms:
 
 - throughput drops when unrelated CPU load is introduced;
 - TTFT / ITL or decode jitter rises with CPU pressure;
-- GPU utilization develops gaps even though requests are queued;
+- GPU utilisation develops gaps even though requests are queued;
 - static CPU isolation restores much of the loss.
 
-This is the strongest signal that CPU scheduling is worth investigating.
+If most of those symptoms appear together, CPU scheduling is worth investigating. Our [GPU-server work](https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/) looks at the same host-side path from the kernel and driver side.
 
-### Case 2: the workload has interactive and batch tasks sharing the same CPUs — good fit for workload-aware scheduling
+### When interactive and batch work share cores
 
 AI serving has heterogeneous host tasks. Some run continuously; others execute briefly, sleep on GPU/network completion, and must wake quickly.
 
-A fair scheduler does not necessarily know which wakeup is part of the inference critical path. `sched_ext` gives us a way to encode or learn that distinction.
+A fair scheduler does not necessarily know which wakeup is on the inference critical path. `sched_ext` gives a way to encode or learn that distinction.
 
-This is especially interesting when a node combines inference with preprocessing, checkpointing, model download/staging, observability, or other background work.
+The case gets more interesting when a node combines inference with preprocessing, checkpointing, model download/staging, observability, or other background work.
 
-### Case 3: static pinning works locally, but cluster-wide placement is dynamic — good fit for runtime resolution
+### When placement is dynamic across nodes
 
-A known CPU set can be very effective on a single machine, but a Kubernetes workload does not necessarily stay on that machine. In a heterogeneous cluster, the right CPUs depend on the node that was selected, its topology, the devices allocated to the Pod, and current contention.
+A known CPU set can be very effective on one machine, but a Kubernetes workload does not necessarily stay on that machine. In a heterogeneous cluster the right CPUs depend on the selected node, its topology, the devices allocated to the Pod, and current contention.
 
-That means a portable policy should ideally express **intent** rather than hard-coded CPU IDs. For example:
+A portable policy should therefore express **intent** rather than hard-coded CPU IDs. For example:
 
 - keep the decode-critical threads responsive;
 - prefer CPUs local to the allocated GPU or NIC;
 - separate latency-sensitive workers from batch CPU consumers;
 - adapt when Pods move, replicas scale, or contention changes.
 
-This is a stronger justification for Gthulhu than simply replacing `taskset` on one server.
-
-### Case 4: GPU, memory, or network is already the bottleneck — low potential
+### When the GPU, HBM, or NIC is already the limit
 
 If the CPU can always feed the accelerator and progress communication quickly enough, changing CPU scheduling will do little.
 
-Examples include:
+Examples:
 
 - GPU compute is continuously saturated;
 - the model is memory-bandwidth bound;
@@ -328,11 +283,11 @@ Examples include:
 - the host has abundant idle CPU capacity;
 - adding CPU load does not change inference metrics.
 
-In those cases, the right optimization target is elsewhere.
+In those cases the right optimisation target is elsewhere.
 
 ---
 
-## A practical diagnostic before trying a custom scheduler
+## A diagnostic before trying a custom scheduler
 
 Before attributing an inference problem to Linux scheduling, run a simple A/B sequence:
 
@@ -367,19 +322,21 @@ across the actual cluster topology and workload lifecycle?
         └── no ──→ runtime workload-aware scheduling becomes interesting
 ```
 
-This is a much stronger methodology than quoting a single speedup number.
+Walking that tree is a stronger method than quoting a single speedup number.
 
-## Where Gthulhu fits
+## What the host scheduling layer looks like
 
-Gthulhu is not a GPU scheduler. `sched_ext` does not schedule CUDA kernels, GPU SMs, MIG instances, or NIC hardware queues.
+Gthulhu is a cloud-native runtime scheduling platform built on eBPF and Linux `sched_ext`. Kubernetes decides **where a workload runs** and which resources it receives; Gthulhu handles what comes after placement, namely which Linux tasks get CPU time, when, and how that policy is resolved on each node.
 
-Its role is the host execution layer:
+A user expresses scheduling intent through the Web UI or CRD. The Manager resolves it against Kubernetes workloads and distributes policy to each node. A per-node Decision Maker maps the workload to the Linux processes and threads that matter, and the scheduler applies the node-local decision through `sched_ext` and eBPF. In short: express intent, resolve the workload, translate the policy per node, apply it at dispatch time.
+
+It is not a GPU scheduler. `sched_ext` does not schedule CUDA kernels, GPU SMs, MIG instances, or NIC hardware queues. Its role is the host execution layer:
 
 ```text
 Kubernetes / DRA / Kueue
     allocation, admission, placement
               ↓
-Gthulhu
+runtime policy layer
     Pod / workload → Linux tasks → runtime CPU policy
               ↓
 sched_ext
@@ -388,17 +345,7 @@ sched_ext
 GPU / network progress
 ```
 
-The longer-term Claim2Core direction is to connect Kubernetes allocation and topology information to that runtime layer, so policy can be based on the workload and the resources it actually received rather than on hand-written process names or node-specific CPU IDs alone.
-
-For AI inference, the more interesting future benchmarks are therefore not another synthetic "3×" demonstration. They are scenarios such as:
-
-- default vs static pinning vs Gthulhu across heterogeneous node types;
-- moving CPU contention;
-- prefill/decode phase-aware scheduling;
-- priority isolation between multiple inference services;
-- model-staging or checkpoint workloads interfering with serving;
-- multi-node inference where NCCL/RDMA progress threads become CPU-sensitive;
-- runtime placement informed by CPU/GPU/NIC/NUMA topology.
+The Claim2Core direction is to connect Kubernetes allocation and topology information to that runtime layer, so policy can be based on the workload and the resources it actually received rather than on hand-written process names or node-specific CPU IDs. Schedulers that adapt to workload phase rather than to a static profile are an adjacent line of work, as in [SchedCP](https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/).
 
 ## Conclusion
 
@@ -406,11 +353,11 @@ The original GB10 experiment showed a dramatic recovery because we intentionally
 
 **CPU scheduling is useful for AI inference when host-side latency-sensitive tasks are being delayed enough to stall accelerator or distributed-system progress.** Under those conditions, both static isolation and workload-aware scheduling can recover meaningful throughput and latency.
 
-Static pinning is therefore valuable evidence, but not necessarily the end state. On a heterogeneous Kubernetes cluster, the hard problem is often deciding and maintaining the right CPU placement for each workload on whichever node it actually runs. That is the layer where workload-aware runtime scheduling can add value beyond a manually tuned `taskset` command.
+Static pinning is therefore valuable evidence, but not necessarily the end state. On a heterogeneous Kubernetes cluster, the hard problem is often deciding and maintaining the right CPU placement for each workload on whichever node it actually runs. That is where workload-aware runtime scheduling can add value beyond a manually tuned `taskset` command.
 
-When the workload is already GPU-, memory-, or network-bound, however, the effect can still be negligible. The scheduler should be treated as one control point in the inference system, not a general-purpose accelerator.
+When the workload is already GPU-, memory-, or network-bound, the effect can still be negligible. Treat the scheduler as one control point in the inference system, not a general-purpose accelerator.
 
-That gives Gthulhu a clearer research target: **preserve good host-side placement and responsiveness while adapting across workload phases, node topology, contention, and Kubernetes placement changes that static per-node affinity rules cannot easily follow**.
+The next target: preserve good host-side placement and responsiveness while adapting across workload phases, node topology, contention, and Kubernetes placement changes that static per-node affinity rules cannot easily follow.
 
 ## Related links
 
@@ -419,3 +366,4 @@ That gives Gthulhu a clearer research target: **preserve good host-side placemen
 - [Gthulhu Claim2Core roadmap](https://github.com/Gthulhu/Gthulhu/issues/141)
 - [Original vLLM community blog PR](https://github.com/vllm-project/vllm-project.github.io/pull/300)
 - [`sched_ext` / scx](https://github.com/sched-ext/scx)
+- [Measuring CPU noise in GPU inference with eBPF (eunomia.dev)](https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/)
