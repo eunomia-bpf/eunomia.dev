@@ -21,7 +21,8 @@
   <link>https://eunomia.dev/zh/blog/2026/10/17/gthulhu-vllm-cpu-pressure/</link>
   <guid>https://eunomia.dev/zh/blog/2026/10/17/gthulhu-vllm-cpu-pressure/</guid>
   <pubDate>Sat, 17 Oct 2026 00:00:00 GMT</pubDate>
-  <description>LLM inference is usually discussed as a GPU problem. That is mostly reasonable: matrix multiplication, attention, KV-cache access, and model execution dominate the compute budget. But a production inference service is</description>
+  <description>LLM inference is usually discussed as a GPU problem. Matrix multiplication, attention, KV-cache access, and model execution dominate the compute budget, and that framing is mostly right. But a production inference</description>
+  <author>i@littlefisher.me (Littlefisher619)</author>
   <author>iancodinghtml@gmail.com (Ian Chen)</author>
   <category>AI agent observability</category>
 </item>
