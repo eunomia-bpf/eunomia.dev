@@ -18,6 +18,23 @@
   ],
   "published": [
     {
+      "id": "medium-5001bb9afab6",
+      "status": "confirmed",
+      "date": "2026-11-01",
+      "title": "Can a language model run in Linux eBPF?",
+      "url": "https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6",
+      "canonical_url": "",
+      "source_path": "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md",
+      "tags": [
+        "ebpf",
+        "inference",
+        "kernel",
+        "llm"
+      ],
+      "checked_via": "medium_api_publish_then_public_page_check",
+      "notes": "Published through the documented Medium API (/v1/users/{id}/posts) after MEDIUM_API_KEY became available again; the queue script reported publishStatus=public. Original author is Littlefisher619 (schema.org author on eunomia.dev), so the Medium byline reads yunwei37; the source article is unmodified."
+    },
+    {
       "id": "medium-59aff1cc69a5",
       "status": "confirmed",
       "date": "2026-10-31",

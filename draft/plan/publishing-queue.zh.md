@@ -4,6 +4,13 @@
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
+
+### 2026-11-01 排期（LA 时区）
+
+- [ ] `排队` Medium + DEV：`docs/blog/posts/bpf-gpu-server.md`。排入 **2026-11-09（下周一）** 的正常额度。作者 `yunwei37`，署名无冲突；负结果 + 预注册门槛 + 312 万请求，属高价值原始实验。
+- [x] `排队` Medium：`docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`。2026-11-01 经 Medium API 发布：<https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6>（`publishStatus=public`，JSON-LD `datePublished` 2026-11-01）。原作者 `Littlefisher619`，Medium byline 为 `yunwei37`，已在 `medium.json` notes 记录。
+- 说明：`MEDIUM_API_KEY` 在本地 `.env` 中已恢复可用（`GET /v1/me` 返回 `yunwei356`），此前 2026-10-31 巡检记录的「缺席」不再成立，后续 Medium 发布恢复 API 路径。
+
 ## 当前状态
 
 - 已核定：BPFix 已通过 API 发布到 Medium 和 DEV，公开页完整滚动检查通过；Medium 的可见标题已通过网页编辑器修复。

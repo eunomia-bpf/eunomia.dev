@@ -1,1 +1,1 @@
-{"path": "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md", "tags": ["eBPF", "LLM", "kernel", "inference"]}
+{"path": "docs/blog/posts/bpf-gpu-server.md", "tags": ["eBPF", "GPU", "io_uring", "kernel"]}
