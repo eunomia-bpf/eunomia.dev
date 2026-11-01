@@ -20,6 +20,13 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-10-31
+
+- LA 2026-10-31 patrol (manual run, explicitly asked to execute the queue): one publication, Medium [When Does CPU Scheduling Help AI Inference?](https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5) (`article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT), canonical <https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/>. The 掘金 queue still has 0 remaining tasks and the 24 open 平台任务 are still all 知乎 (23 `排队` + 1 `阻塞`); this run did not re-probe the 知乎 login, so the 2026-10-30 finding stands.
+- Session state relevant to the next publisher: `MEDIUM_API_KEY` and `DEV_TO_API_KEY` are still absent, so Medium went through the visible editor; the persistent profile keeps a working 掘金 creator-center session (全部 91 / 已发布 91 / 审核中 0 / 未通过 0, unchanged since the 10-21 publication). A public X post is readable while signed out (the Akeep post shows 1,346 查看 / 24 赞 / 5 书签 / 3 回复), but X's own analytics stay behind Plus.
+- Canonical surface intact: <https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/> renders its exact H1 `When Does CPU Scheduling Help AI Inference?`, 10 H2, 7 code blocks, and all three diagrams.
+- Next useful checkpoint: re-read the tracked 掘金 top ten, and check whether the new Medium story collects any response or external echo; the 知乎 queue resumes only when the user completes a 知乎 login in this visible profile (`/creator` must land on the creator center, not `/signin`).
+
 ### 2026-10-30
 
 - LA 2026-10-30 patrol (manual run, explicitly asked to execute the queue), no publication: the 掘金 queue has 0 remaining tasks (all 78 mapped posts published; the 24 open 平台任务 are all 知乎 — 23 `排队` + 1 `阻塞` — and 知乎 remains globally `阻塞` on login recovery). Two probes this run: `https://www.zhihu.com/creator` still redirects to `https://www.zhihu.com/signin?next=%2Fcreator`, and `https://zhuanlan.zhihu.com/write` redirects to the same signin page; the visible profile's cookie jar has `d_c0`, `_xsrf`, `_zap`, `__zse_ck` and `SESSIONID`/`JOID`/`osd`/`crystal` but no `z_c0`. Re-importing the 11 知乎 cookies from the mounted session state (`Storage.setCookies`, the documented Juejin recovery path) changed nothing — `/creator` still lands on `/signin` — so the mounted state itself no longer carries a 知乎 login, and the recovery condition needs the user to log in in the visible profile. The queue's 知乎 tasks are skipped again; the other 23 排队 rows have no runnable target this window.

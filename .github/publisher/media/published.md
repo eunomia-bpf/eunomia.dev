@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-10-21
+Last checked: 2026-11-01
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -288,12 +288,13 @@ Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). 
 
 Account checked in the in-app browser: <https://medium.com/@yunwei356>
 
-Earlier visible profile scrolling collected 62 authored story links; the newer BPFix and tutorials 51–54 public URLs were verified independently. The machine ledger maps 65 of 124 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
+Earlier visible profile scrolling collected 62 authored story links; the newer BPFix and tutorials 51–54 public URLs were verified independently. The machine ledger maps 66 of 127 English source files (2026-11-01); the difference includes source-equivalent mappings and remaining unmatched profile items.
 
 New confirmed posts:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-10-31 | When Does CPU Scheduling Help AI Inference? | <https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5> | Published through the visible Medium editor from the prepared semantic-HTML artifact because `MEDIUM_API_KEY` is absent; public full-scroll QA confirmed the exact title, 10 H2 plus 11 H3 body headings, 7 code blocks, 3 captioned figures with all 5 images loaded, the canonical eunomia.dev URL, and the `ebpf`/`linux`/`AI` topics |
 | Confirmed | 2026-08-24 | eBPF Tutorial: Inspecting the Executable Image After exec | <https://medium.com/@yunwei356/ebpf-tutorial-inspecting-the-executable-image-after-exec-46a312704a2c> | Published through the documented Medium API with `ebpf`, `linux`, and `security`; the prepared Markdown kept the complete source and replaced the Requirements table with a five-item fallback; public full-scroll QA confirmed the exact visible H1, 15 source body headings, 8 code blocks, loaded diagram, source and reference links, and three tags |
 | Confirmed | 2026-08-23 | eBPF Tutorial: Building an Egress Pacer with BPF Qdisc | <https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49> | Published through the documented Medium API with `ebpf`, `linux`, and `networking`; on 2026-08-30, repaired only the flattened Environment Requirements paragraph in place as an equivalent nine-item list. Signed-out public-page QA confirmed the list, unchanged title, 9 code blocks, loaded diagram, and preserved surrounding body; no new article was created |
 | Confirmed | 2026-08-17 | eBPF Tutorial: Tracing Slow vfs_read Calls with fsession | <https://medium.com/@yunwei356/ebpf-tutorial-tracing-slow-vfs-read-calls-with-fsession-defc728e227e> | Published through the documented Medium API with `ebpf`, `linux`, and `performance`; the prepared Markdown preserved the visible H1 and used a readable six-item fallback for the environment table; public full-scroll QA verified the exact title, 18 source body headings, 20 code blocks, source and reference links, three tags, and no failure markers |

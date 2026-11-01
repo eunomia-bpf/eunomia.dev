@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-30",
+  "last_checked": "2026-11-01",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,22 @@
     }
   ],
   "published": [
+    {
+      "id": "medium-59aff1cc69a5",
+      "status": "confirmed",
+      "date": "2026-10-31",
+      "title": "When Does CPU Scheduling Help AI Inference?",
+      "url": "https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5",
+      "canonical_url": "https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/",
+      "source_path": "docs/blog/posts/gthulhu-vllm-cpu-pressure.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "ai"
+      ],
+      "checked_via": "in_app_browser_medium_editor_semantic_html_publish_and_public_story_full_scroll",
+      "notes": "Pasted the prepared semantic-HTML artifact (draft/media/2026-10-31/gthulhu-vllm-cpu-pressure/medium-body.html) into the visible Medium editor because MEDIUM_API_KEY is absent from this environment. The one diverging code block was rebuilt in place with insertHTML so both commands stayed in a single pre; a full block-by-block diff against the artifact then matched 205 blocks in text and in heading level (source H1 to Medium title, H2 to H3, H3 to H4). Public full-scroll QA confirmed the exact title, 10 H2 plus 11 H3 body headings, 7 code blocks, 3 figures with captions and 5 loaded images, canonical URL, original-link footer, and the ebpf/linux/AI topics."
+    },
     {
       "id": "medium-423adab48a1b",
       "status": "confirmed",
