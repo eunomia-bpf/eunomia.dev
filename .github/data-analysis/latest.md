@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-10-31 13:44 UTC`
+Generated: `2026-11-01 14:23 UTC`
 
 ## Collection health
 
@@ -10,41 +10,41 @@ Generated: `2026-10-31 13:44 UTC`
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
 | github | succeeded | 154 | 0 |
-| devto | succeeded | 63 | 0 |
+| devto | succeeded | 64 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `164 ms`.
+- Homepage: `200` in `185 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `882`.
+- Sitemap entries observed: `884`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `100`.
-- Current stars: `10244`; forks: `1353`; open issue/PR records: `341`.
+- Current stars: `10247`; forks: `1352`; open issue/PR records: `355`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
 | [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4326 | 605 | 25 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1594 | 190 | 130 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1595 | 190 | 133 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 909 | 77 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 767 | 117 | 42 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 768 | 117 | 44 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 450 | 35 | 5 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
-| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 240 | 41 | 66 |
+| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 240 | 41 | 67 |
 | [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 149 | 21 | 2 |
 
 ## DEV publication surface
 
-- Articles observed: `63`.
+- Articles observed: `64`.
 - Public reactions: `43`; comments: `4`.
 
+- [Can a language model run in Linux eBPF?](https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip): 0 reactions, 0 comments.
 - [AgentCgroup: What Happens When AI Agents Meet OS Resources?](https://dev.to/yunwei37/agentcgroup-what-happens-when-ai-agents-meet-os-resources-1h2f): 0 reactions, 0 comments.
 - [eBPF Tutorial: Inspecting the Executable Image After exec](https://dev.to/yunwei37/ebpf-tutorial-inspecting-the-executable-image-after-exec-3el7): 0 reactions, 0 comments.
 - [eBPF Tutorial: Building an Egress Pacer with BPF Qdisc](https://dev.to/yunwei37/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-4fna): 0 reactions, 0 comments.
 - [eBPF Tutorial: Tracing Slow vfs_read Calls with fsession](https://dev.to/yunwei37/ebpf-tutorial-tracing-slow-vfsread-calls-with-fsession-48p5): 0 reactions, 0 comments.
-- [eBPF Tutorial: Precisely Isolating Established TCP Connections](https://dev.to/yunwei37/ebpf-tutorial-precisely-isolating-established-tcp-connections-56ld): 0 reactions, 0 comments.
 
 ## Coverage gaps
 
