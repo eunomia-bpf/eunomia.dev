@@ -282,18 +282,19 @@ New confirmed posts:
 | Confirmed | 3 weeks before 2026-07-19 | Introducing agentpprof as part of the Agentsight | <https://www.linkedin.com/search/results/content/?keywords=AgentSight&origin=GLOBAL_SEARCH_HEADER> | LinkedIn search result showed a Yusheng Zheng post about agentpprof and semantic flamegraphs. |
 | Confirmed | 8 months before 2026-07-19 | The GPU Observability Gap: Why We Need eBPF on GPU devices | <https://www.linkedin.com/search/results/content/?keywords=bpftime&origin=GLOBAL_SEARCH_HEADER> | LinkedIn search result showed a Yusheng Zheng post about GPU flamegraphs, bpftime, and the GPU observability blog. |
 
-Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 11 of 124 English target source files mapped as LinkedIn-published.
+Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 11 of 127 English target source files mapped as LinkedIn-published.
 
 ## Medium
 
 Account checked in the in-app browser: <https://medium.com/@yunwei356>
 
-Earlier visible profile scrolling collected 62 authored story links; the newer BPFix and tutorials 51–54 public URLs were verified independently. The machine ledger maps 66 of 127 English source files (2026-11-01); the difference includes source-equivalent mappings and remaining unmatched profile items.
+Earlier visible profile scrolling collected 62 authored story links; the newer BPFix and tutorials 51–54 public URLs were verified independently. The machine ledger maps 67 of 127 English source files (2026-11-01); the difference includes source-equivalent mappings and remaining unmatched profile items.
 
 New confirmed posts:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-11-01 | Can a language model run in Linux eBPF? | <https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6> | Published 2026-11-01 (LA) from `docs/blog/posts/qwen3-ebpf-in-kernel-inference.md` through the documented Medium API (`publishStatus=public`, JSON-LD `dateCreated`/`dateModified` `2026-11-01T07:55:13Z`) with topics `ebpf`/`llm`/`kernel`/`inference`; original author `Littlefisher619`, Medium byline `yunwei37`. Public full-scroll QA: the 5 rendered body headings match the 5 source `##` headings one-to-one, the single fenced block renders as one `pre`, the article renders 4 body external links (the 3 source link targets plus Medium's own membership-promo image link), body ~1,410 words, and the closing paragraph matches the source verbatim. Two defects: the story renders no visible title (`h1: 0`, no `graf--title` block) because the API `title` field controls listing/SEO only and the visible H1 was not included in `content`, and the source `mermaid` block survives only as raw flowchart code because Medium does not render Mermaid. `canonical_url` is empty because the Medium page self-canonicalizes: the API publish set no canonical, and setting one needs the editor or API key, neither of which was reachable at QA time. The correct canonical, <https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/>, was verified live (HTTP 200, correct title, self-referencing canonical). The web-editor title repair was attempted on 2026-11-01 and left open: medium.com served a Cloudflare verification interstitial and `/p/5001bb9afab6/edit` redirected to `/m/signin` |
 | Confirmed | 2026-10-31 | When Does CPU Scheduling Help AI Inference? | <https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5> | Published through the visible Medium editor from the prepared semantic-HTML artifact because `MEDIUM_API_KEY` is absent; public full-scroll QA confirmed the exact title, 10 H2 plus 11 H3 body headings, 7 code blocks, 3 captioned figures with all 5 images loaded, the canonical eunomia.dev URL, and the `ebpf`/`linux`/`AI` topics |
 | Confirmed | 2026-08-24 | eBPF Tutorial: Inspecting the Executable Image After exec | <https://medium.com/@yunwei356/ebpf-tutorial-inspecting-the-executable-image-after-exec-46a312704a2c> | Published through the documented Medium API with `ebpf`, `linux`, and `security`; the prepared Markdown kept the complete source and replaced the Requirements table with a five-item fallback; public full-scroll QA confirmed the exact visible H1, 15 source body headings, 8 code blocks, loaded diagram, source and reference links, and three tags |
 | Confirmed | 2026-08-23 | eBPF Tutorial: Building an Egress Pacer with BPF Qdisc | <https://medium.com/@yunwei356/ebpf-tutorial-building-an-egress-pacer-with-bpf-qdisc-01f2a8c5fb49> | Published through the documented Medium API with `ebpf`, `linux`, and `networking`; on 2026-08-30, repaired only the flattened Environment Requirements paragraph in place as an equivalent nine-item list. Signed-out public-page QA confirmed the list, unchanged title, 9 code blocks, loaded diagram, and preserved surrounding body; no new article was created |
@@ -308,7 +309,7 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
 
-The public author API listed 62 posts on 2026-08-27; the newer BPFix, AgentCgroup, and tutorials 51–54 public URLs were verified independently. The machine ledger maps 53 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
+The public author API listed 62 posts on 2026-08-27; the newer BPFix, AgentCgroup, and tutorials 51–54 public URLs were verified independently. The machine ledger maps 53 of 127 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed posts:
 

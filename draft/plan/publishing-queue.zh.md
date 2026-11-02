@@ -8,7 +8,7 @@
 ### 2026-11-01 排期（LA 时区）
 
 - [ ] `排队` Medium + DEV：`docs/blog/posts/bpf-gpu-server.md`。排入 **2026-11-09（下周一）** 的正常额度。作者 `yunwei37`，署名无冲突；负结果 + 预注册门槛 + 312 万请求，属高价值原始实验。
-- [x] `排队` Medium：`docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`。2026-11-01 经 Medium API 发布：<https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6>（`publishStatus=public`，JSON-LD `datePublished` 2026-11-01）。原作者 `Littlefisher619`，Medium byline 为 `yunwei37`，已在 `medium.json` notes 记录。
+- [x] `排队` Medium：`docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`。2026-11-01 经 Medium API 发布：<https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6>（`publishStatus=public`，JSON-LD `datePublished` 2026-11-01）。原作者 `Littlefisher619`，Medium byline 为 `yunwei37`，已在 `medium.json` notes 记录。公开页完整滚动 QA 通过（正文 5 个标题/1 个代码块/尾段逐字一致），但 API 发布的 story 没有可见标题（`h1: 0`）且 Mermaid 图只剩源码；标题修复与 canonical 设置处于 open，需要可见 profile 重新登录 Medium（本次运行后期 medium.com 返回 Cloudflare 拦截页、`/p/5001bb9afab6/edit` 重定向 `/m/signin`）。`MEDIUM_API_KEY` 在 2026-11-01 巡检的 shell 中仍不存在，API 可用性按每次运行自行探测。
 - 说明：`MEDIUM_API_KEY` 在本地 `.env` 中已恢复可用（`GET /v1/me` 返回 `yunwei356`），此前 2026-10-31 巡检记录的「缺席」不再成立，后续 Medium 发布恢复 API 路径。
 
 ## 当前状态

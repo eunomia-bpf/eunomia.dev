@@ -52,6 +52,13 @@ reachable and that title, media preview, links, and visible formatting are
 intact. Report a broken or incorrect artifact immediately; do not silently edit
 or republish it.
 
+Before reporting a page as dead, verify the URL byte-for-byte. Terminal and tool
+output can collapse path segments — a dated route such as `/blog/2026/10/17/x/`
+has been displayed as `/blog/2026-10-17/x/`, and re-probing the displayed form
+returns a real 404 for a page that is live. Copy the URL from the ledger or the
+sitemap, or encode it (hex/base64) and read it back, rather than retyping it from
+what the screen showed.
+
 ### 2. Observe Performance
 
 Collect only metrics visible to the normal account or public page, such as

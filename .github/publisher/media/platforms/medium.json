@@ -32,7 +32,7 @@
         "llm"
       ],
       "checked_via": "medium_api_publish_then_public_page_check",
-      "notes": "Published through the documented Medium API (/v1/users/{id}/posts) after MEDIUM_API_KEY became available again; the queue script reported publishStatus=public. Original author is Littlefisher619 (schema.org author on eunomia.dev), so the Medium byline reads yunwei37; the source article is unmodified."
+      "notes": "Published through the documented Medium API (/v1/users/{id}/posts) after MEDIUM_API_KEY became available again; the queue script reported publishStatus=public. Original author is Littlefisher619 (schema.org author on eunomia.dev), so the Medium byline reads yunwei37; the source article is unmodified. Public-page QA on 2026-11-01: body matches the source (5 rendered headings = 5 source `##`, one pre, 4 body links = the 3 source targets plus Medium's own promo image link, ~1410 words, verbatim closing paragraph), but the story renders no visible title because the API `title` field controls listing/SEO only and the visible H1 was not included in `content`; the source `mermaid` block survives only as raw flowchart code because Medium does not render Mermaid. `canonical_url` is empty because the Medium story self-canonicalizes: the API publish set no canonical, and setting one needs the web editor or `MEDIUM_API_KEY`, neither available at QA time. Canonical to set: <https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/> — verified live (HTTP 200). Title repair via the web editor was attempted the same day and is still open: medium.com served a Cloudflare verification interstitial and `/p/5001bb9afab6/edit` redirected to `/m/signin`."
     },
     {
       "id": "medium-59aff1cc69a5",
