@@ -69,6 +69,16 @@ reference ships broken even though the message is real; re-fetch every cited
 permalink from the finished page before publication (a 10-30 run resumed a
 retained candidate carrying two bare Message-ID URLs and fixed them pre-commit).
 
+Verify a lore permalink's liveness with a plain non-browser user agent such
+as `curl -A "Wget/1.21"`. `lore.kernel.org` sits behind an Anubis challenge
+that answers `403 Forbidden` to the default `curl/8` user agent and a `200`
+page titled `Making sure you're not a bot!` to a real Chrome user agent
+(including headless Playwright), so a link check with either of those reads a
+live message as broken; the `<title>` of the fetched page, not the status
+code, is the proof. Fetch `/raw` with the same header to re-check patch-body
+claims (counts, exact rejection strings, which side of a comparison the fix
+uses) instead of trusting a remembered summary.
+
 Do not collect sensitive data merely to demonstrate that it can be detected.
 When the subject itself concerns secrets or private payloads, explain which
 component can see plaintext, what leaves that component, and how to verify that
@@ -141,6 +151,19 @@ rewrites the receipt to `status=published` in a couple of seconds (a 10-11 run
 hit exactly this: commit `c3bda5865` landed, the first validator timed out
 at its 600s cap, the Pages run went green, and the re-verify pass completed
 the receipt without touching the commit again).
+
+A push rejected by `origin/main` advancing is the same shape one step
+earlier: forward-move and re-commit the four owned paths, then push. Do not
+push a second, unrelated commit immediately afterwards, because the deploy job
+begins with a `Check current production revision` step that skips any run whose
+`DEPLOY_SHA` is no longer the tip of `main` ("Skipping stale site deploy
+<sha>; main is <sha>"). The skipped run still reports `success`, so a green
+check does not mean the QA commit was published: only the run for the current
+tip deploys. A 11-01 run hit this — the QA commit's run went green in 2 minutes
+having built nothing, routes stayed 404, and the routes went live when the
+next commit's run deployed that tree. Read the deploy log for
+`current=true` plus a `Deploy to GitHub Pages` step, not the job conclusion,
+and re-run the validator only after that run reports success.
 
 The cap must also cover the pre-commit work: the validator runs
 `npm test:content`, the full production build, and two Chromium renders
