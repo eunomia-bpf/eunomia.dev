@@ -3759,15 +3759,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/ebpf-qa/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
@@ -5334,14 +5348,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/reports/</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/reports/</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
@@ -5401,6 +5415,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-09/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-09/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-09/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/reports/org/monthly/2026-10/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-10/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-10/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-10/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/org/monthly/2026-10/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-10/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-10/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-10/" />
   </url>
   <url>
     <loc>https://eunomia.dev/reports/org/weekly/2026-05-11/</loc>
