@@ -6,8 +6,10 @@
 
 ## 最新回答
 
+- [为什么校验器会拒绝一个用循环计数当键的数组查找，而提出的修复把可空性检查改成了什么？](/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
 - [为什么带私有栈的 BPF 程序在抛出异常之后会让内核崩溃，而修复又为什么把保存寄存器的指针调整八个字节，而不是改动生成的代码？](/zh/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/)
 - [为什么生成式 BPF loader 对象会在只有子程序或未加载程序把数量推过上限时被拒绝，而检查又如何移到真实的已加载程序数量上？](/zh/ebpf-qa/2026-10-30-gen-loader-program-cap-deferred-to-loaded-count/)
+- [为什么 libbpf 在对象初始加载时会跳过手动策略程序，struct ops 的 map 初始化遍又为什么会把经接口设置的手动加载策略覆盖回去？](/zh/ebpf-qa/2026-10-29-libbpf-manual-load-strategy-vs-struct-ops-map-init-clobber/)
 - [为什么 iocost 的 cgroup 代价模型文件只能在内建模型的 auto 与 user 系数集之间切换，而 BPF struct ops 代价模型接管设备之后，这个文件为什么不再选择模型？](/zh/ebpf-qa/2026-10-28-iocost-cost-model-file-vs-bpf-struct-ops-takeover/)
 - [BPF 重定向到邻居的辅助函数为什么会在以太网头很短的包上触发内核 BUG，修复又为什么在接收路径和发送路径上读取真实头部长度要使用不同的字段？](/zh/ebpf-qa/2026-10-27-bpf-redirect-neigh-mac-len-vs-network-offset/)
 - [为什么不可睡眠的 BPF fentry 与 fexit 程序会悄悄跳过同一 CPU 上其他任务的调用，被跳过的调用又为什么会记成递归丢失？](/zh/ebpf-qa/2026-10-25-bpf-fentry-fexit-false-recursion-misses-under-preemption/)
