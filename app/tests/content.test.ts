@@ -607,6 +607,31 @@ test("eBPF Q&A routes resolve in both locales", async () => {
   assert.match(chineseAnswer?.page.title ?? "", /eBPF 能否识别网络流量中的密钥/);
 });
 
+test("eBPF Q&A indexes link every dated answer in their own locale", () => {
+  // The daily publisher writes the pair and appends both index entries in one
+  // commit; a run that appends only the English entry leaves a live Chinese
+  // answer unreachable from the Chinese index (it happened on 2026-10-29).
+  const qaRoot = path.join(docsRoot, "ebpf-qa");
+  const entries = fs.readdirSync(qaRoot);
+  const dated = (name: string) => /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(name);
+  const english = entries.filter((name) => dated(name) && !name.endsWith(".zh.md"));
+  const chinese = entries.filter((name) => dated(name) && name.endsWith(".zh.md"));
+
+  assert.ok(english.length > 0 && english.length === chinese.length);
+
+  const englishIndex = fs.readFileSync(path.join(qaRoot, "index.md"), "utf8");
+  const chineseIndex = fs.readFileSync(path.join(qaRoot, "index.zh.md"), "utf8");
+  for (const name of english) {
+    assert.ok(englishIndex.includes(`/ebpf-qa/${name.replace(/\.md$/, "")}/`), name);
+  }
+  for (const name of chinese) {
+    assert.ok(
+      chineseIndex.includes(`/zh/ebpf-qa/${name.replace(/\.zh\.md$/, "")}/`),
+      name
+    );
+  }
+});
+
 test("reports dashboard is generated from weekly and monthly Markdown", async () => {
   const english = await resolveContentPage("/reports/", "en");
   const chinese = await resolveContentPage("/zh/reports/", "zh");
