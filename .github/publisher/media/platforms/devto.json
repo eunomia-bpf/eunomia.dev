@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-27",
+  "last_checked": "2026-11-02",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -135,6 +135,23 @@
       ],
       "checked_via": "dev_api_publish_and_visible_public_page_dom_qa",
       "notes": "Published through the documented DEV API after authenticated-account, full author-list, and exact-title duplicate checks. The API body removed only YAML front matter, the duplicate source H1, and the internal more marker. Visible public-page QA confirmed the exact title, four accepted tags, 14 source body headings, seven rendered tables, one code block, the complete ending, canonical notice, GitHub and arXiv links, and no broken source images."
+    },
+    {
+      "id": "devto-55ip",
+      "status": "confirmed",
+      "date": "2026-11-01",
+      "title": "Can a language model run in Linux eBPF?",
+      "url": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
+      "canonical_url": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
+      "source_path": "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md",
+      "tags": [
+        "ebpf",
+        "llm",
+        "kernel",
+        "inference"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published 2026-11-01T07:55:12Z by an upstream session; the previous run recorded only the Medium copy, so this entry closes the ledger gap found on 2026-11-02. Public-page DOM QA matched the source exactly: title, five body H2 headings, 12 inline code spans, the complete ending, and all source link targets. DEV rendered the Mermaid fence as an SVG diagram, so the copy has no raw-code block left; canonical is DEV self, not eunomia.dev. Zero comments and zero reactions at check time (public API)."
     }
   ],
   "confirmed_source_urls": {
@@ -189,7 +206,8 @@
     "docs/blog/posts/ebpf-papers.md": "https://dev.to/yunwei37/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years-2bjl",
     "docs/tutorials/25-signal/README.md": "https://dev.to/yunwei37/using-bpfsendsignal-to-terminate-malicious-processes-in-ebpf-4f87",
     "docs/tutorials/30-sslsniff/README.md": "https://dev.to/yunwei37/ebpf-practical-tutorial-capturing-ssltls-plain-text-data-using-uprobe-c8n",
-    "docs/tutorials/23-http/README.md": "https://dev.to/yunwei37/exploring-seven-layer-protocol-tracing-with-ebpf-http-and-beyond-via-socket-filters-and-syscall-tracing-5bc"
+    "docs/tutorials/23-http/README.md": "https://dev.to/yunwei37/exploring-seven-layer-protocol-tracing-with-ebpf-http-and-beyond-via-socket-filters-and-syscall-tracing-5bc",
+    "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip"
   },
   "browser_observations": [
     {
@@ -206,6 +224,13 @@
       "url": "https://dev.to/new",
       "status": "blocked",
       "notes": "BPFix remains absent from the published ledger, and the normal public @yunwei37 profile page showed 57 published posts with no exact-title BPFix match. Its canonical source and paste-ready DEV artifact were verified, but the in-app browser could not attach to a page after two attempts and Chrome showed the logged-out DEV sign-in page. No DEV editor draft or public post was created; no API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-11-02",
+      "checked_via": "dev_public_api_read_plus_visible_public_page_dom",
+      "url": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
+      "status": "confirmed",
+      "notes": "The public DEV API (articles_by_username, no API key) listed the qwen3 post first at published_timestamp 2026-11-01T07:55:12Z, which the ledgers had missed. Visible-page DOM QA confirmed h1, five h2, the Mermaid fence rendered as inline SVG rather than a pre block, and self-canonical. The public API and rendered page stay readable while the DEV editor session is logged out."
     }
   ],
   "references": [],

@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-01",
+  "last_checked": "2026-11-02",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -32,7 +32,7 @@
         "llm"
       ],
       "checked_via": "medium_api_publish_then_public_page_check",
-      "notes": "Published through the documented Medium API (/v1/users/{id}/posts) after MEDIUM_API_KEY became available again; the queue script reported publishStatus=public. Original author is Littlefisher619 (schema.org author on eunomia.dev), so the Medium byline reads yunwei37; the source article is unmodified. Public-page QA on 2026-11-01: body matches the source (5 rendered headings = 5 source `##`, one pre, 4 body links = the 3 source targets plus Medium's own promo image link, ~1410 words, verbatim closing paragraph), but the story renders no visible title because the API `title` field controls listing/SEO only and the visible H1 was not included in `content`; the source `mermaid` block survives only as raw flowchart code because Medium does not render Mermaid. `canonical_url` is empty because the Medium story self-canonicalizes: the API publish set no canonical, and setting one needs the web editor or `MEDIUM_API_KEY`, neither available at QA time. Canonical to set: <https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/> — verified live (HTTP 200). Title repair via the web editor was attempted the same day and is still open: medium.com served a Cloudflare verification interstitial and `/p/5001bb9afab6/edit` redirected to `/m/signin`."
+      "notes": "Published through the documented Medium API (/v1/users/{id}/posts) after MEDIUM_API_KEY became available again; the queue script reported publishStatus=public. Original author is Littlefisher619 (schema.org author on eunomia.dev), so the Medium byline reads yunwei37; the source article is unmodified. Public-page QA on 2026-11-01: body matches the source (5 rendered headings = 5 source `##`, one pre, 4 body links = the 3 source targets plus Medium's own promo image link, ~1410 words, verbatim closing paragraph), but the story renders no visible title because the API `title` field controls listing/SEO only and the visible H1 was not included in `content`; the source `mermaid` block survives only as raw flowchart code because Medium does not render Mermaid. `canonical_url` is empty because the Medium story self-canonicalizes: the API publish set no canonical, and setting one needs the web editor or `MEDIUM_API_KEY`, neither available at QA time. Canonical to set: <https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/> — verified live (HTTP 200). Title repair via the web editor was attempted the same day and is still open: medium.com served a Cloudflare verification interstitial and `/p/5001bb9afab6/edit` redirected to `/m/signin`. A 2026-11-02 re-read of the signed-out public page confirmed both defects persist (no visible H1; the Mermaid fence still shows as raw code) and that the editor path stayed blocked by a Cloudflare interstitial plus a `/m/signin` redirect, so the repair still needs a logged-in visible Medium session."
     },
     {
       "id": "medium-59aff1cc69a5",
@@ -48,7 +48,7 @@
         "ai"
       ],
       "checked_via": "in_app_browser_medium_editor_semantic_html_publish_and_public_story_full_scroll",
-      "notes": "Pasted the prepared semantic-HTML artifact (draft/media/2026-10-31/gthulhu-vllm-cpu-pressure/medium-body.html) into the visible Medium editor because MEDIUM_API_KEY is absent from this environment. The one diverging code block was rebuilt in place with insertHTML so both commands stayed in a single pre; a full block-by-block diff against the artifact then matched 205 blocks in text and in heading level (source H1 to Medium title, H2 to H3, H3 to H4). Public full-scroll QA confirmed the exact title, 10 H2 plus 11 H3 body headings, 7 code blocks, 3 figures with captions and 5 loaded images, canonical URL, original-link footer, and the ebpf/linux/AI topics."
+      "notes": "Pasted the prepared semantic-HTML artifact (draft/media/2026-10-31/gthulhu-vllm-cpu-pressure/medium-body.html) into the visible Medium editor because MEDIUM_API_KEY is absent from this environment. The one diverging code block was rebuilt in place with insertHTML so both commands stayed in a single pre; a full block-by-block diff against the artifact then matched 205 blocks in text and in heading level (source H1 to Medium title, H2 to H3, H3 to H4). Public full-scroll QA confirmed the exact title, 10 H2 plus 11 H3 body headings, 7 code blocks, 3 figures with captions and 5 loaded images, canonical URL, original-link footer, and the ebpf/linux/AI topics. A 2026-11-02 re-read found the live story still rendering the pre-restructure 10-H2 body (including `## What is Gthulhu?`), so the source drift to 9 H2 persists after the 2026-11-01 in-editor pass, which did republish the story: `article:published_time` moved from 2026-11-01T04:01:15Z to 2026-11-02T04:36:11Z."
     },
     {
       "id": "medium-423adab48a1b",
@@ -205,6 +205,13 @@
       "visible_article_links_collected": 62,
       "profile_url": "https://medium.com/@yunwei356",
       "notes": "Normal rendered-page scrolling reached a stable set of 62 authored stories. Historical source mappings use exact titles, unambiguous numbered-tutorial identity, or same-title duplicate-source identity."
+    },
+    {
+      "checked_at": "2026-11-02",
+      "checked_via": "signed_out_public_page_fetch_plus_visible_browser_public_dom",
+      "profile_url": "https://medium.com/@yunwei356",
+      "status": "partially_blocked",
+      "notes": "Both recent stories were readable without a session. The 2026-10-31 gthulhu story still shows the old 10-H2 structure against the restructured 9-H2 source, and its published_time moved to 2026-11-02T04:36:11Z. The 2026-11-01 qwen3 story still renders no visible title and keeps its Mermaid fence as code. The editor endpoints (`/p/<id>/edit`, `/me/stats`) serve a Cloudflare interstitial or redirect to `/m/signin`, so the missing-title repair and canonical fix remain blocked on a visible Medium login."
     }
   ],
   "references": [],

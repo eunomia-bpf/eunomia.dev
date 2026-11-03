@@ -1,22 +1,28 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-01。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-02。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
+
+### 2026-11-02 排期（LA 时区）
+
+- 本次巡检无新发布：唯一可执行的 `排队` 源 `docs/blog/posts/bpf-gpu-server.md` 已排在 LA 2026-11-09 的正常额度，24 条知乎任务仍平台级 `阻塞`，补发缺口 0（LA 11-01 已有确认发布）。
+- [x] `排队` DEV：`docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`。**台账补记，不是新发布**：该源于 `2026-11-01T07:55:12Z` 已在 DEV 公开 <https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip>，但 11-01 的提交只记了 Medium 副本，DEV 副本从未入账。公开 API 与可见页 DOM 双重复核一致（精确 H1、5 个正文 H2、12 个内联代码 span、完整尾段），DEV 把 `mermaid` 围栏渲染成内联 SVG（Medium 只留源码）；canonical 为 DEV 自指。已写入 `devto.json`（`confirmed`）、`published.md`（DEV 映射 53 → 54/127）与 `not-published.md`。
+- 说明：DEV 的公开 API 读取不需要 key，本次漏记正是这样发现的；`MEDIUM_API_KEY` / `DEV_TO_API_KEY` 在 11-02 的 shell 中仍不存在，API 可用性每次运行自行探测。
 
 ### 2026-11-01 排期（LA 时区）
 
 - [ ] `排队` Medium + DEV：`docs/blog/posts/bpf-gpu-server.md`。排入 **2026-11-09（下周一）** 的正常额度。作者 `yunwei37`，署名无冲突；负结果 + 预注册门槛 + 312 万请求，属高价值原始实验。
 - [x] `排队` Medium：`docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`。2026-11-01 经 Medium API 发布：<https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6>（`publishStatus=public`，JSON-LD `datePublished` 2026-11-01）。原作者 `Littlefisher619`，Medium byline 为 `yunwei37`，已在 `medium.json` notes 记录。公开页完整滚动 QA 通过（正文 5 个标题/1 个代码块/尾段逐字一致），但 API 发布的 story 没有可见标题（`h1: 0`）且 Mermaid 图只剩源码；标题修复与 canonical 设置处于 open，需要可见 profile 重新登录 Medium（本次运行后期 medium.com 返回 Cloudflare 拦截页、`/p/5001bb9afab6/edit` 重定向 `/m/signin`）。`MEDIUM_API_KEY` 在 2026-11-01 巡检的 shell 中仍不存在，API 可用性按每次运行自行探测。
-- 说明：`MEDIUM_API_KEY` 在本地 `.env` 中已恢复可用（`GET /v1/me` 返回 `yunwei356`），此前 2026-10-31 巡检记录的「缺席」不再成立，后续 Medium 发布恢复 API 路径。
+- 说明：`MEDIUM_API_KEY` 曾在本地 `.env` 中可用（`GET /v1/me` 返回 `yunwei356`），但 2026-11-01 与 2026-11-02 两次巡检的 shell 中均不存在；按每次运行自行探测，不继承任一结论。
 
 ## 当前状态
 
 - 已核定：BPFix 已通过 API 发布到 Medium 和 DEV，公开页完整滚动检查通过；Medium 的可见标题已通过网页编辑器修复。
 - 已核定：SchedCP 掘金文章与 tutorial 54 的掘金更新均已确认公开。
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
-- 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
+- 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发（但已有第三方自发提交：qwen3 <https://news.ycombinator.com/item?id=49854228>、bpf-gpu-server <https://news.ycombinator.com/item?id=50138075>，均已记入 `hackernews.json`）；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - 阻塞：2026-09-17 复查时，现有 Chrome `Yunwei` 可见会话访问 `https://www.zhihu.com/creator` 仍重定向到 `https://www.zhihu.com/signin?next=%2Fcreator`，cookie 中仍无 `z_c0` 登录凭证；页面提供验证码、密码和第三方登录入口，均未操作。恢复条件是用户在该可见 Chrome profile 中完成知乎登录，且重新打开 `/creator` 能进入创作中心而非 `/signin`；恢复后从 AgentCgroup 的知乎任务继续。阻塞期间继续执行其他平台任务。2026-10-30 巡检再次核实：`/creator` 与 `zhuanlan.zhihu.com/write` 均仍重定向到 `/signin`，可见 profile 只有匿名标识 cookie（`d_c0`/`_xsrf`/`_zap`/`__zse_ck` 及挂载态的 `SESSIONID`/`JOID`/`osd`/`crystal`），没有 `z_c0`；按 juejin 恢复路径导入挂载 session 的 11 条知乎 cookie 后 `/creator` 仍落回 `/signin`，证明挂载态本身已不含知乎登录，只能由用户在该可见 profile 中完成登录。
 - 补发缺口：0 条（2026-10-02 巡检已核销 2026-09-03 与 2026-09-16 两条缺口，当前无补发缺口）。  2026-10-21 巡检使用 LA 10-21 正常额度向掘金发布 1 条：xpu/npu-kernel-driver（<https://juejin.cn/post/7698947426490318888>，公开页 JSON-LD datePublished 2026-10-21T16:13:55-07:00 = 16:13 PDT；新编辑器会话、无预置草稿，单次弹窗提交即“发布成功”，进入审核间隔 /spost/7698947426490318888 暂存，创作者中心基线（承 10-20 gpu-kernel-driver 巡检）全部 90 / 已发布 90 / 审核中 0 / 未通过 0，间隔结束翻为 全部 91 / 已发布 91 / 审核中 0，/spost/ 现重定向 /post/；QA 通过、ledger 已 `confirmed`）  2026-10-20 巡检使用 LA 10-20 正常额度向掘金发布 1 条：xpu/gpu-kernel-driver（<https://juejin.cn/post/7698552541928554511>，提交时刻 2026-10-21 07:29 +08 = 16:29 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7698552541928554511 暂存，创作者中心 07:32 +08 前后轮询翻为 全部 90 / 已发布 90 / 审核中 0（审核间隔约 3 分钟，与 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 快档先例一致）；QA 通过、ledger 已 `confirmed`）  2026-10-19 巡检使用 LA 10-19 正常额度向掘金发布 1 条：xpu/flamegraph（<https://juejin.cn/post/7698287001586040872>，提交时刻 2026-10-20 08:44 +08 = 17:44 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7698287001586040872 暂存，创作者中心 09:01 +08 前后轮询翻为 全部 89 / 已发布 89 / 审核中 0（审核间隔约 17 分钟，快于 dynptr 的 23 分钟与 struct_ops 的 49 分钟先例，慢于 bpf_wq / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档）；QA 通过、ledger 已 `confirmed`）  2026-10-18 巡检使用 LA 10-18 正常额度向掘金发布 1 条：struct_ops（<https://juejin.cn/post/7697622920013709347>，提交时刻 2026-10-19 07:23 +08 = 16:23 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697622920013709347 暂存，创作者中心 08:12 +08 前后轮询翻为 全部 88 / 已发布 88 / 审核中 0（审核间隔约 49 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token / dynptr 的 1–23 分钟先例，为本系列最长审核间隔）；QA 通过、ledger 已 `confirmed`）  2026-10-17 巡检使用 LA 10-17 正常额度向掘金发布 1 条：dynptr（<https://juejin.cn/post/7697186290753159202>，提交时刻 2026-10-18 07:24 +08 = 16:24 PDT；新编辑器会话、无预置草稿，单次弹窗提交即"发布成功"，进入审核间隔 /spost/7697186290753159202 暂存，创作者中心 07:47 +08 前后轮询翻为 全部 87 / 已发布 87 / 审核中 0（审核间隔约 23 分钟，慢于 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token 的 1–5 分钟快档先例，为本系列最长审核间隔）；QA 通过、ledger 已 `confirmed`）。  2026-10-31 巡检使用 LA 10-31 正常额度向 Medium 发布 1 条：gthulhu-vllm-cpu-pressure（<https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5>，公开页 `article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT；`MEDIUM_API_KEY` 缺席，改走可见编辑器语义 HTML 粘贴，一次重建被拆分的 bash 代码块后逐块对齐 205 个块；公开页完整滚动 QA 通过、ledger 已 `confirmed`），未核销任何缺口；本次结束后补发缺口仍为 0 条（沿用 10-22～10-30 各次巡检的记账口径：掘金/Medium/DEV 已无可执行行，知乎按平台级登录 `阻塞` 整体挂起，不计入缺口）。
@@ -25,6 +31,7 @@
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
 - Medium 和 DEV 的 BPFix、tutorial 50–54、AgentCgroup、CPU noise、Agent Sandbox、ACRFence 与 Runtime Security 已完成；后续新增英文长文继续交叉排入，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
+- 已核定：2026-11-02（LA）巡检无新发布，但补记一篇已公开未入账的 DEV 文章（qwen3 `55ip`，2026-11-01T07:55:12Z 公开），DEV 覆盖 53 → 54/127。同日复核：Medium `5001bb9afab6` 无可见标题与 Mermaid 源码两缺陷仍在、编辑器仍被 Cloudflare 拦截；`59aff1cc69a5` 的 10 H2 结构漂移仍在，`article:published_time` 已变为 2026-11-02T04:36:11Z。
 - 已核定：2026-10-31（LA）巡检经可见 Medium 编辑器（`MEDIUM_API_KEY` 缺席）发布 1 条：gthulhu-vllm-cpu-pressure（<https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5>，JSON-LD dateModified / `article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT；公开页完整滚动 QA 通过、ledger 已 `confirmed`）。该源不在原队列内（Medium 0 条），按“后续新增英文长文继续交叉排入”补入并完成。
 - 剩余队列：知乎 24 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 24 个平台任务。后续新增内容直接插入合适位置。
 
