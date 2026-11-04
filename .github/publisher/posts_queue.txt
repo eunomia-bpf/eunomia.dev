@@ -1,1 +1,0 @@
-{"path": "draft/media/2026-11-03/bpf-gpu-server/devto.md", "tags": ["ebpf", "gpu", "kernel"]}
