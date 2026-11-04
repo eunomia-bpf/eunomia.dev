@@ -50,7 +50,8 @@ More content...
 The script will:
 - Extract the title from the first H1 heading
 - Remove the title from the content before publishing
-- Publish to both Medium and Dev.to as drafts
+- Publish to Medium and Dev.to (or only the platforms in `PUBLISH_PLATFORMS`)
+- Keep the queue entry unless every requested platform succeeded
 
 ## Usage
 
@@ -66,6 +67,7 @@ The workflow runs automatically every Monday at 9:00 AM UTC and publishes posts 
 4. Configure options:
    - **Dry run**: Preview post without publishing (validates format only)
    - **Publish as draft only**: Publish to platforms as drafts (default: true)
+   - **Platforms**: `devto`, `medium`, or `devto,medium`; empty publishes to both
 5. Click "Run workflow" button
 
 **Manual run modes:**
@@ -73,16 +75,21 @@ The workflow runs automatically every Monday at 9:00 AM UTC and publishes posts 
 - **Draft only enabled**: Publishes as drafts (not publicly visible)
 - **Draft only disabled**: Publishes live posts (publicly visible immediately)
 
-By default, one workflow run processes up to two queued posts. Set `PUBLISH_COUNT` to a positive integer to override this.
+By default, one workflow run processes up to two queued posts. Set `PUBLISH_COUNT` to a positive integer to override this. Set `PUBLISH_PLATFORMS` (workflow input **Platforms**, or the same env var locally) to retry only one platform after a partial failure, for example `PUBLISH_PLATFORMS=devto` after Medium already published.
 
 ## How It Works
 
 1. Script reads up to two posts from the front of `posts_queue.txt`
 2. Reads each markdown file and extracts the title
 3. Removes title from content
-4. Publishes each post to Medium and Dev.to via API
-5. Removes each successfully published post from the queue
+4. Publishes each post to the requested platforms via API
+5. Removes each post from the queue only when every requested platform succeeded
 6. Commits the updated queue file
+
+Tag values must be lowercase alphanumerics for DEV: `io_uring` is rejected with
+`422 Tag "io_uring" contains non-alphanumeric or prohibited unicode characters`.
+The API reports that failure per platform inside a `200` response, so check the
+`results` array rather than the HTTP status alone.
 
 ## Example Post Entry
 
