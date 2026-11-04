@@ -241,3 +241,9 @@ draft. A resumed candidate can state that both windows were empty while the
 seven-day window actually held messages, and the live page then contradicts
 its own source. Count distinct `ts` per channel per window in the same
 transaction as the content read, and make the page's numbers match it.
+
+The validator leaves its PNGs in `<state>/screenshots/{en,zh}/`, keyed by
+language only, so a second run for another date overwrites them. When a
+Chinese render shows tofu, install `fonts-noto-cjk` and re-shoot with a small
+throwaway Playwright script against `app/out` rather than re-running the whole
+validator: the earlier build is still valid, and only the pixels were wrong.
