@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-02",
+  "last_checked": "2026-11-03",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,22 @@
     }
   ],
   "published": [
+    {
+      "id": "medium-d8c070b5bd42",
+      "status": "confirmed",
+      "date": "2026-11-03",
+      "title": "Does moving a GPU server's request loop into the kernel save CPU?",
+      "url": "https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42",
+      "canonical_url": "",
+      "source_path": "docs/blog/posts/bpf-gpu-server.md",
+      "tags": [
+        "ebpf",
+        "gpu",
+        "kernel"
+      ],
+      "checked_via": "medium_api_publish_then_public_page_check",
+      "notes": "Published by the scheduled publish-posts workflow on 2026-11-03 at 14:45Z with topics ebpf/gpu/kernel and no canonical_url, so Medium self-canonicalizes. Public-page check on 2026-11-03 (LA): body is complete (~1,976 words, 8 body H3 from the 8 source `##`, full ending, GitHub links intact) but three defects persist, all from the same API Markdown import that already produced medium-5001bb9afab6: no rendered story title (h1: 0, body starts at the Mermaid block), the Mermaid fence kept as raw flowchart code in one pre, and the results table flattened to '| ... | — -|' prose rows. Both paper links resolve to https://medium.com/papers/bpf-gpu-server.pdf (403) because the source's relative link was sent unchanged. Repairs need a logged-in visible Medium editor; /p/d8c070b5bd42/edit still redirects to /m/signin in this profile."
+    },
     {
       "id": "medium-5001bb9afab6",
       "status": "confirmed",
@@ -196,7 +212,8 @@
     "docs/tutorials/2-kprobe-unlink/README.md": "https://medium.com/@yunwei356/ebpf-beginners-development-tutorial-2-using-kprobe-to-monitor-the-unlink-system-call-in-ebpf-bbdd8c020dbb",
     "docs/tutorials/1-helloworld/README.md": "https://medium.com/@yunwei356/ebpf-getting-started-tutorial-1-hello-world-basic-framework-and-development-process-33d4220022a4",
     "docs/tutorials/0-introduce/README.md": "https://medium.com/@yunwei356/ebpf-beginners-development-tutorial-0-introduction-to-the-basic-concepts-of-ebpf-and-common-119d45f5fd0f",
-    "docs/blog/posts/wasm-bpf.md": "https://medium.com/@yunwei356/wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly-25eb8662b823"
+    "docs/blog/posts/wasm-bpf.md": "https://medium.com/@yunwei356/wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly-25eb8662b823",
+    "docs/blog/posts/bpf-gpu-server.md": "https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42"
   },
   "browser_observations": [
     {
@@ -212,6 +229,13 @@
       "profile_url": "https://medium.com/@yunwei356",
       "status": "partially_blocked",
       "notes": "Both recent stories were readable without a session. The 2026-10-31 gthulhu story still shows the old 10-H2 structure against the restructured 9-H2 source, and its published_time moved to 2026-11-02T04:36:11Z. The 2026-11-01 qwen3 story still renders no visible title and keeps its Mermaid fence as code. The editor endpoints (`/p/<id>/edit`, `/me/stats`) serve a Cloudflare interstitial or redirect to `/m/signin`, so the missing-title repair and canonical fix remain blocked on a visible Medium login."
+    },
+    {
+      "checked_at": "2026-11-03",
+      "checked_via": "signed_out_public_page_fetch_plus_visible_browser_public_dom",
+      "profile_url": "https://medium.com/@yunwei356",
+      "status": "partially_blocked",
+      "notes": "The new d8c070b5bd42 story renders 1,976 words with a complete ending and 8 body H3, but repeats the API-import defects of 5001bb9afab6: no visible title (h1: 0, the body begins at the Mermaid block), the Mermaid fence kept as raw flowchart text in one pre, and the results table flattened to '| ... | -|' prose rows. Both paper links resolve to medium.com/papers/bpf-gpu-server.pdf (403) because the relative source link was sent unchanged. /p/d8c070b5bd42/edit still redirects to /m/signin, and 59aff1cc69a5 still renders the pre-restructure 10-H2 Gthulhu body."
     }
   ],
   "references": [],

@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-02",
+  "last_checked": "2026-11-03",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,22 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-d72",
+      "status": "confirmed",
+      "date": "2026-11-03",
+      "title": "Does moving a GPU server's request loop into the kernel save CPU?",
+      "url": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72",
+      "canonical_url": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72",
+      "source_path": "docs/blog/posts/bpf-gpu-server.md",
+      "tags": [
+        "ebpf",
+        "gpu",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "First DEV-only retry. The scheduled 2026-11-03 run had already published the Medium twin (medium-d8c070b5bd42) and failed DEV with 422 on the tag 'io_uring'; the API reports that inside a 200 response, so publish.py removed the queue entry and DEV was lost. Retried with PUBLISH_PLATFORMS=devto from the prepared artifact draft/media/2026-11-03/bpf-gpu-server/devto.md (source body minus frontmatter and the internal more-marker, the two paper links rewritten to https://eunomia.dev/_content-assets/docs/papers/bpf-gpu-server.pdf). Public API and visible DOM agree: exact title, 8 body H2 matching the 8 source `##`, one rendered table with 3 rows, the Mermaid fence as one inline SVG (no raw code), both PDF links absolute and live, and the complete ending. Tags ebpf/gpu/kernel accepted. Canonical is DEV self, not eunomia.dev, because the API call did not send canonical_url; 0 reactions and 0 comments at check time."
+    },
     {
       "id": "devto-43on",
       "status": "confirmed",
@@ -207,7 +223,8 @@
     "docs/tutorials/25-signal/README.md": "https://dev.to/yunwei37/using-bpfsendsignal-to-terminate-malicious-processes-in-ebpf-4f87",
     "docs/tutorials/30-sslsniff/README.md": "https://dev.to/yunwei37/ebpf-practical-tutorial-capturing-ssltls-plain-text-data-using-uprobe-c8n",
     "docs/tutorials/23-http/README.md": "https://dev.to/yunwei37/exploring-seven-layer-protocol-tracing-with-ebpf-http-and-beyond-via-socket-filters-and-syscall-tracing-5bc",
-    "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip"
+    "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
+    "docs/blog/posts/bpf-gpu-server.md": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72"
   },
   "browser_observations": [
     {
@@ -231,12 +248,20 @@
       "url": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
       "status": "confirmed",
       "notes": "The public DEV API (articles_by_username, no API key) listed the qwen3 post first at published_timestamp 2026-11-01T07:55:12Z, which the ledgers had missed. Visible-page DOM QA confirmed h1, five h2, the Mermaid fence rendered as inline SVG rather than a pre block, and self-canonical. The public API and rendered page stay readable while the DEV editor session is logged out."
+    },
+    {
+      "checked_at": "2026-11-03",
+      "checked_via": "dev_public_api_read_plus_visible_public_page_dom",
+      "url": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72",
+      "status": "confirmed",
+      "notes": "DEV-only retry published through the documented API from draft/media/2026-11-03/bpf-gpu-server/devto.md. The public author API listed 65 posts and put this one first at published_at 2026-11-04T02:30:51Z with tag_list 'ebpf, gpu, kernel', reading_time 8, 0 reactions and 0 comments; visible-page DOM matched 1 h1, 8 h2, 1 svg (the Mermaid diagram), 0 pre, a 3-row table, and both paper links absolute. The DEV editor session is logged out (/dashboard lands on /magic_links/new), so only the public API and the rendered page were used."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
-    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check."
+    "The public author API now reports 65 posts, so the earlier visible-scroll inventory is further behind than the three-item note assumed; re-scroll the profile before the next full-history audit.",
+    "New DEV copies published through publish.py still self-canonicalize because the API call sends no canonical_url; pass one on the next API publish instead of repairing it afterwards."
   ]
 }

@@ -1,9 +1,15 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-02。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-03。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
+### 2026-11-03 排期（LA 时区）
+
+- [x] `排队` Medium：`docs/blog/posts/bpf-gpu-server.md`。**由定时 workflow（`publish-posts`，2026-11-03T14:45Z）提前到 LA 11-03 发布**，而非原定的 11-09：<https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42>。API 发布成功，topics `ebpf`/`gpu`/`kernel`，无 canonical（Medium 自指）。公开页复核：正文完整（约 1,976 词、8 个正文 H3 对应源文 8 个 `##`、尾段一致、GitHub 链接正常），但存在与 qwen3 副本相同的三个 API 导入缺陷——无可见标题（`h1: 0`，正文从 Mermaid 块开始）、Mermaid 围栏只剩 flowchart 源码、结果表被压平成 `| … | — -|` 行文；两处论文链接落到 `https://medium.com/papers/bpf-gpu-server.pdf`（403）。已写入 `medium.json`（`confirmed`）与 `published.md`（Medium 映射 67 → 68/127）。
+- [x] `排队` DEV：`docs/blog/posts/bpf-gpu-server.md`。同一次 workflow 在 DEV 端失败（`422 Tag "io_uring" contains non-alphanumeric...`），但 API 把单平台失败包在 `200` 响应里，旧的 `publish.py` 仍判定成功并删掉了队列项，DEV 副本因此丢失。本次补齐两处：把 `publish.py` 改为按 `results` 判定、只有全部请求平台成功才出队，并新增 `PUBLISH_PLATFORMS`（workflow 输入 `platforms`）以支持单平台重试；随后以 `PUBLISH_PLATFORMS=devto`、tags `ebpf`/`gpu`/`kernel` 重发，公开页 <https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72>（`2026-11-04T02:30:51Z`）。公开 API 与可见 DOM 一致：精确标题、8 个正文 H2、3 行结果表、Mermaid 渲染为单个内联 SVG、两处论文链接为绝对地址且可用、完整尾段；canonical 为 DEV 自指。已写入 `devto.json`（`confirmed`）、`published.md`（DEV 映射 54 → 55/127）。
+- 记账说明：源文 `docs/blog/posts/bpf-gpu-server.md` 里的 `../../papers/bpf-gpu-server.pdf` 只在站点渲染下有效，任何平台同步都会变成死链。本次 DEV 副本在 artifact 里改成 `https://eunomia.dev/_content-assets/docs/papers/bpf-gpu-server.pdf`（HTTP 200，`application/pdf`，403 KB）；Medium 副本经由 bot 直接发送源文，未做替换，故仍是死链。源文本身未改，后续若再同步该文应先修源链接。
+- 补发缺口：LA 11-03 的两条发布各用掉正常额度一条、且分属不同平台，未产生新缺口。原定 11-09 的 Medium+DEV 额度已被本次消耗，队列中该源不再重复排期。
 
 ### 2026-11-02 排期（LA 时区）
 
@@ -13,7 +19,7 @@
 
 ### 2026-11-01 排期（LA 时区）
 
-- [ ] `排队` Medium + DEV：`docs/blog/posts/bpf-gpu-server.md`。排入 **2026-11-09（下周一）** 的正常额度。作者 `yunwei37`，署名无冲突；负结果 + 预注册门槛 + 312 万请求，属高价值原始实验。
+- [x] `排队` Medium + DEV：`docs/blog/posts/bpf-gpu-server.md`。原排入 **2026-11-09** 的正常额度，实际由定时 workflow 在 LA 2026-11-03 提前发布；作者 `yunwei37`，署名无冲突；负结果 + 预注册门槛 + 312 万请求，属高价值原始实验。两条平台的完成情况见 2026-11-03 小节。
 - [x] `排队` Medium：`docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`。2026-11-01 经 Medium API 发布：<https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6>（`publishStatus=public`，JSON-LD `datePublished` 2026-11-01）。原作者 `Littlefisher619`，Medium byline 为 `yunwei37`，已在 `medium.json` notes 记录。公开页完整滚动 QA 通过（正文 5 个标题/1 个代码块/尾段逐字一致），但 API 发布的 story 没有可见标题（`h1: 0`）且 Mermaid 图只剩源码；标题修复与 canonical 设置处于 open，需要可见 profile 重新登录 Medium（本次运行后期 medium.com 返回 Cloudflare 拦截页、`/p/5001bb9afab6/edit` 重定向 `/m/signin`）。`MEDIUM_API_KEY` 在 2026-11-01 巡检的 shell 中仍不存在，API 可用性按每次运行自行探测。
 - 说明：`MEDIUM_API_KEY` 曾在本地 `.env` 中可用（`GET /v1/me` 返回 `yunwei356`），但 2026-11-01 与 2026-11-02 两次巡检的 shell 中均不存在；按每次运行自行探测，不继承任一结论。
 
@@ -32,8 +38,9 @@
 - Medium 和 DEV 的 BPFix、tutorial 50–54、AgentCgroup、CPU noise、Agent Sandbox、ACRFence 与 Runtime Security 已完成；后续新增英文长文继续交叉排入，保留英文原文标题和正文，只做必要的平台格式适配。
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
 - 已核定：2026-11-02（LA）巡检无新发布，但补记一篇已公开未入账的 DEV 文章（qwen3 `55ip`，2026-11-01T07:55:12Z 公开），DEV 覆盖 53 → 54/127。同日复核：Medium `5001bb9afab6` 无可见标题与 Mermaid 源码两缺陷仍在、编辑器仍被 Cloudflare 拦截；`59aff1cc69a5` 的 10 H2 结构漂移仍在，`article:published_time` 已变为 2026-11-02T04:36:11Z。
+- 已核定：2026-11-03（LA）巡检补齐一条被平台级失败吞掉的发布，并修掉根因。定时 `publish-posts` workflow 提前用 LA 11-03 的正常额度发布了 `bpf-gpu-server` 的 Medium 副本（<https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42>），同一次请求里 DEV 因 tag `io_uring` 返回 422；API 把该失败包在 `200` 响应的 `results` 里，`publish.py` 遂判定成功并出队，DEV 副本丢失。修复：`publish.py` 按 `results` 判定，只有全部请求平台成功才出队，并新增 `PUBLISH_PLATFORMS`（workflow 输入 `platforms`）支持单平台重试；随后以 `PUBLISH_PLATFORMS=devto` 重发成功 <https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72>。两篇均经公开 API 与可见 DOM 复核入账，Medium 68/127、DEV 55/127。
 - 已核定：2026-10-31（LA）巡检经可见 Medium 编辑器（`MEDIUM_API_KEY` 缺席）发布 1 条：gthulhu-vllm-cpu-pressure（<https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5>，JSON-LD dateModified / `article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT；公开页完整滚动 QA 通过、ledger 已 `confirmed`）。该源不在原队列内（Medium 0 条），按“后续新增英文长文继续交叉排入”补入并完成。
-- 剩余队列：知乎 24 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 24 个平台任务。后续新增内容直接插入合适位置。
+- 剩余队列：知乎 24 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 24 个平台任务（全部知乎，平台级 `阻塞`）。原 `bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，不再占用 11-09 额度。后续新增内容直接插入合适位置。
 
 ## 发布队列
 

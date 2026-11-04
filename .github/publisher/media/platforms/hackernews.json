@@ -3,7 +3,7 @@
   "platform_id": "hackernews",
   "label": "Hacker News",
   "kind": "community",
-  "last_checked": "2026-11-02",
+  "last_checked": "2026-11-03",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -36,5 +36,13 @@
   "pending_verification": [
     "No eunomia.dev submission by the project account is confirmed; the five URL matches are third-party submissions or older tutorial links.",
     "The 2026-09-29 Pangram '100% AI generated' claim on the qwen3 story is the only content criticism recorded; a reply would need explicit authorization and a first-person statement about how the post was written."
+  ],
+  "browser_observations": [
+    {
+      "checked_at": "2026-11-03",
+      "checked_via": "public_algolia_api_plus_visible_item_pages",
+      "status": "unchanged",
+      "notes": "The Algolia URL search still returns exactly one bpf-gpu-server hit (50138075, 1 point, 0 comments, submitted by thatslast on 2026-10-18) and one qwen3 hit (49854228, 7 points, 3 comments). Both visible item pages served 'Sorry.' to the signed-out browser while their public data stayed readable through the Algolia API, so no new comment or score change could be confirmed on the rendered pages."
+    }
   ]
 }
