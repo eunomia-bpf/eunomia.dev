@@ -222,3 +222,22 @@ where `yaml` (and `psycopg`) are installed, and read the step-0 output's
 run. A 10-18 run hit this on a fresh host: system `python3` had no PyYAML,
 the snapshot aborted as `watchlist unreadable`, and only the venv re-run
 produced the real 2-source, 11-message frozen window.
+
+Forward-moving a shared checkout whose untracked files already exist in
+`origin/main` fails twice, and neither failure is the candidate's fault:
+`git rebase origin/main` aborts with `untracked working tree files would be
+overwritten` (its autostash preserves the dirty set but cannot clear the
+untracked ones), and `git merge --ff-only` fails the same way. Compare each
+untracked path against `git rev-parse origin/main:<path>` first; delete only
+the ones whose blob hash matches, then `git reset --soft origin/main` and
+restore them with `git checkout origin/main -- <paths>`. Never delete an
+untracked file whose content differs from the incoming blob - that content
+belongs to the user. A 11-02 run hit this with 26 identical untracked files
+under `docs/ebpf-qa/` and `draft/media/`, and left `origin/main`'s version
+staged as deletions until the restore.
+
+Re-count the archive before repeating a coverage sentence from an earlier
+draft. A resumed candidate can state that both windows were empty while the
+seven-day window actually held messages, and the live page then contradicts
+its own source. Count distinct `ts` per channel per window in the same
+transaction as the content read, and make the page's numbers match it.
