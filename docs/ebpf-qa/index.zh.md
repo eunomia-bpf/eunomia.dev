@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么挂在套接字钩子上的 cgroup BPF LSM 程序运行在调用方任务的 cgroup 里，而不是套接字自己的 cgroup，提出的修复把 shim 选择改成了什么？](/zh/ebpf-qa/2026-11-02-bpf-lsm-cgroup-socket-hook-caller-cgroup-vs-socket-cgroup/)
 - [为什么校验器会拒绝一个用循环计数当键的数组查找，而提出的修复把可空性检查改成了什么？](/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
 - [为什么带私有栈的 BPF 程序在抛出异常之后会让内核崩溃，而修复又为什么把保存寄存器的指针调整八个字节，而不是改动生成的代码？](/zh/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/)
 - [为什么生成式 BPF loader 对象会在只有子程序或未加载程序把数量推过上限时被拒绝，而检查又如何移到真实的已加载程序数量上？](/zh/ebpf-qa/2026-10-30-gen-loader-program-cap-deferred-to-loaded-count/)

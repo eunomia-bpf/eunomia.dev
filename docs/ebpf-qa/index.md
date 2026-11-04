@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why does a cgroup BPF LSM program attached to a socket hook run in the cgroup of the calling task rather than the socket, and what does the proposed fix change in shim selection?](/ebpf-qa/2026-11-02-bpf-lsm-cgroup-socket-hook-caller-cgroup-vs-socket-cgroup/)
 - [Why does the verifier reject an array lookup whose key is a loop counter rather than a constant, and what does the proposed fix change the nullness check to?](/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
 - [Why does a BPF program with a private stack crash the kernel after it throws an exception, and why does the fix adjust the saved-register pointer by eight bytes instead of changing the generated code?](/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/)
 - [Why does a generated BPF loader object get rejected when only subprograms or unloaded programs push the count past the cap, and how does the check move to the real loaded program count?](/ebpf-qa/2026-10-30-gen-loader-program-cap-deferred-to-loaded-count/)
