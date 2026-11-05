@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-03",
+  "last_checked": "2026-11-04",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-5did",
+      "status": "confirmed",
+      "date": "2026-11-04",
+      "title": "When Does CPU Scheduling Help AI Inference?",
+      "url": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did",
+      "canonical_url": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did",
+      "source_path": "docs/blog/posts/gthulhu-vllm-cpu-pressure.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "ai",
+        "performance"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published by the scheduled publish-posts workflow (run 41949983323, published_at 2026-11-05T01:39:39Z = LA 2026-11-04 17:39 PST) with PUBLISH_PLATFORMS=devto from the prepared artifact draft/media/2026-11-04/gthulhu-vllm-cpu-pressure/devto.md; the sent body matched that artifact exactly once the publisher stripped its H1 (359 of 359 remaining lines identical). Structure parity with the source: 1 h1, 9 body H2, 11 H3, 6 pre (12 fences), 5 tables (the source's 5 table blocks), 2,651 words, complete references ending. 0 reactions, 0 comments, reading_time 11. Canonical is DEV self because no canonical_url is sent. Defect: both chart images fail to load (naturalWidth 0, empty currentSrc). The rendered URL is DEV's own proxy, https://media2.dev.to/dynamic/image/...format=auto/https%3A%2F%2Fgthulhu.org%2Fassets%2Fvllm-gthulhu%2Fchart_*.svg, which answers 200 image/webp while the body is raw SVG (3181 and 2313 bytes); Chromium rejects that pair (Image.onload error) although the same proxy answers format=png with image/svg+xml and loads at 900x520. Repair needs the logged-in DEV editor, which is unavailable (/edit redirects to /magic_links/new); record as a syndication defect, not a queue item."
+    },
     {
       "id": "devto-d72",
       "status": "confirmed",
@@ -224,7 +241,8 @@
     "docs/tutorials/30-sslsniff/README.md": "https://dev.to/yunwei37/ebpf-practical-tutorial-capturing-ssltls-plain-text-data-using-uprobe-c8n",
     "docs/tutorials/23-http/README.md": "https://dev.to/yunwei37/exploring-seven-layer-protocol-tracing-with-ebpf-http-and-beyond-via-socket-filters-and-syscall-tracing-5bc",
     "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
-    "docs/blog/posts/bpf-gpu-server.md": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72"
+    "docs/blog/posts/bpf-gpu-server.md": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72",
+    "docs/blog/posts/gthulhu-vllm-cpu-pressure.md": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did"
   },
   "browser_observations": [
     {
@@ -255,13 +273,21 @@
       "url": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72",
       "status": "confirmed",
       "notes": "DEV-only retry published through the documented API from draft/media/2026-11-03/bpf-gpu-server/devto.md. The public author API listed 65 posts and put this one first at published_at 2026-11-04T02:30:51Z with tag_list 'ebpf, gpu, kernel', reading_time 8, 0 reactions and 0 comments; visible-page DOM matched 1 h1, 8 h2, 1 svg (the Mermaid diagram), 0 pre, a 3-row table, and both paper links absolute. The DEV editor session is logged out (/dashboard lands on /magic_links/new), so only the public API and the rendered page were used."
+    },
+    {
+      "checked_at": "2026-11-04",
+      "checked_via": "dev_public_api_read_plus_visible_public_page_dom",
+      "url": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did",
+      "status": "confirmed",
+      "notes": "Public author API listed the new post first (id 4978534, published_at 2026-11-05T01:39:39Z, tag_list 'ebpf, linux, ai, performance', 0 reactions, 0 comments, reading_time 11); the account total is 66 posts across two pages of per_page=100, and a first query in the same window still returned the cached 65-post list, so the listing lags a publish by minutes. Visible-page DOM QA matched the source heading, code and table counts exactly and showed the complete ending. Only the two external SVG charts are broken; the media2 proxy serves SVG bytes labelled image/webp for format=auto."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
+    "The public author API now reports 66 posts (first query after the 2026-11-04 publish still returned the cached 65), so the 2026-07-20 visible-scroll inventory of 54 links is further behind; re-scroll the profile before the next full-history audit.",
+    "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
-    "The public author API now reports 65 posts, so the earlier visible-scroll inventory is further behind than the three-item note assumed; re-scroll the profile before the next full-history audit.",
     "New DEV copies published through publish.py still self-canonicalize because the API call sends no canonical_url; pass one on the next API publish instead of repairing it afterwards."
   ]
 }

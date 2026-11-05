@@ -1,10 +1,16 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-03
+Last checked: 2026-11-04
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-04: the scheduled `publish-posts` workflow published `docs/blog/posts/gthulhu-vllm-cpu-pressure.md`
+to DEV (<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>, `2026-11-05T01:39:39Z`),
+so it is no longer a pending DEV source; its Medium copy was published 2026-10-31 and re-verified as the
+9-H2 source body. No new queue task was created: the entry that authorized this run was inserted for
+LA 2026-11-04 in `draft/plan/publishing-queue.zh.md` and is now checked off.
 
 ## Current Publisher Queue
 

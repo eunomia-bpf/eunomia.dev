@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-11-03
+Last checked: 2026-11-04
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -310,12 +310,13 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
 
-The public author API listed 62 posts on 2026-08-27; it now lists 65, and the newer BPFix, AgentCgroup, tutorials 51–54, the qwen3 post, and `bpf-gpu-server` public URLs were verified independently. The machine ledger maps 55 of 127 English source files, and scheduling uses only the resulting confirmed gaps.
+The public author API listed 62 posts on 2026-08-27; it now lists 66, and the newer BPFix, AgentCgroup, tutorials 51–54, the qwen3 post, `bpf-gpu-server`, and `gthulhu-vllm-cpu-pressure` public URLs were verified independently. The machine ledger maps 55 of 127 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed posts:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-11-04 | When Does CPU Scheduling Help AI Inference? | <https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did> | Published 2026-11-05T01:39:39Z (LA 2026-11-04) by the scheduled `publish-posts` workflow from `docs/blog/posts/gthulhu-vllm-cpu-pressure.md` via `draft/media/2026-11-04/gthulhu-vllm-cpu-pressure/devto.md`; the sent body matched that artifact once its H1 was stripped. Public API and page DOM agree on 1 h1, 9 body H2, 11 H3, 6 pre (12 fences), 5 tables, 2,651 words, the complete references ending, tags `ebpf`/`linux`/`ai`/`performance`, and 0 reactions/0 comments. Both chart images are broken: DEV's `format=auto` proxy returns the gthulhu.org SVG body under `image/webp`, so Chromium rejects them; canonical is DEV self |
 | Confirmed | 2026-11-03 | Does moving a GPU server's request loop into the kernel save CPU? | <https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72> | Published 2026-11-04T02:30:51Z from `docs/blog/posts/bpf-gpu-server.md` as a DEV-only retry: the scheduled 2026-11-03 run published the Medium twin and lost DEV to a `422 Tag "io_uring"` failure reported inside a `200` response. Public API and DOM QA agree on the exact title, 8 body H2 matching the 8 source `##`, one 3-row table, the Mermaid fence rendered as one inline SVG, both paper links absolute and live, and the complete ending; tags `ebpf`/`gpu`/`kernel`; canonical is DEV self |
 | Confirmed | 2026-11-01 | Can a language model run in Linux eBPF? | <https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip> | Published 2026-11-01T07:55:12Z from `docs/blog/posts/qwen3-ebpf-in-kernel-inference.md`; the 2026-11-01 run recorded only the Medium copy, so this row closes the ledger gap found on 2026-11-02. Public DOM QA matched the source exactly (title, 5 body H2, 12 inline code spans, complete ending, all source link targets); DEV rendered the Mermaid fence as an SVG diagram, so no raw-code block remains; canonical is DEV self rather than eunomia.dev. Topics `ebpf`/`llm`/`kernel`/`inference` |
 | Confirmed | 2026-08-27 | AgentCgroup: What Happens When AI Agents Meet OS Resources? | <https://dev.to/yunwei37/agentcgroup-what-happens-when-ai-agents-meet-os-resources-1h2f> | Published through the documented DEV API with `ebpf`, `linux`, `ai`, and `opensource`; visible public-page QA confirmed the exact title, 14 body headings, 7 rendered tables, 1 code block, canonical notice, complete ending, and GitHub and arXiv links |

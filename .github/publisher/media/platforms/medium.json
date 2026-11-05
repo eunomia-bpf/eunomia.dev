@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-03",
+  "last_checked": "2026-11-04",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -236,6 +236,13 @@
       "profile_url": "https://medium.com/@yunwei356",
       "status": "partially_blocked",
       "notes": "The new d8c070b5bd42 story renders 1,976 words with a complete ending and 8 body H3, but repeats the API-import defects of 5001bb9afab6: no visible title (h1: 0, the body begins at the Mermaid block), the Mermaid fence kept as raw flowchart text in one pre, and the results table flattened to '| ... | -|' prose rows. Both paper links resolve to medium.com/papers/bpf-gpu-server.pdf (403) because the relative source link was sent unchanged. /p/d8c070b5bd42/edit still redirects to /m/signin, and 59aff1cc69a5 still renders the pre-restructure 10-H2 Gthulhu body."
+    },
+    {
+      "checked_at": "2026-11-04",
+      "checked_via": "visible_browser_public_page_attempt",
+      "url": "https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5",
+      "status": "confirmed",
+      "notes": "Multiple loads inside the 2026-11-04 window hit Cloudflare 504 (Ray a559ee67ef9a8acf, gateway page with 2 h1 and 47 words). The one successful load rendered 1 h1, 11 h2, 11 h3, 7 pre, 0 table, and images at 64x64 avatar plus three zero-naturalWidth slots, i.e. the 9-H2 body drift and the missing chart images recorded on 2026-11-02 both persist. The sibling story d8c070b5bd42 could not be re-read before the retries ran out. medium.com/p/.../edit returned the editor once with empty Title/Subtitle fields and the body text, so the signed-in Medium session is intermittent rather than lost."
     }
   ],
   "references": [],

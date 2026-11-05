@@ -100,6 +100,15 @@
   image URLs may 404; use actual rendered URLs, stable GitHub raw URLs for
   public repository images, or DEV web-editor uploads, then full-scroll the
   public page so lazy-loaded images enter the viewport.
+- External SVG sources break on the rendered page. DEV rewrites every body
+  image through `media2.dev.to/dynamic/image/...format=auto/<encoded url>`;
+  for an external `.svg` that proxy answers `200 image/webp` while returning
+  the raw SVG bytes, and Chromium refuses the mismatch, leaving an empty box
+  (`naturalWidth: 0`). `format=png` on the same proxy returns
+  `image/svg+xml` and renders, but the artifact cannot set that flag. So
+  rasterize SVG figures to PNG and publish the PNG URL, or upload them
+  through the web editor; check `naturalWidth` on each image, not just
+  `complete`.
 
 ## Post-Publish Follow-Up
 

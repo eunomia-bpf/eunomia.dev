@@ -1,8 +1,14 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-03。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-04。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+
+### 2026-11-04 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/blog/posts/gthulhu-vllm-cpu-pressure.md`。由定时 workflow（`publish-posts`，run 41949983323，`PUBLISH_PLATFORMS=devto`）在 `2026-11-05T01:39:39Z`（LA 11-04 17:39 PST）从 `draft/media/2026-11-04/gthulhu-vllm-cpu-pressure/devto.md` 发布：<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>。tag `ebpf`/`linux`/`ai`/`performance`、article id 4978534、0 反应 0 评论、reading_time 11；公开 API 与可见页 DOM 一致（1 个 h1、9 个正文 H2、11 个 H3、6 个 `pre`/12 个围栏、5 个表格、2,651 词、尾段完整）。**缺陷**：两张 gthulhu.org 图表 SVG 加载失败（`naturalWidth 0`、`currentSrc` 空）；渲染源是 DEV 自己的代理 `media2.dev.to/...format=auto/https%3A%2F%2Fgthulhu.org%2F...svg`，返回 `200 image/webp` 但正文是裸 SVG（3181 / 2313 字节），Chromium 判为错配；同一代理 `format=png` 返回 `image/svg+xml` 且 900x520 能正常显示。修需登录 DEV 编辑器，而 `/edit` 仍重定向 `/magic_links/new`，故记为同步缺陷而非队列任务。canonical 为 DEV 自指（API 未传 `canonical_url`）。ledger 已 `confirmed`（DEV 映射 55 -> 56/127）。
+- 额度说明：本条用掉 LA 11-04 的正常额度；LA 11-01 至 11-03 均有确认发布，补发缺口仍为 0。
+- 复核：Medium 公开页 `59aff1cc69a5` 在本次窗口内多次命中 Cloudflare `504`（Ray `a559ee67ef9a8acf`），可读时仍为 1 h1 + 11 H2 + 11 H3 + 7 `pre` + 0 `table` 的 9-H2 结构漂移版本，`d8c070b5bd42` 本次未能重读；Medium 编辑器会话时好时坏，标题/表格修复继续 open。
 
 ### 2026-11-03 排期（LA 时区）
 
@@ -39,8 +45,9 @@
 - Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
 - 已核定：2026-11-02（LA）巡检无新发布，但补记一篇已公开未入账的 DEV 文章（qwen3 `55ip`，2026-11-01T07:55:12Z 公开），DEV 覆盖 53 → 54/127。同日复核：Medium `5001bb9afab6` 无可见标题与 Mermaid 源码两缺陷仍在、编辑器仍被 Cloudflare 拦截；`59aff1cc69a5` 的 10 H2 结构漂移仍在，`article:published_time` 已变为 2026-11-02T04:36:11Z。
 - 已核定：2026-11-03（LA）巡检补齐一条被平台级失败吞掉的发布，并修掉根因。定时 `publish-posts` workflow 提前用 LA 11-03 的正常额度发布了 `bpf-gpu-server` 的 Medium 副本（<https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42>），同一次请求里 DEV 因 tag `io_uring` 返回 422；API 把该失败包在 `200` 响应的 `results` 里，`publish.py` 遂判定成功并出队，DEV 副本丢失。修复：`publish.py` 按 `results` 判定，只有全部请求平台成功才出队，并新增 `PUBLISH_PLATFORMS`（workflow 输入 `platforms`）支持单平台重试；随后以 `PUBLISH_PLATFORMS=devto` 重发成功 <https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72>。两篇均经公开 API 与可见 DOM 复核入账，Medium 68/127、DEV 55/127。
+- 已核定：2026-11-04（LA）巡检完成一条 DEV 发布：`gthulhu-vllm-cpu-pressure` 经定时 workflow 于 `2026-11-05T01:39:39Z` 公开（<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>），公开 API 与可见页结构一致，DEV 覆盖 55 -> 56/127；遗留两张外部 SVG 图表因 `media2.dev.to` 的 `format=auto` 把 SVG 标成 `image/webp` 而显示为空，需登录编辑器或改为 PNG 才能修。
 - 已核定：2026-10-31（LA）巡检经可见 Medium 编辑器（`MEDIUM_API_KEY` 缺席）发布 1 条：gthulhu-vllm-cpu-pressure（<https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5>，JSON-LD dateModified / `article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT；公开页完整滚动 QA 通过、ledger 已 `confirmed`）。该源不在原队列内（Medium 0 条），按“后续新增英文长文继续交叉排入”补入并完成。
-- 剩余队列：知乎 24 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 24 个平台任务（全部知乎，平台级 `阻塞`）。原 `bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，不再占用 11-09 额度。后续新增内容直接插入合适位置。
+- 剩余队列：知乎 24 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 24 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成。后续新增内容直接插入合适位置。
 
 ## 发布队列
 
