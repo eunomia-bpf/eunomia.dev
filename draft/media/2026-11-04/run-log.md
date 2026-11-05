@@ -23,6 +23,12 @@
 - `59aff1cc69a5`（gthulhu 的 Medium 副本）本次多次命中 Cloudflare `504`（`Ray ID a559ee67ef9a8acf`），可读到的一次结果是 1 个 h1、11 个 H2、11 个 H3、7 个 `pre`、0 个 `table`、2 个 `<figure>`、图片 64x64 头像 + 3 个 `naturalWidth 0` 的槽位——即 11-02 记录的 9-H2 结构漂移仍在，图片槽位也仍空。
 - 重试用尽后仍返回网关页，故 `d8c070b5bd42` 本次未重读；两篇的标题 / 表格缺陷继续 open，等可见 Medium 会话。
 
+## 互动与社媒读数
+
+- 掘金公开页阅读数（`/creator` 仍是匿名）相对 11-03 的读数：npu 117 → 130、gpu 89 → 102、flamegraph 55 → 67、dynptr 71 → 81、bpf_token 71 → 88。
+- Hacker News 无变化：qwen3 条目仍 7 分 3 评论，第三方提交的 `bpf-gpu-server` 仍 1 分 0 评论。
+- 新 DEV 副本 0 反应 0 评论；匿名掘金评论面板不渲染条目，登录前没有可回复对象。
+
 ## 台账与队列
 
 - `platforms/devto.json`：新增 `devto-5did`（`confirmed`）、`confirmed_source_urls["docs/blog/posts/gthulhu-vllm-cpu-pressure.md"]`，`last_checked` 2026-11-04，新增 1 条 `browser_observations`，`pending_verification` 去掉已完成的 65-post 项并加上 66-post 与 SVG 两条。
