@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么一个「每个全局函数在两个分支里都调用下一个」的程序要加载几十秒，而把调用栈检查搬到调用图上又如何改变了帧数上限？](/zh/ebpf-qa/2026-11-04-bpf-call-chain-walk-vs-call-graph-frame-limit/)
 - [为什么挂在套接字钩子上的 cgroup BPF LSM 程序运行在调用方任务的 cgroup 里，而不是套接字自己的 cgroup，提出的修复把 shim 选择改成了什么？](/zh/ebpf-qa/2026-11-02-bpf-lsm-cgroup-socket-hook-caller-cgroup-vs-socket-cgroup/)
 - [为什么校验器会拒绝一个用循环计数当键的数组查找，而提出的修复把可空性检查改成了什么？](/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
 - [为什么带私有栈的 BPF 程序在抛出异常之后会让内核崩溃，而修复又为什么把保存寄存器的指针调整八个字节，而不是改动生成的代码？](/zh/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/)

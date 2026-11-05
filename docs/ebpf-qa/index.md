@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why does a program whose global functions call the next one in both branches take tens of seconds to load, and how does moving call-stack checks onto the call graph change the frame limit?](/ebpf-qa/2026-11-04-bpf-call-chain-walk-vs-call-graph-frame-limit/)
 - [Why does a cgroup BPF LSM program attached to a socket hook run in the cgroup of the calling task rather than the socket, and what does the proposed fix change in shim selection?](/ebpf-qa/2026-11-02-bpf-lsm-cgroup-socket-hook-caller-cgroup-vs-socket-cgroup/)
 - [Why does the verifier reject an array lookup whose key is a loop counter rather than a constant, and what does the proposed fix change the nullness check to?](/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
 - [Why does a BPF program with a private stack crash the kernel after it throws an exception, and why does the fix adjust the saved-register pointer by eight bytes instead of changing the generated code?](/ebpf-qa/2026-10-31-bpf-throw-private-stack-saved-register-offset/)
