@@ -236,6 +236,31 @@ belongs to the user. A 11-02 run hit this with 26 identical untracked files
 under `docs/ebpf-qa/` and `draft/media/`, and left `origin/main`'s version
 staged as deletions until the restore.
 
+The same forward-move has a third trap in the opposite direction: a file that
+the incoming commits *add* and this checkout never had becomes a staged
+deletion the moment `git reset --soft origin/main` moves HEAD, because the
+index never held it. `git status --porcelain` shows it as `D` and a scoped
+`git commit --only` would ship the removal. Restore every such path with
+`git checkout origin/main -- <path>` before committing (a 11-04 run hit this
+with one article artifact added upstream while the local build was running).
+
+A `git push` rejected after a long local pipeline is the same shape one step
+earlier, and the validator reports it as `FAILED git push origin main failed
+... (fetch first)`. The commit it made is orphaned by the forward-move, and
+its build and render results are still valid for the unchanged candidate
+files, so re-running the same validator redoes only the cheap checks plus the
+commit and push - do not re-edit the pair.
+
+A post-push `public check failed ... HTTP 404` is not evidence of a broken
+page when the Pages run for that tip is still `in_progress`: the validator's
+20-minute poll expires while the deploy job is queued behind the build.
+Confirm the run is for the pushed SHA, confirm its log shows `current=true`
+and a `Deploy to GitHub Pages` step, then re-run the validator, whose
+re-verify path rewrites the receipt to `status=published` in about a second
+(a 11-04 run: build and render ok, push rejected once by a concurrent
+publisher, then the pushed tip's deploy finished at 21 minutes and the
+re-verify completed the receipt).
+
 Re-count the archive before repeating a coverage sentence from an earlier
 draft. A resumed candidate can state that both windows were empty while the
 seven-day window actually held messages, and the live page then contradicts
