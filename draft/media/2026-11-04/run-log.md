@@ -27,7 +27,8 @@
 
 - 掘金公开页阅读数（`/creator` 仍是匿名）相对 11-03 的读数：npu 117 → 130、gpu 89 → 102、flamegraph 55 → 67、dynptr 71 → 81、bpf_token 71 → 88。
 - Hacker News 无变化：qwen3 条目仍 7 分 3 评论，第三方提交的 `bpf-gpu-server` 仍 1 分 0 评论。
-- 新 DEV 副本 0 反应 0 评论；匿名掘金评论面板不渲染条目，登录前没有可回复对象。
+- 新 DEV 副本 0 反应 0 评论（`/api/comments?a_id=4978534` 返回空，与 4972601、4956437 一致）；匿名掘金评论面板不渲染条目，登录前没有可回复对象。
+- 新 DEV 副本自指 canonical，而站点原文在 <https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/>（HTTP 200）；`/blog/2026/10/31/` 那个日期是错的，别按 URL 猜。API 发布路径不传 `canonical_url`，这是可复用的根因，已写入 `platforms/devto.json` 的 `pending_verification`。
 
 ## 台账与队列
 

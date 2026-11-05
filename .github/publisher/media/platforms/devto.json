@@ -285,6 +285,7 @@
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
+    "devto-5did self-canonicalizes (https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did) while the site original is live at https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/, so the DEV copy competes with its own source. Set canonical_url on the next repair pass together with the two broken charts; the API publish path sends none, which is the reusable cause.",
     "The public author API now reports 66 posts (first query after the 2026-11-04 publish still returned the cached 65), so the 2026-07-20 visible-scroll inventory of 54 links is further behind; re-scroll the profile before the next full-history audit.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
