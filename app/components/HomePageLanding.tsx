@@ -111,6 +111,11 @@ function CapabilitySection({ home, locale }: { home: MkdocsHomeConfig; locale: L
 }
 
 export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale: Locale }) {
+  const labKicker = locale === "zh" ? "开源系统实验室" : "Open-source systems lab";
+  const labSummary = locale === "zh"
+    ? "围绕可编程运行时、eBPF、AI Agent 与 GPU 系统开展开源系统研究与工程。"
+    : "Open-source systems research and engineering across programmable runtimes, eBPF, AI agents, and GPU systems.";
+
   return (
     <section className="relative isolate overflow-hidden border-b border-slate-200 bg-white text-ink">
       <div
@@ -124,13 +129,13 @@ export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale:
       <div className="relative mx-auto max-w-[82rem] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-4xl text-center">
           <p className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-800 shadow-sm backdrop-blur">
-            {localizedText(home.hero.kicker, locale)}
+            {labKicker}
           </p>
           <h1 className="mt-6 font-serif text-5xl font-normal tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
-            {localizedText(home.hero.title, locale)}
+            Eunomia Labs
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-xl leading-8 text-slate-600 md:text-2xl md:leading-9">
-            {localizedText(home.hero.summary, locale)}
+            {labSummary}
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <a
