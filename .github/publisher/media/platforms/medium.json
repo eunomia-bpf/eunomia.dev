@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-04",
+  "last_checked": "2026-11-06",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -243,12 +243,20 @@
       "url": "https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5",
       "status": "confirmed",
       "notes": "Multiple loads inside the 2026-11-04 window hit Cloudflare 504 (Ray a559ee67ef9a8acf, gateway page with 2 h1 and 47 words). The one successful load rendered 1 h1, 11 h2, 11 h3, 7 pre, 0 table, and images at 64x64 avatar plus three zero-naturalWidth slots, i.e. the 9-H2 body drift and the missing chart images recorded on 2026-11-02 both persist. The sibling story d8c070b5bd42 could not be re-read before the retries ran out. medium.com/p/.../edit returned the editor once with empty Title/Subtitle fields and the body text, so the signed-in Medium session is intermittent rather than lost."
+    },
+    {
+      "checked_at": "2026-11-06",
+      "checked_via": "visible_browser_public_page_dom",
+      "url": "https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42",
+      "status": "confirmed",
+      "notes": "A stable load rendered the visible title (1 h1) and 1,988 words. The source's 3-row measurement table survives only as flattened prose ('Per request, FFT at 1,000 requests/s: Native epoll: 11.3 µs user time, 26.2 µs system time, 37.56 µs total...'), so the numbers are intact and the table shape is not; 0 <table> elements and no pipe characters. The sibling story 5001bb9afab6 could not be read in this window: /me/stories/public returned Cloudflare 'Just a moment...' and the public page never passed it, so its missing-visible-title and raw-Mermaid defects stay open."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
     "The visible profile stabilized at 62 story links; sources without a reliable repository match remain intentionally unmapped.",
-    ".github/publisher/ledger.md is currently a scaffold/backfill worklist, not a confirmed history."
+    ".github/publisher/ledger.md is currently a scaffold/backfill worklist, not a confirmed history.",
+    "medium /me/stories/public is behind a Cloudflare 'Just a moment...' interstitial for the visible profile, so editor-side repairs (missing visible titles, flattened tables, Mermaid source) remain unreachable until the challenge passes."
   ]
 }

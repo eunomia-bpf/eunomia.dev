@@ -20,6 +20,15 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-11-06
+
+- One DEV publication, no engagement yet. `publish-posts` run 42204873168 published [the DEV copy of the SchedCP / sched-agent post](https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0) at `2026-11-06T10:44:00Z` (LA 11-06 02:44 PST) from `draft/media/2026-11-06/schedcp-agentic-os/devto.md`. The sent body equals the published `body_markdown` byte-for-byte after the H1 strip; the page renders 1 h1, 6 body H2, the complete References list and all six source links, and its single PNG loads at 788x600. 0 reactions, 0 comments, 8 minute read.
+- Confirmed the DEV proxy defect is specific to external SVG: this copy's PNG renders through the same `media2.dev.to/dynamic/image/...format=auto` proxy that breaks the gthulhu charts, so PNG is a sufficient workaround and no editor login is needed.
+- The SchedCP copy self-canonicalizes while the site original is live at <https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/>. Third consecutive API syndication with this defect; the reusable fix is to send `canonical_url` in the `publish-multi` payload.
+- External echoes found by a date-filtered Hacker News sweep (Algolia, last 3 days): a third-party 2026-11-05 submission of the AgentSight project page, <https://news.ycombinator.com/item?id=50385391> (2 points, 0 comments), and comment <https://news.ycombinator.com/item?id=50383008> recommending an eBPF backend and linking <https://eunomia.dev/agentsight/> in the Show HN "Stroq" thread. Neither is by the project account and neither asks a question, so no reply is due.
+- Session state: 知乎 `/creator` now lands on the `/account/unhuman` verification page (still no `z_c0`), Medium `/me/stories/public` returns Cloudflare "Just a moment...", DEV public API and pages remain readable. The public author API still served the cached 66-post list minutes after this publish; the per-article endpoint is the reliable confirmation path.
+- Medium `5001bb9afab6` could not be re-read (Cloudflare interstitial), so the missing-visible-title and raw-Mermaid defects stay open; `d8c070b5bd42` now renders its visible title, and its measurement table survives only as flattened prose (`Native epoll: 11.3 µs user time, 26.2 µs system time, 37.56 µs total`), so the numbers are intact but the table shape is gone. Next checkpoint: fix `canonical_url` in `publish.py`, then re-read the two Medium stories with a stable session.
+
 ### 2026-11-04
 
 - One DEV publication, no engagement yet. The scheduled `publish-posts` workflow published [the DEV copy of the Gthulhu/vLLM CPU-pressure post](https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did) at `2026-11-05T01:39:39Z` (LA 11-04) from the prepared artifact. The rendered page matches the source: 1 h1, 9 body H2, 11 H3, 6 `pre` (12 fences), 5 tables, 2,651 words, complete references. 0 reactions, 0 comments, 11 minute read.

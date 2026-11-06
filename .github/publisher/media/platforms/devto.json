@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-04",
+  "last_checked": "2026-11-06",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-4cj0",
+      "status": "confirmed",
+      "date": "2026-11-06",
+      "title": "Can an AI Agent Tune the Linux Scheduler? Inside SchedCP and sched-agent",
+      "url": "https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0",
+      "canonical_url": "https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0",
+      "source_path": "docs/blog/posts/schedcp-agentic-os.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "ai",
+        "performance"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published by the publish-posts workflow (run 42204873168, published_at 2026-11-06T10:44:00Z = LA 2026-11-06 02:44 PST) with PUBLISH_PLATFORMS=devto from the prepared artifact draft/media/2026-11-06/schedcp-agentic-os/devto.md, whose only edit from the source was rewriting the one relative image to the absolute eunomia.dev asset URL. Sent body equals the published body_markdown byte-for-byte once the publisher stripped the H1. Structure parity: 1 h1, 6 body H2 (= the 6 source `##`), 0 H3, 0 pre, 0 tables, 1,801 rendered words, complete References ending, all six source link targets absolute and live (arXiv, schedcp repo, sched-ext docs, MCP). The single PNG diagram loads at 788x600 through DEV's media2 proxy, so the SVG defect does not apply. 0 reactions, 0 comments, reading_time 8. Canonical is DEV self because the API path sends no canonical_url."
+    },
     {
       "id": "devto-5did",
       "status": "confirmed",
@@ -242,7 +259,8 @@
     "docs/tutorials/23-http/README.md": "https://dev.to/yunwei37/exploring-seven-layer-protocol-tracing-with-ebpf-http-and-beyond-via-socket-filters-and-syscall-tracing-5bc",
     "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md": "https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip",
     "docs/blog/posts/bpf-gpu-server.md": "https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72",
-    "docs/blog/posts/gthulhu-vllm-cpu-pressure.md": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did"
+    "docs/blog/posts/gthulhu-vllm-cpu-pressure.md": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did",
+    "docs/blog/posts/schedcp-agentic-os.md": "https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0"
   },
   "browser_observations": [
     {
@@ -280,6 +298,13 @@
       "url": "https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did",
       "status": "confirmed",
       "notes": "Public author API listed the new post first (id 4978534, published_at 2026-11-05T01:39:39Z, tag_list 'ebpf, linux, ai, performance', 0 reactions, 0 comments, reading_time 11); the account total is 66 posts across two pages of per_page=100, and a first query in the same window still returned the cached 65-post list, so the listing lags a publish by minutes. Visible-page DOM QA matched the source heading, code and table counts exactly and showed the complete ending. Only the two external SVG charts are broken; the media2 proxy serves SVG bytes labelled image/webp for format=auto."
+    },
+    {
+      "checked_at": "2026-11-06",
+      "checked_via": "visible_public_page_full_scroll_dom_plus_public_author_api",
+      "url": "https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0",
+      "status": "confirmed",
+      "notes": "Visible full-scroll DOM QA on the published copy: 1 h1, 6 body H2, 1 loaded image (naturalWidth 788, naturalHeight 600 via media2.dev.to), complete References list, canonical = DEV self, 0 reactions / 0 comments from the public API (article id 4987756, reading_time 8). The author API still served the cached 66-post list minutes after publication and did not yet contain 4987756, so the listing lags a publish; the per-article endpoint returned it correctly."
     }
   ],
   "references": [],
@@ -289,6 +314,7 @@
     "The public author API now reports 66 posts (first query after the 2026-11-04 publish still returned the cached 65), so the 2026-07-20 visible-scroll inventory of 54 links is further behind; re-scroll the profile before the next full-history audit.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
-    "New DEV copies published through publish.py still self-canonicalize because the API call sends no canonical_url; pass one on the next API publish instead of repairing it afterwards."
+    "New DEV copies published through publish.py still self-canonicalize because the API call sends no canonical_url; pass one on the next API publish instead of repairing it afterwards.",
+    "devto-4cj0 self-canonicalizes to its DEV URL while the site original is https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/. The publish-multi endpoint accepts only title/content/tags/is_draft/platforms (checked against its published payload and form), so a canonical_url field is silently unavailable: fix by extending that endpoint or by posting to DEV's /api/articles with canonical_url."
   ]
 }

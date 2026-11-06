@@ -1,10 +1,16 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-04
+Last checked: 2026-11-06
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-06: the `publish-posts` workflow published `docs/blog/posts/schedcp-agentic-os.md`
+to DEV (<https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0>,
+`2026-11-06T10:44:00Z`) from `draft/media/2026-11-06/schedcp-agentic-os/devto.md`, so it is no longer a
+pending DEV source; its Medium copy is still unpublished. The run used the LA 2026-11-06 normal slot,
+entered in `draft/plan/publishing-queue.zh.md`.
 
 2026-11-04: the scheduled `publish-posts` workflow published `docs/blog/posts/gthulhu-vllm-cpu-pressure.md`
 to DEV (<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>, `2026-11-05T01:39:39Z`),
