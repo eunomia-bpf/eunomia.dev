@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why does adding a mount idmap argument at the front of the inode LSM hooks silently shift every BPF LSM argument, and what can catch it?](/ebpf-qa/2026-11-06-bpf-lsm-hook-argument-shift-silent-misread/)
 - [Why does a program whose global functions call the next one in both branches take tens of seconds to load, and how does moving call-stack checks onto the call graph change the frame limit?](/ebpf-qa/2026-11-04-bpf-call-chain-walk-vs-call-graph-frame-limit/)
 - [Why does a cgroup BPF LSM program attached to a socket hook run in the cgroup of the calling task rather than the socket, and what does the proposed fix change in shim selection?](/ebpf-qa/2026-11-02-bpf-lsm-cgroup-socket-hook-caller-cgroup-vs-socket-cgroup/)
 - [Why does the verifier reject an array lookup whose key is a loop counter rather than a constant, and what does the proposed fix change the nullness check to?](/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
