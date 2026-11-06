@@ -1,1 +1,0 @@
-{"path": "draft/media/2026-11-06/schedcp-agentic-os/devto.md", "tags": ["ebpf", "linux", "ai", "performance"]}
