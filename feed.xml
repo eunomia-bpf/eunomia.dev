@@ -8,11 +8,11 @@
   <lastBuildDate>Fri, 06 Nov 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>Why re-checking some AI-written Lean proofs costs almost as much as compiling them</title>
+  <title>AI Now Writes Lean Proofs Faster Than Lean Can Check Them</title>
   <link>https://eunomia.dev/blog/2026/11/06/ai-lean-proof-checking-cost/</link>
   <guid>https://eunomia.dev/blog/2026/11/06/ai-lean-proof-checking-cost/</guid>
   <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
-  <description>OpenAI has published a repository of AI-generated mathematics whose results come with Lean proofs.</description>
+  <description>AI is getting better at writing mathematical proofs, which raises a question: can we keep up with checking what it writes?</description>
   <author>i@littlefisher.me (Littlefisher619)</author>
   <category>eBPF</category>
 </item>
