@@ -13,6 +13,23 @@
 # pair, update the pin, and re-verify every key number cited on the site.
 
 papers:
+  - slug: proofserve
+    title: "Checking or Recomputing? Two Cost Regimes in Verifying AI-Generated Formal Artifacts"
+    status: Technical report
+    artifact: https://github.com/yunwei37/proofserve
+    pdf: proofserve.pdf
+    text: proofserve.txt
+    blog:
+      en: blog/posts/ai-lean-proof-checking-cost.md
+      zh: blog/posts/ai-lean-proof-checking-cost.zh.md
+    key_numbers:
+      - value: "80.28% and 82.35% vs 6.54% and 0.46% of compile wall time"
+        condition: "re-check of one module after dependency loading; computational certificates Grid and Amplitudes vs ordinary modules Mathlib Nat.Basic and NearPin; Lean 4.34.1 on eight P cores of an i9-14900K"
+      - value: "162,170 of 163,096 modules; 168.956 P-core and 302.399 E-core CPU-hours"
+        condition: "per-module compilation census of openai/math at 4eaee875; 926 memory-heavy modules deferred; lower bound; P and E not converted"
+      - value: "19.78% of source files and 33.30% of decide +kernel sites outside the default build"
+        condition: "default Lake root graph of openai/math at 4eaee875; lexical count after masking comments and strings"
+
   - slug: bpf-gpu-server
     title: "Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server"
     status: Public preprint
