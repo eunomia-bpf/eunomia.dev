@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-10-21",
+  "last_checked": "2026-11-07",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -271,6 +271,12 @@
       "visible_views": 10,
       "visible_comments": 0,
       "notes": "Submitted tutorial 53 through the normal visible Juejin editor on 2026-08-23 after an exact-title duplicate check. Category 后端; tags Linux, 开源, and 云原生. A GitHub raw image produced the visible transfer-failure marker, so the source image was uploaded through the editor and replaced by Juejin-hosted media. On 2026-08-24 the staged URL redirected to the public /post page, which preserves the exact title, 11 body headings, nine code blocks, one table, source and reference links, and zero comments. The Juejin-hosted diagram did not render on the public page during this check, despite being present in the article DOM, so publication is confirmed but media repair remains necessary."
+    },
+    {
+      "checked_at": "2026-11-07",
+      "checked_via": "visible_chrome_cdp_target_url_probe",
+      "status": "blocked_signed_out",
+      "notes": "https://juejin.cn/creator/home now lands on the juejin.cn root page in the persistent visible Chrome instead of the creator dashboard, so the session is signed out again. The 2026-10-21 reading and comment observations are the last ones taken from a signed-in surface."
     }
   ],
   "published": [

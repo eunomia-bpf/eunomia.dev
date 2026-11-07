@@ -1,8 +1,13 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-06。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-07。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+
+### 2026-11-07 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/blog/posts/actplane.md`。由 `publish-posts` workflow（run 42324529677，`PUBLISH_PLATFORMS=devto`，`publish_count=1`）在 `2026-11-07T01:31:46Z`（LA 11-06 17:31 PST，+08 11-07 09:31）从 `draft/media/2026-11-07/actplane/devto.md` 发布：<https://dev.to/yunwei37/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf-2doh>（article id 4991286，tag `ebpf`/`linux`/`ai`/`security`，reading_time 16，0 反应 0 评论，DEV 覆盖 57 -> 58/127）。准备稿是源文逐字节副本（源文无图片、链接均为绝对地址，无需改写）；公开 `body_markdown` 与去 frontmatter/H1 后的准备稿逐字相同，仅 DEV 把 12 个无语言围栏中的 3 个标注为 `plaintext`。可见页 1 h1、11 个正文 H2（= 源文 11 个 `##`）、6 个 `pre`、1 个 5 行表格、13 个外链与 References 尾段完整，0 张图片。**遗留**：canonical 仍为 DEV 自身（连续第四次，`publish.py` 不发 `canonical_url`）。
+- 进度依据：本条源文是 2026-05-31 英文长文，Medium 已有副本（`8077f9164a34`）而 DEV 缺失，按"后续新增英文长文继续交叉排入"补入。**档期偏差**：11-06 的 run 比定时晚约 10 小时（`2026-11-06T10:44:00Z` 而非约 `00:00Z`），已在 LA 11-06 02:44 PST 用掉 LA 11-06 额度，因此本条实际是 LA 11-06 的第二条 DEV 发布（LA 11-06 17:31 PST），按 +08 运行日（11-07）单独记档。补发缺口仍为 0（11-05 无任务，11-07 已发布）。
 
 ### 2026-11-06 排期（LA 时区）
 

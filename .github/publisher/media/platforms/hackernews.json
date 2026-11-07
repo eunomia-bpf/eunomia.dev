@@ -3,7 +3,7 @@
   "platform_id": "hackernews",
   "label": "Hacker News",
   "kind": "community",
-  "last_checked": "2026-11-06",
+  "last_checked": "2026-11-07",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -59,6 +59,12 @@
       "checked_via": "public_algolia_api_read",
       "status": "changed",
       "notes": "A date-filtered Algolia sweep (last 3 days, queries eunomia.dev / dev.to/yunwei37 / bpftime / schedcp) found two new eunomia.dev links: story 50385391 (AgentSight project page, 2 points, 0 comments) and comment 50383008 (mkn29 mentioning AgentSight in the Stroq Show HN thread). The older qwen3 (49854228, 7 points / 3 comments) and bpf-gpu-server (50138075, 1 point / 0 comments) items are unchanged. Item pages still serve 'Sorry.' to a signed-out browser, so scores came from the public Algolia API, not the rendered page."
+    },
+    {
+      "checked_at": "2026-11-07",
+      "checked_via": "public_algolia_api_read",
+      "status": "unchanged",
+      "notes": "Date-filtered Algolia re-sweep (created_at_i > 2026-11-01): the 'eunomia' story query returns 22 hits dated back to 2026-06, with 50385391 (AgentSight project page, 2 points, 0 comments) still the newest and no new submission; the 'eunomia.dev' comment query returns only 50383008 (2026-11-05, the AgentSight recommendation in the Stroq Show HN thread) inside the window; the 'dev.to/yunwei37' comment query returns 0. The qwen3 item 49854228 stays at 7 points / 3 comments and bpf-gpu-server 50138075 at 1 point / 0 comments. No reply is due."
     }
   ]
 }

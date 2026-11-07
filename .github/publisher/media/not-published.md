@@ -1,10 +1,17 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-06
+Last checked: 2026-11-07
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-07: the `publish-posts` workflow published `docs/blog/posts/actplane.md` to DEV
+(<https://dev.to/yunwei37/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf-2doh>, `2026-11-07T01:31:46Z`)
+from a byte-identical copy at `draft/media/2026-11-07/actplane/devto.md`, so it is no longer a pending DEV source;
+its Medium copy was already confirmed as `8077f9164a34`. The run used the LA 2026-11-07 normal slot, entered in
+`draft/plan/publishing-queue.zh.md`. `.github/publisher/posts_queue.txt` is empty again because the workflow pops
+each entry after a successful publish.
 
 2026-11-06: the `publish-posts` workflow published `docs/blog/posts/schedcp-agentic-os.md`
 to DEV (<https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0>,
