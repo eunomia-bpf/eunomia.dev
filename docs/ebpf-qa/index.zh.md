@@ -7,6 +7,7 @@
 ## 最新回答
 
 - [为什么在 inode 系列 LSM 钩子的最前面加一个 mount idmap 参数，会悄悄让 BPF LSM 的每一个参数错位，又有什么办法能发现它？](/zh/ebpf-qa/2026-11-06-bpf-lsm-hook-argument-shift-silent-misread/)
+- [为什么一个指令数远没到上限的大型 eBPF 程序会报 too large 或跳转序列过于复杂，而校验器改成合并状态而不是逐路径跟踪之后，这些限制又变成了什么？](/zh/ebpf-qa/2026-11-05-verifier-joins-states-path-explosion-limits/)
 - [为什么一个「每个全局函数在两个分支里都调用下一个」的程序要加载几十秒，而把调用栈检查搬到调用图上又如何改变了帧数上限？](/zh/ebpf-qa/2026-11-04-bpf-call-chain-walk-vs-call-graph-frame-limit/)
 - [为什么挂在套接字钩子上的 cgroup BPF LSM 程序运行在调用方任务的 cgroup 里，而不是套接字自己的 cgroup，提出的修复把 shim 选择改成了什么？](/zh/ebpf-qa/2026-11-02-bpf-lsm-cgroup-socket-hook-caller-cgroup-vs-socket-cgroup/)
 - [为什么校验器会拒绝一个用循环计数当键的数组查找，而提出的修复把可空性检查改成了什么？](/zh/ebpf-qa/2026-11-01-array-lookup-nullness-needs-key-range-not-constant/)
