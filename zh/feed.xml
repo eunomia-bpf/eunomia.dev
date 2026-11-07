@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Sat, 17 Oct 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 06 Nov 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>为什么复查某些 AI 写的 Lean 证明，几乎和重新编译一样贵？</title>
+  <link>https://eunomia.dev/zh/blog/2026/11/06/ai-lean-proof-checking-cost/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/11/06/ai-lean-proof-checking-cost/</guid>
+  <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+  <description>OpenAI 公开了一个 AI 生成的数学仓库，里面的结果都附带 Lean 证明。在我们研究的版本里，它有 163,096 个 Lean 模块，文件数大约是它所依赖的 Mathlib 快照的十九倍。要复用这样一个库，总得有人在生成它的环境之外重新检查一遍。一般的预期是这一步很便宜：Lean 的策略（tactic）可能要搜索好几分钟才找到证明，但 Lean 只保存最终的证明项，独立检查器验证这个证明项时并不重复搜索。</description>
+  <author>i@littlefisher.me (Littlefisher619)</author>
+  <category>eBPF</category>
+</item>
+<item>
   <title>把 GPU 服务的请求循环搬进内核，能省下 CPU 吗？</title>
   <link>https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/</link>
   <guid>https://eunomia.dev/zh/blog/2026/10/17/bpf-gpu-server/</guid>
@@ -295,16 +304,6 @@
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
-</item>
-<item>
-  <title>WASI and the WebAssembly Component Model: Current Status</title>
-  <link>https://eunomia.dev/zh/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/</link>
-  <guid>https://eunomia.dev/zh/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/</guid>
-  <pubDate>Sun, 16 Feb 2025 00:00:00 GMT</pubDate>
-  <description>WebAssembly (WASM) has evolved from a browser-based technology into a promising runtime for server and embedded applications.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
-  <category>eBPF</category>
 </item>
 </channel>
 </rss>
