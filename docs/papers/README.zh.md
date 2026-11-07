@@ -51,7 +51,7 @@ ActPlane（[arXiv 2606.25189](https://arxiv.org/abs/2606.25189)）将上述线�
 
 | 论文 | PDF / 文本 | 开源实现 | 技术 Blog | 状态 |
 |---|---|---|---|---|
-| [Checking or Recomputing? Two Cost Regimes in Verifying AI-Generated Formal Artifacts](proofserve.pdf) | [PDF](proofserve.pdf) · [txt](proofserve.txt) | [ProofServe](https://github.com/yunwei37/proofserve) | [阅读 Blog](../blog/posts/ai-lean-proof-checking-cost.zh.md) | 技术报告 |
+| [AI Now Writes Lean Proofs Faster Than Lean Can Check Them](proofserve.pdf) | [PDF](proofserve.pdf) · [txt](proofserve.txt) | [ProofServe](https://github.com/yunwei37/proofserve) | [阅读 Blog](../blog/posts/ai-lean-proof-checking-cost.zh.md) | 技术报告 |
 | [Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server](bpf-gpu-server.pdf) | [PDF](bpf-gpu-server.pdf) · [txt](bpf-gpu-server.txt) | [bpf-gpu-server](https://github.com/yunwei37/bpf-gpu-server) | [阅读 Blog](../blog/posts/bpf-gpu-server.zh.md) | 公开预印本 |
 | [AgentPProf: Semantic Profiler for Long Horizon AI Agents](agentpprof.pdf) | [PDF](agentpprof.pdf) · [txt](agentpprof.txt) | [AgentSight](https://github.com/eunomia-bpf/agentsight) | [阅读 Blog](../blog/posts/agentpprof-semantic-flamegraph.zh.md) | 公开预印本 |
 | [Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections](https://arxiv.org/abs/2607.02748) | [PDF](bpfix.pdf) · [txt](bpfix.txt) | [bpfix](https://github.com/eunomia-bpf/bpfix) | 待补 Blog | arXiv preprint |

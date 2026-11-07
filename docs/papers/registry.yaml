@@ -14,7 +14,7 @@
 
 papers:
   - slug: proofserve
-    title: "Checking or Recomputing? Two Cost Regimes in Verifying AI-Generated Formal Artifacts"
+    title: "AI Now Writes Lean Proofs Faster Than Lean Can Check Them"
     status: Technical report
     artifact: https://github.com/yunwei37/proofserve
     pdf: proofserve.pdf
@@ -23,12 +23,12 @@ papers:
       en: blog/posts/ai-lean-proof-checking-cost.md
       zh: blog/posts/ai-lean-proof-checking-cost.zh.md
     key_numbers:
-      - value: "80.28% and 82.35% vs 6.54% and 0.46% of compile wall time"
-        condition: "re-check of one module after dependency loading; computational certificates Grid and Amplitudes vs ordinary modules Mathlib Nat.Basic and NearPin; Lean 4.34.1 on eight P cores of an i9-14900K"
-      - value: "162,170 of 163,096 modules; 168.956 P-core and 302.399 E-core CPU-hours"
-        condition: "per-module compilation census of openai/math at 4eaee875; 926 memory-heavy modules deferred; lower bound; P and E not converted"
-      - value: "19.78% of source files and 33.30% of decide +kernel sites outside the default build"
-        condition: "default Lake root graph of openai/math at 4eaee875; lexical count after masking comments and strings"
+      - value: "about 400 tokens per CPU-second; a 1,000 tokens/s model finishes first on 95% of 162,170 files"
+        condition: "Lean 4.34.1 first check (compile) of openai/math 4eaee875; median file on a P core of an i9-14900K; o200k_base token counts; writing time counts the final file"
+      - value: "re-check 0.5% to 6.5% of the first check for ordinary proofs, 80% and 82% for two computational certificates"
+        condition: "one module re-checked after its dependencies are loaded, wall time"
+      - value: "162,170 of 163,096 modules; 169.0 P-core and 302.4 E-core CPU-hours"
+        condition: "per-module compilation census, 926 memory-heavy modules set aside; lower bound; P and E kept separate"
 
   - slug: bpf-gpu-server
     title: "Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server"

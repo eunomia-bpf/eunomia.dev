@@ -44,9 +44,9 @@ Checking 162,170 of the library's 163,096 files once took one 24-core desktop pr
 
 The first time Lean checks a file, it runs every tactic in it. Once the file passes, Lean stores the complete proof, and a later check can replay that proof through Lean's small trusted core and skip all the search.
 
-For ordinary proofs this re-check is cheap: it took between 0.5% and 6.5% of the first check. We replayed the stored proofs of a random sample of 100 files from the library: the replay fell behind a 1,000-token-per-second model on 3% of the files and a 10,000-token-per-second model on 13%.
+For ordinary proofs this re-check is cheap: it took between 0.5% and 6.5% of the first check. We re-checked the stored proofs of a random sample of 100 files. The re-check itself fell behind a 1,000-token-per-second model on 3 of them and a 10,000-token-per-second model on 17. Each re-check first loads the file's imports, a median of 4 seconds against 0.05 seconds for the check itself, and with that load counted, a 1,000-token-per-second model finishes first on 85 of the 100 files.
 
-A computation stays inside the proof, so a computational file pays again on every check: re-checking two of them took 80% and 82% of the first check.
+A computation stays inside the proof, so a computational file pays again on every check: re-checking two of them took 80% and 82% of the first check. Expensive re-checks also appear where the source looks harmless: one 569-token file from the most expensive 1% of files, with zero `decide +kernel` calls, took 184 seconds to re-check, while a model writes it in under six seconds at 100 tokens per second.
 
 ## What to do
 

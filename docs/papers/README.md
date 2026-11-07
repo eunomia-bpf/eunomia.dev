@@ -51,7 +51,7 @@ ActPlane ([arXiv 2606.25189](https://arxiv.org/abs/2606.25189)) synthesizes thes
 
 | Paper | PDF / Text | Artifact | Technical blog | Status |
 |---|---|---|---|---|
-| [Checking or Recomputing? Two Cost Regimes in Verifying AI-Generated Formal Artifacts](proofserve.pdf) | [PDF](proofserve.pdf) · [txt](proofserve.txt) | [ProofServe](https://github.com/yunwei37/proofserve) | [Read the blog](../blog/posts/ai-lean-proof-checking-cost.md) | Technical report |
+| [AI Now Writes Lean Proofs Faster Than Lean Can Check Them](proofserve.pdf) | [PDF](proofserve.pdf) · [txt](proofserve.txt) | [ProofServe](https://github.com/yunwei37/proofserve) | [Read the blog](../blog/posts/ai-lean-proof-checking-cost.md) | Technical report |
 | [Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server](bpf-gpu-server.pdf) | [PDF](bpf-gpu-server.pdf) · [txt](bpf-gpu-server.txt) | [bpf-gpu-server](https://github.com/yunwei37/bpf-gpu-server) | [Read the blog](../blog/posts/bpf-gpu-server.md) | Public preprint |
 | [AgentPProf: Semantic Profiler for Long Horizon AI Agents](agentpprof.pdf) | [PDF](agentpprof.pdf) · [txt](agentpprof.txt) | [AgentSight](https://github.com/eunomia-bpf/agentsight) | [Read the blog](../blog/posts/agentpprof-semantic-flamegraph.md) | Public preprint |
 | [Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections](https://arxiv.org/abs/2607.02748) | [PDF](bpfix.pdf) · [txt](bpfix.txt) | [bpfix](https://github.com/eunomia-bpf/bpfix) | Blog pending | arXiv preprint |
