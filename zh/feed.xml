@@ -13,6 +13,7 @@
   <guid>https://eunomia.dev/zh/blog/2026/11/06/ai-lean-proof-checking-cost/</guid>
   <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
   <description>AI 越来越会写数学证明了。问题随之而来：它写出来的东西，我们查得过来吗？常见的回答是交给形式化验证：AI 把证明写成 Lean 代码，Lean 自动逐步核对，核对通过就说明证明成立，而机器检查又快又便宜。</description>
+  <author>yunwei356@gmail.com (Yunwei 123)</author>
   <author>i@littlefisher.me (Littlefisher619)</author>
   <category>eBPF</category>
 </item>
