@@ -1,0 +1,1 @@
+{"path": "draft/media/2026-11-08/ai-lean-proof-checking-cost/devto.md", "tags": ["ai", "performance", "programming", "opensource"]}
