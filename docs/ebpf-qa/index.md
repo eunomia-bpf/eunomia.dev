@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why does the verifier let any BPF iterator program update a sockmap, and why is only the sockmap iterator safe?](/ebpf-qa/2026-11-07-sockmap-update-from-any-iterator-vs-sockmap-iterator/)
 - [Why does adding a mount idmap argument at the front of the inode LSM hooks silently shift every BPF LSM argument, and what can catch it?](/ebpf-qa/2026-11-06-bpf-lsm-hook-argument-shift-silent-misread/)
 - [Why do large eBPF programs hit the verifier's instruction and jump-sequence limits when the instruction count fits, and what changes if the verifier joins states instead of following paths?](/ebpf-qa/2026-11-05-verifier-joins-states-path-explosion-limits/)
 - [Why does a program whose global functions call the next one in both branches take tens of seconds to load, and how does moving call-stack checks onto the call graph change the frame limit?](/ebpf-qa/2026-11-04-bpf-call-chain-walk-vs-call-graph-frame-limit/)
