@@ -1,8 +1,14 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-07。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-08。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+
+### 2026-11-08 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/blog/posts/ai-lean-proof-checking-cost.md`。由 `publish-posts` workflow（run 42432328544，`PUBLISH_PLATFORMS=devto`，`publish_count=1`）在 `2026-11-08T01:00:47Z`（LA 11-07 17:00 PST，+08 11-08 09:00）从 `draft/media/2026-11-08/ai-lean-proof-checking-cost/devto.md` 发布：<https://dev.to/yunwei37/ai-now-writes-lean-proofs-faster-than-lean-can-check-them-51mh>（article id 4996302，tag `ai`/`performance`/`programming`/`opensource`，reading_time 6，0 反应 0 评论，DEV 覆盖 58 -> 59/128）。准备稿只在两处改写：图片与 ProofServe PDF 改为 `https://eunomia.dev/_content-assets/` 绝对地址；公开 `body_markdown` 与去 frontmatter/H1 后的准备稿**逐字相同**（8211 字符，无围栏标注差异）。可见页 1 h1、7 个正文 H2（= 源文 7 个 `##`）、1 个 `pre`、0 表格、5 个外链目标、1 张 800x503 图片且 alt 保留、结尾完整。**发布前修源**：`95d9e1b9eb` 删掉了图片行却保留了讲 `Figure 1` 的段落，英文与中文都已补回原图（`e709995832`）。**遗留**：canonical 仍为 DEV 自身（连续第五次）。
+- 进度依据：本条源文是 2026-11-06 英文长文，上游在上一轮巡检之后合入，Medium 与 DEV 均无副本，按"后续新增英文长文继续交叉排入"补入；发布前用 DEV 作者 API 复查账号 68 篇、精确标题 0 篇重复。本条用掉 LA 11-07 正常额度（LA 11-07 当日尚无其他发布），补发缺口仍为 0。
+- 部署缺口：源文修复的 push 触发的 Deploy Static App run 42432319860 被判 `Skipping stale site deploy`（发布 bot 的 `[skip ci]` 提交 `5061b85d70` 已把 `main` 推进），已用 `gh workflow run app-static-pages.yml --ref main`（run 42433232871）补跑，恢复图片进生产 HTML。
 
 ### 2026-11-07 排期（LA 时区）
 

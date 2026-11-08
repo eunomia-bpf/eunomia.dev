@@ -1,6 +1,6 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-07
+Last checked: 2026-11-08
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
@@ -42,8 +42,9 @@ reports, and content with confirmed LinkedIn publication records are not
 included in this LinkedIn batch.
 
 Medium and DEV have completed the queued BPFix, tutorials 50 through 54,
-AgentCgroup, CPU noise, Agent Sandbox, ACRFence, and Runtime Security articles.
-Neither platform has an unfinished queue task. Raw unmatched-source counts do
+AgentCgroup, CPU noise, Agent Sandbox, ACRFence, and Runtime Security articles,
+and the 2026-11-08 DEV copy of the Lean proof-checking post. Neither platform
+has an unfinished queue task. Raw unmatched-source counts do
 not authorize additional publication. Medium tutorial 53's flattened
 Requirements table was repaired in place on 2026-08-30; no duplicate was created.
 
