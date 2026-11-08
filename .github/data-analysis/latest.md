@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-07 14:14 UTC`
+Generated: `2026-11-08 14:23 UTC`
 
 ## Collection health
 
@@ -10,26 +10,26 @@ Generated: `2026-11-07 14:14 UTC`
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
 | github | succeeded | 154 | 0 |
-| devto | succeeded | 66 | 0 |
+| devto | succeeded | 69 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `281 ms`.
+- Homepage: `200` in `210 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `900`.
+- Sitemap entries observed: `902`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `100`.
-- Current stars: `10275`; forks: `1360`; open issue/PR records: `361`.
+- Current stars: `10280`; forks: `1361`; open issue/PR records: `361`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4334 | 607 | 26 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1601 | 191 | 135 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4335 | 608 | 26 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1602 | 191 | 135 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 908 | 77 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 776 | 119 | 45 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 777 | 119 | 45 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 450 | 35 | 5 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 244 | 42 | 68 |
@@ -37,14 +37,14 @@ Generated: `2026-11-07 14:14 UTC`
 
 ## DEV publication surface
 
-- Articles observed: `66`.
+- Articles observed: `69`.
 - Public reactions: `43`; comments: `4`.
 
+- [AI Now Writes Lean Proofs Faster Than Lean Can Check Them](https://dev.to/yunwei37/ai-now-writes-lean-proofs-faster-than-lean-can-check-them-51mh): 0 reactions, 0 comments.
+- [ActPlane: Pushing Agent Harness Enforcement Down to Kernel eBPF](https://dev.to/yunwei37/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf-2doh): 0 reactions, 0 comments.
+- [Can an AI Agent Tune the Linux Scheduler? Inside SchedCP and sched-agent](https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0): 0 reactions, 0 comments.
 - [When Does CPU Scheduling Help AI Inference?](https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did): 0 reactions, 0 comments.
 - [Does moving a GPU server's request loop into the kernel save CPU?](https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72): 0 reactions, 0 comments.
-- [Can a language model run in Linux eBPF?](https://dev.to/yunwei37/can-a-language-model-run-in-linux-ebpf-55ip): 0 reactions, 0 comments.
-- [AgentCgroup: What Happens When AI Agents Meet OS Resources?](https://dev.to/yunwei37/agentcgroup-what-happens-when-ai-agents-meet-os-resources-1h2f): 0 reactions, 0 comments.
-- [eBPF Tutorial: Inspecting the Executable Image After exec](https://dev.to/yunwei37/ebpf-tutorial-inspecting-the-executable-image-after-exec-3el7): 0 reactions, 0 comments.
 
 ## Coverage gaps
 
