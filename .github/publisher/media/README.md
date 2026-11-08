@@ -32,6 +32,15 @@ publisher in `.github/publisher/`. Never print or commit credentials. Check for
 an exact-title duplicate before creation, then inspect the complete public page
 in a normal visible browser after publication.
 
+Deploy-trigger gotcha: `Deploy Static App` builds from `main` and skips itself
+as stale when `main` has moved past the pushed SHA. Two commits here can cause
+that. The publish workflow's own `Published post and updated queue [skip ci]`
+commit lands seconds after ours, and GitHub matches `[skip ci]` anywhere in a
+commit message, so writing it in *our* message also suppresses the whole push
+event. Either way the source fix reaches git but not `app/out`; re-run with
+`gh workflow run app-static-pages.yml --ref main` and confirm the changed
+markup in the deployed HTML before calling a content fix done.
+
 The legacy shared `publish.py` path removes the source H1 before sending a
 shared content body. Medium's API does not render its separate `title` field in
 the article body, so any shared publisher must explicitly restore the visible
