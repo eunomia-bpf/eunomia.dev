@@ -261,6 +261,24 @@ re-verify path rewrites the receipt to `status=published` in about a second
 publisher, then the pushed tip's deploy finished at 21 minutes and the
 re-verify completed the receipt).
 
+One forward-move is not always enough. A 11-07 run had `main` advance twice
+during the validator's ten-minute build-and-render, so the first reject was
+followed by a second reject after a clean `reset --soft origin/main` plus
+restore. Treat the push as a loop: fetch, reset soft, restore every incoming
+added path, rerun the validator, and repeat until push succeeds. Diff
+`git status --porcelain` against the pre-run snapshot after each move; the
+only lines that may appear are the pair and the two indexes.
+
+The re-verify pass marks `build`, `render`, and `commit_push` as
+`skipped_already_published`, so the receipt alone no longer proves the current
+render. It also leaves the previous date's PNGs under
+`<state>/screenshots/{en,zh}/`, and their mtimes predate the run. Prove the
+live render directly: fetch all four public URLs for status and H1, then open
+both articles in a browser and check the section headings, reference link
+counts, horizontal overflow, and absence of replacement characters on the
+Chinese page.
+
+
 Re-count the archive before repeating a coverage sentence from an earlier
 draft. A resumed candidate can state that both windows were empty while the
 seven-day window actually held messages, and the live page then contradicts
