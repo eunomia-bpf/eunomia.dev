@@ -269,6 +269,16 @@ added path, rerun the validator, and repeat until push succeeds. Diff
 `git status --porcelain` against the pre-run snapshot after each move; the
 only lines that may appear are the pair and the two indexes.
 
+When the validator has already passed content-test, build and render and the
+only failure is the push, do not spend another full pipeline on the race.
+Forward-move, then commit the four owned paths and push by hand immediately:
+the validator's own rerun spends ten minutes rebuilding before it reaches the
+same push, which is ten more minutes for another publisher to land a commit. A
+11-08 run was rejected twice exactly that way, then pushed the identical
+content two minutes after a manual `reset --soft` + restore. Nothing is skipped
+by doing this — build and render were `ok` in the same receipt for the same
+bytes — but the re-verify pass must then prove the live pages directly.
+
 The re-verify pass marks `build`, `render`, and `commit_push` as
 `skipped_already_published`, so the receipt alone no longer proves the current
 render. It also leaves the previous date's PNGs under
