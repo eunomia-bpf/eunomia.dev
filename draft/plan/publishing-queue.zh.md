@@ -6,7 +6,8 @@
 
 ### 2026-11-09 排期（LA 时区）
 
-- [ ] `排队` DEV：`docs/blog/posts/claude-code-analysis.md`。
+- [x] `排队` DEV：`docs/blog/posts/claude-code-analysis.md`。由 `publish-posts` workflow（run 42543519003，`PUBLISH_PLATFORMS=devto`，`publish_count=1`）在 `2026-11-09T01:04:06Z`（LA 11-08 17:04 PST，+08 11-09 09:04）从 `draft/media/2026-11-09/claude-code-analysis/devto.md` 发布：<https://dev.to/yunwei37/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-5bod>（article id 5001004，tag `ebpf`/`ai`/`linux`/`security`，reading_time 20，0 反应 0 评论，DEV 覆盖 59 -> 60/128）。准备稿是源文逐字节副本（源文无图片、唯一正文链接已是绝对地址，无需改写）；公开 `body_markdown` 与去 frontmatter/H1 后的准备稿逐字相同，仅 DEV 把 14 个无语言围栏重新标注为 `plaintext`（10 个）和 `http`（2 个请求抓包块）。可见页 1 h1、12 个正文 H2（= 源文 12 个 `##`）、64 个 H3、6 个 H4、50 个 `pre`（100 个围栏）、7 张表格共 45 行（源文 52 行减去 7 行分隔线）、0 张图片、4696 词、结尾完整，两个外链目标（AgentSight GitHub、arXiv `2508.02736`）均可点。**遗留**：canonical 仍是 DEV 自身（连续第六次，`media-publisher` 的 `publish-multi` 不转发 `canonical_url`）。
+- 进度依据：本条源文是 2026-02-13 英文长文，Medium 已有副本（`1dde03bcc7ef`）而 DEV 缺失，按"后续新增英文长文继续交叉排入"补入；发布前用 DEV 作者 API 复查账号 67 篇、精确标题 0 篇重复。队列中剩余 24 条知乎任务仍为平台级 `阻塞`（可见 Chrome 未登录），Medium 无 `MEDIUM_API_KEY` 且编辑器未登录，因此本日唯一可执行任务就是这条 DEV。本条用掉 LA 11-08 正常额度（LA 11-08 当日尚无其他发布），补发缺口仍为 0。
 
 ### 2026-11-08 排期（LA 时区）
 

@@ -1,10 +1,23 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-08
+Last checked: 2026-11-09
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-09: the `publish-posts` workflow published `docs/blog/posts/claude-code-analysis.md` to DEV
+(<https://dev.to/yunwei37/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-5bod>, `2026-11-09T01:04:06Z`)
+from a byte-identical copy at `draft/media/2026-11-09/claude-code-analysis/devto.md`, so it is no longer a
+pending DEV source; its Medium copy was already confirmed as `1dde03bcc7ef`. The run used the LA 2026-11-08
+normal slot, entered in `draft/plan/publishing-queue.zh.md`. `.github/publisher/posts_queue.txt` is empty again
+because the workflow pops each entry after a successful publish.
+
+2026-11-08: the `publish-posts` workflow published `docs/blog/posts/ai-lean-proof-checking-cost.md`
+to DEV (<https://dev.to/yunwei37/ai-now-writes-lean-proofs-faster-than-lean-can-check-them-51mh>,
+`2026-11-08T01:00:47Z`) from `draft/media/2026-11-08/ai-lean-proof-checking-cost/devto.md`, which differs from
+the source only in two absolute-URL rewrites, so it is no longer a pending DEV source; its Medium copy is
+still unpublished. The run used the LA 2026-11-07 normal slot.
 
 2026-11-07: the `publish-posts` workflow published `docs/blog/posts/actplane.md` to DEV
 (<https://dev.to/yunwei37/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf-2doh>, `2026-11-07T01:31:46Z`)
