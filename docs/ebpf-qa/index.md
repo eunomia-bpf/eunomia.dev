@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why does a valid BPF program now fail to load with ENOSPC from a 64 KB verifier log, and why does the level 1 log no longer show the path to the error?](/ebpf-qa/2026-11-08-verifier-level1-log-enospc-vs-path-to-error/)
 - [Why does the verifier let any BPF iterator program update a sockmap, and why is only the sockmap iterator safe?](/ebpf-qa/2026-11-07-sockmap-update-from-any-iterator-vs-sockmap-iterator/)
 - [Why does adding a mount idmap argument at the front of the inode LSM hooks silently shift every BPF LSM argument, and what can catch it?](/ebpf-qa/2026-11-06-bpf-lsm-hook-argument-shift-silent-misread/)
 - [Why do large eBPF programs hit the verifier's instruction and jump-sequence limits when the instruction count fits, and what changes if the verifier joins states instead of following paths?](/ebpf-qa/2026-11-05-verifier-joins-states-path-explosion-limits/)
