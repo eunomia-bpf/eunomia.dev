@@ -1,10 +1,19 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-09
+Last checked: 2026-11-10
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-10: the `publish-posts` workflow (run 42732728828) published `docs/tutorials/0-introduce/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f>, `2026-11-10T01:01:58Z`)
+from `draft/media/2026-11-10/0-introduce/devto.md`, the source byte-for-byte apart from the source's stray closing `".` at the
+end of its last sentence, so it is no longer a pending DEV source. It used the LA 2026-11-09 normal slot. The first
+workflow trigger read an empty queue because the queue entry had only been committed locally; the queue and artifact were
+pushed, then the run published. `.github/publisher/posts_queue.txt` is empty again because the workflow pops each entry
+after a successful publish. The same check also confirmed three older tutorial DEV copies (cgroup, BPF Token, BPF dynamic
+pointers) that had been live since 2026-02/03 but were missing from every ledger.
 
 2026-11-09: the `publish-posts` workflow published `docs/blog/posts/claude-code-analysis.md` to DEV
 (<https://dev.to/yunwei37/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-5bod>, `2026-11-09T01:04:06Z`)
@@ -44,7 +53,7 @@ The machine ledger currently reports 41 unmatched Chinese sources on Zhihu and
 31 on Juejin (78/109 mapped). These raw counts include paused material,
 non-standalone index or reference pages, and duplicate source representations.
 The ordered platform actions that remain suitable candidates are maintained
-one-by-one in `draft/plan/publishing-queue.zh.md`; 24 Zhihu and 0 Juejin tasks
+one-by-one in `draft/plan/publishing-queue.zh.md`; 23 Zhihu and 0 Juejin tasks
 remain. Each checkbox is one platform task. The normal target is one
 publication per day; documented catch-up slots may add another platform, never
 a second post on the same platform that day unless it redeems a catch-up gap.
@@ -56,7 +65,8 @@ included in this LinkedIn batch.
 
 Medium and DEV have completed the queued BPFix, tutorials 50 through 54,
 AgentCgroup, CPU noise, Agent Sandbox, ACRFence, and Runtime Security articles,
-and the 2026-11-08 DEV copy of the Lean proof-checking post. Neither platform
+the 2026-11-08 DEV copy of the Lean proof-checking post, and the 2026-11-10 DEV
+copy of tutorial 0 (the first of the historical tutorial backfill on that platform). Neither platform
 has an unfinished queue task. Raw unmatched-source counts do
 not authorize additional publication. Medium tutorial 53's flattened
 Requirements table was repaired in place on 2026-08-30; no duplicate was created.

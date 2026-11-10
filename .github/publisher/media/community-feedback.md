@@ -20,6 +20,15 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-11-10
+
+- One DEV publication, no engagement yet. `publish-posts` run 42732728828 published [the DEV copy of tutorial 0](https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f) at `2026-11-10T01:01:58Z` (LA 2026-11-09 17:01 PST) from `draft/media/2026-11-10/0-introduce/devto.md`; the public API reports 0 reactions and 0 comments five minutes later, matching every DEV copy since 2026-10-31.
+- Selection constraint, restated: the queue's 23 open items are all Zhihu and all platform-blocked (visible Chrome still signs out at `/creator`), and Medium has neither `MEDIUM_API_KEY` nor a signed-in editor, so the executable daily action is again a crossed-in English long post whose Medium copy exists and whose DEV copy does not. Tutorial 0 was the earliest such tutorial; its only source defect (the trailing `\".` after "eBPF technology") was removed from the artifact, not the synced source.
+- The DEV author listing still lags: the public listing reports 69 posts while the new article is already readable through its per-article endpoint, the same lag recorded on 2026-11-06 and 2026-11-09. Do not treat a listing count as publish evidence.
+- Ledger gap found while choosing the candidate: `cgroup`, `features/bpf_token` and `features/dynptr` have had public DEV copies since 2026-02-17/02-24/03-17, but only their Medium copies were ledgered, so DEV coverage under-reported three sources for eight months. They are now confirmed from the public API and visible pages; coverage moved 60 -> 64/128.
+- No new external echoes. The newest `eunomia` HN story remains 50385391 (AgentSight, 2 points, 0 comments, 2026-11-05); the newest HN comment mentioning eunomia is a 2026-11-05 reply on the Stroq Show HN suggesting an eBPF backend, which is third-party and needs no reply. No new DEV comments on any post.
+- Session state unchanged: persistent visible Chrome is signed out on 知乎, 掘金, Medium and the DEV editor, and no `MEDIUM_API_KEY`/`DEV_TO_API_KEY` is present in the shell, so the secret-backed workflow remains the only publication path and all 23 Zhihu tasks stay platform-blocked.
+
 ### 2026-11-09
 
 - One DEV publication, no engagement yet. `publish-posts` run 42543519003 published [the DEV copy of the Claude Code SSL-traffic reverse-engineering post](https://dev.to/yunwei37/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-5bod) at `2026-11-09T01:04:06Z` (LA 2026-11-08 17:04 PST) from `draft/media/2026-11-09/claude-code-analysis/devto.md`, a byte-identical copy of the source. The published `body_markdown` equals the artifact after the frontmatter/H1 strip except for 14 DEV fence relabelings (`plaintext` x10, `http` x2); the page renders the exact title, 12 body H2, 64 H3, 6 H4, 50 `pre`, 7 tables, 0 images, 4,696 words, both external targets and the complete ending. 0 reactions, 0 comments, 20 minute read. Coverage moves to 60/128 on DEV.

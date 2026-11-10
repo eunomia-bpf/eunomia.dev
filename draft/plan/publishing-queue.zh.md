@@ -1,8 +1,14 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-09。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-10。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+
+### 2026-11-10 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/tutorials/0-introduce/README.md`。由 `publish-posts` workflow（run 42732728828，`PUBLISH_PLATFORMS=devto`，`publish_count=1`）在 `2026-11-10T01:01:58Z`（LA 11-09 17:01 PST，+08 11-10 09:01）从 `draft/media/2026-11-10/0-introduce/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f>（article id 5007697，tag `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 9，0 反应 0 评论，DEV 覆盖 60 -> 64/128，其中 3 篇是本节同时补记的旧副本）。准备稿是源文逐字节副本，唯一改动是删掉源文最后一句多出来的闭合 `".`（源文 `docs/tutorials/0-introduce/README.md` 与上游 `bpf-developer-tutorial/src/0-introduce/README.md` 都仍带着它）；公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（15453 字符，无围栏改写、无实体改写）。可见页 1 h1、7 个正文 H2（= 源文 7 个 `##`）、10 个 H3、0 个 `pre`（源文本就没有围栏）、0 表格、0 图片、2097 词、结尾完整，正文两组外链（tutorial 仓库、eunomia.dev/tutorials、ebpf.io、docs.ebpf.io、bpftime、bcc、libbpf-bootstrap、eunomia-bpf）全部可点。**遗留**：canonical 仍自指。
+- 进度依据：队列剩余 23 条知乎任务全部平台级 `阻塞`（可见 Chrome 未登录，`/creator` 跳 `/signin`），Medium 无 `MEDIUM_API_KEY` 且编辑器未登录；2026 年英文 Blog 的 Medium/DEV 副本已无缺口，因此按"历史回补默认只处理 tutorial"取教程序列中最早、且源文干净的 `0-introduce`（Medium 已有副本，DEV 缺失）。发布前用 DEV 公开 API 复查账号 69 篇、精确标题 0 篇重复。本条用掉 LA 11-09 正常额度（LA 11-09 当日尚无发布），补发缺口仍为 0。
+- 同次核对：账号上 `cgroup`、`features/bpf_token`、`features/dynptr` 三篇 DEV 副本自 2026-02/03 起就在线，但 Medium 已 ledger、DEV 未 ledger，覆盖被低估；本次用公开 API + 可见页复查后补记（见 `platforms/devto.json` 的 `devto-1k2d`/`devto-3b5i`/`devto-cj2`）。
 
 ### 2026-11-09 排期（LA 时区）
 
@@ -70,7 +76,7 @@
 - 已核定：2026-11-04（LA）巡检完成一条 DEV 发布：`gthulhu-vllm-cpu-pressure` 经定时 workflow 于 `2026-11-05T01:39:39Z` 公开（<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>），公开 API 与可见页结构一致，DEV 覆盖 55 -> 56/127；遗留两张外部 SVG 图表因 `media2.dev.to` 的 `format=auto` 把 SVG 标成 `image/webp` 而显示为空，需登录编辑器或改为 PNG 才能修。
 - 已核定：2026-11-06（LA）巡检完成一条 DEV 发布：`schedcp-agentic-os` 经 `publish-posts` workflow（run 42204873168）于 `2026-11-06T10:44:00Z` 公开（<https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0>），`body_markdown` 与准备稿逐字一致，可见页 1 h1 / 6 H2 / 1 张 PNG 正常加载，DEV 覆盖 56 -> 57/127；遗留 canonical 仍自指。
 - 已核定：2026-10-31（LA）巡检经可见 Medium 编辑器（`MEDIUM_API_KEY` 缺席）发布 1 条：gthulhu-vllm-cpu-pressure（<https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5>，JSON-LD dateModified / `article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT；公开页完整滚动 QA 通过、ledger 已 `confirmed`）。该源不在原队列内（Medium 0 条），按“后续新增英文长文继续交叉排入”补入并完成。
-- 剩余队列：知乎 24 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 24 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成，`schedcp-agentic-os` 的 DEV 项已于 LA 11-06 完成（Medium 副本仍未发布）。后续新增内容直接插入合适位置。
+- 剩余队列：知乎 23 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 23 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成，`schedcp-agentic-os` 的 DEV 项已于 LA 11-06 完成（Medium 副本仍未发布），tutorial `0-introduce` 的 DEV 项已于 LA 11-09 完成。后续新增内容直接插入合适位置。
 
 ## 发布队列
 

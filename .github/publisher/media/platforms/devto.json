@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-09",
+  "last_checked": "2026-11-10",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-1j0f",
+      "status": "confirmed",
+      "date": "2026-11-10",
+      "title": "eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f",
+      "source_path": "docs/tutorials/0-introduce/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published 2026-11-10T01:01:58Z (LA 2026-11-09 17:01 PST) by `publish-posts` workflow run 42732728828 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`) from `draft/media/2026-11-10/0-introduce/devto.md`. The artifact is the source byte-for-byte except the stray closing `\".` at the end of the final sentence, which the source still carries. Public `body_markdown` is character-identical to the artifact body after the H1 strip (15,453 chars, no fence or entity rewrites). Visible page: 1 h1, 7 body H2, 10 H3, 0 pre, 0 tables, 0 images, 2,097 words, complete ending, both body link groups (tutorial repo, eunomia.dev/tutorials, ebpf.io, docs.ebpf.io, bpftime, bcc, libbpf-bootstrap, eunomia-bpf) resolve. Canonical still self-referential (known upstream defect)."
+    },
     {
       "id": "devto-5bod",
       "status": "confirmed",
@@ -253,6 +270,54 @@
       ],
       "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
       "notes": "Published 2026-11-01T07:55:12Z by an upstream session; the previous run recorded only the Medium copy, so this entry closes the ledger gap found on 2026-11-02. Public-page DOM QA matched the source exactly: title, five body H2 headings, 12 inline code spans, the complete ending, and all source link targets. DEV rendered the Mermaid fence as an SVG diagram, so the copy has no raw-code block left; canonical is DEV self, not eunomia.dev. Zero comments and zero reactions at check time (public API)."
+    },
+    {
+      "id": "devto-1k2d",
+      "status": "confirmed",
+      "date": "2026-02-24",
+      "title": "eBPF Tutorial: cgroup-based Policy Control",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-cgroup-based-policy-control-1k2d",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-cgroup-based-policy-control-1k2d",
+      "source_path": "docs/tutorials/cgroup/README.md",
+      "tags": [
+        "ebpf",
+        "cgroup",
+        "tutorial"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published 2026-02-24T07:43:56Z (article id 3280178) upstream of any recorded run; the Medium copy was ledgered but the DEV copy was not, so coverage under-reported this source until the 2026-11-10 check. Verified now via the public article API (title, tags, 23,676-char body) and the visible page (1 h1, 11 H2, 11 pre, 0 images, complete closing sentence)."
+    },
+    {
+      "id": "devto-3b5i",
+      "status": "confirmed",
+      "date": "2026-03-17",
+      "title": "eBPF Tutorial by Example: BPF Token for Delegated Privilege and Secure Program Loading",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-bpf-token-for-delegated-privilege-and-secure-program-loading-3b5i",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-bpf-token-for-delegated-privilege-and-secure-program-loading-3b5i",
+      "source_path": "docs/tutorials/features/bpf_token/README.md",
+      "tags": [
+        "ebpf",
+        "tutorial",
+        "linux"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published 2026-03-17T07:48:37Z (article id 3361831) upstream of any recorded run; the Medium copy was ledgered but the DEV copy was not, so coverage under-reported this source until the 2026-11-10 check. Verified now via the public article API (title, tags, 16,351-char body) and the visible page (1 h1, 9 H2, 14 pre, 0 images, complete reference list at the end)."
+    },
+    {
+      "id": "devto-cj2",
+      "status": "confirmed",
+      "date": "2026-02-17",
+      "title": "eBPF Tutorial by Example: BPF Dynamic Pointers for Variable-Length Data",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-bpf-dynamic-pointers-for-variable-length-data-cj2",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-bpf-dynamic-pointers-for-variable-length-data-cj2",
+      "source_path": "docs/tutorials/features/dynptr/README.md",
+      "tags": [
+        "ebpf",
+        "verifier",
+        "tutorial"
+      ],
+      "checked_via": "dev_public_api_plus_visible_public_page_dom_qa",
+      "notes": "Published 2026-02-17T07:43:38Z (article id 3261686) upstream of any recorded run; the Medium copy was ledgered but the DEV copy was not, so coverage under-reported this source until the 2026-11-10 check. Verified now via the public article API (title, tags, 22,151-char body) and the visible page (1 h1, 7 H2, 11 pre, 0 images, complete closing sentence)."
     }
   ],
   "confirmed_source_urls": {
@@ -371,7 +436,7 @@
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
-    "Six consecutive API syndications now self-canonicalize (devto-5did, devto-d72, devto-4cj0, devto-2doh, devto-51mh, devto-5bod) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
+    "Seven consecutive API syndications now self-canonicalize (devto-5did, devto-d72, devto-4cj0, devto-2doh, devto-51mh, devto-5bod, devto-1j0f) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
     "The public author API now reports 66 posts (first query after the 2026-11-04 publish still returned the cached 65), so the 2026-07-20 visible-scroll inventory of 54 links is further behind; re-scroll the profile before the next full-history audit.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
