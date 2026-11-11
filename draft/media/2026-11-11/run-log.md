@@ -17,13 +17,13 @@
 - 结构对账：1 h1、7 个正文 H2（= 源文 7 个 `##`）、1 H3、10 个 `pre`（20 个围栏）、0 表格、0 图片、2233 词、结尾完整；正文外链（releases、4 个 starter template、GitHub template 文档、tutorial 仓库、eunomia.dev/tutorials）全部可点。
 - 覆盖：DEV 64 -> 65/128，`check_media_ledger.py` 退出 0（79 条 confirmed，0 条 confirmed-without-source_path）。
 
-## 公开页 404（未解决）
+## 公开页 404（已自愈）
 
 - 00:20Z 首次打开公开页时页面完整：1 h1、7 正文 H2、1 H3、10 `pre`、0 图 0 表、2233 词、结尾完整，4 组外链全部 200，正是上面对账的依据。
-- 约 00:24Z 起同一 URL 开始返回 `404: Page Not Found`。特征：Fastly 返回的是同一条缓存负结果（每次请求 `x-request-id` 相同，`age` 从 0 一路涨到 3500 s 以上），换随机 query string、`Cache-Control: no-cache`、换 UA（含 Googlebot）、换边缘节点都消不掉；期间部分边缘节点仍能返回 200。
-- 同时段 `/api/articles/5013503`、`/api/articles?tag=ebpf`、作者列表、RSS、可见 profile 卡片都还能列出该文；01:30Z 之后 RSS、profile 与 tag HTML 也开始消失，新缓存键与独立代理 `r.jina.ai` 同样 404，`/api/articles/yunwei37/<slug>` 按路径查 404，而按 id 查仍 200。
-- 「按 id 可取、按路径与页面不可取」说明记录还在，但页面路由已不解析该 slug。怀疑是审核/去列表状态，或 slug 与既有副本冲突；DEV 面板无法自查：可见 Chrome `/dashboard` -> `/magic_links/new`（未登录）。
-- 结论与处置：不重发（会产生重复 article），不改 slug（无法在编辑器确认），把状态如实写进 `platforms/devto.json`（`checked_via` = `..._then_public_page_flap`，并在 `pending_verification` 置顶一条待登录复核），等 DEV 会话恢复后从面板确认或修正。
+- 约 00:24Z 起同一 URL 开始返回 `404: Page Not Found`，持续到约 01:44Z。特征：整段 404 都来自同一条 Fastly 负缓存（每次请求 `x-request-id` 相同，`age` 从 71 s 一路涨到 4612 s），随机 query string、`Cache-Control: no-cache`、爬虫 UA、换边缘节点都消不掉；期间其它边缘节点的 `200` 与它并存。
+- 同时段 `/api/articles/5013503`、`/api/articles?tag=ebpf`、作者列表、RSS、可见 profile 卡片都一直能列出该文。`/api/articles/yunwei37/<slug>` 与页面共享同一条 404、又在同一刻恢复，因此当时「按 id 可取、按路径不可取」指向的是缓存而不是未列出/审核态——这一点我最初判断错了，记录里的 `pending_verification` 已按实测更正。
+- 01:46Z 起该 URL、按路径 API、RSS 全部 200；01:49-01:52Z 连续 26 次请求全 200，独立代理 `r.jina.ai` 也是 200。可见 Chrome 重新做整页 DOM 复核，数字与 00:20Z 首次 QA 完全一致（1 h1、7 正文 H2、1 H3、10 `pre`、0 表 0 图、2233 词、结尾完整、tag `ebpf`/`linux`/`tutorial`/`kernel`、无 unlisted 提示、canonical 仍是 DEV 自身）。
+- 结论：发布与页面都成立，`platforms/devto.json` 的 `devto-2kmb` 保持 `confirmed`，`checked_via` 记为 `..._before_and_after_url_recovery`；`pending_verification` 里那条待登录复核已撤销。没有重发，也没有改 slug。
 
 ## canonical 缺陷（连续第八次）
 
@@ -39,7 +39,7 @@ tutorial 1 的 Medium 副本（2023-08-15）仍在线且 `canonical` 正确指�
 
 ## 下一次具体动作
 
-0. 恢复 DEV 登录后先查 article 5013503 的可见状态（是否被隐藏/去列表/重复 slug），据结果把 `devto-2kmb` 从 `pending_verification` 结清或改状态；在确认前不要重发 tutorial 1。
+0. article 5013503 已自愈并完成整页复核，无需再查；若下次遇到同类 404，先看 `x-request-id`/`age` 是否单调，并至少等满 90 分钟再判断（本次负缓存存活约 80 分钟）。
 
 1. 恢复 Chrome 配置里的知乎登录后，从 `53-egress-pacer` 起继续处理 23 条知乎任务。
 2. 若 DEV 继续日更：下一候选 `2-kprobe-unlink`（Medium 已确认、DEV 缺失），之后按编号 `3-fentry-unlink`、`4-opensnoop` 依次取用。
