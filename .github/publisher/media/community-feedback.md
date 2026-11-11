@@ -20,6 +20,14 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-11-11
+
+- One DEV publication, no engagement yet. `publish-posts` run 42929758642 published [the DEV copy of tutorial 1](https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-process-2kmb) at `2026-11-11T00:17:57Z` (LA 2026-11-10 16:17 PST) from `draft/media/2026-11-11/1-helloworld/devto.md`; the public API reports 0 reactions and 0 comments, matching every DEV copy since 2026-10-31. The artifact differs from the source only where the source joins two list items on one line.
+- The scheduled run does not invent work: `publish-posts` at `2026-11-10T15:18:17Z` (run 42842937432) succeeded against an empty `posts_queue.txt`. A manual queue entry plus dispatch is still required for every daily DEV slot, and the DEV public listing continues to lag the per-article endpoint right after publishing.
+- The 2023 Medium copy of the same tutorial is still live and still defective: <https://medium.com/@yunwei356/ebpf-getting-started-tutorial-1-hello-world-basic-framework-and-development-process-33d4220022a4> renders `###` headings as `##`, strips code-fence languages, collapses `./ecli run package.json` into `eclirunpackage.json`, and keeps the run-on bullet. Its `canonical` does point at <https://eunomia.dev/tutorials/1-helloworld/>, so the site original is credited; repairs need the signed-in Medium editor, which is still behind sign-in.
+- No new external echoes: the newest HN story mentioning eunomia is still 50385391 (AgentSight, 2 points, 0 comments, 2026-11-05); exact-title search now returns the canonical page, the GitHub source, a gitcode mirror, and a 2024 third-party LinkedIn share of the same tutorial, none of which needs a reply. The DEV `ebpf` tag feed picked up the new copy beside third-party posts.
+- Session state unchanged: the persistent visible Chrome is signed out on 知乎 (`/creator` -> `/signin`), 掘金, Medium, X and the DEV editor, and the shell has no `MEDIUM_API_KEY`/`DEV_TO_API_KEY`; the secret-backed workflow remains the only publication path and all 23 Zhihu tasks stay platform-blocked. Next checkpoint: tutorial `2-kprobe-unlink` (Medium confirmed, DEV missing) on the next eligible slot.
+
 ### 2026-11-10
 
 - One DEV publication, no engagement yet. `publish-posts` run 42732728828 published [the DEV copy of tutorial 0](https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f) at `2026-11-10T01:01:58Z` (LA 2026-11-09 17:01 PST) from `draft/media/2026-11-10/0-introduce/devto.md`; the public API reports 0 reactions and 0 comments five minutes later, matching every DEV copy since 2026-10-31.

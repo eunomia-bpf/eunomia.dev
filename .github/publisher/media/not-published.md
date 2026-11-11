@@ -1,10 +1,19 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-10
+Last checked: 2026-11-11
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-11: the `publish-posts` workflow (run 42929758642) published `docs/tutorials/1-helloworld/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-2kmb>, `2026-11-11T00:17:57Z`,
+article id 5013503) from `draft/media/2026-11-11/1-helloworld/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed as `33d4220022a4` since 2026-08. The artifact differs from the source only where the source
+(and upstream `bpf-developer-tutorial`) joins the "Github Packages." bullet and the following "GitHub Actions" bullet on
+one line; the artifact splits them so DEV renders two items. It used the LA 2026-11-10 normal slot. A manual dispatch was
+needed because the scheduled run has no queue entry and does not invent one. `.github/publisher/posts_queue.txt` is empty
+again because the workflow pops each entry after a successful publish.
 
 2026-11-10: the `publish-posts` workflow (run 42732728828) published `docs/tutorials/0-introduce/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f>, `2026-11-10T01:01:58Z`)

@@ -1,8 +1,16 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-10。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-11。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+
+### 2026-11-11 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/tutorials/1-helloworld/README.md`。由 `publish-posts` workflow（run 42929758642，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-11T00:17:57Z`（LA 11-10 16:17 PST，+08 11-11 08:17）从 `draft/media/2026-11-11/1-helloworld/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-2kmb>（article id 5013503，tag `ebpf`/`linux`/`tutorial`/`kernel`，0 反应 0 评论，DEV 覆盖 64 -> 65/128）。准备稿与源文只有一处差异：源文（以及上游 `bpf-developer-tutorial/src/1-helloworld/README.md`）把 "…publishing it to Github Packages." 和 "- GitHub Actions, …" 挤在同一行，渲染成一个连写条目，准备稿拆成两条 `- `；该缺陷仍在源文里，本次未改同步源。公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（15630 字符，10 个无语言围栏未被 DEV 重新标注）。可见页 1 h1、7 个正文 H2（= 源文 7 个 `##`）、1 个 H3、10 个 `pre`（20 个围栏）、0 表格、0 图片、2233 词、结尾完整，5 组正文外链（releases、4 个 starter template、GitHub template 文档、tutorial 仓库、eunomia.dev/tutorials）全部可点。**遗留**：canonical 仍为 DEV 自身（连续第八次，`publish.py` 不发 `canonical_url`）。
+- 进度依据：队列剩余 23 条知乎任务全部平台级 `阻塞`（可见 Chrome `/creator` -> `/signin`），Medium 无 `MEDIUM_API_KEY`、`/me/stories` 未登录，X 与掘金均登出；按"历史回补默认只处理 tutorial"取教程序列中最早的 `1-helloworld`（Medium `33d4220022a4` 已确认，DEV 缺失）。发布前用 DEV 公开 API 复查账号 71 篇、精确标题 0 篇重复。
+- 额度口径：本条发布时刻 `2026-11-11T00:17:57Z` 属 LA 11-10 16:17 PST，按本文件各日小节的 LA 记账法用掉 **LA 11-10 正常额度**；LA 11-10 此前只有 `15:18:17Z` 那次读到空队列的定时运行、没有公开结果，因此该日现在算已发布，补发缺口仍为 0。+08 11-11 运行日不再另发第二条（同一平台同日最多一篇）。
+- 定时运行未接管：`posts_queue.txt` 为空时定时 `publish-posts` 不会自行排队，2026-11-10 15:18Z 的 run 42842937432 就是这样空跑成功的；因此本条沿用 2026-11-10 的先例，手工写入队列、推送 `main` 后再 dispatch。
+- 同次观察（Medium 旧副本，未修）：tutorial 1 的 Medium 副本 <https://medium.com/@yunwei356/ebpf-getting-started-tutorial-1-hello-world-basic-framework-and-development-process-33d4220022a4>（2023-08-15 发布，`canonical` 指向 eunomia.dev 原文）仍带同一处连写条目、`h3` 被渲染成 `##`（H2/H3 层级丢失）、代码围栏无语言标注、`ecli run package.json` 被吞成 `eclirunpackage.json`；修需登录 Medium 编辑器，故只记录不改。
 
 ### 2026-11-10 排期（LA 时区）
 
@@ -75,8 +83,8 @@
 - 已核定：2026-11-03（LA）巡检补齐一条被平台级失败吞掉的发布，并修掉根因。定时 `publish-posts` workflow 提前用 LA 11-03 的正常额度发布了 `bpf-gpu-server` 的 Medium 副本（<https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42>），同一次请求里 DEV 因 tag `io_uring` 返回 422；API 把该失败包在 `200` 响应的 `results` 里，`publish.py` 遂判定成功并出队，DEV 副本丢失。修复：`publish.py` 按 `results` 判定，只有全部请求平台成功才出队，并新增 `PUBLISH_PLATFORMS`（workflow 输入 `platforms`）支持单平台重试；随后以 `PUBLISH_PLATFORMS=devto` 重发成功 <https://dev.to/yunwei37/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d72>。两篇均经公开 API 与可见 DOM 复核入账，Medium 68/127、DEV 55/127。
 - 已核定：2026-11-04（LA）巡检完成一条 DEV 发布：`gthulhu-vllm-cpu-pressure` 经定时 workflow 于 `2026-11-05T01:39:39Z` 公开（<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>），公开 API 与可见页结构一致，DEV 覆盖 55 -> 56/127；遗留两张外部 SVG 图表因 `media2.dev.to` 的 `format=auto` 把 SVG 标成 `image/webp` 而显示为空，需登录编辑器或改为 PNG 才能修。
 - 已核定：2026-11-06（LA）巡检完成一条 DEV 发布：`schedcp-agentic-os` 经 `publish-posts` workflow（run 42204873168）于 `2026-11-06T10:44:00Z` 公开（<https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0>），`body_markdown` 与准备稿逐字一致，可见页 1 h1 / 6 H2 / 1 张 PNG 正常加载，DEV 覆盖 56 -> 57/127；遗留 canonical 仍自指。
-- 已核定：2026-10-31（LA）巡检经可见 Medium 编辑器（`MEDIUM_API_KEY` 缺席）发布 1 条：gthulhu-vllm-cpu-pressure（<https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5>，JSON-LD dateModified / `article:published_time` 2026-11-01T04:01:15Z = 21:01 PDT；公开页完整滚动 QA 通过、ledger 已 `confirmed`）。该源不在原队列内（Medium 0 条），按“后续新增英文长文继续交叉排入”补入并完成。
-- 剩余队列：知乎 23 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 23 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成，`schedcp-agentic-os` 的 DEV 项已于 LA 11-06 完成（Medium 副本仍未发布），tutorial `0-introduce` 的 DEV 项已于 LA 11-09 完成。后续新增内容直接插入合适位置。
+- 已核定：2026-11-11（+08 运行日 / LA 11-10 额度）巡检完成一条 DEV 发布：tutorial `1-helloworld` 经 `publish-posts` workflow（run 42929758642，`PUBLISH_PLATFORMS=devto`）于 `2026-11-11T00:17:57Z` 公开（<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-process-2kmb>，article id 5013503），公开 `body_markdown` 与准备稿逐字一致（15630 字符），可见页 1 h1 / 7 H2 / 10 `pre` / 0 图 / 0 表 / 结尾完整，DEV 覆盖 64 -> 65/128；准备稿只修了源文里 "Github Packages." 与 "GitHub Actions" 两条被挤在同一行的连写缺陷，源文未改；遗留 canonical 仍自指（连续第八次）。
+- 剩余队列：知乎 23 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 23 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成，`schedcp-agentic-os` 的 DEV 项已于 LA 11-06 完成（Medium 副本仍未发布），tutorial `0-introduce` 的 DEV 项已于 LA 11-09 完成，tutorial `1-helloworld` 的 DEV 项已于 LA 11-10 完成（Medium 旧副本早已在线，但带格式缺陷、未修）。下一个 tutorial 候选是 `2-kprobe-unlink`（Medium 已确认，DEV 缺失）。后续新增内容直接插入合适位置。
 
 ## 发布队列
 
