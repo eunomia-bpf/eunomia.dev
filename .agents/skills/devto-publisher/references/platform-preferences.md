@@ -109,6 +109,15 @@
   rasterize SVG figures to PNG and publish the PNG URL, or upload them
   through the web editor; check `naturalWidth` on each image, not just
   `complete`.
+- A freshly published URL can answer `404: Page Not Found` for 30+ minutes
+  while the article is already live: the per-article API, the author RSS feed,
+  `/api/articles?tag=…`, and both the profile and tag HTML pages all list it,
+  and other Fastly edges serve `200`. The 404s come from one cached negative
+  response (`age` keeps climbing past 1,800 s, identical `x-request-id` on
+  every hit) that neither a cache-busting query string nor `Cache-Control:
+  no-cache` evicts. Trust the API plus a `200` from any edge before declaring
+  the publish failed, and re-run the DOM QA once the URL resolves; do not
+  re-publish, which would create a duplicate.
 
 ## Post-Publish Follow-Up
 

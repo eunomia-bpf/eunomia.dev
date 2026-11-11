@@ -17,6 +17,14 @@
 - 结构对账：1 h1、7 个正文 H2（= 源文 7 个 `##`）、1 H3、10 个 `pre`（20 个围栏）、0 表格、0 图片、2233 词、结尾完整；正文外链（releases、4 个 starter template、GitHub template 文档、tutorial 仓库、eunomia.dev/tutorials）全部可点。
 - 覆盖：DEV 64 -> 65/128，`check_media_ledger.py` 退出 0（79 条 confirmed，0 条 confirmed-without-source_path）。
 
+## 公开页 404（未解决）
+
+- 00:20Z 首次打开公开页时页面完整：1 h1、7 正文 H2、1 H3、10 `pre`、0 图 0 表、2233 词、结尾完整，4 组外链全部 200，正是上面对账的依据。
+- 约 00:24Z 起同一 URL 开始返回 `404: Page Not Found`。特征：Fastly 返回的是同一条缓存负结果（每次请求 `x-request-id` 相同，`age` 从 0 一路涨到 3500 s 以上），换随机 query string、`Cache-Control: no-cache`、换 UA（含 Googlebot）、换边缘节点都消不掉；期间部分边缘节点仍能返回 200。
+- 同时段 `/api/articles/5013503`、`/api/articles?tag=ebpf`、作者列表、RSS、可见 profile 卡片都还能列出该文；01:30Z 之后 RSS、profile 与 tag HTML 也开始消失，新缓存键与独立代理 `r.jina.ai` 同样 404，`/api/articles/yunwei37/<slug>` 按路径查 404，而按 id 查仍 200。
+- 「按 id 可取、按路径与页面不可取」说明记录还在，但页面路由已不解析该 slug。怀疑是审核/去列表状态，或 slug 与既有副本冲突；DEV 面板无法自查：可见 Chrome `/dashboard` -> `/magic_links/new`（未登录）。
+- 结论与处置：不重发（会产生重复 article），不改 slug（无法在编辑器确认），把状态如实写进 `platforms/devto.json`（`checked_via` = `..._then_public_page_flap`，并在 `pending_verification` 置顶一条待登录复核），等 DEV 会话恢复后从面板确认或修正。
+
 ## canonical 缺陷（连续第八次）
 
 DEV 副本自指，站点原文 <https://eunomia.dev/tutorials/1-helloworld/> 在线（1 h1 / 7 H2 / 10 `pre` / 2452 词）。根因仍在上游 `media-publisher`：`publish-multi` 从 `title/content/tags/is_draft/platforms` 重建 payload，`canonical_url` 在到达 DEV 分支前就被丢掉，本仓库脚本单改无效；只写进 `platforms/devto.json` 的 `pending_verification`。
@@ -30,6 +38,8 @@ tutorial 1 的 Medium 副本（2023-08-15）仍在线且 `canonical` 正确指�
 可见 Chrome 在知乎 `/creator`、掘金、Medium、X、DEV 编辑器均登出；shell 无 `MEDIUM_API_KEY`/`DEV_TO_API_KEY`。secret 支撑的 `publish-posts` 仍是唯一可用发布路径；23 条知乎 `排队` 任务保持平台级 `阻塞`。
 
 ## 下一次具体动作
+
+0. 恢复 DEV 登录后先查 article 5013503 的可见状态（是否被隐藏/去列表/重复 slug），据结果把 `devto-2kmb` 从 `pending_verification` 结清或改状态；在确认前不要重发 tutorial 1。
 
 1. 恢复 Chrome 配置里的知乎登录后，从 `53-egress-pacer` 起继续处理 23 条知乎任务。
 2. 若 DEV 继续日更：下一候选 `2-kprobe-unlink`（Medium 已确认、DEV 缺失），之后按编号 `3-fentry-unlink`、`4-opensnoop` 依次取用。
