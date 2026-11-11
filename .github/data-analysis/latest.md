@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-10 15:41 UTC`
+Generated: `2026-11-11 15:28 UTC`
 
 ## Collection health
 
@@ -14,22 +14,22 @@ Generated: `2026-11-10 15:41 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `312 ms`.
+- Homepage: `200` in `242 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `906`.
+- Sitemap entries observed: `908`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `100`.
-- Current stars: `10288`; forks: `1360`; open issue/PR records: `362`.
+- Current stars: `10290`; forks: `1361`; open issue/PR records: `363`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4335 | 607 | 26 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1602 | 191 | 133 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4336 | 607 | 26 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1602 | 191 | 134 |
 | [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 909 | 77 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 780 | 119 | 45 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 781 | 120 | 46 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 451 | 35 | 5 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 244 | 42 | 69 |
