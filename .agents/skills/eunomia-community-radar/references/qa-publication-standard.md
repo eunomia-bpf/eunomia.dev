@@ -279,6 +279,17 @@ content two minutes after a manual `reset --soft` + restore. Nothing is skipped
 by doing this — build and render were `ok` in the same receipt for the same
 bytes — but the re-verify pass must then prove the live pages directly.
 
+`reset --soft` after a rejected push does not only keep your commit's content:
+it re-stages the incoming commit's own additions as *deletions*, because the
+index still holds the old tree. A 11-10 run that reset onto a tip adding
+`draft/media/2026-11-11/run-log.md` and a queue edit saw both as `D`/`M` against
+the new `HEAD`, and committing "the four owned paths" with `--only` would have
+shipped a commit that deleted another publisher's new file. After every
+forward-move, `git checkout origin/main -- <each path the incoming diff adds or
+modifies>` and confirm it with the pre-run `git status --porcelain` diff before
+committing; the restore is only unnecessary when the incoming commits touched
+no path.
+
 The re-verify pass marks `build`, `render`, and `commit_push` as
 `skipped_already_published`, so the receipt alone no longer proves the current
 render. It also leaves the previous date's PNGs under
