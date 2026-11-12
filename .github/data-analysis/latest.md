@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-11 15:28 UTC`
+Generated: `2026-11-12 16:04 UTC`
 
 ## Collection health
 
@@ -10,41 +10,41 @@ Generated: `2026-11-11 15:28 UTC`
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
 | github | succeeded | 154 | 0 |
-| devto | succeeded | 71 | 0 |
+| devto | succeeded | 73 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `242 ms`.
+- Homepage: `200` in `260 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `908`.
+- Sitemap entries observed: `910`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `100`.
-- Current stars: `10290`; forks: `1361`; open issue/PR records: `363`.
+- Current stars: `10295`; forks: `1360`; open issue/PR records: `379`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4336 | 607 | 26 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1602 | 191 | 134 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 909 | 77 | 15 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 781 | 120 | 46 |
-| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 451 | 35 | 5 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4337 | 606 | 27 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1603 | 191 | 140 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 909 | 77 | 17 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 784 | 120 | 47 |
+| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 451 | 35 | 6 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
-| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 244 | 42 | 69 |
+| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 244 | 42 | 70 |
 | [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 149 | 20 | 0 |
 
 ## DEV publication surface
 
-- Articles observed: `71`.
+- Articles observed: `73`.
 - Public reactions: `43`; comments: `4`.
 
+- [eBPF Tutorial by Example 2: Monitoring unlink System Calls with kprobe](https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l): 0 reactions, 0 comments.
+- [eBPF Tutorial by Example 1: Hello World, Framework and Development](https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-2kmb): 0 reactions, 0 comments.
 - [eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools](https://dev.to/yunwei37/ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools-1j0f): 0 reactions, 0 comments.
 - [Reverse Engineering Claude Code's SSL Traffic with eBPF](https://dev.to/yunwei37/reverse-engineering-claude-codes-ssl-traffic-with-ebpf-5bod): 0 reactions, 0 comments.
 - [AI Now Writes Lean Proofs Faster Than Lean Can Check Them](https://dev.to/yunwei37/ai-now-writes-lean-proofs-faster-than-lean-can-check-them-51mh): 0 reactions, 0 comments.
-- [ActPlane: Pushing Agent Harness Enforcement Down to Kernel eBPF](https://dev.to/yunwei37/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf-2doh): 0 reactions, 0 comments.
-- [Can an AI Agent Tune the Linux Scheduler? Inside SchedCP and sched-agent](https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0): 0 reactions, 0 comments.
 
 ## Coverage gaps
 
