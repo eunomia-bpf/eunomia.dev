@@ -1,8 +1,16 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-11。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-12。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+
+### 2026-11-12 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/tutorials/2-kprobe-unlink/README.md`。由 `publish-posts` workflow（run 43126676054，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-12T00:21:38Z`（LA 11-11 16:21 PST，+08 11-12 08:21）从 `draft/media/2026-11-12/2-kprobe-unlink/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l>（article id 5019807，tag `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 7，0 反应 0 评论，DEV 覆盖 65 -> 66/128）。准备稿是源文逐字节副本（源文无图片、正文链接已是绝对地址、8 个无语言围栏保持原样），公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（10949 字符）。可见页 1 h1、3 个正文 H2（= 源文 3 个 `##`）、0 H3、8 个 `pre`（16 个围栏，DEV 仍着色为 c x4 / console x2 / shell x2，没有围栏丢语言）、1 个 10 项有序列表、0 表格、0 图片、1575 词、结尾完整；3 个正文外链目标（eunomia-bpf、bpf-developer-tutorial、eunomia.dev/tutorials）全部 200。**遗留**：canonical 仍为 DEV 自身（连续第九次，`publish.py` 不发 `canonical_url`）。
+- 进度依据：队列剩余 23 条知乎任务全部平台级 `阻塞`（可见 Chrome `https://www.zhihu.com/creator` 仍落 `https://www.zhihu.com/signin?next=%2Fcreator`，cookie 只有匿名标识，无 `z_c0`），Medium 无 `MEDIUM_API_KEY` 且公开副本经 Cloudflare 403，X 与掘金均登出；按"历史回补默认只处理 tutorial"取教程序列中最早的 DEV 缺口 `2-kprobe-unlink`（Medium `bbdd8c020dbb` 早已 `confirmed`）。发布前用 DEV 公开 API 复查账号 71 篇、精确标题 0 篇重复。
+- 额度口径：本条发布时刻 `2026-11-12T00:21:38Z` 属 LA 11-11 16:21 PST，用掉 **LA 11-11 正常额度**（LA 11-11 当日本条之前无其它发布）；补发缺口仍为 0。
+- 定时运行未接管：`posts_queue.txt` 为空时定时 `publish-posts` 不会自行排队，因此沿用 2026-11-10/11 的先例，手工写入队列、推送 `main` 后再 dispatch；run 结束后 bot 提交 `9728456ac1` 已清空队列。
+- 同次观察（Medium 旧副本，未修）：tutorial 2 的 Medium 副本 <https://medium.com/@yunwei356/ebpf-beginners-development-tutorial-2-using-kprobe-to-monitor-the-unlink-system-call-in-ebpf-bbdd8c020dbb> 本次落在 Cloudflare 验证页（`403` + `Just a moment...`），正文缺陷未复查。
 
 ### 2026-11-11 排期（LA 时区）
 
@@ -84,7 +92,8 @@
 - 已核定：2026-11-04（LA）巡检完成一条 DEV 发布：`gthulhu-vllm-cpu-pressure` 经定时 workflow 于 `2026-11-05T01:39:39Z` 公开（<https://dev.to/yunwei37/when-does-cpu-scheduling-help-ai-inference-5did>），公开 API 与可见页结构一致，DEV 覆盖 55 -> 56/127；遗留两张外部 SVG 图表因 `media2.dev.to` 的 `format=auto` 把 SVG 标成 `image/webp` 而显示为空，需登录编辑器或改为 PNG 才能修。
 - 已核定：2026-11-06（LA）巡检完成一条 DEV 发布：`schedcp-agentic-os` 经 `publish-posts` workflow（run 42204873168）于 `2026-11-06T10:44:00Z` 公开（<https://dev.to/yunwei37/can-an-ai-agent-tune-the-linux-scheduler-inside-schedcp-and-sched-agent-4cj0>），`body_markdown` 与准备稿逐字一致，可见页 1 h1 / 6 H2 / 1 张 PNG 正常加载，DEV 覆盖 56 -> 57/127；遗留 canonical 仍自指。
 - 已核定：2026-11-11（+08 运行日 / LA 11-10 额度）巡检完成一条 DEV 发布：tutorial `1-helloworld` 经 `publish-posts` workflow（run 42929758642，`PUBLISH_PLATFORMS=devto`）于 `2026-11-11T00:17:57Z` 公开（<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-process-2kmb>，article id 5013503），公开 `body_markdown` 与准备稿逐字一致（15630 字符），可见页 1 h1 / 7 H2 / 10 `pre` / 0 图 / 0 表 / 结尾完整，DEV 覆盖 64 -> 65/128；准备稿只修了源文里 "Github Packages." 与 "GitHub Actions" 两条被挤在同一行的连写缺陷，源文未改；遗留 canonical 仍自指（连续第八次）。
-- 剩余队列：知乎 23 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 23 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成，`schedcp-agentic-os` 的 DEV 项已于 LA 11-06 完成（Medium 副本仍未发布），tutorial `0-introduce` 的 DEV 项已于 LA 11-09 完成，tutorial `1-helloworld` 的 DEV 项已于 LA 11-10 完成（Medium 旧副本早已在线，但带格式缺陷、未修）。下一个 tutorial 候选是 `2-kprobe-unlink`（Medium 已确认，DEV 缺失）。后续新增内容直接插入合适位置。
+- 已核定：2026-11-12（+08 运行日 / LA 11-11 额度）巡检完成一条 DEV 发布：tutorial `2-kprobe-unlink` 经 `publish-posts` workflow（run 43126676054，`PUBLISH_PLATFORMS=devto`）于 `2026-11-12T00:21:38Z` 公开（<https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l>，article id 5019807），公开 `body_markdown` 与准备稿逐字一致（10949 字符），可见页 1 h1 / 3 H2 / 8 `pre` / 0 图 / 0 表 / 结尾完整，DEV 覆盖 65 -> 66/128；遗留 canonical 仍自指（连续第九次）。
+- 剩余队列：知乎 23 条、掘金 0 条、Medium 0 条、DEV 0 条、LinkedIn 0 条，共 23 个平台任务（全部知乎，平台级 `阻塞`）。`bpf-gpu-server` 的 Medium+DEV 两项已于 LA 11-03 完成，`gthulhu-vllm-cpu-pressure` 的 DEV 项已于 LA 11-04 完成，`schedcp-agentic-os` 的 DEV 项已于 LA 11-06 完成（Medium 副本仍未发布），tutorial `0-introduce` 的 DEV 项已于 LA 11-09 完成，tutorial `1-helloworld` 的 DEV 项已于 LA 11-10 完成（Medium 旧副本早已在线，但带格式缺陷、未修）。下一个 tutorial 候选是 `3-fentry-unlink`（Medium 已确认，DEV 缺失）。后续新增内容直接插入合适位置。
 
 ## 发布队列
 

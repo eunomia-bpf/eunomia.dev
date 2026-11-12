@@ -20,6 +20,15 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-11-12
+
+- One DEV publication, no engagement yet. `publish-posts` run 43126676054 published [the DEV copy of tutorial 2](https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l) at `2026-11-12T00:21:38Z` (LA 2026-11-11 16:21 PST) from `draft/media/2026-11-12/2-kprobe-unlink/devto.md`, a byte-identical copy of the source. The public API reports 0 reactions and 0 comments, matching every DEV copy since 2026-10-31; the page renders 1 h1, 3 body H2, 8 `pre`, the 10-item kprobe restriction list, 0 images, 1,575 words and the complete ending. Coverage moves to 66/128 on DEV.
+- Ninth consecutive API syndication that self-canonicalizes while <https://eunomia.dev/tutorials/2-kprobe-unlink/> is live and reachable. Unchanged root cause, now recorded as one pending item rather than a new discovery: `media-publisher` drops `canonical_url` before the DEV branch builds its payload.
+- The DEV listing keeps lagging: the author API still returned 71 posts with the new article absent ten minutes after publication, while its per-article endpoint and the visible page were already live. Do not read the listing as publish evidence.
+- No new external echoes. The newest `eunomia` HN story is still 50385391 (AgentSight, 2 points, 0 comments, 2026-11-05), and the newest HN comment mentioning eunomia is still the 2026-11-05 Stroq Show HN reply suggesting an eBPF backend, which is third-party and needs no reply. No new DEV comments on any post.
+- The 2023 Medium copy of tutorial 2 could not be re-read this run: <https://medium.com/@yunwei356/...-bbdd8c020dbb> answered Cloudflare `403` with the "Just a moment..." interstitial in both a plain fetch and the visible browser. Its known defects are therefore unverified, not fixed.
+- Session state unchanged: the persistent visible Chrome answers on CDP 9222 and is signed out on 知乎 (`/creator` -> `/signin?next=%2Fcreator`, no `z_c0`), 掘金, Medium, X and the DEV editor; the shell has no `MEDIUM_API_KEY`/`DEV_TO_API_KEY`. The secret-backed workflow remains the only publication path and all 23 Zhihu tasks stay platform-blocked. Next checkpoint: tutorial `3-fentry-unlink` (Medium confirmed, DEV missing).
+
 ### 2026-11-11
 
 - One DEV publication, no engagement yet, and the first DEV copy to lose its public route after a passing QA: article 5013503 answered 404 within minutes of passing a full DOM check while the API, tag feed, RSS, and the profile card still listed it (see the ledgers). `publish-posts` run 42929758642 published [the DEV copy of tutorial 1](https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-process-2kmb) at `2026-11-11T00:17:57Z` (LA 2026-11-10 16:17 PST) from `draft/media/2026-11-11/1-helloworld/devto.md`; the public API reports 0 reactions and 0 comments, matching every DEV copy since 2026-10-31. The artifact differs from the source only where the source joins two list items on one line.

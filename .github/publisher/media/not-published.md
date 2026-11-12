@@ -1,10 +1,19 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-11
+Last checked: 2026-11-12
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-12: the `publish-posts` workflow (run 43126676054) published `docs/tutorials/2-kprobe-unlink/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l>, `2026-11-12T00:21:38Z`,
+article id 5019807) from a byte-identical copy at `draft/media/2026-11-12/2-kprobe-unlink/devto.md`, so it is no longer a
+pending DEV source; its Medium copy was already confirmed as `bbdd8c020dbb` in 2023. The published `body_markdown` matches the
+artifact body after the H1 strip character for character, and the visible page renders the exact title, 3 body H2, 8 code
+blocks, the 10-item list, and the complete ending with 0 reactions and 0 comments. It used the LA 2026-11-11 normal slot. A
+manual dispatch was needed because the scheduled run has no queue entry and does not invent one. `.github/publisher/posts_queue.txt`
+is empty again because the workflow pops each entry after a successful publish.
 
 2026-11-11: the `publish-posts` workflow (run 42929758642) published `docs/tutorials/1-helloworld/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-2kmb>, `2026-11-11T00:17:57Z`,
