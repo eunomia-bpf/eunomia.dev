@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [内核 kfunc 的 C 原型没变，为什么它会从 vmlinux BTF 里消失，又为什么会因此构建失败？](/zh/ebpf-qa/2026-11-11-kfunc-vanishes-from-vmlinux-btf-dwarf-location/)
 - [开放编码 BPF 迭代器耗尽之后为什么必须一直返回 NULL，而 next 方法重新开始时又会发生什么？](/zh/ebpf-qa/2026-11-10-iterator-drained-null-contract-restart/)
 - [为什么一个合法的 BPF 程序现在会因为 64 KB 的校验器日志返回 ENOSPC 而加载失败，而 level 1 日志又为什么不再显示通往错误的路径？](/zh/ebpf-qa/2026-11-08-verifier-level1-log-enospc-vs-path-to-error/)
 - [为什么校验器允许任何 BPF 迭代器程序更新 sockmap，而实际上只有 sockmap 迭代器是安全的？](/zh/ebpf-qa/2026-11-07-sockmap-update-from-any-iterator-vs-sockmap-iterator/)
