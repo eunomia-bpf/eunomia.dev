@@ -1,6 +1,6 @@
 # Public eBPF Q&A Standard
 
-Use this reference only after a monitored question passes the editorial gate.
+Use this reference when drafting and reviewing the daily public Q&A.
 
 ## Reader Outcome
 
@@ -17,6 +17,27 @@ verify it, and state where the answer stops applying.
 5. State the important limitation or alternative.
 6. Add a References section with the public primary sources used.
 7. End with an anonymized analysis of the day's wider community discussion.
+
+The H1 must read as a plain technical question. The publisher renders each
+question as the page H1, and the publication validator re-fetches that H1 from
+the live page and requires the exact Markdown title string to appear verbatim.
+Because the site's H1 pipeline strips underscores from a plain-text title (so
+`bpf_probe_read_user` renders as `bprobereaduser`) and HTML-encodes apostrophes,
+keep the H1 free of underscores, backticks, and apostrophes; put helper names
+inside the H1 as ordinary words or move them into the answer body where
+backticks belong. An H1 that fails the live-content check forces an extra
+redeploy just to fix the title.
+
+Keep inline code tokens short. The publication gate renders the built page
+at a 390px mobile viewport and fails on any horizontal overflow, and the
+site does not wrap monospace content, so an unbreakable backticked token
+wider than the mobile content box (roughly 40+ characters, e.g. a dotted
+identifier) pushes the page past the gate even when it looks fine at desk
+width. In flowing body prose, name very long identifiers in words and keep
+the exact backticked form only where it fits (a References list item);
+measure the longest token before publishing. A 10-10 run tripped this on a
+43-character event name and cleared the gate only after rewriting it as
+prose in the body and the references lead-in.
 
 Use only the sections the question needs. This is a useful shape, not a required
 template.
@@ -41,6 +62,23 @@ If removing those details changes the technical answer, do not publish it.
 Prefer kernel documentation, project documentation, upstream source code,
 standards, and papers. A community message is a lead, not public evidence.
 
+When a References entry cites a mailing-list message, use the archive's full
+permalink, Message-ID with the author suffix included. The bare Message-ID URL
+resolves to a page reading "not found" plus a partial-match suggestion, so the
+reference ships broken even though the message is real; re-fetch every cited
+permalink from the finished page before publication (a 10-30 run resumed a
+retained candidate carrying two bare Message-ID URLs and fixed them pre-commit).
+
+Verify a lore permalink's liveness with a plain non-browser user agent such
+as `curl -A "Wget/1.21"`. `lore.kernel.org` sits behind an Anubis challenge
+that answers `403 Forbidden` to the default `curl/8` user agent and a `200`
+page titled `Making sure you're not a bot!` to a real Chrome user agent
+(including headless Playwright), so a link check with either of those reads a
+live message as broken; the `<title>` of the fetched page, not the status
+code, is the proof. Fetch `/raw` with the same header to re-check patch-body
+claims (counts, exact rejection strings, which side of a comparison the fix
+uses) instead of trusting a remembered summary.
+
 Do not collect sensitive data merely to demonstrate that it can be detected.
 When the subject itself concerns secrets or private payloads, explain which
 component can see plaintext, what leaves that component, and how to verify that
@@ -48,12 +86,14 @@ raw values are absent from maps, buffers, logs, traces, and exported telemetry.
 
 ## Publication Floor
 
-Every successful daily run publishes one technically useful, independently
-verifiable, non-duplicative Q&A that remains safe after anonymization. When no
-single message is sufficient, combine related same-day signals or use the most
-recent unresolved recurring question from the previous seven days. Never invent
-a question or publish a placeholder. If access or evidence is insufficient, the
-run fails explicitly instead of claiming completion.
+Every daily run publishes one technically useful, independently verifiable,
+non-duplicative Q&A that remains safe after anonymization. When no single
+message is sufficient, combine related same-day signals, use a real unresolved
+question from the monitored communities regardless of age, or select a genuine
+question from permitted public community pages and public primary
+documentation. Report access and coverage gaps honestly in the run notes; a
+coverage gap is always reported and never blocks publication. Never invent a
+question, fabricate evidence, or publish a placeholder.
 
 ## Daily Community Briefing
 
@@ -74,3 +114,200 @@ When several substantive discussions are present, give them enough space to be
 useful on their own. A one-sentence trend label is not a community report; the
 discussion section should normally be at least twice as detailed as such a
 compressed summary.
+
+## Live Public Routes
+
+After the commit lands on `origin/main`, the routes only go live when the
+GitHub Pages pipeline deploys it. The validator's 20-minute public check assumes
+that pipeline succeeds. If the routes still 404 after that window, do not
+read it as CDN lag: inspect the Pages workflow run for the pushed commit. A
+failed run — typically a failing `npm run test:content` in the static-export
+step — keeps every later route change 404ing until the pipeline is green again
+(a 10-05 run 404ed for hours exactly this way after an unrelated commit broke
+a hard-coded count assertion in the content tests; the unblock was fixing the
+test and getting a later deploy green, not waiting). Check `cache-control`/
+`age` on any fetched page to separate stale content, a failed deploy, and a
+cache.
+A distinct 404 cause is a failing runner image, not a failing content step:
+`ubuntu-latest` can rotate to a distro the pinned Playwright has no chromium
+build for, so the "Install browser audit dependencies" step dies and every
+later step — build, publish, Pages deploy — is skipped. A 10-22 run failed
+exactly this way (the runner resolved to `ubuntu26.04-x64`; Playwright 1.58.2
+refused to install chromium on it; all routes 404ed until the pipeline was
+repaired). Unblock by pinning the deploy job's runner to a distro the pinned
+Playwright supports — commit `runs-on: ubuntu-24.04` on `main`, which
+re-triggers the pipeline because GitHub runs the workflow file from the
+pushed commit — not by waiting, loosening the browser step, or bumping
+Playwright blindly.
+
+The validator's public-route poll is bounded by the shell command cap, which is
+shorter than a Pages deploy (about twenty minutes), so a first validator run
+can time out *after* it has already committed and pushed the QA commit while
+it waits for the live routes. A timed-out run does not mean publication
+failed: check that the QA commit is on `origin/main` and that the Pages run
+for it is green, then re-run the same validator for the date. The re-verify
+path skips the commit, build, and render work, re-checks the live routes, and
+rewrites the receipt to `status=published` in a couple of seconds (a 10-11 run
+hit exactly this: commit `c3bda5865` landed, the first validator timed out
+at its 600s cap, the Pages run went green, and the re-verify pass completed
+the receipt without touching the commit again).
+
+A push rejected by `origin/main` advancing is the same shape one step
+earlier: forward-move and re-commit the four owned paths, then push. Do not
+push a second, unrelated commit immediately afterwards, because the deploy job
+begins with a `Check current production revision` step that skips any run whose
+`DEPLOY_SHA` is no longer the tip of `main` ("Skipping stale site deploy
+<sha>; main is <sha>"). The skipped run still reports `success`, so a green
+check does not mean the QA commit was published: only the run for the current
+tip deploys. A 11-01 run hit this — the QA commit's run went green in 2 minutes
+having built nothing, routes stayed 404, and the routes went live when the
+next commit's run deployed that tree. Read the deploy log for
+`current=true` plus a `Deploy to GitHub Pages` step, not the job conclusion,
+and re-run the validator only after that run reports success.
+
+The cap must also cover the pre-commit work: the validator runs
+`npm test:content`, the full production build, and two Chromium renders
+*before* it commits. A cap shorter than that local pipeline (e.g. 300s)
+kills the run before `commit_and_push` runs at all, so nothing lands and
+no receipt is written - the mirror of the post-commit timeout above. Give
+the run a cap long enough to finish build, render, commit, push, and the
+public poll together; if `origin/main` advanced in the meantime, forward-
+move with `git reset --soft origin/main` (which preserves any concurrent
+staged set and the worktree) and re-run (a 10-12 run hit this: a 300s cap
+killed the first run before the commit, `origin/main` had advanced, the
+forward-move + longer-cap re-run landed commit `5c2bf5ca3`, and the
+re-verify pass then completed the receipt).
+
+The validator's two Chromium renders can fail at browser launch, not at
+render, when the host is missing the system shared libraries the headless
+shell needs (`libnspr4`, `libnss3`, `libatk`, `libdbus`, `libgbm`,
+`libxkbcommon`, `libasound`, and the X11 extras). The failure surfaces as
+`error while loading shared libraries` from the `chrome-headless-shell`
+binary, before any commit lands, so the receipt is `failed` with no QA
+commit. Fix the environment, not the run: `ldd` the headless-shell binary to
+list the missing `.so` files, `apt-get install` the matching packages, confirm
+`ldd` reports no `not found` and the binary's `--version` runs, then re-run
+the validator from the same cap - the content test, build, and render all
+succeed on the retry and the commit lands. A 10-17 run hit this on a fresh
+container: fourteen libraries were absent, the render step aborted before the
+commit, and the forward-move + re-run only completed after the shared
+libraries were installed. On such a fresh host the apt package index is also
+often empty or stale, so a plain `apt-get install` fails with
+`Unable to locate package` before any of the libraries install; run
+`apt-get update` first, then the install. A 10-19 run hit exactly this:
+`apt-get install` reported every library as unlocatable, and only after an
+`apt-get update` did the fourteen-package install succeed and the re-render
+land the commit.
+
+A headless host with no CJK font package renders the Chinese page as empty
+tofu boxes in a screenshot while the DOM checks still pass, because the
+render check compares rendered `h1` text content and measures overflow
+numerically rather than reading glyphs. Visual QA of the `zh` route is then
+useless even though the layout is fine. Install `fonts-noto-cjk` before
+judging any Chinese screenshot, and read a missing-glyph screenshot as an
+environment defect, never as a page defect (a 10-30 run saw exactly this: the
+390px mobile layout and code tokens measured intact, and only the screenshot
+was unreadable until the font package was installed and re-shot).
+
+A fresh container's system `python3` may lack `PyYAML`, and the step-0
+snapshot tool (`archive_reader.py`) reads the watchlist with `import yaml`
+inside a blanket `except Exception` that collapses *any* load failure to the
+bare message `watchlist unreadable` and exits `inaccessible` - so a missing
+interpreter dependency masquerades as an unreadable watchlist and hides the
+real cause. Run the snapshot under the state venv's Python
+(`/workspaces/.agent-state/eunomia-qa/venv/bin/python archive_reader.py …`),
+where `yaml` (and `psycopg`) are installed, and read the step-0 output's
+`opt_in_sources` / message counts before treating the window as frozen: a
+`watchlist unreadable` exit means the archive was *not* actually read this
+run. A 10-18 run hit this on a fresh host: system `python3` had no PyYAML,
+the snapshot aborted as `watchlist unreadable`, and only the venv re-run
+produced the real 2-source, 11-message frozen window.
+
+Forward-moving a shared checkout whose untracked files already exist in
+`origin/main` fails twice, and neither failure is the candidate's fault:
+`git rebase origin/main` aborts with `untracked working tree files would be
+overwritten` (its autostash preserves the dirty set but cannot clear the
+untracked ones), and `git merge --ff-only` fails the same way. Compare each
+untracked path against `git rev-parse origin/main:<path>` first; delete only
+the ones whose blob hash matches, then `git reset --soft origin/main` and
+restore them with `git checkout origin/main -- <paths>`. Never delete an
+untracked file whose content differs from the incoming blob - that content
+belongs to the user. A 11-02 run hit this with 26 identical untracked files
+under `docs/ebpf-qa/` and `draft/media/`, and left `origin/main`'s version
+staged as deletions until the restore.
+
+The same forward-move has a third trap in the opposite direction: a file that
+the incoming commits *add* and this checkout never had becomes a staged
+deletion the moment `git reset --soft origin/main` moves HEAD, because the
+index never held it. `git status --porcelain` shows it as `D` and a scoped
+`git commit --only` would ship the removal. Restore every such path with
+`git checkout origin/main -- <path>` before committing (a 11-04 run hit this
+with one article artifact added upstream while the local build was running).
+
+A `git push` rejected after a long local pipeline is the same shape one step
+earlier, and the validator reports it as `FAILED git push origin main failed
+... (fetch first)`. The commit it made is orphaned by the forward-move, and
+its build and render results are still valid for the unchanged candidate
+files, so re-running the same validator redoes only the cheap checks plus the
+commit and push - do not re-edit the pair.
+
+A post-push `public check failed ... HTTP 404` is not evidence of a broken
+page when the Pages run for that tip is still `in_progress`: the validator's
+20-minute poll expires while the deploy job is queued behind the build.
+Confirm the run is for the pushed SHA, confirm its log shows `current=true`
+and a `Deploy to GitHub Pages` step, then re-run the validator, whose
+re-verify path rewrites the receipt to `status=published` in about a second
+(a 11-04 run: build and render ok, push rejected once by a concurrent
+publisher, then the pushed tip's deploy finished at 21 minutes and the
+re-verify completed the receipt).
+
+One forward-move is not always enough. A 11-07 run had `main` advance twice
+during the validator's ten-minute build-and-render, so the first reject was
+followed by a second reject after a clean `reset --soft origin/main` plus
+restore. Treat the push as a loop: fetch, reset soft, restore every incoming
+added path, rerun the validator, and repeat until push succeeds. Diff
+`git status --porcelain` against the pre-run snapshot after each move; the
+only lines that may appear are the pair and the two indexes.
+
+When the validator has already passed content-test, build and render and the
+only failure is the push, do not spend another full pipeline on the race.
+Forward-move, then commit the four owned paths and push by hand immediately:
+the validator's own rerun spends ten minutes rebuilding before it reaches the
+same push, which is ten more minutes for another publisher to land a commit. A
+11-08 run was rejected twice exactly that way, then pushed the identical
+content two minutes after a manual `reset --soft` + restore. Nothing is skipped
+by doing this — build and render were `ok` in the same receipt for the same
+bytes — but the re-verify pass must then prove the live pages directly.
+
+`reset --soft` after a rejected push does not only keep your commit's content:
+it re-stages the incoming commit's own additions as *deletions*, because the
+index still holds the old tree. A 11-10 run that reset onto a tip adding
+`draft/media/2026-11-11/run-log.md` and a queue edit saw both as `D`/`M` against
+the new `HEAD`, and committing "the four owned paths" with `--only` would have
+shipped a commit that deleted another publisher's new file. After every
+forward-move, `git checkout origin/main -- <each path the incoming diff adds or
+modifies>` and confirm it with the pre-run `git status --porcelain` diff before
+committing; the restore is only unnecessary when the incoming commits touched
+no path.
+
+The re-verify pass marks `build`, `render`, and `commit_push` as
+`skipped_already_published`, so the receipt alone no longer proves the current
+render. It also leaves the previous date's PNGs under
+`<state>/screenshots/{en,zh}/`, and their mtimes predate the run. Prove the
+live render directly: fetch all four public URLs for status and H1, then open
+both articles in a browser and check the section headings, reference link
+counts, horizontal overflow, and absence of replacement characters on the
+Chinese page.
+
+
+Re-count the archive before repeating a coverage sentence from an earlier
+draft. A resumed candidate can state that both windows were empty while the
+seven-day window actually held messages, and the live page then contradicts
+its own source. Count distinct `ts` per channel per window in the same
+transaction as the content read, and make the page's numbers match it.
+
+The validator leaves its PNGs in `<state>/screenshots/{en,zh}/`, keyed by
+language only, so a second run for another date overwrites them. When a
+Chinese render shows tofu, install `fonts-noto-cjk` and re-shoot with a small
+throwaway Playwright script against `app/out` rather than re-running the whole
+validator: the earlier build is still valid, and only the pixels were wrong.

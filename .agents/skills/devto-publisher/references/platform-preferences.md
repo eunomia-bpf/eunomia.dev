@@ -100,6 +100,26 @@
   image URLs may 404; use actual rendered URLs, stable GitHub raw URLs for
   public repository images, or DEV web-editor uploads, then full-scroll the
   public page so lazy-loaded images enter the viewport.
+- External SVG sources break on the rendered page. DEV rewrites every body
+  image through `media2.dev.to/dynamic/image/...format=auto/<encoded url>`;
+  for an external `.svg` that proxy answers `200 image/webp` while returning
+  the raw SVG bytes, and Chromium refuses the mismatch, leaving an empty box
+  (`naturalWidth: 0`). `format=png` on the same proxy returns
+  `image/svg+xml` and renders, but the artifact cannot set that flag. So
+  rasterize SVG figures to PNG and publish the PNG URL, or upload them
+  through the web editor; check `naturalWidth` on each image, not just
+  `complete`.
+- A freshly published URL can answer `404: Page Not Found` for over an hour
+  while the article is already live: the per-article API, the author RSS feed,
+  `/api/articles?tag=…`, and the profile HTML still list it, and other Fastly
+  edges serve `200`. Measured 2026-11-11: 00:24Z to 01:44Z, `age` climbing
+  from 71 s to 4,612 s with one identical `x-request-id` on every hit, and
+  neither a cache-busting query string nor `Cache-Control: no-cache` evicted
+  it. `/api/articles/<user>/<slug>` shares the same 404 and recovers with the
+  page, so it does **not** prove the post is unlisted — only the record-level
+  `/api/articles/<id>` lookup distinguishes caching from a real state change.
+  Trust the id lookup, then re-run the full DOM QA once the URL resolves;
+  never re-publish, which would create a duplicate.
 
 ## Post-Publish Follow-Up
 

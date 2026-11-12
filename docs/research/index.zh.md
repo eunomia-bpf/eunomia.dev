@@ -13,6 +13,54 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 Native operation 可以恢复特定硬件能力，却也让每个 backend 的 native emit 在 verifier 之后增加新的信任。本文提出 verifier 可见的 typed-effect contract、跨架构 conformance gate，以及可撤销并能退回 portable sequence 的 implementation provenance。
 
+### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
+
+kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。
+
+### [eBPF 异常展开时，能安全释放资源吗？](https://eunomia.dev/zh/research/ebpf-exception-cleanup-unwind/)
+
+新的 BPF cleanup-table proposal 把 compiler 生成的 landing pad、verifier resource tracking 与 JIT stack unwinding 连接起来。本文进一步提出 cleanup-effect discipline、可审计 cleanup metadata，以及跨 JIT differential test，用来验证 non-local control flow 是否真的释放了 verifier 预期的资源。
+
+### [内核升级后，同一个 eBPF 对象还能保持原来的语义吗？](https://eunomia.dev/zh/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE 能修正结构差异，但 verifier、非稳定的 kernel-facing interface 与 feature probe 行为仍可能在升级后变化。本文提出跨内核 semantic witness、dependency-based drift localization，以及验证应用行为而不只是 loadability 的 semantic promotion gate。
+
+### [容器能保证自己的内存不被放进 CXL 吗？](https://eunomia.dev/zh/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` 可以约束 NUMA placement，但 reclaim demotion、不完整 migration 与共享页会让“绝不进入某个 tier”变成更复杂的生命周期问题。本文提出带失败语义的 tier-residency hardwall、multi-owner shared-page policy，以及专门攻击隔离声明的对抗式 benchmark。
+
+### [eBPF 加载器能相信内核版本号吗？](https://eunomia.dev/zh/research/ebpf-kernel-capability-evidence/)
+
+内核版本号可能隐藏 distribution backport、config、BTF、权限和 verifier 差异，而这些因素会直接决定真实 BPF object 能否加载。本文提出与 artifact 绑定的 capability receipt、限制副作用的 semantic canary，以及可 replay 的 support envelope，让 admission 和 fallback 都能解释。
+
+### [AI Agent 重试一次工具调用，怎么知道没有把事情做两遍？](https://eunomia.dev/zh/research/agent-tool-retry-effect-idempotency/)
+
+工具可能已经完成支付、消息、部署或云资源 mutation，却在响应返回前断线。本文把 protocol request、execution attempt 和 logical effect identity 分开，并提出 durable effect record、ambiguous outcome reconciliation，以及专门攻击“commit 已发生、ack 丢失”场景的 fault benchmark。
+
+### [Linux 原子写成功后，数据就一定能抗崩溃吗？](https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/)
+
+Linux `RWF_ATOMIC` 可以让一个受支持的数据范围不被 torn，却没有同时定义持久化、写入顺序、metadata 和 multi-object recovery。本文把这些 guarantee 分开，并提出 crash-semantics descriptor、crash-cut witness 和按 failure class 评测 atomic I/O 的 benchmark。
+
+### [一个 eBPF 优化结果，到什么程度才值得上线？](https://eunomia.dev/zh/research/ebpf-optimization-evidence-contract/)
+
+eBPF 优化即使语义完全正确，也可能只在单个 microbenchmark、JIT 或被调过的 workload 上获胜。本文提出带 claim scope 的 evidence envelope、面向自适应 optimizer 的 holdout/counterexample suite，以及在 fleet rollout 前限制 regression 的 profitability-aware promotion gate。
+
+### [同一个 eBPF 操作放到 CPU、NIC 和 DPU 上，语义还能一致吗？](https://eunomia.dev/zh/research/ebpf-cross-backend-operation-semantics/)
+
+一个高层 eBPF 操作可以拥有 host、native、NIC 或 DPU 实现，简单结果相同却可能在并发与故障时产生不同语义。本文提出显式 state-transition contract、可执行 conformance model，以及验证跨 backend 语义连续性的 mixed-backend benchmark。
+
+### [eBPF 把工作交给原生代码后，哪些东西必须被信任？](https://eunomia.dev/zh/research/ebpf-native-operation-trust-boundary/)
+
+eBPF 可以验证 proof sequence 和调用侧约束，但 JIT、kfunc 或 native operation 的实现本身仍然属于受信任代码。本文提出与 verifier 相连的 native-operation contract、按证据强度划分的 trust tier，以及同时测 escaped fault、性能和 trusted-code growth 的对抗式 benchmark。
+
+### [eBPF 动态优化后，怎么知道事故时真正跑的是哪份代码？](https://eunomia.dev/zh/research/ebpf-specialization-debug-provenance/)
+
+动态特化会从同一份源码产生多代通过 verifier 的 BPF 程序和 JIT 机器码。本文提出可长期保存的执行收据、按程序代次归属采样的方法，以及在分析前主动卸载故障代次的对抗式 re-JIT 取证 benchmark。
+
+### [eBPF 针对特定架构做优化后，还能保持可移植吗？](https://eunomia.dev/zh/research/ebpf-portable-architecture-specialization/)
+
+同一份 BPF bytecode 可以跨架构加载，但 optimizer 自己加入的 native fast path 需要更明确的 deployment contract。本文提出两层 capability negotiation、一个 semantic operation 搭配多个 proof-linked backend，以及把安全 fallback 和 performance portability 一起测量的 cross-JIT benchmark。
+
 ### [eBPF 能用运行时画像做优化而不改变程序语义吗？](https://eunomia.dev/zh/research/ebpf-runtime-profile-specialization/)
 
 运行时 profile 能暴露 branch bias、deployment constant 和 generic JIT 提前不知道的机器特征。本文把 verifier safety 与 semantic equivalence 分开，提出 equivalence certificate、带 guard 的 specialization/deoptimization，以及专门让 stale profile 暴露问题的 phase-shift benchmark。

@@ -6,9 +6,8 @@ description: Prepare or publish eunomia.dev Markdown articles on DEV Community t
 # DEV.to Publisher
 
 Prepare and publish DEV Community articles from canonical eunomia.dev content
-through the DEV API. A request to publish or a queue item marked `排队`
-authorizes creation; do not ask for another confirmation. Stop only for a draft
-or preview task.
+through the DEV API. Publication authorization follows CLAUDE.md's Precedence
+Rule and Publishing section.
 
 ## Inputs
 
@@ -72,6 +71,14 @@ normal visible-browser check of the complete public page.
    heading, include up to four accepted DEV tags, and set `canonical_url` only
    when it is useful and available; it is optional.
 
+The secret-backed `publish-posts` workflow is the fallback when no
+`DEV_TO_API_KEY` exists locally. It reads `.github/publisher/posts_queue.txt`
+from `origin/main`, so a queue entry that only exists in the working tree (or in
+an unpushed local commit) publishes nothing: the run logs "No posts in queue to
+publish" and still exits 0. Commit and push the artifact and the queue entry
+first, then dispatch the workflow, and confirm the run log names the expected
+post before treating the run as a publication.
+
 ## Draft Archive
 
 Before sending the DEV API request, write or update the DEV draft record under
@@ -84,7 +91,6 @@ that remain necessary after creation.
 
 ## Browser QA
 
-Before stopping for user confirmation or sending the API request, verify:
 
 - title matches the source exactly; description, tags, cover, and optional
   canonical URL accurately reflect the unchanged source

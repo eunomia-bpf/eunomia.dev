@@ -1,13 +1,14 @@
 # Human-only blockers
 
 Only unresolved external conditions belong here. The daily ChatGPT scheduler is
-already configured and enabled; it is not a blocker.
+already configured and enabled; it is not a blocker and remains enabled even when
+an individual run cannot complete a repository or source operation.
 
 ## Cloudflare analytics is not configured
 
 - Blocked action: source-native edge request, bot, cache, country, and status-code analysis.
 - Evidence: Cloudflare remains disabled in `site.md`.
-- Impact: daily analysis can use Search Console, GA4, live-site, GitHub, and public primary-source evidence, but cannot make Cloudflare-grounded traffic or cache conclusions.
+- Impact: daily analysis can use Search Console, GA4, live-site, GitHub, DEV, and public primary-source evidence, but cannot make Cloudflare-grounded traffic or cache conclusions.
 - Minimal external action: authorize a supported read-only connector or export route without committing zone IDs, credentials, private URLs, raw private data, or personal information.
 
 ## Current data-history constraint
@@ -17,27 +18,40 @@ directly rechecked on `2026-09-06`. No export newer than the source-native
 `2026-08-24..30` weekly set is present; an explicit search for a set beginning
 `2026-08-31` returned no result.
 
-For Search Console, the newest date export contains rows for `2026-08-24..29` and
-no row for `2026-08-30`. Every row actually present in that six-day slice is
-finalized evidence under the configured lag. Those six rows sum to **436 clicks
-and 55,594 impressions**, with aggregate CTR about **0.784%** and
-impression-weighted average position about **10.73**.
+directly rechecked on `2026-09-22`; the newest weekly source family is
+`2026-09-14..09-20`.
 
-The equal-duration `2026-08-17..22` slice has 477 clicks, 59,798 impressions,
-~0.798% CTR, and ~9.56 weighted position. The comparison is useful but is not a
-complete seven-day trend because the preceding weekly export omits `2026-08-23`
-and the current export omits `2026-08-30`. Other historical gaps also prevent the
-required complete 28-day comparison. Missing rows are never converted to zero.
+For Search Console, the newest date export contains rows for `2026-09-14..09-19`
+and no row for `2026-09-20`. Under the configured three-day finalization lag, all
+six observed rows are treated as finalized. They contain **391 clicks / 55,086
+impressions / ~0.710% aggregate CTR / ~6.79 impression-weighted average
+position**.
 
-The GA4 organic landing-page aggregate for `2026-08-24..30` is fully finalized.
-It contains **1,007 sessions** at about **45.88% session-weighted engagement**.
-The preceding finalized `2026-08-17..23` aggregate contains 984 sessions at about
-49.29% engagement. Sessions are about **2.3% higher** week over week while
-engagement is about **3.41 percentage points lower**.
+The equal-duration finalized `2026-09-07..12` slice contains **376 clicks / 55,036
+impressions / ~0.683% CTR / ~6.46 weighted position**. Relative to that slice,
+the newest six days have about **4.0% more clicks**, **0.1% more impressions**, CTR
+about **0.027 percentage points higher**, and weighted average position about
+**0.33 positions worse**. This is useful source-native evidence but is not a
+complete seven-day trend.
+
+A complete latest-seven-days versus previous-seven-days comparison remains
+unavailable because the weekly exports omit their final Sunday rows. Older
+history contains additional recorded gaps, so the required complete 28-day versus
+preceding-comparable-period comparison is also unavailable. Missing rows are
+never converted to zero.
+
+The newest GA4 organic landing-page aggregate for `2026-09-14..20` contains **935
+sessions** at about **45.13% session-weighted engagement**. It remains partial
+because the frozen export was generated while lagged dates were present and has
+no date dimension for safe finalized subsetting. The `2026-09-07..13` aggregate
+contains **880 sessions** at about **43.52% engagement**, and `2026-08-31..09-06`
+contains **913 sessions** at about **47.54% engagement**; both remain partial for
+the same reason. The latest fully finalized weekly aggregate remains
+`2026-08-24..30` at **1,007 sessions** and about **45.88% engagement**.
 
 These constraints never justify skipping the daily operation. Each run must use
-the available Google evidence, live-site evidence, public GitHub evidence, and
-public primary-source evidence; missing or partial coverage must never be
+the available Google evidence, live-site evidence, public GitHub/DEV evidence,
+and public primary-source evidence; missing or partial coverage must never be
 converted into zero. Every run must still publish one new Daily Report under the
 current repository contract.
 

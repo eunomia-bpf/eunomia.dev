@@ -13,6 +13,54 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 Native operations can recover machine-specific performance without changing the portable BPF source, but each backend's native emit adds trust below the verifier. This report develops verifier-visible typed effect contracts, cross-architecture conformance gates, and revocable implementation provenance with a portable fallback.
 
+### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
+
+kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
+
+### [Can eBPF Exceptions Unwind Resources Safely?](https://eunomia.dev/research/ebpf-exception-cleanup-unwind/)
+
+A new BPF cleanup-table proposal connects compiler-generated landing pads to verifier resource tracking and JIT stack unwinding. This report develops a cleanup-effect discipline, auditable cleanup metadata, and cross-JIT differential tests for proving that non-local control flow really releases the resources the verifier expects.
+
+### [Can an eBPF Object Keep Its Meaning After a Kernel Upgrade?](https://eunomia.dev/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE can repair structural differences while verifier rules, unstable kernel-facing interfaces, and feature-probe behavior still change across upgrades. This report develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic promotion gate for proving application behavior rather than loadability alone.
+
+### [Can a Container Keep Its Memory Out of CXL?](https://eunomia.dev/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` constrains NUMA placement, but reclaim demotion, incomplete migration, and shared pages can still break a naive hard-tier interpretation. This report separates allocation policy from lifetime residency and develops a tier-residency hardwall, multi-owner shared-page policy, and adversarial isolation benchmark.
+
+### [Can an eBPF Loader Trust the Kernel Version?](https://eunomia.dev/research/ebpf-kernel-capability-evidence/)
+
+Kernel version strings can hide distribution backports, configuration, BTF, privilege, and verifier differences that decide whether a real BPF object loads. This report develops artifact-bound capability receipts, side-effect-bounded semantic canaries, and replayable support envelopes that make admission and fallback explainable.
+
+### [When an AI Agent Retries a Tool Call, How Do You Know It Didn't Do It Twice?](https://eunomia.dev/research/agent-tool-retry-effect-idempotency/)
+
+A tool can commit a payment, message, deployment, or cloud mutation before its response is lost. This report separates protocol request IDs, execution attempts, and logical effect identity, then develops durable effect records, ambiguous-outcome reconciliation, and a post-commit fault benchmark for safe agent retries.
+
+### [Does an Atomic Linux Write Mean the Data Survives a Crash?](https://eunomia.dev/research/linux-atomic-write-crash-semantics/)
+
+Linux `RWF_ATOMIC` can prevent torn writes for one supported data range without defining persistence, ordering, metadata, or multi-object recovery. This report separates those guarantees and develops crash-semantics descriptors, crash-cut witnesses, and failure-class benchmarks for atomic I/O.
+
+### [When Is an eBPF Optimization Result Strong Enough to Ship?](https://eunomia.dev/research/ebpf-optimization-evidence-contract/)
+
+eBPF optimizations can be semantically correct yet win only one microbenchmark, JIT, or tuned workload. This report develops scoped evidence envelopes, holdout and counterexample suites for adaptive optimizers, and profitability-aware promotion gates that bound regressions before fleet rollout.
+
+### [Can One eBPF Operation Mean the Same Thing on CPU, NIC, and DPU?](https://eunomia.dev/research/ebpf-cross-backend-operation-semantics/)
+
+A higher-level eBPF operation can have host, native, NIC, or DPU implementations that agree on simple results but diverge under concurrency and failures. This report develops an explicit state-transition contract, executable conformance model, and mixed-backend continuity benchmark for semantic equivalence across implementations.
+
+### [When eBPF Calls Native Code, What Exactly Has to Be Trusted?](https://eunomia.dev/research/ebpf-native-operation-trust-boundary/)
+
+eBPF can verify a proof sequence or caller-side contract while a JIT, kfunc, or native operation still executes trusted native code. This report develops verifier-linked native-operation contracts, proof-carrying trust tiers, and an adversarial benchmark that measures performance against escaped faults and trusted-code growth.
+
+### [Can You Debug the eBPF Program That Actually Ran?](https://eunomia.dev/research/ebpf-specialization-debug-provenance/)
+
+Dynamic specialization can produce several verifier-safe BPF generations and JIT images from one source program. This report develops execution receipts, generation-aware sample attribution, and an adversarial re-JIT forensic benchmark for proving which optimized code actually ran during an incident.
+
+### [Can Architecture-Specific eBPF Optimization Stay Portable?](https://eunomia.dev/research/ebpf-portable-architecture-specialization/)
+
+BPF bytecode can stay portable while JIT backends use different machine instructions, but optimizer-added native fast paths need a clearer deployment contract. This report develops two-level capability negotiation, proof-linked multi-backend operation packages, and a cross-JIT benchmark that treats safe fallback and performance portability as first-class outcomes.
+
 ### [Can eBPF Use Runtime Profiles Without Changing Program Semantics?](https://eunomia.dev/research/ebpf-runtime-profile-specialization/)
 
 Runtime profiles can reveal branch bias, deployment constants, and machine-specific optimization opportunities that the stock JIT cannot know ahead of time. This report separates verifier safety from semantic equivalence and develops equivalence certificates, guarded specialization and deoptimization, plus phase-shift counterexamples for stale profiles.

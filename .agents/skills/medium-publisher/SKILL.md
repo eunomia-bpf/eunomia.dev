@@ -6,9 +6,8 @@ description: Prepare or publish eunomia.dev Markdown articles on Medium through 
 # Medium Publisher
 
 Prepare and publish Medium stories from canonical eunomia.dev content through
-the Medium API. A request to publish or a queue item marked `排队` authorizes
-creation; do not ask for another confirmation. Stop only for a draft or preview
-task.
+the Medium API. Publication authorization follows CLAUDE.md's Precedence Rule
+and Publishing section.
 
 ## Inputs
 
@@ -93,7 +92,6 @@ supported metadata changes or repairs that remain necessary after creation.
 
 ## Browser QA
 
-Before stopping for user confirmation or sending the API request, verify:
 
 - canonical/import relationship is correct when configured
 - the Medium body has not drifted from the canonical article except for

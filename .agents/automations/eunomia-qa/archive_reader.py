@@ -35,7 +35,6 @@ REASON_CODES = frozenset(
         "schema_ambiguous",
         "channel_missing",
         "read_failed",
-        "snapshot_too_large",
         "output_exists",
         "output_refused",
     }
@@ -459,11 +458,31 @@ def run_probe(sources, connect, now=None) -> tuple:
     return _bounded_report(lines, reason, result), EXIT_OK if ok_count else EXIT_INACCESSIBLE
 
 
-def _bounded_utf8(text: str, limit: int = MAX_SNAPSHOT_BYTES) -> bytes:
-    data = text.encode("utf-8")
+def _bounded_snapshot_lines(lines: list, limit: int) -> tuple:
+    """Bound the snapshot payload to `limit` bytes without failing the run.
+
+    Excess coverage is truncated at a line boundary, keeping the most
+    recent messages, so a large archive still yields a usable snapshot.
+    Returns (payload_bytes, kept_lines, truncated).
+    """
+    data = "\n".join(lines).encode("utf-8")
     if len(data) <= limit:
-        return data
-    raise ValueError("snapshot exceeds %d bytes" % limit)
+        return data, len(lines), False
+    payload = data[len(data) - limit :]
+    # Keep whole lines only: drop a partial leading line (and any partial
+    # leading multi-byte sequence) so the snapshot stays valid UTF-8.
+    newline = payload.find(b"\n")
+    if newline != -1:
+        payload = payload[newline + 1 :]
+    else:
+        while payload:
+            try:
+                payload.decode("utf-8")
+                break
+            except UnicodeDecodeError:
+                payload = payload[1:]
+    kept = payload.count(b"\n") + (1 if payload else 0)
+    return payload, kept, True
 
 
 def run_snapshot(sources, connect, output_path, now=None) -> tuple:
@@ -530,7 +549,9 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
     succeeded = False
     conn_closed = False
     payload_len = 0
+    kept = 0
     total = 0
+    truncated = False
     reason = "read_failed"
     try:
         collected = []
@@ -541,8 +562,9 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
         _close(conn)
         conn_closed = True
         ordered = sorted(collected, key=lambda item: (item[0], item[1]))
-        text = "\n".join(txt for _ts, txt in ordered)
-        payload = _bounded_utf8(text)
+        payload, kept, truncated = _bounded_snapshot_lines(
+            [txt for _ts, txt in ordered], MAX_SNAPSHOT_BYTES
+        )
         payload_len = len(payload)
         offset = 0
         while offset < payload_len:
@@ -554,11 +576,6 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
         fd = None
         succeeded = True
         reason = "ok"
-    except ValueError:
-        if not conn_closed:
-            _close(conn)
-        succeeded = False
-        reason = "snapshot_too_large"
     except BaseException:
         if not conn_closed:
             _close(conn)
@@ -575,7 +592,10 @@ def run_snapshot(sources, connect, output_path, now=None) -> tuple:
             except OSError:
                 pass
     if succeeded:
-        extra = ["snapshot=ok bytes=%d messages=%d" % (payload_len, total)]
+        label = "truncated" if truncated else "ok"
+        extra = ["snapshot=%s bytes=%d messages=%d" % (label, payload_len, kept)]
+        if truncated:
+            extra[0] += " total=%d" % total
         if skipped_count:
             extra.append("coverage=partial skipped_sources=%d" % skipped_count)
         return (

@@ -42,6 +42,10 @@
 - Use original diagrams/screenshots when they help; avoid generic AI cover art.
 - Keep GitHub links in "how to inspect/reproduce" positions.
 
+- Medium does not render Mermaid fences. A ` ```mermaid ` block survives only as
+  one `pre` of raw flowchart source. Export the diagram to an image and upload it
+  when the diagram carries the argument; otherwise say so in the ledger notes.
+
 ## Adaptation Workflow
 
 - Extract the source facts first: thesis, narrative tension, primary evidence,
@@ -87,6 +91,14 @@
 - Fix public-page issues through the Medium web UI and re-check. Common import
   failures include site suffixes in titles, flattened tables, empty heading
   artifacts, and code-language labels inserted into prose.
+- A story published through the API without a visible H1 in `content` renders with
+  no title at all (`h1: 0`). The editor carries the title as a block with
+  `data-testid="editorTitleParagraph"` (`graf--title`); confirm that block exists
+  when repairing, and count source `##` headings against rendered `h3`, not `h2`.
+- Repair through the editor early in a run. Heavy automated browsing can trigger a
+  Cloudflare verification interstitial that also logs the editor out
+  (`/p/<id>/edit` redirects to `/m/signin`), which blocks the repair until the
+  session recovers.
 - Prefer readable list/prose fallbacks over fragile Markdown tables when Medium
   import flattens table rows into separate paragraphs.
 - Check that the story does not read as sponsored content or a PR release.

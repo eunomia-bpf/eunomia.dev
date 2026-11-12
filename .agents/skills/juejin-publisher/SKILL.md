@@ -6,9 +6,8 @@ description: Prepare or publish eunomia.dev Markdown articles on Juejin. Use whe
 # Juejin Publisher
 
 Prepare or publish a reviewed Juejin article from the canonical repository
-source and choose appropriate technical categories and tags. A request to
-publish or a queue item marked `排队` authorizes the final action; do not ask
-again at the last button. Stop only for a draft or preview task.
+source and choose appropriate technical categories and tags. Publication
+authorization follows CLAUDE.md's Precedence Rule and Publishing section.
 
 ## Inputs
 
@@ -98,6 +97,13 @@ artifact, ledger, queue, and snapshots instead.
    - eBPF tutorials: `后端`, `Linux`, `开源`, `云原生`, `架构`
    - AI agent or runtime posts: `人工智能`, `AIGC`, `后端`, `架构`, `安全`
    - GPU observability posts: `人工智能`, `后端`, `架构`, `Linux`, `性能优化`
+   - The tag field is a search-select widget that exposes only a curated option
+     list; not every intended tag is offered, and typing a term can commit an
+     unrelated suggestion. For the 2026-09-12 48-energy tutorial, only
+     `Linux`, `后端`, and `性能优化` were available — `eBPF` and `开源` were not.
+     Verify each tag chip by clicking `确定` (or the confirm control) one at a
+     time, read the committed chips back, and record the actually-committed
+     tags in the ledger rather than the intended list.
 7. Complete `确定并发布` when the task requests publication or the queue item
    is marked `排队`; do not ask for duplicate confirmation. Stop at preview only
    for a draft or preview task.
@@ -110,6 +116,168 @@ source image through the visible editor, use the resulting Juejin-hosted URL in
 the local publishing copy, and confirm that the failure marker is gone and the
 rendered image has non-zero dimensions. Verify the same image again on the
 public page.
+
+## Session And Editor Recovery
+
+- Environment restarts can drop the visible Chrome profile's Juejin login even
+  though the profile directory and the mounted
+  `/run/social-manager-session/browser-state.json` still hold valid Juejin
+  session cookies (`sid_tt`, `sessionid`, `sid_guard`, `uid_tt`, `n_mh`, ...).
+  Symptom: `/editor/drafts/new` redirects to `/login`, and the profile page
+  shows no creator controls.
+- `agent-browser cookies set` writes only non-httpOnly cookies on the current
+  page and does not restore the session; the browser-target CDP
+  `Network.setCookies` is not exposed here (`'Network.setCookies' wasn't
+  found`). The reliable import is the page-target CDP domain `Storage`:
+  `Storage.setCookies` with the cookie objects from the mounted state file,
+  then verify with `Storage.getCookies`. This restores all httpOnly session
+  cookies (55 cookies imported, 19 Juejin cookies observed on 2026-09-14).
+- After import, the first navigation may hit a ByteDance
+  `验证码中间页` (slide CAPTCHA) on the profile or editor URL. Do not solve the
+  CAPTCHA. Re-navigating to `/` and then back to
+  `/editor/drafts/new` cleared it on 2026-09-14, and the editor rendered with
+  the title input and CodeMirror.
+- Setting the body through `document.querySelector('.CodeMirror').CodeMirror.setValue(...)`
+  requires an explicit UTF-8 decode. Passing `atob(base64)` directly yields
+  mojibake (Latin-1 interpretation of UTF-8 bytes); decode with
+  `new TextDecoder('utf-8').decode(Uint8Array.from(atob(b64), c => c.charCodeAt(0)))`.
+  Verify the resulting character count equals the local artifact byte-length in
+  characters before submitting.
+
+## Publish Dialog Mechanics
+
+Verified against the 2026-09-15 45-scx-nest and 2026-09-22 43-kfuncs submissions.
+
+- The settings dialog is `<div class="publish-popup ...">`. Querying
+  `.byte-modal` and reading its `innerText` returns an empty string, so read the
+  popup text from `.publish-popup` instead.
+- Category chips are `.category-list .item`, but a selected one carries the
+  class `active`, not `selected`. Read back
+  `[...document.querySelectorAll('.category-list .item.active')]` to confirm the
+  choice instead of looking for `.selected`, which returns nothing.
+- The popup holds several `.byte-select` widgets in DOM order: index 0 is tags,
+  then collections, then topics. Focus `publish-popup .byte-select__input`[0] to
+  add a tag. Typing a trigger character with the CLI's `keyboard type` opens the
+  option list in `.byte-select-option`; click the option whose exact text equals
+  the target to commit the chip. Between tags, clear the input by setting
+  `value = ''` and dispatching a bubbling `input` event, otherwise the previous
+  term stays in the search box. Read the committed chips back from
+  `.byte-select__tag` before submitting.
+- The final control is the popup button with exact text `确定并发布`. Success is
+  `document.title === '发布成功'` on `https://juejin.cn/published`.
+- The `确定并发布` button ignores a synthetic `element.click()` and a CLI
+  `agent-browser click` on `.publish-popup .ui-btn.primary` (on the 2026-09-22
+  43-kfuncs submission both attempts only fired the autosave toast and the page
+  stayed in the editor; only a real pointer sequence published). Dispatch the
+  full real pointer-event sequence via `eval`:
+
+  ```js
+  (function(){
+    var b=Array.prototype.slice.call(document.querySelectorAll('.publish-popup button')).filter(function(x){return (x.textContent||'').trim()==='确定并发布';})[0];
+    var r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+    function ev(t,T){b.dispatchEvent(new T(t,{bubbles:true,cancelable:true,view:window,clientX:x,clientY:y,button:0}));}
+    ev('pointerdown',PointerEvent);ev('mousedown',MouseEvent);b.focus();ev('pointerup',PointerEvent);ev('mouseup',MouseEvent);b.click();
+    return 'dispatched';
+  })()
+  ```
+- The tag search widget (`.publish-popup .byte-select__input`, index 0) is not
+  reachable by CLI `fill` or `keyboard type` — typed text leaks into the title
+  or body instead. The popup may hold SIX `.byte-select__input` elements (tags,
+  collections, and topics each appearing twice: three visible plus three
+  width-0 hidden duplicates; observed 2026-09-25 on 38-btf-uprobe), so always
+  address index 0 explicitly and filter option clicks by
+  `getBoundingClientRect().width > 0` rather than assuming a single widget. Set
+  its value with the native setter
+  `Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set`
+  plus `dispatchEvent(new Event('input',{bubbles:true}))`, then click the
+  exact `.byte-select-option`. The committed chip DOM order can differ from the
+  typing order (observed 性能优化/后端/Linux against an intended
+  Linux/后端/性能优化); record the actually-committed set, not the intent.
+- Before the final submit, read back `input[placeholder*=标题].value` and reset
+  it to the exact source H1: early tag typing can pollute the title field.
+- Decide the article's state empirically, not by precedent, and judge it in the
+  logged-in browser — never by curl status codes. Observed outcomes: (a) direct
+  public at `/post/<id>` with no review interval (2026-09-23 42-xdp-loadbalancer);
+  (b) staged at `/spost/<id>` while the creator center shows it under `审核中` and
+  `/post/<id>` shows 找不到页面 (2026-09-22 43-kfuncs, 2026-09-25 38-btf-uprobe);
+  (c) staged for minutes, then review clears in the same session so `/post/<id>`
+  renders the article and `/spost/<id>` redirects to it (2026-09-24 41-xdp-tcpdump,
+  40-mysql, 39-nginx). **Curl status codes are not a publication signal**: the
+  Juejin SPA shell answers HTTP 200 for ANY `/post/<id>` and `/spost/<id>` path
+  even while the article is in review (2026-09-25 38-btf-uprobe: curl 200/200 at
+  07:29 +08 while the browser still showed 找不到页面 and the creator center still
+  showed 审核中 (1)). Judge availability by (1) the logged-in browser rendering the
+  article body at `/post/<id>` with no `审核中` / `文章有更新` / `已被删除` marker
+  and (2) the creator center's 审核中 count dropping to 0. Poll the logged-in
+  browser (reopen `essays?status=all` and read the 审核中 count) every ~1–2 min
+  until it clears; clearance time is not bounded to a minute — the 38-btf-uprobe
+  post waited ~40 min (07:27 → 08:07 +08) while earlier posts cleared in under a
+  minute. Three Juejin posts on one America/Los_Angeles day (2026-09-24:
+  41-xdp-tcpdump, 40-mysql, 39-nginx) is legal only when the extras are funded by
+  catch-up gaps; the same-day normal slot still belongs to the next queued task.
+- Review clearance time is not bounded: 45-scx-nest took ~1 hour, 38-btf-uprobe
+  ~40 min, while the 2026-09-24 posts cleared in under a minute. Poll the
+  logged-in browser on ~1–2 min intervals until the creator center's 审核中 count
+  reaches 0; before finishing, run the full public-page QA, flip the queue item
+  to `[x]`, and set the ledger entry to `confirmed`.
+- Passing a long body through `agent-browser eval` as an inline argument fails
+  when the payload is large, and ANY inline argument containing backticks or
+  double quotes breaks the wrapper's shell parser (`pi-natives:command:
+  unterminated backquote`). Write the script to a `/tmp/*.js` file and pipe it
+  via `agent-browser eval --stdin` instead; embed base64 in the script and split
+  it into a few `window.__b64 += "chunk"` assignments when it is long.
+- The `.byte-select-option` list is NOT inside `.publish-popup`; query it
+  document-wide. Several hidden dropdowns exist at once (collections, topics),
+  so filter `[...document.querySelectorAll('.byte-select-option')]` before
+  clicking the option whose exact text matches the target tag. Use
+  `getBoundingClientRect().width > 0` as the visibility test, NOT
+  `offsetParent !== null`: an unopened `.byte-select-dropdown__wrap` keeps its
+  options in the DOM with zero width/height but a non-null `offsetParent`, so
+  the `offsetParent` filter reports an open dropdown as empty (hit on the
+  2026-09-24 40-mysql prep, where the tag options were present and clickable all
+  along). A popup-scoped query returns zero options even when the tag dropdown is
+  open (verified on the 2026-09-23 42-xdp-loadbalancer submission).
+- Typing into the tag input with CLI `keyboard type` is unreliable: the text can
+  leak into the title or body, and the option list does not always open. The
+  sequence that worked on both the 2026-09-23 and 2026-09-24 submissions is the
+  pure-JS one: `focus()` the index-0 `.publish-popup .byte-select__input`, set
+  `value` with the native setter, dispatch a bubbling `input` event, wait for the
+  document-wide visible `.byte-select-option`, then click it with a real CDP
+  `page.mouse` move/down/up. Between tags, clear the input by setting `value = ''`
+  through the native setter plus a bubbling `input` event before writing the next
+  term; otherwise the previous search text stays in the box. Read the committed
+  chips back from `.publish-popup .byte-select__tag` after each option click.
+- The category chip needs **real CDP pointer events** (`page.mouse.move` →
+  `move` → `down` → `up`), not in-page synthetic events. On the 2026-09-24
+  submission a full synthetic hover-inclusive sequence
+  (`mouseover`/`pointerover`/`pointerenter`/`mouseenter` →
+  `pointerdown`/`mousedown` with `buttons: 1` → `focus()` →
+  `pointerup`/`mouseup` → `click()`) still left `.category-list .item.active`
+  empty, and only the real CDP mouse sequence on the chip's center coordinates
+  selected it on the first try. Read back `.category-list .item.active` (never
+  `.selected`) to confirm.
+- Finding the new URL may take a moment even after 发布成功: the author profile
+  list (`https://juejin.cn/user/<id>/posts`) can lag a few minutes, and a
+  scrolled profile page may not show the new item at all. The reliable sources
+  are (1) the creator center article list
+  (`https://juejin.cn/creator/content/article/essays?status=all`, reachable by
+  clicking `文章管理`), whose `审核中` tab names the staged URL and whose counts
+  flip 审核中 (N) → 0 on clearance, and (2) the logged-in browser rendering the
+  article body at `/post/<id>`. Do NOT rely on a `curl` status probe of the
+  candidate `/post/<id>` URL: the SPA shell answers 200 for any such path even
+  while the article is in review (observed 2026-09-25 on 38-btf-uprobe —
+  curl 200/200 while the browser showed 找不到页面 and the creator center still
+  showed 审核中 (1)).
+- Navigate the creator center by URL, not by clicking through the SPA.
+  `https://juejin.cn/creator/content/article/all` renders a shell whose tab panes
+  are empty (`.byte-tab-pane` has zero elements) and, on a fresh load, a
+  `选择你感兴趣的技术方向` onboarding modal plus a `当前操作失败` alert can overlay
+  the list. Go straight to
+  `https://juejin.cn/creator/content/article/essays?status=all`, which renders
+  the counts (`全部 (N)` `已发布 (N)` `审核中 (N)` `未通过 (N)`) and the row list
+  with per-post `展现 / 阅读 / 点赞 / 评论 / 收藏` in `document.body.innerText`
+  after a few seconds. The `/all` shell alone returns only the backdrop text and
+  will falsely look like an empty account.
 
 ## Content Strategy
 

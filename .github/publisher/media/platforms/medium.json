@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-08-30",
+  "last_checked": "2026-11-07",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,55 @@
     }
   ],
   "published": [
+    {
+      "id": "medium-d8c070b5bd42",
+      "status": "confirmed",
+      "date": "2026-11-03",
+      "title": "Does moving a GPU server's request loop into the kernel save CPU?",
+      "url": "https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42",
+      "canonical_url": "",
+      "source_path": "docs/blog/posts/bpf-gpu-server.md",
+      "tags": [
+        "ebpf",
+        "gpu",
+        "kernel"
+      ],
+      "checked_via": "medium_api_publish_then_public_page_check",
+      "notes": "Published by the scheduled publish-posts workflow on 2026-11-03 at 14:45Z with topics ebpf/gpu/kernel and no canonical_url, so Medium self-canonicalizes. Public-page check on 2026-11-03 (LA): body is complete (~1,976 words, 8 body H3 from the 8 source `##`, full ending, GitHub links intact) but three defects persist, all from the same API Markdown import that already produced medium-5001bb9afab6: no rendered story title (h1: 0, body starts at the Mermaid block), the Mermaid fence kept as raw flowchart code in one pre, and the results table flattened to '| ... | — -|' prose rows. Both paper links resolve to https://medium.com/papers/bpf-gpu-server.pdf (403) because the source's relative link was sent unchanged. Repairs need a logged-in visible Medium editor; /p/d8c070b5bd42/edit still redirects to /m/signin in this profile."
+    },
+    {
+      "id": "medium-5001bb9afab6",
+      "status": "confirmed",
+      "date": "2026-11-01",
+      "title": "Can a language model run in Linux eBPF?",
+      "url": "https://medium.com/@yunwei356/can-a-language-model-run-in-linux-ebpf-5001bb9afab6",
+      "canonical_url": "",
+      "source_path": "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md",
+      "tags": [
+        "ebpf",
+        "inference",
+        "kernel",
+        "llm"
+      ],
+      "checked_via": "medium_api_publish_then_public_page_check",
+      "notes": "Published through the documented Medium API (/v1/users/{id}/posts) after MEDIUM_API_KEY became available again; the queue script reported publishStatus=public. Original author is Littlefisher619 (schema.org author on eunomia.dev), so the Medium byline reads yunwei37; the source article is unmodified. Public-page QA on 2026-11-01: body matches the source (5 rendered headings = 5 source `##`, one pre, 4 body links = the 3 source targets plus Medium's own promo image link, ~1410 words, verbatim closing paragraph), but the story renders no visible title because the API `title` field controls listing/SEO only and the visible H1 was not included in `content`; the source `mermaid` block survives only as raw flowchart code because Medium does not render Mermaid. `canonical_url` is empty because the Medium story self-canonicalizes: the API publish set no canonical, and setting one needs the web editor or `MEDIUM_API_KEY`, neither available at QA time. Canonical to set: <https://eunomia.dev/blog/2026/09/24/qwen3-ebpf-in-kernel-inference/> — verified live (HTTP 200). Title repair via the web editor was attempted the same day and is still open: medium.com served a Cloudflare verification interstitial and `/p/5001bb9afab6/edit` redirected to `/m/signin`. A 2026-11-02 re-read of the signed-out public page confirmed both defects persist (no visible H1; the Mermaid fence still shows as raw code) and that the editor path stayed blocked by a Cloudflare interstitial plus a `/m/signin` redirect, so the repair still needs a logged-in visible Medium session."
+    },
+    {
+      "id": "medium-59aff1cc69a5",
+      "status": "confirmed",
+      "date": "2026-10-31",
+      "title": "When Does CPU Scheduling Help AI Inference?",
+      "url": "https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5",
+      "canonical_url": "https://eunomia.dev/blog/2026/10/17/gthulhu-vllm-cpu-pressure/",
+      "source_path": "docs/blog/posts/gthulhu-vllm-cpu-pressure.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "ai"
+      ],
+      "checked_via": "in_app_browser_medium_editor_semantic_html_publish_and_public_story_full_scroll",
+      "notes": "Pasted the prepared semantic-HTML artifact (draft/media/2026-10-31/gthulhu-vllm-cpu-pressure/medium-body.html) into the visible Medium editor because MEDIUM_API_KEY is absent from this environment. The one diverging code block was rebuilt in place with insertHTML so both commands stayed in a single pre; a full block-by-block diff against the artifact then matched 205 blocks in text and in heading level (source H1 to Medium title, H2 to H3, H3 to H4). Public full-scroll QA confirmed the exact title, 10 H2 plus 11 H3 body headings, 7 code blocks, 3 figures with captions and 5 loaded images, canonical URL, original-link footer, and the ebpf/linux/AI topics. A 2026-11-02 re-read found the live story still rendering the pre-restructure 10-H2 body (including `## What is Gthulhu?`), so the source drift to 9 H2 persists after the 2026-11-01 in-editor pass, which did republish the story: `article:published_time` moved from 2026-11-01T04:01:15Z to 2026-11-02T04:36:11Z."
+    },
     {
       "id": "medium-423adab48a1b",
       "status": "confirmed",
@@ -163,7 +212,8 @@
     "docs/tutorials/2-kprobe-unlink/README.md": "https://medium.com/@yunwei356/ebpf-beginners-development-tutorial-2-using-kprobe-to-monitor-the-unlink-system-call-in-ebpf-bbdd8c020dbb",
     "docs/tutorials/1-helloworld/README.md": "https://medium.com/@yunwei356/ebpf-getting-started-tutorial-1-hello-world-basic-framework-and-development-process-33d4220022a4",
     "docs/tutorials/0-introduce/README.md": "https://medium.com/@yunwei356/ebpf-beginners-development-tutorial-0-introduction-to-the-basic-concepts-of-ebpf-and-common-119d45f5fd0f",
-    "docs/blog/posts/wasm-bpf.md": "https://medium.com/@yunwei356/wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly-25eb8662b823"
+    "docs/blog/posts/wasm-bpf.md": "https://medium.com/@yunwei356/wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly-25eb8662b823",
+    "docs/blog/posts/bpf-gpu-server.md": "https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42"
   },
   "browser_observations": [
     {
@@ -172,12 +222,48 @@
       "visible_article_links_collected": 62,
       "profile_url": "https://medium.com/@yunwei356",
       "notes": "Normal rendered-page scrolling reached a stable set of 62 authored stories. Historical source mappings use exact titles, unambiguous numbered-tutorial identity, or same-title duplicate-source identity."
+    },
+    {
+      "checked_at": "2026-11-02",
+      "checked_via": "signed_out_public_page_fetch_plus_visible_browser_public_dom",
+      "profile_url": "https://medium.com/@yunwei356",
+      "status": "partially_blocked",
+      "notes": "Both recent stories were readable without a session. The 2026-10-31 gthulhu story still shows the old 10-H2 structure against the restructured 9-H2 source, and its published_time moved to 2026-11-02T04:36:11Z. The 2026-11-01 qwen3 story still renders no visible title and keeps its Mermaid fence as code. The editor endpoints (`/p/<id>/edit`, `/me/stats`) serve a Cloudflare interstitial or redirect to `/m/signin`, so the missing-title repair and canonical fix remain blocked on a visible Medium login."
+    },
+    {
+      "checked_at": "2026-11-03",
+      "checked_via": "signed_out_public_page_fetch_plus_visible_browser_public_dom",
+      "profile_url": "https://medium.com/@yunwei356",
+      "status": "partially_blocked",
+      "notes": "The new d8c070b5bd42 story renders 1,976 words with a complete ending and 8 body H3, but repeats the API-import defects of 5001bb9afab6: no visible title (h1: 0, the body begins at the Mermaid block), the Mermaid fence kept as raw flowchart text in one pre, and the results table flattened to '| ... | -|' prose rows. Both paper links resolve to medium.com/papers/bpf-gpu-server.pdf (403) because the relative source link was sent unchanged. /p/d8c070b5bd42/edit still redirects to /m/signin, and 59aff1cc69a5 still renders the pre-restructure 10-H2 Gthulhu body."
+    },
+    {
+      "checked_at": "2026-11-04",
+      "checked_via": "visible_browser_public_page_attempt",
+      "url": "https://medium.com/@yunwei356/when-does-cpu-scheduling-help-ai-inference-59aff1cc69a5",
+      "status": "confirmed",
+      "notes": "Multiple loads inside the 2026-11-04 window hit Cloudflare 504 (Ray a559ee67ef9a8acf, gateway page with 2 h1 and 47 words). The one successful load rendered 1 h1, 11 h2, 11 h3, 7 pre, 0 table, and images at 64x64 avatar plus three zero-naturalWidth slots, i.e. the 9-H2 body drift and the missing chart images recorded on 2026-11-02 both persist. The sibling story d8c070b5bd42 could not be re-read before the retries ran out. medium.com/p/.../edit returned the editor once with empty Title/Subtitle fields and the body text, so the signed-in Medium session is intermittent rather than lost."
+    },
+    {
+      "checked_at": "2026-11-06",
+      "checked_via": "visible_browser_public_page_dom",
+      "url": "https://medium.com/@yunwei356/does-moving-a-gpu-servers-request-loop-into-the-kernel-save-cpu-d8c070b5bd42",
+      "status": "confirmed",
+      "notes": "A stable load rendered the visible title (1 h1) and 1,988 words. The source's 3-row measurement table survives only as flattened prose ('Per request, FFT at 1,000 requests/s: Native epoll: 11.3 µs user time, 26.2 µs system time, 37.56 µs total...'), so the numbers are intact and the table shape is not; 0 <table> elements and no pipe characters. The sibling story 5001bb9afab6 could not be read in this window: /me/stories/public returned Cloudflare 'Just a moment...' and the public page never passed it, so its missing-visible-title and raw-Mermaid defects stay open."
+    },
+    {
+      "checked_at": "2026-11-07",
+      "checked_via": "visible_chrome_cdp_target_list_signed_out_session_probe",
+      "profile_url": "https://medium.com/@yunwei356",
+      "status": "partially_blocked",
+      "notes": "The mounted persistent Chrome session is signed out for Medium (no session cookie in the CDP-attached profile), so /me/stories/public cannot be read; public story pages remain fetchable. No new Medium publication this run; the SchedCP Medium copy is still missing."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
     "The visible profile stabilized at 62 story links; sources without a reliable repository match remain intentionally unmapped.",
-    ".github/publisher/ledger.md is currently a scaffold/backfill worklist, not a confirmed history."
+    ".github/publisher/ledger.md is currently a scaffold/backfill worklist, not a confirmed history.",
+    "medium /me/stories/public is behind a Cloudflare 'Just a moment...' interstitial for the visible profile, so editor-side repairs (missing visible titles, flattened tables, Mermaid source) remain unreachable until the challenge passes."
   ]
 }

@@ -6,9 +6,9 @@ description: Prepare or publish eunomia.dev content for Xiaohongshu posts and vi
 # Xiaohongshu Publisher
 
 Prepare Xiaohongshu-native posts that make technical work approachable through
-clear titles, visual evidence, concise Chinese copy, and a useful takeaway. A
-request to publish or a queue item marked `排队` authorizes the final post; do
-not ask again at the last button. Stop only for a draft or preview task.
+clear titles, visual evidence, concise Chinese copy, and a useful takeaway.
+Publication authorization follows CLAUDE.md's Precedence Rule and Publishing
+section.
 
 ## Inputs
 
@@ -70,7 +70,6 @@ state.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
 
 - title and cover communicate the concrete problem or result at first glance
 - first screen is understandable without clicking an external link

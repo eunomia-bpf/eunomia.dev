@@ -6,9 +6,10 @@ description: Monitor approved eBPF, Linux, observability, and AI-infrastructure 
 # Eunomia Community Radar
 
 Turn daily community discussion into one durable answer and one compact view of
-what eBPF practitioners are trying to solve. Every successful daily run
-publishes exactly one combined Q&A and community briefing. Never invent a
-question or weaken the evidence standard to satisfy the cadence.
+what eBPF practitioners are trying to solve. Every daily run publishes exactly
+one combined Q&A and community briefing. Never invent a question or publish
+without real public primary sources; coverage, freshness, and access gaps are
+reported honestly and never stop the publication itself.
 
 ## Required Context
 
@@ -27,6 +28,12 @@ forum is a durable scope change and requires an explicit repository edit.
 ## Workflow
 
 ### 1. Review The Full Daily Window
+
+Date every run in `America/Los_Angeles` and give each daily run its own
+session and session-scoped state directory. Retries on the same Los Angeles day
+may continue that day's session and candidate. A published receipt from an
+earlier date never counts as completing a later day: each later day still
+requires its own run and its own published Q&A.
 
 Apply the hybrid source policy declared in the watchlist:
 
@@ -68,11 +75,14 @@ several discussions. The question must be:
 - materially different from an existing Q&A, tutorial, or blog post.
 
 When no single message is strong enough, combine related same-day signals into
-one practical question. If the daily window is genuinely sparse, use the most
-recent unresolved recurring question found in the allowlist within seven days
-and say in the internal run result that the fallback was used. Never publish a
-placeholder, promotional topic, or speculation. A run that cannot access enough
-sources or verify one real question is a failed run, not a fabricated report.
+one practical question. Partial archive coverage, inaccessible or sparse
+sources, or a thin daily window never stop publication: continue selecting and
+verifying a real question from existing readable archive material, a genuine
+unresolved question from the monitored communities regardless of age, permitted
+public community pages, or public primary documentation, and say in the
+internal run result which fallback supplied the question. Never publish a
+placeholder, promotional topic, or speculation, and never fabricate a question
+or evidence.
 
 ### 3. Write The Answer
 
@@ -87,6 +97,13 @@ standards, kernel documentation, or papers. Search results can locate sources
 but cannot replace reading them. Separate established behavior, operational
 advice, and open limitations. Add a `References` section after the answer with
 only the public sources used.
+
+Title/H1 note: keep the H1 free of underscores, backticks, and apostrophes. The
+publisher renders the question as the page H1 and the validator re-checks that the
+exact Markdown title string is present verbatim in the live HTML; the site's H1
+pipeline strips underscores and HTML-encodes apostrophes, so such characters force
+a failed live-content check and an extra redeploy. Put helper names as ordinary
+words in the H1 and reserve backticked code for the answer body.
 
 ### 4. Summarize The Day's Discussion
 
@@ -112,7 +129,11 @@ discussion. Never treat inaccessible channels as zero activity.
 
 ### 5. Publish The Daily Page
 
-Publish exactly one Q&A per successful calendar-day run:
+Publish one Q&A per successful run. Before starting a new dated pair, resume
+any unpublished pair left by an earlier attempt, even after the calendar date
+changes. A retry or the next day's session must finish that candidate rather
+than strand it, and must never re-create a page whose article is already
+published:
 
 - create `docs/ebpf-qa/YYYY-MM-DD-<question-slug>.md` and its Chinese
   counterpart;
@@ -128,10 +149,22 @@ Publish exactly one Q&A per successful calendar-day run:
 Check both routes in a normal browser, including title, references, discussion
 summary, code, mobile layout, and navigation. Run the repository content tests
 and build required by `CLAUDE.md`. Preserve unrelated changes, stage explicit
-paths, commit on `main`, rebase on `origin/main` if needed, and push directly.
+paths, commit on `main`, merge forward from `origin/main` when the remote has
+advanced, and push directly. Unrelated worktree changes are normal in a shared
+checkout: preserve them, stage and commit explicit owned paths, and continue.
+Do not require a particular local model when the active agent can complete the
+work. Keep automation direct: model allowlists, fixed roles, redundant
+preflights or approvals, hidden orchestration, and gate-style validations that
+turn coverage gaps, calendar rollover, or unrelated work into publication
+stoppers are explicitly banned added complexity, as are any new review
+framework, audit gate, service, scheduler, script, or model change added just
+to make a run proceed.
 
-After deployment, verify the public route before recording publication as
-complete.
+Publication is not complete until the change is pushed to `main`, the
+deployment finishes, and the public route is verified live. A one-shot
+print-mode agent that starts a publication must run it to that point before it
+exits; it must never end immediately after launching an asynchronous validator
+while expecting a later automatic wake to finish the job.
 
 ## Archive Access Invariants
 

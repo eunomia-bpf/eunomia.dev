@@ -1,6 +1,6 @@
 # Media Publishing Notes
 
-Last checked: 2026-08-17
+Last checked: 2026-09-24
 
 This folder records cross-platform publishing state, public-page QA, and
 community feedback for eunomia.dev content.
@@ -11,6 +11,19 @@ Canonical machine-readable ledgers use one JSON file per platform under [platfor
 python .github/publisher/media/check_media_ledger.py --show-missing
 ```
 
+The same command also fails when the readable snapshot [published.md](published.md) has
+drifted from the ledgers: every confirmed entry's `url` (or `evidence_url`, when no
+permalink was captured) must appear in the snapshot. Keep the snapshot and the
+ledgers current in the same change so the human-readable view never under-reports
+what was published. Point at a different snapshot with `--snapshot`.
+
+It also fails when a summary date lags the ledgers: the `last_checked` value in
+[sources.json](sources.json) and the `Last checked:` line in the snapshot must
+each be at least as recent as the newest `last_checked` among
+[platforms/](platforms/). Those two files are cross-platform summaries, so a
+stale date there misstates how recently the ledger was verified even when every
+row is correct.
+
 ## Current Setup
 
 Medium and DEV.to are API-first. Use their documented endpoints with local
@@ -18,6 +31,15 @@ Medium and DEV.to are API-first. Use their documented endpoints with local
 publisher in `.github/publisher/`. Never print or commit credentials. Check for
 an exact-title duplicate before creation, then inspect the complete public page
 in a normal visible browser after publication.
+
+Deploy-trigger gotcha: `Deploy Static App` builds from `main` and skips itself
+as stale when `main` has moved past the pushed SHA. Two commits here can cause
+that. The publish workflow's own `Published post and updated queue [skip ci]`
+commit lands seconds after ours, and GitHub matches `[skip ci]` anywhere in a
+commit message, so writing it in *our* message also suppresses the whole push
+event. Either way the source fix reaches git but not `app/out`; re-run with
+`gh workflow run app-static-pages.yml --ref main` and confirm the changed
+markup in the deployed HTML before calling a content fix done.
 
 The legacy shared `publish.py` path removes the source H1 before sending a
 shared content body. Medium's API does not render its separate `title` field in
@@ -43,10 +65,9 @@ QA and ongoing community observations.
    - Keep one clear H1 title.
    - Convert relative image links to public `https://eunomia.dev/...` URLs or upload images through the platform editor.
    - Review code blocks, tables, Mermaid, math, footnotes, and HTML blocks after paste/import.
-4. Stop before the API creation call or visible publish action unless the user
-   has authorized publication or the run is executing a `排队` item through
-   `eunomia-content-patrol`. Comments, likes, follows, reposts, and other social
-   actions still require their own authorization.
+4. Publication authorization follows CLAUDE.md's Publishing section (a
+   `排队` item run through `eunomia-content-patrol` counts as authorized;
+   comments, likes, follows, reposts, and other social actions do not).
 5. After a real publish, add the platform URL to `published.md` and remove/update the item in `not-published.md`.
 
 ## What Others Do

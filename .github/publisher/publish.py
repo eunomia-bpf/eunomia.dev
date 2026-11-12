@@ -14,6 +14,8 @@ import requests
 API_ENDPOINT = "https://media-publisher.vercel.app/api/publish-multi"
 QUEUE_FILE = ".github/publisher/posts_queue.txt"
 DEFAULT_PUBLISH_COUNT = 2
+SUPPORTED_PLATFORMS = ("devto", "medium")
+DEFAULT_PLATFORMS = list(SUPPORTED_PLATFORMS)
 
 
 def has_yaml_frontmatter(content):
@@ -157,6 +159,26 @@ def get_publish_count():
     return publish_count
 
 
+def get_platforms():
+    """Return the platforms to publish to, from PUBLISH_PLATFORMS."""
+    raw_value = os.environ.get('PUBLISH_PLATFORMS', '').strip()
+    if not raw_value:
+        return DEFAULT_PLATFORMS
+
+    platforms = [item.strip().lower() for item in raw_value.split(',') if item.strip()]
+    if not platforms:
+        raise ValueError(f"PUBLISH_PLATFORMS listed no platform: {raw_value}")
+
+    unknown = [p for p in platforms if p not in SUPPORTED_PLATFORMS]
+    if unknown:
+        raise ValueError(
+            f"PUBLISH_PLATFORMS has unsupported platform(s) {unknown}; "
+            f"supported: {list(SUPPORTED_PLATFORMS)}"
+        )
+
+    return list(dict.fromkeys(platforms))
+
+
 def prepare_post(post, index):
     """Read and validate a queued post."""
     post_path = post.get('path')
@@ -190,16 +212,16 @@ def print_post_preview(prepared_post, index, total):
     print(f"Content preview: {prepared_post['content'][:200]}...")
 
 
-def publish_post(title, content, tags, password, is_draft=True):
+def publish_post(title, content, tags, password, is_draft=True, platforms=None):
     """
-    Publish a post to Medium and Dev.to via the API.
+    Publish a post through the media publisher API.
     """
     payload = {
         "title": title,
         "content": content,
         "tags": tags,
         "is_draft": is_draft,
-        "platforms": ["devto", "medium"]
+        "platforms": list(platforms or DEFAULT_PLATFORMS)
     }
 
     headers = {
@@ -218,6 +240,21 @@ def publish_post(title, content, tags, password, is_draft=True):
         raise
 
 
+def summarize_result(result, platforms):
+    """Split an API result into per-platform successes and failures."""
+    outcomes = {}
+    for platform_result in (result or {}).get("results", []):
+        platform = platform_result.get("platform")
+        if platform:
+            outcomes[platform] = platform_result
+    failures = [
+        (platform, outcomes[platform].get("error"))
+        for platform in platforms
+        if not (outcomes.get(platform) or {}).get("success")
+    ]
+    return outcomes, failures
+
+
 def main():
     # Get options from environment variables
     dry_run = os.environ.get('DRY_RUN', 'false').lower() == 'true'
@@ -225,6 +262,7 @@ def main():
     password = os.environ.get('PUBLISH_PASSWORD')
     try:
         publish_count = get_publish_count()
+        platforms = get_platforms()
     except ValueError as e:
         print(f"Error: {e}")
         sys.exit(1)
@@ -240,6 +278,7 @@ def main():
         print("📝 DRAFT MODE - Posts will be published as drafts\n")
     else:
         print("🚀 LIVE MODE - Posts will be published publicly\n")
+    print(f"Platforms: {', '.join(platforms)}")
 
     if not password and not dry_run:
         print("Error: PUBLISH_PASSWORD environment variable not set")
@@ -276,18 +315,29 @@ def main():
                 prepared_post["content"],
                 prepared_post["tags"],
                 password,
-                is_draft
+                is_draft,
+                platforms
             )
-            print(f"\n✅ Publish {index}/{len(prepared_posts)} successful!")
+            print(f"\n✅ Publish {index}/{len(prepared_posts)} request accepted!")
             print(json.dumps(result, indent=2))
-
-            posts.pop(0)
-            write_queue(posts)
-            print(f"\n✅ Removed post from queue. {len(posts)} posts remaining.")
-
         except Exception as e:
             print(f"\n❌ Publish failed: {e}")
             sys.exit(1)
+
+        outcomes, failures = summarize_result(result, platforms)
+        if failures:
+            for platform, error in failures:
+                print(f"\n❌ {platform} failed: {error}")
+            print(
+                "\n⚠️  Queue entry kept because not every requested platform "
+                f"published. Re-run with PUBLISH_PLATFORMS set to the failed "
+                f"platform(s) only: {', '.join(platform for platform, _ in failures)}"
+            )
+            sys.exit(1)
+
+        posts.pop(0)
+        write_queue(posts)
+        print(f"\n✅ Removed post from queue. {len(posts)} posts remaining.")
 
 
 if __name__ == "__main__":
