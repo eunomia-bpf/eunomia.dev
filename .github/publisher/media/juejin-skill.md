@@ -1,6 +1,6 @@
 # Juejin Publishing Skill Brief
 
-Last checked: 2026-09-15
+Last checked: 2026-09-25
 
 Use this when preparing a eunomia.dev Markdown article for Juejin. The canonical agent skill is `.agents/skills/juejin-publisher/SKILL.md`.
 
@@ -83,17 +83,72 @@ solve it — re-navigating to `/` and back to `/editor/drafts/new` cleared it.
 - The category and tag dialog is `.publish-popup`, not `.byte-modal` (the modal
   node renders with empty text). A selected category chip has class `active`,
   not `selected`.
-- Tag entry: focus `publish-popup .byte-select__input`[0] (index 0 is tags),
-  type a trigger term, click the `.byte-select-option` with the exact target
-  text, then read chips back from `.byte-select__tag`. Clear the input between
-  tags with `value = ''` plus a bubbling `input` event.
+- Tag entry: focus `.publish-popup .byte-select__input`[0] (index 0 is tags),
+  set its value with the native `HTMLInputElement` value setter plus a bubbling
+  `input` event, click the document-wide visible `.byte-select-option` whose text
+  matches exactly, then read chips back from `.publish-popup .byte-select__tag`.
+  Clear the input between tags with `value = ''` plus a bubbling `input` event.
+  Avoid CLI `keyboard type` here: the text can leak into the title or body, and
+  the option list does not always open (observed 2026-09-24).
 - The confirm button's exact text is `确定并发布`; success lands on
-  `https://juejin.cn/published` with `document.title === '发布成功'`.
-- A submitted article can remain in review: only `/spost/<id>` renders and
-  `/post/<id>` returns `找不到页面`. Record it as `review_pending` and mark the
-  queue item `阻塞` so the next run does not submit the same source twice.
+  `https://juejin.cn/published` with `document.title === '发布成功'`. The 确定并发布 button ignores a synthetic `element.click()` and a CLI `agent-browser click` on `.publish-popup .ui-btn.primary` (observed 2026-09-22 on 43-kfuncs: both only fired the autosave toast, no publish); dispatch a real pointer-event sequence (pointerdown/mousedown/focus/pointerup/mouseup/click with view:window, button:0) via eval. The tag search widget is not reached by CLI fill/keyboard type (typed text leaks into the title or body); set `.byte-select__input` value with the native HTMLInputElement value setter plus a bubbling `input` event, then click the exact `.byte-select-option`. Read back and reset the title input to the exact source H1 before the final submit, because early tag typing can pollute the title.
+- A submitted article can remain in review: `/spost/<id>` stages it and the
+  logged-in browser shows 找不到页面 at `/post/<id>` while the creator center lists
+  it under `审核中`. Do NOT use curl status codes as the publication signal: the
+  Juejin SPA shell answers HTTP 200 for ANY `/post/<id>` or `/spost/<id>` path
+  even while the article is in review (observed 2026-09-25 on 38-btf-uprobe:
+  curl 200/200 about two minutes after submission while the browser still showed
+  找不到页面 and the creator center still showed 审核中 (1)). Judge availability in
+  the logged-in browser: the article body renders at `/post/<id>` with no
+  `审核中` / `文章有更新` / `已被删除` marker, and the creator center's 审核中 count
+  drops to 0 (on clearance `/spost/<id>` also redirects to `/post/<id>`).
+  Clearance time is not bounded — 41-xdp-tcpdump, 40-mysql, and 39-nginx cleared
+  within a minute on 2026-09-24, but 38-btf-uprobe waited ~40 min on 2026-09-25
+  and 45-scx-nest about an hour; poll the logged-in browser on ~1–2 min
+  intervals before concluding `review_pending`. Three posts on one LA day
+  (2026-09-24) is legal only when the extras are funded by catch-up gaps.
 - Injecting a long body through `agent-browser eval` needs `--stdin` with the
-  base64 embedded in the script; an inline argument fails for large payloads.
+  base64 embedded in the script; an inline argument fails for large payloads,
+  and any inline argument containing backticks or double quotes breaks the
+  wrapper's shell parser (`pi-natives:command: unterminated backquote`) — write
+  the script to a `/tmp/*.js` file and pipe it via `eval --stdin`.
+- `.byte-select-option` lives outside `.publish-popup`; query it document-wide and
+  filter by `getBoundingClientRect().width > 0` (several dropdowns are hidden at
+  once). Do NOT use `offsetParent !== null`: an unopened
+  `.byte-select-dropdown__wrap` keeps its options in the DOM at zero size with a
+  non-null `offsetParent`, so that filter reports an open dropdown as empty
+  (hit on the 2026-09-24 40-mysql prep). The popup-scoped query returns zero
+  options even when the tag dropdown is open (observed 2026-09-23 on
+  42-xdp-loadbalancer). Set the input value with the native setter plus a
+  bubbling `input` event to open the list, clearing any leftover text first;
+  CLI `keyboard type` leaks the text elsewhere. Read committed chips back from
+  `.publish-popup .byte-select__tag` after each option click.
+- Select a category chip with **real CDP pointer events**
+  (`page.mouse.move` → `move` → `down` → `up`). In-page synthetic events are not
+  enough: on 2026-09-24 a full synthetic hover-inclusive sequence (mouseover/
+  pointerover/pointerenter/mouseenter, then pointerdown/mousedown with
+  `buttons: 1`, focus, pointerup/mouseup, click) still left
+  `.category-list .item.active` empty, while the real CDP mouse sequence selected
+  it on the first try.
+- A submission does not always enter review: the 2026-09-23 42-xdp-loadbalancer
+  article went straight to the canonical `/post/<id>` URL with no `/spost/`
+  staging interval. The author profile list can lag or omit the new item, so the
+  reliable URL sources are the creator center article list (`文章管理` →
+  `https://juejin.cn/creator/content/article/essays?status=all`, whose `审核中`
+  count flips to 0 on clearance and whose row names the post) and the logged-in
+  browser rendering the article body at `/post/<id>`. Do not use a direct
+  `curl` status probe on the candidate `/post/<id>` URL: the SPA shell answers
+  HTTP 200 for any such path even while the article is in review (observed
+  2026-09-25 on 38-btf-uprobe: curl 200/200 about two minutes after submission
+  while the browser still showed 找不到页面 and the creator center still showed
+  审核中 (1)).
+- Read the creator center by URL rather than clicking through the SPA. The
+  `https://juejin.cn/creator/content/article/all` shell renders empty
+  `.byte-tab-pane` elements and can show a `选择你感兴趣的技术方向` onboarding
+  modal over the list, which makes the account look empty. Load
+  `https://juejin.cn/creator/content/article/essays?status=all` directly; its
+  counts and per-post `展现 / 阅读 / 点赞 / 评论 / 收藏` appear in
+  `document.body.innerText` within a few seconds.
 
 ## Do Not Automate
 

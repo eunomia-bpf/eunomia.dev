@@ -13,6 +13,40 @@
 # pair, update the pin, and re-verify every key number cited on the site.
 
 papers:
+  - slug: proofserve
+    title: "AI Now Writes Lean Proofs Faster Than Lean Can Check Them"
+    status: Technical report
+    artifact: https://github.com/yunwei37/proofserve
+    pdf: proofserve.pdf
+    text: proofserve.txt
+    blog:
+      en: blog/posts/ai-lean-proof-checking-cost.md
+      zh: blog/posts/ai-lean-proof-checking-cost.zh.md
+    key_numbers:
+      - value: "about 400 tokens per CPU-second; a 1,000 tokens/s model finishes first on 95% of 162,170 files"
+        condition: "Lean 4.34.1 first check (compile) of openai/math 4eaee875; median file on a P core of an i9-14900K; o200k_base token counts; writing time counts the final file"
+      - value: "re-check 0.5% to 6.5% of the first check for ordinary proofs, 80% and 82% for two computational certificates"
+        condition: "one module re-checked after its dependencies are loaded, wall time"
+      - value: "162,170 of 163,096 modules; 169.0 P-core and 302.4 E-core CPU-hours"
+        condition: "per-module compilation census, 926 memory-heavy modules set aside; lower bound; P and E kept separate"
+
+  - slug: bpf-gpu-server
+    title: "Does Kernel-Owned Networking Make GPU Serving Cheaper? Lessons from an eBPF-Driven GPU Server"
+    status: Public preprint
+    artifact: https://github.com/yunwei37/bpf-gpu-server
+    pdf: bpf-gpu-server.pdf
+    text: bpf-gpu-server.txt
+    blog:
+      en: blog/posts/bpf-gpu-server.md
+      zh: blog/posts/bpf-gpu-server.zh.md
+    key_numbers:
+      - value: "37.96 vs 37.56 us process CPU per request"
+        condition: "kernel-owned vs native epoll transport, cuFFT at 1,000 requests/s, same GPU executor, RTX 5090 host"
+      - value: "11,645 tokens/s on both transports"
+        condition: "Qwen2.5-0.5B FP16 at 192 requests/s with 16 GPU slots, five paired process blocks"
+      - value: "completion P99 3,337 ms to 217 ms"
+        condition: "16 to 32 GPU slots on the native transport, Qwen2.5-0.5B at 192 requests/s; official vLLM 406 ms"
+
   - slug: agentpprof
     title: "AgentPProf: Semantic Profiler for Long Horizon AI Agents"
     status: Public preprint

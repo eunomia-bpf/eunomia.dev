@@ -40,6 +40,7 @@ import {
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
+import { docsRoot } from "../lib/content/roots";
 import { loadSearchDocuments, searchContent, writeSearchIndexes } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { appRoot, siteRoot } from "../lib/content/roots";
@@ -606,16 +607,56 @@ test("eBPF Q&A routes resolve in both locales", async () => {
   assert.match(chineseAnswer?.page.title ?? "", /eBPF 能否识别网络流量中的密钥/);
 });
 
+test("eBPF Q&A indexes link every dated answer in its own locale", () => {
+  // The daily publisher writes the pair and appends both index entries in one
+  // commit; a run that appends only the English entry leaves a live Chinese
+  // answer unreachable from the Chinese index (it happened on 2026-10-29).
+  const qaRoot = path.join(docsRoot, "ebpf-qa");
+  const bases = fs
+    .readdirSync(qaRoot)
+    .map((name) => /^(\d{4}-\d{2}-\d{2}-.+)\.md$/.exec(name)?.[1])
+    .filter((base): base is string => base !== undefined);
+  const localized = bases.filter((base) => base.endsWith(".zh"));
+  const english = bases.filter((base) => !base.endsWith(".zh"));
+
+  assert.ok(english.length > 0);
+  const localizedSet = new Set(localized);
+  for (const base of english) {
+    assert.ok(localizedSet.has(`${base}.zh`), `${base} has no Chinese twin`);
+  }
+
+  const englishIndex = fs.readFileSync(path.join(qaRoot, "index.md"), "utf8");
+  const chineseIndex = fs.readFileSync(path.join(qaRoot, "index.zh.md"), "utf8");
+  // `](` anchors the href, so a /zh/-prefixed link cannot satisfy the
+  // English assertion by substring.
+  for (const base of english) {
+    assert.ok(englishIndex.includes(`](/ebpf-qa/${base}/)`), base);
+  }
+  for (const base of localized) {
+    const route = base.replace(/\.zh$/, "");
+    assert.ok(chineseIndex.includes(`](/zh/ebpf-qa/${route}/)`), base);
+  }
+});
+
 test("reports dashboard is generated from weekly and monthly Markdown", async () => {
   const english = await resolveContentPage("/reports/", "en");
   const chinese = await resolveContentPage("/zh/reports/", "zh");
 
   assert.equal(english?.page.reactPage, "reports-dashboard");
   assert.equal(chinese?.page.reactPage, "reports-dashboard");
-  assert.equal(english?.page.reportEntries?.length, 15);
-  assert.equal(english?.page.reportEntries?.[0]?.href, "/reports/org/weekly/2026-07-27/");
-  assert.equal(chinese?.page.reportEntries?.[0]?.href, "/zh/reports/org/weekly/2026-07-27/");
-  assert.equal(english?.page.reportEntries?.[0]?.totalItems, 30);
+  // Report entries are generated from the on-disk Markdown files, so the
+  // expected count follows the tree (the Org Reports workflow adds a weekly
+  // report on a schedule, and a stale hard-coded count blocks deploys).
+  const reportSourceCount = fs
+    .readdirSync(path.join(docsRoot, "reports", "org", "weekly"))
+    .concat(fs.readdirSync(path.join(docsRoot, "reports", "org", "monthly")))
+    .filter((name) => name.endsWith(".md"))
+    .length;
+  assert.equal(english?.page.reportEntries?.length, reportSourceCount);
+  const septemberMonthly = english?.page.reportEntries?.find(
+    (entry) => entry.href === "/reports/org/monthly/2026-09/"
+  );
+  assert.equal(septemberMonthly?.totalItems, 165);
   assert.equal(
     english?.page.reportEntries?.find((entry) => entry.href === "/reports/org/monthly/2026-07/")?.newStars,
     216

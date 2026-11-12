@@ -21,6 +21,12 @@ Reports:
 - Record the rolling mix before topic selection. Never relabel old reports or add
   an extra report merely to repair the ratio.
 
+Before the `2026-09-22` publication, the newest ten actually published reports
+contain **7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. The oldest report
+rotating out is the eBPF-centered `2026-09-07` specialization-debug-provenance
+report. Today's eBPF-centered interface-negotiation report replaces that eBPF
+slot, so publication preserves **7 / 1 / 2**.
+
 ## Daily publication rule
 
 Every scheduled daily run publishes **exactly one new bilingual Daily Report**.
@@ -195,6 +201,19 @@ Remaining candidate boundaries include:
 - target-identity continuity when cgroups, netdevs, namespaces, or processes are
   destroyed and recreated under familiar userspace names, only if the mechanism
   is materially distinct from today's controller-link ownership receipts;
+
+3. `2026-09-22` — `/research/ebpf-kernel-interface-negotiation/`: how a loader
+   selects among artifact variants when kfunc, iterator, `struct_ops`, and
+   provider-specific interfaces are typed and context-scoped rather than simple
+   present-or-missing features. The report develops typed artifact interface
+   requirements, scoped capability-negotiation receipts, and dependency-driven
+   compatibility CI while keeping trial loading and the target verifier as the
+   final admission authority.
+
+Remaining candidate boundaries include:
+
+- pinned-map and persistent-state lifecycle when kernel capabilities, BTF, or
+  object layouts evolve across host upgrades;
 - a narrower CO-RE structural-versus-semantic boundary only if it develops a
   mechanism materially distinct from the September 18 cross-kernel behavior
   contract, rather than merely restating that successful relocation is not a
@@ -207,6 +226,9 @@ Novelty guards:
   boundary with a different example;
 - do not repeat the `2026-09-21` controller-restart link-ownership reconciliation
   boundary with a different persistent attach type;
+
+- do not repeat the `2026-09-22` typed/scoped interface-negotiation boundary with
+  a host-global capability manifest or ordered trial-loading wrapper;
 - do not repeat September 6 architecture-specific specialization and fallback;
 - do not repeat the August 10 application-level transactional-upgrade protocol;
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
@@ -237,8 +259,23 @@ runtime-profile report, so the active eBPF series became mechanically eligible
 again. The September 18 eBPF report replaced that eBPF slot and kept the mix at
 **7 / 1 / 2**.
 
+### Material external-development detour — 2026-09-20
+
+The September 20 publication used the roadmap's material-external-development
+escape hatch rather than adding a deployment-compatibility boundary:
+
+- `2026-09-20` — `/research/ebpf-exception-cleanup-unwind/`: compiler-generated
+  cleanup landing pads for `bpf_throw()` unwind, verifier resource tracking,
+  cleanup metadata, and cross-JIT differential conformance.
+
+The report is eBPF-centered and replaced the eBPF-centered September 6 report in
+the rolling window, preserving **7 / 1 / 2**. It does not count as a published
+boundary of the active deployment-compatibility series.
+
 The abandoned September 16 CXL draft and the still-open September 16 `io_uring`
 draft are not published-state boundaries and must not be counted in this roadmap.
+The unmerged September 19 interface-negotiation attempt is likewise not a
+published boundary; the September 22 report deliberately supersedes it.
 
 ### Material external-development detour — 2026-09-20
 

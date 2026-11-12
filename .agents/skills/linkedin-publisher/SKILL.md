@@ -5,10 +5,9 @@ description: Prepare or publish eunomia.dev content for LinkedIn posts, articles
 
 # LinkedIn Publisher
 
-Prepare professional LinkedIn posts that build technical credibility. A request
-to publish or a queue item marked `排队` authorizes the final post; do not ask
-again at the last button. Stop only when the task is limited to a draft or
-preview.
+Prepare professional LinkedIn posts that build technical credibility.
+Publication authorization follows CLAUDE.md's Precedence Rule and Publishing
+section.
 
 ## Inputs
 

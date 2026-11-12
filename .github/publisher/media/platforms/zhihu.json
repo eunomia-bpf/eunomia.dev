@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-12",
+  "last_checked": "2026-11-07",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -79,6 +79,18 @@
       "checked_via": "in_app_browser_existing_article_update_and_public_page_dom_qa",
       "article_url": "https://zhuanlan.zhihu.com/p/2063162298781398619",
       "notes": "Updated the existing article through the visible editor. Public-page QA confirmed the exact current source title, 15 section headings, 8 rendered code blocks, one table, 11 outbound article links, one loaded 960x418 content image, READY scope=system-wide, and the completed >= scheduled shutdown condition. No Zhihu API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-11-06",
+      "checked_via": "visible_browser_creator_page_probe",
+      "status": "blocked",
+      "notes": "https://www.zhihu.com/creator redirected to https://www.zhihu.com/account/unhuman?type=S6E3V1&need_login=true&session=68013e178ace4880c7baa5cf13789d36 ('系统监测到您的网络环境存在异常... 开始验证'), and document.cookie still had no z_c0. This is a new state versus the earlier plain /signin redirect: the session now also requires the human-verification step. No login or verification was attempted, and no editor action was possible, so the 24 queued Zhihu tasks stay blocked."
+    },
+    {
+      "checked_at": "2026-11-07",
+      "checked_via": "visible_chrome_cdp_target_url_probe",
+      "status": "blocked_signed_out",
+      "notes": "https://www.zhihu.com/creator still resolves to https://www.zhihu.com/signin?next=%2Fcreator in the persistent visible Chrome, i.e. the auth cookie is still absent. All 24 queued Zhihu tutorial tasks remain platform-level blocked; no Zhihu publication was attempted."
     }
   ],
   "published": [
