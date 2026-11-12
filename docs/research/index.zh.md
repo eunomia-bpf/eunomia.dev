@@ -13,6 +13,22 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 `io_uring` 的取消会和目标请求自己的 completion path 竞争。本文区分 cancel control flow 与真正的 terminal completion，并提出终态回执、带 generation 的资源生命周期栅栏，以及验证 teardown 安全性的对抗式 race benchmark。
 
+### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
+
+kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。
+
+### [eBPF 异常展开时，能安全释放资源吗？](https://eunomia.dev/zh/research/ebpf-exception-cleanup-unwind/)
+
+新的 BPF cleanup-table proposal 把 compiler 生成的 landing pad、verifier resource tracking 与 JIT stack unwinding 连接起来。本文进一步提出 cleanup-effect discipline、可审计 cleanup metadata，以及跨 JIT differential test，用来验证 non-local control flow 是否真的释放了 verifier 预期的资源。
+
+### [内核升级后，同一个 eBPF 对象还能保持原来的语义吗？](https://eunomia.dev/zh/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE 能修正结构差异，但 verifier、非稳定的 kernel-facing interface 与 feature probe 行为仍可能在升级后变化。本文提出跨内核 semantic witness、dependency-based drift localization，以及验证应用行为而不只是 loadability 的 semantic promotion gate。
+
+### [容器能保证自己的内存不被放进 CXL 吗？](https://eunomia.dev/zh/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` 可以约束 NUMA placement，但 reclaim demotion、不完整 migration 与共享页会让“绝不进入某个 tier”变成更复杂的生命周期问题。本文提出带失败语义的 tier-residency hardwall、multi-owner shared-page policy，以及专门攻击隔离声明的对抗式 benchmark。
+
 ### [eBPF 加载器能相信内核版本号吗？](https://eunomia.dev/zh/research/ebpf-kernel-capability-evidence/)
 
 内核版本号可能隐藏 distribution backport、config、BTF、权限和 verifier 差异，而这些因素会直接决定真实 BPF object 能否加载。本文提出与 artifact 绑定的 capability receipt、限制副作用的 semantic canary，以及可 replay 的 support envelope，让 admission 和 fallback 都能解释。

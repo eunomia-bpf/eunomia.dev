@@ -29,6 +29,12 @@ forum is a durable scope change and requires an explicit repository edit.
 
 ### 1. Review The Full Daily Window
 
+Date every run in `America/Los_Angeles` and give each daily run its own
+session and session-scoped state directory. Retries on the same Los Angeles day
+may continue that day's session and candidate. A published receipt from an
+earlier date never counts as completing a later day: each later day still
+requires its own run and its own published Q&A.
+
 Apply the hybrid source policy declared in the watchlist:
 
 - Slack sources marked `archive_opt_in: true` use the approved private
@@ -125,8 +131,9 @@ discussion. Never treat inaccessible channels as zero activity.
 
 Publish one Q&A per successful run. Before starting a new dated pair, resume
 any unpublished pair left by an earlier attempt, even after the calendar date
-changes. A retry must finish that candidate rather than strand it or create a
-duplicate:
+changes. A retry or the next day's session must finish that candidate rather
+than strand it, and must never re-create a page whose article is already
+published:
 
 - create `docs/ebpf-qa/YYYY-MM-DD-<question-slug>.md` and its Chinese
   counterpart;
@@ -149,10 +156,15 @@ Do not require a particular local model when the active agent can complete the
 work. Keep automation direct: model allowlists, fixed roles, redundant
 preflights or approvals, hidden orchestration, and gate-style validations that
 turn coverage gaps, calendar rollover, or unrelated work into publication
-stoppers are explicitly banned added complexity.
+stoppers are explicitly banned added complexity, as are any new review
+framework, audit gate, service, scheduler, script, or model change added just
+to make a run proceed.
 
-After deployment, verify the public route before recording publication as
-complete.
+Publication is not complete until the change is pushed to `main`, the
+deployment finishes, and the public route is verified live. A one-shot
+print-mode agent that starts a publication must run it to that point before it
+exits; it must never end immediately after launching an asynchronous validator
+while expecting a later automatic wake to finish the job.
 
 ## Archive Access Invariants
 

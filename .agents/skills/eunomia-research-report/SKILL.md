@@ -136,7 +136,7 @@ Before drafting, state in ordinary language:
 
 The gap must identify a missing benchmark, interface, mechanism, guarantee, dataset, measurement, deployment property, or boundary condition. Reject generic statements such as "more research is needed" or "scalability remains challenging."
 
-If the candidate fails this gate, discard it and immediately research the next candidate in the approved series roadmap. The daily run does not terminate without a report.
+If the candidate fails this gate, discard it and immediately research the next candidate in the approved series roadmap (see Daily Fallback).
 
 ### 5. Design The Reader Path
 
@@ -246,8 +246,6 @@ Reject or revise the candidate when any of these are true:
 - the new page substantially duplicates an existing question or thesis;
 - important claims cannot be traced to primary evidence;
 - the topic would violate the rolling eBPF/Agent editorial mix.
-
-Rejecting one candidate does not end the daily run. Select another question from the active or approved series and repeat the research process until one report passes.
 
 ## Daily Fallback
 

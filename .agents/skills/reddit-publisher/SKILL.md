@@ -5,9 +5,8 @@ description: Prepare or publish eunomia.dev content for Reddit submissions and c
 
 # Reddit Publisher
 
-Prepare Reddit submissions that fit the target subreddit. A request to publish
-or a queue item marked `排队` authorizes the final post; do not ask again at
-the last button. Stop only when the task is limited to a draft or preview.
+Prepare Reddit submissions that fit the target subreddit. Publication
+authorization follows CLAUDE.md's Precedence Rule and Publishing section.
 
 ## Inputs
 

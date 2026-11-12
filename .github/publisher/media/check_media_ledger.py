@@ -17,6 +17,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parents[2]
 DEFAULT_SOURCES = SCRIPT_DIR / "sources.json"
 DEFAULT_PLATFORMS_DIR = SCRIPT_DIR / "platforms"
+DEFAULT_SNAPSHOT = SCRIPT_DIR / "published.md"
 CONFIRMED_STATUS = "confirmed"
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -191,6 +192,82 @@ def validate_platforms(
     return errors
 
 
+def validate_snapshot(
+    platforms: dict[str, dict[str, Any]], snapshot_path: Path
+) -> list[str]:
+    """Every confirmed ledger entry's public URL must appear in the readable snapshot.
+
+    The per-platform JSON files are canonical; ``published.md`` is the human-readable
+    view of them. When the two drift apart the snapshot silently under-reports what
+    was published, so the readable view must carry each confirmed entry's ``url``
+    (or ``evidence_url`` when no permalink was captured).
+    """
+    if not snapshot_path.is_file():
+        return [f"snapshot does not exist: {snapshot_path}"]
+
+    snapshot = read_text(snapshot_path)
+    errors: list[str] = []
+    for platform_id, platform in platforms.items():
+        for entry in platform.get("published", []):
+            if entry.get("status") != CONFIRMED_STATUS:
+                continue
+            url = entry.get("url") or entry.get("evidence_url")
+            entry_id = entry.get("id", "<no id>")
+            if not url:
+                errors.append(
+                    f"confirmed entry {platform_id}/{entry_id} has no url or evidence_url "
+                    "to reconcile against the snapshot"
+                )
+            elif url not in snapshot:
+                errors.append(
+                    f"confirmed entry {platform_id}/{entry_id} is missing from the "
+                    f"snapshot: {url}"
+                )
+    return errors
+
+
+def validate_freshness(
+    sources_config: dict[str, Any],
+    platforms: dict[str, dict[str, Any]],
+    snapshot_path: Path,
+) -> list[str]:
+    """Summary dates must not lag the newest per-platform check date.
+
+    ``sources.json`` and the readable snapshot are cross-platform summaries of the
+    per-platform ledgers. A stale summary date silently misrepresents how recently
+    the ledger was verified, so each summary date must be at least as recent as the
+    newest ``last_checked`` among the platform files it summarizes.
+    """
+    platform_dates = [platform.get("last_checked") for platform in platforms.values()]
+    dated_platforms = [value for value in platform_dates if isinstance(value, str) and value]
+    if not dated_platforms:
+        return []
+
+    newest = max(dated_platforms)
+    errors: list[str] = []
+
+    headline = sources_config.get("last_checked")
+    if not isinstance(headline, str) or not headline:
+        errors.append("sources.json needs a last_checked date")
+    elif headline < newest:
+        errors.append(
+            f"sources.json last_checked {headline} lags the newest platform "
+            f"last_checked {newest}"
+        )
+
+    if snapshot_path.is_file():
+        match = re.search(r"^Last checked:\s*(\d{4}-\d{2}-\d{2})\s*$", read_text(snapshot_path), re.MULTILINE)
+        if not match:
+            errors.append(f"snapshot has no 'Last checked: YYYY-MM-DD' line: {snapshot_path}")
+        elif match.group(1) < newest:
+            errors.append(
+                f"snapshot last_checked {match.group(1)} lags the newest platform "
+                f"last_checked {newest}"
+            )
+
+    return errors
+
+
 def scan_sources(config: dict[str, Any], repo_root: Path) -> list[dict[str, Any]]:
     sources: list[dict[str, Any]] = []
     seen: set[tuple[str, str]] = set()
@@ -338,6 +415,13 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         default=DEFAULT_PLATFORMS_DIR,
         help=f"Directory containing one JSON file per platform. Defaults to {DEFAULT_PLATFORMS_DIR}",
     )
+
+    parser.add_argument(
+        "--snapshot",
+        type=Path,
+        default=DEFAULT_SNAPSHOT,
+        help=f"Readable published snapshot reconciled against the ledgers. Defaults to {DEFAULT_SNAPSHOT}",
+    )
     parser.add_argument(
         "--platform",
         action="append",
@@ -369,7 +453,9 @@ def main(argv: list[str]) -> int:
 
     source_errors, source_set_ids, _ = validate_sources_config(sources_config)
     platform_errors = validate_platforms(platforms, source_set_ids, REPO_ROOT)
-    errors = source_errors + platform_errors
+    snapshot_errors = validate_snapshot(platforms, args.snapshot.resolve())
+    freshness_errors = validate_freshness(sources_config, platforms, args.snapshot.resolve())
+    errors = source_errors + platform_errors + snapshot_errors + freshness_errors
     platform_filter = set(args.platform) if args.platform else None
     if platform_filter:
         unknown = sorted(platform_filter - set(platforms))

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-09-15",
+  "last_checked": "2026-11-07",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -16,6 +16,47 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-09-23",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/post/7688532185121947658",
+      "review_status": "confirmed",
+      "notes": "42-xdp-loadbalancer published through the visible Juejin editor with the prepared local artifact (16487 chars), category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article as public. The canonical /post/7688532185121947658 page carries the exact title, the single-copy body, five H2, nineteen H3, two H4, twenty-five code blocks, four external links, no content image, and the 暂无评论数据 empty state."
+    },
+    {
+      "checked_at": "2026-10-21",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7698947426490318888",
+      "review_status": "confirmed",
+      "notes": "xpu/npu-kernel-driver published through the visible Juejin editor with the prepared local artifact (9180 chars), category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article under 已发布; the creator center read 全部 91 / 已发布 91 / 审核中 0 / 未通过 0. The canonical /post/7698947426490318888 page carries the exact title, the single-copy body, nine H2, two H3, zero H4, nine code blocks, five unique external link targets all rewritten to link.juejin.cn wraps, no content image, and the 暂无评论 empty state; the /spost/ URL redirects to the public /post/ URL."
+    },
+    {
+      "checked_at": "2026-09-23",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7688489073967251494",
+      "review_status": "confirmed",
+      "notes": "Review cleared: the canonical https://juejin.cn/post/7688489073967251494 now renders its .markdown-body with the exact H1 \"超越 eBPF 的极限：在内核模块中定义自定义 kfunc\", nine H2, eleven H3, three H4, twenty code blocks, eight unique external links, and the content image at 800x500 complete. No 审核中 / 文章有更新 / 已被删除 marker; comment section shows the 暂无评论数据 empty state. The /post/ URL no longer returns 找不到页面."
+    },
+    {
+      "checked_at": "2026-09-22",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_staged_page_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7688489073967251494",
+      "review_status": "review_pending",
+      "notes": "43-kfuncs published through the visible Juejin editor with the prepared local artifact (11047 chars), category 后端 and tags Linux/后端/性能优化. The submission page showed 发布成功 and the profile lists the article under 审核中; the staged /spost/ page carries the exact title, exact 11047-character single-copy body, nine H2, eleven H3, three H4, twenty code blocks (matching the source's twenty fenced blocks one-to-one), nine external links, and one content image. The canonical /post/ URL still returns 找不到页面 pending review."
+    },
+    {
+      "checked_at": "2026-09-17",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7686408837754142770",
+      "review_status": "confirmed",
+      "notes": "44-scx-simple submitted through the visible Juejin editor with the prepared local artifact (11651 chars), category 后端 and tags Linux/后端/性能优化; the submission page showed 发布成功. Review cleared the same LA day: the canonical /post/7686408837754142770 URL renders the public article with the exact title, a single-copy body, seven H2, thirteen H3, two H4, six code blocks, seven external links, no images, and no review/update/deletion marker.",
+      "public_url": "https://juejin.cn/post/7686408837754142770"
+    },
     {
       "checked_at": "2026-09-15",
       "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
@@ -230,9 +271,342 @@
       "visible_views": 10,
       "visible_comments": 0,
       "notes": "Submitted tutorial 53 through the normal visible Juejin editor on 2026-08-23 after an exact-title duplicate check. Category 后端; tags Linux, 开源, and 云原生. A GitHub raw image produced the visible transfer-failure marker, so the source image was uploaded through the editor and replaced by Juejin-hosted media. On 2026-08-24 the staged URL redirected to the public /post page, which preserves the exact title, 11 body headings, nine code blocks, one table, source and reference links, and zero comments. The Juejin-hosted diagram did not render on the public page during this check, despite being present in the article DOM, so publication is confirmed but media repair remains necessary."
+    },
+    {
+      "checked_at": "2026-11-07",
+      "checked_via": "visible_chrome_cdp_target_url_probe",
+      "status": "blocked_signed_out",
+      "notes": "https://juejin.cn/creator/home now lands on the juejin.cn root page in the persistent visible Chrome instead of the creator dashboard, so the session is signed out again. The 2026-10-21 reading and comment observations are the last ones taken from a signed-in surface."
     }
   ],
   "published": [
+    {
+      "id": "juejin-7698947426490318888",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：跟踪 Intel NPU 内核驱动操作",
+      "url": "https://juejin.cn/post/7698947426490318888",
+      "staged_url": "https://juejin.cn/spost/7698947426490318888",
+      "source_path": "docs/tutorials/xpu/npu-kernel-driver/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on the LA 2026-10-21 normal slot with no catch-up gap redeemed (JSON-LD datePublished 2026-10-21T16:13:55-07:00 = 16:13 PDT = 2026-10-22 07:13:55 +08): submitted on a fresh /editor/drafts/new session with a single popup submit (发布成功 at https://juejin.cn/published). Pre-submission baseline (carried from the 2026-10-20 xpu/gpu-kernel-driver run) was 全部 90 / 已发布 90 / 审核中 0 / 未通过 0; after the review interval cleared, the creator center reads 全部 91 / 已发布 91 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化. The canonical /post/7698947426490318888 page carries the exact title once, a single-copy body (9180-char artifact; rendered DOM 8687), 9 H2, 2 H3, 0 H4, 9 code blocks, zero content images, zero tables, five unique external link targets all rewritten to link.juejin.cn wraps, no 审核中 / 文章有更新 / 已被删除 / 找不到页面 marker, and the 暂无评论 empty state. The /spost/ URL now redirects to the public /post/ URL."
+    },
+    {
+      "id": "juejin-7698552541928554511",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动",
+      "url": "https://juejin.cn/post/7698552541928554511",
+      "staged_url": "https://juejin.cn/spost/7698552541928554511",
+      "source_path": "docs/tutorials/xpu/gpu-kernel-driver/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-21 07:29 +08 (LA date 2026-10-20) using the LA 2026-10-20 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 89 / 已发布 89 / 审核中 0 / 未通过 0; post-submission it read 全部 90 / 已发布 89 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search on .byte-select__input; the Linux option committed via a real CDP pointer click on the visible .byte-select-option, while 后端 and 性能优化 committed via in-page synthetic click + o.click() because repeated raw CDP pointer clicks at the option center did not land). The post entered a brief review interval: /spost/7698552541928554511 staged while the creator center showed 审核中 (1); during that window the SPA shell answered HTTP 200 on the /post/ URL, so publication state was judged only from the logged-in creator center. It cleared within ~3 minutes to 全部 90 / 已发布 90 / 审核中 0 (faster than the bpf_wq / bpf_arena / bpf_iters / bpf_token 1-5 minute fast tier). Public-page QA on the canonical /post/ URL: H1 exact once; single-copy body (artifact 11994 chars; rendered DOM innerText read 11482 after code-block whitespace normalization); 10 H2 / 3 H3 / 0 H4; source 8 fenced code blocks [1 c, 5 bash, 2 unlabeled] rendered as 8 <pre> in the Juejin DOM (1:1, source count authoritative); 0 images; 0 tables; all 6 unique external link targets (github.com/eunomia-bpf/bpftime/tree/master/example/gpu, github.com/eunomia-bpf/gpu_ext, lpc.events/event/19/contributions/2168/, github.com/eunomia-bpf/bpf-developer-tutorial, eunomia.dev/tutorials/, github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver) rewritten to link.juejin.cn?target= wraps with 0 bare external links; no 审核中 / 文章有更新 / 已被删除 / 找不到页面 / 发布失败 / 转存失败 markers; 5 comments read on the public page. Body injected via 14-chunk base64 write into window.__b64 then UTF-8 decode into CodeMirror (confirmed injected length 11994)."
+    },
+    {
+      "id": "juejin-7698287001586040872",
+      "status": "confirmed",
+      "title": "eBPF 示例：使用 CUPTI 构建 GPU 火焰图分析器",
+      "url": "https://juejin.cn/post/7698287001586040872",
+      "staged_url": "https://juejin.cn/spost/7698287001586040872",
+      "source_path": "docs/tutorials/xpu/flamegraph/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-20 08:44 +08 (LA date 2026-10-19) using the LA 2026-10-19 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 88 / 已发布 88 / 审核中 0 / 未通过 0; post-submission it read 全部 89 / 已发布 88 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for each). The post entered a review interval: /spost/7698287001586040872 staged while the creator center showed 审核中 (1); during that window the SPA shell answered HTTP 200 on the /post/ URL, so availability was judged from the logged-in creator center, which cleared at the ~09:01 +08 poll to 全部 89 / 已发布 89 / 审核中 0 (a ~17-minute review interval — longer than the 1-5 minute fast tier of bpf_wq / bpf_arena / bpf_iters / bpf_token but shorter than the 23-minute dynptr and 49-minute struct_ops intervals) and the canonical /post/ URL went live. Full public-page QA: exact title once as the page H1, single-copy body (31718 artifact chars; the rendered DOM normalizes code-block whitespace, so the page innerText reads 31260), 11 H2 / 17 H3 / 5 H4, 25 code blocks (1 c, 1 cpp, 2 python, 18 bash, 3 unlabeled — matching the rendered 25 <pre> one-to-one), 0 content images, 0 tables, all 11 external link targets rewritten to link.juejin.cn?target= with 0 bare external links, no 审核中 / 更新 / 删除 / 找不到 / 发布失败 markers. The source's single image reference (qwen3_flamegraph.svg, source line 11) was deliberately omitted from the published body: that .svg is a gitignored build artifact of the tutorial (never committed, absent from the upstream bpf-developer-tutorial, 404 on the live eunomia.dev tutorial page), so there is no source file to upload; the rest of the body is preserved verbatim. One comment appeared by the post-clearance read."
+    },
+    {
+      "id": "juejin-7697622920013709347",
+      "status": "confirmed",
+      "title": "eBPF 教程：使用 BPF struct_ops 扩展内核子系统",
+      "url": "https://juejin.cn/post/7697622920013709347",
+      "staged_url": "https://juejin.cn/spost/7697622920013709347",
+      "source_path": "docs/tutorials/features/struct_ops/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-19 07:23 +08 (LA date 2026-10-18) using the LA 2026-10-18 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 87 / 已发布 87 / 审核中 0 / 未通过 0; post-submission it read 全部 88 / 已发布 87 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for each). The post entered the longest review interval yet: /spost/7697622920013709347 staged while the creator center showed 审核中 (1); during that window the SPA shell answered HTTP 200 on the /post/ URL, so availability was judged from the logged-in creator center, which flipped to 全部 88 / 已发布 88 / 审核中 0 at the ~08:12 +08 poll (a ~49-minute review interval, slower than the 1-23 minute precedents of 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token / dynptr, the longest so far in this queue series); the canonical /post/ URL then went live and passed full public-page QA (H1 x1 exact title, 8 H2 / 16 H3 / 0 H4, 20 source code blocks [8 c / 8 bash / 4 unlabeled, rendered 21 <pre> via Juejin auto-tag/split], 0 images, 0 tables, all 6 external link targets rewritten to link.juejin.cn?target= with 0 bare external links, no review markers, 0 comments at QA read / 3 by the later counter read; early live counters 2 阅读 / 1 点赞 / 3 评论)."
+    },
+    {
+      "id": "juejin-7697186290753159202",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：BPF 动态指针处理可变长度数据",
+      "url": "https://juejin.cn/post/7697186290753159202",
+      "staged_url": "https://juejin.cn/spost/7697186290753159202",
+      "source_path": "docs/tutorials/features/dynptr/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-18 07:24 +08 (LA date 2026-10-17) using the LA 2026-10-17 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 86 / 已发布 86 / 审核中 0 / 未通过 0; post-submission it read 全部 87 / 已发布 86 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for each). The post entered a longer-than-usual review interval: /spost/7697186290753159202 staged while the creator center showed 审核中 (1); during that window the SPA shell answered HTTP 200 on the /post/ URL, so availability was judged from the logged-in creator center, which flipped to 全部 87 / 已发布 87 / 审核中 0 at the ~07:47 +08 poll (~23-minute review interval, slower than the 1-5 minute fast tier of the preceding slots and the longest so far in this queue series); the canonical /post/ URL then went live and passed full public-page QA (H1 x1 exact title, 7 H2 / 15 H3 / 0 H4, 11 code blocks [2 c / 7 bash / 2 unlabeled], 0 images, 0 tables, all 8 external link targets rewritten to link.juejin.cn?target= with 0 bare external links, no review markers, 0 comments)."
+    },
+    {
+      "id": "juejin-7697094073967116323",
+      "status": "confirmed",
+      "title": "eBPF 教程：BPF 工作队列用于异步可睡眠任务",
+      "url": "https://juejin.cn/post/7697094073967116323",
+      "staged_url": "https://juejin.cn/spost/7697094073967116323",
+      "source_path": "docs/tutorials/features/bpf_wq/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-17 07:17 +08 (LA date 2026-10-16) using the LA 2026-10-16 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 85 / 已发布 85 / 审核中 0 / 未通过 0; post-submission it read 全部 86 / 已发布 85 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for each). The post entered a brief review interval: /spost/7697094073967116323 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL; at ~07:18 +08 the creator center flipped to 全部 86 / 已发布 86 / 审核中 0 and the canonical /post/7697094073967116323 went live (~1 min review interval, fast tier consistent with 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters / bpf_token). Public-page QA on 2026-10-17 07:20 +08 confirmed the exact title H1 x1, single-copy body (source 9545 chars, rendered 10628 chars in the detail container), 8 H2 / 7 H3 / 0 H4, 5 code blocks (2 c, 2 bash, 1 unlabeled output), 0 content images, 1 table (7 rows incl. header), all 3 unique external link targets rewritten to link.juejin.cn?target= (0 bare external links in body), no 审核中/更新/删除/找不到 markers, 0 comments. Early counters at the named checkpoint: 0 展现 / 1 阅读."
+    },
+    {
+      "id": "juejin-7696759034846445583",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程：BPF Token，安全的委托式权限与程序加载",
+      "url": "https://juejin.cn/post/7696759034846445583",
+      "staged_url": "https://juejin.cn/spost/7696759034846445583",
+      "source_path": "docs/tutorials/features/bpf_token/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-16 07:36 +08 (LA date 2026-10-15) using the LA 2026-10-15 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 84 / 已发布 84 / 审核中 0 / 未通过 0; post-submission it read 全部 85 / 已发布 84 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for Linux and 性能优化; the 后端 chip required an Enter-key commit because a pointer click did not land it). The post entered a brief review interval: /spost/7696759034846445583 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so publication is judged from the logged-in creator center; at the ~07:41 +08 checkpoint it read 全部 85 / 已发布 85 / 审核中 0 / 未通过 0 (~5-minute review interval, consistent with the fast-tier precedent 26-sudo / 20-tc / bpftrace / bpf_arena / bpf_iters), and the canonical /post/ URL went live. Public-page QA confirmed the exact title, single-copy body (10102-char source artifact), 9 H2 / 7 H3 / 0 H4, 14 code blocks, 0 images, 1 table with 6 rows, all 10 unique external targets rewritten as link.juejin.cn?target= with 0 bare external links, no review/update/deletion marker, and 0 comments. Early creator-center counters at the 07:41 +08 checkpoint: 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7696384745624141824",
+      "status": "confirmed",
+      "title": "eBPF 教程：BPF 迭代器用于内核数据导出",
+      "url": "https://juejin.cn/post/7696384745624141824",
+      "staged_url": "https://juejin.cn/spost/7696384745624141824",
+      "source_path": "docs/tutorials/features/bpf_iters/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-15 08:51 +08 (LA date 2026-10-14) using the LA 2026-10-14 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 83 / 已发布 83 / 审核中 0 / 未通过 0; post-submission it read 全部 84 / 已发布 83 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer click on .byte-select-option for Linux and 性能优化; the 后端 chip required an Enter-key commit because a pointer click did not land it). The post entered a brief review interval: /spost/7696384745624141824 staged while the creator center showed 审核中 (1), with the SPA shell answering HTTP 200 on the /post/ URL during that interval — then at the 08:56 +08 poll the creator center flipped to 全部 84 / 已发布 84 / 审核中 0 (a ~5-minute review interval, in the fast 26-sudo / 20-tc / bpftrace / bpf_arena tier) and the canonical /post/ URL went live; it passed full public-page QA (exact H1 once, single-copy body: 11428 artifact chars, rendered innerText 11063; 6 H2 / 7 H3 / 0 H4; 9 code blocks [5 bash, 2 c, 2 unlabeled blocks auto-tagged ini]; 0 content images; 0 tables; all 6 unique external link targets rewritten to link.juejin.cn?target= with 0 raw external links; no review/update/deletion marker; 0 comments) with early live counters at the 08:56 +08 checkpoint reading 0 展现 / 3 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
+    {
+      "id": "juejin-7695977967902933026",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：BPF Arena 零拷贝共享内存",
+      "url": "https://juejin.cn/post/7695977967902933026",
+      "staged_url": "https://juejin.cn/spost/7695977967902933026",
+      "source_path": "docs/tutorials/features/bpf_arena/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-14 07:27 +08 (LA date 2026-10-13) using the LA 2026-10-13 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 82 / 已发布 82 / 审核中 0 / 未通过 0; post-submission it read 全部 83 / 已发布 82 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer clicks on .byte-select-option). The post entered a brief review interval: /spost/7695977967902933026 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 07:30 +08 poll to 全部 83 / 已发布 83 / 审核中 0 (a ~3-minute review interval, in the fast 26-sudo / 20-tc / bpftrace-tutorial tier), after which the canonical /post/ URL went live. Public-page QA confirmed the exact title once as the page H1, a single-copy body (11017 artifact chars; rendered innerText 12633), 7 H2 / 7 H3 / 0 H4, 8 code blocks (4 c, 3 bash, 1 unlabeled test-output block), 0 content images, 0 tables, all 4 external link targets rewritten to link.juejin.cn?target=, no review/update/deletion marker, and 0 comments; early live counters at the 07:30 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
+    {
+      "id": "juejin-7695667191396040738",
+      "status": "confirmed",
+      "title": "eBPF 实例教程：基于 cgroup 的策略控制",
+      "url": "https://juejin.cn/post/7695667191396040738",
+      "staged_url": "https://juejin.cn/spost/7695667191396040738",
+      "source_path": "docs/tutorials/cgroup/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-13 07:16 +08 (LA date 2026-10-12) using the LA 2026-10-12 normal slot with no catch-up gap redeemed: submitted on a fresh /editor/drafts/new session (no pre-staged draft), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 81 / 已发布 81 / 审核中 0 / 未通过 0; post-submission it read 全部 82 / 已发布 81 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order (native-setter search + real CDP pointer clicks on .byte-select-option). The post entered a review interval: /spost/7695667191396040738 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 07:56 +08 poll to 全部 82 / 已发布 82 / 审核中 0 (a ~40-minute review interval, in line with the 38-btf-uprobe precedent); the canonical /post/7695667191396040738 page then went live. Public-page QA confirmed the exact title once (as the page H1, not repeated in the body), the single-copy body (18184 artifact chars; the rendered DOM innerText reads 17273 after code-block whitespace normalization), 11 H2 / 11 H3 / 2 H4, 11 code blocks, 0 content images, 3 tables, all 7 external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, and the 暂无评论数据 empty state. Early live counters at the 08:07 +08 creator-center checkpoint: 2 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7695068144415244323",
+      "status": "confirmed",
+      "title": "bpftrace一行教程",
+      "url": "https://juejin.cn/post/7695068144415244323",
+      "source_path": "docs/tutorials/bpftrace-tutorial/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-12 (LA date) using the LA 2026-10-11 normal slot with no catch-up gap redeemed: submitted 2026-10-12 07:39 +08 = 2026-10-11 16:39 PDT on a fresh /editor/drafts/new session (the draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 80 / 已发布 80 / 审核中 0 / 未通过 0; post-submission it read 全部 81 / 已发布 80 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post landed directly public with no meaningful review interval: at the 07:41 +08 checkpoint the creator center already read 全部 81 / 已发布 81 / 审核中 0 / 未通过 0, so the canonical /post/ URL was live from the start, matching the LA 2026-10-03 26-sudo and LA 2026-10-07 20-tc direct-public precedent. Public-page QA confirmed the exact H1 (once), single-copy body (11798 artifact chars; rendered innerText 11402), 12 H2 / 0 H3 / 0 H4, 12 code blocks, 0 content images, 0 tables, all 5 unique external link targets rewritten to link.juejin.cn?target=, no review/update/deletion marker, and the 暂无评论 empty state (0 comments)."
+    },
+    {
+      "id": "juejin-7694934986782064649",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程一：Hello World，基本框架和开发流程",
+      "url": "https://juejin.cn/post/7694934986782064649",
+      "staged_url": "https://juejin.cn/spost/7694934986782064649",
+      "source_path": "docs/tutorials/1-helloworld/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-10 (LA date) using the LA 2026-10-10 normal slot with no catch-up gap redeemed: submitted 2026-10-11 07:21 +08 = 2026-10-10 16:21 PDT on a fresh /editor/drafts/new session (the draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 79 / 已发布 79 / 审核中 0 / 未通过 0; post-submission it read 全部 80 / 已发布 79 / 审核中 1 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered a review interval: /spost/7694934986782064649 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 10:14 +08 poll to 已发布 (80) / 审核中 (0) — a ~173-minute interval, the longest observed to date. Full public-page QA on the canonical /post/7694934986782064649 passed: exact title, single-copy body (7633 artifact chars; rendered 7087 innerText chars after code-block whitespace normalization), 7 H2 / 1 H3 / 0 H4, 10 code blocks (1 c, 2 shell, 7 console), 0 content images, 0 tables, all 10 external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, and 0 comments (暂无评论数据 empty state). Early live counters at the 10:14 +08 creator-center clearance checkpoint: 0 展现, 1 阅读, 0 点赞, 0 评论, 0 收藏."
+    },
+    {
+      "id": "juejin-7694534084639195174",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程十七：编写 eBPF 程序统计随机/顺序磁盘 I/O",
+      "url": "https://juejin.cn/post/7694534084639195174",
+      "staged_url": "https://juejin.cn/spost/7694534084639195174",
+      "source_path": "docs/tutorials/17-biopattern/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-09 (LA date) using the LA 2026-10-09 normal slot: submitted 2026-10-10 07:17 +08 = 2026-10-09 16:17 PDT on a fresh /editor/drafts/new session (the draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 78 / 已发布 78 / 审核中 0 / 未通过 0; post-submission it read 全部 79 / 已发布 78 / 审核中 1 / 未通过 0. Category 后端; committed tag chips 性能优化/Linux/后端 in DOM order. The post entered a review interval: /spost/7694534084639195174 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 07:52 +08 poll to 已发布 (79) / 审核中 (0) — a ~35-minute review interval — and the canonical /post/7694534084639195174 went live. Public-page QA confirmed the exact title, single-copy body (10501 chars), 4 H2 / 1 H3 / 0 H4, 11 code blocks (8 c, 2 bash, 1 console), 0 content images, 0 tables, all 5 external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, and 0 comments (暂无评论 empty state). Early live counters at the 07:52 +08 clearance checkpoint: 0 展现 / 0 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7694131662616428571",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程：使用 LSM 进行安全检测防御",
+      "url": "https://juejin.cn/post/7694131662616428571",
+      "staged_url": "https://juejin.cn/spost/7694131662616428571",
+      "source_path": "docs/tutorials/19-lsm-connect/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-08 (LA date) using the LA 2026-10-08 normal slot: submitted 2026-10-09 07:07 +08 = 2026-10-08 16:07 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 77 / 已发布 77 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered a review interval: /spost/7694131662616428571 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal and availability was judged from the logged-in creator center, which cleared at the 08:03 +08 poll to 已发布 (78) / 审核中 (0) — a ~56-minute review interval. Public-page QA confirmed the exact title, single-copy body (4812 artifact chars), 7 H2 / 0 H3 / 0 H4, 9 code blocks (6 console, 1 conf, 1 C, 1 shell), 0 content images, 0 tables, all 7 external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, and 0 comments (暂无评论数据 empty state). Early live counters at the 08:03 +08 checkpoint: 0 展现, 0 阅读, 0 点赞, 0 评论, 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain. Mirrors the 21-xdp / 24-hide / 22-android / 29-sockops staged_url review-interval precedent."
+    },
+    {
+      "id": "juejin-7693579496968831022",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程二十：使用 eBPF 进行 tc 流量控制",
+      "url": "https://juejin.cn/post/7693579496968831022",
+      "source_path": "docs/tutorials/20-tc/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-07 (LA date) using the LA 2026-10-07 normal slot: submitted 2026-10-08 07:22 +08 = 2026-10-07 16:22 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 76 / 已发布 76 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The article landed directly public at the canonical /post/ URL with no staging interval: at the 07:34 +08 checkpoint the creator center already read 全部 77 / 已发布 77 / 审核中 0 / 未通过 0, so no /spost/ staging interval or polling was required and the /post/ URL was live from the start. Public-page QA preserved the exact source title, single-copy body (3621 artifact chars), 6 H2 / 0 H3 / 0 H4, 6 code blocks (2 c, 3 console, 1 shell), 0 content images, 0 tables, 5 unique external link targets rewritten to link.juejin.cn?target=, no 审核中 / 文章有更新 / 已被删除 marker, and the 暂无评论数据 empty state (0 comments). Early counters at the 07:34 +08 checkpoint read 0 展现 / 2 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain. Prepared local artifact: draft/media/2026-10-07/20-tc/ (3621 chars, source H1 removed)."
+    },
+    {
+      "id": "juejin-7693018382872330278",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程二十一： 使用 XDP 进行可编程数据包处理",
+      "url": "https://juejin.cn/post/7693018382872330278",
+      "staged_url": "https://juejin.cn/spost/7693018382872330278",
+      "source_path": "docs/tutorials/21-xdp/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-06 (LA date) using the LA 2026-10-06 normal slot: submitted 2026-10-07 07:43 +08 = 2026-10-06 16:43 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Pre-submission the creator center read 全部 75 / 已发布 75 / 审核中 0 / 未通过 0. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7693018382872330278 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:07 +08 poll to 已发布 (76) / 审核中 (0). Public-page QA passed: exact source title eBPF 入门实践教程二十一： 使用 XDP 进行可编程数据包处理, single-copy body (5224 artifact chars), 7 H2 / 6 H3 / 0 H4, 6 code blocks (2 C, 4 console), 0 content images, 0 tables, 10 unique external link targets rewritten to link.juejin.cn?target=, no 审核中/更新/删除 marker, 0 comments. Early counters at the 08:51 +08 checkpoint read 0 展现 / 2 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
+    {
+      "id": "juejin-7692860578532933642",
+      "status": "confirmed",
+      "title": "在 Android 上使用 eBPF 程序",
+      "url": "https://juejin.cn/post/7692860578532933642",
+      "staged_url": "https://juejin.cn/spost/7692860578532933642",
+      "source_path": "docs/tutorials/22-android/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-05 (LA date) using the LA 2026-10-05 normal slot: submitted 2026-10-06 07:45 +08 = 2026-10-05 16:45 PDT on a fresh /editor/drafts/new session with no preexisting drafts (the editor draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7692860578532933642 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answers HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 09:09 +08 poll to 已发布 (75) / 审核中 (0), with the canonical /post/ URL live; a ~84-minute review interval. Public-page QA: exact source title 在 Android 上使用 eBPF 程序, single-copy body (9228 chars verbatim), 7 H2 / 2 H3 / 3 H4, 4 console code blocks, 0 content images, 0 tables, 14 unique external link targets rewritten to link.juejin.cn?target=, 3 [^X]: footnote definitions in ## 参考 intact, no 审核中/更新/删除 marker, 0 comments. Early counters at the 09:10 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
+    {
+      "id": "juejin-7692741078310912027",
+      "status": "confirmed",
+      "title": "eBPF 开发实践：使用 eBPF 隐藏进程或文件信息",
+      "url": "https://juejin.cn/post/7692741078310912027",
+      "staged_url": "https://juejin.cn/spost/7692741078310912027",
+      "source_path": "docs/tutorials/24-hide/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-04 (LA date) using the LA 2026-10-04 normal slot: submitted 2026-10-05 07:41 +08 = 2026-10-04 16:41 PDT on a fresh /editor/drafts/new session with no preexisting drafts (the editor draft box read 5 items, none consumed by this submission), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7692741078310912027 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:35 +08 poll to 已发布 (74) / 审核中 (0), with the canonical /post/ URL live; a ~54-minute review interval. Public-page QA preserved the exact source title, single-copy body with 4 H2 / 1 H3 / 0 H4 headings, 14 code blocks (9 c, 1 bash, 1 sh, 3 console), 0 content images, 0 tables, 3 unique external link targets rewritten to link.juejin.cn?target=, no 审核中/文章有更新/已被删除 marker, and 0 comments; early counters at the 08:40 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; no outstanding catch-up gaps remain."
+    },
+    {
+      "id": "juejin-7692143474695012402",
+      "status": "confirmed",
+      "title": "eBPF 教程: 文件操纵实现 sudo 权限提升",
+      "url": "https://juejin.cn/post/7692143474695012402",
+      "source_path": "docs/tutorials/26-sudo/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-03 (LA date) using the LA 2026-10-03 normal slot: submitted 2026-10-04 07:41 +08 = 2026-10-03 16:41 PDT on a fresh /editor/drafts/new session with no preexisting drafts, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The article landed directly public at the canonical /post/ URL with no staging interval: at the 07:47 +08 poll the creator center already read 全部 73 / 已发布 73 / 审核中 0 / 未通过 0. Public-page QA preserved the exact source title, single-copy body with 7 H2 headings, 3 code blocks (1 c, 2 bash), 0 content images, 0 tables, 6 unique external link targets rewritten to link.juejin.cn?target=, no 审核中 / 文章有更新 / 已被删除 marker, and the 暂无评论数据 empty state (0 comments). Early counters at the 07:47 +08 checkpoint read 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. Prepared local artifact: draft/media/2026-10-03/26-sudo/ (8687 chars, source H1 removed)."
+    },
+    {
+      "id": "juejin-7691585964054003758",
+      "status": "confirmed",
+      "title": "eBPF 开发实践：使用 sockops 加速网络请求转发",
+      "url": "https://juejin.cn/post/7691585964054003758",
+      "staged_url": "https://juejin.cn/spost/7691585964054003758",
+      "source_path": "docs/tutorials/29-sockops/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-02 (LA date) using the LA 2026-10-02 normal slot: submitted 2026-10-03 08:17 +08 = 2026-10-02 17:17 PDT on a fresh /editor/drafts/new session, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691585964054003758 staged while the creator center showed 审核中, and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:28 +08 poll to 已发布 (70) / 审核中 (2), with this post's canonical /post/ URL live; by the 08:46 +08 poll the creator center read 已发布 (72) / 审核中 (0) and the two remaining same-slot posts had cleared. Public-page QA confirmed the exact title, single-copy body, 3 H2 / 5 H3 / 0 H4, 13 code blocks (3 c, 5 shell, 2 sh, 3 console), 1 content image, 0 tables, 11 unique external link targets (10 link anchors + 1 image URL) all rewritten to link.juejin.cn?target=, and 0 comments. Early live counters at the 09:01 +08 checkpoint: 1 展现 / 5 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7691345821565141019",
+      "status": "confirmed",
+      "title": "在应用程序退出后运行 eBPF 程序：eBPF 程序的生命周期",
+      "url": "https://juejin.cn/post/7691345821565141019",
+      "staged_url": "https://juejin.cn/spost/7691345821565141019",
+      "source_path": "docs/tutorials/28-detach/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-02 (LA date) as the second publication of the LA 2026-10-02 slot, redeeming the 2026-09-03 normal-slot catch-up gap: submitted 2026-10-03 08:19 +08 = 2026-10-02 17:19 PDT on a fresh /editor/drafts/new session, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691345821565141019 staged while the creator center showed 审核中, and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:46 +08 poll to 已发布 (72) / 审核中 (0), with the canonical /post/ URL live and the same-slot 27-replace cleared in the same poll. Public-page QA confirmed the exact title, single-copy body, 4 H2 / 1 H3 / 0 H4, 5 code blocks (1 c, 4 bash), 0 content images, 0 tables, 9 unique external link targets (10 link anchors) all rewritten to link.juejin.cn?target=, and 0 comments. Early live counters at the 09:01 +08 checkpoint: 0 展现 / 4 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7691510191482519603",
+      "status": "confirmed",
+      "title": "eBPF 教程: 替换任意程序读取或者写入的文本",
+      "url": "https://juejin.cn/post/7691510191482519603",
+      "staged_url": "https://juejin.cn/spost/7691510191482519603",
+      "source_path": "docs/tutorials/27-replace/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-02 (LA date) as the third publication of the LA 2026-10-02 slot, redeeming the 2026-09-16 normal-slot catch-up gap: submitted 2026-10-03 08:20 +08 = 2026-10-02 17:20 PDT on a fresh /editor/drafts/new session, and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691510191482519603 staged while the creator center showed 审核中, and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 08:46 +08 poll to 已发布 (72) / 审核中 (0), with the canonical /post/ URL live and the same-slot 28-detach cleared in the same poll. Public-page QA confirmed the exact title, single-copy body, 8 H2 / 0 H3 / 0 H4, 6 code blocks (1 c, 5 bash), 0 content images, 0 tables, 7 unique external link targets (7 link anchors) all rewritten to link.juejin.cn?target=, and 0 comments. Early live counters at the 09:01 +08 checkpoint: 0 展现 / 4 阅读 / 0 点赞 / 0 评论 / 0 收藏."
+    },
+    {
+      "id": "juejin-7691326130511167526",
+      "status": "confirmed",
+      "title": "eBPF 实践教程：使用 eBPF 跟踪 Go 协程状态",
+      "url": "https://juejin.cn/post/7691326130511167526",
+      "staged_url": "https://juejin.cn/spost/7691326130511167526",
+      "source_path": "docs/tutorials/31-goroutine/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-10-01 (LA date) using the LA 2026-10-01 normal slot: submitted 2026-10-02 07:25 +08 = 2026-10-01 16:25 PDT on a fresh /editor/drafts/new session (a previously interrupted session had left one auto-saved draft, so the draft box read 5 items, and this submission did not consume it), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691326130511167526 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser at ~2-5 min intervals, the creator center flipped to 已发布 (69) / 审核中 (0) at the 08:18 +08 checkpoint (review interval ~53 min), and the canonical /post/7691326130511167526 rendered with no review marker. Public-page QA preserved the exact source title (single H1 field, not repeated in the body), single-copy body (3823 chars, source H1 removed), 3 H2 / 3 H3 / 0 H4, five code blocks (1 c, 3 bash, 1 console), 0 content images, 0 tables, all four external link targets rewritten to link.juejin.cn?target=, no 审核中 / 文章有更新 / 已被删除 marker, and the empty comment state (0 comments)."
+    },
+    {
+      "id": "juejin-7691151105851031590",
+      "status": "confirmed",
+      "title": "eBPF 开发实践教程：示例 32 - 结合 On-CPU 和 Off-CPU 分析的挂钟时间分析",
+      "url": "https://juejin.cn/post/7691151105851031590",
+      "staged_url": "https://juejin.cn/spost/7691151105851031590",
+      "source_path": "docs/tutorials/32-wallclock-profiler/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-30 (LA date) using the LA 2026-09-30 normal slot: submitted 2026-10-01 08:39 +08 = 2026-09-30 17:39 PDT on a fresh editor session (no pre-staged draft; the editor draft box stayed at 4 items, so no auto-saved draft was consumed), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7691151105851031590 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center cleared at the 09:06 +08 checkpoint to 已发布 (68) / 审核中 (0) and the canonical /post/7691151105851031590 URL went live; full public-page QA confirmed the exact title, a single-copy body, nine H2, three H3, zero H4, six code blocks (4 bash, 2 c), one content image, zero tables, and 17 external links (16 unique targets) all rewritten to link.juejin.cn?target=, with no review/update/deletion marker and the 暂无评论数据 empty state. Early live counters at the 09:06 +08 checkpoint: 0 展现, 1 阅读, 0 点赞, 0 评论, 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
+    {
+      "id": "juejin-7690830871915216922",
+      "status": "confirmed",
+      "title": "使用 eBPF 测量函数延迟",
+      "url": "https://juejin.cn/post/7690830871915216922",
+      "staged_url": "https://juejin.cn/spost/7690830871915216922",
+      "source_path": "docs/tutorials/33-funclatency/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-29 (LA date) using the LA 2026-09-29 normal slot: submitted 2026-09-30 08:51 +08 = 17:51 PDT on a fresh editor session (no pre-staged draft; the editor auto-saved draft 7690839722769514505 was consumed by this submission and the draft box stayed at 4 items), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips 后端/Linux/性能优化 in DOM order. The post landed directly public with no review interval: the creator center immediately showed 已发布 (67) / 审核中 (0) at the 08:51 +08 checkpoint, so the canonical /post/ URL was live without any /spost/ staging interval and no curl polling was required (curl probes are not a publication signal in any case, since the SPA shell answers HTTP 200 on any /post/<id> or /spost/<id> path). Public-page QA: exact title, single-copy body (6136 chars / 9254 bytes), 5 H2 / 3 H3 / 0 H4, 3 code blocks (1 c, 2 console), 0 content images, 0 tables, 5 unique external targets (bpftime repo, bpf-developer-tutorial repo root, src/33-funclatency blob, eunomia.dev/tutorials/, iovisor bcc funclatency.c) all rewritten to link.juejin.cn?target=, no review/update/deletion marker, 0 comments; early counters at 08:51 +08: 0 展现 / 1 阅读 / 0 点赞 / 0 评论 / 0 收藏. The source carries no 原文地址 footer. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
+    {
+      "id": "juejin-7690415131084324902",
+      "status": "confirmed",
+      "title": "eBPF 开发实践：使用 eBPF 修改系统调用参数",
+      "url": "https://juejin.cn/post/7690415131084324902",
+      "staged_url": "https://juejin.cn/spost/7690415131084324902",
+      "source_path": "docs/tutorials/34-syscall/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-28 (LA date) using the LA 2026-09-28 normal slot: submitted 2026-09-29 07:27 +08 = 16:27 PDT on a fresh editor session (no pre-staged draft; the editor auto-saved draft 7690415131084292134 was consumed by this submission and the draft box stayed at 4 items), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips 后端/Linux/性能优化 in DOM order. The post entered review: /spost/7690415131084324902 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (66) / 审核中 (0) by the 09:52 +08 checkpoint, at which point /post/7690415131084324902 rendered the public body and /spost/ redirected to /post/; full public-page QA passed (exact title, single-copy body, 3 H2 / 0 H3 / 0 H4, 8 code blocks (3 c, 3 bash, 1 sh, 1 console), 0 content images, 0 tables, 5 unique external targets (6 links) all rewritten to link.juejin.cn?target=, no review/update/deletion marker, 0 comments), with early counters 2 展现 / 5 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
+    {
+      "id": "juejin-7689742195037110323",
+      "status": "confirmed",
+      "title": "eBPF开发实践：使用 user ring buffer 向内核异步发送信息",
+      "url": "https://juejin.cn/post/7689742195037110323",
+      "staged_url": "https://juejin.cn/spost/7689742195037110323",
+      "source_path": "docs/tutorials/35-user-ringbuf/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-27 (LA date) using the LA 2026-09-27 normal slot: submitted 2026-09-28 07:08 +08 = 16:08 PDT on a fresh editor session (no pre-staged draft; the draft box stayed at 4 items, so no auto-saved draft was consumed), and the single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化 in DOM order. The post entered review: /spost/7689742195037110323 staged while the creator center showed 审核中 (1), and during that interval the SPA shell answered HTTP 200 on the /post/ URL, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (65) / 审核中 (0) by the 08:13 +08 checkpoint, at which point /post/7689742195037110323 rendered the public body and /spost/ redirected to /post/; full public-page QA passed (exact title, single-copy body, 4 H2 / 4 H3 / 0 H4, 6 code blocks (4 c, 1 sh, 1 console), 0 content images, 0 tables, 8 unique external targets all rewritten to link.juejin.cn?target=, no review/update/deletion marker, 0 comments), with early counters 0 展现 / 2 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
+    {
+      "id": "juejin-7689408456146599963",
+      "status": "confirmed",
+      "title": "eBPF 实践：使用 Uprobe 追踪用户态 Rust 应用",
+      "url": "https://juejin.cn/post/7689408456146599963",
+      "staged_url": "https://juejin.cn/spost/7689408456146599963",
+      "source_path": "docs/tutorials/37-uprobe-rust/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-26 (LA date) using the LA 2026-09-26 normal slot: submitted 2026-09-27 07:21 +08 = 16:21 PDT on a fresh editor session (no pre-staged draft, editor auto-saved draft 7689077368330289203 consumed by this submission); single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips 性能优化/Linux/后端 in DOM order. The post entered review: /spost/7689408456146599963 staged while the creator center showed 审核中 (1); curl probes answer HTTP 200 from the Juejin SPA shell for any /post/<id> or /spost/<id> path during that interval, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (64) / 审核中 (0) by the 07:57 +08 checkpoint (~36 min after submission) and /post/7689408456146599963 rendered publicly with the staged URL redirecting to it. Full public-page QA confirmed the exact title, single-copy body with the opening paragraph occurring once, 5 H2 / 0 H3 / 0 H4, 9 code blocks (2 rust, 7 console) with language classes on pre code, 0 content images, 0 tables, 8 unique external targets all rewritten to link.juejin.cn?target=, no 审核中/文章有更新/已被删除 marker, and 暂无评论数据 (0 comments); early live counters 2 展现 / 6 阅读 / 0 点赞 / 0 评论 / 0 收藏. No catch-up gap was redeemed; the two outstanding gaps (2026-09-03, 2026-09-16) remain."
+    },
+    {
+      "id": "juejin-7689065487933833262",
+      "status": "confirmed",
+      "title": "借助 eBPF 和 BTF，让用户态也能一次编译、到处运行",
+      "url": "https://juejin.cn/post/7689065487933833262",
+      "staged_url": "https://juejin.cn/spost/7689065487933833262",
+      "source_path": "docs/tutorials/38-btf-uprobe/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-25 (LA date) using the LA 2026-09-25 normal slot: submitted 2026-09-26 07:27 +08 = 16:27 PDT on a fresh editor session (no pre-staged draft); single popup submit returned 发布成功 at https://juejin.cn/published. Category 后端; committed tag chips Linux/后端/性能优化. The post entered review: /spost/7689065487933833262 staged at 07:27 +08 while the creator center showed 审核中 (1); curl probes on /post/ and /spost/ both returned HTTP 200 during the review interval because the Juejin SPA shell answers 200 for any /post/<id> path, so curl status codes are not a publication signal. Polling the logged-in browser, the creator center flipped to 已发布 (63) / 审核中 (0) at ~08:07 +08 and /post/7689065487933833262 then rendered publicly with the exact H1 and /spost/ redirecting to /post/. Public-page QA passed: title exact; body opening 在现代 Linux 系统中 occurs once; 5 H2 / 2 H3 / 0 H4; 18 code blocks (5 c, 4 sh, 9 console); 0 content images; 0 tables; 4 unique external link targets all rewritten to link.juejin.cn?target= with no raw slash targets; 0 comments (暂无评论数据); no 审核中/文章有更新/已被删除 markers. Early counters at the checkpoint: 0 展现 / 0 阅读 / 0 点赞 / 0 收藏."
+    },
+    {
+      "id": "juejin-7689030180350394419",
+      "status": "confirmed",
+      "title": "使用 eBPF 跟踪 Nginx 请求",
+      "url": "https://juejin.cn/post/7689030180350394419",
+      "staged_url": "https://juejin.cn/spost/7689030180350394419",
+      "source_path": "docs/tutorials/39-nginx/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-24 (JSON-LD datePublished 2026-09-24T13:55:37+00:00 = 06:55 PDT 2026-09-24) as the third Juejin post on the same America/Los_Angeles day: the LA 2026-09-24 normal slot was already used by 41-xdp-tcpdump (00:10 PDT) and the catch-up gap slot by 40-mysql (03:44 PDT, redeeming the 2026-08-29 gap). The task was targeted at the LA 2026-09-25 normal slot; the early submission was explicitly requested by the user and is recorded as a second gap-funded extra task on this platform day, redeeming the next-oldest outstanding gap 2026-09-01 (gaps 3 -> 2). The article was pre-staged as draft 7689029864910929970 (title, 4838-character body, category 后端, and tags all server-persisted) so the at-submit action was a single popup submit. Submission returned 发布成功; the creator center moved to 已发布 (62) / 审核中 (0) / 未通过 (0). Public URL was resolved empirically from the creator-center row: both /spost/7689030180350394419 and /post/7689030180350394419 returned 404 while in review, then about a minute later /post/7689030180350394419 returned HTTP 200 while /spost/ stayed 404, so it is confirmed with no review interval. Public-page QA confirmed the exact title, single-copy body (4477 rendered characters), 6 H2, 5 H3, 0 H4, 3 code blocks (2 bt, 1 console), 0 content images, 0 tables, 4 unique external targets all rewritten to link.juejin.cn?target=, no review/update/deletion marker, and 0 comments."
+    },
+    {
+      "id": "juejin-7689030007914545198",
+      "status": "confirmed",
+      "title": "使用 eBPF 跟踪 MySQL 查询",
+      "url": "https://juejin.cn/post/7689030007914545198",
+      "staged_url": "https://juejin.cn/spost/7688990935071096882",
+      "source_path": "docs/tutorials/40-mysql/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-24 (JSON-LD datePublished 2026-09-24T10:44:20+00:00 = 03:44 PDT 2026-09-24) as a gap-funded extra task: the 2026-09-24 America/Los_Angeles normal slot was already used by 41-xdp-tcpdump (00:10 PDT), and this second Juejin post on the same LA day redeems one catch-up gap. The article was pre-staged as draft 7688990935071096882 (title, body, category, and tags all server-persisted across a reload) so the at-submit action was a single popup submit. Submission returned 发布成功; the creator center reported 已发布 (61) / 审核中 (0) / 未通过 (0). Public URL was resolved empirically from the creator-center row rather than assumed: /post/7689030007914545198 returns HTTP 200 while /spost/7689030007914545198 returns 404, so the entry is confirmed with no review_pending interval. Category 后端; tags Linux, 后端, 性能优化. Public-page QA on 2026-09-24 preserved the exact title with a single-copy body (the source H1 is rendered once by the title field and not repeated) with five H2 headings, four H3 headings, zero H4 headings, three code blocks (bt, bash, console), zero content images (the five img elements on the page are two user avatars and three xitu_juejin_web interface icons), zero tables, and three unique external targets, all rewritten by Juejin to link.juejin.cn/?target= (github.com/eunomia-bpf/bpftime, github.com/eunomia-bpf/bpf-developer-tutorial, eunomia.dev/tutorials/); no 审核中, no 文章有更新, and no 已被删除 marker; 评论 0."
+    },
+    {
+      "id": "juejin-7688489073967251494",
+      "status": "confirmed",
+      "title": "超越 eBPF 的极限：在内核模块中定义自定义 kfunc",
+      "url": "https://juejin.cn/post/7688489073967251494",
+      "staged_url": "https://juejin.cn/spost/7688489073967251494",
+      "source_path": "docs/tutorials/43-kfuncs/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted through the visible Juejin editor on 2026-09-22 (09-22 normal slot) and confirmed public on 2026-09-23 after review cleared: /spost/7688489073967251494 now resolves to the canonical /post/7688489073967251494 page. Category 后端; tags Linux, 后端, 性能优化. Public-page QA on 2026-09-23 preserves the exact source title and single-copy body with nine H2 headings, eleven H3 headings, three H4 headings, twenty code blocks (2 c, 2 makefile, 10 bash, 2 sh, 4 program-output txt, including seven indented fences inside ordered lists, rendered one-to-one with no content lost or duplicated), eight unique external links (ten anchors, two of them duplicate destinations), and one content image (raw.githubusercontent cumulative_helper_kfunc_timeline.png renders at 800x500 with no 转存失败 marker). No 审核中 / 文章有更新 / 已被删除 marker and the 暂无评论数据 empty state (0 comments)."
+    },
+    {
+      "id": "juejin-7686408837754142770",
+      "status": "confirmed",
+      "title": "eBPF 教程：BPF 调度器入门",
+      "url": "https://juejin.cn/post/7686408837754142770",
+      "staged_url": "https://juejin.cn/spost/7686408837754142770",
+      "source_path": "docs/tutorials/44-scx-simple/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_full_scroll_qa",
+      "notes": "Submitted through the visible Juejin editor on 2026-09-17 (09-17 normal slot; JSON-LD datePublished 2026-09-18T07:35:58+08:00 = 16:35 PDT 2026-09-17); the submission page returned 发布成功. Category 后端; tags Linux, 后端, 性能优化. Review cleared the same LA day, when the canonical /post/ URL resolved to the public article. The public page preserves the exact title and single-copy body (opening paragraph occurs once, no H1 inside the body) with seven H2 headings, thirteen H3 headings, two H4 headings, six code blocks (two c, two bash, two unlabeled program-output blocks as in the source), seven external links, and no content images; the source H1 is rendered once by the title field and not repeated in the body. No review/update/rejection marker. QA passed on 2026-09-17."
+    },
     {
       "id": "juejin-7685561582916009994",
       "status": "confirmed",
@@ -614,6 +988,24 @@
       "source_path": "docs/tutorials/0-introduce/README.zh.md",
       "checked_via": "published_article_page_visible",
       "notes": "The visible article is the older introductory edition for the current tutorial 0 topic. Do not republish it merely because the source title and numbering were later revised."
+    },
+    {
+      "id": "juejin-7688532185121947658",
+      "status": "confirmed",
+      "title": "eBPF 开发者教程： 简单的 XDP 负载均衡器",
+      "url": "https://juejin.cn/post/7688532185121947658",
+      "source_path": "docs/tutorials/42-xdp-loadbalancer/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-23 with the 09-23 normal slot and the prepared local artifact (16487 chars, source H1 removed). Category 后端; tags Linux, 后端, 性能优化. The submission page returned 发布成功 and the article landed directly public at the canonical /post/ URL (no staging interval). Public-page QA preserves the exact source title and single-copy body with five H2 headings, nineteen H3 headings, two H4 headings, twenty-five code blocks (12 c, 8 sh, 4 console, 1 txt, rendered one-to-one with no content lost or duplicated), four unique external links, and no content image. No 审核中 / 文章有更新 / 已被删除 marker and the 暂无评论数据 empty state (0 comments)."
+    },
+    {
+      "id": "juejin-7688905828694294566",
+      "status": "confirmed",
+      "title": "eBPF 示例教程：使用 XDP 捕获 TCP 信息",
+      "url": "https://juejin.cn/post/7688905828694294566",
+      "source_path": "docs/tutorials/41-xdp-tcpdump/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_import_submit_and_public_page_qa",
+      "notes": "Published through the visible Juejin editor on 2026-09-24 with the 09-24 America/Los_Angeles normal slot and the prepared local artifact (11793 chars, source H1 removed). Category 后端; tags Linux, 后端, 性能优化; the submission page returned 发布成功 and the article cleared review within the same session, so the canonical /post/ URL replaced the short-lived /spost/ staging URL and the author profile lists it as the newest item. Public-page QA confirmed the exact title, single-copy body, 5 H2, 9 H3, 9 H4, 17 code blocks, 0 content images, 0 tables, 3 unique external targets, no review/update/deletion marker, and the empty comment state."
     }
   ],
   "references": [
