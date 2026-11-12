@@ -110,13 +110,9 @@ Anonymization (hard requirement). The pages must contain NONE of:
 Non-opted or unavailable communities must be marked unavailable honestly, not
 claimed as reviewed.
 
-Every run delivers the four-file bilingual deliverable, published. A coverage
-gap, a sparse archive, or a missing snapshot is reported honestly inside the
-files and the run report; it is never a reason to stop, skip, or drop
-publication. Never fabricate a question, evidence, or a placeholder page:
-answer only questions supported by real public primary sources from the
-permitted inputs above, and say in the run report which fallback supplied the
-question when needed.
+Every run delivers the four-file bilingual deliverable, published; say in the
+run report which fallback (if any) supplied the question, per the coverage
+and fabrication rules already stated above.
 
 Keep changes precise. The publication itself owns the retained or new
 bilingual pair and both indexes. Repair this prompt, its routed skill, or the

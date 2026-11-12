@@ -13,6 +13,30 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 Linux 可以把 CXL 容量加入 System RAM，但以后能否拆除取决于所有 memory block 能否迁空，以及 DAX/CXL device stack 能否完整 teardown。本文把 hotplug capability 与未来可移除性分开，并提出 removability budget、evacuation witness 和按 blocker class 评测生命周期的 benchmark。
 
+### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
+
+kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。
+
+### [eBPF 异常展开时，能安全释放资源吗？](https://eunomia.dev/zh/research/ebpf-exception-cleanup-unwind/)
+
+新的 BPF cleanup-table proposal 把 compiler 生成的 landing pad、verifier resource tracking 与 JIT stack unwinding 连接起来。本文进一步提出 cleanup-effect discipline、可审计 cleanup metadata，以及跨 JIT differential test，用来验证 non-local control flow 是否真的释放了 verifier 预期的资源。
+
+### [内核升级后，同一个 eBPF 对象还能保持原来的语义吗？](https://eunomia.dev/zh/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE 能修正结构差异，但 verifier、非稳定的 kernel-facing interface 与 feature probe 行为仍可能在升级后变化。本文提出跨内核 semantic witness、dependency-based drift localization，以及验证应用行为而不只是 loadability 的 semantic promotion gate。
+
+### [容器能保证自己的内存不被放进 CXL 吗？](https://eunomia.dev/zh/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` 可以约束 NUMA placement，但 reclaim demotion、不完整 migration 与共享页会让“绝不进入某个 tier”变成更复杂的生命周期问题。本文提出带失败语义的 tier-residency hardwall、multi-owner shared-page policy，以及专门攻击隔离声明的对抗式 benchmark。
+
+### [eBPF 加载器能相信内核版本号吗？](https://eunomia.dev/zh/research/ebpf-kernel-capability-evidence/)
+
+内核版本号可能隐藏 distribution backport、config、BTF、权限和 verifier 差异，而这些因素会直接决定真实 BPF object 能否加载。本文提出与 artifact 绑定的 capability receipt、限制副作用的 semantic canary，以及可 replay 的 support envelope，让 admission 和 fallback 都能解释。
+
+### [AI Agent 重试一次工具调用，怎么知道没有把事情做两遍？](https://eunomia.dev/zh/research/agent-tool-retry-effect-idempotency/)
+
+工具可能已经完成支付、消息、部署或云资源 mutation，却在响应返回前断线。本文把 protocol request、execution attempt 和 logical effect identity 分开，并提出 durable effect record、ambiguous outcome reconciliation，以及专门攻击“commit 已发生、ack 丢失”场景的 fault benchmark。
+
 ### [Linux 原子写成功后，数据就一定能抗崩溃吗？](https://eunomia.dev/zh/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` 可以让一个受支持的数据范围不被 torn，却没有同时定义持久化、写入顺序、metadata 和 multi-object recovery。本文把这些 guarantee 分开，并提出 crash-semantics descriptor、crash-cut witness 和按 failure class 评测 atomic I/O 的 benchmark。

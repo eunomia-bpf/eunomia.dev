@@ -1,0 +1,36 @@
+# Why does a UMEM chunk size cap the largest packet in AF-XDP zero-copy mode, and how must the FILL ring be kept fed so the kernel does not silently drop ingress?
+
+In zero-copy mode the kernel copies nothing: it hands each received packet to the application by pointing a descriptor at a free chunk of the UMEM, so the chunk size (which is only 2K or 4K) is the ceiling on the largest single-buffer packet, and the depth of the FILL ring is the burst capacity that decides when ingress is dropped. A packet that does not fit one chunk needs multi-buffer mode (`XDP_USE_SG` plus the `xdp.frags` program section) or it is dropped whole; and the drop is silent on the application side unless you read the `XDP_STATISTICS` counters. The one number to watch is the FILL ring: it must stay fed, because in zero-copy mode the kernel can only place incoming data into a chunk the application has already offered.
+
+## The mechanism
+
+The UMEM is a region of virtual contiguous memory divided into equal-sized chunks (the doc calls them frames); each ring descriptor references a chunk by a byte offset into that region. A socket is bound to one UMEM on one netdev and one queue id, and the two single-producer/single-consumer rings transfer ownership of chunks between the kernel and user space. The FILL ring is the user-to-kernel channel: the application submits chunk addresses and the kernel fills them with received data. The COMPLETION ring is the reverse: it returns chunks after the kernel is done with them, including chunks referenced by invalid TX descriptors that the kernel rejected and reclaimed.
+
+Zero-copy is selected at bind time. When you bind, the kernel first tries zero-copy; if it is not supported by the device it falls back to copy mode (copying every packet out to user space). `XDP_COPY` forces copy mode and makes the bind fail if copy mode is unavailable; `XDP_ZEROCOPY` forces zero-copy and makes the bind fail if it is not usable. This matters for the drop question: in zero-copy mode the kernel does not own copies of the packets. It can only put a received packet into a chunk the application has already put on the FILL ring. The FILL ring is therefore the buffer that absorbs bursts: if the application is slow to put chunks back on it, the kernel has nowhere to place the next packet, and that packet is dropped. The drop is not an error the application sees; it is counted on the socket.
+
+Chunk size is not freely chosen: it can only be 2K or 4K. With a 128K UMEM and 2K chunks you can hold 128K/2K = 64 packets and the largest single-buffer packet is 2K. So the chunk size is the ceiling on packet size in single-buffer mode. If you need jumbo frames, you enable multi-buffer mode with the `XDP_USE_SG` bind flag and put the XDP program in the `xdp.frags` section: a packet then becomes a list of 2K or 4K frames (a 9K jumbo frame is three 4K chunks), the last frame marked by `XDP_PKT_CONTD` being false, and without this the kernel drops multi-buffer packets just as before.
+
+## Verification and debugging path
+
+1. Confirm you are actually in zero-copy mode. `XDP_OPTIONS` getsockopt reports `XDP_OPTIONS_ZEROCOPY`. If the device did not support zero-copy the kernel fell back to copy mode, and the chunk/ownership model above is what is running; force it with `XDP_ZEROCOPY` if that is what you want.
+2. Read `XDP_STATISTICS`. It exposes `rx_dropped` (dropped for reasons other than an invalid descriptor), `rx_invalid_descs`, and `tx_invalid_descs`. A climbing `rx_dropped` under load with the FILL ring running dry is the signature of insufficient UMEM depth; a climbing `rx_invalid_descs` points at a chunk-size, alignment, or headroom mismatch in the descriptors the application is submitting, not at capacity.
+3. Watch the FILL ring depth on the application side. In zero-copy mode the application must continuously refill the FILL ring. A FILL ring that trends toward empty is a lead indicator of `rx_dropped` climbing: the kernel has no free chunk to hand to the next packet.
+4. Separate a drop from a failed send. A COMPLETION entry only means the kernel finished with the chunk, not that the packet was transmitted. A completion returns ownership of the frame to user space without guaranteeing transmission, so do not treat the COMPLETION ring as proof of delivery.
+
+## The limitation
+
+- Chunk size is fixed at 2K or 4K, so a single chunk can never hold a jumbo frame. Jumbo traffic needs `XDP_USE_SG` multi-buffer mode with the program in the `xdp.frags` section; in multi-buffer mode a whole packet is delivered only when all of its frames fit, and if the RX ring has no room, every frame of that packet is dropped.
+- Zero-copy is a device capability. On a driver without it the socket silently falls back to copy mode unless you force `XDP_ZEROCOPY`, so assume copy mode until you confirm `XDP_OPTIONS_ZEROCOPY` is set.
+- The FILL and COMPLETION rings are single-producer, single-consumer. Sharing a UMEM across processes means one process owns those rings and the others must not use them concurrently; libbpf supplies no synchronization for that.
+- A completion is not a delivery. The COMPLETION ring returns chunk ownership after the kernel is done, which for TX does not mean the packet went out, so delivery accounting has to come from the driver, not the ring.
+
+## References
+
+- [Linux kernel documentation: AF_XDP sockets](https://docs.kernel.org/networking/af_xdp.html) — UMEM as equal-sized 2K/4K chunks, the FILL and COMPLETION ring ownership model, zero-copy selection at bind (`XDP_COPY` / `XDP_ZEROCOPY`) and its fallback to copy mode, `XDP_STATISTICS` drop counters, the `XDP_USE_SG` multi-buffer path and the `xdp.frags` program section, and the completion-is-not-delivery caveat.
+- [xdp-project AF_XDP example](https://github.com/xdp-project/bpf-examples/tree/main/AF_XDP-example) — the user-space plus XDP program pair the kernel doc points to for a complete AF_XDP setup and usage example.
+
+## Community discussion today
+
+The selected question was not carried in today's snapshot. The two opt-in archive channels produced seven messages, all of which belong to two threads that were already published earlier: the OBI Kubernetes cache address environment variable ignored under a Config v2 document (now with a helm-charts pull request and a confirmed manual workaround), and the pull request recording which skills were available to an agent when an invocation started so a trace can tell "never offered" from "offered but a weaker match won". With no new question in the archive window, this page falls back to a recurring practitioner question about AF_XDP zero-copy sizing, grounded entirely in the public kernel documentation and the upstream example: the chunk size caps the largest single-buffer packet, the FILL ring depth is the burst cap that decides when ingress is dropped, and the drop is only visible through `XDP_STATISTICS` unless you count it.
+
+Channel coverage for this run: the two opt-in archives provided seven messages, all of which are the two already-published threads named above. The visible-browser-only sources (Discord, the eunomia-bpf and sched-ext communities, the bpf mailing list, and r/eBPF) could not be reviewed in this run, since no visible-browser session was available, so they are marked uncovered, not quiet.

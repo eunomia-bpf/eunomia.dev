@@ -13,6 +13,30 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 Linux can add CXL capacity as System RAM, but later removal depends on evacuating every block and tearing down the device stack. This report separates hotplug capability from future removability and develops admission budgets, evacuation witnesses, and blocker-class lifecycle benchmarks.
 
+### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
+
+kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
+
+### [Can eBPF Exceptions Unwind Resources Safely?](https://eunomia.dev/research/ebpf-exception-cleanup-unwind/)
+
+A new BPF cleanup-table proposal connects compiler-generated landing pads to verifier resource tracking and JIT stack unwinding. This report develops a cleanup-effect discipline, auditable cleanup metadata, and cross-JIT differential tests for proving that non-local control flow really releases the resources the verifier expects.
+
+### [Can an eBPF Object Keep Its Meaning After a Kernel Upgrade?](https://eunomia.dev/research/ebpf-kernel-upgrade-semantic-compatibility/)
+
+CO-RE can repair structural differences while verifier rules, unstable kernel-facing interfaces, and feature-probe behavior still change across upgrades. This report develops cross-kernel semantic witnesses, dependency-based drift localization, and a semantic promotion gate for proving application behavior rather than loadability alone.
+
+### [Can a Container Keep Its Memory Out of CXL?](https://eunomia.dev/research/cxl-memory-tier-isolation/)
+
+`cpuset.mems` constrains NUMA placement, but reclaim demotion, incomplete migration, and shared pages can still break a naive hard-tier interpretation. This report separates allocation policy from lifetime residency and develops a tier-residency hardwall, multi-owner shared-page policy, and adversarial isolation benchmark.
+
+### [Can an eBPF Loader Trust the Kernel Version?](https://eunomia.dev/research/ebpf-kernel-capability-evidence/)
+
+Kernel version strings can hide distribution backports, configuration, BTF, privilege, and verifier differences that decide whether a real BPF object loads. This report develops artifact-bound capability receipts, side-effect-bounded semantic canaries, and replayable support envelopes that make admission and fallback explainable.
+
+### [When an AI Agent Retries a Tool Call, How Do You Know It Didn't Do It Twice?](https://eunomia.dev/research/agent-tool-retry-effect-idempotency/)
+
+A tool can commit a payment, message, deployment, or cloud mutation before its response is lost. This report separates protocol request IDs, execution attempts, and logical effect identity, then develops durable effect records, ambiguous-outcome reconciliation, and a post-commit fault benchmark for safe agent retries.
+
 ### [Does an Atomic Linux Write Mean the Data Survives a Crash?](https://eunomia.dev/research/linux-atomic-write-crash-semantics/)
 
 Linux `RWF_ATOMIC` can prevent torn writes for one supported data range without defining persistence, ordering, metadata, or multi-object recovery. This report separates those guarantees and develops crash-semantics descriptors, crash-cut witnesses, and failure-class benchmarks for atomic I/O.

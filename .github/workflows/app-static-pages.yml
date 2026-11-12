@@ -114,7 +114,7 @@ jobs:
           )
         )
       }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       DEPLOY_SHA: ${{ github.event_name == 'repository_dispatch' && needs.sync-external-docs.outputs.site_sha || github.sha }}
     steps:

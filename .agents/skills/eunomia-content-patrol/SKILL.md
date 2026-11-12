@@ -19,6 +19,7 @@ Read these before routing work:
 - today's `draft/media/YYYY-MM-DD/` workspace and recent run log, when present
 - `.github/publisher/media/README.md`
 - `.github/publisher/media/community-feedback.md`
+- `.github/publisher/media/published.md`
 - `.github/publisher/media/not-published.md`
 - relevant `.github/publisher/media/platforms/*.json`
 
@@ -86,33 +87,77 @@ Do not duplicate a child skill's workflow inside this orchestrator.
    `.github/publisher/media/community-feedback.md`. Do not copy that checkpoint
    into the run log.
 
+The `platforms/*.json` files are the canonical record; `published.md` and
+`not-published.md` are readable snapshots that drift if a run edits only the
+JSON. When a run changes a confirmed publication, update the matching snapshot
+in the same commit: add the new row to `published.md`, remove or update the
+`not-published.md` row, and refresh both `Last checked:` dates. Treat a
+snapshot row that contradicts the live public page as a defect to reconcile
+(the 2026-09-23 run found `published.md` lagging the JSON by 25 confirmed
+Juejin entries and still marking Agent Sandbox `Needs repair` after its
+duplicate body had been repaired and confirmed). Keep each snapshot's existing
+line endings: `published.md` uses LF while `not-published.md` uses CRLF.
+
+`check_media_ledger.py` now enforces this: beyond source coverage it fails with
+exit 2 when any confirmed ledger entry's `url` or `evidence_url` is absent from
+`published.md`, so run it after any ledger change instead of eyeballing the two
+files. The same 2026-09-23 run found the drift class was not Juejin-specific:
+Zhihu was short 40 confirmed rows and LinkedIn was short every entry whose only
+evidence was a search URL, while the checker still exited 0.
+
+It also fails when a summary date lags the ledgers: `sources.json`
+`last_checked` and the snapshot's `Last checked:` line must each be at least as
+recent as the newest per-platform `last_checked`. The same 2026-09-23 run found
+both stale — the checker had been printing a `2026-08-02` headline date that was
+seven weeks behind the `platforms/*.json` files it summarizes — so refresh those
+two summary dates whenever the run touches the ledger.
+
 Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority
 
-Each eligible queue item explicitly marked `排队` within today's normal or
-catch-up slots is standing authorization to complete the named platform action
-end to end, including preparation, preview, publication, public-page QA, and
-ledger updates.
-
-Do not ask for another confirmation or let a child publisher's normal
-confirmation step stop an authorized scheduled run. Resolve routine details
-from the queue, artifacts, ledgers, publisher conventions, and visible account
-state. A draft or preview is not completion when the task calls for publication.
-
-No other queue status grants that authority. Manual patrol runs do not inherit
-standing authority unless the user explicitly asks to execute the tasks.
-
-Do not mark a task blocked until practical recovery paths have been attempted
-and a real external condition prevents completion. Record the attempted action
-and exact external condition rather than a generic process objection.
-
-Never infer authorization for private messages, connection requests, follows,
-likes, votes, account settings, monetization changes, or deletion.
+CLAUDE.md's Precedence Rule and Publishing section apply; this section only
+adds patrol-specific scope. A queue item marked `排队` within today's normal
+or catch-up slots is standing authorization for that action end to end
+(preparation, preview, publication, public-page QA, ledger updates) — resolve
+routine details from the queue, artifacts, ledgers, publisher conventions, and
+visible account state instead of re-confirming. No other queue status grants
+that authority, and manual patrol runs do not inherit it unless the user
+explicitly asks to execute the tasks. Mark a task blocked only after
+practical recovery paths have been attempted and a real external condition
+remains; record the attempted action and the exact condition.
 
 Medium and DEV publishers use their documented APIs by default; all other
 platform actions use normal visible-browser workflows. Never use hidden
 platform APIs, background endpoints, or scraping datasets.
+
+## Visible Browser Recovery
+
+Before routing any browser-based platform action, confirm the persistent
+visible Chrome answers on CDP 9222. Every browser publisher depends on it, so a
+dead browser blocks the whole run, not one platform.
+
+- Probe with `curl -s --max-time 12 http://127.0.0.1:9222/json/version`.
+- Check the supervisor log `/var/log/gem/browser-supervisor.log`. Repeated
+  `Chromium exited before CDP became ready: rc=-5` means Chrome is
+  crash-looping, not merely restarting; a healthy restart logs
+  `Chromium ready on 127.0.0.1:9222, pid=...`.
+- `rc=-5` is SIGTRAP from crashpad aborting when it cannot create
+  `$HOME/.config/chromium/Crash Reports/new`. That directory being owned by
+  root in the user's own `$HOME` causes the abort, and the profile directory
+  can carry the same root ownership. Confirm with
+  `stat -c '%A %U:%G %n' ~/.config/chromium` and
+  `find ~/.config/browser -user root | head`.
+- Repair ownership only; never delete or recreate the profile, which holds the
+  mounted login state:
+  `sudo chown -R gem:gem ~/.config/chromium` and
+  `sudo find ~/.config/browser -user root -exec chown gem:gem {} +`.
+  Then wait for the supervisor to relaunch and re-probe 9222.
+- Verify the fix from the user's own `HOME` before concluding, because a clean
+  `HOME` can mask the fault: launching with `HOME=/tmp/...` succeeds while
+  `HOME=/home/gem` still fails.
+- After recovery, confirm the platform is still signed in before acting.
+  Sessions survive the repair because only ownership changed.
 
 ## No-Filler Rule
 

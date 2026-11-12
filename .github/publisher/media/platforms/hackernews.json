@@ -3,7 +3,7 @@
   "platform_id": "hackernews",
   "label": "Hacker News",
   "kind": "community",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-11-07",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -11,8 +11,60 @@
   "accounts": [],
   "published": [],
   "references": [],
-  "third_party_mentions": [],
+  "third_party_mentions": [
+    {
+      "status": "third_party",
+      "url": "https://news.ycombinator.com/item?id=49854228",
+      "submitted_by": "RohanAdwankar",
+      "date": "2026-09-26",
+      "source_path": "docs/blog/posts/qwen3-ebpf-in-kernel-inference.md",
+      "points": 7,
+      "comments": 3,
+      "notes": "First third-party submission of a eunomia.dev post found by URL search (hn.algolia.com, restrictSearchableAttributes=url, 5 hits total). Submitted 2026-09-26T07:52:02Z with the canonical URL, not by yunwei37. Comment 49854229 links github.com/eunomia-bpf/eunomia-bpf as the broader infra; 49854249 calls the eBPF integrations clever; 49894646 (snaveen, 2026-09-29) says the article is 100% AI generated per a Pangram history link. No reply has been posted and no link is missing."
+    },
+    {
+      "status": "third_party",
+      "url": "https://news.ycombinator.com/item?id=50138075",
+      "submitted_by": "thatslast",
+      "date": "2026-10-18",
+      "source_path": "docs/blog/posts/bpf-gpu-server.md",
+      "points": 1,
+      "comments": 0,
+      "notes": "Third-party submission of the bpf-gpu-server post that the queue schedules for Medium and DEV on LA 2026-11-09. One point and no comments, so it does not duplicate or pre-empt the queued syndication; it does mean the article already has an HN entry if a later HN decision is made."
+    },
+    {
+      "status": "third_party",
+      "url": "https://news.ycombinator.com/item?id=50385391",
+      "submitted_by": "rsyring",
+      "date": "2026-11-05",
+      "source_path": "https://eunomia.dev/agentsight/ (project page; closest source docs/blog/posts/agentsight_paper.md)",
+      "points": 2,
+      "comments": 0,
+      "notes": "Third-party submission of the project page https://eunomia.dev/agentsight/ (not a blog post), submitted 2026-11-05T22:27:57Z by rsyring, 2 points and 0 comments when read through the Algolia item API. Separately, comment 50383008 by maven29 under the Show HN 'Stroq' thread (50380704, 2026-11-05T19:04Z) recommends an eBPF backend for adversarial coverage and links https://eunomia.dev/agentsight/ as the reference example; it is a topical pointer, not a reply target. Neither is by the project account, so no author duplicate exists."
+    }
+  ],
   "pending_verification": [
-    "No confirmed Hacker News submissions are recorded yet."
+    "The 2026-09-29 Pangram '100% AI generated' claim on the qwen3 story is the only content criticism recorded; a reply would need explicit authorization and a first-person statement about how the post was written.",
+    "The 2026-11-05 AgentSight project-page submission (50385391) has 2 points and no comments; the project page is not in the blog-post source universe, so it stays a mention rather than a coverage row."
+  ],
+  "browser_observations": [
+    {
+      "checked_at": "2026-11-03",
+      "checked_via": "public_algolia_api_plus_visible_item_pages",
+      "status": "unchanged",
+      "notes": "The Algolia URL search still returns exactly one bpf-gpu-server hit (50138075, 1 point, 0 comments, submitted by thatslast on 2026-10-18) and one qwen3 hit (49854228, 7 points, 3 comments). Both visible item pages served 'Sorry.' to the signed-out browser while their public data stayed readable through the Algolia API, so no new comment or score change could be confirmed on the rendered pages."
+    },
+    {
+      "checked_at": "2026-11-06",
+      "checked_via": "public_algolia_api_read",
+      "status": "changed",
+      "notes": "A date-filtered Algolia sweep (last 3 days, queries eunomia.dev / dev.to/yunwei37 / bpftime / schedcp) found two new eunomia.dev links: story 50385391 (AgentSight project page, 2 points, 0 comments) and comment 50383008 (mkn29 mentioning AgentSight in the Stroq Show HN thread). The older qwen3 (49854228, 7 points / 3 comments) and bpf-gpu-server (50138075, 1 point / 0 comments) items are unchanged. Item pages still serve 'Sorry.' to a signed-out browser, so scores came from the public Algolia API, not the rendered page."
+    },
+    {
+      "checked_at": "2026-11-07",
+      "checked_via": "public_algolia_api_read",
+      "status": "unchanged",
+      "notes": "Date-filtered Algolia re-sweep (created_at_i > 2026-11-01): the 'eunomia' story query returns 22 hits dated back to 2026-06, with 50385391 (AgentSight project page, 2 points, 0 comments) still the newest and no new submission; the 'eunomia.dev' comment query returns only 50383008 (2026-11-05, the AgentSight recommendation in the Stroq Show HN thread) inside the window; the 'dev.to/yunwei37' comment query returns 0. The qwen3 item 49854228 stays at 7 points / 3 comments and bpf-gpu-server 50138075 at 1 point / 0 comments. No reply is due."
+    }
   ]
 }
