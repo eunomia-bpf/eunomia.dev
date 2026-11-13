@@ -12,7 +12,7 @@
 ## 发布事实
 
 - 准备稿 `draft/media/2026-11-11/1-helloworld/devto.md` 与源文只有一处差异：源文（与上游 `bpf-developer-tutorial/src/1-helloworld/README.md` 一致）把 "…publishing it to Github Packages." 与 "- GitHub Actions, used for automating build, test, and release processes" 挤在同一行，渲染成一个连写条目；准备稿拆成两条 `- `。源文由上游同步进本仓库，本次未改源。
-- 路径：`.github/publisher/posts_queue.txt`（1 条，字段 `path`）-> commit `b506fe766c` 推送 `main` -> `gh workflow run publish-posts.yml -f platforms=devto -f publish_count=1 -f draft_only=false`。run 42929758642 在 `2026-11-11T00:17:57Z` 公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-process-2kmb>，article id 5013503，tag `ebpf`/`linux`/`tutorial`/`kernel`，0 反应 0 评论。workflow 随后自行推送 `397f06da97` 清空队列。
+- 路径：`.github/publisher/posts_queue.txt`（1 条，字段 `path`）-> commit `b506fe766c` 推送 `main` -> `gh workflow run publish-posts.yml -f platforms=devto -f publish_count=1 -f draft_only=false`。run 42929758642 在 `2026-11-11T00:17:57Z` 公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-2kmb>，article id 5013503，tag `ebpf`/`linux`/`tutorial`/`kernel`，0 反应 0 评论。workflow 随后自行推送 `397f06da97` 清空队列。
 - 正文对账：公开 `body_markdown` 与准备稿去首个 H1 后**逐字相同**（15630 字符；10 个无语言围栏保持无标注，未被重新标注）。
 - 结构对账：1 h1、7 个正文 H2（= 源文 7 个 `##`）、1 H3、10 个 `pre`（20 个围栏）、0 表格、0 图片、2233 词、结尾完整；正文外链（releases、4 个 starter template、GitHub template 文档、tutorial 仓库、eunomia.dev/tutorials）全部可点。
 - 覆盖：DEV 64 -> 65/128，`check_media_ledger.py` 退出 0（79 条 confirmed，0 条 confirmed-without-source_path）。

@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-12",
+  "last_checked": "2026-11-13",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-k28",
+      "status": "confirmed",
+      "date": "2026-11-13",
+      "title": "eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-3-monitoring-unlink-system-calls-with-fentry-k28",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-3-monitoring-unlink-system-calls-with-fentry-k28",
+      "source_path": "docs/tutorials/3-fentry-unlink/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-13T00:13:10Z (LA 2026-11-12 16:13 PST, +08 11-13 08:13) by `publish-posts` workflow run 43335255543 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-13/3-fentry-unlink/devto.md`; article id 5026194, reading time 4. The artifact is the source byte-for-byte except one relative body link: the source's `[example 2-kprobe-unlink](../2-kprobe-unlink/README.md)` would resolve to a dead DEV-relative path, so the artifact points it at `https://eunomia.dev/tutorials/2-kprobe-unlink/` (200). The published `body_markdown` is character-identical to the artifact body after the H1 strip (6,678 chars, only a trailing newline differs); the 9 fences keep the source's own labels (`c` x1, `console` x6, `shell` x1 and one more `console`) and DEV rendered them as `pre.highlight.c` / `console` / `shell`. Visible page: 1 h1 with the exact title, 3 body H2 (What is fentry and Why Use It?, Troubleshooting, Summary = the source's 3 `##`), 1 H3, 0 H4, 9 `pre`, 0 tables, 0 content images, 939 words, complete ending; tags `ebpf`/`linux`/`tutorial`/`kernel`, 0 reactions, 0 comments at 7 minutes. Body link targets (eunomia-bpf, bpf-developer-tutorial, eunomia.dev/tutorials/, eunomia.dev/tutorials/2-kprobe-unlink/) all return 200. Canonical is still DEV self, the tenth consecutive API syndication with that defect. Used the LA 2026-11-12 normal slot."
+    },
     {
       "id": "devto-259l",
       "status": "confirmed",

@@ -1,10 +1,21 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-12
+Last checked: 2026-11-13
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-13: the `publish-posts` workflow (run 43335255543) published `docs/tutorials/3-fentry-unlink/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-3-monitoring-unlink-system-calls-with-fentry-k28>, `2026-11-13T00:13:10Z`,
+article id 5026194) from `draft/media/2026-11-13/3-fentry-unlink/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed as `cb6a374da48b` since 2023. The artifact copies the source except for one body link: the
+source's `../2-kprobe-unlink/README.md` becomes `https://eunomia.dev/tutorials/2-kprobe-unlink/` so DEV does not render a
+dead relative path. The published `body_markdown` matches the artifact after the H1 strip character for character (6,678
+chars), and the visible page renders the exact title, 3 body H2, 1 H3, 9 code blocks, and the complete ending with 0
+reactions and 0 comments. It used the LA 2026-11-12 normal slot. A manual dispatch was needed because the scheduled run has
+no queue entry and does not invent one. `.github/publisher/posts_queue.txt` is empty again because the workflow pops each
+entry after a successful publish.
 
 2026-11-12: the `publish-posts` workflow (run 43126676054) published `docs/tutorials/2-kprobe-unlink/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l>, `2026-11-12T00:21:38Z`,
