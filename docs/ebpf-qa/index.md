@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why can a pointer handed to a BPF callback outlive the callback invocation, and how does a callback frame id revoke it?](/ebpf-qa/2026-11-12-callback-argument-lifetime-vs-callback-frame-id/)
 - [Why can a kernel kfunc vanish from vmlinux BTF with no change to its C prototype, and why does that break the build?](/ebpf-qa/2026-11-11-kfunc-vanishes-from-vmlinux-btf-dwarf-location/)
 - [Why must an open-coded BPF iterator keep returning NULL after it drains, and what changes when a next method starts over instead?](/ebpf-qa/2026-11-10-iterator-drained-null-contract-restart/)
 - [Why does a valid BPF program now fail to load with ENOSPC from a 64 KB verifier log, and why does the level 1 log no longer show the path to the error?](/ebpf-qa/2026-11-08-verifier-level1-log-enospc-vs-path-to-error/)
