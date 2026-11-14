@@ -157,7 +157,7 @@ example.
 
 Working question: **How can one eBPF application remain loadable, semantically
 correct, and operationally explainable across real kernel, distribution,
-backport, toolchain, and BPF-interface evolution?**
+backport, toolchain, controller, and BPF-interface evolution?**
 
 Published boundaries:
 
@@ -176,6 +176,32 @@ Published boundaries:
    graph for drift localization, and a semantic kernel-upgrade promotion gate.
    Recent Linux 7.2/Cilium probe failures provide direct evidence that even the
    loader's interpretation of a verifier result can be a compatibility surface.
+3. `2026-09-21` — `/research/ebpf-link-controller-reconciliation/`: persistent
+   `bpf_link` lifetime versus userspace controller ownership after crash or
+   restart. The report uses a Cilium orphan-link regression and current Linux
+   link introspection primitives to separate kernel object existence from
+   application ownership, then develops generation-scoped attachment receipts,
+   quarantine for ambiguous links, and crash-fuzzed lifecycle reconciliation.
+   This is a lost-controller-state recovery boundary, not the August 10 planned
+   old-to-new transactional upgrade protocol.
+
+Reserved but unpublished boundaries:
+
+- Open PR `#207` covers pinned-map/application-state reconstruction after host
+  reboot, where the old kernel object graph disappears. Do not duplicate it while
+  it remains an open unmerged attempt.
+- Open PR `#208` covers artifact selection and version/capability negotiation for
+  kfunc, `struct_ops`, iterator, and provider-scoped interfaces. Do not duplicate
+  it while it remains an open unmerged attempt.
+
+Remaining candidate boundaries include:
+
+- reproducible capability and artifact manifests across distributions so a
+  loader can explain why a program chose, rejected, or downgraded one path;
+- target-identity continuity when cgroups, netdevs, namespaces, or processes are
+  destroyed and recreated under familiar userspace names, only if the mechanism
+  is materially distinct from today's controller-link ownership receipts;
+
 3. `2026-09-22` — `/research/ebpf-kernel-interface-negotiation/`: how a loader
    selects among artifact variants when kfunc, iterator, `struct_ops`, and
    provider-specific interfaces are typed and context-scoped rather than simple
@@ -198,6 +224,9 @@ Novelty guards:
 - do not repeat the `2026-09-15` version/backport capability-evidence boundary;
 - do not repeat the `2026-09-18` post-admission cross-kernel behavioral-compatibility
   boundary with a different example;
+- do not repeat the `2026-09-21` controller-restart link-ownership reconciliation
+  boundary with a different persistent attach type;
+
 - do not repeat the `2026-09-22` typed/scoped interface-negotiation boundary with
   a host-global capability manifest or ordered trial-loading wrapper;
 - do not repeat September 6 architecture-specific specialization and fallback;
@@ -227,7 +256,7 @@ That report is adjacent rather than eBPF-centered because Linux memory tiering i
 the central mechanism. It preserved the newest-ten mix at **7 / 1 / 2**. On
 September 18 the oldest report rotating out became the eBPF-centered September 5
 runtime-profile report, so the active eBPF series became mechanically eligible
-again. The September 18 eBPF report replaces that eBPF slot and keeps the mix at
+again. The September 18 eBPF report replaced that eBPF slot and kept the mix at
 **7 / 1 / 2**.
 
 ### Material external-development detour — 2026-09-20
@@ -247,6 +276,21 @@ The abandoned September 16 CXL draft and the still-open September 16 `io_uring`
 draft are not published-state boundaries and must not be counted in this roadmap.
 The unmerged September 19 interface-negotiation attempt is likewise not a
 published boundary; the September 22 report deliberately supersedes it.
+
+### Material external-development detour — 2026-09-20
+
+The September 20 publication was eBPF-centered but deliberately outside the
+active deployment-compatibility sequence because a fresh `bpf-next` cleanup-
+landing-pad series created a materially new compiler/verifier/JIT boundary:
+
+- `2026-09-20` — `/research/ebpf-exception-cleanup-unwind/`: compiler-generated
+  cleanup tables, verifier resource-state transitions, libbpf transport, and JIT
+  stack unwinding for `bpf_throw()`.
+
+The report replaced an eBPF-centered item in the rolling window, preserving the
+mix at **7 eBPF / 1 pure Agent / 2 adjacent**. On September 21 the oldest item
+rotating out is again eBPF-centered, so today's active-series report also preserves
+**7 / 1 / 2**.
 
 ## Queued series — Agent Systems (limited)
 
