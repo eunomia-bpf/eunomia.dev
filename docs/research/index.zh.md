@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [Linux 能保证 CXL 内存以后还能热移除吗？](https://eunomia.dev/zh/research/cxl-memory-hot-remove-reliability/)
+
+Linux 可以把 CXL 容量加入 System RAM，但以后能否拆除取决于所有 memory block 能否迁空，以及 DAX/CXL device stack 能否完整 teardown。本文把 hotplug capability 与未来可移除性分开，并提出 removability budget、evacuation witness 和按 blocker class 评测生命周期的 benchmark。
+
 ### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
 
 kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。

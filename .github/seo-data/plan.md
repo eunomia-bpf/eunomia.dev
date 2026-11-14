@@ -55,6 +55,58 @@ operating entrypoint; this file stores durable goals and constraints.
   the merged daily PR, then reconcile `status.md` in the next run.
 - `.agents/skills/seo-geo` and `.github/seo-skills` own technical SEO mechanics;
   `.agents/skills/eunomia-research-report` owns Daily Report research and quality.
+- The recurring operations schedule stays enabled unless the user explicitly asks
+  to pause, disable, stop, or delete it.
+
+## Current priorities
+
+1. Preserve the rolling ten-report mix mechanically. Before the `2026-09-13`
+   publication the newest ten contain **7 eBPF-centered / 0 pure Agent / 3
+   adjacent systems**, already at the allowed eBPF maximum. The oldest report
+   rotating out today is the adjacent `2026-09-02` GPU-membership report, so an
+   eBPF-centered publication would produce 8 of 10 and is not allowed. Never
+   repair the ratio by relabeling.
+2. Use the September 13 publication as a strong adjacent Linux/CXL memory-management
+   detour: `/research/cxl-memory-hot-remove-reliability/`. It separates CXL
+   hot-add/onlining capability from the runtime ownership state that determines
+   whether the capacity can later be evacuated, offlined, and physically
+   detached. Because an adjacent report enters while an adjacent report rotates
+   out, the newest-ten mix remains **7 / 0 / 3** after publication.
+3. Keep **eBPF Deployment Compatibility and Lifecycle** as the active normal eBPF
+   roadmap. Candidate boundaries remain real-kernel/backport feature evidence,
+   verifier behavior drift, CO-RE relocation versus semantic compatibility,
+   kfunc/`struct_ops` capability negotiation, persistent-state lifecycle across
+   host upgrades, and reproducible capability/artifact manifests across
+   distributions. On the next run the oldest rotating report is eBPF-centered,
+   so the series can resume without exceeding 7 of 10 if the candidate passes
+   evidence and novelty gates.
+4. Keep **eBPF Optimization and Execution Specialization**, **eBPF Networking and
+   Security**, **eBPF Observability and Profiling**, **eBPF Runtime,
+   Extensibility, and Composition**, and **GPU and Heterogeneous Runtime Systems**
+   closed at their normal boundaries unless fresh evidence supports a genuinely
+   new mechanism.
+5. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
+   As rechecked on `2026-09-13`, the newest source set remains
+   `2026-08-31..09-06`. Search Console contains rows through `2026-09-05`; under
+   the configured three-day lag all observed rows are finalized, while
+   `2026-09-06` is absent.
+6. Record the newest finalized Search Console `2026-08-31..09-05` slice as **388
+   clicks / 60,880 impressions / ~0.637% CTR / ~7.35 impression-weighted
+   position**. The equal-duration `2026-08-24..29` slice is **436 / 55,594 /
+   ~0.784% / ~10.73**. Current clicks are ~11.0% lower, impressions ~9.5% higher,
+   CTR ~0.147 percentage points lower, and weighted position ~3.38 positions
+   better. This remains a six-day source-native comparison, not a complete
+   seven-day trend.
+7. Keep complete GSC 7-day and 28-day comparisons unavailable until source
+   history is contiguous. The newest export omits `2026-09-06`, the preceding
+   export omits `2026-08-30`, and older history includes the recorded
+   `2026-08-23` gap. Missing rows are never zero.
+8. Weekly GSC page/query aggregates may prioritize inspection but cannot support
+   causal metadata claims without date-dimensional evidence. High-impression
+   pages with low aggregate CTR are candidates for future measurement, not an
+   automatic title/description rewrite.
+9. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
+
 - The recurring operations schedule remains enabled when a source or repository
   operation is blocked; record the blocker rather than stopping the schedule.
 
@@ -111,6 +163,9 @@ operating entrypoint; this file stores durable goals and constraints.
     clone semantics from public repository metadata.
 11. Keep the shared SEO skill submodule pinned until its consuming contract is
     migrated to the newer upstream layout; do not make a pointer-only update.
+13. Do not create a thin public series hub without report-level acquisition or
+    navigation evidence that it would improve retrieval.
+
 12. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
 13. After September 22, continue the active series only with a materially distinct

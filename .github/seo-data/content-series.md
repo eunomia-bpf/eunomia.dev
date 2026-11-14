@@ -135,6 +135,9 @@ Working question: **How can eBPF programs and runtimes specialize to hardware an
 workload behavior without silently changing verifier-approved semantics,
 portability, debuggability, trust, or the validity of the performance claim?**
 
+This series became active after the GPU/runtime series closed and reached its
+normal six-report boundary with the `2026-09-11` publication.
+
 This series reached its six-report boundary on `2026-09-11`:
 
 1. `2026-09-05` — `/research/ebpf-runtime-profile-specialization/`: verifier
@@ -150,6 +153,46 @@ This series reached its six-report boundary on `2026-09-11`:
 6. `2026-09-11` — `/research/ebpf-optimization-evidence-contract/`: scoped
    performance evidence, holdouts/counterexamples, and production promotion.
 
+1. `2026-09-05` — `/research/ebpf-runtime-profile-specialization/` separates
+   verifier acceptance, optimizer semantic equivalence, profile assumptions, and
+   guarded invalidation/deoptimization.
+2. `2026-09-06` — `/research/ebpf-portable-architecture-specialization/` separates
+   portable BPF semantics from architecture-specific implementation eligibility,
+   proof-linked native emits, and deterministic fallback.
+3. `2026-09-07` — `/research/ebpf-specialization-debug-provenance/` makes the
+   exact specialization generation, assumptions, transforms, JIT image, and
+   activation interval durable for postmortem attribution.
+4. `2026-09-09` — `/research/ebpf-native-operation-trust-boundary/` makes the
+   delegated native-code TCB, effect scope, assurance evidence, and artifact
+   identity explicit rather than treating verifier success as a blanket trust bit.
+5. `2026-09-10` — `/research/ebpf-cross-backend-operation-semantics/` asks whether
+   eligible and trusted host, native, NIC, and DPU implementations refine one
+   observable state-transition contract under concurrency, failures, and handoff.
+6. `2026-09-11` — `/research/ebpf-optimization-evidence-contract/` separates
+   semantic admissibility from performance generalization and production
+   promotion. Kops, BPF CI/veristat, and the current bpf-bench corpus show why one
+   instruction win, verifier statistic, application result, or tuned search set
+   cannot serve as a universal performance oracle. The report develops scoped
+   evidence envelopes, frozen holdout/counterexample evaluation for adaptive
+   optimizers, and profitability-aware promotion/rollback gates.
+
+### Rolling mix at closure
+
+Before September 10 the newest ten contained **5 eBPF-centered / 0 pure Agent /
+5 adjacent systems**. The September 10 eBPF-centered report rotated the August
+29 adjacent GPU memory-placement report out, producing **6 / 0 / 4**.
+
+Before September 11 the mix was therefore **6 / 0 / 4**. The September 11
+optimization-evidence report was eBPF-centered and rotated the August 30 adjacent
+GPU-instrumentation report out. After publication the newest ten contained **7
+eBPF-centered / 0 pure Agent / 3 adjacent systems**. No classification changes
+were made to obtain that result.
+
+The series is closed. Future reports must not repackage verifier/equivalence,
+profile invalidation, architecture capability/fallback, execution provenance,
+native-operation trust accounting, cross-backend state-transition semantics, or
+performance-evidence/promotion scope with a different optimizer example.
+
 Future reports must not repackage these six optimization boundaries with a new
 example.
 
@@ -158,6 +201,11 @@ example.
 Working question: **How can one eBPF application remain loadable, semantically
 correct, and operationally explainable across real kernel, distribution,
 backport, toolchain, and BPF-interface evolution?**
+
+This roadmap became active after the optimization series reached six reports on
+`2026-09-11`. It is deliberately about deployment compatibility across evolving
+systems, not architecture-specific code generation and not application-level
+transactional upgrade.
 
 Published boundaries:
 
@@ -205,6 +253,30 @@ Novelty guards:
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
 - require current primary evidence from Linux/BPF tooling, distributions, CI, or
   production compatibility systems before selecting the next boundary.
+
+### Temporary mix-driven detours while the active series is blocked
+
+The active series is not replaced by these detours. It remains the next normal
+eBPF roadmap, but the rolling window reached the 7-of-10 eBPF ceiling before its
+first report could enter.
+
+1. `2026-09-12` — `/research/linux-atomic-write-crash-semantics/`: adjacent
+   Linux/storage report separating one-range `RWF_ATOMIC` torn-write protection
+   from durability, ordering, filesystem metadata, and application recovery.
+   The oldest report rotating out was also adjacent, so the mix remained
+   **7 eBPF / 0 pure Agent / 3 adjacent**.
+2. `2026-09-13` — `/research/cxl-memory-hot-remove-reliability/`: adjacent
+   Linux/CXL memory-management report separating hot-add/onlining capability from
+   the runtime ownership state that determines whether CXL memory can later be
+   evacuated, offlined, and physically detached. The oldest report rotating out
+   is the adjacent September 2 GPU-membership report, so the mix again remains
+   **7 / 0 / 3**.
+
+After the September 13 publication, the oldest report that will rotate out on the
+next run is the eBPF-centered September 3 GPU-megakernel report. An eBPF-centered
+compatibility report can therefore enter while preserving the **7 / 0 / 3** mix.
+Resume this active series on the next run if the candidate passes evidence,
+novelty, and quality gates.
 
 ### Mix-driven adjacent detour — 2026-09-17
 
