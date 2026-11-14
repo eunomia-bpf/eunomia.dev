@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why do signed division and sign-extending moves yield unsigned results in the i386 BPF JIT, and how does that escape a verifier range?](/ebpf-qa/2026-11-13-i386-jit-signed-div-and-movsx-ignore-offset/)
 - [Why can a pointer handed to a BPF callback outlive the callback invocation, and how does a callback frame id revoke it?](/ebpf-qa/2026-11-12-callback-argument-lifetime-vs-callback-frame-id/)
 - [Why can a kernel kfunc vanish from vmlinux BTF with no change to its C prototype, and why does that break the build?](/ebpf-qa/2026-11-11-kfunc-vanishes-from-vmlinux-btf-dwarf-location/)
 - [Why must an open-coded BPF iterator keep returning NULL after it drains, and what changes when a next method starts over instead?](/ebpf-qa/2026-11-10-iterator-drained-null-contract-restart/)

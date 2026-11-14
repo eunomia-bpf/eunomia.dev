@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 i386 上的有符号除法与符号扩展搬移会算成无符号结果，又怎么越过校验器证明的范围？](/zh/ebpf-qa/2026-11-13-i386-jit-signed-div-and-movsx-ignore-offset/)
 - [交给 BPF 回调的指针为什么能在回调返回之后继续存在，而回调帧 id 又如何把它作废？](/zh/ebpf-qa/2026-11-12-callback-argument-lifetime-vs-callback-frame-id/)
 - [内核 kfunc 的 C 原型没变，为什么它会从 vmlinux BTF 里消失，又为什么会因此构建失败？](/zh/ebpf-qa/2026-11-11-kfunc-vanishes-from-vmlinux-btf-dwarf-location/)
 - [开放编码 BPF 迭代器耗尽之后为什么必须一直返回 NULL，而 next 方法重新开始时又会发生什么？](/zh/ebpf-qa/2026-11-10-iterator-drained-null-contract-restart/)
