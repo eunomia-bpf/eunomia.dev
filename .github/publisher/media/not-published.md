@@ -1,10 +1,22 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-13
+Last checked: 2026-11-14
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
+
+2026-11-14: the `publish-posts` workflow (run 43568653176) published `docs/tutorials/4-opensnoop/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-4-capturing-opening-files-and-filter-with-global-variables-39bh>, `2026-11-14T07:02:12Z`,
+article id 5034069) from `draft/media/2026-11-14/4-opensnoop/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed since 2023. The artifact changes one hunk of the source: lines 107-109 fuse the `trace_pipe`
+command with its first output line through a stray `".\`, so the artifact restores the three correct lines. The published
+`body_markdown` matches the artifact after the H1 strip character for character (8,100 chars), and the visible page renders
+the exact title, 3 body H2, 6 code blocks, and the complete ending with 0 reactions and 0 comments. Canonical is still DEV
+self, the twelfth consecutive API syndication with that defect. It used the LA 2026-11-13 normal slot. The dispatch waited
+~6 h in the org-wide `ubuntu-latest` runner backlog and started 7 minutes after `publish-posts.yml` was pinned to
+`ubuntu-24.04`; `.github/publisher/posts_queue.txt` is empty again because the workflow pops each entry after a successful
+publish.
 
 2026-11-13: the `publish-posts` workflow (run 43335255543) published `docs/tutorials/3-fentry-unlink/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-3-monitoring-unlink-system-calls-with-fentry-k28>, `2026-11-13T00:13:10Z`,

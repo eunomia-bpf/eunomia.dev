@@ -22,9 +22,23 @@
 - `docs/tutorials/**` 由 `bpf-developer-tutorial` 同步而来（本 checkout 无该仓库），按 0/1/3 的既有做法**只修准备稿**：`draft/media/2026-11-14/4-opensnoop/devto.md` 恰好一处 hunk 还原三行，`diff -u` 除该 hunk 外无差异。
 - 结构：1 个 H1（精确标题）、3 个正文 H2、0 个 H3/H4、12 个围栏（6 个 `pre`）、0 图片、0 表格、约 1,172 词；外链全部绝对（`github.com/eunomia-bpf/eunomia-bpf`、`.../bpf-developer-tutorial/tree/main/src/4-opensnoop`、`github.com/eunomia-bpf/bpf-developer-tutorial`、`eunomia.dev/tutorials/`）；站点原文 <https://eunomia.dev/tutorials/4-opensnoop/> 200 且 H1 一致。
 
+## 发布事实
+
+- 路径：`.github/publisher/posts_queue.txt`（1 条，字段 `path`/`tags`）-> commit `9c07f5809f` 推送 `main` -> `gh workflow run publish-posts.yml -f platforms=devto -f publish_count=1 -f draft_only=false`。run 43568653176 在 `2026-11-14T07:02:12Z` 公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-4-capturing-opening-files-and-filter-with-global-variables-39bh>，article id 5034069，tag `ebpf`/`linux`/`tutorial`/`kernel`，0 反应 0 评论。workflow 随后自行推送 `79a07620e2` 清空队列。
+- 正文对账：公开 `body_markdown` 与准备稿去首个 H1 后**逐字相同**（8,100 字符）；粘连的 `trace_pipe".\` 在公开正文里已不存在，命令与首行输出是分开的三行。
+- 结构对账（可见页 DOM）：1 h1（精确标题）、3 个正文 H2（Capturing the System Call Collection of Process Opening Files in eBPF / How Global Variables Work in eBPF / Summary）、0 H3、6 个 `pre`、0 表格、0 正文图片、1,157 词、结尾完整（"…or website https://eunomia.dev/tutorials/ for more examples and a complete tutorial."）。
+- 覆盖：DEV 67 -> 68/128，`check_media_ledger.py` 退出 0（84 条 confirmed，0 条 confirmed-without-source_path）。
+- 额度：发布时刻 `2026-11-14T07:02:12Z` = LA `2026-11-13 23:02 PST`，用掉 **LA 11-13 正常额度**；补发缺口仍 0。
+
+## 运行延迟：`ubuntu-latest` 组织级积压
+
+- 首个 dispatch（run 43534543886，`2026-11-14T00:29:38Z`）排队约 6 小时未获 runner。同期证据：同仓库 `app-static-pages.yml` 中 `runs-on: ubuntu-24.04` 的 deploy job 在 `created 06:14:30` 后数十秒内 `started`；bpftime 同 `ubuntu-latest` 标签 `queued` 峰值 268、`in_progress` 稳定 5-10；GitHub status 页 "All Systems Operational"、无未解决 incident；仓库无 self-hosted runner（`total_count: 0`）。
+- 处置：把 `.github/workflows/publish-posts.yml` 的 `runs-on` 从 `ubuntu-latest` 改为 `ubuntu-24.04`（commit `5462d96717`），重新 dispatch（run 43568653176）后 7 分钟取得 runner，1 分钟完成发布。前两次 dispatch（43534543886、43552763549、43565716716）均已 cancel，队列条目未受影响——`posts_queue.txt` 只有在 workflow 成功后才由 bot 清空。
+- 代价：轮询把 GitHub core API 打到过 403 rate limit（`rate_limit` 随后显示 4,945/5,000 剩余，说明是短窗口突发），此后改为 20-30 分钟一次的稀疏检查加 DEV 公开 API 判定发布。
+
 ## 遗留
 
-- canonical 仍为 DEV 自身（连续第十一次）。根因仍在上游 `media-publisher`：`publish-multi` 从 `title/content/tags/is_draft/platforms` 重建 payload，`canonical_url` 到不了 DEV 分支；已并入 `platforms/devto.json` 的同一条 `pending_verification`。
+- canonical 仍为 DEV 自身（连续第十二次）。根因仍在上游 `media-publisher`：`publish-multi` 从 `title/content/tags/is_draft/platforms` 重建 payload，`canonical_url` 到不了 DEV 分支；已并入 `platforms/devto.json` 的同一条 `pending_verification`。
 - tutorial 4 的源文围栏粘连未回改上游 `bpf-developer-tutorial`；下一次同步前它仍会出现在每一份新的 syndication 里。
 
 ## 下一次具体动作
