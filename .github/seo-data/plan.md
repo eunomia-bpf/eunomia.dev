@@ -60,6 +60,54 @@ operating entrypoint; this file stores durable goals and constraints.
 
 ## Current priorities
 
+1. Preserve the rolling newest-ten mix mechanically. Before the `2026-09-16`
+   publication the actually published window contains **7 eBPF-centered / 1 pure
+   Agent / 2 adjacent systems**. The oldest report rotating out today is the
+   adjacent `2026-09-04` GPU-checkpoint report. An eBPF-centered report would
+   create **8 / 1 / 1** and violate the upper bound, so today's report must be
+   Agent-centered or adjacent. The selected `io_uring` cancellation report is
+   adjacent and preserves **7 / 1 / 2**. Never repair the ratio by relabeling
+   older work or counting an open PR as published.
+2. Publish `/research/io-uring-cancel-terminal-state/` as the September 16
+   adjacent-systems detour. The report must distinguish cancel-request outcome
+   from target terminal completion, explain `-ENOENT`/`-EALREADY`, descriptor
+   closure, multishot completion, and hardware-inflight limits, then develop
+   terminal-state receipts, generation-aware resource retirement fences, and an
+   adversarial cancellation-race benchmark. It must not claim that successful
+   cancellation universally rolls back external effects.
+3. Keep **eBPF Deployment Compatibility and Lifecycle** as the active series, but
+   resume it only when the rolling-mix contract permits. Remaining distinct
+   boundaries include same-object verifier/behavior drift; CO-RE structural
+   relocation versus helper/map/kfunc/attach semantic compatibility; capability
+   negotiation for rapidly evolving BPF-facing interfaces; pinned-map and
+   persistent-state lifecycle across host upgrades; and reproducible
+   capability/artifact manifests across distributions. Do not repeat the
+   September 15 version/backport-evidence boundary, September 6
+   architecture-specific specialization, August 10 transactional upgrade, or
+   August 8 userspace-runtime capability/lifetime work.
+4. Recheck all verified weekly Search Console and GA4 Drive export sets every run.
+   As rechecked on `2026-09-16`, no export newer than `2026-09-07..09-13` is
+   present. Search Console contains rows through `2026-09-12`; under the configured
+   three-day lag rows through `2026-09-11` are finalized, `2026-09-12` is partial,
+   and `2026-09-13` is absent.
+5. Record the newest finalized Search Console `2026-09-07..11` slice as **343
+   clicks / 47,606 impressions / ~0.720% CTR / ~6.47 impression-weighted
+   position**. The equal-duration finalized `2026-08-31..09-04` slice is **368 /
+   53,341 / ~0.690% / ~7.45**. Current clicks are ~6.8% lower, impressions ~10.8%
+   lower, CTR ~0.031 percentage points higher, and weighted position ~0.98
+   positions better. This is a five-day source-native comparison, not a complete
+   seven-day trend.
+6. Keep complete GSC 7-day and 28-day comparisons unavailable until source
+   history is contiguous. The preceding export omits `2026-09-06`, the newest
+   export omits `2026-09-13`, and older history includes recorded gaps. Missing
+   rows are never zero.
+7. Weekly GSC page/query aggregates may prioritize inspection but cannot support
+   causal metadata claims without date-dimensional evidence. Continue watching
+   the WASI/component-model article at **5,469 impressions / 3 clicks / ~5.08
+   average position** and the query `ai large language model linux kernel driver
+   development` at **766 impressions / 0 clicks / ~6.00 average position**.
+8. Treat GA4 `2026-08-24..30` as the latest fully finalized weekly organic
+
 1. Complete September 22 PR `#211`, which publishes
    `/research/ebpf-kernel-interface-negotiation/` in English and Chinese from a
    fresh branch based on current `main`. The report is eBPF-centered and keeps the
@@ -98,6 +146,19 @@ operating entrypoint; this file stores durable goals and constraints.
    `2026-08-31..09-06` remain partial as well.
 8. Treat exact-SHA Pages deployment and generated production artifacts as the
    primary publication acceptance evidence; independent crawler/search discovery
+   is supplementary and can lag immediately after deployment.
+10. The public-safe brief generated `2026-09-16 12:40 UTC` reports the homepage
+    at HTTP 200 in **147 ms**, robots and sitemap at HTTP 200, and **768** sitemap
+    entries, plus **99** active non-fork repositories, **10,015** stars, **1,310**
+    forks, **293** open issue/PR records, and **63 DEV articles / 43 reactions / 4
+    comments**. Current evidence does not establish a separate crawlability,
+    canonical, hreflang, structured-data, redirect, rendering, accessibility,
+    persistent-performance, or deployment defect, so do not make an unrelated
+    technical SEO implementation change today.
+11. Keep Cloudflare evidence unavailable until a supported read-only route is
+    enabled in repository configuration.
+12. Keep the shared SEO skill submodule pinned until its consuming contract is
+
    is supplementary and may lag immediately after deployment.
 9. The September 22 public-safe data brief reports homepage, robots, and sitemap
    HTTP 200 with **786 sitemap entries**. Direct homepage retrieval exposes Daily
@@ -113,6 +174,15 @@ operating entrypoint; this file stores durable goals and constraints.
     migrated to the newer upstream layout; do not make a pointer-only update.
 12. Do not create a thin public series hub without report-level acquisition or
     navigation evidence that it would improve retrieval.
+14. PR `#202` is fully reconciled after exact-merge CI/deployment verification,
+    production branch verification, resolved review threads, and one top-level
+    closeout comment. PR `#200` remains open and unmerged and is not part of
+    published-state arithmetic.
+15. Complete the September 16 branch through one non-draft PR, terminal-green
+    final-head CI, full diff and generated-output self-review, review-thread
+    reinspection, squash merge, exact-merge deployment, bilingual
+    production/sitemap verification, and one compact merged-PR closeout comment.
+
 13. After September 22, continue the active series only with a materially distinct
     boundary. Pinned-map/persistent-state lifecycle across host reboot or
     replacement remains a candidate if it stays distinct from the August

@@ -71,7 +71,7 @@ This series reached its six-report boundary on `2026-08-17`:
 4. `2026-08-12` — `/research/async-ebpf-causal-profiler/`: typed lifetime-aware
    causal handoff edges across `io_uring`, workqueues, runtimes, and application
    resources.
-5. `2026-08-15` — `/research/io-uring-bpf-programmability/`: cBPF admission versus
+5. `2026-08-14` — `/research/io-uring-bpf-programmability/`: cBPF admission versus
    eBPF `io_uring_bpf_ops`, capability, policy generation, provenance, and
    resource ownership.
 6. `2026-08-17` — `/research/heterogeneous-ebpf-execution-placement/`: target
@@ -205,6 +205,29 @@ Novelty guards:
 - do not repeat the August 8 userspace-runtime capability/lifetime contract;
 - require current primary evidence from Linux/BPF tooling, distributions, CI, or
   production compatibility systems before selecting the next boundary.
+
+### September 16 mix-driven detour
+
+After the September 15 publication the newest ten actually published reports are
+**7 eBPF-centered / 1 pure Agent / 2 adjacent systems**. On September 16, the
+oldest report rotating out is the adjacent `2026-09-04` GPU checkpoint report.
+Therefore another eBPF-centered report would create **8 / 1 / 1** and violate the
+5–7 eBPF bound.
+
+The approved detour is `2026-09-16` —
+`/research/io-uring-cancel-terminal-state/`, classified **adjacent systems**. It
+asks when an `io_uring` operation is truly terminal after cancellation races with
+normal completion. The report develops terminal-state receipts,
+generation-aware resource retirement fences, and an adversarial race/effect
+benchmark. This is distinct from the August 14 eBPF/io_uring programmability
+report because eBPF is not part of the mechanism under study, and distinct from
+the September 14 Agent retry report because kernel completion channels are
+available here even though application lifetime handling can still be wrong.
+
+Publishing the detour preserves the newest-ten mix at **7 eBPF-centered / 1 pure
+Agent / 2 adjacent systems**. The active eBPF deployment series remains active
+and should resume only when the actual published window mechanically permits the
+next eBPF-centered report.
 
 ### Mix-driven adjacent detour — 2026-09-17
 

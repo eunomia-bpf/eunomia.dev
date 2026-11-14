@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [When io_uring Cancels I/O, Is the Operation Really Over?](https://eunomia.dev/research/io-uring-cancel-terminal-state/)
+
+`io_uring` cancellation races with the target request's own completion path. This report separates cancel control flow from terminal completion, then develops terminal-state receipts, generation-aware resource fences, and adversarial race tests for safe teardown.
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
