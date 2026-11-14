@@ -14,6 +14,10 @@ an individual run cannot complete a repository or source operation.
 ## Current data-history constraint
 
 Google Drive access is verified and is not a blocker. The configured folder was
+directly rechecked on `2026-09-06`. No export newer than the source-native
+`2026-08-24..30` weekly set is present; an explicit search for a set beginning
+`2026-08-31` returned no result.
+
 directly rechecked on `2026-09-22`; the newest weekly source family is
 `2026-09-14..09-20`.
 

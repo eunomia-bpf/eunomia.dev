@@ -159,6 +159,50 @@ Working question: **How can one eBPF application remain loadable, semantically
 correct, and operationally explainable across real kernel, distribution,
 backport, toolchain, and BPF-interface evolution?**
 
+The `2026-09-06` report advances a second, materially distinct boundary. The
+program and workload may stay fixed while one JIT backend replaces a verifier-
+visible portable operation with architecture-specific machine code. Kops shows
+that a proof sequence plus native emit can recover useful hardware idioms without
+making the verifier understand a new opaque operation. Current Linux JIT changes
+show that transformed code must stay synchronized with verifier metadata and
+platform hardening such as ENDBR/BTI, while blitmus highlights ordering behavior
+that single-thread value equality cannot establish. The report therefore develops
+a verifier-visible typed-effect operation contract, per-backend differential and
+litmus conformance gates, and implementation provenance with operation-level
+revocation and portable fallback.
+
+### Published progress
+
+1. `2026-09-05`: `/research/ebpf-runtime-profile-specialization/` asks when a
+   workload- or deployment-guided BPF rewrite is still justified as the same
+   program. It distinguishes unconditional profile hints, conditional semantic
+   assumptions, verifier acceptance, and optimizer equivalence; proposes a
+   generation-scoped certificate and invalidation registry; and evaluates
+   correctness under adversarial profile staleness before treating speedup as a
+   win. It is eBPF-centered because BPF bytecode semantics, verifier/JIT
+   acceptance, BPF effects, and link generations are the object of the contract.
+2. `2026-09-06`: `/research/ebpf-native-operation-contract/` asks when an
+   architecture-specific native emit is a trustworthy implementation of an
+   already verifier-visible BPF operation rather than a new semantic authority.
+   It proposes a small typed-effect descriptor, machine-readable architecture and
+   hardening preconditions, per-backend formal/differential/litmus conformance,
+   and revocable implementation provenance with the ordinary BPF proof sequence
+   as fallback. It is eBPF-centered because the portable BPF ISA, verifier/JIT
+   split, backend lowering, and BPF-specific effects define the contract.
+
+Before the September 6 publication, the newest ten contain **5 eBPF-centered / 0
+pure Agent / 5 adjacent systems**. The incoming eBPF-centered report rotates the
+`2026-08-26` eBPF-centered authorization-revocation report out, so after
+publication the mix remains **5 / 0 / 5**. No classification was changed to
+obtain that result.
+
+A later report should not repeat either "verifier accepted is not equivalent" /
+stale profile invalidation or the proof-sequence/native-emit trust boundary with
+a different instruction example. Distinct remaining boundaries include portable
+optimization evidence across JIT backends, a generic verifier/JIT optimization IR
+that carries metadata and hardening obligations, and debugging/provenance
+mechanisms whose operator failure extends beyond operation-version revocation.
+
 Published boundaries:
 
 1. `2026-09-15` — `/research/ebpf-kernel-capability-evidence/`: kernel and
@@ -277,6 +321,9 @@ Each daily run should:
 6. publish exactly one new bilingual Daily Report;
 7. record the chosen series, classification, useful rejected candidates, and why
    the report materially advances the roadmap.
+
+A temporary out-of-series detour should be recorded in the daily operating record
+and in this file so the repository, not chat history, remains authoritative.
 
 Temporary detours must be recorded here or in the daily operating record so the
 repository, not chat history, remains authoritative.

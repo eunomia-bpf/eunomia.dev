@@ -37,6 +37,8 @@
 - Newest GA4 weekly organic landing-page aggregate: `2026-09-14` through `2026-09-20`, partial because the frozen export was generated while lagged dates were present and has no date dimension
 - Expected refresh cadence: weekly; verify freshness and coverage on every run
 
+The configured folder was directly reverified on `2026-09-06`. It contains weekly Google export sets for `2026-07-27..08-02`, `2026-08-03..09`, `2026-08-10..16`, `2026-08-17..23`, and `2026-08-24..30`. An explicit search for a weekly set beginning `2026-08-31` returned no result. The newest set therefore remains the current source-native export material; missing rows are not converted to zero.
+
 The configured folder was directly reverified on `2026-09-22`. The newest source family is `2026-09-14..09-20`. Its Search Console date export contains rows for `2026-09-14..09-19` and no `2026-09-20` row. Under the configured three-day finalization lag, all six observed rows are treated as finalized.
 
 The finalized six-day `2026-09-14..19` slice contains **391 clicks / 55,086 impressions / ~0.710% aggregate CTR / ~6.79 impression-weighted average position**. The equal-duration finalized `2026-09-07..12` slice contains **376 / 55,036 / ~0.683% / ~6.46**. Relative to that slice, clicks are about **4.0% higher**, impressions about **0.1% higher**, CTR about **0.027 percentage points higher**, and weighted average position about **0.33 positions worse**.
@@ -60,6 +62,8 @@ Public repository and live-site evidence supplement these exports but do not rep
 - Live-site technical collection enabled: yes
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
+
+Fresh public search discovery on `2026-09-06` exposes the `2026-09-05` English runtime-profile-specialization Daily Report. The prior report also has exact-squash successful Pages deployment and verified generated English and Chinese artifacts. Public crawler evidence supplements, rather than replaces, exact-SHA deployment and generated-output verification.
 
 The public-safe data brief generated on `2026-09-22 12:42 UTC` reports the homepage, `robots.txt`, and sitemap at HTTP 200, **786 sitemap entries**, canonical `https://eunomia.dev/`, **99 active non-fork repositories**, **10,048 stars**, **1,316 forks**, **304 open issue/PR records**, and **63 DEV articles**. These are contextual public observations, not a blended SEO score.
 
