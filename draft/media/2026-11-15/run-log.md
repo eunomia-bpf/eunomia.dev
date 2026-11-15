@@ -40,3 +40,7 @@
 
 1. 恢复知乎登录后，从 `53-egress-pacer` 起继续处理 23 条知乎任务；恢复掘金登录（当前无任务）。
 2. 若 DEV 继续日更：下一候选 `7-execsnoop`（DEV 缺失），按教程序号继续推进。
+
+## 站点部署
+
+- 本次只改文档与账本，但仍推送到 `main`，所以触发了 `Deploy Static App`：run 43658878929（head `592f83a4f5`）在 `2026-11-15T01:03Z` `success`，13 个步骤全绿（`Verify static export` 用了约 23 分钟，是 `npm ci` + `npm run verify` 的常态耗时）。部署后 `https://eunomia.dev/tutorials/6-sigsnoop/` 与 `/zh/tutorials/6-sigsnoop/` 均 200，正文各含 5 处 `sigsnoop`。
