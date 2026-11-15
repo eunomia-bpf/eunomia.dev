@@ -44,3 +44,4 @@
 ## 站点部署
 
 - 本次只改文档与账本，但仍推送到 `main`，所以触发了 `Deploy Static App`：run 43658878929（head `592f83a4f5`）在 `2026-11-15T01:03Z` `success`，13 个步骤全绿（`Verify static export` 用了约 23 分钟，是 `npm ci` + `npm run verify` 的常态耗时）。部署后 `https://eunomia.dev/tutorials/6-sigsnoop/` 与 `/zh/tutorials/6-sigsnoop/` 均 200，正文各含 5 处 `sigsnoop`。
+- 补记 run-log 的这次小改动又触发 run 43661414816（head `a8c978fdb42`），`2026-11-15T01:38Z` `success`。两次都已经 `Deploy to GitHub Pages` 完成，线上 `https://eunomia.dev/tutorials/6-sigsnoop/` 仍是 200。（教训：当天最后一次 `main` 推送尽量把所有文档改动合并进同一个 commit，避免为纯账本变动重复付 40 分钟的 `npm verify` + build。）
