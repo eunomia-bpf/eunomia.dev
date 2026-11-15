@@ -1,1 +1,0 @@
-{"path":"draft/media/2026-11-15/6-sigsnoop/devto.md","tags":["ebpf","linux","tutorial","kernel"]}
