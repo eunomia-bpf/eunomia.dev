@@ -20,6 +20,15 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-11-15
+
+- One DEV publication, no engagement yet. `publish-posts` run 43657764558 published [the DEV copy of tutorial 6](https://dev.to/yunwei37/ebpf-tutorial-by-example-6-capturing-signal-sending-and-store-state-with-hash-maps-12h9) at `2026-11-15T00:21:37Z` (LA 2026-11-14 16:21 PST) from `draft/media/2026-11-15/6-sigsnoop/devto.md`, a byte-identical copy of the source. The public API reports 0 reactions and 0 comments; the page renders 1 exact h1, 2 body H2, 5 `pre` with all three fence languages preserved, 0 images, 0 tables, 625 words and the complete ending. Coverage moves to 69/128 on DEV.
+- Thirteenth consecutive API syndication that self-canonicalizes while <https://eunomia.dev/tutorials/6-sigsnoop/> answers 200. Same pending item, same upstream `canonical_url` defect; no new action.
+- The runner backlog did not recur: this dispatch got a runner in 17 seconds, against 7 minutes on 2026-11-14 after `publish-posts.yml` was pinned to `ubuntu-24.04`. One fast run does not establish that the org-level pressure is gone.
+- Queue record defect found and corrected: the previous queue text named `5-uprobe-bashreadline` as the next DEV gap, but its DEV copy has been live since 2024 (article 1736310) and is already in `platforms/devto.json`'s `confirmed_source_urls`; it simply lacks a per-post detail row. The next real gap is `7-execsnoop`.
+- No new external echoes: the newest `eunomia` HN story is still 50385391 (AgentSight, 2 points, 0 comments, 2026-11-05) and the newest HN comment mentioning eunomia is still the 2026-11-05 eBPF-backend reply. Exact-title search for the tutorial 4 copy returns only the canonical page, the GitHub source, and forks. DEV copies from 2026-11-09 through 2026-11-14 all remain at 0 reactions and 0 comments.
+- Session state unchanged: 知乎 `https://www.zhihu.com/creator` still lands on `/signin?next=%2Fcreator` with no `z_c0`; 掘金 `/creator/home` still falls back to `https://juejin.cn/` with 登录/注册; Medium `/me/stories` shows Sign in; the shell has no `DEV_TO_API_KEY`/`MEDIUM_API_KEY`, so the secret-backed workflow stays the only publication path and all 23 Zhihu tasks stay platform-blocked. Next checkpoint: tutorial `7-execsnoop` (DEV missing).
+
 ### 2026-11-14
 
 - The [DEV copy of tutorial 3](https://dev.to/yunwei37/ebpf-tutorial-by-example-3-monitoring-unlink-system-calls-with-fentry-k28) is a day old and unchanged: the public API reports 0 reactions and 0 comments (971 words, published `2026-11-13T00:13:10Z`) and `https://dev.to/api/comments?a_id=5026194` returns `[]`, so no reply is due. The visible page still renders 1 exact h1 and a self-referential `link[rel=canonical]` while <https://eunomia.dev/tutorials/3-fentry-unlink/> answers 200 — the eleventh consecutive API syndication with the same upstream `canonical_url` defect, not a new finding.
