@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-15 14:52 UTC`
+Generated: `2026-11-16 17:12 UTC`
 
 ## Collection health
 
@@ -14,26 +14,26 @@ Generated: `2026-11-15 14:52 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `187 ms`.
+- Homepage: `200` in `2293 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `916`.
+- Sitemap entries observed: `918`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `100`.
-- Current stars: `10307`; forks: `1363`; open issue/PR records: `412`.
+- Current stars: `10316`; forks: `1367`; open issue/PR records: `388`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4339 | 608 | 28 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1604 | 191 | 182 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 909 | 77 | 23 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 791 | 121 | 50 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4342 | 608 | 28 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1607 | 192 | 151 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 909 | 79 | 25 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 792 | 121 | 54 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 451 | 35 | 6 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 244 | 42 | 70 |
-| [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 150 | 20 | 0 |
+| [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 150 | 21 | 0 |
 
 ## DEV publication surface
 
