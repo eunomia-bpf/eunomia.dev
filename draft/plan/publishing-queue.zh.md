@@ -1,8 +1,17 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-15。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-16。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+### 2026-11-16 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/tutorials/7-execsnoop/README.md`。由 `publish-posts` workflow（run 43781972664，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-16T00:43:45Z`（LA 11-15 16:43 PST，+08 11-16 08:43，dispatch 后约 1 分钟完成）从 `draft/media/2026-11-16/7-execsnoop/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c>（article id 5044058，tag `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 3，0 反应 0 评论，DEV 覆盖 69 -> 70/128）。准备稿是源文**逐字节副本**（5,103 字节，sha256 相同；源文无图片、无表格、无相对链接，2 个外链已是绝对地址，6 个围栏自带 `c`/`shell`/`console` 标签）。公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（5,013 字符）。可见页 1 h1（精确标题）、3 个正文 H2（`perf buffer`、`execsnoop`、`Summary`，= 源文 3 个 `##`）、0 H3、6 个 `pre`（`highlight c` x3、`highlight shell` x2、`highlight console` x1，无围栏丢语言）、0 表格、0 图片、645 词、结尾完整（含 `bpf-developer-tutorial` 链接）、tag 芯片 `#ebpf`/`#linux`/`#tutorial`/`#kernel`。
+- 进度依据：队列剩余 23 条知乎任务全部平台级 `阻塞`（可见 Chrome `https://www.zhihu.com/creator` 仍落 `/signin?next=%2Fcreator`，cookie 无 `z_c0`）；Medium 无 `MEDIUM_API_KEY`，可见 Chrome `/me/stories` 仍显示 Sign in；掘金可见 Chrome `/creator/home` 仍**掉登录**（首屏登出态骨架，settle 后落回 `https://juejin.cn/`，队列中掘金任务为 0，无影响）；X 可见 profile 已登录（`@yunwei37`），LinkedIn 仍落 authwall。按"历史回补默认只处理 tutorial"取教程序列中最早的 DEV 缺口 `7-execsnoop`（`confirmed_source_urls` 与明细行都没有它；Medium 副本 `cc6213d19c76` 早已 `confirmed`）。发布前用 DEV 公开 API 复查账号 74 篇、精确标题 0 篇重复；站点原文 `/tutorials/7-execsnoop/` 与 `/zh/tutorials/7-execsnoop/` 均 200。
+- 额度口径：发布时刻 `2026-11-16T00:43:45Z` 属 LA `2026-11-15 16:43 PST`，用掉 **LA 11-15 正常额度**（LA 11-15 当日此前无其它发布）；补发缺口仍为 0。
+- 定时运行未接管：`posts_queue.txt` 为空时定时 `publish-posts` 不会自行排队，沿用 2026-11-10..15 的先例，手工写入队列、推送 `main` 后再 dispatch；run 结束后 bot 提交 `c6cd16c` 已清空队列。
+- 同次观察（未修）：DEV 账号列表里 `eBPF Tutorial: Tracing CUDA GPU Operations` 有两份公开副本——`2523222`（2025-05-25，`/…-20kp`）与 ledger 记录的 `3135152`（2025-12-30，`/…-45eb`），两份都 200；保留较新的作映射，未发布任何新内容。
+- 遗留：canonical 仍为 DEV 自身（连续第十四次）；源文最后一句多一个 `."`（上游同样如此），按逐字节同步原则原样保留；tutorial 4 的源文围栏粘连仍未回改上游 `bpf-developer-tutorial`。
+
 ### 2026-11-15 排期（LA 时区）
 
 - [x] `排队` DEV：`docs/tutorials/6-sigsnoop/README.md`。由 `publish-posts` workflow（run 43657764558，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-15T00:21:37Z`（LA 11-14 16:21 PST，+08 11-15 08:21，dispatch 后 17 秒取得 runner）从 `draft/media/2026-11-15/6-sigsnoop/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-6-capturing-signal-sending-and-store-state-with-hash-maps-12h9>（article id 5038589，tag `ebpf`/`linux`/`tutorial`/`kernel`，0 反应 0 评论，DEV 覆盖 68 -> 69/128）。准备稿是源文**逐字节副本**（源文无图片、无表格、无相对链接，3 个外链已是绝对地址，5 个围栏自带 `c`/`shell`/`console` 语言标签）。公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（4807 字符）。可见页 1 h1（精确标题）、2 个正文 H2（`sigsnoop`、`Summary`，= 源文 2 个 `##`）、0 H3、5 个 `pre`（`highlight c` x2、`highlight shell` x1、`highlight console` x2，无围栏丢语言）、0 表格、0 图片、625 词、结尾完整（含 `bpf-developer-tutorial` 与 `eunomia.dev/tutorials/` 两个链接）、0 评论。

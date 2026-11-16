@@ -3,7 +3,7 @@
   "platform_id": "x",
   "label": "X / Twitter",
   "kind": "social",
-  "last_checked": "2026-08-01",
+  "last_checked": "2026-11-16",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -23,6 +23,16 @@
     }
   ],
   "published": [
+    {
+      "id": "x-2122011756633665955",
+      "status": "confirmed",
+      "date": "2026-11-15",
+      "title": "Can moving a GPU server's request loop into the Linux kernel save CPU?",
+      "url": "https://x.com/yunwei37/status/2122011756633665955",
+      "source_path": "docs/blog/posts/bpf-gpu-server.md",
+      "checked_via": "normal_visible_logged_in_profile",
+      "notes": "Shared 2026-11-15T17:00:02Z (page `article:published_time`, visible label `1:00 AM · Nov 16, 2026` in the +08 browser). Three-sentence hook plus the eunomia.dev card, whose t.co target resolves to https://eunomia.dev/blog/2026/10/17/bpf-gpu-server/ (200, as is the /zh/ twin). Observed 2026-11-16T00:5xZ: 300 views, 12 likes, 1 reply, 3 bookmarks. The only reply (@sunilmehta_si) restates the token-rate and CPU figures and points at the TCP stack, which is the post's own conclusion, so no answer is due."
+    },
     {
       "id": "x-2083647587132035205",
       "status": "confirmed",
@@ -133,6 +143,7 @@
   ],
   "pending_verification": [
     "No full X archive export was done.",
-    "Paginate advanced search before treating X history as complete."
+    "Paginate advanced search before treating X history as complete.",
+    "The 2026-11-16 profile pass read only the first screen plus one status page; posts between 2026-09-30 and 2026-11-14 were not enumerated, so the ledger's 2026-08-01..2026-11-15 gap stays open."
   ]
 }

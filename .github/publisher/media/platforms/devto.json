@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-15",
+  "last_checked": "2026-11-16",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-5d6c",
+      "status": "confirmed",
+      "date": "2026-11-16",
+      "title": "eBPF Tutorial by Example 7: Capturing Process Execution, Output with perf event array",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c",
+      "source_path": "docs/tutorials/7-execsnoop/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-16T00:43:45Z (LA 2026-11-15 16:43 PST, +08 11-16 08:43) by `publish-posts` workflow run 43781972664 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-16/7-execsnoop/devto.md`; article id 5044058. The artifact is a byte-identical copy of `docs/tutorials/7-execsnoop/README.md` (5,103 bytes, same sha256), so the prepared body only differs by the H1 strip the shared publisher performs. The published `body_markdown` equals that body verbatim (5,013 chars). Visible page: 1 h1 with the exact title, 3 body H2 (`perf buffer`, `execsnoop`, `Summary`, matching the source's 3 `##`), 0 H3, 6 `pre` for the source's 6 fenced blocks with every fence language preserved (`c` x3, `shell` x2, `console` x1), 0 images, 0 tables, 645 words, complete ending with the bpf-developer-tutorial repository link, tags `#ebpf`/`#linux`/`#tutorial`/`#kernel` as chips, 0 reactions, 0 comments. Canonical is DEV itself: the fourteenth consecutive API syndication with the same upstream `canonical_url` defect. Source defect left untouched: the source's last sentence ends with a stray `.\"` (also present in the upstream copy), reproduced verbatim on DEV."
+    },
     {
       "id": "devto-12h9",
       "status": "confirmed",
@@ -468,7 +485,8 @@
     "docs/tutorials/1-helloworld/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-1-hello-world-framework-and-development-2kmb",
     "docs/tutorials/2-kprobe-unlink/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l",
     "docs/tutorials/4-opensnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-4-capturing-opening-files-and-filter-with-global-variables-39bh",
-    "docs/tutorials/6-sigsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-6-capturing-signal-sending-and-store-state-with-hash-maps-12h9"
+    "docs/tutorials/6-sigsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-6-capturing-signal-sending-and-store-state-with-hash-maps-12h9",
+    "docs/tutorials/7-execsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c"
   },
   "browser_observations": [
     {
@@ -534,12 +552,19 @@
       "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-6-capturing-signal-sending-and-store-state-with-hash-maps-12h9",
       "status": "confirmed",
       "notes": "Per-article endpoint (5038589), the tag feed and the visible page agree on title, 2 body H2, 5 `pre`, 4 tags and published_at. The author listing returned 75 posts with this copy already included, unlike the 2026-11-12..14 lag; still treat the listing as secondary evidence."
+    },
+    {
+      "checked_at": "2026-11-16",
+      "checked_via": "dev_public_api_read_plus_visible_public_page_dom",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c",
+      "status": "confirmed",
+      "notes": "Per-article endpoint (5044058), the public author listing and the visible page agree on title, 3 body H2, 6 `pre`, 4 tags and published_at 2026-11-16T00:43:45Z; comments API `?a_id=5044058` not yet queried at publication time, the visible page showed 0. Listing returned 74 posts before publication and 75 after."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
-    "Nine consecutive API syndications now self-canonicalize (devto-5did, devto-d72, devto-4cj0, devto-2doh, devto-51mh, devto-5bod, devto-1j0f, devto-2kmb, devto-259l) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
+    "Fourteen consecutive API syndications now self-canonicalize (devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
     "The public author API listed 71 posts on 2026-11-12 (the 2026-11-12 copy was still absent from the listing minutes after publication while its per-article endpoint was already live), so the 2026-07-20 visible-scroll inventory of 54 links is further behind; re-scroll the profile before the next full-history audit.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
