@@ -27,7 +27,7 @@
 ## 观测与异常
 
 - DEV 账号列表（公开 API，77 篇）里 `eBPF Tutorial: Tracing CUDA GPU Operations` 有两份公开副本：`2523222`（2025-05-25，`/…-20kp`）和 ledger 记录的 `3135152`（2025-12-30，`/…-45eb`），两者都 200。保留较新的作映射，未删除、未重发。另有 8 篇 2024 年随笔在 `docs/` 下找不到同名源（`Prompt Engineering is Dead…`、`Where Does Innovation Thrive` 等），符合"legacy `docs/blogs/` 不进默认源集"的规则，未入账。
-- 运行延迟未复现：11-14 固定 `runs-on: ubuntu-24.04` 后，11-15 是 17 秒，本次 dispatch 到整条 run 完成约 1 分钟。
+- 运行延迟未复现：11-14 固定 `runs-on: ubuntu-24.04` 后，11-15 是 17 秒；本次 run 43781972664 在 `00:42:34Z` 创建、`00:43:36Z` 才起 job（约 62 秒排队）、`00:43:49Z` 完成，整条 1 分 15 秒。
 - 首次进入 DEV 页面时可见 Chrome 是登出态（`/dashboard` 与 `/edit` 都跳 `/magic_links/new`）；发布与公开页 QA 不依赖它，编辑器修复路径本次仍不可用。
 
 ## 遗留
