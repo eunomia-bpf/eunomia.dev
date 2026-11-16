@@ -39,6 +39,16 @@ measure the longest token before publishing. A 10-10 run tripped this on a
 43-character event name and cleared the gate only after rewriting it as
 prose in the body and the references lead-in.
 
+The same gate trips on a *link label*, not just a bare code token: a
+References item whose only label is a long backticked path is one unbreakable
+inline box, so it overflows at 390px even though each word fits. A 11-15 run
+failed the render on two such items and passed only after the labels became
+words ("Profiler interpreter dispatcher") with the path left to the URL. Before
+running the gate, measure every inline token *and* every link label, and when
+the page is already built, list the overflowing elements in the browser
+instead of guessing: an element whose nearest `overflow-x` ancestor is a
+scrollable `pre` is fine, anything else is a real gate failure.
+
 Use only the sections the question needs. This is a useful shape, not a required
 template.
 
