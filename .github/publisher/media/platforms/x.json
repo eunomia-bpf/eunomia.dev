@@ -144,6 +144,6 @@
   "pending_verification": [
     "No full X archive export was done.",
     "Paginate advanced search before treating X history as complete.",
-    "The 2026-11-16 profile pass read only the first screen plus one status page; posts between 2026-09-30 and 2026-11-14 were not enumerated, so the ledger's 2026-08-01..2026-11-15 gap stays open."
+    "The 2026-11-16 profile pass read only the first screen plus one status page; posts between 2026-08-02 and 2026-11-14 were not enumerated, so the ledger's 2026-08-01 through 2026-11-14 gap stays open."
   ]
 }
