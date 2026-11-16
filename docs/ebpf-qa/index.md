@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why can a profile sample link to a trace span that was never sampled, and what has to be enabled before the link exists at all?](/ebpf-qa/2026-11-15-profile-sample-span-link-unsampled-and-two-opt-ins/)
 - [Why can a BPF modify-return program fail a kernel function the kernel never listed, and what decides whether skipping it is safe?](/ebpf-qa/2026-11-14-modify-return-target-rule-vs-skipped-side-effects/)
 - [Why do signed division and sign-extending moves yield unsigned results in the i386 BPF JIT, and how does that escape a verifier range?](/ebpf-qa/2026-11-13-i386-jit-signed-div-and-movsx-ignore-offset/)
 - [Why can a pointer handed to a BPF callback outlive the callback invocation, and how does a callback frame id revoke it?](/ebpf-qa/2026-11-12-callback-argument-lifetime-vs-callback-frame-id/)
