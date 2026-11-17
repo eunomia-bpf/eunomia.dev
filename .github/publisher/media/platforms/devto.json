@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-16",
+  "last_checked": "2026-11-17",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-5ea2",
+      "status": "confirmed",
+      "date": "2026-11-17",
+      "title": "eBPF Tutorial by Example 8: Monitoring Process Exit Events, Output with Ring Buffer",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2",
+      "source_path": "docs/tutorials/8-exitsnoop/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-17T00:38:36Z (LA 2026-11-16 16:38 PST, +08 11-17 08:38) by `publish-posts` workflow run 43986441112 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-17/8-exitsnoop/devto.md`; article id 5052614. The artifact differs from `docs/tutorials/8-exitsnoop/README.md` in exactly one line: the source's `Run:` console block opens with `TIME ... COMM\".` (a stray quote and period left from an older edit; the Chinese source has the clean header), and the artifact drops the `\".`. The published `body_markdown` equals that body verbatim after the H1 strip (6,901 chars). Visible page: 1 h1 with the exact title, 4 body H2 (`Ring Buffer`, `exitsnoop`, `Compile and Run`, `Summary`, matching the source's 4 `##`), 1 H3, 5 `pre` for the source's 5 fenced blocks with every fence label preserved (`c` x2, `shell` x1, `console` x2), 0 tables, 0 images, 953 words and the complete ending. Canonical is DEV self for the fifteenth consecutive API syndication while <https://eunomia.dev/tutorials/8-exitsnoop/> answers 200; same open item in `pending_verification`. The Medium copy (`73291d5e3a50`, 2023-08-15) stays confirmed and was re-read in the visible browser this run."
+    },
     {
       "id": "devto-5d6c",
       "status": "confirmed",
@@ -486,7 +503,8 @@
     "docs/tutorials/2-kprobe-unlink/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-2-monitoring-unlink-system-calls-with-kprobe-259l",
     "docs/tutorials/4-opensnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-4-capturing-opening-files-and-filter-with-global-variables-39bh",
     "docs/tutorials/6-sigsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-6-capturing-signal-sending-and-store-state-with-hash-maps-12h9",
-    "docs/tutorials/7-execsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c"
+    "docs/tutorials/7-execsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c",
+    "docs/tutorials/8-exitsnoop/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2"
   },
   "browser_observations": [
     {

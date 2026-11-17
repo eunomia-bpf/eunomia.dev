@@ -1,8 +1,18 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-16。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-17。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+### 2026-11-17 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/tutorials/8-exitsnoop/README.md`。由 `publish-posts` workflow（run 43986441112，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-17T00:38:36Z`（LA 11-16 16:38 PST，+08 11-17 08:38，`00:17:37Z` dispatch、排队 21 分钟才起 job、整条 21 分 22 秒）从 `draft/media/2026-11-17/8-exitsnoop/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2>（article id 5052614，tag `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 4，0 反应 0 评论，DEV 覆盖 70 -> 71/128）。准备稿与源文只有一行差异：源文 `Run:` console 块的表头是 `TIME … COMM".`（多余引号与句点，中文源文 `README.zh.md` 是干净的 `COMM`），准备稿删掉 `".`；其余 6,989 字节逐字相同。公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（6,901 字符）。可见页 1 h1（精确标题）、4 个正文 H2（`Ring Buffer`、`exitsnoop`、`Compile and Run`、`Summary`，= 源文 4 个 `##`）、1 H3、5 个 `pre`（`highlight c` x2、`highlight shell` x1、`highlight console` x2，没有围栏丢语言）、0 表格、0 图片、953 词、结尾完整（含 `bpf-developer-tutorial` 链接）、tag 芯片 4 个、0 评论。
+- 进度依据：队列里 23 条知乎任务仍平台级 `阻塞`（可见 Chrome `https://www.zhihu.com/creator` 落 `/signin?next=%2Fcreator`，cookie 只有 `d_c0`/`_zap`，无 `z_c0`）；Medium 仍无 `MEDIUM_API_KEY`、可见 Chrome `/me/stories` 显示 Sign in（公开副本 `73291d5e3a50` 本身 200 且标题正确）；掘金 `/creator/home` 仍**掉登录**（落回 `https://juejin.cn/`，导航为 登录/注册；队列中掘金任务为 0，无影响）；X `@yunwei37` 已登录（1,752 posts）；LinkedIn `/in/yunwei37` 仍落 `/authwall`。按"历史回补默认只处理 tutorial"取教程序列中最早的 DEV 缺口 `8-exitsnoop`（`confirmed_source_urls` 与明细行都没有它；Medium 副本 `73291d5e3a50` 早已 `confirmed`）。发布前用 DEV 公开 API 复查账号 77 篇、精确标题 0 篇重复；站点原文 `/tutorials/8-exitsnoop/` 与 `/zh/tutorials/8-exitsnoop/` 均 200。
+- 额度口径：发布时刻 `2026-11-17T00:38:36Z` 属 LA `2026-11-16 16:38 PST`，用掉 **LA 11-16 正常额度**（LA 11-16 当日此前无其它发布）；补发缺口仍为 0。
+- 定时运行未接管：`posts_queue.txt` 为空时定时 `publish-posts` 不会自行排队，沿用 2026-11-10..16 的先例，手工写入队列、推送 `main` 后再 dispatch；run 结束后 bot 提交 `37785955a0e` 已清空队列。
+- 运行延迟（真实异常，未修）：dispatch 于 `2026-11-17T00:17:37Z`，job 到 `00:38:26Z` 才启动，排队约 21 分钟；同期 bpftime `queued` 稳定 39-40 条、本仓库另有 2 条 queued。`runs-on: ubuntu-24.04` 的固定没有挡住这段排队，11-15 的 17 秒与 11-16 的 62 秒都是短窗口。
+- 发布后列表滞后：公开作者 API 在发布 20 分钟后仍只返回 77 篇（`5052614` 不在列表里），而 per-article 端点与公开页已 200。沿用 11-12 的结论：不要把列表当作发布证据。
+- 同次观察（未修）：Medium 的 tutorial 8 副本标题为 `… Exit Events, Print Output with Ring Buffer`（多一个 `Print`），与源文 `… Exit Events, Output with Ring Buffer` 不一致，属 2023 年 API 导入的旧缺陷；修需登录 Medium 编辑器。DEV 副本的 canonical 仍是 DEV 自身（连续第十五次），根因仍在上游 `media-publisher`。
+- 遗留：tutorial 4 的源文围栏粘连（`docs/tutorials/4-opensnoop/README.md:107-109`）与 tutorial 8 的 `COMM".` 表头都仍未回改上游 `bpf-developer-tutorial`。下一候选 `11-bootstrap`（`9-runqlat`/`10-hardirqs`/`16-memleak` 虽无明细行，但已在 `confirmed_source_urls` 里算覆盖；11–15 按精确标题在 DEV 账号 77 篇里都没有副本）。
 ### 2026-11-16 排期（LA 时区）
 
 - [x] `排队` DEV：`docs/tutorials/7-execsnoop/README.md`。由 `publish-posts` workflow（run 43781972664，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-16T00:43:45Z`（LA 11-15 16:43 PST，+08 11-16 08:43，dispatch 后 62 秒起 job、整条 1 分 15 秒）从 `draft/media/2026-11-16/7-execsnoop/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c>（article id 5044058，tag `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 3，0 反应 0 评论，DEV 覆盖 69 -> 70/128）。准备稿是源文**逐字节副本**（5,103 字节，sha256 相同；源文无图片、无表格、无相对链接，2 个外链已是绝对地址，6 个围栏自带 `c`/`shell`/`console` 标签）。公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（5,013 字符）。可见页 1 h1（精确标题）、3 个正文 H2（`perf buffer`、`execsnoop`、`Summary`，= 源文 3 个 `##`）、0 H3、6 个 `pre`（`highlight c` x3、`highlight shell` x2、`highlight console` x1，无围栏丢语言）、0 表格、0 图片、645 词、结尾完整（含 `bpf-developer-tutorial` 链接）、tag 芯片 `#ebpf`/`#linux`/`#tutorial`/`#kernel`。

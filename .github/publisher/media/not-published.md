@@ -1,11 +1,22 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-16
+Last checked: 2026-11-17
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-17: the `publish-posts` workflow (run 43986441112) published `docs/tutorials/8-exitsnoop/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2>, `2026-11-17T00:38:36Z`,
+article id 5052614) from `draft/media/2026-11-17/8-exitsnoop/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed since 2023. The artifact deviates from the source in one line: the source's `Run:` console
+header ends with `COMM".` and the artifact drops the stray `".` (the Chinese source has the clean header). The published
+`body_markdown` matches the artifact after the H1 strip character for character (6,901 chars), and the visible page renders
+the exact title, 4 body H2, 1 H3, 5 code blocks with every fence label preserved, the complete ending, 0 reactions and
+0 comments. Canonical is still DEV self, the fifteenth consecutive API syndication with that defect. It used the LA
+2026-11-16 normal slot. `.github/publisher/posts_queue.txt` is empty again because the workflow pops each entry after a
+successful publish. The same run waited 21 minutes for a runner (bpftime held 39-40 queued runs), and the public author
+API still listed 77 posts 20 minutes after publication, so the listing is again not usable as publish evidence.
 2026-11-16: the `publish-posts` workflow (run 43781972664) published `docs/tutorials/7-execsnoop/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-7-capturing-process-execution-output-with-perf-event-array-5d6c>, `2026-11-16T00:43:45Z`,
 article id 5044058) from `draft/media/2026-11-16/7-execsnoop/devto.md`, so it is no longer a pending DEV source; its
