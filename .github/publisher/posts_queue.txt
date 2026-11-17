@@ -1,1 +1,0 @@
-{"path":"draft/media/2026-11-17/8-exitsnoop/devto.md","tags":["ebpf","linux","tutorial","kernel"]}
