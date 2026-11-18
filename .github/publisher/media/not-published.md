@@ -1,11 +1,25 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-17
+Last checked: 2026-11-18
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-18: the `publish-posts` workflow (run 44210208198) published `docs/tutorials/11-bootstrap/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-11-develop-user-space-programs-with-libbpf-and-trace-exec-and-exit-2mci>, `2026-11-18T00:44:18Z`,
+article id 5060707) from `draft/media/2026-11-18/11-bootstrap/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed since 2023. The artifact repairs three defects of the English sync source that the Chinese
+source does not have: `README.md:125` fuses `if (start_ts)` with its body, `:269` closes the `c` fence inline on a code
+line (which swallowed the next nine lines and the `bootstrap.h` block into prose), and `:617` ends the `Compile and Run`
+output with `(0ms)".`; the artifact splits the `if`, deletes the inline fence so the block count returns to the source's
+19, and drops the stray `".`. The published `body_markdown` matches the artifact after the H1 strip character for
+character (22,532 chars), and the visible page renders the exact title, 7 body H2, 2 H3, 19 code blocks with every fence
+language preserved (16 `c`, 2 `shell`, 1 `console`), 0 leaked fences and the complete ending, with 0 reactions and
+0 comments. Canonical is still DEV self, the sixteenth consecutive API syndication with that defect. It used the LA
+2026-11-17 normal slot. `.github/publisher/posts_queue.txt` is empty again because the workflow pops each entry after a
+successful publish, and the public author API still listed 77 posts minutes after publication, so the listing remains
+unusable as publish evidence.
 2026-11-17: the `publish-posts` workflow (run 43986441112) published `docs/tutorials/8-exitsnoop/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2>, `2026-11-17T00:38:36Z`,
 article id 5052614) from `draft/media/2026-11-17/8-exitsnoop/devto.md`, so it is no longer a pending DEV source; its
