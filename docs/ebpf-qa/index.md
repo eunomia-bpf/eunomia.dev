@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why does an in-kernel BPF string search stop at the first zero byte, and what would a binary pattern search need?](/ebpf-qa/2026-11-17-string-kfuncs-stop-at-nul-vs-binary-search/)
 - [Why can a BPF uprobe program write a register that decides whether the kernel returns to user mode, and what should the verifier reject?](/ebpf-qa/2026-11-16-uprobe-ctx-write-reaches-exit-status/)
 - [Why can a profile sample link to a trace span that was never sampled, and what has to be enabled before the link exists at all?](/ebpf-qa/2026-11-15-profile-sample-span-link-unsampled-and-two-opt-ins/)
 - [Why can a BPF modify-return program fail a kernel function the kernel never listed, and what decides whether skipping it is safe?](/ebpf-qa/2026-11-14-modify-return-target-rule-vs-skipped-side-effects/)

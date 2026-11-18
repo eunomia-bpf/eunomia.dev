@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么内核里的 BPF 字符串查找遇到第一个零字节就停下，而二进制模式查找还需要什么？](/zh/ebpf-qa/2026-11-17-string-kfuncs-stop-at-nul-vs-binary-search/)
 - [为什么一个 BPF uprobe 程序能写到决定内核返回用户态的那个寄存器，校验器又该拒绝哪些偏移？](/zh/ebpf-qa/2026-11-16-uprobe-ctx-write-reaches-exit-status/)
 - [为什么一个 profile 样本能链接到从未被采样的 trace span，而这个链接本身又需要先打开哪些开关？](/zh/ebpf-qa/2026-11-15-profile-sample-span-link-unsampled-and-two-opt-ins/)
 - [为什么一个 BPF 修改返回值的程序能让内核从未列入清单的函数失败，又是什么决定跳过它是否安全？](/zh/ebpf-qa/2026-11-14-modify-return-target-rule-vs-skipped-side-effects/)
