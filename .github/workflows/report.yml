@@ -93,12 +93,19 @@ jobs:
 
       - name: Commit weekly report archive
         if: ${{ env.REPORT_EXISTS != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG: ${{ env.ORG }}
+          RANGE: ${{ env.RANGE }}
+          QUERY: ${{ env.QUERY }}
+          REPORT_OUTPUT_FILE: ${{ env.REPORT_PATH }}
+          REPORT_INDEX_FILE: ${{ env.REPORT_INDEX_FILE }}
+          MONTHLY_REPORTS_DIR: ${{ env.MONTHLY_REPORTS_DIR }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add "$REPORT_PATH"
-          git diff --staged --quiet || git commit -m "Add weekly org report ${RANGE} [skip ci]"
-          git push origin HEAD:${GITHUB_REF_NAME}
+          .github/scripts/commit_org_report.sh \
+            "Add weekly org report ${RANGE} [skip ci]" "$REPORT_PATH"
 
       - name: Create weekly report issue
         if: ${{ env.REPORT_EXISTS != 'true' }}
@@ -150,12 +157,20 @@ jobs:
         run: python3 .github/generate_org_report.py
 
       - name: Commit monthly report archive
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG: ${{ env.ORG }}
+          RANGE: ${{ env.RANGE }}
+          QUERY: ${{ env.QUERY }}
+          REPORT_OUTPUT_FILE: ${{ env.REPORT_PATH }}
+          REPORT_INDEX_FILE: ${{ env.REPORT_INDEX_FILE }}
+          MONTHLY_REPORTS_DIR: ${{ env.MONTHLY_REPORTS_DIR }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add "$REPORT_PATH" "$REPORT_INDEX_FILE"
-          git diff --staged --quiet || git commit -m "Add monthly org report ${RANGE} [skip ci]"
-          git push origin HEAD:${GITHUB_REF_NAME}
+          .github/scripts/commit_org_report.sh \
+            "Add monthly org report ${RANGE} [skip ci]" \
+            "$REPORT_PATH" "$REPORT_INDEX_FILE"
 
       - name: Create monthly report issue
         uses: peter-evans/create-issue-from-file@v6
@@ -232,12 +247,20 @@ jobs:
 
       - name: Commit monthly report archive
         if: ${{ env.COMMIT_REPORT == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG: ${{ env.ORG }}
+          RANGE: ${{ env.RANGE }}
+          QUERY: ${{ env.QUERY }}
+          REPORT_OUTPUT_FILE: ${{ env.REPORT_PATH }}
+          REPORT_INDEX_FILE: ${{ env.REPORT_INDEX_FILE }}
+          MONTHLY_REPORTS_DIR: ${{ env.MONTHLY_REPORTS_DIR }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add "$REPORT_PATH" "$REPORT_INDEX_FILE"
-          git diff --staged --quiet || git commit -m "Add monthly org report ${RANGE} [skip ci]"
-          git push origin HEAD:${GITHUB_REF_NAME}
+          .github/scripts/commit_org_report.sh \
+            "Add monthly org report ${RANGE} [skip ci]" \
+            "$REPORT_PATH" "$REPORT_INDEX_FILE"
 
       - name: Maybe create an issue
         if: ${{ github.event.inputs.create_issue == 'true' }}
