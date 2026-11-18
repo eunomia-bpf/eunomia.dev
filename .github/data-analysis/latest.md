@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-17 16:58 UTC`
+Generated: `2026-11-18 16:36 UTC`
 
 ## Collection health
 
@@ -14,23 +14,23 @@ Generated: `2026-11-17 16:58 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `211 ms`.
+- Homepage: `200` in `756 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `920`.
+- Sitemap entries observed: `922`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `100`.
-- Current stars: `10323`; forks: `1367`; open issue/PR records: `394`.
+- Current stars: `10332`; forks: `1366`; open issue/PR records: `398`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4342 | 608 | 28 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1608 | 192 | 156 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 910 | 79 | 25 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 795 | 121 | 54 |
-| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 451 | 35 | 6 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4343 | 608 | 28 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1610 | 191 | 154 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 911 | 79 | 25 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 796 | 121 | 59 |
+| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 452 | 35 | 6 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 244 | 42 | 70 |
 | [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 150 | 21 | 0 |
