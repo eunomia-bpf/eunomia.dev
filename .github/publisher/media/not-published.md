@@ -1,11 +1,23 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-18
+Last checked: 2026-11-19
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-19: the `publish-posts` workflow (run 44429067976) published `docs/tutorials/12-profile/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-12-using-ebpf-program-profile-for-performance-analysis-4im2>, `2026-11-19T00:27:07Z`,
+article id 5069111) from `draft/media/2026-11-19/12-profile/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed since 2023. The artifact is a byte-identical copy of the source (18,575 bytes, same
+sha256): this English source has no fence defect, no relative link, no image and no table, so unlike tutorials 4, 8
+and 11 nothing needed repair. The published `body_markdown` matches the artifact after the H1 strip character for
+character (18,490 chars), and the visible page renders the exact title, 2 body H2, 3 H3, 15 code blocks with the
+`c`/`console`/`rust` labels preserved, 0 leaked fences, 0 images, 0 tables and the complete ending, with 0 reactions
+and 0 comments; all five external link targets answer 200. Canonical is still DEV self, the seventeenth consecutive
+API syndication with that defect. It used the LA 2026-11-18 normal slot. `.github/publisher/posts_queue.txt` is
+empty again because the workflow pops each entry after a successful publish, and the public author API still listed
+79 posts minutes after publication without 5069111, so the listing remains unusable as publish evidence.
 2026-11-18: the `publish-posts` workflow (run 44210208198) published `docs/tutorials/11-bootstrap/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-11-develop-user-space-programs-with-libbpf-and-trace-exec-and-exit-2mci>, `2026-11-18T00:44:18Z`,
 article id 5060707) from `draft/media/2026-11-18/11-bootstrap/devto.md`, so it is no longer a pending DEV source; its
