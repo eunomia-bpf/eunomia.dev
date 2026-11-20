@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么带符号位已置位的无符号枚举成员会让 CO-RE 枚举值重定位拒绝整个目标文件，修复又必须接受哪些形式？](/zh/ebpf-qa/2026-11-19-core-enum-value-relocation-unsigned-top-bit/)
 - [当 kfunc 的原型发生不兼容变更时，为什么已经编译好的 BPF 程序就不再能加载，又需要怎样才能让它们继续工作？](/zh/ebpf-qa/2026-11-18-kfunc-prototype-change-breaks-prebuilt-programs/)
 - [为什么内核里的 BPF 字符串查找遇到第一个零字节就停下，而二进制模式查找还需要什么？](/zh/ebpf-qa/2026-11-17-string-kfuncs-stop-at-nul-vs-binary-search/)
 - [为什么一个 BPF uprobe 程序能写到决定内核返回用户态的那个寄存器，校验器又该拒绝哪些偏移？](/zh/ebpf-qa/2026-11-16-uprobe-ctx-write-reaches-exit-status/)
