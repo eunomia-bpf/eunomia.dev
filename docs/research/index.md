@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can eBPF Add Native Operations Without Creating a Second Verifier?](https://eunomia.dev/research/ebpf-native-operation-contract/)
+
+Native operations can recover machine-specific performance without changing the portable BPF source, but each backend's native emit adds trust below the verifier. This report develops verifier-visible typed effect contracts, cross-architecture conformance gates, and revocable implementation provenance with a portable fallback.
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.

@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF 加原生硬件操作时，能不造第二个 Verifier 吗？](https://eunomia.dev/zh/research/ebpf-native-operation-contract/)
+
+Native operation 可以恢复特定硬件能力，却也让每个 backend 的 native emit 在 verifier 之后增加新的信任。本文提出 verifier 可见的 typed-effect contract、跨架构 conformance gate，以及可撤销并能退回 portable sequence 的 implementation provenance。
+
 ### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
 
 kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。
