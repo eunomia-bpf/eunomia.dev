@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can Linux Promise That CXL Memory Will Be Removable Later?](https://eunomia.dev/research/cxl-memory-hot-remove-reliability/)
+
+Linux can add CXL capacity as System RAM, but later removal depends on evacuating every block and tearing down the device stack. This report separates hotplug capability from future removability and develops admission budgets, evacuation witnesses, and blocker-class lifecycle benchmarks.
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
