@@ -9,6 +9,10 @@ Eunomia 每日报告围绕具体系统问题展开，比较一手证据，分析
 
 ## 当前报告
 
+### [eBPF Link 比控制器活得更久，安全吗？](https://eunomia.dev/zh/research/ebpf-link-controller-reconciliation/)
+
+Pinned BPF link 可以跨过 controller 退出继续存在，但 userspace ownership metadata 可能已经丢失或改变。本文提出 generation-scoped attachment receipt、对 ambiguous link 的 quarantine，以及 crash-fuzzed reconciliation，避免 restart 产生重复 attachment 或误删其他 controller 的状态。
+
 ### [eBPF 加载器能把 kfunc 简化成“有”或“没有”吗？](https://eunomia.dev/zh/research/ebpf-kernel-interface-negotiation/)
 
 kfunc、open-coded iterator、`struct_ops` 和 provider-scoped feature 都不是简单的“存在/不存在”位。本文提出 typed interface requirement、scoped capability negotiation 与 dependency-driven compatibility CI，同时保留目标内核 verifier 作为最终准入权威。

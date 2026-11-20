@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [Can an eBPF Link Outlive Its Controller Safely?](https://eunomia.dev/research/ebpf-link-controller-reconciliation/)
+
+Pinned BPF links can survive controller exits while userspace ownership metadata disappears or changes. This report develops generation-scoped attachment receipts, quarantine for ambiguous links, and crash-fuzzed reconciliation to keep restarts from duplicating attachments or deleting another controller's state.
+
 ### [Can an eBPF Loader Treat a kfunc as Just Present or Missing?](https://eunomia.dev/research/ebpf-kernel-interface-negotiation/)
 
 kfuncs, open-coded iterators, `struct_ops`, and provider-scoped features expose more than a present-or-missing bit. This report develops typed interface requirements, scoped capability negotiation, and dependency-driven compatibility CI while keeping the target verifier as final admission authority.
