@@ -42,6 +42,7 @@
 - 列表滞后未复现：本次公开作者 API 在发布后即返回 80 篇且包含 `5077727`。仍沿用 11-12 的结论：不要用列表判断发布结果（11-17..19 三次都滞后）。
 - X `2122736534206181608`（Lean 证明检查成本）1,785 浏览 / 18 赞 / 4 转帖 / 8 书签 / 2 回复（上一快照 1,728/18/4/8/2），两条回复仍不需回。`2122011756633665955`（bpf-gpu-server）983 浏览 / 30 赞 / 10 书签 / 1 回复，唯一回复仍是 `@sunilmehta_si` 11-16 的复述。
 - HN 无新回声：`search_by_date` 最新的 eunomia 故事仍是 50385391（AgentSight，2026-11-05，2 分 0 评论）；11-16..19 的 "eunomia" 评论命中都是他词模糊匹配。tutorial 13 的精确标题搜索只返回站点原文、教程索引和一个 GitHub fork 镜像，无独立讨论。
+- 站点部署：记录用的两次 `Deploy Static App` 都跑完了完整流水线（`0a78a1eebce` run 44646539256 于 `01:04:05Z` success，`7d7a693fb67` run 44648958226 于 `01:31:36Z` success），13 个步骤全绿。`docs/` 未被这两个提交触及（`git diff ac1acc55346..HEAD -- docs/` 为空），部署内容与发布前一致；live `/tutorials/13-tcpconnlat/`、`/tutorials/12-profile/` 均 200。`Verify static export` 这一步本次耗时约 19 分钟，与 11-19 的 19 分 42 秒同档（runner 慢），不是新的异常。
 
 ## 遗留
 
@@ -53,4 +54,4 @@
 ## 下一次具体动作
 
 1. 恢复知乎登录后，从 `53-egress-pacer` 起继续处理 23 条知乎任务（掘金恢复登录后可作备用发布通道）。
-2. 若 DEV 继续日更：下一候选 `14-tcpstates`（`15-javagc` 同样缺）。
+2. 若 DEV 继续日更：下一候选 `14-tcpstates`。上游 `bpf-developer-tutorial` 的 `src/14-tcpstates/README.md` 实测与本地 `docs/tutorials/14-tcpstates/README.md` 逐字节相同（410 行，`diff` 空），缺陷同在英文源文：`:50` 的围栏末尾粘了 `__type(key, __u16);`（把 `dports` 那段提前闭合，中文源文 `README.zh.md:44-49` 完整），`:252` 的 `RTT data.Instructions:` 两句挤在一行（中文源文无此段），`:303-304` 的 `225.794".` 与 `"ffff…` 把两行输出用引号粘起，`:351-352` 的 `framework.".` 与围栏结尾 `See https://…` 粘成一行，`:387` 的 `…|512 -> 1023 : 11` 把两行 histogram 粘成一行。
