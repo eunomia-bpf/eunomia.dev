@@ -1,11 +1,24 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-19
+Last checked: 2026-11-20
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-20: the `publish-posts` workflow (run 44644797186) published `docs/tutorials/13-tcpconnlat/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-13-statistics-of-tcp-connection-delay-with-libbpf-45kc>, `2026-11-20T00:18:40Z`,
+article id 5077727) from `draft/media/2026-11-20/13-tcpconnlat/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed since 2023. The artifact repairs four things the Chinese source does not need: the relative
+`tcpconnlat1.png` becomes the 200-answering `_content-assets` URL, `README.md:209` opens the kernel comment as `/*".`
+(artifact `/**`), `:544` fuses the build output into `.bpf.o".GEN-SKEL` (artifact splits it), and `:573` links the stale
+`/tutorials/13-tcpconnect` slug (artifact `/tutorials/13-tcpconnlat`). The published `body_markdown` matches the artifact after
+the H1 strip character for character (24,645 chars), and the visible page renders the exact title, 5 body H2, 3 H3, 10 code
+blocks with the `c`/`console` labels preserved, 0 leaked fences, 1 loaded image, 0 tables and the complete ending, with 0
+reactions and 0 comments; all five external link targets answer 200. Canonical is still DEV self, the eighteenth consecutive
+API syndication with that defect. It used the LA 2026-11-19 normal slot. `.github/publisher/posts_queue.txt` is empty again
+because the workflow pops each entry after a successful publish, and this time the public author API listed 80 posts
+including the new one, so the multi-minute listing lag of 2026-11-17..19 did not reproduce.
 2026-11-19: the `publish-posts` workflow (run 44429067976) published `docs/tutorials/12-profile/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-12-using-ebpf-program-profile-for-performance-analysis-4im2>, `2026-11-19T00:27:07Z`,
 article id 5069111) from `draft/media/2026-11-19/12-profile/devto.md`, so it is no longer a pending DEV source; its
