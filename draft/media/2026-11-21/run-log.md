@@ -44,6 +44,7 @@
 - 运行延迟：dispatch 后 job 于 `00:24:52Z` 启动，整条约 30 秒（11-20 那次 19 秒）。
 - 列表滞后复现：发布后公开作者 API 返回 81 篇但**不含** `5084990`，而 per-article 端点与公开页已 200。再次确认"不要用列表判断发布结果"。
 - X `2122736534206181608`（Lean 证明检查成本）1,801 浏览 / 18 赞 / 4 转帖 / 8 书签 / 2 回复（上一快照 1,785/18/4/8/2）；两条回复仍是 `@difficultyang` 的观点与 `@sk_196883` 的感叹，不需回。`2122011756633665955`（bpf-gpu-server）987 浏览 / 30 赞 / 10 书签 / 1 回复（983/30/10/1），唯一回复仍是 `@sunilmehta_si` 11-16 的复述。
+- 站点部署：记录提交的 `Deploy Static App`（run 44845376924，`e286b7c9f36`）在 `01:04:06Z` success，整条 23 分 23 秒，其中 `Verify static export` 仍是最慢一步（与 11-19/20 的 19 分钟同档，runner 慢，不是新异常）。`docs/` 未被本轮提交触及（`git diff ba808ed769b..HEAD -- docs/` 为空）；live `/tutorials/14-tcpstates/`、`/zh/tutorials/14-tcpstates/`、`/tutorials/13-tcpconnlat/` 均 200。
 - HN 无新回声：`search_by_date` 最新的 eunomia 故事仍是 50385391（AgentSight，2026-11-05，2 分 0 评论）；tutorial 14 精确标题搜索 0 命中。DEV 11-09..11-21 的副本全部 0 反应 0 评论（含昨日 tutorial 13）。
 
 ## 遗留
