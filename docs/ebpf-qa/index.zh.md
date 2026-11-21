@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么 BPF ring buffer 的消费者会在记录已经入队时睡下去，又需要什么顺序保证唤醒握手成立？](/zh/ebpf-qa/2026-11-20-ringbuf-wakeup-storeload-handshake/)
 - [为什么带符号位已置位的无符号枚举成员会让 CO-RE 枚举值重定位拒绝整个目标文件，修复又必须接受哪些形式？](/zh/ebpf-qa/2026-11-19-core-enum-value-relocation-unsigned-top-bit/)
 - [当 kfunc 的原型发生不兼容变更时，为什么已经编译好的 BPF 程序就不再能加载，又需要怎样才能让它们继续工作？](/zh/ebpf-qa/2026-11-18-kfunc-prototype-change-breaks-prebuilt-programs/)
 - [为什么内核里的 BPF 字符串查找遇到第一个零字节就停下，而二进制模式查找还需要什么？](/zh/ebpf-qa/2026-11-17-string-kfuncs-stop-at-nul-vs-binary-search/)

@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why can a BPF ring buffer consumer sleep with records already queued, and what ordering makes the wakeup handshake complete?](/ebpf-qa/2026-11-20-ringbuf-wakeup-storeload-handshake/)
 - [Why does a CO-RE enum value relocation refuse an object over an unsigned enum member with its top bit set, and what does a fix have to accept?](/ebpf-qa/2026-11-19-core-enum-value-relocation-unsigned-top-bit/)
 - [When a kfunc prototype changes incompatibly, why do already-built BPF programs stop loading and what does it take to keep them working?](/ebpf-qa/2026-11-18-kfunc-prototype-change-breaks-prebuilt-programs/)
 - [Why does an in-kernel BPF string search stop at the first zero byte, and what would a binary pattern search need?](/ebpf-qa/2026-11-17-string-kfuncs-stop-at-nul-vs-binary-search/)
