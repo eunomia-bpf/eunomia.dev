@@ -1,11 +1,25 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-20
+Last checked: 2026-11-21
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-21: the `publish-posts` workflow (run 44843640872) published `docs/tutorials/14-tcpstates/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-14-recording-tcp-connection-status-and-tcp-rtt-4ggl>, `2026-11-21T00:25:03Z`,
+article id 5084990) from `draft/media/2026-11-21/14-tcpstates/devto.md`, so it is no longer a pending DEV source; its Medium
+copy has been confirmed since 2023. The artifact repairs six defects of the English sync source that the Chinese source does not
+have: `README.md:49-50` fuses the `dports` map behind an inline fence (the `c` block closes early and `dports` renders as
+prose), `:176` opens a paragraph with a stray closing backtick, `:252` fuses the standalone `Instructions:` heading onto the
+previous sentence, `:303-304` wrap two `tcpstates` output rows in stray quotes, `:351-352` end the `ecli` help block with
+`framework".` and fuse `See https://github.com/eunomia-bpf/eunomia-bpf …` onto the closing fence, and `:387` fuses the
+`256 -> 511` and `512 -> 1023` histogram rows. The published `body_markdown` matches the artifact after the H1 strip
+character for character (21,856 chars), and the visible page renders the exact title, 5 body H2, 4 H3, 9 code blocks
+(`shell` x2, `c` x4, `console` x3), 0 leaked fences, 0 images, 0 tables and the complete ending, with 0 reactions and
+0 comments; all five outbound targets and the tail link answer 200. Canonical is still DEV self, the nineteenth consecutive
+API syndication with that defect. It used the LA 2026-11-20 normal slot. `.github/publisher/posts_queue.txt` is empty
+again because the workflow pops each entry after a successful publish.
 2026-11-20: the `publish-posts` workflow (run 44644797186) published `docs/tutorials/13-tcpconnlat/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-13-statistics-of-tcp-connection-delay-with-libbpf-45kc>, `2026-11-20T00:18:40Z`,
 article id 5077727) from `draft/media/2026-11-20/13-tcpconnlat/devto.md`, so it is no longer a pending DEV source; its
