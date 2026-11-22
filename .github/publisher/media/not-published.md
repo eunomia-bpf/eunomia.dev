@@ -1,11 +1,22 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-21
+Last checked: 2026-11-22
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-22: the `publish-posts` workflow (run 44965605572) published `docs/tutorials/15-javagc/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4>, `2026-11-22T00:14:19Z`,
+article id 5090916) from `draft/media/2026-11-22/15-javagc/devto.md`, so it is no longer a pending DEV source; its Medium
+copy has been confirmed since 2023. The artifact repairs four defects of the English sync source that the Chinese source does
+not have: `README.md:47` fuses `solve the problem.` with `In Linux, USDT ...`, `:105` drops the `;` on the `perf_map`
+`BPF_MAP_TYPE_PERF_EVENT_ARRAY` definition, `:185` fuses `respectively.` with `Finally, we have a LICENSE array ...`, and
+`:317` loses the `## Summary` heading and renders `Summary.Through this introductory eBPF tutorial ...`. The published
+`body_markdown` matches the artifact after the H1 strip character for character (16,143 chars), and the visible page renders
+the exact title, 6 body H2, 3 H3, 10 code blocks (`shell` x5, `c` x4, `console` x1), 0 images, 0 tables, 4 tags, 0 reactions,
+0 comments and the complete ending; all six outbound targets answer 200. Canonical is still DEV self, the twentieth
+consecutive API syndication with that defect.
 2026-11-21: the `publish-posts` workflow (run 44843640872) published `docs/tutorials/14-tcpstates/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-14-recording-tcp-connection-status-and-tcp-rtt-4ggl>, `2026-11-21T00:25:03Z`,
 article id 5084990) from `draft/media/2026-11-21/14-tcpstates/devto.md`, so it is no longer a pending DEV source; its Medium
@@ -178,7 +189,8 @@ The machine ledger currently reports 41 unmatched Chinese sources on Zhihu and
 non-standalone index or reference pages, and duplicate source representations.
 The ordered platform actions that remain suitable candidates are maintained
 one-by-one in `draft/plan/publishing-queue.zh.md`; 23 Zhihu and 0 Juejin tasks
-remain. Each checkbox is one platform task. The normal target is one
+remain. The latest checked `.github/publisher/posts_queue.txt` is empty; the DEV backfill
+continues with one tutorial per day. Each checkbox is one platform task. The normal target is one
 publication per day; documented catch-up slots may add another platform, never
 a second post on the same platform that day unless it redeems a catch-up gap.
 
