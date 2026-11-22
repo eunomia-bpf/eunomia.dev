@@ -6005,6 +6005,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/async-ebpf-causal-profiler/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/cxl-memory-hot-remove-reliability/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/cxl-memory-hot-remove-reliability/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/cxl-memory-hot-remove-reliability/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/cxl-memory-hot-remove-reliability/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/cxl-memory-hot-remove-reliability/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/cxl-memory-hot-remove-reliability/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/cxl-memory-hot-remove-reliability/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/cxl-memory-hot-remove-reliability/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/cxl-memory-tier-isolation/</loc>
     <lastmod>2026-09-17</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/cxl-memory-tier-isolation/" />
@@ -6185,6 +6199,48 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-l7-proxy-policy-identity/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-l7-proxy-policy-identity/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-l7-proxy-policy-identity/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/research/ebpf-link-controller-reconciliation/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-link-controller-reconciliation/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-link-controller-reconciliation/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-link-controller-reconciliation/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-link-controller-reconciliation/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-link-controller-reconciliation/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-link-controller-reconciliation/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-link-controller-reconciliation/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/research/ebpf-map-reuse-semantic-compatibility/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-map-reuse-semantic-compatibility/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-map-reuse-semantic-compatibility/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-map-reuse-semantic-compatibility/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-map-reuse-semantic-compatibility/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-map-reuse-semantic-compatibility/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-map-reuse-semantic-compatibility/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-map-reuse-semantic-compatibility/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/research/ebpf-native-operation-contract/</loc>
+    <lastmod>2026-09-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-native-operation-contract/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-native-operation-contract/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-native-operation-contract/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/ebpf-native-operation-contract/</loc>
+    <lastmod>2026-09-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/ebpf-native-operation-contract/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/ebpf-native-operation-contract/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/ebpf-native-operation-contract/" />
   </url>
   <url>
     <loc>https://eunomia.dev/research/ebpf-native-operation-trust-boundary/</loc>
@@ -6412,14 +6468,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/research/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/research/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/" />
@@ -6437,6 +6493,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/io-uring-bpf-programmability/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/io-uring-bpf-programmability/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/io-uring-bpf-programmability/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/research/io-uring-cancel-terminal-state/</loc>
+    <lastmod>2026-09-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/io-uring-cancel-terminal-state/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/io-uring-cancel-terminal-state/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/io-uring-cancel-terminal-state/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/io-uring-cancel-terminal-state/</loc>
+    <lastmod>2026-09-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/io-uring-cancel-terminal-state/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/io-uring-cancel-terminal-state/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/io-uring-cancel-terminal-state/" />
   </url>
   <url>
     <loc>https://eunomia.dev/research/linux-atomic-write-crash-semantics/</loc>
