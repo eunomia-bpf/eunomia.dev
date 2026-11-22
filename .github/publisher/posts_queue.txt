@@ -1,1 +1,0 @@
-{"path":"draft/media/2026-11-22/15-javagc/devto.md","tags":["ebpf","linux","tutorial","kernel"]}
