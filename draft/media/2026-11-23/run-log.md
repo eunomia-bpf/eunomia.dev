@@ -44,6 +44,8 @@
 - X `2122736534206181608`（Lean 证明检查成本）1,817 浏览 / 18 赞 / 4 转帖 / 8 书签 / 2 回复（上一快照 1,812/18/4/8/2）；两条回复仍是 `@difficultyang` 的观点与 `@sk_196883` 的感叹，不需回。`2122011756633665955`（bpf-gpu-server）991 浏览 / 30 赞 / 9 书签 / 1 回复（990/30/9/1），唯一回复仍是 `@sunilmehta_si` 11-16 的复述。
 - 站点原文：live `/tutorials/15-javagc/` 仍 5 个正文 H2（缺 `Summary`），与 11-22 记录一致；`/tutorials/17-biopattern/` 仍 1 H1 / 4 H2 / 1 H3 / 11 `pre`，四处源文缺陷均在渲染里可见。
 - HN 无新回声：`search_by_date` 最新的 eunomia 故事仍是 50385391（AgentSight，2026-11-05，2 分 0 评论）；`Count Random/Sequential Disk I/O` 精确标题搜索 0 命中。DEV 11-09..11-23 的副本全部 0 反应 0 评论。
+- 站点部署（真实异常，已恢复）：记录提交 `53361e121c5` 触发的 `Deploy Static App`（run 45089102152）先失败——`deploy-static-app` 的 build/export/upload 全绿，`Deploy to GitHub Pages` 报 `No artifacts named "github-pages" were found for this workflow run`。这是 `upload-pages-artifact@v5` 与 `deploy-pages@v5` 之间的基础设施抖动，不是内容或 worktree 改动导致（`git diff --name-only 372f723406d..53361e121c5 -- docs/ app/` 为空）。`gh run rerun 45089102152` 后重跑成功（01:21Z），live `/tutorials/17-biopattern/` 与 `/` 均 200。
+- 本次两轮 `Deploy Static App`（run 45087805771 26 分钟、run 45089102152 24 分钟后重跑约 26 分钟）延续 11-19..22 的 runner 偏慢，`pending` 与 job 执行都在十几到二十几分钟量级。
 
 ## 遗留
 
