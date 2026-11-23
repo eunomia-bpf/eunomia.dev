@@ -2,49 +2,49 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-22 15:29 UTC`
+Generated: `2026-11-23 19:22 UTC`
 
 ## Collection health
 
 | Source | Status | Observed | Changed |
 | --- | --- | ---: | ---: |
 | websites | succeeded | 1 | 0 |
-| github | succeeded | 157 | 0 |
-| devto | succeeded | 82 | 0 |
+| github | succeeded | 158 | 0 |
+| devto | succeeded | 84 | 0 |
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `162 ms`.
+- Homepage: `200` in `184 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `932`.
+- Sitemap entries observed: `944`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
-- Active, non-fork repositories: `100`.
-- Current stars: `10344`; forks: `1367`; open issue/PR records: `398`.
+- Active, non-fork repositories: `101`.
+- Current stars: `10351`; forks: `1368`; open issue/PR records: `382`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4346 | 608 | 27 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1612 | 191 | 151 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 910 | 79 | 28 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 803 | 121 | 56 |
-| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 452 | 35 | 10 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4347 | 608 | 27 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1612 | 192 | 134 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 911 | 79 | 28 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 806 | 121 | 59 |
+| [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 452 | 35 | 11 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
-| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 245 | 42 | 71 |
+| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 245 | 42 | 66 |
 | [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 150 | 21 | 0 |
 
 ## DEV publication surface
 
-- Articles observed: `82`.
+- Articles observed: `84`.
 - Public reactions: `43`; comments: `4`.
 
+- [eBPF Tutorial by Example 17: Count Random/Sequential Disk I/O](https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7): 0 reactions, 0 comments.
+- [eBPF Tutorial by Example 15: Capturing User-Space Java GC Duration Using USDT](https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4): 0 reactions, 0 comments.
 - [eBPF Tutorial by Example 14: Recording TCP Connection Status and TCP RTT](https://dev.to/yunwei37/ebpf-tutorial-by-example-14-recording-tcp-connection-status-and-tcp-rtt-4ggl): 0 reactions, 0 comments.
 - [eBPF Tutorial by Example 13: Statistics of TCP Connection Delay with libbpf](https://dev.to/yunwei37/ebpf-tutorial-by-example-13-statistics-of-tcp-connection-delay-with-libbpf-45kc): 0 reactions, 0 comments.
 - [eBPF Tutorial by Example 12: Using eBPF Program Profile for Performance Analysis](https://dev.to/yunwei37/ebpf-tutorial-by-example-12-using-ebpf-program-profile-for-performance-analysis-4im2): 0 reactions, 0 comments.
-- [eBPF Tutorial by Example 11: Develop User-Space Programs with libbpf and Trace exec() and exit()](https://dev.to/yunwei37/ebpf-tutorial-by-example-11-develop-user-space-programs-with-libbpf-and-trace-exec-and-exit-2mci): 0 reactions, 0 comments.
-- [eBPF Tutorial by Example 8: Monitoring Process Exit Events, Output with Ring Buffer](https://dev.to/yunwei37/ebpf-tutorial-by-example-8-monitoring-process-exit-events-output-with-ring-buffer-5ea2): 0 reactions, 0 comments.
 
 ## Coverage gaps
 
