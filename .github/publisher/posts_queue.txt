@@ -1,0 +1,1 @@
+{"path":"draft/media/2026-11-23/17-biopattern/devto.md","tags":["ebpf","linux","tutorial","kernel"]}
