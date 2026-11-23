@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-22",
+  "last_checked": "2026-11-23",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-11e7",
+      "status": "confirmed",
+      "date": "2026-11-23",
+      "title": "eBPF Tutorial by Example 17: Count Random/Sequential Disk I/O",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7",
+      "source_path": "docs/tutorials/17-biopattern/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-23T00:17:04Z (LA 2026-11-22 16:17 PST, +08 11-23 08:17) by `publish-posts` workflow run 45087813444 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-23/17-biopattern/devto.md`, article id 5096382, reading_time 9. The artifact differs from `docs/tutorials/17-biopattern/README.md` in four places, each an English-source defect the Chinese original does not have: `:145` terminates the `counters` map snippet with `.` instead of `;` (`README.zh.md:145` has the semicolon), `:206` repeats `This change may cause compatibility issues with eBPF programs on different versions of the kernel.` twice in the tracepoint-compatibility paragraph (`README.zh.md:203` states it once), `:202-204` drop three of the four `Statistics update` sub-bullets back to the parent list level (`README.zh.md:198-201` keeps all four nested), and seven lines (`:195`, `:197`, `:203`, `:226`, `:263`, `:265`, `:322`) close their inline code spans after the parenthesis instead of before it, rendering `(filter_dev` + `true )` and its six siblings as literal backticks (`README.zh.md:196` and the rest are clean). Public `body_markdown` is character-identical to the artifact body after the H1 strip apart from DEV's trailing-newline trim (16,768 vs 16,769 chars). Visible page: 1 h1 with the exact title, 4 body H2 (`Random/Sequential Disk I/O`, `Biopattern`, `eBPF Biopattern Implementation Principles`, `Summary`), 1 H3 (`User State Code`), 11 `pre` (`shell` x2, `console` x1, `c` x8), 0 images, 0 tables, 4 tag chips, 0 comments, no leaked fences; all four repairs verified on the rendered page. Canonical still self-referential (twenty-first)."
+    },
     {
       "id": "devto-45kc",
       "status": "confirmed",
@@ -594,7 +611,8 @@
     "docs/tutorials/12-profile/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-12-using-ebpf-program-profile-for-performance-analysis-4im2",
     "docs/tutorials/13-tcpconnlat/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-13-statistics-of-tcp-connection-delay-with-libbpf-45kc",
     "docs/tutorials/14-tcpstates/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-14-recording-tcp-connection-status-and-tcp-rtt-4ggl",
-    "docs/tutorials/15-javagc/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4"
+    "docs/tutorials/15-javagc/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4",
+    "docs/tutorials/17-biopattern/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7"
   },
   "browser_observations": [
     {
@@ -681,16 +699,23 @@
       "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4",
       "status": "confirmed",
       "notes": "Per-article endpoint (5090916), the public author listing and the visible page agree on title, 6 body H2, 3 H3, 10 `pre`, 4 tags and published_at 2026-11-22T00:14:19Z; visible page showed 0 reactions and 0 comments. The listing returned 83 posts including this one five minutes after publication, so the multi-minute lag seen on 2026-11-17..21 did not reproduce this run."
+    },
+    {
+      "checked_at": "2026-11-23",
+      "checked_via": "dev_public_api_read_plus_visible_public_page_dom",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7",
+      "status": "confirmed",
+      "notes": "Per-article endpoint (5096382) and the visible page agree on title, 4 body H2, 1 H3, 11 `pre`, 4 tags and published_at 2026-11-23T00:17:04Z; the visible page showed 0 reactions and 0 comments. The public author listing returned 82 posts about 20 minutes after publication and contained neither today's copy (5096382) nor yesterday's (5090916), so the multi-minute listing lag reproduced after one clean day; still not a publish signal either way."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
-    "Twenty consecutive API syndications now self-canonicalize (devto-4fd4, devto-4ggl, devto-45kc, devto-4im2, devto-2mci, devto-5ea2, devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
+    "Twenty-one consecutive API syndications now self-canonicalize (devto-11e7, devto-4fd4, devto-4ggl, devto-45kc, devto-4im2, devto-2mci, devto-5ea2, devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
     "The public author API listed 80 posts on 2026-11-20 including the day's copy (devto-45kc), so the multi-minute listing lag did not reproduce; the 2026-07-20 visible-scroll inventory of 54 links is still further behind. Re-scroll the profile before the next full-account audit and stop treating the listing as publish evidence.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
     "New DEV copies published through publish.py still self-canonicalize because the API call sends no canonical_url; pass one on the next API publish instead of repairing it afterwards.",
-    "Syndication defects inherited from the English sync source, not from DEV: `docs/tutorials/11-bootstrap/README.md:125` fuses `if (start_ts)` with its body, `:269` closes the `c` fence inline on a code line, and `:617` ends the console block with `(0ms)\".`; `docs/tutorials/13-tcpconnlat/README.md:209` opens a comment as `/*\".`, `:544` fuses the build output into `.bpf.o\".GEN-SKEL`, and `:573` links the stale `/tutorials/13-tcpconnect` slug; `docs/tutorials/14-tcpstates/README.md:49-50/176/252/303-304/351-352/387` carry the six defects listed in devto-4ggl, and `docs/tutorials/15-javagc/README.md:47/105/185/317` carry the four listed in devto-4fd4 (the last one losing the `## Summary` heading). `README.zh.md` is clean on all of them, and the upstream `bpf-developer-tutorial` copy is byte-identical to this repo's English file for tutorial 14 (410 lines, empty `diff`), so the next sync keeps reintroducing them until the upstream is patched."
+    "Syndication defects inherited from the English sync source, not from DEV: `docs/tutorials/11-bootstrap/README.md:125` fuses `if (start_ts)` with its body, `:269` closes the `c` fence inline on a code line, and `:617` ends the console block with `(0ms)\".`; `docs/tutorials/13-tcpconnlat/README.md:209` opens a comment as `/*\".`, `:544` fuses the build output into `.bpf.o\".GEN-SKEL`, and `:573` links the stale `/tutorials/13-tcpconnect` slug; `docs/tutorials/14-tcpstates/README.md:49-50/176/252/303-304/351-352/387` carry the six defects listed in devto-4ggl, and `docs/tutorials/15-javagc/README.md:47/105/185/317` carry the four listed in devto-4fd4 (the last one losing the `## Summary` heading); `docs/tutorials/17-biopattern/README.md:145/202-204/206/195+197+203+226+263+265+322` carry four, the last one mis-closing seven inline code spans so `(filter_dev` and `true )` render as literal backticks. `README.zh.md` is clean on all of them, and the upstream `bpf-developer-tutorial` copy is byte-identical to this repo's English file for tutorial 14 (410 lines, empty `diff`), so the next sync keeps reintroducing them until the upstream is patched."
   ]
 }

@@ -1,11 +1,25 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-22
+Last checked: 2026-11-23
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-23: the `publish-posts` workflow (run 45087813444) published `docs/tutorials/17-biopattern/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7>, `2026-11-23T00:17:04Z`,
+article id 5096382) from `draft/media/2026-11-23/17-biopattern/devto.md`, so it is no longer a pending DEV source; its
+Medium copy has been confirmed since 2023. The artifact repairs four defects of the English sync source that the Chinese
+source does not have: `README.md:145` terminates the `counters` map snippet with `.` instead of `;`, `:206` repeats `This
+change may cause compatibility issues with eBPF programs on different versions of the kernel.` twice in one paragraph,
+`:202-204` drop three of the four `Statistics update` sub-bullets back to the parent list level, and seven lines
+(`:195`, `:197`, `:203`, `:226`, `:263`, `:265`, `:322`) close their inline code spans after the parenthesis instead of
+before it, so `(filter_dev` and `true )` render as literal backticks. The published `body_markdown` matches the artifact
+after the H1 strip apart from DEV's trailing-newline trim (16,768 vs 16,769 chars), and the visible page renders the exact
+title, 4 body H2, 1 H3, 11 code blocks (`shell` x2, `c` x8, `console` x1), 0 images, 0 tables, 4 tags, 0 reactions,
+0 comments and the complete ending. Canonical is still DEV self, the twenty-first consecutive API syndication with that
+defect. It used the LA 2026-11-22 normal slot. `.github/publisher/posts_queue.txt` is empty again because the workflow
+pops each entry after a successful publish.
 2026-11-22: the `publish-posts` workflow (run 44965605572) published `docs/tutorials/15-javagc/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4>, `2026-11-22T00:14:19Z`,
 article id 5090916) from `draft/media/2026-11-22/15-javagc/devto.md`, so it is no longer a pending DEV source; its Medium
