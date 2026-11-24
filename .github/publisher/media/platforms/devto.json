@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-23",
+  "last_checked": "2026-11-24",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,24 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-321l",
+      "status": "confirmed",
+      "date": "2026-11-24",
+      "title": "eBPF Tutorial by Example 19: Security Detection and Defense using LSM",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l",
+      "source_path": "docs/tutorials/19-lsm-connect/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-24T03:36:01Z (LA 2026-11-23 19:36 PST, +08 11-24 11:36) by `publish-posts` workflow run 45320596815 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-24/19-lsm-connect/devto.md`, article id 5104605, reading_time 5, 0 reactions 0 comments. The artifact differs from `docs/tutorials/19-lsm-connect/README.md` in one line: `:154` ends the trace log with `16843009\".` plus an inline fence that closes the `console` block early, so the artifact drops the stray quote and lets the two `wget-7061` rows stay inside the fence (`README.zh.md:153-156` is clean); the upstream `bpf-developer-tutorial` `src/19-lsm-connect/README.md` is byte-identical to this local file, so both need the same upstream patch. Public `body_markdown` matches the artifact after the H1 strip character for character (8,000 chars), and the visible page renders the exact title, 7 body H2, 0 H3, 9 code blocks (`console` x6, `conf` x1, `c` x1, `shell` x1, all labels preserved), 0 leaked fences, the repaired trace block with both `wget` rows inside it, 0 images, 0 tables, 4 tag chips, 8 unique external targets including the source repo and the canonical `eunomia.dev/tutorials/19-lsm-connect` tail link, and `Top comments (0)`. Canonical is still DEV self, the twenty-second consecutive API syndication with that defect. It used the LA 2026-11-23 normal slot. `.github/publisher/posts_queue.txt` was emptied by bot commit `7e061fcd1d7`."
+    },
+
     {
       "id": "devto-11e7",
       "status": "confirmed",
@@ -612,7 +630,8 @@
     "docs/tutorials/13-tcpconnlat/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-13-statistics-of-tcp-connection-delay-with-libbpf-45kc",
     "docs/tutorials/14-tcpstates/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-14-recording-tcp-connection-status-and-tcp-rtt-4ggl",
     "docs/tutorials/15-javagc/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4",
-    "docs/tutorials/17-biopattern/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7"
+    "docs/tutorials/17-biopattern/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7",
+    "docs/tutorials/19-lsm-connect/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l"
   },
   "browser_observations": [
     {
