@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么一条推测屏障在 JIT 编译的 arm64 BPF 里足够，而在 BPF 解释器里不行？](/zh/ebpf-qa/2026-11-23-verifier-nospec-jit-vs-interpreter/)
 - [为什么 x86 上的 BPF 程序在每一次不可信指针加载前都要付一次地址检查，而去掉它必须先改内核的缺页处理？](/zh/ebpf-qa/2026-11-22-probe-mem-smap-range-check-vs-page-fault-fixup/)
 - [为什么 BPF arena 的一个页被释放后仍会保持映射，又是什么决定用户态拿到新页还是 SIGBUS？](/zh/ebpf-qa/2026-11-21-arena-page-ownership-free-and-userspace-fault/)
 - [为什么 BPF ring buffer 的消费者会在记录已经入队时睡下去，又需要什么顺序保证唤醒握手成立？](/zh/ebpf-qa/2026-11-20-ringbuf-wakeup-storeload-handshake/)
