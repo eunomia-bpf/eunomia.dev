@@ -1,8 +1,12 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-23。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-24。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+### 2026-11-24 排期（LA 时区）
+
+- [ ] `排队` DEV：`docs/tutorials/19-lsm-connect/README.md`。由 `publish-posts` workflow（`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）从 `draft/media/2026-11-24/19-lsm-connect/devto.md` 发布；准备稿与源文只差一处：`README.md:154` 在 `lsm: blocking 16843009` 后多出收尾引号 `".` 和内联围栏，导致其后两行 `wget` 输出落到正文（中文 `README.zh.md:153-156` 干净）。
+
 ### 2026-11-23 排期（LA 时区）
 
 - [x] `排队` DEV：`docs/tutorials/17-biopattern/README.md`。由 `publish-posts` workflow（run 45087813444，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-23T00:17:04Z`（LA 11-22 16:17 PST，+08 11-23 08:17；dispatch 后约 2 分钟起 job）从 `draft/media/2026-11-23/17-biopattern/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7>（article id 5096382，`tag` `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 9，0 反应 0 评论，DEV 覆盖 76 -> 77/128）。准备稿与源文只有四处差异，全部是英文源文缺陷而中文 `README.zh.md` 干净：`:145` 把 `counters` map 片段用 `.` 结尾（应为 `;`），`:206` 把 "This change may cause compatibility issues…" 在同一段里重复两遍（中文 `:203` 只说一次），`:202-204` 把 `Statistics update` 下四条子项中的三条退回父级列表（中文 `:198-201` 四条都保持嵌套），以及 `:195`/`:197`/`:203`/`:226`/`:263`/`:265`/`:322` 七处把行内代码跨度闭合在括号之后，渲染成带字面反引号的 `(filter_dev` 与 `true )`（中文 `:196` 等处干净）。
