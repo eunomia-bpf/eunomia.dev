@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-24 18:58 UTC`
+Generated: `2026-11-25 18:03 UTC`
 
 ## Collection health
 
@@ -14,25 +14,25 @@ Generated: `2026-11-24 18:58 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `316 ms`.
+- Homepage: `200` in `157 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `948`.
+- Sitemap entries observed: `950`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `101`.
-- Current stars: `10357`; forks: `1369`; open issue/PR records: `350`.
+- Current stars: `10365`; forks: `1371`; open issue/PR records: `327`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4347 | 608 | 18 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1613 | 192 | 128 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 912 | 79 | 27 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 806 | 122 | 49 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4349 | 609 | 18 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1614 | 193 | 100 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 912 | 79 | 28 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 808 | 122 | 51 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 453 | 35 | 8 |
-| [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 275 | 26 | 4 |
-| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 245 | 42 | 66 |
+| [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 277 | 26 | 4 |
+| [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 245 | 42 | 67 |
 | [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 150 | 21 | 0 |
 
 ## DEV publication surface
