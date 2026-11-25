@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-224e",
+      "status": "confirmed",
+      "date": "2026-11-25",
+      "title": "eBPF Tutorial by Example 20: tc Traffic Control",
+      "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-20-tc-traffic-control-224e",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-20-tc-traffic-control-224e",
+      "source_path": "docs/tutorials/20-tc/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-25T00:24:40Z (LA 2026-11-24 16:24 PST, +08 11-25 08:24) by `publish-posts` workflow run 45516590397 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-25/20-tc/devto.md`, article id 5112060, reading_time 4, 0 reactions 0 comments. The artifact is a byte-identical copy of `docs/tutorials/20-tc/README.md` (6,238 bytes, same sha256): that English source has no fence or punctuation defect, no images, no tables and no relative links, its single link is already absolute, and all six fences carry `c`/`console`/`shell` labels, so nothing needed repair (the upstream `bpf-developer-tutorial` `src/20-tc/README.md` matches byte for byte). Public `body_markdown` equals the artifact minus its H1 verbatim (6,185 characters). Visible page: exact title, 5 body H2 (`Overview of tc`, `Writing eBPF Programs`, `Compilation and Execution`, `Summary`, `References`), 0 H3, 6 `pre` blocks (`highlight c` x2, `highlight console` x3, `highlight shell` x1, all language labels kept), 0 images, 0 tables, no leaked backticks, all four tag chips (`#ebpf` `#linux` `#tutorial` `#kernel`), `Top comments (0)`, and the closing `The original link of this article: <https://eunomia.dev/tutorials/20-tc>` intact. Canonical self-references DEV, the twenty-third consecutive API syndication to do so (item devto-11e7 tracks the upstream cause). DEV coverage 78 -> 79/128 sources."
+    },
     {
       "id": "devto-321l",
       "status": "confirmed",
@@ -34,7 +51,6 @@
       "checked_via": "dev_public_api_plus_visible_page_dom_qa",
       "notes": "Published 2026-11-24T03:36:01Z (LA 2026-11-23 19:36 PST, +08 11-24 11:36) by `publish-posts` workflow run 45320596815 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-24/19-lsm-connect/devto.md`, article id 5104605, reading_time 5, 0 reactions 0 comments. The artifact differs from `docs/tutorials/19-lsm-connect/README.md` in one line: `:154` ends the trace log with `16843009\".` plus an inline fence that closes the `console` block early, so the artifact drops the stray quote and lets the two `wget-7061` rows stay inside the fence (`README.zh.md:153-156` is clean); the upstream `bpf-developer-tutorial` `src/19-lsm-connect/README.md` is byte-identical to this local file, so both need the same upstream patch. Public `body_markdown` matches the artifact after the H1 strip character for character (8,000 chars), and the visible page renders the exact title, 7 body H2, 0 H3, 9 code blocks (`console` x6, `conf` x1, `c` x1, `shell` x1, all labels preserved), 0 leaked fences, the repaired trace block with both `wget` rows inside it, 0 images, 0 tables, 4 tag chips, 8 unique external targets including the source repo and the canonical `eunomia.dev/tutorials/19-lsm-connect` tail link, and `Top comments (0)`. Canonical is still DEV self, the twenty-second consecutive API syndication with that defect. It used the LA 2026-11-23 normal slot. `.github/publisher/posts_queue.txt` was emptied by bot commit `7e061fcd1d7`."
     },
-
     {
       "id": "devto-11e7",
       "status": "confirmed",
@@ -631,7 +647,8 @@
     "docs/tutorials/14-tcpstates/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-14-recording-tcp-connection-status-and-tcp-rtt-4ggl",
     "docs/tutorials/15-javagc/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-15-capturing-user-space-java-gc-duration-using-usdt-4fd4",
     "docs/tutorials/17-biopattern/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7",
-    "docs/tutorials/19-lsm-connect/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l"
+    "docs/tutorials/19-lsm-connect/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l",
+    "docs/tutorials/20-tc/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-20-tc-traffic-control-224e"
   },
   "browser_observations": [
     {
@@ -730,7 +747,7 @@
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
-    "Twenty-one consecutive API syndications now self-canonicalize (devto-11e7, devto-4fd4, devto-4ggl, devto-45kc, devto-4im2, devto-2mci, devto-5ea2, devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
+    "Twenty-three consecutive API syndications now self-canonicalize (devto-11e7, devto-4fd4, devto-4ggl, devto-45kc, devto-4im2, devto-2mci, devto-5ea2, devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip, devto-321l, devto-224e) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
     "The public author API listed 80 posts on 2026-11-20 including the day's copy (devto-45kc), so the multi-minute listing lag did not reproduce; the 2026-07-20 visible-scroll inventory of 54 links is still further behind. Re-scroll the profile before the next full-account audit and stop treating the listing as publish evidence.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
