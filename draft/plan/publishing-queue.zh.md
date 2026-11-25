@@ -1,8 +1,11 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-24。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-25。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+### 2026-11-25 排期（LA 时区）
+
+- [ ] `排队` DEV：`docs/tutorials/20-tc/README.md`。由 `publish-posts` workflow（`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）从 `draft/media/2026-11-25/20-tc/devto.md` 发布。准备稿与源文逐字节相同（6,238 字节，sha256 相同）：英文源文无围栏/标点缺陷、无图片、无表格、无相对链接，1 个外链已是绝对地址，6 个围栏自带 `c`/`console`/`shell` 标签，`20-tc` 是教程序列中最早的 DEV 缺口（`devto.json` 明细行与 `confirmed_source_urls` 都没有它）。
 ### 2026-11-24 排期（LA 时区）
 
 - [x] `排队` DEV：`docs/tutorials/19-lsm-connect/README.md`。由 `publish-posts` workflow（run 45320596815，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-24T03:36:01Z`（LA 11-23 19:36 PST，+08 11-24 11:36；dispatch 后约 20 秒起 job，整条 21 秒）从 `draft/media/2026-11-24/19-lsm-connect/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l>（article id 5104605，`tag` `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 5，0 反应 0 评论，DEV 覆盖 77 -> 78/128）。准备稿与源文只差一处：`README.md:154` 在 `lsm: blocking 16843009` 后多出收尾引号 `".` 和内联围栏，关闭 `console` 块过早，使其后两行 `wget-7061` 输出落到正文（中文 `README.zh.md:153-156` 干净；上游 `bpf-developer-tutorial` 的 `src/19-lsm-connect/README.md` 与本地英文源逐字节相同）。公开 `body_markdown` 与去 H1 后的准备稿逐字相同（8,000 字符）；可见页 1 h1（精确标题）、7 个正文 H2、0 个 H3、9 个 `pre`（`console` x6、`conf`、`c`、`shell`，语言标签全部保留）、0 处泄漏围栏、修补后的 trace 块内两行 `wget` 完整、0 图片、0 表格、4 个 tag 芯片、`Top comments (0)`。
