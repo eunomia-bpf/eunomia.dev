@@ -172,6 +172,7 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
             <LocalLink link={linkByKey.get("github")} />
             <LocalLink link={linkByKey.get("discussions")} />
             <LocalLink link={linkByKey.get("products")} />
+            <LocalLink link={linkByKey.get("company")} />
           </div>
         </article>
       </div>

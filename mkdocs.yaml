@@ -353,6 +353,17 @@ extra:
         footer_explore: true
         footer_project: true
       order: 100
+    company:
+      labels:
+        en: Company
+        zh: 公司
+      published:
+        nav: false
+        home_track: false
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 120
   primary_nav_children:
     blog:
       - label: Blog
@@ -1096,6 +1107,10 @@ extra:
           label: Products
           label_zh: 产品
           href: /products/
+        - key: company
+          label: Eunomia Labs, Inc.
+          label_zh: Eunomia Labs, Inc.
+          href: /company/
         - key: reports
           label: Activity reports
           label_zh: 活动报告
