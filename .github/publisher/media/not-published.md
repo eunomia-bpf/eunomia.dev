@@ -1,11 +1,24 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-25
+Last checked: 2026-11-26
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-26: the `publish-posts` workflow (run 45729677157) published `docs/tutorials/22-android/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2>, `2026-11-26T00:34:36Z`, article id 5120170)
+from `draft/media/2026-11-26/22-android/devto.md`, so it is no longer a pending DEV source; its Medium copy was confirmed earlier.
+The artifact repairs one defect of the English sync source that the Chinese source does not have: `README.md:44` fuses two list
+rows as `... /data/eadb/deb.tar.gz`+ `rm -r /data/local/tmp/assets`, so the `rm` row never became its own bullet
+(`README.zh.md:42-43` keeps both separate); the upstream copy of this file also matches it byte for byte. The published
+`body_markdown` matches the artifact after the H1 strip character for character (12,595 chars), and the visible page renders
+the exact title, 7 body H2, 1 H3, 2 H4, 4 `console` code blocks with language labels kept, the repaired `rm -r` row as its own
+list item, 0 leaked fences, 0 images, 0 tables, 4 tags, 0 reactions, 0 comments and the complete ending. The three `[^...]`
+footnote markers stay literal exactly as the live site renders them. Canonical is still DEV self, the twenty-fourth consecutive
+API syndication with that defect. It used the LA 2026-11-25 normal slot. `.github/publisher/posts_queue.txt` is empty again
+because the workflow pops each entry after a successful publish; the public author listing returned 86 posts without the new
+copy while its per-article endpoint and public page served it, and the signed-out profile page reported 87 posts.
 2026-11-25: the `publish-posts` workflow (run 45516590397) published `docs/tutorials/20-tc/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-20-tc-traffic-control-224e>, `2026-11-25T00:24:40Z`, article id 5112060)
 from `draft/media/2026-11-25/20-tc/devto.md`, so it is no longer a pending DEV source; its Medium copy was confirmed in 2023.
