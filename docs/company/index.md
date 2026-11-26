@@ -1,32 +1,41 @@
 ---
 title: Eunomia Labs, Inc.
-description: Eunomia Labs, Inc. builds and maintains the Eunomia open-source projects for eBPF runtimes, GPU observability, and AI agent infrastructure.
+description: Eunomia Labs, Inc. builds the runtime for recursive self-improvement. It profiles what AI systems do, gives them safe places to change themselves, and keeps every change inside limits the system sets.
 ---
 
 # Eunomia Labs, Inc.
 
-The company operates eunomia.dev and develops the projects in the [eunomia-bpf](https://github.com/eunomia-bpf) GitHub organization. Our work centers on eBPF runtime infrastructure: extending applications safely, observing and extending GPU workloads, and giving AI agents a system layer for observability and policy enforcement.
+Eunomia Labs, Inc. builds the runtime for recursive self-improvement (RSI). AI agents now modify their own code, tools, and infrastructure, evaluate the result, and carry what works into the next round. That loop runs on real systems: CPUs, GPUs, files, networks, and the agents themselves. Our runtime gives it three things from the system side: an accurate profile of what ran, safe points where a change can land, and limits that every change respects.
 
-The company is based in San Francisco, California.
+The company operates eunomia.dev, develops the projects in the [eunomia-bpf](https://github.com/eunomia-bpf) GitHub organization, and is based in San Francisco, California.
 
-## What we build
+## One runtime, three layers
 
-| Project | What it does |
-|---|---|
-| [bpftime](../bpftime/index.md) | A userspace eBPF runtime for uprobes, syscalls, and application extensions, compatible with kernel eBPF toolchains. Its [GPU support](../bpftime/documents/gpu.md) runs eBPF programs inside CUDA and ROCm kernels on NVIDIA and AMD GPUs. |
-| [gpu_ext](https://github.com/eunomia-bpf/gpu_ext) | Extensible OS policies for GPU scheduling and memory management, written as eBPF programs. |
-| [AgentSight](../agentsight/index.md) | System-level observability for AI agents using eBPF, with zero instrumentation of the agent itself. |
-| [ActPlane](../actplane/index.md) | OS-level safety, security, and governance controls for AI agents, with policy-as-code for process trees, files, network effects, and workflow gates. |
-| [eunomia-bpf](../eunomia-bpf/index.md) and [wasm-bpf](../wasm-bpf/index.md) | Toolchains for building, packaging, and distributing eBPF programs, including as WebAssembly modules. |
-| [Tutorials](../tutorials/index.md) | The bpf-developer-tutorial series, plus [CUDA](../others/cuda-tutorial/README.md), [CUPTI](../others/cupti-tutorial/README.md), and [NVBit](../others/nvbit-tutorial/README.md) tutorials for GPU programming, profiling, and instrumentation. |
+eBPF connects the three layers. The same model of small, verified programs loaded at run time observes, extends, and enforces across the kernel, userspace, and GPUs.
+
+### Profile: see what actually ran
+
+- [AgentSight](../agentsight/index.md) records what AI agents do on a machine. It links prompts, model calls, and tool decisions to the processes, files, and network traffic they cause, with zero instrumentation of the agent.
+- [bpftime GPU support](../bpftime/documents/gpu.md) runs eBPF programs inside CUDA and ROCm kernels, so profiling reaches the code running on NVIDIA and AMD GPUs.
+
+### Change: safe places for improvements to land
+
+- [bpftime](../bpftime/index.md) is a userspace eBPF runtime. Applications gain uprobe and syscall extension points that load eBPF programs at run time, using the same toolchains as kernel eBPF.
+- [gpu_ext](https://github.com/eunomia-bpf/gpu_ext) turns GPU scheduling and memory management into programmable eBPF policies.
+- [SchedCP](../GPTtrace/schedcp.md) lets AI agents profile a workload, then synthesize and deploy Linux scheduler policies through sched-ext.
+
+### Bound: limits every change respects
+
+- [ActPlane](../actplane/index.md) enforces the policies developers already write, such as rules in `AGENTS.md` and `CLAUDE.md`, at the operating-system level across process trees, files, and network effects, and reports each violation back to the agent.
+- [AgentCgroup](https://github.com/eunomia-bpf/agentcgroup) connects an agent's task structure to Linux resource control.
 
 ## Research
 
-Our projects grow out of systems research. bpftime appeared at OSDI 2025 as "Extending Applications Safely and Efficiently", AgentSight at PACMI 2025, and SchedCP at MLforSystem 2025. The [papers page](../papers/README.md) lists the full set with PDFs, artifacts, and explainers.
+Each layer comes from published systems research. bpftime appeared at OSDI 2025 as "Extending Applications Safely and Efficiently", AgentSight at PACMI 2025, and SchedCP at MLforSystem 2025. The [papers page](../papers/README.md) lists the full set with PDFs, artifacts, and explainers.
 
 ## Open source
 
-All code is developed in the open at [github.com/eunomia-bpf](https://github.com/eunomia-bpf), and each repository states its license. Issues and [GitHub Discussions](https://github.com/orgs/eunomia-bpf/discussions) are the main collaboration channels, and the [activity reports](../reports/index.md) record the organization's public activity every month.
+All code is developed in the open at [github.com/eunomia-bpf](https://github.com/eunomia-bpf), and each repository states its license. We also maintain the [eunomia-bpf](../eunomia-bpf/index.md) and [wasm-bpf](../wasm-bpf/index.md) toolchains, the [eBPF tutorials](../tutorials/index.md), and tutorials on [CUDA](../others/cuda-tutorial/README.md), [CUPTI](../others/cupti-tutorial/README.md), and [NVBit](../others/nvbit-tutorial/README.md). Issues and [GitHub Discussions](https://github.com/orgs/eunomia-bpf/discussions) are the main collaboration channels, and the [activity reports](../reports/index.md) record the organization's public activity every month.
 
 ## Working with us
 
