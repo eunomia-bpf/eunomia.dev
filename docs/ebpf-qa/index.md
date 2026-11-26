@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why can a verified BPF program panic in the interpreter, and what makes the kernel refuse that fallback?](/ebpf-qa/2026-11-25-jit-required-vs-interpreter-fallback/)
 - [Why does the BPF verifier accept a 64-bit atomic or load-acquire on a map value it never proved is 8-byte aligned?](/ebpf-qa/2026-11-24-map-value-8-byte-alignment-assumption/)
 - [Why is a speculation barrier enough in JITed arm64 BPF but not in the BPF interpreter?](/ebpf-qa/2026-11-23-verifier-nospec-jit-vs-interpreter/)
 - [Why does an x86 BPF program pay an address check before every untrusted-pointer load, and what must change in the page fault handler before the check can go?](/ebpf-qa/2026-11-22-probe-mem-smap-range-check-vs-page-fault-fixup/)
