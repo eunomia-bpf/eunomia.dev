@@ -179,8 +179,11 @@ if (!fp->jited && jit_needed) {
 So a kernel with `net.core.bpf_jit_enable = 0` rejects such a program during
 verification with `EINVAL` and the message above, while a kernel that tried to
 JIT and could not (constant blinding failing, for instance) rejects it from
-runtime selection with `EOPNOTSUPP`. Both are load errors; neither leaves a
-program that will fault later.
+runtime selection with `ENOTSUPP`. Those are different numbers, and the second
+one is easy to misread: `ENOTSUPP` is 524, a kernel-internal code distinct from
+`EOPNOTSUPP` at 95, so `strerror()` reports it as an unknown error rather than
+"operation not supported". Both are load errors; neither leaves a program that
+will fault later.
 
 Note the shape of the mechanism: the interpreter is installed in `fp->bpf_func`
 *before* the JIT is attempted, so a failed compile normally just leaves it in
@@ -230,9 +233,9 @@ the program. On a kernel with the flag, the same failure is a load error.
 
 3. Distinguish the two error paths by errno and message. `EINVAL` with
    `program requires BPF JIT compiler but it is not available` comes from the
-   verifier, and means the JIT was never used for this load. `EOPNOTSUPP` comes
-   from `__bpf_prog_select_runtime()`, and means the JIT was attempted and
-   produced nothing.
+   verifier, and means the JIT was never used for this load. `ENOTSUPP` — 524,
+   not 95 — comes from `__bpf_prog_select_runtime()`, and means the JIT was
+   attempted and produced nothing.
 
 4. Reproduce the fallback deliberately: set `bpf_jit_harden = 2`, build a
    program with a per-CPU map lookup and a conditional jump of more than about

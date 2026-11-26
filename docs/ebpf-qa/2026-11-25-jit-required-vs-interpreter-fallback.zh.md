@@ -126,7 +126,7 @@ if (!fp->jited && jit_needed) {
 }
 ```
 
-因此 `net.core.bpf_jit_enable = 0` 的内核会在校验阶段以 `EINVAL` 加上述消息拒绝；而尝试过 JIT 却没成功的（例如常量盲化失败）内核，会在选择运行时处以 `EOPNOTSUPP` 拒绝。两者都是加载错误，都不会留下一个稍后才出错的程序。
+因此 `net.core.bpf_jit_enable = 0` 的内核会在校验阶段以 `EINVAL` 加上述消息拒绝；而尝试过 JIT 却没成功的（例如常量盲化失败）内核，会在选择运行时处以 `ENOTSUPP` 拒绝。这两个数字不同，后者还很容易看错：`ENOTSUPP` 是 524，一个内核内部码，与 95 的 `EOPNOTSUPP` 不是一回事，所以 `strerror()` 会把它报成未知错误而不是「operation not supported」。两者都是加载错误，都不会留下一个稍后才出错的程序。
 
 注意这套机制的形状：解释器是在尝试 JIT **之前**就被装进 `fp->bpf_func` 的，所以一次失败的编译正常来说只是把它留在原处，程序照跑——静默地跑在一条解释器执行不了的指令流上。`jit_required` 存在的意义，正是把这个静默回退变成一次拒绝。
 
@@ -147,7 +147,7 @@ if (off < S16_MIN)
 
 2. 读决定路径的两个 sysctl。`bpf_jit_enable` 只在 `CONFIG_BPF_JIT` 编进内核时存在；在 `BPF_JIT_ALWAYS_ON` 下它的最小值与最大值都是 1，写入会失败，内核只打一行日志说明该值被钉死。`bpf_jit_harden = 2` 对所有用户开启盲化，包括你正在用来测试的特权加载器。
 
-3. 用 errno 与消息区分两条错误路径。`EINVAL` + `program requires BPF JIT compiler but it is not available` 来自校验器，意味着本次加载从未使用 JIT。`EOPNOTSUPP` 来自 `__bpf_prog_select_runtime()`，意味着试过 JIT 但什么都没产出。
+3. 用 errno 与消息区分两条错误路径。`EINVAL` + `program requires BPF JIT compiler but it is not available` 来自校验器，意味着本次加载从未使用 JIT。`ENOTSUPP`——524，不是 95——来自 `__bpf_prog_select_runtime()`，意味着试过 JIT 但什么都没产出。
 
 4. 主动复现这次回退：设 `bpf_jit_harden = 2`，构造一个含 per-CPU map 查找、并带一条跨度约一万一千条指令以上的条件跳转的程序，加载到没有 `BPF_JIT_ALWAYS_ON` 的内核上。盲化改写会溢出 16 位跳转，程序于是回退。在修复之前的内核上，执行会缺页；在当前内核上，加载会以第 3 步的消息失败。
 
