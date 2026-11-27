@@ -1,8 +1,16 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-11-26。
+> 状态：内部执行 checklist，不发布。更新时间：2026-11-27。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务；正常每天一条，漏发日期按下方补发缺口补齐。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
+### 2026-11-27 排期（LA 时区）
+
+- [x] `排队` DEV：`docs/tutorials/24-hide/README.md`。由 `publish-posts` workflow（run 45915263748，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-27T00:14:08Z`（LA 11-26 16:14 PST，+08 11-27 08:14；dispatch 后约 2 分钟起 job，整条 12 秒）从 `draft/media/2026-11-27/24-hide/devto.md` 发布：<https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n>（article id 5128109，`tag` `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 12，0 反应 0 评论，DEV 覆盖 80 -> 81/128）。准备稿只修两处英文源文缺陷：`README.md:368` 把 `and then print the corresponding message.` 单独重复成一段（上一段已以同一句结尾，`README.zh.md:364` 只说一次），线上站点因此连续出现两次；`:384` 把仓库链接写成 `https: [//github.com/...`，站点显示为 `Full source code: https: //github.com/...`（协议被拆开，`README.zh.md:380` 是干净的 `<https://...>`）。其余逐字节保留：14 个带标签围栏（9 `c`、1 `bash`、1 `sh`、3 `console`）、0 图片、0 表格、0 相对链接、0 脚注标记。上游 `bpf-developer-tutorial` 的 `src/24-hide/README.md` 与本地英文源逐字节相同（21,738 字节），两处缺陷同样在上游。
+- 公开页对账：公开 `body_markdown` 与去 H1 后的准备稿**逐字相同**（21,551 字符）；可见页 1 个精确标题 h1、4 个正文 H2（`Background Knowledge and Implementation Mechanism`、`User-Style eBPF Programming`、`Compile and Run`、`Summary`）、1 个 H3、0 个 H4、14 个 `pre`（9 `c` + 2 `shell` + 3 `console`，语言标签保留）、0 正文图片、0 表格、0 泄漏围栏、4 个 tag 芯片、`Top comments (0)`、结尾完整（`The original link of this article: https://eunomia.dev/tutorials/24-hide`），修好的 `Full source code:` 段落已是单一可用链接。
+- 额度口径：发布时刻 `2026-11-27T00:14:08Z` = LA `2026-11-26 16:14 PST`，用掉 **LA 11-26 正常额度**（LA 11-26 当日此前无其它发布）；补发缺口仍 0。
+- 进度依据：队列里 23 条知乎任务仍平台级 `阻塞`（可见 Chrome `https://www.zhihu.com/creator` 落 `/signin?next=%2Fcreator`）；掘金 `/creator/home` 渲染出创作者中心但仍未登录（导航为 登录/注册，六项数据全 0；队列中掘金任务为 0）；Medium 仍无 `MEDIUM_API_KEY`，`/me/stories` 显示 `Sign up`/`Sign in` 且草稿为空；LinkedIn `/in/yunwei37` 仍落 `/authwall`；DEV 自身 web 会话也掉登录，secret-backed workflow 仍是唯一 DEV 通道。X `@yunwei37` 已登录（1,766 posts）。站点 `/tutorials/24-hide/` 与 `/zh/tutorials/24-hide/` 均 200，英文页 4 个 H2、14 个代码块。
+- 发布流程：`posts_queue.txt` 写入 1 条（`path`/`tags`）-> commit `44cc0a35384` 推送 `main` -> `gh workflow run publish-posts.yml -f platforms=devto -f publish_count=1 -f draft_only=false`；workflow 随后自行推送 `1fd5cf7` 清空队列。开工前本地 `main` 落后 `origin/main` 9 个提交，已 rebase。
+- 同次观察（未修）：DEV 副本的 canonical 仍是 DEV 自身（连续第二十五次），根因仍在上游 `media-publisher`。本次公开作者列表已追平：88 篇，**同时包含** `5128109` 与前一天 `5120170`，11-23..11-26 的列表滞后未复现，仍沿用"per-article 端点与公开页才是发布证据"的结论。下一候选 `28-detach`（DEV 账号 88 篇里没有副本；`18-further-reading` 是目录页；剩余未映射英文 tutorial 还有 `29-sockops`/`37-uprobe-rust`/`40-mysql`/`49-hid`/`bpftrace-tutorial`）。
 ### 2026-11-26 排期（LA 时区）
 
 - [x] `排队` DEV：`docs/tutorials/22-android/README.md`。由 `publish-posts` workflow（run 45729677157，`PUBLISH_PLATFORMS=devto`，`publish_count=1`，`draft_only=false`）在 `2026-11-26T00:34:36Z`（LA 11-25 16:34 PST，+08 11-26 08:34；dispatch 后约 1 分钟起 job，整条 21 秒）从 `draft/media/2026-11-26/22-android/devto.md` 发布：<https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2>（article id 5120170，`tag` `ebpf`/`linux`/`tutorial`/`kernel`，reading_time 7，0 反应 0 评论，DEV 覆盖 79 -> 80/128）。准备稿只修一处英文源文缺陷：`README.md:44` 把两条列表项粘成 `... /data/eadb/deb.tar.gz`+ `rm -r /data/local/tmp/assets`，`rm` 那条从未成为独立条目（中文 `README.zh.md:42-43` 两条分开）；其余不变——15 个绝对外链、0 图片、0 表格、0 相对链接、8 个围栏全部带 `console` 标签。上游 `bpf-developer-tutorial` 的 `src/22-android/README.md` 与本地英文源 `diff` 为空，缺陷同样在上游。

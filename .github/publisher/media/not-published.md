@@ -1,11 +1,28 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-26
+Last checked: 2026-11-27
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-27: the `publish-posts` workflow (run 45915263748) published `docs/tutorials/24-hide/README.md` to DEV
+(<https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n>, `2026-11-27T00:14:08Z`, article id 5128109)
+from `draft/media/2026-11-27/24-hide/devto.md`, so it is no longer a pending DEV source; Medium still has no copy of this
+source (its feed of 11 stories does not list it), and Medium stays unpublishable while `MEDIUM_API_KEY` is absent and
+`/me/stories` is signed out.
+The artifact repairs two defects of the English sync source that the Chinese source does not have: `README.md:368` repeats
+`and then print the corresponding message.` as its own paragraph after the paragraph already ending with it (`README.zh.md:364`
+has it once), and `:384` writes the repository link as `https: [//github.com/...`, which the live site renders as
+`Full source code: https: //github.com/...` (`README.zh.md:380` keeps the clean `<https://...>` form); the upstream copy of this
+file matches the local English source byte for byte (21,738 bytes), so both defects belong upstream. The rest of the post is a
+byte-identical copy: 14 labelled code blocks (9 `c`, 1 `bash`, 1 `sh`, 3 `console`), 0 images, 0 tables, 0 relative links. The
+published `body_markdown` matches the artifact after the H1 strip character for character (21,551 chars), and the visible page
+renders the exact title, 4 body H2, 1 H3, 14 `pre` blocks with their language labels, 0 images, 0 tables, 0 leaked fences,
+4 tags, 0 reactions, 0 comments and the complete ending. Canonical is still DEV self, the twenty-fifth consecutive API
+syndication with that defect. It used the LA 2026-11-26 normal slot. `.github/publisher/posts_queue.txt` is empty again
+because the workflow pops each entry after a successful publish; the public author listing had already caught up by the check
+(88 posts including the new copy and the previous day's), so no listing lag reproduced this time.
 2026-11-26: the `publish-posts` workflow (run 45729677157) published `docs/tutorials/22-android/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2>, `2026-11-26T00:34:36Z`, article id 5120170)
 from `draft/media/2026-11-26/22-android/devto.md`, so it is no longer a pending DEV source; its Medium copy was confirmed earlier.

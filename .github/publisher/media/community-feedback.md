@@ -20,6 +20,19 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-11-27
+
+- One DEV publication, no engagement yet. `publish-posts` run 45915263748 published [the DEV copy of tutorial 24](https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n) at `2026-11-27T00:14:08Z` (LA 2026-11-26 16:14 PST) from `draft/media/2026-11-27/24-hide/devto.md`, article id 5128109; the public body equals the prepared artifact after the H1 strip character for character (21,551 chars), and the page shows 4 body H2 / 1 H3 / 14 labelled code blocks / 0 images / 0 tables, with 0 reactions and 0 comments.
+- Twenty-fifth consecutive API syndication that self-canonicalizes while <https://eunomia.dev/tutorials/24-hide/> answers 200. Same pending item, same upstream `canonical_url` defect; no new action.
+- The artifact repaired two English-source defects the Chinese source does not have: `docs/tutorials/24-hide/README.md:368` repeats `and then print the corresponding message.` as its own paragraph, which the live site renders twice in a row, and `:384` writes the repository link as `https: [//github.com/...`, so the site shows `Full source code: https: //github.com/...` with a dead protocol; `README.zh.md:364` and `:380` are clean. The upstream `bpf-developer-tutorial` copy matches the local English source byte for byte, so both fixes belong upstream.
+- The three known canonical English-source defects are unchanged on the live site: `/tutorials/19-lsm-connect/` still renders `16843009".` plus an inline fence, `/tutorials/17-biopattern/` still repeats `compatibility issues` twice in one paragraph, and `/tutorials/15-javagc/` still renders `problem.In Linux`.
+- The public author listing had caught up by this check (88 posts, including today's 5128109 and yesterday's 5120170), so the multi-day listing lag did not reproduce; per-article endpoint and visible page still remain the publish evidence.
+- The X Lean post [2122736534206181608](https://x.com/yunwei37/status/2122736534206181608) is at 1,869 views / 18 likes / 4 reposts / 8 bookmarks / 2 replies, drifting from 1,858/18/4/8/2; both replies remain opinion and exclamation, so no reply is due.
+- [The GPU-server post](https://x.com/yunwei37/status/2122011756633665955) is at 1,007 views / 30 likes / 9 bookmarks / 1 reply from 1,006/30/9/1; the single reply is still `@sunilmehta_si`'s Nov 16 restatement.
+- No new external echoes: `search_by_date` for `eunomia` returns no story newer than 50385391 (AgentSight, 2026-11-05). X now reports 1,766 posts, up from 1,764.
+- Session state: 知乎 `/creator` still lands on `/signin?next=%2Fcreator`; 掘金 `/creator/home` still renders signed out (导航 has 登录/注册, counters at 0); Medium `/me/stories` shows `Sign up`/`Sign in` with no drafts; LinkedIn `/in/yunwei37` still lands on `/authwall`; DEV's own web session is signed out, so the secret-backed workflow stays the only DEV channel. All 23 Zhihu tasks stay platform-blocked.
+- Browser stack: CDP 9222 answered immediately this run (`Chrome/146.0.7680.31`); the omp browser daemon needed `app.cdp_url` attachment instead of its own headless launch, which failed to start.
+
 ### 2026-11-26
 
 - One DEV publication, no engagement yet. `publish-posts` run 45729677157 published [the DEV copy of tutorial 22](https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2) at `2026-11-26T00:34:36Z` (LA 2026-11-25 16:34 PST) from `draft/media/2026-11-26/22-android/devto.md`; the public body equals the prepared artifact after the H1 strip character for character, the page shows 7 body H2 / 1 H3 / 2 H4 / 4 `console` blocks / 0 images / 0 tables, and 0 reactions, 0 comments.

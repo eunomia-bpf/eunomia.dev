@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-11-26",
+  "last_checked": "2026-11-27",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -17,6 +17,23 @@
     }
   ],
   "published": [
+    {
+      "id": "devto-2f6n",
+      "status": "confirmed",
+      "date": "2026-11-27",
+      "title": "eBPF Practical Tutorial: Hiding Process or File Information",
+      "url": "https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n",
+      "canonical_url": "https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n",
+      "source_path": "docs/tutorials/24-hide/README.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "tutorial",
+        "kernel"
+      ],
+      "checked_via": "dev_public_api_plus_visible_page_dom_qa",
+      "notes": "Published 2026-11-27T00:14:08Z (LA 2026-11-26 16:14 PST, +08 11-27 08:14) by `publish-posts` workflow run 45915263748 (`PUBLISH_PLATFORMS=devto`, `publish_count=1`, `draft_only=false`) from `draft/media/2026-11-27/24-hide/devto.md`, article id 5128109, reading_time 12, 0 reactions 0 comments. The artifact repairs two English-source defects the Chinese source does not have: `README.md:368` repeats the sentence fragment `and then print the corresponding message.` as a standalone paragraph after the paragraph that already ends with it (`README.zh.md:364` states it once), and `:384` renders the repository link as `https: [//github.com/...` , which the site displays as `Full source code: https: //github.com/...` with a dead protocol (`README.zh.md:380` uses the clean `<https://...>` form). Everything else is a byte-identical copy: 14 code blocks (9 `c`, 1 `bash`, 1 `sh`, 3 `console`, all labelled; DEV renders the `bash` and `sh` blocks as `shell`), no image, no table, no relative link, no footnote marker. The upstream `bpf-developer-tutorial` `src/24-hide/README.md` matches this local English source byte for byte (21,738 bytes), so both defects belong upstream. Public `body_markdown` equals the prepared artifact after the H1 strip character for character (21,551 chars); the visible page renders 1 exact-title h1, 4 body H2, 1 H3, 0 H4, 14 `pre` blocks (`c` x9, `shell` x2, `console` x3) with language labels kept, 0 content images, 0 tables, 0 leaked fences, 4 tag chips, `Top comments (0)` and the complete ending. Canonical is still DEV self, the twenty-fifth consecutive API syndication with that defect."
+    },
     {
       "id": "devto-android",
       "status": "confirmed",
@@ -666,7 +683,8 @@
     "docs/tutorials/17-biopattern/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-17-count-randomsequential-disk-io-11e7",
     "docs/tutorials/19-lsm-connect/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-19-security-detection-and-defense-using-lsm-321l",
     "docs/tutorials/20-tc/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-20-tc-traffic-control-224e",
-    "docs/tutorials/22-android/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2"
+    "docs/tutorials/22-android/README.md": "https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2",
+    "docs/tutorials/24-hide/README.md": "https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n"
   },
   "browser_observations": [
     {
@@ -767,16 +785,23 @@
       "url": "https://dev.to/yunwei37/ebpf-tutorial-by-example-using-ebpf-programs-on-android-cj2",
       "status": "confirmed",
       "notes": "Per-article endpoint (5120170) and the visible page agree on the exact title, 7 body H2, 1 H3, 2 H4, 4 `console` `pre` blocks, the four tags and published_at 2026-11-26T00:34:36Z; the page showed 0 reactions and `Top comments (0)`. The public author listing returned 86 posts minutes after publication and did not include 5120170, although it now carries the previous day's 5112060 again; the per-article endpoint and the public page both served it. The signed-out profile page reported 87 posts. Keep treating the listing as lag, never as publish evidence."
+    },
+    {
+      "checked_at": "2026-11-27",
+      "checked_via": "dev_public_api_read_plus_visible_public_page_dom",
+      "url": "https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n",
+      "status": "confirmed",
+      "notes": "Per-article endpoint (5128109) and the visible page agree on the exact title, 4 body H2, 1 H3, 0 H4, 14 `pre` blocks (`c` x9, `shell` x2, `console` x3) with their language labels, 0 content images, 0 tables, 0 leaked fences, the four tags and published_at 2026-11-27T00:14:08Z; the page showed 0 reactions and `Top comments (0)`. The author listing had already caught up by the check (88 posts, including 5128109 and 5120170), so no lag reproduced this time."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
-    "Twenty-four consecutive API syndications now self-canonicalize (devto-11e7, devto-4fd4, devto-4ggl, devto-45kc, devto-4im2, devto-2mci, devto-5ea2, devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip, devto-321l, devto-224e, devto-android) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
+    "Twenty-five consecutive API syndications now self-canonicalize (devto-11e7, devto-4fd4, devto-4ggl, devto-45kc, devto-4im2, devto-2mci, devto-5ea2, devto-5d6c, devto-12h9, devto-39bh, devto-k28, devto-259l, devto-2kmb, devto-1j0f, devto-5bod, devto-51mh, devto-2doh, devto-4cj0, devto-5did, devto-d72, devto-55ip, devto-321l, devto-224e, devto-android, devto-2f6n) while the site originals are live, so each DEV copy competes with its own source. The reusable cause is upstream of this repo: media-publisher's pages/api/publish-multi.ts rebuilds the payload from title/content/tags/is_draft/platforms, and its DEV branch in pages/api/publish/[media].ts sends only title/body_markdown/tags/published, so a canonical_url added to publish.py would be dropped anyway. The fix is one field in those two endpoint files, then a verify pass on the next publication.",
     "The public author API listed 80 posts on 2026-11-20 including the day's copy (devto-45kc), so the multi-minute listing lag did not reproduce; the 2026-07-20 visible-scroll inventory of 54 links is still further behind. Re-scroll the profile before the next full-account audit and stop treating the listing as publish evidence.",
     "External SVG images break on DEV: media2.dev.to with format=auto returns the SVG body under an image/webp content type, which Chromium refuses, so posts that link gthulhu.org chart SVGs render empty boxes. Rasterize such images to PNG in the artifact (or upload them in the editor) before the next syndication of this source.",
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
     "New DEV copies published through publish.py still self-canonicalize because the API call sends no canonical_url; pass one on the next API publish instead of repairing it afterwards.",
-    "Syndication defects inherited from the English sync source, not from DEV: `docs/tutorials/11-bootstrap/README.md:125` fuses `if (start_ts)` with its body, `:269` closes the `c` fence inline on a code line, and `:617` ends the console block with `(0ms)\".`; `docs/tutorials/13-tcpconnlat/README.md:209` opens a comment as `/*\".`, `:544` fuses the build output into `.bpf.o\".GEN-SKEL`, and `:573` links the stale `/tutorials/13-tcpconnect` slug; `docs/tutorials/14-tcpstates/README.md:49-50/176/252/303-304/351-352/387` carry the six defects listed in devto-4ggl, and `docs/tutorials/15-javagc/README.md:47/105/185/317` carry the four listed in devto-4fd4 (the last one losing the `## Summary` heading); `docs/tutorials/17-biopattern/README.md:145/202-204/206/195+197+203+226+263+265+322` carry four, the last one mis-closing seven inline code spans so `(filter_dev` and `true )` render as literal backticks. `README.zh.md` is clean on all of them, and the upstream `bpf-developer-tutorial` copy is byte-identical to this repo's English file for tutorial 14 (410 lines, empty `diff`), so the next sync keeps reintroducing them until the upstream is patched. `docs/tutorials/22-android/README.md:44` fuses two list items around `... /data/eadb/deb.tar.gz`+ `rm -r /data/local/tmp/assets`, and the upstream copy of that file also matches byte for byte."
+    "Syndication defects inherited from the English sync source, not from DEV: `docs/tutorials/11-bootstrap/README.md:125` fuses `if (start_ts)` with its body, `:269` closes the `c` fence inline on a code line, and `:617` ends the console block with `(0ms)\".`; `docs/tutorials/13-tcpconnlat/README.md:209` opens a comment as `/*\".`, `:544` fuses the build output into `.bpf.o\".GEN-SKEL`, and `:573` links the stale `/tutorials/13-tcpconnect` slug; `docs/tutorials/14-tcpstates/README.md:49-50/176/252/303-304/351-352/387` carry the six defects listed in devto-4ggl, and `docs/tutorials/15-javagc/README.md:47/105/185/317` carry the four listed in devto-4fd4 (the last one losing the `## Summary` heading); `docs/tutorials/17-biopattern/README.md:145/202-204/206/195+197+203+226+263+265+322` carry four, the last one mis-closing seven inline code spans so `(filter_dev` and `true )` render as literal backticks. `README.zh.md` is clean on all of them, and the upstream `bpf-developer-tutorial` copy is byte-identical to this repo's English file for tutorial 14 (410 lines, empty `diff`), so the next sync keeps reintroducing them until the upstream is patched. `docs/tutorials/22-android/README.md:44` fuses two list items around `... /data/eadb/deb.tar.gz`+ `rm -r /data/local/tmp/assets`, and the upstream copy of that file also matches byte for byte. `docs/tutorials/24-hide/README.md:368` repeats `and then print the corresponding message.` as its own paragraph and `:384` writes the repository link as `https: [//github.com/...`, which the site renders as `Full source code: https: //github.com/...`."
   ]
 }
