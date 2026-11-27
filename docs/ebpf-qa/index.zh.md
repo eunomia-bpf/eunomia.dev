@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么给内核线程安排一个 BPF task work 回调，会让它的可中断睡眠立刻返回？](/zh/ebpf-qa/2026-11-26-task-work-kernel-thread-notify-signal/)
 - [为什么一个已经通过校验的 BPF 程序会在解释器里崩溃，又是什么让内核拒绝这次回退？](/zh/ebpf-qa/2026-11-25-jit-required-vs-interpreter-fallback/)
 - [为什么校验器会接受在它从未证明过 8 字节对齐的 map value 上做 64 位原子操作或 load-acquire？](/zh/ebpf-qa/2026-11-24-map-value-8-byte-alignment-assumption/)
 - [为什么一条推测屏障在 JIT 编译的 arm64 BPF 里足够，而在 BPF 解释器里不行？](/zh/ebpf-qa/2026-11-23-verifier-nospec-jit-vs-interpreter/)
