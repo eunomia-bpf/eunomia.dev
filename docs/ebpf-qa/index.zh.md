@@ -6,6 +6,7 @@
 
 ## 最新回答
 
+- [为什么一个 syscall 程序能读到运行时上下文缓冲区之外，而一次进入另一个 syscall 程序的尾调用又决定了这个缓冲区要多大？](/zh/ebpf-qa/2026-11-27-syscall-prog-ctx-size-vs-tail-call-target/)
 - [为什么给内核线程安排一个 BPF task work 回调，会让它的可中断睡眠立刻返回？](/zh/ebpf-qa/2026-11-26-task-work-kernel-thread-notify-signal/)
 - [为什么一个已经通过校验的 BPF 程序会在解释器里崩溃，又是什么让内核拒绝这次回退？](/zh/ebpf-qa/2026-11-25-jit-required-vs-interpreter-fallback/)
 - [为什么校验器会接受在它从未证明过 8 字节对齐的 map value 上做 64 位原子操作或 load-acquire？](/zh/ebpf-qa/2026-11-24-map-value-8-byte-alignment-assumption/)

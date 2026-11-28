@@ -13,6 +13,7 @@ gap is reported honestly on the page instead of stopping publication, and no
 invented material is ever used to fill it.
 
 ## Latest Answers
+- [Why can a syscall program read past the context buffer it is run with, and why does a tail call into another syscall program decide how big that buffer must be?](/ebpf-qa/2026-11-27-syscall-prog-ctx-size-vs-tail-call-target/)
 - [Why does scheduling a BPF task-work callback for a kernel thread make its interruptible sleeps return at once?](/ebpf-qa/2026-11-26-task-work-kernel-thread-notify-signal/)
 - [Why can a verified BPF program panic in the interpreter, and what makes the kernel refuse that fallback?](/ebpf-qa/2026-11-25-jit-required-vs-interpreter-fallback/)
 - [Why does the BPF verifier accept a 64-bit atomic or load-acquire on a map value it never proved is 8-byte aligned?](/ebpf-qa/2026-11-24-map-value-8-byte-alignment-assumption/)
