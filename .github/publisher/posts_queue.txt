@@ -1,0 +1,1 @@
+{"path": "draft/media/2026-11-28/28-detach/devto.md", "tags": ["ebpf", "linux", "tutorial", "kernel"]}
