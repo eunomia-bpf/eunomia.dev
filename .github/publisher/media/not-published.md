@@ -1,11 +1,23 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-11-27
+Last checked: 2026-11-28
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
 For full per-platform counts across all configured source files, run `python .github/publisher/media/check_media_ledger.py --show-missing`. The canonical machine-readable ledger uses one JSON file per platform under [`platforms/`](platforms/).
 
+2026-11-28: the `publish-posts` workflow (run 46088331081) published `docs/tutorials/28-detach/README.md` to DEV
+(<https://dev.to/yunwei37/running-ebpf-after-application-exits-the-lifecycle-of-ebpf-programs-fhk>, `2026-11-28T00:31:40Z`, article id 5135832)
+from `draft/media/2026-11-28/28-detach/devto.md`, so it is no longer a pending DEV source; Medium still has no copy of this source, and
+Medium stays unpublishable while `MEDIUM_API_KEY` is absent and `/me/stories` is signed out.
+The artifact is a byte-identical copy of the English sync source (9,248 bytes, same sha256) and so is the upstream
+`bpf-developer-tutorial` copy, so this source needed no repair: 1 H1, 4 body H2, 1 H3, 2 H4, 12 labelled fences (1 `c`, 5 `bash`),
+0 images, 0 tables, 0 relative links. The published `body_markdown` matches the artifact after the H1 strip character for character
+(9,175 chars), and the visible page renders the exact title, 4 body H2, 1 H3, 2 H4, 6 `pre` blocks with their language labels,
+0 images, 0 tables, 0 leaked fences, 4 tags, 0 reactions, 0 comments and the complete ending. Canonical is still DEV self, the
+twenty-sixth consecutive API syndication with that defect. It used the LA 2026-11-27 normal slot. `.github/publisher/posts_queue.txt`
+is empty again because the workflow pops each entry after a successful publish; the author listing still returned 88 posts without
+the new copy after publication, while its per-article endpoint and public page served it, so the listing lag reproduced again.
 2026-11-27: the `publish-posts` workflow (run 45915263748) published `docs/tutorials/24-hide/README.md` to DEV
 (<https://dev.to/yunwei37/ebpf-practical-tutorial-hiding-process-or-file-information-2f6n>, `2026-11-27T00:14:08Z`, article id 5128109)
 from `draft/media/2026-11-27/24-hide/devto.md`, so it is no longer a pending DEV source; Medium still has no copy of this
