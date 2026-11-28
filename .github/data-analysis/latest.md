@@ -2,7 +2,7 @@
 
 > Internal operating context generated from structured, public-safe observations. This file is not part of the website build.
 
-Generated: `2026-11-27 17:33 UTC`
+Generated: `2026-11-28 16:17 UTC`
 
 ## Collection health
 
@@ -14,26 +14,26 @@ Generated: `2026-11-27 17:33 UTC`
 
 ## eunomia.dev technical surface
 
-- Homepage: `200` in `303 ms`.
+- Homepage: `200` in `207 ms`.
 - robots.txt: `200`; sitemap: `200`.
-- Sitemap entries observed: `956`.
+- Sitemap entries observed: `958`.
 - Canonical URL: `https://eunomia.dev/`.
 
 ## GitHub portfolio
 
 - Active, non-fork repositories: `101`.
-- Current stars: `10370`; forks: `1374`; open issue/PR records: `340`.
+- Current stars: `10378`; forks: `1375`; open issue/PR records: `348`.
 
 | Repository | Stars | Forks | Open issue/PR records |
 | --- | ---: | ---: | ---: |
-| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4350 | 609 | 18 |
-| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1618 | 195 | 130 |
-| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 912 | 79 | 24 |
-| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 807 | 122 | 43 |
+| [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) | 4351 | 609 | 19 |
+| [eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) | 1624 | 196 | 138 |
+| [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) | 912 | 79 | 23 |
+| [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) | 807 | 122 | 44 |
 | [eunomia-bpf/wasm-bpf](https://github.com/eunomia-bpf/wasm-bpf) | 453 | 35 | 4 |
 | [eunomia-bpf/GPTtrace](https://github.com/eunomia-bpf/GPTtrace) | 277 | 26 | 4 |
 | [eunomia-bpf/eunomia.dev](https://github.com/eunomia-bpf/eunomia.dev) | 245 | 42 | 67 |
-| [eunomia-bpf/basic-cuda-tutorial](https://github.com/eunomia-bpf/basic-cuda-tutorial) | 150 | 21 | 0 |
+| [eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf) | 151 | 22 | 1 |
 
 ## DEV publication surface
 
